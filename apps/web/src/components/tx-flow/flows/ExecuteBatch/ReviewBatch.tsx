@@ -265,7 +265,8 @@ export const ReviewBatch = ({ params }: { params: ExecuteBatchFlowProps }) => {
           isRejectedByUser={isRejectedByUser}
         />
 
-        <RiskConfirmation subject="transaction" />
+        {/* Safe Shield binds a confirmation to the transaction, so a tick before it is built would be lost */}
+        {safeTx && <RiskConfirmation subject="transaction" />}
 
         <div>
           <div className="pt-4">
