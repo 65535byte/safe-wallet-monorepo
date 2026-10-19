@@ -5,7 +5,7 @@
  * that a real dApp gets. Runs only on the isolated stack, which gives a funded 1/1 Safe of OWNER_4 and a chain to
  * execute on.
  */
-import { JsonRpcProvider, Wallet, parseEther, toQuantity } from 'ethers'
+import { Contract, JsonRpcProvider, Wallet, hashMessage, parseEther, toQuantity } from 'ethers'
 import { test as base, expect } from '../../src/fixtures/test.fixture'
 import { isIsolated } from '../../src/fixtures/isolated-data'
 import { seedConnectedWallet } from '../../src/fixtures/seed-wallet'
@@ -57,6 +57,19 @@ async function receiptOf(dapp: WalletConnectDapp, hash: string): Promise<Transac
   const response = await dapp.request('eth_getTransactionReceipt', [hash])
   if ('error' in response) throw new Error(`eth_getTransactionReceipt failed: ${response.error.message}`)
   return response.result as TransactionReceipt | null
+}
+
+// EIP-1271: the Safe answers this value when the signature is valid for the hash.
+const ERC1271_MAGIC_VALUE = '0x1626ba7e'
+const ERC1271_ABI = ['function isValidSignature(bytes32 hash, bytes signature) view returns (bytes4)']
+
+/** The Transaction Service's Safe transactions that are not executed. */
+async function pendingSafeTxCount(safeAddress: string): Promise<number> {
+  const url = `${process.env.SAFE_TXS_BASE_URL}/v1/safes/${safeAddress}/multisig-transactions/?executed=false`
+  const response = await fetch(url)
+  if (!response.ok) throw new Error(`Transaction Service answered ${response.status} for ${url}`)
+  const { count } = (await response.json()) as { count: number }
+  return count
 }
 
 /** The Transaction Service's record of the Safe transaction that `txHash` executed. */
@@ -112,5 +125,44 @@ test.describe('WalletConnect', { tag: ['@e2e', '@walletconnect'] }, () => {
         timeout: 60_000,
       })
       .toContain(DAPP_NAME)
+  })
+
+  test('should give the dApp a signature that the Safe contract accepts when the owner signs its message', async ({
+    safePage,
+    safeAddress,
+    dapp,
+  }) => {
+    const message = `Safe E2E WalletConnect message ${Date.now()}`
+
+    const response = dapp.request('personal_sign', [message, safeAddress])
+    await new TxFlowPage(safePage).signMessage()
+
+    const answer = await response
+    expect(answer).toEqual({ result: expect.stringMatching(/^0x[0-9a-f]+$/) })
+    const { result: signature } = answer as { result: string }
+    const safe = new Contract(safeAddress, ERC1271_ABI, new JsonRpcProvider(process.env.SAFE_RPC_URL))
+    expect(await safe.isValidSignature(hashMessage(message), signature)).toBe(ERC1271_MAGIC_VALUE)
+  })
+
+  test('should return a user rejection to the dApp when the owner closes its transaction', async ({
+    safePage,
+    safeAddress,
+    dapp,
+  }) => {
+    const response = dapp.request('eth_sendTransaction', [
+      { from: safeAddress, to: Wallet.createRandom().address, value: '0x1', data: '0x' },
+    ])
+    await new TxFlowPage(safePage).discard()
+
+    expect(await response).toEqual({ error: { code: 4001, message: expect.any(String) } })
+    expect(await pendingSafeTxCount(safeAddress)).toBe(0)
+  })
+
+  test('should end the dApp session when the owner disconnects it', async ({ safePage, dapp }) => {
+    const walletConnect = new WalletConnectPage(safePage)
+    await walletConnect.disconnect(DAPP_NAME)
+
+    await dapp.waitForSessionDelete()
+    await expect(walletConnect.session(DAPP_NAME)).toHaveCount(0)
   })
 })
