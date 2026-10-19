@@ -11,8 +11,8 @@ export const playwrightSpecs = {
   },
   'regression/email-sign-in.spec.ts': {},
   'regression/assets-table.spec.ts': {
-    scenarios: ['prepareAssetsScenario', 'prepareProposersScenario'],
-    safes: { SEP_ASSETS_SAFE: 'SEP_STATIC_SAFE_2', SEP_PROPOSER_SAFE: 'SEP_STATIC_SAFE_31' },
+    scenarios: ['prepareAssetsScenario'],
+    safes: { SEP_ASSETS_SAFE: 'SEP_STATIC_SAFE_2' },
   },
   'regression/recipient-dropdown-caret-toggle.spec.ts': {
     scenarios: ['prepareTransferFormScenario'],
