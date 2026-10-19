@@ -5,6 +5,10 @@
  */
 export const playwrightSpecs = {
   'api/credentials.spec.ts': {},
+  'e2e/walletconnect.spec.ts': {
+    scenarios: ['prepareWalletConnectScenario'],
+    safes: { SEP_WALLETCONNECT_SAFE: 'SEP_WALLETCONNECT_SAFE' },
+  },
   'api/safe-info.api.spec.ts': {
     scenarios: ['prepareBasicScenario'],
     safes: { SEP_STATIC_SAFE_1: 'SEP_STATIC_SAFE_0' },

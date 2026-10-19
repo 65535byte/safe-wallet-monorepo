@@ -29,6 +29,7 @@ import * as sharing from './sharing.mjs'
 import * as spaces from './spaces.mjs'
 import * as spendingLimits from './spending-limits.mjs'
 import * as transferForm from './transfer-form.mjs'
+import * as walletConnect from './walletconnect.mjs'
 
 const modules = [
   accounts,
@@ -62,6 +63,7 @@ const modules = [
   spaces,
   spendingLimits,
   transferForm,
+  walletConnect,
 ]
 
 /** The scenario functions by name; specs.mjs refers to them by these names. */
