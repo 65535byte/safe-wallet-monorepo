@@ -12,7 +12,7 @@ describe('SafeProModalFrame', () => {
     expect(screen.getByRole('dialog')).toHaveClass('max-w-[640px]')
     expect(screen.getAllByRole('img', { hidden: true }).length).toBeGreaterThan(0)
     expect(screen.getByText('Body')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '关闭' })).not.toBeInTheDocument()
   })
 
   it('shows the close button when asked and reports the dismissal', () => {
@@ -23,7 +23,7 @@ describe('SafeProModalFrame', () => {
       </SafeProModalFrame>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
     expect(onOpenChange.mock.calls[0][0]).toBe(false)
   })
 })

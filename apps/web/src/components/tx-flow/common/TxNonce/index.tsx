@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { memo, type CSSProperties, type ReactElement, useContext, useMemo, useState, useEffect } from 'react'
 import { RotateCcw } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
@@ -43,7 +44,9 @@ const NonceFormOption = memo(function NonceFormOption({ nonce }: { nonce: string
     const [{ transaction }] = latestTransactions
     const note = transaction.note?.trim()
     return (
-      note || transaction.txInfo.humanDescription || `${getTransactionType(transaction, addressBook).text} transaction`
+      note ||
+      transaction.txInfo.humanDescription ||
+      translateMessage('ui.transaction_8d02e8cb', { p0: getTransactionType(transaction, addressBook).text })
     )
   }, [addressBook, transactions])
 
@@ -125,7 +128,7 @@ const TxNonceForm = ({ nonce, recommendedNonce }: { nonce: string; recommendedNo
       name={TxNonceFormFieldNames.NONCE}
       control={formMethods.control}
       rules={{
-        required: 'Nonce is required',
+        required: translateMessage('ui.nonceIsRequired_1b879ccc'),
         // Validation must be async to allow resetting invalid values onBlur
         validate: async (value) => {
           // nonce is always valid so no need to validate if the input is the same
@@ -199,7 +202,7 @@ const TxNonceForm = ({ nonce, recommendedNonce }: { nonce: string; recommendedNo
                       <InputGroupButton
                         variant="ghost"
                         size="icon-xs"
-                        aria-label="Reset to recommended nonce"
+                        aria-label={translateMessage('ui.resetToRecommendedNonce_0bfc96c1')}
                         onClick={(event) => {
                           event.stopPropagation()
                           resetNonce()
@@ -223,7 +226,7 @@ const TxNonceForm = ({ nonce, recommendedNonce }: { nonce: string; recommendedNo
                 {/* Each label must live inside its own ComboboxGroup — Base UI's GroupLabel throws
                     without a Group ancestor, which previously crashed the popup on open. */}
                 <ComboboxGroup items={[recommendedNonce]}>
-                  <ComboboxLabel>Recommended nonce</ComboboxLabel>
+                  <ComboboxLabel>{translateMessage('ui.recommendedNonce_d2360c1b')}</ComboboxLabel>
                   <ComboboxCollection>
                     {(option: string) => (
                       <ComboboxItem key={option} value={option}>
@@ -235,7 +238,7 @@ const TxNonceForm = ({ nonce, recommendedNonce }: { nonce: string; recommendedNo
 
                 {previousNonces.length > 0 && (
                   <ComboboxGroup items={previousNonces}>
-                    <ComboboxLabel className="pt-3">Replace existing</ComboboxLabel>
+                    <ComboboxLabel className="pt-3">{translateMessage('ui.replaceExisting_f2e5e188')}</ComboboxLabel>
                     <ComboboxCollection>
                       {(option: string) => (
                         <ComboboxItem key={option} value={option}>

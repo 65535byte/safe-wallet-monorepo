@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { createRejectTx } from '@/services/tx/tx-sender'
@@ -21,17 +22,14 @@ const RejectTx = ({ onSubmit, children }: ReviewTransactionProps): ReactElement 
 
   return (
     <ReviewTransaction onSubmit={onSubmit}>
-      <Typography className="mb-4">
-        To reject the transaction, a separate rejection transaction will be created to replace the original one.
-      </Typography>
+      <Typography className="mb-4">{translateMessage('ui.toRejectTheTransactionASeparate_cef801e7')}</Typography>
 
       <Typography className="mb-4">
-        Transaction nonce: <b>{txNonce}</b>
+        {translateMessage('ui.transactionNonce_cce6f766')}
+        <b>{txNonce}</b>
       </Typography>
 
-      <Typography className="mb-4">
-        You will need to confirm the rejection transaction with your currently connected wallet.
-      </Typography>
+      <Typography className="mb-4">{translateMessage('ui.youWillNeedToConfirmThe_5f842d4e')}</Typography>
 
       {children}
     </ReviewTransaction>

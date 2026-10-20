@@ -376,7 +376,7 @@ describe('SafeSelectorDropdown', () => {
         <SafeSelectorDropdown items={[]} selectedItemId="1:0xa" isLoading={false} isError={true} onRetry={onRetry} />,
       )
 
-      expect(screen.getByText('Failed to load Safe data')).toBeInTheDocument()
+      expect(screen.getByText('加载 8379 数据失败')).toBeInTheDocument()
     })
 
     it('shows the skeleton when items are empty and not yet loaded', () => {
@@ -535,7 +535,7 @@ describe('SafeSelectorDropdown', () => {
     it('renders the explanatory tooltip when a tx flow is open', () => {
       renderWithTxFlow(<div data-testid="active-tx-flow" />)
 
-      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('Changing the Safe is not allowed in this screen')
+      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('此页面不允许切换 8379')
     })
 
     it('dims the trigger and marks it aria-disabled (not native disabled) when a tx flow is open', () => {
@@ -579,7 +579,7 @@ describe('SafeSelectorDropdown', () => {
       const selectRoot = screen.getByTestId('mock-select-root')
       expect(selectRoot.getAttribute('data-mock-disabled')).toBe('false')
       expect(selectRoot.getAttribute('data-mock-open')).toBe('false')
-      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('Changing the Safe is not allowed in this screen')
+      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('此页面不允许切换 8379')
     })
 
     it('does not disable the Select on /apps/open without an appUrl', () => {

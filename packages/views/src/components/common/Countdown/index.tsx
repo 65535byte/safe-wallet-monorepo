@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 
 export function _getCountdown(seconds: number): { days: number; hours: number; minutes: number } {
@@ -20,7 +21,7 @@ export function Countdown({ seconds }: { seconds: number }): ReactElement | null
   }
 
   if (seconds <= 60) {
-    return <span className="font-bold">{'< 1 min'}</span>
+    return <span className="font-bold">{translateMessage('ui.min_ba28edcc')}</span>
   }
 
   const { days, hours, minutes } = _getCountdown(seconds)

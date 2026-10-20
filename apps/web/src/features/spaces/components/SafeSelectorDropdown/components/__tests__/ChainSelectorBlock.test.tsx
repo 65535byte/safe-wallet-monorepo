@@ -65,7 +65,7 @@ describe('ChainSelectorBlock', () => {
     const search = screen.getByTestId('chain-selector-search-input')
     const firstNetwork = screen.getAllByTestId('deployed-chain-btn')[0]
 
-    expect(search).toHaveAttribute('placeholder', 'Search networks')
+    expect(search).toHaveAttribute('placeholder', '搜索网络')
     expect(search.compareDocumentPosition(firstNetwork) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
 

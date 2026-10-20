@@ -22,11 +22,11 @@ describe('PolicyUpsellBanner', () => {
       <PolicyUpsellBanner planName="Starter" workspaceName="Acme Inc" onUpgrade={onUpgrade} />,
     )
 
-    await user.click(screen.getByRole('button', { name: /Upgrade to Business/ }))
+    await user.click(screen.getByRole('button', { name: /升级至 Business/ }))
 
     const prompt = { Feature: 'policies', Location: 'policies_page' }
     expect(mockTrackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.UPGRADE_PROMPT_VIEWED, prompt)
-    expect(mockTrackEvent).toHaveBeenCalledWith(POLICY_EVENTS.POLICY_UPSELL_UPGRADE_CLICKED, undefined)
+    expect(mockTrackEvent).toHaveBeenCalledWith(POLICY_EVENTS.POLICY_UPSELL_UPGRADE_CLICKED)
     expect(mockTrackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.PLAN_SELECTION_STARTED, {
       'Entry Point': 'upgrade_prompt',
       ...prompt,

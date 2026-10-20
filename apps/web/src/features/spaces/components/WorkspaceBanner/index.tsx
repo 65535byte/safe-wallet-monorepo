@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Card } from '@safe-global/views/components/ui/card'
@@ -24,19 +25,21 @@ const WorkspaceBanner = ({ className }: { className?: string }) => {
           <Badge className="relative">
             <span className={css.shimmer} aria-hidden="true" />
             <Sparkles className="size-3" />
-            New
+            {translateMessage('ui.new_891f3045')}
           </Badge>
-          <span className="text-sm font-semibold tracking-[-0.01em] text-foreground">Introducing Workspace</span>
+          <span className="text-sm font-semibold tracking-[-0.01em] text-foreground">
+            {translateMessage('ui.introducingWorkspace_12227532')}
+          </span>
         </div>
 
         <Link
           href={WORKSPACE_ANNOUNCEMENT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Read the Workspace announcement"
+          aria-label={translateMessage('ui.readTheWorkspaceAnnouncement_88564bee')}
           className="group inline-flex shrink-0 items-center gap-1 text-xs font-medium"
         >
-          Read announcement
+          {translateMessage('ui.readAnnouncement_6373a047')}
           <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </div>

@@ -71,7 +71,7 @@ describe('useUntrustedSafeAnalysis', () => {
     expect(result.current.safeAnalysis).toEqual({
       severity: Severity.CRITICAL,
       type: SafeStatus.UNTRUSTED,
-      title: 'Not in your accounts',
+      title: '不在您的账户中',
       description: expect.any(String),
     })
   })

@@ -131,14 +131,14 @@ describe('TrialEndingModal', () => {
   })
 
   it('words the countdown', () => {
-    expect(_endsIn(7)).toBe('in 7 days')
-    expect(_endsIn(1)).toBe('in 1 day')
-    expect(_endsIn(0)).toBe('today')
+    expect(_endsIn(7)).toBe('7 天后')
+    expect(_endsIn(1)).toBe('1 天后')
+    expect(_endsIn(0)).toBe('今天')
   })
 
   it('stays dismissed for the rest of the trial once the last-week reminder was closed', () => {
     const { unmount } = render(<TrialEndingModal spaceId={SPACE_ID} />)
-    fireEvent.click(screen.getByRole('button', { name: 'Continue without Safe Pro' }))
+    fireEvent.click(screen.getByRole('button', { name: '不使用 8379，继续' }))
     expect(storage.safeProTrialReminderSeen).toBe(JSON.stringify({ [SPACE_ID]: true }))
     unmount()
 
@@ -163,25 +163,26 @@ describe('TrialEndingModal', () => {
     expect(render(<TrialEndingModal spaceId={SPACE_ID} />).container).toBeEmptyDOMElement()
   })
 
-  it('lets an admin add billing details, switch to Starter or continue without Safe Pro, once per Workspace', () => {
+  it('lets an admin add billing details, switch to Starter or continue without 8379, once per Workspace', () => {
     const { unmount } = render(<TrialEndingModal spaceId={SPACE_ID} />)
 
-    expect(screen.getByRole('heading', { name: 'Your free access will end in 7 days' })).toBeInTheDocument()
-    expect(screen.getByText(/add a payment method by Dec 5, 2026, your Workspace will be locked/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '您的免费使用期将于 7 天后结束' })).toBeInTheDocument()
+    expect(screen.getByText(/如果 Dec 5, 2026 前未选择套餐并添加付款方式，工作空间将被锁定/)).toBeInTheDocument()
     expect(screen.getByTestId('trial-reminder-tooltip')).toBeInTheDocument()
     expect(screen.queryByText('Enterprise')).not.toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Talk to sales/ })).toHaveAttribute('href', CONTACT_SALES_URL)
+    expect(screen.getByText('需要超过 20？')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /联系销售/ })).toHaveAttribute('href', CONTACT_SALES_URL)
 
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.FREE_ACCESS_REMINDER_VIEWED, {
       Location: 'reminder_modal',
       'Free Access Days Left': 7,
     })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add payment method' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加付款方式' }))
     expect(mockOpenPortal).toHaveBeenCalled()
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.PLAN_SELECTION_STARTED, { 'Entry Point': 'reminder_modal' })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-to', 'Starter')
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-trial', 'true')
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute(
@@ -189,8 +190,8 @@ describe('TrialEndingModal', () => {
       JSON.stringify({ 'Entry Point': 'reminder_modal' }),
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue without Safe Pro' }))
-    expect(screen.queryByRole('heading', { name: 'Your free access will end in 7 days' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '不使用 8379，继续' }))
+    expect(screen.queryByRole('heading', { name: '您的免费使用期将于 7 天后结束' })).not.toBeInTheDocument()
     unmount()
 
     expect(render(<TrialEndingModal spaceId={SPACE_ID} />).container).toBeEmptyDOMElement()
@@ -199,10 +200,10 @@ describe('TrialEndingModal', () => {
   it('closes the reminder for good once the plan changed', () => {
     render(<TrialEndingModal spaceId={SPACE_ID} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     fireEvent.click(screen.getByText('plan-changed'))
 
-    expect(screen.queryByRole('heading', { name: 'Your free access will end in 7 days' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: '您的免费使用期将于 7 天后结束' })).not.toBeInTheDocument()
     expect(screen.getByTestId('change-plan-dialog')).toBeInTheDocument()
     expect(storage.safeProTrialReminderSeen).toBeUndefined()
 
@@ -216,21 +217,21 @@ describe('TrialEndingModal', () => {
     mockUseIsAdmin.mockReturnValue(false)
     render(<TrialEndingModal spaceId={SPACE_ID} />)
 
-    expect(screen.getByRole('heading', { name: 'Your free access will end in 7 days' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '您的免费使用期将于 7 天后结束' })).toBeInTheDocument()
     expect(
       screen.getByText(
-        /Acme Inc will be locked on Dec 5, 2026 unless an admin chooses a plan and adds a payment method\.\sYour Safe accounts remain available in My accounts\./,
+        /Acme Inc 将于 Dec 5, 2026 锁定，除非管理员选择套餐并添加付款方式。\s8379 账户仍可在“我的账户”中使用。/,
       ),
     ).toBeInTheDocument()
     expect(screen.getByText('Starter')).toBeInTheDocument()
     expect(screen.getByText('Business')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Switch to Starter' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Add payment method' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Continue without Safe Pro' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '切换至 Starter' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '添加付款方式' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '不使用 8379，继续' })).not.toBeInTheDocument()
     expect(screen.queryByTestId('trial-reminder-tooltip')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Got it' }))
-    expect(screen.queryByRole('heading', { name: 'Your free access will end in 7 days' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '知道了' }))
+    expect(screen.queryByRole('heading', { name: '您的免费使用期将于 7 天后结束' })).not.toBeInTheDocument()
     expect(storage.safeProTrialReminderSeen).toBe(JSON.stringify({ [SPACE_ID]: true }))
   })
 })

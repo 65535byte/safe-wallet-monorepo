@@ -87,7 +87,7 @@ describe('SafeShieldWidget', () => {
   it('shows neither the guardian status nor the Hypernative login when the Safe is not eligible', () => {
     render(<SafeShieldWidget />)
 
-    expect(screen.queryByText('Hypernative Guardian is active')).not.toBeInTheDocument()
+    expect(screen.queryByText('Hypernative Guardian 已启用')).not.toBeInTheDocument()
     expect(screen.queryByTestId('hypernative-login-line')).not.toBeInTheDocument()
   })
 
@@ -98,7 +98,7 @@ describe('SafeShieldWidget', () => {
 
     render(<SafeShieldWidget />)
 
-    expect(screen.getByText('Hypernative Guardian is active')).toBeInTheDocument()
+    expect(screen.getByText('Hypernative Guardian 已启用')).toBeInTheDocument()
     expect(screen.getByTestId('hypernative-login-line')).toBeInTheDocument()
   })
 
@@ -109,7 +109,7 @@ describe('SafeShieldWidget', () => {
 
     render(<SafeShieldWidget />)
 
-    expect(screen.queryByText('Hypernative Guardian is active')).not.toBeInTheDocument()
+    expect(screen.queryByText('Hypernative Guardian 已启用')).not.toBeInTheDocument()
     expect(screen.getByTestId('hypernative-login-line')).toBeInTheDocument()
   })
 
@@ -120,7 +120,7 @@ describe('SafeShieldWidget', () => {
 
     render(<SafeShieldWidget />)
 
-    expect(screen.queryByText('Hypernative Guardian is active')).not.toBeInTheDocument()
+    expect(screen.queryByText('Hypernative Guardian 已启用')).not.toBeInTheDocument()
     expect(screen.queryByTestId('hypernative-login-line')).not.toBeInTheDocument()
   })
 })

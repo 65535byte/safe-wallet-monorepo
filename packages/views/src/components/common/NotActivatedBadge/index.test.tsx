@@ -5,14 +5,14 @@ describe('NotActivatedBadge', () => {
   it('renders the Inactive label by default', () => {
     render(<NotActivatedBadge />)
 
-    expect(screen.getByLabelText('Inactive')).toBeInTheDocument()
+    expect(screen.getByLabelText('未激活')).toBeInTheDocument()
     expect(screen.getByTestId('not-activated-badge')).toBeInTheDocument()
   })
 
   it('renders the Activating label when activating', () => {
     render(<NotActivatedBadge isActivating />)
 
-    expect(screen.getByLabelText('Activating')).toBeInTheDocument()
+    expect(screen.getByLabelText('正在激活')).toBeInTheDocument()
   })
 
   it('uses a custom data-testid when provided', () => {

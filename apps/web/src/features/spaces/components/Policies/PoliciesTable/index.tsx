@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ChevronRight } from 'lucide-react'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -30,7 +31,7 @@ export type PoliciesTableProps = {
 
 /** Every row needs its own name: a screen reader lists them side by side. */
 const getOpenPolicyLabel = (policy: Policy): string =>
-  `Open ${getPolicyLabel(policy)} for ${shortenAddress(policy.safe.address)}`
+  translateMessage('ui.openFor_e074b35a', { p0: getPolicyLabel(policy), p1: shortenAddress(policy.safe.address) })
 
 /**
  * One row per Safe, chain and policy. A spending-limit policy holds every spender for its Safe, so
@@ -47,7 +48,7 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
   const columns: DataTableColumn<Policy>[] = [
     {
       id: 'rule',
-      header: 'RULE',
+      header: translateMessage('ui.rULE_7c6989a7'),
       width: 'fit',
       sticky: true,
       minWidth: 256,
@@ -56,7 +57,7 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
     },
     {
       id: 'appliesTo',
-      header: 'SAFE ACCOUNT',
+      header: translateMessage('ui.sAFEACCOUNT_06a170e3'),
       minWidth: 200,
       cellTestId: 'policy-cell-applies-to',
       cell: (policy) => (
@@ -82,7 +83,7 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
     },
     {
       id: 'proposerTokens',
-      header: 'PROPOSER / TOKENS',
+      header: translateMessage('ui.pROPOSERTOKENS_a9159ea8'),
       minWidth: 200,
       cellTestId: 'policy-cell-proposer-tokens',
       cell: (policy) => {
@@ -98,7 +99,8 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
                   className="truncate text-muted-foreground"
                   data-testid="policy-matched-spender"
                 >
-                  Spender: {matchedSpender}
+                  {translateMessage('ui.spender_e6acfa7f')}
+                  {matchedSpender}
                 </Typography>
               )}
             </div>
@@ -125,7 +127,7 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
     },
     {
       id: 'network',
-      header: 'NETWORK',
+      header: translateMessage('ui.nETWORK_8f296489'),
       width: 'fit',
       minWidth: 96,
       align: 'center',
@@ -148,7 +150,7 @@ const PoliciesTable = ({ policies, matchedSpenderNames, onSelect }: PoliciesTabl
     },
     {
       id: 'status',
-      header: 'STATUS',
+      header: translateMessage('ui.sTATUS_b843dcfd'),
       width: 'fit',
       minWidth: 140,
       cellTestId: 'policy-cell-status',

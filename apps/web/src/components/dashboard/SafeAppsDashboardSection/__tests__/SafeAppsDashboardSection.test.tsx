@@ -63,7 +63,7 @@ describe('Safe Apps Dashboard Section', () => {
   it('should display the Safe Apps Section', async () => {
     render(<SafeAppsDashboardSection />)
 
-    await waitFor(() => expect(screen.getByText('Featured Apps')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('精选应用')).toBeInTheDocument())
   })
 
   it('should display Safe Apps Cards (Name & Description)', async () => {
@@ -71,6 +71,6 @@ describe('Safe Apps Dashboard Section', () => {
 
     await waitFor(() => expect(screen.getByText('Compound')).toBeInTheDocument())
     await waitFor(() => expect(screen.getByText('ENS App')).toBeInTheDocument())
-    await waitFor(() => expect(screen.getByText('Transaction Builder')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('交易构建器')).toBeInTheDocument())
   })
 })

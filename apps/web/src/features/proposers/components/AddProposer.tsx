@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddressBookInput from '@/components/common/AddressBookInput'
 import DialogActions from '@/components/common/DialogActions'
 import NameInput from '@/components/common/NameInput'
@@ -104,9 +105,12 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
 
   const validateAddress = useCallback<Validate<string>>(
     async (value) => {
-      const notReserved = addressIsNotReserved('This proposer address is not valid')
-      const notCurrentSafe = addressIsNotCurrentSafe(safeAddress, 'Cannot add Safe account itself as proposer')
-      const notOwner = addressIsNotOwner(safeOwnerAddresses, 'Cannot add Safe Owner as proposer')
+      const notReserved = addressIsNotReserved(translateMessage('ui.thisProposerAddressIsNotValid_c8ec1c9c'))
+      const notCurrentSafe = addressIsNotCurrentSafe(
+        safeAddress,
+        translateMessage('ui.cannotAddAccountItselfAsProposer_20661c00'),
+      )
+      const notOwner = addressIsNotOwner(safeOwnerAddresses, translateMessage('ui.cannotAddOwnerAsProposer_84b5e455'))
       const notSmartContract = addressIsNotSmartContract(chainId, SMART_CONTRACT_PROPOSER_ERROR)
 
       return notReserved(value) ?? notCurrentSafe(value) ?? notOwner(value) ?? (await notSmartContract(value))
@@ -214,8 +218,10 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
         showNotification({
           variant: 'success',
           groupKey: 'add-proposer-success',
-          title: 'Proposer added successfully!',
-          message: `${shortenAddress(data.address)} can now suggest transactions for this account.`,
+          title: translateMessage('ui.proposerAddedSuccessfully_8b92efb4'),
+          message: translateMessage('ui.canNowSuggestTransactionsForThis_8eace572', {
+            p0: shortenAddress(data.address),
+          }),
         }),
       )
 
@@ -243,8 +249,8 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
       <Dialog open onOpenChange={(isOpen) => !isOpen && onClose()}>
         <DialogContent padding="none" showCloseButton={false}>
           <DialogHeader className="flex-row items-center justify-between">
-            <DialogTitle>Signature collection initiated</DialogTitle>
-            <Button variant="ghost" size="icon-sm" aria-label="close" onClick={onClose}>
+            <DialogTitle>{translateMessage('ui.signatureCollectionInitiated_470f1242')}</DialogTitle>
+            <Button variant="ghost" size="icon-sm" aria-label={translateMessage('ui.close_aaaeeafe')} onClick={onClose}>
               <XIcon />
             </Button>
           </DialogHeader>
@@ -254,17 +260,18 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
           <div className="p-4">
             <Alert variant="info" className="mb-4">
               <AlertSeverityIcon variant="info" />
-              <AlertDescription>1 of {parentThreshold} signatures collected</AlertDescription>
+              <AlertDescription>
+                {translateMessage('ui.of_f7914142')}
+                {parentThreshold} {translateMessage('ui.signaturesCollected_f16e16fc')}
+              </AlertDescription>
             </Alert>
 
             <Typography variant="paragraph-small" className="mb-4 block">
-              The delegation request has been created as an off-chain message on your parent Safe. Other owners of the
-              parent Safe need to sign it before the proposer can be added.
+              {translateMessage('ui.theDelegationRequestHasBeenCreated_de41e540')}
             </Typography>
 
             <Typography variant="paragraph-small" color="muted">
-              The other parent Safe owners can find and sign this pending delegation on the proposer settings page of
-              this Safe.
+              {translateMessage('ui.theOtherParentOwnersCanFind_9c6237ad')}
             </Typography>
           </div>
 
@@ -272,7 +279,7 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
 
           {/* eslint-disable-next-line no-restricted-syntax -- p-6: bespoke footer padding around DialogActions (item A), no token */}
           <DialogFooter className="p-6">
-            <DialogActions confirmLabel="Done" onConfirm={onClose} />
+            <DialogActions confirmLabel={translateMessage('ui.done_23c91b78')} onConfirm={onClose} />
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -285,9 +292,16 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             <DialogHeader className="flex-row items-center justify-between">
-              <DialogTitle data-testid="untrusted-token-warning">Add proposer</DialogTitle>
+              <DialogTitle data-testid="untrusted-token-warning">
+                {translateMessage('ui.addProposer_3464147e')}
+              </DialogTitle>
 
-              <Button variant="ghost" size="icon-sm" aria-label="close" onClick={onCancel}>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label={translateMessage('ui.close_aaaeeafe')}
+                onClick={onCancel}
+              >
                 <XIcon />
               </Button>
             </DialogHeader>
@@ -299,30 +313,28 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
                 <Alert variant="info" className="mb-4">
                   <AlertSeverityIcon variant="info" />
                   <AlertDescription>
-                    This requires {parentThreshold} of {parentOwners?.length ?? '?'} parent Safe owner signatures to
-                    complete.
+                    {translateMessage('ui.thisRequires_2744d66b')}
+                    {parentThreshold} / {parentOwners?.length ?? '?'}{' '}
+                    {translateMessage('ui.parentOwnerSignaturesToComplete_450bc591')}
                   </AlertDescription>
                 </Alert>
               )}
 
               <div className="mb-4">
                 <Typography variant="paragraph-small">
-                  You&apos;re about to grant this address the ability to propose transactions. To complete the setup,
-                  confirm with a signature from your connected wallet.
+                  {translateMessage('ui.youReAboutToGrantThis_b24f8a97')}
                 </Typography>
               </div>
 
               <Alert variant="info">
                 <AlertSeverityIcon variant="info" />
-                <AlertDescription>
-                  The proposer&apos;s address is publicly visible. The name is saved on this device only.
-                </AlertDescription>
+                <AlertDescription>{translateMessage('ui.theProposerSAddressIsPublicly_f54a0e4b')}</AlertDescription>
               </Alert>
 
               <div className="my-4">
                 <AddressBookInput
                   name="address"
-                  label="Address"
+                  label={translateMessage('ui.address_ad6c5986')}
                   validate={validateAddress}
                   variant="outlined"
                   fullWidth
@@ -331,12 +343,14 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
               </div>
 
               <div className="mb-4">
-                <NameInput name="name" label="Name" required inputSize="hero" />
+                <NameInput name="name" label={translateMessage('ui.name_84f28b85')} required inputSize="hero" />
               </div>
 
               {error && (
                 <div className="mt-4">
-                  <ErrorMessage error={error}>{getProposerErrorText(error, 'Error adding proposer')}</ErrorMessage>
+                  <ErrorMessage error={error}>
+                    {getProposerErrorText(error, translateMessage('ui.errorAddingProposer_6566450b'))}
+                  </ErrorMessage>
                 </div>
               )}
 
@@ -352,7 +366,7 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
                 <div className="mt-4">
                   <Typography variant="h4" className="mb-2 flex items-center gap-2">
                     <SignatureIcon className="size-4" />
-                    Delegate as
+                    {translateMessage('ui.delegateAs_01aabbf4')}
                     <Tooltip>
                       <TooltipTrigger
                         render={
@@ -362,8 +376,7 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
                         }
                       />
                       <TooltipContent>
-                        Your connected wallet controls multiple Safe accounts that are owners of this Safe. Select which
-                        account to create the proposer under.
+                        {translateMessage('ui.yourConnectedWalletControlsMultipleAccounts_b5fbc4f9')}
                       </TooltipContent>
                     </Tooltip>
                   </Typography>
@@ -372,7 +385,7 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
                     options={delegatorOptions}
                     value={effectiveDelegator}
                     onChange={setSelectedDelegator}
-                    label="Delegator account"
+                    label={translateMessage('ui.delegatorAccount_dd138ee6')}
                   />
                 </div>
               )}
@@ -384,7 +397,7 @@ const AddProposer = ({ onClose, onSuccess }: AddProposerProps) => {
             <DialogFooter className="p-6">
               <DialogActions
                 onCancel={onCancel}
-                confirmLabel="Continue"
+                confirmLabel={translateMessage('ui.continue_a4bd8255')}
                 confirmTestId="submit-proposer-btn"
                 confirmType="submit"
                 confirmLoading={isLoading}

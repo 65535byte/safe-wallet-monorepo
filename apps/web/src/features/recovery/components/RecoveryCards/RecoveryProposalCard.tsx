@@ -1,4 +1,6 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Card } from '@safe-global/views/components/ui/card'
@@ -38,21 +40,24 @@ export function InternalRecoveryProposalCard({ orientation = 'vertical', onClose
     setTxFlow(<RecoverAccountFlow />)
   }
 
+  const handleRecoverWithTracking = () => {
+    trackEvent(RECOVERY_EVENTS.START_RECOVERY)
+    handleRecover()
+  }
+
   const icon = (
     <img
       src={`/images/common/propose-recovery-${isDarkMode ? 'dark' : 'light'}.svg`}
-      alt="An arrow surrounding a circle containing a vault"
+      alt={translateMessage('ui.anArrowSurroundingACircleContaining_0cc6b956')}
     />
   )
-  const title = 'Recover this account. '
-  const desc = 'Your connected wallet can help you regain access by adding a new signer.'
+  const title = translateMessage('ui.recoverThisAccount_dfa8440b')
+  const desc = translateMessage('ui.yourConnectedWalletCanHelpYou_109dc046')
 
   const recoveryButton = (
-    <Track {...RECOVERY_EVENTS.START_RECOVERY}>
-      <Button data-testid="start-recovery" variant="default" onClick={handleRecover} className={css.button}>
-        Start recovery
-      </Button>
-    </Track>
+    <Button data-testid="start-recovery" variant="default" onClick={handleRecoverWithTracking} className={css.button}>
+      {translateMessage('ui.startRecovery_e7ccde82')}
+    </Button>
   )
 
   if (orientation === 'horizontal') {
@@ -66,7 +71,7 @@ export function InternalRecoveryProposalCard({ orientation = 'vertical', onClose
           trackingEvent: RECOVERY_EVENTS.LEARN_MORE,
           label: 'proposal-card',
         }}
-        action={{ label: 'Start recovery', onClick: handleRecover }}
+        action={{ label: translateMessage('ui.startRecovery_e7ccde82'), onClick: handleRecover }}
         trackingEvent={RECOVERY_EVENTS.START_RECOVERY}
         testId="recovery-proposal-card"
         actionTestId="start-recovery"
@@ -82,7 +87,7 @@ export function InternalRecoveryProposalCard({ orientation = 'vertical', onClose
 
         <Track {...RECOVERY_EVENTS.LEARN_MORE} label="proposal-card">
           <ExternalLink href={HelpCenterArticle.RECOVERY} title={HelperCenterArticleTitles.RECOVERY}>
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </ExternalLink>
         </Track>
       </div>
@@ -98,11 +103,16 @@ export function InternalRecoveryProposalCard({ orientation = 'vertical', onClose
       <Separator className="mx-[calc(-1*var(--space-4))]" />
 
       <div className="flex justify-end gap-0 md:gap-2">
-        <Track {...RECOVERY_EVENTS.DISMISS_PROPOSAL_CARD}>
-          <Button variant="ghost" data-testid="postpone-recovery-btn" onClick={() => onClose?.()}>
-            I&apos;ll do it later
-          </Button>
-        </Track>
+        <Button
+          variant="ghost"
+          data-testid="postpone-recovery-btn"
+          onClick={() => {
+            trackEvent(RECOVERY_EVENTS.DISMISS_PROPOSAL_CARD)
+            onClose?.()
+          }}
+        >
+          {translateMessage('ui.snooze_ddc34aa2')}
+        </Button>
         {recoveryButton}
       </div>
     </Card>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import WalletBalance from '@/components/common/WalletBalance'
 import { WalletIdenticon } from '@/components/common/WalletOverview'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -77,7 +78,7 @@ export const WalletInfo = ({
       <div className={css.rowContainer}>
         <div className={css.row}>
           <Typography variant="paragraph-small" className="text-muted-foreground">
-            Wallet
+            {translateMessage('ui.wallet_de75a284')}
           </Typography>
           <Typography variant="paragraph-small">{wallet.label}</Typography>
         </div>
@@ -85,7 +86,7 @@ export const WalletInfo = ({
         {showWalletBalance && (
           <div className={css.row}>
             <Typography variant="paragraph-small" className="text-muted-foreground">
-              Balance
+              {translateMessage('ui.balance_413e035a')}
             </Typography>
             <Typography variant="paragraph-small" className="text-right">
               <WalletBalance balance={balance} />
@@ -104,12 +105,12 @@ export const WalletInfo = ({
         <ChainSwitcher fullWidth />
 
         <Button variant="outline" size="sm" onClick={handleSwitchWallet} className="w-full">
-          Switch wallet
+          {translateMessage('ui.switchWallet_b2cf4f66')}
         </Button>
 
         <Button onClick={handleDisconnect} variant="destructive" size="sm" className="w-full">
           <Power />
-          Disconnect
+          {translateMessage('ui.disconnect_90cc09c1')}
         </Button>
       </div>
     </>

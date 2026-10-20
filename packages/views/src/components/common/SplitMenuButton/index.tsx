@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { useEffect, useMemo, useState, type SyntheticEvent } from 'react'
 import { ChevronDown, Check } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -65,7 +66,11 @@ export default function SplitMenuButton({
   const hasMenu = options.length > 1
 
   return (
-    <div data-slot="button-group" className="flex h-10 w-full" aria-label="Button group with a nested menu">
+    <div
+      data-slot="button-group"
+      className="flex h-10 w-full"
+      aria-label={translateMessage('ui.buttonGroupWithANestedMenu_010e1152')}
+    >
       <Tooltip>
         <TooltipTrigger
           render={
@@ -101,7 +106,7 @@ export default function SplitMenuButton({
           <DropdownMenuTrigger
             render={
               <Button
-                aria-label="select action"
+                aria-label={translateMessage('ui.selectAction_a2896136')}
                 disabled={loading}
                 data-testid="combo-submit-dropdown"
                 // eslint-disable-next-line no-restricted-syntax -- split-button halves flatten inner corners at the join and fill the button-group row height

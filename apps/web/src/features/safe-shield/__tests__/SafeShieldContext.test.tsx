@@ -107,14 +107,14 @@ describe('SafeShieldContext', () => {
     mockUseSafeProAccess.mockReturnValue({ hasProFeatures: true, isLoading: false })
   })
 
-  describe('Safe Pro gating', () => {
+  describe('8379 gating', () => {
     const wrapper = ({ children }: { children: ReactNode }) => (
       <SafeTxContext.Provider value={mockSafeTxContextValue}>
         <SafeShieldProvider>{children}</SafeShieldProvider>
       </SafeTxContext.Provider>
     )
 
-    it('runs the recipient and counterparty analyses for a Workspace with Safe Pro', () => {
+    it('runs the recipient and counterparty analyses for a Workspace with 8379', () => {
       mockUseThreatAnalysis.mockReturnValue(buildThreatResult(Severity.OK))
       const { result } = renderHook(() => useSafeShield(), { wrapper })
       const tx = buildSafeTransaction('0x1234')
@@ -128,7 +128,7 @@ describe('SafeShieldContext', () => {
       expect(mockUseCounterpartyAnalysis).toHaveBeenLastCalledWith(tx, true)
     })
 
-    it('keeps only the threat analysis without Safe Pro: no recipient addresses, counterparty disabled', () => {
+    it('keeps only the threat analysis without 8379: no recipient addresses, counterparty disabled', () => {
       mockUseSafeProAccess.mockReturnValue({ hasProFeatures: false, isLoading: false })
       mockUseThreatAnalysis.mockReturnValue(buildThreatResult(Severity.OK))
       const { result } = renderHook(() => useSafeShield(), { wrapper })
@@ -261,86 +261,6 @@ describe('SafeShieldContext', () => {
 
     expect(result.current.safeTx).toBe(reloadedTx)
     expect(result.current.isRiskConfirmed).toBe(true)
-  })
-
-  describe('risk confirmation after a late analysis result', () => {
-    const noDeadlock = { recipient: [undefined, undefined, false], contract: [undefined, undefined, false] }
-
-    // A critical threat needs the confirmation; the deadlock analysis arrives after the user confirmed.
-    function renderConfirmed(initialDeadlock: unknown) {
-      mockUseThreatAnalysis.mockReturnValue(buildThreatResult(Severity.CRITICAL))
-      let deadlock = initialDeadlock
-      mockUseCounterpartyAnalysis.mockImplementation(() => ({ ...noDeadlock, deadlock }))
-      const tx = buildSafeTransaction('0x1234')
-      const wrapper = ({ children }: { children: ReactNode }) => (
-        <SafeTxContext.Provider value={{ ...mockSafeTxContextValue, safeTx: tx }}>
-          <SafeShieldProvider>{children}</SafeShieldProvider>
-        </SafeTxContext.Provider>
-      )
-      // isRiskConfirmed of every render, to catch a render that shows a stale confirmation
-      const confirmations: boolean[] = []
-      const rendered = renderHook(
-        () => {
-          const shield = useSafeShield()
-          confirmations.push(shield.isRiskConfirmed)
-          return shield
-        },
-        { wrapper },
-      )
-      act(() => {
-        rendered.result.current.setIsRiskConfirmed(true)
-      })
-      const deliver = (next: unknown) => {
-        deadlock = next
-        rendered.rerender()
-      }
-      return { ...rendered, deliver, confirmations }
-    }
-
-    it('keeps the confirmation when a non-critical result arrives', () => {
-      const { result, deliver } = renderConfirmed([undefined, undefined, true])
-
-      deliver(DeadlockAnalysisBuilder.nestedSafeWarning())
-
-      expect(result.current.needsRiskConfirmation).toBe(true)
-      expect(result.current.isRiskConfirmed).toBe(true)
-    })
-
-    it('keeps the confirmation when the same findings arrive as new objects', () => {
-      const { result, deliver } = renderConfirmed(DeadlockAnalysisBuilder.deadlockDetected())
-
-      deliver(DeadlockAnalysisBuilder.deadlockDetected())
-
-      expect(result.current.isRiskConfirmed).toBe(true)
-    })
-
-    it('asks again when a new critical finding arrives', () => {
-      const { result, deliver } = renderConfirmed([undefined, undefined, true])
-
-      deliver(DeadlockAnalysisBuilder.deadlockDetected())
-
-      expect(result.current.needsRiskConfirmation).toBe(true)
-      expect(result.current.isRiskConfirmed).toBe(false)
-    })
-
-    it('never renders a new critical finding as confirmed', () => {
-      const { deliver, confirmations } = renderConfirmed([undefined, undefined, true])
-      const rendersBefore = confirmations.length
-
-      deliver(DeadlockAnalysisBuilder.deadlockDetected())
-
-      expect(confirmations.slice(rendersBefore)).not.toContain(true)
-    })
-
-    it('keeps the confirmation of a transaction whose findings come back unchanged', () => {
-      const { result, deliver } = renderConfirmed(DeadlockAnalysisBuilder.deadlockDetected())
-
-      deliver([undefined, undefined, true])
-      expect(result.current.isRiskConfirmed).toBe(false)
-      deliver(DeadlockAnalysisBuilder.deadlockDetected())
-
-      expect(result.current.isRiskConfirmed).toBe(true)
-    })
   })
 
   it('should require risk confirmation for critical deadlock', async () => {

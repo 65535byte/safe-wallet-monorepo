@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MouseEvent } from 'react'
 import { ADMIN_ONLY_RENAME_MESSAGE } from '@/utils/addressBookNotifications'
 import { useRef, useState, type ReactElement } from 'react'
@@ -18,8 +19,7 @@ import NestedSafesIcon from '@safe-global/views/assets/images/sidebar/nested-saf
 import EditIcon from '@safe-global/views/assets/images/common/edit.svg'
 import DeleteIcon from '@/public/images/common/delete.svg'
 import PlusIcon from '@/public/images/common/plus.svg'
-import { OVERVIEW_EVENTS, OVERVIEW_LABELS } from '@/services/analytics'
-import Track from '@/components/common/Track'
+import { trackEvent, OVERVIEW_EVENTS, OVERVIEW_LABELS, type AnalyticsEvent } from '@/services/analytics'
 import useAddressBook from '@/hooks/useAddressBook'
 import { AppRoutes } from '@/config/routes'
 import router from 'next/router'
@@ -86,14 +86,17 @@ const SafeListContextMenu = ({
   const trackingLabel =
     router.pathname === AppRoutes.welcome.accounts ? OVERVIEW_LABELS.login_page : OVERVIEW_LABELS.sidebar
 
-  const handleOpenModal = (type: keyof typeof open) => (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
-    e.stopPropagation()
-    e.preventDefault()
-    if (type === ModalType.NESTED_SAFES) {
-      startFiltering()
+  const handleOpenModal =
+    (type: keyof typeof open, event: AnalyticsEvent) => (e: MouseEvent<HTMLElement, globalThis.MouseEvent>) => {
+      e.stopPropagation()
+      e.preventDefault()
+      if (type === ModalType.NESTED_SAFES) {
+        startFiltering()
+      }
+      setOpen((prev) => ({ ...prev, [type]: true }))
+
+      trackEvent({ ...event, label: trackingLabel })
     }
-    setOpen((prev) => ({ ...prev, [type]: true }))
-  }
 
   const handleCloseModal = () => {
     setOpen(defaultOpen)
@@ -131,49 +134,48 @@ const SafeListContextMenu = ({
             !undeployedSafe &&
             nestedSafesForChain &&
             nestedSafesForChain.length > 0 && (
-              <Track {...NESTED_SAFE_EVENTS.OPEN_LIST} label={NESTED_SAFE_LABELS.sidebar}>
-                <DropdownMenuItem onClick={handleOpenModal(ModalType.NESTED_SAFES)}>
-                  <NestedSafesIcon className="text-[var(--color-success-main)]" />
-                  <span data-testid="nested-safes-btn">Nested Safes</span>
-                </DropdownMenuItem>
-              </Track>
+              <DropdownMenuItem
+                onClick={handleOpenModal(ModalType.NESTED_SAFES, {
+                  ...NESTED_SAFE_EVENTS.OPEN_LIST,
+                  label: NESTED_SAFE_LABELS.sidebar,
+                })}
+              >
+                <NestedSafesIcon className="text-[var(--color-success-main)]" />
+                <span data-testid="nested-safes-btn">{translateMessage('ui.nestedAccounts_7adf9ebb')}</span>
+              </DropdownMenuItem>
             )}
 
           {rename && (
             <Tooltip>
               <TooltipTrigger render={<div />}>
-                <Track {...OVERVIEW_EVENTS.SIDEBAR_RENAME} label={trackingLabel}>
-                  <DropdownMenuItem
-                    disabled={!canRename}
-                    title={canRename ? undefined : ADMIN_ONLY_RENAME_MESSAGE}
-                    onClick={canRename ? handleOpenModal(ModalType.RENAME) : undefined}
-                    onSelect={(e) => e.stopPropagation()}
-                  >
-                    <EditIcon className="text-foreground" />
-                    <span data-testid="rename-btn">{hasName ? 'Rename' : 'Give name'}</span>
-                  </DropdownMenuItem>
-                </Track>
+                <DropdownMenuItem
+                  disabled={!canRename}
+                  title={canRename ? undefined : ADMIN_ONLY_RENAME_MESSAGE}
+                  onClick={canRename ? handleOpenModal(ModalType.RENAME, OVERVIEW_EVENTS.SIDEBAR_RENAME) : undefined}
+                  onSelect={(e) => e.stopPropagation()}
+                >
+                  <EditIcon className="text-foreground" />
+                  <span data-testid="rename-btn">
+                    {hasName ? translateMessage('ui.rename_f5101245') : translateMessage('ui.giveName_f34ad6f1')}
+                  </span>
+                </DropdownMenuItem>
               </TooltipTrigger>
               {!canRename && <TooltipContent>{ADMIN_ONLY_RENAME_MESSAGE}</TooltipContent>}
             </Tooltip>
           )}
 
           {undeployedSafe && (
-            <Track {...OVERVIEW_EVENTS.REMOVE_FROM_WATCHLIST} label={trackingLabel}>
-              <DropdownMenuItem onClick={handleOpenModal(ModalType.REMOVE)}>
-                <DeleteIcon className="text-[var(--color-error-main)]" />
-                <span data-testid="remove-btn">Remove</span>
-              </DropdownMenuItem>
-            </Track>
+            <DropdownMenuItem onClick={handleOpenModal(ModalType.REMOVE, OVERVIEW_EVENTS.REMOVE_FROM_WATCHLIST)}>
+              <DeleteIcon className="text-[var(--color-error-main)]" />
+              <span data-testid="remove-btn">{translateMessage('ui.remove_1498adee')}</span>
+            </DropdownMenuItem>
           )}
 
           {addNetwork && (
-            <Track {...OVERVIEW_EVENTS.ADD_NEW_NETWORK} label={trackingLabel}>
-              <DropdownMenuItem onClick={handleOpenModal(ModalType.ADD_CHAIN)}>
-                <PlusIcon className="text-[var(--color-primary-main)]" />
-                <span data-testid="add-chain-btn">Add another network</span>
-              </DropdownMenuItem>
-            </Track>
+            <DropdownMenuItem onClick={handleOpenModal(ModalType.ADD_CHAIN, OVERVIEW_EVENTS.ADD_NEW_NETWORK)}>
+              <PlusIcon className="text-[var(--color-primary-main)]" />
+              <span data-testid="add-chain-btn">{translateMessage('ui.addAnotherNetwork_1383fc46')}</span>
+            </DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>

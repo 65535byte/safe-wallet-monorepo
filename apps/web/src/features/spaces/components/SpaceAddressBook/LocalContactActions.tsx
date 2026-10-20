@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MouseEvent, useState } from 'react'
 import EditIcon from '@safe-global/views/assets/images/common/edit.svg'
 import DeleteIcon from '@/public/images/common/delete.svg'
@@ -37,7 +38,11 @@ const LocalContactActions = ({ entry }: { entry: AddressBookEntry }) => {
       dispatch(removeAddressBookEntry({ chainId, address: entry.address }))
     }
     dispatch(
-      showNotification({ message: 'Contact removed', variant: 'success', groupKey: 'remove-local-contact-success' }),
+      showNotification({
+        message: translateMessage('ui.contactRemoved_d222265e'),
+        variant: 'success',
+        groupKey: 'remove-local-contact-success',
+      }),
     )
     handleCloseModal()
   }
@@ -52,7 +57,7 @@ const LocalContactActions = ({ entry }: { entry: AddressBookEntry }) => {
         >
           <EditIcon className="size-4 text-[var(--color-border-main)]" />
         </TooltipTrigger>
-        <TooltipContent>Edit contact</TooltipContent>
+        <TooltipContent>{translateMessage('ui.editContact_f59645be')}</TooltipContent>
       </Tooltip>
 
       <Tooltip>
@@ -68,7 +73,7 @@ const LocalContactActions = ({ entry }: { entry: AddressBookEntry }) => {
         >
           <DeleteIcon className="size-4 text-[var(--color-error-main)]" />
         </TooltipTrigger>
-        <TooltipContent>Delete contact</TooltipContent>
+        <TooltipContent>{translateMessage('ui.deleteContact_f4540923')}</TooltipContent>
       </Tooltip>
 
       {open[ModalType.EDIT] && (
@@ -81,17 +86,23 @@ const LocalContactActions = ({ entry }: { entry: AddressBookEntry }) => {
       )}
 
       {open[ModalType.REMOVE] && (
-        <ModalDialog open onClose={handleCloseModal} dialogTitle="Delete contact" hideChainIndicator>
+        <ModalDialog
+          open
+          onClose={handleCloseModal}
+          dialogTitle={translateMessage('ui.deleteContact_f4540923')}
+          hideChainIndicator
+        >
           <div className="px-6 py-4">
             <Typography variant="paragraph-small">
-              This removes <b>{entry.name}</b> from the address book in this browser on all its networks.
+              {translateMessage('ui.thisRemoves_9540a3d2')}
+              <b>{entry.name}</b> {translateMessage('ui.fromTheAddressBookInThis_bfa8887b')}
             </Typography>
           </div>
           <DialogActions
             className="px-6 pt-0 pb-6"
             onCancel={handleCloseModal}
             cancelTestId="cancel-btn"
-            confirmLabel="Delete"
+            confirmLabel={translateMessage('ui.delete_6cba6a2c')}
             onConfirm={handleRemove}
             confirmDestructive
             confirmTestId="delete-btn"

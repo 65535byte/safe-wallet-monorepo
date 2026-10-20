@@ -313,7 +313,7 @@ describe('nestedTxEnvelope', () => {
       )
 
       expect(() => verifyAndStripNestedTxCalldata(data)).toThrow(
-        'Nested transaction payload does not match the executed transaction',
+        'Nested transaction payload does not match the executed 笔交易',
       )
     })
 
@@ -321,7 +321,7 @@ describe('nestedTxEnvelope', () => {
       const data = buildExecTransactionCalldata(childEnvelope, encodeNestedTxPayload([childEnvelope]))
 
       expect(() => verifyAndStripNestedTxCalldata(data, { to: PARENT_SAFE, chainId: '1' })).toThrow(
-        'Nested transaction payload does not match the executed transaction',
+        'Nested transaction payload does not match the executed 笔交易',
       )
     })
 

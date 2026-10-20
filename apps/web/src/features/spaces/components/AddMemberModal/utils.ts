@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { isAddress } from 'ethers'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
 import { sanitizeName } from '@safe-global/utils/validation/names'
@@ -15,8 +16,8 @@ export type InvitePayload = EmailInviteUserDto | WalletInviteUserDto
 
 export const EMAIL_MAX_LENGTH = 255
 
-const SELF_INVITE_ERROR = "You can't invite yourself."
-export const INVALID_IDENTIFIER_ERROR = 'Enter a valid email, wallet address, or ENS.'
+const SELF_INVITE_ERROR = translateMessage('ui.youCanTInviteYourself_27d3be72')
+export const INVALID_IDENTIFIER_ERROR = translateMessage('ui.enterAValidEmailWalletAddress_535e5586')
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -62,7 +63,7 @@ export const getInviteeIdentifierValidationError = ({
 
   if (isEmailAddress(normalized)) {
     if (normalized.length > EMAIL_MAX_LENGTH) {
-      return `Email must be ${EMAIL_MAX_LENGTH} characters or less.`
+      return translateMessage('ui.emailMustBeCharactersOrLess_03654d13', { p0: EMAIL_MAX_LENGTH })
     }
     if (sessionEmail && normalized.toLowerCase() === sessionEmail.toLowerCase()) {
       return SELF_INVITE_ERROR

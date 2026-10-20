@@ -1,7 +1,7 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import ModalDialog from '@/components/common/ModalDialog'
-import SafeLogo from '@safe-global/views/assets/images/logo-no-text.svg'
 
 interface CaptchaModalProps {
   open: boolean
@@ -20,11 +20,15 @@ const CaptchaModal = ({ open, onWidgetContainerReady, error, onRetry }: CaptchaM
     >
       <div className="p-6">
         <div className="flex flex-col items-center gap-6 pt-8 pb-6">
-          <SafeLogo alt="Safe logo" width={56} height={56} />
+          <img
+            src="/images/brand-logo.png"
+            alt={translateMessage('ui.safeLogo_9a51e835')}
+            className="size-14 rounded-lg object-contain"
+          />
 
           <div className="text-center">
             <Typography variant="h4" align="center" className="mb-2 font-bold">
-              Let us know it&apos;s you
+              {translateMessage('ui.letUsKnowItSYou_88966829')}
             </Typography>
 
             <Typography
@@ -32,17 +36,17 @@ const CaptchaModal = ({ open, onWidgetContainerReady, error, onRetry }: CaptchaM
               align="center"
               className="mx-auto max-w-[360px] text-muted-foreground"
             >
-              A quick check to confirm you&apos;re human — it helps us deliver the highest level of security.
+              {translateMessage('ui.aQuickCheckToConfirmYou_14119c82')}
             </Typography>
           </div>
 
           {error ? (
             <>
               <Typography variant="paragraph-small" className="text-destructive">
-                Verification failed. Please try again.
+                {translateMessage('ui.verificationFailedPleaseTryAgain_cd0eb2b1')}
               </Typography>
 
-              {onRetry && <Button onClick={onRetry}>Retry</Button>}
+              {onRetry && <Button onClick={onRetry}>{translateMessage('ui.retry_2cd6945d')}</Button>}
             </>
           ) : null}
 

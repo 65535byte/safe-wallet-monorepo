@@ -8,13 +8,13 @@ describe('WcConnectionForm', () => {
     local.setItem('wcHints', true)
     render(<WcConnectionForm sessions={[]} uri="" />)
 
-    expect(screen.getByText('How do I connect to a dApp?')).toBeInTheDocument()
+    expect(screen.getByText('如何连接 dApp？')).toBeInTheDocument()
 
     const trigger = document.querySelector('span.infoIcon')
     expect(trigger).not.toBeNull()
     await userEvent.click(within(trigger as HTMLElement).getByRole('button'))
 
-    expect(screen.queryByText('How do I connect to a dApp?')).not.toBeInTheDocument()
+    expect(screen.queryByText('如何连接 dApp？')).not.toBeInTheDocument()
   })
 
   // The tooltip anchors to its trigger element, so the trigger itself must carry the absolute

@@ -148,8 +148,8 @@ describe('AddProposer signing logic', () => {
       const address = fakerChecksummedAddress()
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: address } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: faker.person.firstName() } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: address } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: faker.person.firstName() } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -189,8 +189,8 @@ describe('AddProposer signing logic', () => {
       const address = fakerChecksummedAddress()
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: address } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: faker.person.firstName() } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: address } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: faker.person.firstName() } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -220,8 +220,8 @@ describe('AddProposer signing logic', () => {
       const address = fakerChecksummedAddress()
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: address } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'Foo—Bar' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: address } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'Foo—Bar' } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -243,8 +243,8 @@ describe('AddProposer signing logic', () => {
       const address = fakerChecksummedAddress()
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: address } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: '  Foo—Bar  ' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: address } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: '  Foo—Bar  ' } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -270,8 +270,8 @@ describe('AddProposer signing logic', () => {
       const address = fakerChecksummedAddress()
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: address } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: faker.person.firstName() } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: address } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: faker.person.firstName() } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -280,7 +280,7 @@ describe('AddProposer signing logic', () => {
         fireEvent.click(getByTestId('submit-proposer-btn'))
       })
 
-      expect(await findByText('Error adding proposer')).toBeInTheDocument()
+      expect(await findByText('添加提案人失败')).toBeInTheDocument()
       expect(addressBookName(address)).toBeUndefined()
     })
   })
@@ -317,8 +317,8 @@ describe('AddProposer signing logic', () => {
       const { getByLabelText, getByTestId } = render(<AddProposer onClose={jest.fn()} onSuccess={onSuccess} />)
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: faker.person.firstName() } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: faker.person.firstName() } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -370,11 +370,11 @@ describe('AddProposer signing logic', () => {
       )
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: reservedAddress } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'Reserved' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: reservedAddress } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'Reserved' } })
       })
 
-      expect(await findByText('This proposer address is not valid')).toBeInTheDocument()
+      expect(await findByText('提案人地址无效')).toBeInTheDocument()
       expect(getByTestId('submit-proposer-btn')).toBeDisabled()
       expect(addDelegateV3).not.toHaveBeenCalled()
     })
@@ -387,8 +387,8 @@ describe('AddProposer signing logic', () => {
       )
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'My other Safe' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'My other Safe' } })
       })
 
       await findByText(SMART_CONTRACT_PROPOSER_ERROR, {}, { timeout: 3000 })
@@ -404,8 +404,8 @@ describe('AddProposer signing logic', () => {
       )
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'An EOA' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'An EOA' } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -418,8 +418,8 @@ describe('AddProposer signing logic', () => {
       const { getByLabelText, findByText } = render(<AddProposer onClose={jest.fn()} onSuccess={jest.fn()} />)
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'My other Safe' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'My other Safe' } })
       })
 
       await findByText(SMART_CONTRACT_PROPOSER_ERROR, {}, { timeout: 3000 })
@@ -434,8 +434,8 @@ describe('AddProposer signing logic', () => {
       )
 
       act(() => {
-        fireEvent.change(getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(getByLabelText(/Name/i), { target: { value: 'An EOA' } })
+        fireEvent.change(getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(getByLabelText(/名称/i), { target: { value: 'An EOA' } })
       })
 
       await waitFor(() => expect(getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -454,8 +454,8 @@ describe('AddProposer signing logic', () => {
       const utils = render(<AddProposer onClose={jest.fn()} onSuccess={jest.fn()} />)
 
       act(() => {
-        fireEvent.change(utils.getByLabelText(/Address/i), { target: { value: fakerChecksummedAddress() } })
-        fireEvent.change(utils.getByLabelText(/Name/i), { target: { value: faker.person.firstName() } })
+        fireEvent.change(utils.getByLabelText(/地址/i), { target: { value: fakerChecksummedAddress() } })
+        fireEvent.change(utils.getByLabelText(/名称/i), { target: { value: faker.person.firstName() } })
       })
 
       await waitFor(() => expect(utils.getByTestId('submit-proposer-btn')).not.toBeDisabled())
@@ -494,12 +494,8 @@ describe('AddProposer signing logic', () => {
 
       const { findByText, queryByText } = await submitProposer(addDelegateV3)
 
-      expect(
-        await findByText(
-          'The owner 0x4c3c...EfA2 already confirmed this request. Sign with a different owner to continue.',
-        ),
-      ).toBeInTheDocument()
-      expect(queryByText('Error adding proposer')).toBeNull()
+      expect(await findByText('所有者 0x4c3c...EfA2 已确认此请求，请使用其他所有者签名以继续。')).toBeInTheDocument()
+      expect(queryByText('添加提案人失败')).toBeNull()
     })
 
     it('shows the rejected-signature copy when the wallet rejects', async () => {
@@ -509,7 +505,7 @@ describe('AddProposer signing logic', () => {
 
       const { findByText } = await submitProposer(jest.fn())
 
-      expect(await findByText('The signature request was rejected. Try again to continue.')).toBeInTheDocument()
+      expect(await findByText('签名请求已拒绝，请重试以继续。')).toBeInTheDocument()
     })
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SafeCreationEvent, safeCreationSubscribe } from '../services/safeCreationEvents'
 import { getBlockExplorerLink } from '@safe-global/utils/utils/chains'
 import { useEffect } from 'react'
@@ -12,9 +13,9 @@ import { cgwApi } from '@safe-global/store/gateway/AUTO_GENERATED/owners'
 const SafeCreationNotifications = {
   [SafeCreationEvent.PROCESSING]: 'Validating...',
   [SafeCreationEvent.RELAYING]: 'Validating...',
-  [SafeCreationEvent.INDEXED]: 'Successfully executed.',
+  [SafeCreationEvent.INDEXED]: translateMessage('ui.successfullyExecuted_97c6fbbc'),
   [SafeCreationEvent.FAILED]: 'Failed.',
-  [SafeCreationEvent.REVERTED]: 'Reverted. Please check your gas settings.',
+  [SafeCreationEvent.REVERTED]: translateMessage('ui.revertedPleaseCheckYourGasSettings_fc355aa1'),
 }
 
 enum Variant {
@@ -51,7 +52,7 @@ const usePendingSafeNotifications = (): void => {
 
         dispatch(
           showNotification({
-            title: 'Safe account activation',
+            title: translateMessage('ui.accountActivation_38d3a502'),
             message,
             detailedMessage: isError ? detail.error.message : undefined,
             groupKey,

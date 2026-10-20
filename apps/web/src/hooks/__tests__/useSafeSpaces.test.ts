@@ -20,20 +20,20 @@ const mockUseSpacesGetV1Query = useSpacesGetV1Query as jest.Mock
 const mockUseLazySpaceSafesGetV1Query = useLazySpaceSafesGetV1Query as jest.Mock
 
 const spaceAlpha = {
+  experimentalFeatures: [],
   uuid: 'alpha',
   name: 'Alpha',
   members: [],
   memberCount: 1,
   safeCount: 1,
-  experimentalFeatures: [],
 } as GetSpaceResponse
 const spaceBravo = {
+  experimentalFeatures: [],
   uuid: 'bravo',
   name: 'Bravo',
   members: [],
   memberCount: 1,
   safeCount: 1,
-  experimentalFeatures: [],
 } as GetSpaceResponse
 
 const mockSafesResolver = (safesBySpace: Record<string, { safes: Record<string, string[]> }>) =>

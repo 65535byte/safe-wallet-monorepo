@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { CounterfactualFeature } from '@/features/counterfactual'
 import { useLoadFeature } from '@/features/__core__'
 import React, { type ReactElement } from 'react'
@@ -104,22 +105,28 @@ const AssetsTable = ({
   onOpenManageTokens?: () => void
 }): ReactElement => {
   const headCells = [
-    { id: 'asset', label: 'Asset', width: '35%' },
-    { id: 'price', label: 'Price', width: '16%', align: 'right' },
-    { id: 'balance', label: 'Balance', width: '16%', align: 'right' },
+    { id: 'asset', label: translateMessage('ui.asset_03c52802'), width: '35%' },
+    { id: 'price', label: translateMessage('ui.price_ef94daec'), width: '16%', align: 'right' },
+    { id: 'balance', label: translateMessage('ui.balance_413e035a'), width: '16%', align: 'right' },
     {
       id: 'weight',
       label: (
         <Tooltip>
-          <TooltipTrigger render={<span>Weight</span>} />
-          <TooltipContent>Based on total portfolio value</TooltipContent>
+          <TooltipTrigger render={<span>{translateMessage('ui.weight_4a81d066')}</span>} />
+          <TooltipContent>{translateMessage('ui.basedOnTotalPortfolioValue_1e3e89b1')}</TooltipContent>
         </Tooltip>
       ),
       width: '16%',
       align: 'right',
     },
-    { id: 'value', label: 'Value', width: '17%', align: 'right' },
-    { id: 'actions', label: 'Actions', width: showHiddenAssets ? '130px' : '86px', align: 'right', disableSort: true },
+    { id: 'value', label: translateMessage('ui.value_5f04a161'), width: '17%', align: 'right' },
+    {
+      id: 'actions',
+      label: translateMessage('ui.actions_d4eb333d'),
+      width: showHiddenAssets ? '130px' : '86px',
+      align: 'right',
+      disableSort: true,
+    },
   ]
   const { balances, loading } = useBalances()
   const { balances: visibleBalances } = useVisibleBalances()
@@ -249,10 +256,10 @@ const AssetsTable = ({
           <div className={css.mobileContainer}>
             <div className={css.mobileHeader}>
               <Typography variant="paragraph-small" color="muted">
-                Asset
+                {translateMessage('ui.asset_03c52802')}
               </Typography>
               <Typography variant="paragraph-small" color="muted">
-                Value
+                {translateMessage('ui.value_5f04a161')}
               </Typography>
             </div>
             {loading

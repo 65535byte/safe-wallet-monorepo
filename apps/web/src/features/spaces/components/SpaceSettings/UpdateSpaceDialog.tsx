@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import UpdateSpaceForm from './UpdateSpaceForm'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -11,12 +12,17 @@ const UpdateSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse; onClos
   const isDarkMode = useDarkMode()
 
   return (
-    <ModalDialog dialogTitle="Update Workspace" hideChainIndicator open onClose={onClose}>
+    <ModalDialog
+      dialogTitle={translateMessage('ui.updateWorkspace_6899dc48')}
+      hideChainIndicator
+      open
+      onClose={onClose}
+    >
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="mt-4 px-6 pb-6">
           <Typography className="mb-4">
-            The Workspace name is visible in the sidebar menu, headings to all its members. Usually it&apos;s a name of
-            the company or a business. <ExternalLink href={PRIVACY_URL}>How is this data stored?</ExternalLink>
+            {translateMessage('ui.theWorkspaceNameIsVisibleIn_4470559d')}{' '}
+            <ExternalLink href={PRIVACY_URL}>{translateMessage('ui.howIsThisDataStored_482913eb')}</ExternalLink>
           </Typography>
           <UpdateSpaceForm space={space} onClose={onClose} />
         </div>

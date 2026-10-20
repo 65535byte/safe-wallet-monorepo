@@ -116,7 +116,7 @@ describe('useSpacePolicies', () => {
 
     const { result } = renderHook(() => useSpacePolicies())
     const [policy] = result.current.policies
-    if (policy.type !== 'spending-limit') throw new Error('expected a spending limit')
+    if (policy.type !== 'spending-limit') throw new Error('expected a spending 项限额')
 
     expect(result.current.isLoading).toBe(false)
     expect(policy.data.spenders[0].allowances[0].token).toEqual(MOCK_TOKENS.usdc)

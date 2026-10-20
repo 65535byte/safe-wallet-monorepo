@@ -23,7 +23,7 @@ describe('NotActivatedProposer', () => {
   it('says the role was not activated and what stopped it', () => {
     render(<NotActivatedProposer {...PROPS} />)
 
-    expect(screen.getByText('The proposer role was not activated')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色未激活')).toBeInTheDocument()
     expect(screen.getByText('The time window expired. Set the policy up again to retry.')).toBeInTheDocument()
   })
 
@@ -45,15 +45,15 @@ describe('NotActivatedProposer', () => {
   it('shows the stalled signatures with what is left of the window', () => {
     render(<NotActivatedProposer {...PROPS} expiresLabel="Expired" />)
 
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
-    expect(screen.getByText('Expired')).toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
+    expect(screen.getByText('已过期')).toBeInTheDocument()
     expect(screen.getByTestId('safe-signature-progress')).toHaveTextContent('2 of 3 signed')
   })
 
   it('omits the window note when none is given', () => {
     render(<NotActivatedProposer {...PROPS} />)
 
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
     expect(screen.queryByText(/Expire/)).not.toBeInTheDocument()
   })
 
@@ -66,7 +66,7 @@ describe('NotActivatedProposer', () => {
   it('includes the proposer overview', () => {
     render(<NotActivatedProposer {...PROPS} />)
 
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
   })
 })

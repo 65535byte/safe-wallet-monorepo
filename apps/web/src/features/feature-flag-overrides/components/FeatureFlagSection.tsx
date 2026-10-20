@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Card } from '@safe-global/views/components/ui/card'
 import { Badge } from '@safe-global/views/components/ui/badge'
@@ -29,8 +30,8 @@ export const FeatureFlagSection = ({
             'text-muted-foreground border-b px-5 py-2 text-[10.5px] font-semibold tracking-wide uppercase [&>:last-child]:text-right',
           )}
         >
-          <span>Feature flag</span>
-          <span>Config service</span>
+          <span>{translateMessage('ui.featureFlag_c17052bb')}</span>
+          <span>{translateMessage('ui.configService_eafd0369')}</span>
           <span>{valueLabel}</span>
         </div>
 

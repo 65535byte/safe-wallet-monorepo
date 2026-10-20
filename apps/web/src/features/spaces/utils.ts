@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { format, isToday, isValid, isYesterday } from 'date-fns'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -77,12 +78,12 @@ export function formatDate(dateStr: string): string {
   const timeStr = format(date, 'p')
 
   if (isToday(date)) {
-    return `Today at ${timeStr}`
+    return translateMessage('ui.todayAt_4229bdab', { p0: timeStr })
   }
   if (isYesterday(date)) {
-    return `Yesterday at ${timeStr}`
+    return translateMessage('ui.yesterdayAt_05562078', { p0: timeStr })
   }
-  return `${format(date, 'MMM d')} at ${timeStr}`
+  return translateMessage('ui.at_3e0fb18e', { p0: format(date, 'MMM d'), p1: timeStr })
 }
 
 export function getChainIdsParam(safes: Array<{ chainId: string }>): string {

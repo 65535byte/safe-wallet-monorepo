@@ -33,7 +33,7 @@ describe('SendAmountBlock', () => {
   it('should render "Send" as default title', () => {
     render(<SendAmountBlock amountInWei={parseUnits('100', 6).toString()} tokenInfo={mockTokenInfo} />)
 
-    expect(screen.getByText('Send')).toBeInTheDocument()
+    expect(screen.getByText('发送')).toBeInTheDocument()
   })
 
   it('should render a custom title', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Switch } from '@safe-global/views/components/ui/switch'
 import { Field } from '@safe-global/views/components/ui/field'
@@ -22,7 +23,7 @@ const _TrustedToggleButton = ({
     <Track {...TX_LIST_EVENTS.TOGGLE_UNTRUSTED} label={onlyTrusted ? 'show' : 'hide'}>
       <Field orientation="horizontal" className="h-10 w-fit items-center gap-2" data-testid="toggle-untrusted">
         <Switch id="toggle-untrusted" checked={onlyTrusted} onCheckedChange={setOnlyTrusted} />
-        <Label htmlFor="toggle-untrusted">Hide suspicious</Label>
+        <Label htmlFor="toggle-untrusted">{translateMessage('ui.hideSuspicious_0a42ce43')}</Label>
       </Field>
     </Track>
   )

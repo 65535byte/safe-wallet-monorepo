@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -17,7 +18,7 @@ const SignedMessagesHelpLink = () => {
     <div className="flex items-center gap-2">
       <InfoIcon className="size-4 text-[var(--color-border-main)]" />
       <ExternalLink noIcon href={HelpCenterArticle.SIGNED_MESSAGES}>
-        <Typography variant="paragraph-small-bold">What are signed messages?</Typography>
+        <Typography variant="paragraph-small-bold">{translateMessage('ui.whatAreSignedMessages_f99daad8')}</Typography>
       </ExternalLink>
     </div>
   )

@@ -212,7 +212,7 @@ describe('useSafeWalletProvider', () => {
 
       const appName = getAppName()
 
-      expect(showNotificationSpy).toHaveBeenCalledWith('Signature request', {
+      expect(showNotificationSpy).toHaveBeenCalledWith('签名请求', {
         body: `test wants you to sign a message. Open the ${appName} to continue.`,
       })
 
@@ -267,7 +267,7 @@ describe('useSafeWalletProvider', () => {
 
       const appName = getAppName()
 
-      expect(showNotificationSpy).toHaveBeenCalledWith('Signature request', {
+      expect(showNotificationSpy).toHaveBeenCalledWith('签名请求', {
         body: `test wants you to sign a message. Open the ${appName} to continue.`,
       })
 
@@ -344,7 +344,7 @@ describe('useSafeWalletProvider', () => {
 
       const appName = getAppName()
 
-      expect(showNotificationSpy).toHaveBeenCalledWith('Signature request', {
+      expect(showNotificationSpy).toHaveBeenCalledWith('签名请求', {
         body: `test wants you to sign a message. Open the ${appName} to continue.`,
       })
 
@@ -400,7 +400,7 @@ describe('useSafeWalletProvider', () => {
 
       const appName = getAppName()
 
-      expect(showNotificationSpy).toHaveBeenCalledWith('Transaction request', {
+      expect(showNotificationSpy).toHaveBeenCalledWith('交易请求', {
         body: `test wants to submit a transaction. Open the ${appName} to continue.`,
       })
 
@@ -544,7 +544,7 @@ describe('useSafeWalletProvider', () => {
 
           await expect(send(data)).rejects.toEqual({
             code: RpcErrorCode.INVALID_PARAMS,
-            message: 'Nested transaction payload does not match the executed transaction',
+            message: 'Nested transaction payload does not match the executed 笔交易',
           })
           expect(mockSetTxFlow).not.toHaveBeenCalled()
         })
@@ -555,7 +555,7 @@ describe('useSafeWalletProvider', () => {
 
           await expect(send(data)).rejects.toEqual({
             code: RpcErrorCode.INVALID_PARAMS,
-            message: 'Nested transaction payload does not match the executed transaction',
+            message: 'Nested transaction payload does not match the executed 笔交易',
           })
         })
 
@@ -763,7 +763,7 @@ describe('useSafeWalletProvider', () => {
 
       expect(error).toEqual({
         code: RpcErrorCode.USER_REJECTED,
-        message: 'User rejected chain switch',
+        message: '用户拒绝切换网络',
       })
       expect(mockWcChainSwitchStore.getStore()).toBeUndefined()
       expect(mockWcPopupStore.getStore()).toBe(false)

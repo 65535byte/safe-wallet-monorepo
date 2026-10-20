@@ -26,8 +26,8 @@ describe('HnInfoCard', () => {
   it('shows that Hypernative Guardian is active', () => {
     render(<HnInfoCard hypernativeAuth={hypernativeAuthStatusBuilder().build()} />)
 
-    expect(screen.getByText('Hypernative Guardian is active')).toBeInTheDocument()
-    expect(screen.getByTitle('Hypernative Guardian is actively monitoring this transaction.')).toBeInTheDocument()
+    expect(screen.getByText('Hypernative Guardian 已启用')).toBeInTheDocument()
+    expect(screen.getByTitle('Hypernative Guardian 正在监控此交易。')).toBeInTheDocument()
   })
 
   it.each([
@@ -36,7 +36,7 @@ describe('HnInfoCard', () => {
   ])('never offers a login when %s', (_, hypernativeAuth) => {
     render(<HnInfoCard hypernativeAuth={hypernativeAuth} />)
 
-    expect(screen.queryByRole('button', { name: 'Log in' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '登录' })).not.toBeInTheDocument()
     expect(screen.queryByText(/Log in to Hypernative/)).not.toBeInTheDocument()
   })
 })

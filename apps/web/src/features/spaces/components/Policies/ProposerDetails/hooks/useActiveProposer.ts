@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { getSafeDisplayInfo } from '@/components/common/AccountRow'
 import useConnectWallet from '@/components/common/ConnectWallet/useConnectWallet'
 import { AppRoutes } from '@/config/routes'
@@ -12,7 +13,7 @@ import { getRemovableGrantDelegator, REMOVE_PROPOSER_NOT_ALLOWED } from './useRe
 import type { ProposerDetailsArgs } from '@safe-global/views/features/spaces/components/Policies/ProposerDetails/hooks/types'
 import { useUrlSpaceId, withSpaceId } from '@/hooks/useUrlSpaceId'
 
-export const REMOVE_NESTED_PROPOSER_HINT = 'Remove this proposer from the Safe account settings'
+export const REMOVE_NESTED_PROPOSER_HINT = translateMessage('ui.removeThisProposerFromTheAccount_cca5454a')
 
 export const useActiveProposer = (args: ProposerDetailsArgs): ProposerDrawerContentProps => {
   const { chainId, address: safeAddress } = args.policy.safe
@@ -46,8 +47,8 @@ export const useActiveProposer = (args: ProposerDetailsArgs): ProposerDrawerCont
       status: ProposerStatus.ACTIVE,
       overview,
       nestedSafeGrant,
-      actionLabel: 'Connect wallet',
-      actionHint: `Connect a signer wallet of ${safeName} to edit.`,
+      actionLabel: translateMessage('ui.connectWallet_301090ba'),
+      actionHint: translateMessage('ui.connectASignerWalletOfTo_71a68b3c', { p0: safeName }),
       onAction: connectWallet,
     }
   }
@@ -57,7 +58,7 @@ export const useActiveProposer = (args: ProposerDetailsArgs): ProposerDrawerCont
       status: ProposerStatus.ACTIVE,
       overview,
       nestedSafeGrant,
-      actionLabel: 'Remove proposer',
+      actionLabel: translateMessage('ui.removeProposer_c45b6a22'),
       actionVariant: 'secondary',
       actionDisabled: true,
       actionHint: REMOVE_NESTED_PROPOSER_HINT,
@@ -70,7 +71,7 @@ export const useActiveProposer = (args: ProposerDetailsArgs): ProposerDrawerCont
   return {
     status: ProposerStatus.ACTIVE,
     overview,
-    actionLabel: 'Remove proposer',
+    actionLabel: translateMessage('ui.removeProposer_c45b6a22'),
     actionVariant: 'secondary',
     actionDisabled: !canRemove,
     actionHint: canRemove ? undefined : REMOVE_PROPOSER_NOT_ALLOWED,

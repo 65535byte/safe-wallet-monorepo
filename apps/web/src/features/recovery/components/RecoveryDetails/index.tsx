@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Operation } from '@safe-global/store/gateway/types'
 import type { ReactElement } from 'react'
 
@@ -7,7 +8,6 @@ import ColorCodedTxAccordion from '@/components/tx/ColorCodedTxAccordion'
 import RecoverySigners from '../RecoverySigners'
 import RecoveryDescription from '../RecoveryDescription'
 import type { RecoveryQueueItem } from '../../services/recovery-state'
-import { formatRecoveryTime } from '../../services/formatRecoveryTime'
 import classNames from 'classnames'
 
 import txDetailsCss from '@/components/transactions/TxDetails/styles.module.css'
@@ -23,31 +23,39 @@ export default function RecoveryDetails({ item }: { item: RecoveryQueueItem }): 
         </div>
 
         <div className={txDetailsCss.txSummary}>
-          <TxDataRow title="Transaction hash">{generateDataRowValue(transactionHash, 'hash', true)}</TxDataRow>
-          <TxDataRow title="Created">
+          <TxDataRow title={translateMessage('ui.transactionHash_62979280')}>
+            {generateDataRowValue(transactionHash, 'hash', true)}
+          </TxDataRow>
+          <TxDataRow title={translateMessage('ui.created_d8278ec8')}>
             <div className="text-sm">{dateString(Number(timestamp))}</div>
           </TxDataRow>
-          <TxDataRow title="Executable">
-            <div className="text-sm">{formatRecoveryTime(validFrom, timestamp, dateString)}</div>
+          <TxDataRow title={translateMessage('ui.executable_340f4d3b')}>
+            <div className="text-sm">{dateString(Number(validFrom))}</div>
           </TxDataRow>
 
           {expiresAt !== null && (
-            <TxDataRow title="Expires">
-              <div className="text-sm">{formatRecoveryTime(expiresAt, timestamp, dateString)}</div>
+            <TxDataRow title={translateMessage('ui.expires_b8d5dbf9')}>
+              <div className="text-sm">{dateString(Number(expiresAt))}</div>
             </TxDataRow>
           )}
 
           <div className="mt-4">
             <ColorCodedTxAccordion>
               <div className="flex flex-col gap-2">
-                <TxDataRow title="Module">{generateDataRowValue(address, 'address', true)}</TxDataRow>
-                <TxDataRow title="Value">{generateDataRowValue(args.value.toString())}</TxDataRow>
-                <TxDataRow title="Operation">
+                <TxDataRow title={translateMessage('ui.module_46c34f61')}>
+                  {generateDataRowValue(address, 'address', true)}
+                </TxDataRow>
+                <TxDataRow title={translateMessage('ui.value_5f04a161')}>
+                  {generateDataRowValue(args.value.toString())}
+                </TxDataRow>
+                <TxDataRow title={translateMessage('ui.operation_f02643fa')}>
                   {generateDataRowValue(
                     `${Number(args.operation)} (${Operation[Number(args.operation)].toLowerCase()})`,
                   )}
                 </TxDataRow>
-                <TxDataRow title="Raw data">{generateDataRowValue(args.data, 'rawData')}</TxDataRow>
+                <TxDataRow title={translateMessage('ui.rawData_21e300a4')}>
+                  {generateDataRowValue(args.data, 'rawData')}
+                </TxDataRow>
               </div>
             </ColorCodedTxAccordion>
           </div>

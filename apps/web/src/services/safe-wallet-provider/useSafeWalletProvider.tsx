@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -77,7 +78,7 @@ export const useTxFlowApi = (chainId: string, safeAddress: string, fetchOwnedSaf
         let onClose = () => {
           reject({
             code: RpcErrorCode.USER_REJECTED,
-            message: 'User rejected signature',
+            message: translateMessage('ui.userRejectedSignature_5dd2fc96'),
           })
           unsubscribe()
         }
@@ -157,7 +158,7 @@ export const useTxFlowApi = (chainId: string, safeAddress: string, fetchOwnedSaf
           let onClose = () => {
             reject({
               code: RpcErrorCode.USER_REJECTED,
-              message: 'User rejected transaction',
+              message: translateMessage('ui.userRejectedTransaction_6e1197ab'),
             })
           }
 
@@ -226,7 +227,7 @@ export const useTxFlowApi = (chainId: string, safeAddress: string, fetchOwnedSaf
 
             reject({
               code: RpcErrorCode.USER_REJECTED,
-              message: 'User rejected chain switch',
+              message: translateMessage('ui.userRejectedChainSwitch_9218eb28'),
             })
           }
 

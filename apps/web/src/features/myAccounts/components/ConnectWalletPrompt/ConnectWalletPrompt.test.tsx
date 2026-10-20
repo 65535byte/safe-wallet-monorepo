@@ -16,8 +16,8 @@ describe('ConnectWalletPrompt', () => {
     render(<ConnectWalletPrompt />)
 
     expect(screen.getByTestId('connect-wallet-prompt')).toBeInTheDocument()
-    expect(screen.getByText('Connect your wallet')).toBeInTheDocument()
-    expect(screen.getByText(/view and manage your Safe accounts/i)).toBeInTheDocument()
+    expect(screen.getByText('连接您的钱包')).toBeInTheDocument()
+    expect(screen.getByText(/view and manage your 个 8379 账户/i)).toBeInTheDocument()
   })
 
   it('should call connectWallet when button is clicked', () => {

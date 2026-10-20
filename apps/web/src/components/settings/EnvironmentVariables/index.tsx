@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useForm, FormProvider } from 'react-hook-form'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -70,10 +71,8 @@ const EnvironmentVariables = () => {
   const onResetTenderlyToken = () => setValue(EnvVariablesField.tenderlyToken, '')
 
   return (
-    <SettingsCard title="Environment variables" contentClassName="mb-4">
-      <Typography className="mb-6">
-        You can override some of our default APIs here in case you need to. Proceed at your own risk.
-      </Typography>
+    <SettingsCard title={translateMessage('ui.environmentVariables_333cec70')} contentClassName="mb-4">
+      <Typography className="mb-6">{translateMessage('ui.youCanOverrideSomeOfOur_4a35a9fd')}</Typography>
 
       <FormProvider {...formMethods}>
         <form onSubmit={onSubmit}>
@@ -87,7 +86,7 @@ const EnvironmentVariables = () => {
           />
 
           <Button type="submit" className="mt-8">
-            Save
+            {translateMessage('ui.save_5fe30f30')}
           </Button>
         </form>
       </FormProvider>

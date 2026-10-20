@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { DrawerSection } from '@/components/common/Drawer'
 import { Alert, AlertDescription, AlertSeverityIcon, AlertTitle } from '@safe-global/views/components/ui/alert'
@@ -17,11 +18,11 @@ export const PendingProposer = ({
   <div className="flex flex-col gap-4">
     <Alert variant="warning" outlined={false}>
       <AlertSeverityIcon variant="warning" />
-      <AlertTitle>The proposer role is not active yet</AlertTitle>
+      <AlertTitle>{translateMessage('ui.theProposerRoleIsNotActive_12430496')}</AlertTitle>
       <AlertDescription>{description}</AlertDescription>
     </Alert>
 
-    <DrawerSection title="Pending signatures" rightNode={expiresLabel}>
+    <DrawerSection title={translateMessage('ui.pendingSignatures_934af063')} rightNode={expiresLabel}>
       <SafeSignatureInfo safe={safe} signatures={signatures} />
     </DrawerSection>
 

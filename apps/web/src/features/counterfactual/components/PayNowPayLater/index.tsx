@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Dispatch, SetStateAction } from 'react'
 import classnames from 'classnames'
 import { useCurrentChain } from '@/hooks/useChains'
@@ -55,20 +56,18 @@ const PayNowPayLater = ({
   return (
     <>
       <Typography variant="h4" className="font-bold">
-        Before we continue...
+        {translateMessage('ui.beforeWeContinue_f5d8ea75')}
       </Typography>
       {isMultiChain && (
         <ErrorMessage level="info">
-          You will need to <b>activate your account</b> separately on each network. Make sure you have funds on your
-          wallet to pay the network fee.
+          {translateMessage('ui.youWillNeedTo_990066fb')}
+          <b>{translateMessage('ui.activateYourAccount_fb7d880f')}</b>{' '}
+          {translateMessage('ui.separatelyOnEachNetworkMakeSure_3a5fb683')}
         </ErrorMessage>
       )}
       {showStablecoinFeeInfo && (
         <div className="mt-4">
-          <ErrorMessage level="info">
-            This network uses USD stablecoins for transaction fees instead of a native token. Ensure your connected
-            wallet holds a supported stablecoin to cover fees.
-          </ErrorMessage>
+          <ErrorMessage level="info">{translateMessage('ui.thisNetworkUsesUSDStablecoinsFor_33fd6fee')}</ErrorMessage>
         </div>
       )}
       <div className="flex flex-col py-2">
@@ -78,7 +77,7 @@ const PayNowPayLater = ({
               <Check className="size-5" />
             </div>
             <Typography variant="paragraph-small">
-              Start exploring the accounts now, and activate them later to start making transactions
+              {translateMessage('ui.startExploringTheAccountsNowAnd_c2209dfa')}
             </Typography>
           </div>
         )}
@@ -86,23 +85,21 @@ const PayNowPayLater = ({
           <div className={classnames(css.listItem, 'flex items-center')}>
             <Check className="size-5" />
           </div>
-          <Typography variant="paragraph-small">There will be a one-time activation fee</Typography>
+          <Typography variant="paragraph-small">{translateMessage('ui.thereWillBeAOneTime_d992c553')}</Typography>
         </div>
         {!isMultiChain && (
           <div className="flex items-center py-2">
             <div className={classnames(css.listItem, 'flex items-center')}>
               <Check className="size-5" />
             </div>
-            <Typography variant="paragraph-small">
-              If you choose to pay later, the fee will be included with the first transaction you make.
-            </Typography>
+            <Typography variant="paragraph-small">{translateMessage('ui.ifYouChooseToPayLater_1a0a27a0')}</Typography>
           </div>
         )}
         <div className="flex items-center py-2">
           <div className={classnames(css.listItem, 'flex items-center')}>
             <Check className="size-5" />
           </div>
-          <Typography variant="paragraph-small">Safe doesn&apos;t profit from the fees.</Typography>
+          <Typography variant="paragraph-small">{translateMessage('ui.doesnTProfitFromTheFees_561e0175')}</Typography>
         </div>
       </div>
       <div className="w-full">
@@ -123,22 +120,22 @@ const PayNowPayLater = ({
             <RadioGroupItem
               id="pay-now-execution-method"
               value={PayMethod.PayNow}
-              aria-label="Pay now"
+              aria-label={translateMessage('ui.payNow_9d59950f')}
               disabled={isMultiChain}
             />
             {/* flex-col: the subtitle belongs on its own line under the label. `paragraph-small`
                 renders an inline <span>, so without this it can run on after the title. */}
             <span className="flex flex-col items-start">
-              <Typography className={css.radioTitle}>Pay now</Typography>
+              <Typography className={css.radioTitle}>{translateMessage('ui.payNow_9d59950f')}</Typography>
               {isMultiChain ? (
                 <Typography className={css.radioSubtitle} variant="paragraph-small" color="muted">
-                  Not available for multiple networks
+                  {translateMessage('ui.notAvailableForMultipleNetworks_496f5185')}
                 </Typography>
               ) : (
                 showGasFeeEstimation && (
                   <Typography className={css.radioSubtitle} variant="paragraph-small" color="muted">
                     {canRelay ? (
-                      'Sponsored free transaction'
+                      translateMessage('ui.sponsoredFreeTransaction_18518b84')
                     ) : (
                       <>
                         &asymp; {totalFee} {chain?.nativeCurrency.symbol}
@@ -161,14 +158,17 @@ const PayNowPayLater = ({
               id="connected-wallet-execution-method"
               value={PayMethod.PayLater}
               disabled={signingIn}
-              aria-label="Pay later"
+              aria-label={translateMessage('ui.payLater_e09d8c21')}
             />
             <span className="flex flex-col items-start">
               <Typography className={classnames(css.radioTitle, 'flex items-center')}>
-                Pay later {signingIn && <Spinner className="ml-1 size-3.5" />}
+                {translateMessage('ui.payLater_70e7a558')}
+                {signingIn && <Spinner className="ml-1 size-3.5" />}
               </Typography>
               <Typography className={css.radioSubtitle} variant="paragraph-small" color="muted">
-                {isUserAuthenticated ? 'with the first transaction' : 'Sign in to enable'}
+                {isUserAuthenticated
+                  ? translateMessage('ui.withTheFirstTransaction_e89db42e')
+                  : translateMessage('ui.signInToEnable_9688565d')}
               </Typography>
             </span>
           </Label>
@@ -185,9 +185,9 @@ const PayNowPayLater = ({
                   'cursor-pointer': !signingIn,
                 })}
               >
-                Sign in
+                {translateMessage('ui.signIn_789309bd')}
               </Typography>{' '}
-              to create a Safe without immediate deployment.
+              {translateMessage('ui.toCreateAWithoutImmediateDeployment_7adeeb98')}
             </ErrorMessage>
           </div>
         )}

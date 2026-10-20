@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -30,7 +31,7 @@ export default function SpacePage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Workspace dashboard`}</title>
+        <title>{translateMessage('ui.workspaceDashboard_3d2395fc', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main className="!pt-0">

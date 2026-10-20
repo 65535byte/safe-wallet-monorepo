@@ -1,100 +1,10 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { PlanTier } from './types'
 
-export const PLAN_ORDER = ['Starter', 'Business', 'Enterprise'] as const
+export const PLAN_ORDER = ['Starter', 'Business', 'Enterprise']
 
 /** The plan the trial and lapsed-Workspace modals lead with. */
 export const RECOMMENDED_PLAN = 'Business'
-
-type PlanName = (typeof PLAN_ORDER)[number]
-
-export const COMPARE_FEATURES_ID = 'compare-features'
-
-export type CompareValue = boolean | string
-
-export type CompareRow = {
-  feature: string
-  isComingSoon?: boolean
-  isAddOn?: boolean
-  values: Record<PlanName, CompareValue>
-}
-
-export type CompareSection = {
-  title: string
-  hoverEmoji?: string
-  rows: CompareRow[]
-}
-
-const every = (value: CompareValue): Record<PlanName, CompareValue> => ({
-  Starter: value,
-  Business: value,
-  Enterprise: value,
-})
-const fromBusiness: Record<PlanName, CompareValue> = { Starter: false, Business: true, Enterprise: true }
-const enterpriseOnly: Record<PlanName, CompareValue> = { Starter: false, Business: false, Enterprise: true }
-
-export const COMPARE_SECTIONS: CompareSection[] = [
-  {
-    title: 'Coming soon',
-    hoverEmoji: '👀',
-    rows: [
-      { feature: 'Safenet checks', values: fromBusiness, isComingSoon: true },
-      { feature: 'More policies', values: fromBusiness, isComingSoon: true },
-      { feature: 'Pay gas fees from Safe account', values: fromBusiness, isComingSoon: true },
-    ],
-  },
-  {
-    title: 'Limits',
-    rows: [
-      { feature: 'Workspaces', values: every('1') },
-      { feature: 'Members', values: every('Unlimited') },
-      { feature: 'Safe accounts', values: { Starter: '2', Business: '5, 10 or 20', Enterprise: 'More than 20' } },
-      {
-        feature: 'Eligible sponsored transactions per month',
-        values: { Starter: '10', Business: '50', Enterprise: 'Unlimited' },
-      },
-      { feature: 'Sponsoring limit per transaction', values: { Starter: '€5', Business: '€5', Enterprise: '€10' } },
-    ],
-  },
-  {
-    title: 'Operations',
-    rows: [
-      { feature: 'Shared address book', values: every(true) },
-      { feature: 'Workspace activity log', values: every(true) },
-      { feature: 'Nested Safe support', values: every(true) },
-      { feature: 'Policies', values: fromBusiness },
-    ],
-  },
-  {
-    title: 'Security & Safe Shield',
-    rows: [
-      { feature: 'Workspace 2FA', values: every(true) },
-      { feature: 'Security Hub', values: every(true) },
-      { feature: 'Advanced threat analysis', values: every(true) },
-      { feature: 'Transaction simulation', values: every(true) },
-    ],
-  },
-  {
-    title: 'Support & service levels',
-    rows: [
-      { feature: 'In-app and email support', values: every(true) },
-      { feature: 'Priority handling within the same severity', values: fromBusiness },
-      { feature: 'Named support contact', values: enterpriseOnly },
-      { feature: 'Shared support channel', values: enterpriseOnly },
-      {
-        feature: 'Defined escalation path',
-        values: { Starter: false, Business: 'By separate agreement', Enterprise: true },
-      },
-      {
-        feature: 'Guided onboarding',
-        values: { Starter: false, Business: 'One 60-minute session', Enterprise: 'Tailored to your needs' },
-      },
-    ],
-  },
-  {
-    title: 'Add-ons',
-    rows: [{ feature: 'Hypernative Guardian', values: every(true), isAddOn: true }],
-  },
-]
 
 // TODO(safe-pro): Enterprise has no payment link; static card until sales flow is defined.
 export const ENTERPRISE_TIER: PlanTier = {
@@ -102,22 +12,27 @@ export const ENTERPRISE_TIER: PlanTier = {
   name: 'Enterprise',
   currency: 'eur',
   billingCycle: null,
-  options: [{ paymentLinkId: null, priceId: null, label: '20+ Safe accounts', price: null, originalPrice: null }],
-  copy: {
-    subtitle: 'Tailored to your organization, with custom capacity and commercial terms.',
-    supportLevel: 'Tailored',
-    supportDetail: '+ Customized onboarding',
-  },
+  options: [
+    {
+      paymentLinkId: null,
+      priceId: null,
+      label: translateMessage('ui.accounts_e2f6ed24'),
+      price: null,
+      originalPrice: null,
+    },
+  ],
   features: [
-    'Unlimited sponsored transactions',
-    'Shared address book',
-    'Activity log',
-    'Advanced threat analysis',
-    'Transaction simulation',
-    'Workspace 2FA',
-    'Policies',
-    'Custom Safe capacity',
-    'Multiple workspaces',
-    'Tailored contract & billing terms',
+    translateMessage('ui.unlimitedSponsoredTransactions_246afdd4'),
+    translateMessage('ui.sharedAddressBook_18574206'),
+    translateMessage('ui.activityLog_178128e0'),
+    translateMessage('ui.advancedThreatAnalysis_e385d601'),
+    translateMessage('ui.transactionSimulation_1e0bcc02'),
+    translateMessage('ui.workspaceFA_0d393882'),
+    translateMessage('ui.policies_34ff1e6a'),
+    translateMessage('ui.customSafeCapacity_5281f742'),
+    translateMessage('ui.multipleWorkspaces_fece081e'),
+    translateMessage('ui.tailoredContractBillingTerms_70761754'),
+    translateMessage('ui.customContractAndBillingTerms_42371788'),
+    translateMessage('ui.dedicatedSupportAndCustomizedOnboarding_9bf6193c'),
   ],
 }

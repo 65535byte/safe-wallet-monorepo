@@ -1,11 +1,12 @@
+import { translateMessage } from '@/i18n'
 import classNames from 'classnames'
 import css from '@safe-global/views/components/tx-flow/flows/SuccessScreen/styles.module.css'
 import { isTimeoutError } from '@/utils/ethers-utils'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
-const TRANSACTION_FAILED = 'Transaction failed'
-const NESTED_SAFE_SUCCESSFUL = 'Nested Safe was created'
-const TRANSACTION_SUCCESSFUL = 'Transaction was successful'
+const TRANSACTION_FAILED = translateMessage('ui.transactionFailed_92e27ef6')
+const NESTED_SAFE_SUCCESSFUL = translateMessage('ui.nestedWasCreated_c3afa27a')
+const TRANSACTION_SUCCESSFUL = translateMessage('ui.transactionWasSuccessful_367ea6bf')
 
 type Props = {
   error: undefined | Error
@@ -19,7 +20,7 @@ export const DefaultStatus = ({ error, willDeploySafe: isCreatingSafe }: Props) 
     {error && (
       <div className={classNames(css.instructions, error ? css.errorBg : css.infoBg)}>
         <Typography variant="paragraph-small">
-          {error ? (isTimeoutError(error) ? 'Transaction timed out' : error.message) : ''}
+          {error ? (isTimeoutError(error) ? translateMessage('ui.transactionTimedOut_972077ab') : error.message) : ''}
         </Typography>
       </div>
     )}

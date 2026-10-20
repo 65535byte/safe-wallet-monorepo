@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import NextLink from 'next/link'
 import type { LinkProps } from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -12,7 +13,7 @@ const SafeProTrialActivatedModal = ({
   onOpenChange,
   trialEndsAt,
   ctaHref,
-  ctaLabel = 'Get started',
+  ctaLabel = translateMessage('ui.getStarted_5801751d'),
   hasPaymentMethod = false,
 }: {
   open: boolean
@@ -28,12 +29,13 @@ const SafeProTrialActivatedModal = ({
   <SafeProModalFrame open={open} onOpenChange={onOpenChange}>
     <div className="flex flex-col gap-3">
       <Typography variant="h4" as={DialogTitle}>
-        Your free access is active{trialEndsAt !== null ? ` until ${formatDate(trialEndsAt)}` : ''}
+        {translateMessage('ui.yourFreeAccessIsActive_11071303')}
+        {trialEndsAt !== null ? translateMessage('ui.until_045d6239', { p0: formatDate(trialEndsAt) }) : ''}
       </Typography>
       <Typography variant="paragraph-small" color="muted">
         {hasPaymentMethod
-          ? 'All Pro features are unlocked for your Workspace. Your subscription starts on its own when your free access ends — nothing is charged before.'
-          : 'All Safe Pro features are unlocked for your Workspace. We’ll remind you to add a payment method before the free access period ends — nothing is charged until you do.'}
+          ? translateMessage('ui.allProFeaturesAreUnlockedFor_13aafa05')
+          : translateMessage('ui.allFeaturesAreUnlockedForYour_f0ba883a')}
       </Typography>
     </div>
 

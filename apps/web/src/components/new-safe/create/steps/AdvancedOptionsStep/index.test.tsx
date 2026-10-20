@@ -35,7 +35,7 @@ const mockData: NewSafeFormData = {
 const renderStep = () =>
   render(<AdvancedOptionsStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />)
 
-const getReceiverField = () => screen.getByLabelText('Payment receiver')
+const getReceiverField = () => screen.getByLabelText('付款接收方')
 
 const getFieldContainer = (input: HTMLElement) => input.closest('[data-slot="field"]')
 
@@ -62,7 +62,7 @@ describe('AdvancedOptionsStep', () => {
 
     await userEvent.clear(getReceiverField())
 
-    expect(await screen.findByText('Payment receiver is required')).toBeInTheDocument()
+    expect(await screen.findByText('请输入付款接收方')).toBeInTheDocument()
     expect(getReceiverField()).toHaveAttribute('aria-invalid', 'true')
     expect(screen.getByTestId('next-btn')).toBeDisabled()
   })
@@ -80,9 +80,7 @@ describe('AdvancedOptionsStep', () => {
 
     renderStep()
 
-    expect(
-      await screen.findByText('The Safe is already deployed. Use a different payment receiver.'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('此 8379 已部署，请使用其他付款接收方。')).toBeInTheDocument()
     expect(screen.getByTestId('next-btn')).toBeDisabled()
   })
 
@@ -91,10 +89,10 @@ describe('AdvancedOptionsStep', () => {
 
     renderStep()
 
-    await screen.findByText('The Safe is already deployed. Use a different payment receiver.')
+    await screen.findByText('此 8379 已部署，请使用其他付款接收方。')
     await userEvent.clear(getReceiverField())
 
-    expect(await screen.findByText('Payment receiver is required')).toBeInTheDocument()
+    expect(await screen.findByText('请输入付款接收方')).toBeInTheDocument()
   })
 
   it('rejects a payment receiver that is not an address', async () => {
@@ -130,10 +128,10 @@ describe('AdvancedOptionsStep', () => {
   it('marks the salt nonce invalid when it is cleared', async () => {
     renderStep()
 
-    const saltNonce = screen.getByLabelText('Salt nonce')
+    const saltNonce = screen.getByLabelText('盐值 nonce')
     await userEvent.clear(saltNonce)
 
-    expect(await screen.findByText('Salt nonce is required')).toBeInTheDocument()
+    expect(await screen.findByText('请输入盐值 nonce')).toBeInTheDocument()
     expect(saltNonce).toHaveAttribute('aria-invalid', 'true')
   })
 })

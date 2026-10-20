@@ -1,10 +1,10 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { NativeStakingValidatorsExitTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 const StakingTxExitInfo = ({ info }: { info: NativeStakingValidatorsExitTransactionInfo }) => {
   return (
     <>
-      {info.numValidators} Validator{maybePlural(info.numValidators)}
+      {info.numValidators} {translateMessage('ui.validator_8de16b78')}
     </>
   )
 }

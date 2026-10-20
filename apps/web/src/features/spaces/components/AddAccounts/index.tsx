@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import {
   type SafeItem,
@@ -119,7 +120,7 @@ interface AddAccountsProps {
 
 const AddAccounts = ({
   buttonVariant = 'outline',
-  buttonLabel = 'Add accounts',
+  buttonLabel = translateMessage('ui.addAccounts_5b9c31e4'),
   externalOpen,
   onExternalClose,
 }: AddAccountsProps = {}) => {
@@ -236,7 +237,13 @@ const AddAccounts = ({
   const { isSafePro, tierName, plansHref } = useSeatUpsell(spaceId)
   const limitTooltip =
     isSafePro && typeof limit === 'number'
-      ? `${tierName ? `Your ${tierName} plan` : 'Your plan'} covers ${limit} Safe accounts.\nAt ${limit}, deselect one to add another. Safe accounts you leave out remain available in My accounts.`
+      ? translateMessage('ui.coversAccountsAtDeselectOneTo_24b69912', {
+          p0: tierName
+            ? translateMessage('ui.yourPlan_1cfcc241', { p0: tierName })
+            : translateMessage('ui.yourPlan_93a20c7c'),
+          p1: limit,
+          p2: limit,
+        })
       : safeLimitTooltip(limit)
 
   // Safes already in the workspace stay visible but locked: shown checked, dimmed, and not toggleable.
@@ -263,7 +270,7 @@ const AddAccounts = ({
   const onSubmit = handleSubmit(
     async (data) => {
       if (!isAdmin) {
-        setError('Only admins can add or remove Safe accounts in this Workspace')
+        setError(translateMessage('ui.onlyAdminsCanAddOrRemove_0fbb8cd8'))
         return
       }
 
@@ -328,6 +335,13 @@ const AddAccounts = ({
             setError(msg.replace(/:\s*Key\s*\(.*$/, ''))
             return
           }
+
+          safesToAdd.forEach(({ chainId, address }) => {
+            trackEvent(
+              { ...SPACE_EVENTS.WORKSPACE_SAFE_LINKED, label: spaceId },
+              { workspace_id: spaceId, safe_address: address, chain_id: chainId },
+            )
+          })
         }
 
         // Remove unchecked safes
@@ -344,16 +358,25 @@ const AddAccounts = ({
             )
             return
           }
+
+          safesToRemove.forEach(({ chainId, address }) => {
+            trackEvent(
+              { ...SPACE_EVENTS.WORKSPACE_SAFE_UNLINKED, label: spaceId },
+              { workspace_id: spaceId, safe_address: address, chain_id: chainId },
+            )
+          })
         }
 
         // Show success notification
         const messages = []
-        if (safesToAdd.length > 0) messages.push(`Added ${countSafeAccounts(safesToAdd)} safe account(s)`)
-        if (safesToRemove.length > 0) messages.push(`Removed ${countSafeAccounts(safesToRemove)} safe account(s)`)
+        if (safesToAdd.length > 0)
+          messages.push(translateMessage('ui.addedSafeAccountS_5648ddff', { p0: countSafeAccounts(safesToAdd) }))
+        if (safesToRemove.length > 0)
+          messages.push(translateMessage('ui.removedSafeAccountS_caf35d41', { p0: countSafeAccounts(safesToRemove) }))
 
         dispatch(
           showNotification({
-            message: messages.length > 0 ? messages.join(' and ') : 'Safes updated',
+            message: messages.length > 0 ? messages.join(' and ') : translateMessage('ui.accountsUpdated_1cb8b25d'),
             variant: 'success',
             groupKey: 'safe-account-update-success',
           }),
@@ -361,7 +384,7 @@ const AddAccounts = ({
 
         handleClose()
       } catch {
-        setError('Something went wrong updating Safe accounts. Please try again.')
+        setError(translateMessage('ui.somethingWentWrongUpdatingAccountsPlease_01e3f3f7'))
       }
     },
     () => touchNames(getValues, setValue, safesToName),
@@ -421,35 +444,35 @@ const AddAccounts = ({
   const isListEmpty = trustedSafes.length === 0 && !debouncedSearchQuery
   const hasNoSearchMatch = visibleTrusted.length === 0 && Boolean(debouncedSearchQuery)
   const emptyStateMessage = wallet
-    ? 'No accounts yet — add some via "Manage list", or add one by address below.'
-    : 'No saved Safe accounts yet — add one by address below.'
+    ? translateMessage('ui.noAccountsYetAddSomeVia_a5df9f53')
+    : translateMessage('ui.noSavedAccountsYetAddOne_914fbf73')
 
   return (
     <>
       {externalOpen === undefined && (
-        <Track
-          {...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED}
-          label={spaceId}
-          mixpanelParams={{ workspace_id: spaceId, entry_point: 'dashboard' }}
-        >
-          <AdminOnlyWorkspaceTooltip isAdmin={isAdmin} side="bottom">
-            <Button
-              size="lg"
-              className="font-normal"
-              variant={buttonVariant}
-              disabled={!isAdmin}
-              onClick={() => setOpen(true)}
-              data-testid="add-space-account-button"
-            >
-              <Plus
-                className={cn('size-4', {
-                  'text-green-500': buttonVariant === 'default',
-                })}
-              />
-              {buttonLabel}
-            </Button>
-          </AdminOnlyWorkspaceTooltip>
-        </Track>
+        <AdminOnlyWorkspaceTooltip isAdmin={isAdmin} side="bottom">
+          <Button
+            size="lg"
+            className="font-normal"
+            variant={buttonVariant}
+            disabled={!isAdmin}
+            onClick={() => {
+              trackEvent(
+                { ...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED, label: spaceId },
+                { workspace_id: spaceId, entry_point: 'dashboard' },
+              )
+              setOpen(true)
+            }}
+            data-testid="add-space-account-button"
+          >
+            <Plus
+              className={cn('size-4', {
+                'text-green-500': buttonVariant === 'default',
+              })}
+            />
+            {buttonLabel}
+          </Button>
+        </AdminOnlyWorkspaceTooltip>
       )}
 
       <Dialog open={isOpen} onOpenChange={(next) => !next && handleClose()}>
@@ -464,12 +487,12 @@ const AddAccounts = ({
                   variant="ghost"
                   size="icon"
                   onClick={handleBack}
-                  aria-label="Back"
+                  aria-label={translateMessage('ui.back_dae8bf43')}
                   data-testid="manage-trusted-back"
                 >
                   <ArrowLeft className="size-5" />
                 </Button>
-                <DialogTitle className="font-bold">Manage my account list</DialogTitle>
+                <DialogTitle className="font-bold">{translateMessage('ui.manageMyAccountList_8c4bafc8')}</DialogTitle>
               </DialogHeader>
 
               <div className="flex min-h-0 flex-1 flex-col px-6 pb-6 pt-4">
@@ -492,14 +515,16 @@ const AddAccounts = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => setView('select')}
-                      aria-label="Back"
+                      aria-label={translateMessage('ui.back_dae8bf43')}
                       data-testid="name-accounts-back"
                     >
                       <ArrowLeft className="size-5" />
                     </Button>
                   )}
                   <DialogTitle className="font-bold">
-                    {view === 'name' ? 'Name your Safe accounts' : 'My accounts'}
+                    {view === 'name'
+                      ? translateMessage('ui.nameYourAccounts_4bcb7c3a')
+                      : translateMessage('ui.myAccounts_837c511d')}
                   </DialogTitle>
                 </div>
               </DialogHeader>
@@ -515,12 +540,13 @@ const AddAccounts = ({
                       <div className="mb-4 flex shrink-0 items-center gap-3 rounded-2xl bg-muted p-4">
                         <Info className="size-5 shrink-0 text-muted-foreground" />
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-semibold text-foreground">What are my accounts?</p>
+                          <p className="text-sm font-semibold text-foreground">
+                            {translateMessage('ui.whatAreMyAccounts_d71c19a9')}
+                          </p>
                           <p className="text-sm text-muted-foreground">
-                            This list protects you from impersonation. Anyone can create a Safe account listing your
-                            address as a signer, so only accounts you&apos;ve confirmed appear here.{' '}
+                            {translateMessage('ui.thisListProtectsYouFromImpersonation_36134b7e')}{' '}
                             <ExternalLink href={HELP_CENTER_URL} noIcon className="underline">
-                              Learn more
+                              {translateMessage('ui.learnMore_0c11daba')}
                             </ExternalLink>
                           </p>
                         </div>
@@ -533,7 +559,7 @@ const AddAccounts = ({
                           className="shrink-0"
                         >
                           <Settings2 className="size-4" />
-                          Manage list
+                          {translateMessage('ui.manageList_5be941e5')}
                         </Button>
                       </div>
 
@@ -547,8 +573,8 @@ const AddAccounts = ({
                           />
                           <SearchInput
                             className="flex-1"
-                            placeholder="by name, address or network"
-                            aria-label="Search Safe accounts by name, address or network"
+                            placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+                            aria-label={translateMessage('ui.searchAccountsByNameAddressOr_cda42767')}
                             autoComplete="off"
                             value={rawSearchQuery}
                             onChange={(e) => setRawSearchQuery(e.target.value)}
@@ -567,7 +593,7 @@ const AddAccounts = ({
                           </Typography>
                         ) : hasNoSearchMatch ? (
                           <Typography variant="paragraph" align="center" color="muted" className="py-8">
-                            No safes match your search
+                            {translateMessage('ui.noSafesMatchYourSearch_6442d365')}
                           </Typography>
                         ) : (
                           <SafeAccountsTable
@@ -579,7 +605,7 @@ const AddAccounts = ({
                               onToggle: handleTableToggle,
                               isAtLimit: isSelectionLocked,
                               disabledKeys: spaceSafeKeys,
-                              disabledReason: 'This safe is already part of your Workspace',
+                              disabledReason: translateMessage('ui.thisSafeIsAlreadyPartOf_53686c80'),
                             }}
                             data-testid="add-accounts-safes-table"
                           />
@@ -603,9 +629,9 @@ const AddAccounts = ({
 
                   {isSafePro && isAtLimit && (
                     <Typography variant="paragraph-small" color="muted" align="center" className="mt-4 shrink-0">
-                      Need more?{' '}
+                      {translateMessage('ui.needMore_aa88bac7')}{' '}
                       <Link href={plansHref} variant="muted" data-testid="compare-plans-link">
-                        Compare plans
+                        {translateMessage('ui.comparePlans_673a1359')}
                       </Link>
                     </Typography>
                   )}
@@ -621,7 +647,7 @@ const AddAccounts = ({
                           className="w-full"
                           data-testid="name-accounts-back-button"
                         >
-                          Back
+                          {translateMessage('ui.back_dae8bf43')}
                         </Button>
                       ) : (
                         <Track {...SPACE_EVENTS.ADD_ACCOUNT_MANUALLY_MODAL}>
@@ -637,7 +663,11 @@ const AddAccounts = ({
                       disabled={!hasSomethingToSubmit || !isAddressBookReady || isSubmitting}
                       className="flex-1"
                     >
-                      {isSubmitting ? <Loader2 className="size-4 animate-spin" /> : 'Save'}
+                      {isSubmitting ? (
+                        <Loader2 className="size-4 animate-spin" />
+                      ) : (
+                        translateMessage('ui.save_5fe30f30')
+                      )}
                     </Button>
                   </div>
                 </form>

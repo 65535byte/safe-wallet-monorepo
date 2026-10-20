@@ -11,7 +11,7 @@ describe('SafeListSortToggle', () => {
 
     const trigger = screen.getByTestId('safe-list-sort-toggle')
     expect(trigger).toBeInTheDocument()
-    expect(trigger).toHaveTextContent('Name')
+    expect(trigger).toHaveTextContent('名称')
   })
 
   it('labels the last-visited sort as "Last visited"', () => {
@@ -22,7 +22,7 @@ describe('SafeListSortToggle', () => {
       },
     })
 
-    expect(screen.getByTestId('safe-list-sort-toggle')).toHaveTextContent('Last visited')
+    expect(screen.getByTestId('safe-list-sort-toggle')).toHaveTextContent('最近访问')
   })
 
   it('labels the manual sort as "Manual"', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import { useReducer } from 'react'
 import { ChevronDown } from 'lucide-react'
@@ -14,8 +15,8 @@ interface AnalysisDetailsDropdownProps {
 }
 
 export const AnalysisDetailsDropdown = ({
-  showLabel = 'Show all',
-  hideLabel = 'Hide all',
+  showLabel = translateMessage('ui.showAll_c5c3fa8c'),
+  hideLabel = translateMessage('ui.hideAll_9196b8dd'),
   children,
   defaultExpanded = false,
   contentWrapper,

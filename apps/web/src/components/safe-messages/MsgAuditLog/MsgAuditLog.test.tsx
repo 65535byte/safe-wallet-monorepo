@@ -30,14 +30,14 @@ describe('MsgAuditLog', () => {
   it('renders audit log header with confirmation count', () => {
     render(<MsgAuditLog msg={buildMsg({ confirmationsSubmitted: 1, confirmationsRequired: 3 })} />)
 
-    expect(screen.getByText('Audit log')).toBeInTheDocument()
+    expect(screen.getByText('审计日志')).toBeInTheDocument()
     expect(screen.getByTestId('msg-audit-log')).toBeInTheDocument()
   })
 
   it('renders Created row with proposer address', () => {
     render(<MsgAuditLog msg={buildMsg()} />)
 
-    expect(screen.getByText('Created')).toBeInTheDocument()
+    expect(screen.getByText('已创建')).toBeInTheDocument()
   })
 
   it('renders Signed rows for each confirmation', () => {
@@ -52,8 +52,8 @@ describe('MsgAuditLog', () => {
 
     render(<MsgAuditLog msg={msg} />)
 
-    expect(screen.getByText('Signed (1/3)')).toBeInTheDocument()
-    expect(screen.getByText('Signed (2/3)')).toBeInTheDocument()
+    expect(screen.getByText('已签名（1/3）')).toBeInTheDocument()
+    expect(screen.getByText('已签名（2/3）')).toBeInTheDocument()
   })
 
   it('renders Confirmed row when message is confirmed', () => {
@@ -69,14 +69,14 @@ describe('MsgAuditLog', () => {
 
     render(<MsgAuditLog msg={msg} />)
 
-    expect(screen.getByText('Confirmed')).toBeInTheDocument()
+    expect(screen.getByText('已确认')).toBeInTheDocument()
   })
 
   it('shows info banner when not yet confirmed', () => {
     render(<MsgAuditLog msg={buildMsg()} />)
 
-    expect(screen.getByText('Can be confirmed once the threshold is reached.')).toBeInTheDocument()
-    const alert = screen.getByText('Can be confirmed once the threshold is reached.').closest('[role="alert"]')
+    expect(screen.getByText('达到签名阈值后即可确认。')).toBeInTheDocument()
+    const alert = screen.getByText('达到签名阈值后即可确认。').closest('[role="alert"]')
     expect(alert).toHaveClass('bg-[var(--color-info-background)]')
     expect(alert?.querySelector('svg.lucide-info')).toBeTruthy()
   })
@@ -91,6 +91,6 @@ describe('MsgAuditLog', () => {
 
     render(<MsgAuditLog msg={msg} />)
 
-    expect(screen.queryByText('Can be confirmed once the threshold is reached.')).not.toBeInTheDocument()
+    expect(screen.queryByText('达到签名阈值后即可确认。')).not.toBeInTheDocument()
   })
 })

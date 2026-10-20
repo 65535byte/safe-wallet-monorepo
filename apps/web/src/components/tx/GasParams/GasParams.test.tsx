@@ -16,7 +16,7 @@ describe('GasParams', () => {
 
     const { getByText } = render(<GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} />)
 
-    expect(getByText('Estimated fee')).toBeInTheDocument()
+    expect(getByText('预计费用')).toBeInTheDocument()
   })
 
   it('Shows the nonce when signing and if it exists', () => {
@@ -65,7 +65,7 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} chain={chainInfo} />,
     )
 
-    expect(getByText('Estimated fee')).toBeInTheDocument()
+    expect(getByText('预计费用')).toBeInTheDocument()
     expect(getByText('0.42 SepoliaETH')).toBeInTheDocument()
   })
 
@@ -80,7 +80,7 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} />,
     )
 
-    expect(getByText('Estimated fee')).toBeInTheDocument()
+    expect(getByText('预计费用')).toBeInTheDocument()
     expect(queryByText('0.21')).not.toBeInTheDocument()
   })
 
@@ -97,9 +97,9 @@ describe('GasParams', () => {
     )
 
     // Details are inside a collapsed accordion (unmounted) until expanded
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Safe account transaction nonce')).toBeInTheDocument()
+    expect(await findByText('8379 账户交易 nonce')).toBeInTheDocument()
     expect(getByText('123')).toBeInTheDocument()
   })
 
@@ -116,7 +116,7 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
     expect(await findByText('safeTxGas')).toBeInTheDocument()
     expect(getByText('100')).toBeInTheDocument()
@@ -135,9 +135,9 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Gas limit')).toBeInTheDocument()
+    expect(await findByText('Gas 上限')).toBeInTheDocument()
     expect(getByText('30000')).toBeInTheDocument()
   })
 
@@ -155,11 +155,11 @@ describe('GasParams', () => {
         isExecution={true}
         isEIP1559={true}
         onEdit={jest.fn}
-        gasLimitError={new Error('Error estimating gas')}
+        gasLimitError={new Error('错误 estimating gas')}
       />,
     )
 
-    expect(queryAllByText('Cannot estimate').length).toBeGreaterThan(0)
+    expect(queryAllByText('无法估算').length).toBeGreaterThan(0)
   })
 
   it('Shows maxFee and maxPrioFee if EIP1559', async () => {
@@ -175,12 +175,12 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={true} onEdit={jest.fn} />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Max priority fee (Gwei)')).toBeInTheDocument()
+    expect(await findByText('最高优先费（Gwei）')).toBeInTheDocument()
     expect(getByText('0.00002')).toBeInTheDocument()
 
-    expect(getByText('Max fee (Gwei)')).toBeInTheDocument()
+    expect(getByText('最高费用（Gwei）')).toBeInTheDocument()
     expect(getByText('0.00001')).toBeInTheDocument()
   })
 
@@ -197,9 +197,9 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={false} onEdit={jest.fn} />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Gas price (Gwei)')).toBeInTheDocument()
+    expect(await findByText('Gas 价格（Gwei）')).toBeInTheDocument()
     expect(getByText('0.00001')).toBeInTheDocument()
   })
 
@@ -218,13 +218,13 @@ describe('GasParams', () => {
         isExecution={true}
         isEIP1559={false}
         onEdit={jest.fn}
-        gasLimitError={new Error('Error estimating gas')}
+        gasLimitError={new Error('错误 estimating gas')}
       />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Edit')).toBeInTheDocument()
+    expect(await findByText('编辑')).toBeInTheDocument()
   })
 
   it('Show Edit button if its not an execution', async () => {
@@ -242,7 +242,7 @@ describe('GasParams', () => {
 
     await userEvent.click(getByText(/Signing the transaction with nonce/))
 
-    expect(await findByText('Edit')).toBeInTheDocument()
+    expect(await findByText('编辑')).toBeInTheDocument()
   })
 
   it('Show Edit button if its an execution and loading finished', async () => {
@@ -258,8 +258,8 @@ describe('GasParams', () => {
       <GasParams params={params} isExecution={true} isEIP1559={false} onEdit={jest.fn} />,
     )
 
-    await userEvent.click(getByText('Estimated fee'))
+    await userEvent.click(getByText('预计费用'))
 
-    expect(await findByText('Edit')).toBeInTheDocument()
+    expect(await findByText('编辑')).toBeInTheDocument()
   })
 })

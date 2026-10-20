@@ -27,7 +27,7 @@ describe('useTxDetails hook', () => {
         },
         recipient: {
           value: '0x0987654321098765432109876543210987654321',
-          name: 'Recipient',
+          name: '接收方',
           logoUri: null,
         },
         direction: 'OUTGOING',

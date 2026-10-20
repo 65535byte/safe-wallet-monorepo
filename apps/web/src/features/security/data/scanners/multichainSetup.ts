@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SecurityScanner } from './types'
 import { getSeverityFromScore } from './constants'
 
@@ -13,7 +14,12 @@ export const multichainSetupScanner: SecurityScanner = {
         status: 'not_applicable',
         severity: getSeverityFromScore(score, { excluded: true }),
         score,
-        evidence: [{ label: 'Result', value: 'Deployed on a single network' }],
+        evidence: [
+          {
+            label: translateMessage('ui.result_df9aef04'),
+            value: translateMessage('ui.deployedOnASingleNetwork_6878e5c0'),
+          },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -21,7 +27,9 @@ export const multichainSetupScanner: SecurityScanner = {
 
     if (!multichainSignersConsistent) {
       const chainList =
-        multichainDeviatingChains.length > 0 ? multichainDeviatingChains.join(', ') : 'Multiple networks'
+        multichainDeviatingChains.length > 0
+          ? multichainDeviatingChains.join(', ')
+          : translateMessage('ui.multipleNetworks_9db80d86')
 
       const score = 30
       return {
@@ -29,11 +37,13 @@ export const multichainSetupScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [
-          { label: 'Result', value: 'Signer setup differs across networks' },
-          { label: 'Affected', value: chainList },
+          {
+            label: translateMessage('ui.result_df9aef04'),
+            value: translateMessage('ui.signerSetupDiffersAcrossNetworks_a4c825b4'),
+          },
+          { label: translateMessage('ui.affected_7bfcfbbe'), value: chainList },
         ],
-        remediation:
-          'Different signers across networks could break approvals and risk losing control. Switch to the affected network and review the signer setup.',
+        remediation: translateMessage('ui.differentSignersAcrossNetworksCouldBreak_b5666330'),
         lastChecked: now,
       }
     }
@@ -43,7 +53,12 @@ export const multichainSetupScanner: SecurityScanner = {
       status: 'clear',
       severity: getSeverityFromScore(score),
       score,
-      evidence: [{ label: 'Result', value: 'Signer setup is consistent across all networks' }],
+      evidence: [
+        {
+          label: translateMessage('ui.result_df9aef04'),
+          value: translateMessage('ui.signerSetupIsConsistentAcrossAll_f11aaceb'),
+        },
+      ],
       remediation: '',
       lastChecked: now,
     }

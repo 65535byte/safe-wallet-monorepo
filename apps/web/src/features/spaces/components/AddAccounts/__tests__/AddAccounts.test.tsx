@@ -174,9 +174,9 @@ describe('AddAccounts — wallet connection state', () => {
   it('renders the "What are trusted Safe accounts?" info banner with a Manage list action', () => {
     render(<AddAccounts externalOpen onExternalClose={() => {}} />)
 
-    expect(screen.getByText('What are my accounts?')).toBeInTheDocument()
+    expect(screen.getByText('什么是“我的账户”？')).toBeInTheDocument()
     expect(screen.getByText(/This list protects you from impersonation\./)).toBeInTheDocument()
-    expect(screen.getByTestId('open-manage-trusted-safes')).toHaveTextContent('Manage list')
+    expect(screen.getByTestId('open-manage-trusted-safes')).toHaveTextContent('管理列表')
   })
 
   it('keeps trusted safes that are already in the workspace in the list (shown pre-checked)', () => {
@@ -214,7 +214,7 @@ describe('AddAccounts — Safe account limit', () => {
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
 
     expect(screen.getByTestId('selected-count')).toHaveTextContent('1 of 40 selected')
-    expect(screen.getByTestId('add-accounts-button')).toHaveTextContent('Save')
+    expect(screen.getByTestId('add-accounts-button')).toHaveTextContent('保存')
   })
 
   it('counts against a known limit and leaves picking open below it', () => {
@@ -239,7 +239,7 @@ describe('AddAccounts — Safe account limit', () => {
     mockSafeLimit = { limit: undefined, isError: true }
     render(<AddAccounts externalOpen onExternalClose={() => {}} />, withTrusted)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Retry' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(mockRetryLimit).toHaveBeenCalled()
   })
 })
@@ -258,14 +258,14 @@ describe('AddAccounts — manage trusted safes view switch', () => {
     render(<AddAccounts externalOpen onExternalClose={() => {}} />, withTrusted)
 
     // Starts on the picker
-    expect(screen.getByText('My accounts')).toBeInTheDocument()
+    expect(screen.getByText('我的账户')).toBeInTheDocument()
     expect(screen.queryByTestId('manage-trusted-content')).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByTestId('open-manage-trusted-safes'))
 
     expect(mockTrustedOpen).toHaveBeenCalled()
     expect(screen.getByTestId('manage-trusted-content')).toBeInTheDocument()
-    expect(screen.getByText('Manage my account list')).toBeInTheDocument()
+    expect(screen.getByText('管理我的账户列表')).toBeInTheDocument()
 
     // Header back returns to the picker without saving
     fireEvent.click(screen.getByTestId('manage-trusted-back'))
@@ -303,7 +303,7 @@ describe('AddAccounts — admin guard on submit', () => {
     expect(form).not.toBeNull()
     fireEvent.submit(form!)
 
-    expect(await screen.findByText('Only admins can add or remove Safe accounts in this Workspace')).toBeInTheDocument()
+    expect(await screen.findByText('只有管理员可以在此工作空间添加或移除 8379 账户')).toBeInTheDocument()
     expect(mockAddSafesToSpace).not.toHaveBeenCalled()
     expect(mockRemoveSafesFromSpace).not.toHaveBeenCalled()
   })
@@ -328,7 +328,7 @@ describe('AddAccounts — admin guard on submit', () => {
     expect(form).not.toBeNull()
     fireEvent.submit(form!)
 
-    expect(screen.queryByText('Only admins can add or remove Safe accounts in this Workspace')).not.toBeInTheDocument()
+    expect(screen.queryByText('只有管理员可以在此工作空间添加或移除 8379 账户')).not.toBeInTheDocument()
     expect(mockAddSafesToSpace).not.toHaveBeenCalled()
     expect(mockRemoveSafesFromSpace).not.toHaveBeenCalled()
   })
@@ -381,7 +381,7 @@ describe('AddAccounts — naming step', () => {
     const form = selectTrusted()
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
-    await screen.findByText('Name your Safe accounts')
+    await screen.findByText('为 8379 账户命名')
 
     expect(screen.getByTestId('add-accounts-button')).not.toBeDisabled()
     fireEvent.submit(screen.getByTestId('add-accounts-button').closest('form')!)
@@ -404,7 +404,7 @@ describe('AddAccounts — naming step', () => {
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
 
-    expect(await screen.findByText('Name your Safe accounts')).toBeInTheDocument()
+    expect(await screen.findByText('为 8379 账户命名')).toBeInTheDocument()
     expect(screen.getByTestId('name-accounts-fields')).toHaveAttribute('data-count', '1')
     expect(screen.queryByTestId('safe-accounts-table')).not.toBeInTheDocument()
     expect(mockAddSafesToSpace).not.toHaveBeenCalled()
@@ -414,7 +414,7 @@ describe('AddAccounts — naming step', () => {
     const form = selectTrusted()
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
-    await screen.findByText('Name your Safe accounts')
+    await screen.findByText('为 8379 账户命名')
 
     fireEvent.submit(screen.getByTestId('add-accounts-button').closest('form')!)
 
@@ -435,7 +435,7 @@ describe('AddAccounts — naming step', () => {
     const form = selectTrusted()
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
-    await screen.findByText('Name your Safe accounts')
+    await screen.findByText('为 8379 账户命名')
 
     fireEvent.submit(screen.getByTestId('add-accounts-button').closest('form')!)
 
@@ -450,7 +450,7 @@ describe('AddAccounts — naming step', () => {
     fireEvent.submit(form)
 
     await waitFor(() => expect(mockAddSafesToSpace).toHaveBeenCalled())
-    expect(screen.queryByText('Name your Safe accounts')).not.toBeInTheDocument()
+    expect(screen.queryByText('为 8379 账户命名')).not.toBeInTheDocument()
   })
 
   it('surfaces a failed write and keeps the dialog on the naming view', async () => {
@@ -458,7 +458,7 @@ describe('AddAccounts — naming step', () => {
     const form = selectTrusted()
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
-    await screen.findByText('Name your Safe accounts')
+    await screen.findByText('为 8379 账户命名')
 
     fireEvent.submit(screen.getByTestId('add-accounts-button').closest('form')!)
 
@@ -470,11 +470,11 @@ describe('AddAccounts — naming step', () => {
     const form = selectTrusted()
     fireEvent.click(screen.getByTestId('safe-accounts-table'))
     fireEvent.submit(form)
-    await screen.findByText('Name your Safe accounts')
+    await screen.findByText('为 8379 账户命名')
 
     fireEvent.click(screen.getByTestId('name-accounts-back'))
 
-    expect(screen.getByText('My accounts')).toBeInTheDocument()
+    expect(screen.getByText('我的账户')).toBeInTheDocument()
     expect(screen.getByTestId('safe-accounts-table')).toBeInTheDocument()
   })
 })

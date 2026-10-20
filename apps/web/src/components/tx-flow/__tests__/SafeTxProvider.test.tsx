@@ -158,7 +158,7 @@ describe('SafeTxProvider', () => {
     // routes its failure into this one `safeTxError`, so a flow reporting it
     // again would emit a second event for the same failure.
     it('reports a failure any flow puts into the context', async () => {
-      const error = new Error('Failed to create the transaction')
+      const error = new Error('Failed to create the 笔交易')
 
       render(
         <SafeTxProvider>
@@ -173,7 +173,7 @@ describe('SafeTxProvider', () => {
     })
 
     it('reports it once while the failure stands', async () => {
-      const error = new Error('Failed to create the transaction')
+      const error = new Error('Failed to create the 笔交易')
 
       const { rerender } = render(
         <SafeTxProvider>
@@ -264,7 +264,7 @@ describe('SafeTxProvider', () => {
         },
       )
 
-      expect(screen.getByTestId('payment-mode')).toHaveTextContent('signer')
+      expect(screen.getByTestId('payment-mode')).toHaveTextContent('位签名人')
     })
 
     it('persists changes via setGtfPaymentMode', async () => {
@@ -293,7 +293,7 @@ describe('SafeTxProvider', () => {
       })
 
       await waitFor(() => {
-        expect(screen.getByTestId('payment-mode')).toHaveTextContent('signer')
+        expect(screen.getByTestId('payment-mode')).toHaveTextContent('位签名人')
       })
     })
 
@@ -314,7 +314,7 @@ describe('SafeTxProvider', () => {
         },
       )
 
-      expect(screen.getByTestId('payment-mode')).toHaveTextContent('signer')
+      expect(screen.getByTestId('payment-mode')).toHaveTextContent('位签名人')
 
       mockUseWallet.mockReturnValue(buildWallet(SIGNER_B))
       rerender(

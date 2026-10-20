@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MouseEvent, useState } from 'react'
 import { MoreVertical, Pencil, Trash2 } from 'lucide-react'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -52,12 +53,12 @@ const SpaceContextMenuNew = ({ space }: { space: GetSpaceResponse }) => {
           }
         >
           <MoreVertical className="size-4 text-[var(--color-border-main)]" />
-          <span className="sr-only">Workspace actions</span>
+          <span className="sr-only">{translateMessage('ui.workspaceActions_ea292a2d')}</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={(e) => handleOpenModal(e, ModalType.RENAME)} onSelect={(e) => e.stopPropagation()}>
             <Pencil className="text-success" />
-            <span>Rename</span>
+            <span>{translateMessage('ui.rename_f5101245')}</span>
           </DropdownMenuItem>
 
           <Tooltip>
@@ -71,7 +72,7 @@ const SpaceContextMenuNew = ({ space }: { space: GetSpaceResponse }) => {
                   variant="destructive"
                 >
                   <Trash2 />
-                  <span>Remove</span>
+                  <span>{translateMessage('ui.remove_1498adee')}</span>
                 </DropdownMenuItem>
               </Track>
             </TooltipTrigger>

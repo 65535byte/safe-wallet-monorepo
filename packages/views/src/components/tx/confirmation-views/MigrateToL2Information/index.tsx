@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 
 export const MigrateToL2Information = ({ variant }: { variant: 'history' | 'queue' }) => {
@@ -5,11 +6,11 @@ export const MigrateToL2Information = ({ variant }: { variant: 'history' | 'queu
     <div>
       <Alert variant="info">
         <AlertSeverityIcon variant="info" />
-        <AlertTitle>Migration to compatible base contract</AlertTitle>
+        <AlertTitle>{translateMessage('ui.migrationToCompatibleBaseContract_2adeff0c')}</AlertTitle>
         <AlertDescription>
           {variant === 'history'
-            ? 'This Safe was using an incompatible base contract. This transaction includes the migration to a supported base contract.'
-            : 'This Safe is currently using an incompatible base contract. The transaction was automatically modified to first migrate to a supported base contract.'}
+            ? translateMessage('ui.thisWasUsingAnIncompatibleBase_b8f17b66')
+            : translateMessage('ui.thisIsCurrentlyUsingAnIncompatible_82d80ff9')}
         </AlertDescription>
       </Alert>
     </div>

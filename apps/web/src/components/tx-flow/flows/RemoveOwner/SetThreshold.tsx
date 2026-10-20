@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -13,7 +14,6 @@ import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import { TOOLTIP_TITLES } from '@safe-global/views/components/tx-flow/common/constants'
 import type { RemoveOwnerFlowProps } from '.'
 
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { validateThreshold } from '@safe-global/utils/utils/validation'
 
 export const SetThreshold = ({
@@ -47,7 +47,7 @@ export const SetThreshold = ({
     <TxCard>
       <form onSubmit={onSubmitHandler}>
         <div className="mb-6">
-          <Typography className="mb-4">Review the signer you want to remove from the active Safe account:</Typography>
+          <Typography className="mb-4">{translateMessage('ui.reviewTheSignerYouWantTo_9ae74c74')}</Typography>
 
           <EthHashInfo address={params.removedOwner.address} shortAddress={false} showCopyButton hasExplorer />
         </div>
@@ -56,7 +56,7 @@ export const SetThreshold = ({
 
         <div className="my-6">
           <Typography variant="h4" className="inline-flex items-center gap-1 font-bold">
-            Threshold
+            {translateMessage('ui.threshold_60fbd8eb')}
             <Tooltip>
               <TooltipTrigger
                 render={
@@ -68,7 +68,7 @@ export const SetThreshold = ({
               <TooltipContent>{TOOLTIP_TITLES.THRESHOLD}</TooltipContent>
             </Tooltip>
           </Typography>
-          <Typography>Any transaction requires the confirmation of:</Typography>
+          <Typography>{translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}</Typography>
           <div className="mt-4 flex flex-row items-center gap-2">
             <div>
               <Select value={selectedThreshold} onValueChange={handleChange}>
@@ -86,7 +86,8 @@ export const SetThreshold = ({
             </div>
             <div>
               <Typography>
-                out of {newNumberOfOwners} signer{maybePlural(newNumberOfOwners)}
+                {translateMessage('ui.outOf_9bf030fe')}
+                {newNumberOfOwners} {translateMessage('ui.signer_efab2dcb')}
               </Typography>
             </div>
           </div>
@@ -98,7 +99,7 @@ export const SetThreshold = ({
 
         <TxCardActions>
           <Button data-testid="next-btn" type="submit" disabled={!!thresholdError}>
-            Next
+            {translateMessage('ui.next_9cff86c8')}
           </Button>
         </TxCardActions>
       </form>

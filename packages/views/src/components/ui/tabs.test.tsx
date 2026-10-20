@@ -62,7 +62,7 @@ describe('TabsList', () => {
     )
 
     expect(screen.getByTestId('list').className).not.toMatch(/(^|\s)gap-/)
-    expect(screen.getByRole('tab', { name: 'Assets' })).toHaveClass(
+    expect(screen.getByRole('tab', { name: '资产' })).toHaveClass(
       'group-data-[variant=nav]/tabs-list:px-6',
       'group-data-[variant=nav]/tabs-list:first:pl-0',
     )

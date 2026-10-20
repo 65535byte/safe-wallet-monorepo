@@ -233,7 +233,7 @@ describe('executionPreChecks', () => {
         // A forgotten `scope` is a caller bug — it must not degrade into "skip the signature check".
         await expect(
           runExecutionPreChecks({ safeTx, safe: createSafe(), signerAddress: signerWallet.address }),
-        ).rejects.toThrow('A Safe account must be selected before transacting in this flow.')
+        ).rejects.toThrow('在此流程中交易前，必须先选择 8379 账户。')
       } finally {
         unregister()
       }

@@ -37,11 +37,11 @@ describe('ClearPendingTxs', () => {
         },
       },
     })
-    expect(screen.getByText('Clear 1 transaction')).toBeInTheDocument()
+    expect(screen.getByText('Clear 1 笔交易')).toBeInTheDocument()
     act(() => {
-      fireEvent.click(screen.getByText('Clear 1 transaction'))
+      fireEvent.click(screen.getByText('Clear 1 笔交易'))
     })
-    expect(screen.getByText('No pending transactions')).toBeInTheDocument()
+    expect(screen.getByText('暂无待处理交易')).toBeInTheDocument()
   })
   it('clears multiple transactions', () => {
     render(<ClearPendingTxs />, {
@@ -97,10 +97,10 @@ describe('ClearPendingTxs', () => {
         },
       },
     })
-    expect(screen.getByText('Clear 2 transactions')).toBeInTheDocument()
+    expect(screen.getByText('Clear 2 笔交易')).toBeInTheDocument()
     act(() => {
-      fireEvent.click(screen.getByText('Clear 2 transactions'))
+      fireEvent.click(screen.getByText('Clear 2 笔交易'))
     })
-    expect(screen.getByText('No pending transactions')).toBeInTheDocument()
+    expect(screen.getByText('暂无待处理交易')).toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { cva } from 'class-variance-authority'
 import {
@@ -295,7 +296,11 @@ function PaginatedDataTable<T>({
                         size="icon-sm"
                         aria-expanded={isOpen}
                         aria-controls={isOpen ? detailId : undefined}
-                        aria-label={isOpen ? 'Hide details' : 'Show details'}
+                        aria-label={
+                          isOpen
+                            ? translateMessage('ui.hideDetails_4e187b44')
+                            : translateMessage('ui.showDetails_012660f9')
+                        }
                         onClick={() => toggleExpanded(key)}
                       >
                         <ChevronDown className={cn('size-4 transition-transform', isOpen && 'rotate-180')} />
@@ -324,14 +329,14 @@ function PaginatedDataTable<T>({
       {totalPages > 1 && (
         <div className="flex items-center justify-between px-4 pt-4">
           <p className="text-muted-foreground text-sm">
-            {currentPage * pageSize + 1}&ndash;{Math.min((currentPage + 1) * pageSize, sortedRows.length)} of{' '}
+            {currentPage * pageSize + 1}&ndash;{Math.min((currentPage + 1) * pageSize, sortedRows.length)} /{' '}
             {sortedRows.length}
           </p>
           <div className="flex gap-1">
             <Button
               variant="outline"
               size="icon-sm"
-              aria-label="Previous page"
+              aria-label={translateMessage('ui.previousPage_be331368')}
               data-testid="prev-page-btn"
               disabled={currentPage === 0}
               onClick={() => setPage(currentPage - 1)}
@@ -341,7 +346,7 @@ function PaginatedDataTable<T>({
             <Button
               variant="outline"
               size="icon-sm"
-              aria-label="Next page"
+              aria-label={translateMessage('ui.nextPage_200cc014')}
               data-testid="next-page-btn"
               disabled={currentPage >= totalPages - 1}
               onClick={() => setPage(currentPage + 1)}

@@ -18,7 +18,7 @@ type MappedError = EthersError & { shortMessage?: string }
  * Substrings that must never reach a user-facing string: library names and
  * versions, DMK/ethers class names and codes, and serialised payloads.
  */
-const FORBIDDEN_IN_UI = ['viem@', 'version=', 'code=', 'info={', 'Error', '_tag', '{', '}']
+const FORBIDDEN_IN_UI = ['viem@', 'version=', 'code=', 'info={', '错误', '_tag', '{', '}']
 
 /** `InvalidStatusWordError`: no `message`, the reason hides in `originalError`. */
 const invalidStatusWord = (message?: string): DmkError => ({
@@ -97,7 +97,7 @@ describe('ledger-errors', () => {
       const info = readLedgerDeviceError({ _tag: tag, originalError: new Error('boom') })
 
       expect(info.reason).toBe('connection')
-      expect(getLedgerUserMessage(info)).toBe('Lost connection to your Ledger. Reconnect it and try again.')
+      expect(getLedgerUserMessage(info)).toBe('与 Ledger 的连接已断开，请重新连接后重试。')
     })
 
     it('does not mistake the SDK export name for the runtime tag', () => {
@@ -141,10 +141,10 @@ describe('ledger-errors', () => {
 
   describe('getLedgerUserMessage', () => {
     it.each([
-      ['5501', 'Transaction rejected on your Ledger.'],
-      ['5515', 'Unlock your Ledger and try again.'],
-      ['6807', 'Open the Ethereum app on your Ledger.'],
-      ['6a80', 'Enable blind signing in the Ethereum app on your Ledger, then try again.'],
+      ['5501', '您在 Ledger 上拒绝了交易。'],
+      ['5515', '请解锁 Ledger 后重试。'],
+      ['6807', '请在 Ledger 上打开 Ethereum 应用。'],
+      ['6a80', '请在 Ledger 的 Ethereum 应用中启用盲签后重试。'],
     ])('translates the device state 0x%s', (errorCode, expected) => {
       const info = readLedgerDeviceError(deviceExchangeError('EthAppCommandError', errorCode, 'raw device text'))
       expect(getLedgerUserMessage(info)).toBe(expected)
@@ -152,13 +152,13 @@ describe('ledger-errors', () => {
 
     it('translates a lost transport into a reconnect instruction', () => {
       const info = readLedgerDeviceError({ _tag: 'DisconnectError' })
-      expect(getLedgerUserMessage(info)).toBe('Lost connection to your Ledger. Reconnect it and try again.')
+      expect(getLedgerUserMessage(info)).toBe('与 Ledger 的连接已断开，请重新连接后重试。')
     })
 
     it('falls back to one sentence plus a support reference for an unmapped state', () => {
       const info = readLedgerDeviceError(invalidStatusWord('The context type [x] is not covered'))
 
-      expect(getLedgerUserMessage(info)).toBe('Your Ledger could not complete the request.')
+      expect(getLedgerUserMessage(info)).toBe('Ledger 无法完成请求。')
       expect(getLedgerSupportReference(info)).toBe('LEDGER-UNKNOWN')
     })
 
@@ -197,8 +197,8 @@ describe('ledger-errors', () => {
     it('never emits the literal "unknown" for an InvalidStatusWordError', () => {
       const error = mapLedgerError(invalidStatusWord('no signature returned')) as MappedError
 
-      expect(error.message).toBe('Your Ledger could not complete the request.')
-      expect(error.shortMessage).toBe('Your Ledger could not complete the request.')
+      expect(error.message).toBe('Ledger 无法完成请求。')
+      expect(error.shortMessage).toBe('Ledger 无法完成请求。')
       expect(error.code).toBe('UNKNOWN_ERROR')
     })
 
@@ -273,7 +273,7 @@ describe('ledger-errors', () => {
       // must still carry a phrase the matcher knows (WA-2950 / WA-3243).
       const error = mapLedgerError({ _tag: 'RefusedByUserDAError' }) as MappedError
 
-      expect(error.message).toBe('You rejected the request on your Ledger.')
+      expect(error.message).toBe('您在 Ledger 上拒绝了请求。')
       for (const forbidden of FORBIDDEN_IN_UI) {
         expect(error.message).not.toContain(forbidden)
       }
@@ -301,7 +301,7 @@ describe('ledger-errors', () => {
     })
 
     it('finds the device reason through several layers of wrapping', () => {
-      const wrapped = Object.assign(new Error('Failed to execute transaction'), {
+      const wrapped = Object.assign(new Error('Failed to execute 笔交易'), {
         cause: wrapLikeViem(mapLedgerError(invalidStatusWord('no signature returned'))),
       })
 

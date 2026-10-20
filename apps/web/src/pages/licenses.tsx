@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -9,15 +10,16 @@ import { BRAND_NAME } from '@/config/constants'
 const SafeLicenses = () => (
   <>
     <Typography variant="h1" className="mb-4">
-      Licenses
+      {translateMessage('ui.licenses_9bd58638')}
     </Typography>
     <Typography variant="h3" className="mb-4">
-      Libraries we use
+      {translateMessage('ui.librariesWeUse_360890c1')}
     </Typography>
     <div className="mb-8">
       <Typography className="mb-6">
-        This page contains a list of attribution notices for third party software that may be contained in portions of
-        the {BRAND_NAME}. We thank the open source community for all of their contributions.
+        {translateMessage('ui.thisPageContainsAListOf_9075abe7')}
+        {BRAND_NAME}
+        {translateMessage('ui.weThankTheOpenSourceCommunity_d0dc5d3c')}
       </Typography>
       <Typography variant="h2" className="mb-4">
         Android
@@ -27,10 +29,10 @@ const SafeLicenses = () => (
           <TableHeader>
             <TableRow>
               <TableHead className="w-[30%]">
-                <strong>Library</strong>
+                <strong>{translateMessage('ui.library_73ed2dc7')}</strong>
               </TableHead>
               <TableHead>
-                <strong>License</strong>
+                <strong>{translateMessage('ui.license_f94cdad3')}</strong>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -174,10 +176,10 @@ const SafeLicenses = () => (
           <TableHeader>
             <TableRow>
               <TableHead className="w-[30%]">
-                <strong>Library</strong>
+                <strong>{translateMessage('ui.library_73ed2dc7')}</strong>
               </TableHead>
               <TableHead>
-                <strong>License</strong>
+                <strong>{translateMessage('ui.license_f94cdad3')}</strong>
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -266,14 +268,14 @@ const SafeLicenses = () => (
     </div>
     <div>
       <Typography variant="h2" className="mb-4">
-        Web
+        {translateMessage('ui.web_2018db52')}
       </Typography>
       <div className="bg-card rounded-lg">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[30%]">Library</TableHead>
-              <TableHead>License</TableHead>
+              <TableHead className="w-[30%]">{translateMessage('ui.library_73ed2dc7')}</TableHead>
+              <TableHead>{translateMessage('ui.license_f94cdad3')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -482,7 +484,7 @@ const Licenses: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Licenses`}</title>
+        <title>{translateMessage('ui.licenses_1733f886', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>{isOfficialHost && <SafeLicenses />}</main>

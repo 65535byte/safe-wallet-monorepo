@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { NativeStakingStatus } from '@safe-global/store/gateway/types'
 import type { SvgrComponent } from '@safe-global/views/components/common/icons/types'
 import CheckIcon from '@/public/images/common/circle-check.svg'
@@ -19,42 +20,42 @@ const ColorIcons: Record<
   [NativeStakingStatus.NOT_STAKED]: {
     color: 'warning',
     icon: SignatureIcon,
-    text: 'Inactive',
+    text: translateMessage('ui.inactive_402ad6c0'),
   },
   [NativeStakingStatus.ACTIVATING]: {
     color: 'info',
     icon: ClockIcon,
-    text: 'Activating',
+    text: translateMessage('ui.activating_a907caf8'),
   },
   [NativeStakingStatus.DEPOSIT_IN_PROGRESS]: {
     color: 'info',
     icon: ClockIcon,
-    text: 'Awaiting entry',
+    text: translateMessage('ui.awaitingEntry_cbba0b27'),
   },
   [NativeStakingStatus.ACTIVE]: {
     color: 'success',
     icon: CheckIcon,
-    text: 'Validating',
+    text: translateMessage('ui.validating_caec6fb0'),
   },
   [NativeStakingStatus.EXIT_REQUESTED]: {
     color: 'info',
     icon: ClockIcon,
-    text: 'Requested exit',
+    text: translateMessage('ui.requestedExit_051eefaf'),
   },
   [NativeStakingStatus.EXITING]: {
     color: 'info',
     icon: ClockIcon,
-    text: 'Request pending',
+    text: translateMessage('ui.requestPending_4ed13dcc'),
   },
   [NativeStakingStatus.EXITED]: {
     color: 'success',
     icon: CheckIcon,
-    text: 'Withdrawn',
+    text: translateMessage('ui.withdrawn_486cd160'),
   },
   [NativeStakingStatus.SLASHED]: {
     color: 'warning',
     icon: SlashShield,
-    text: 'Slashed',
+    text: translateMessage('ui.slashed_091c92eb'),
   },
 }
 

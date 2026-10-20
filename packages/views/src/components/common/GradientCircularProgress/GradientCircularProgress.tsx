@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { useMemo, useRef, type CSSProperties } from 'react'
 
 export interface GradientCircularProgressProps {
@@ -58,7 +59,7 @@ export const GradientCircularProgress = ({
   return (
     <span
       role="progressbar"
-      aria-label="Loading"
+      aria-label={translateMessage('ui.loading_e61bb78c')}
       className={`inline-block animate-spin ${className ?? ''}`}
       style={{ width: size, height: size, ...style }}
     >

@@ -100,11 +100,11 @@ describe('Balances page', () => {
 
     expect(screen.getByTestId('manage-tokens-button')).toBeInTheDocument()
     expect(screen.getByTestId('currency-select')).toBeInTheDocument()
-    expect(screen.getByText('There was an error loading your assets')).toBeInTheDocument()
+    expect(screen.getByText('加载资产时出错')).toBeInTheDocument()
     expect(screen.queryByTestId('assets-table')).not.toBeInTheDocument()
   })
 
-  const tooltipText = 'Total from this list only. Portfolio total includes positions and may use other token data.'
+  const tooltipText = '仅统计此列表的总额。资产组合总额包含持仓，可能使用不同的代币数据。'
 
   const renderWithTokenList = (tokenList: TOKEN_LISTS | undefined) =>
     render(<BalancesPage />, {

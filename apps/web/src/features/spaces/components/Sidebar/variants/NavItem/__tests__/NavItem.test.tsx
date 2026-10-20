@@ -21,7 +21,7 @@ jest.mock('../../../../Plans/planSelection', () => ({
 }))
 
 jest.mock('@/services/analytics/ga-mixpanel-mapping', () => ({
-  GA_LABEL_TO_MIXPANEL_PROPERTY: { sidebar: 'Sidebar' },
+  GA_LABEL_TO_MIXPANEL_PROPERTY: { sidebar: '侧边栏' },
 }))
 
 jest.mock('@/services/analytics/events/swaps', () => ({
@@ -126,7 +126,7 @@ jest.mock('@safe-global/views/components/ui/sidebar', () => ({
 describe('NavItem', () => {
   const baseItem: ResolvedSidebarNavItem = {
     icon: House,
-    label: 'Home',
+    label: '首页',
     href: '/home',
     link: { pathname: '/home', query: {} },
     isActive: false,
@@ -144,7 +144,7 @@ describe('NavItem', () => {
     const { container } = render(<NavItem item={baseItem} />)
 
     expect(container.querySelector('svg')).toBeInTheDocument()
-    expect(screen.getByRole('link')).toHaveTextContent('Home')
+    expect(screen.getByRole('link')).toHaveTextContent('首页')
   })
 
   it('renders as a link when not disabled', () => {
@@ -167,7 +167,7 @@ describe('NavItem', () => {
     const disabledItem = { ...baseItem, disabled: true }
     render(<NavItem item={disabledItem} />)
 
-    expect(screen.getByText('You need to activate your Safe first.')).toBeInTheDocument()
+    expect(screen.getByText('请先激活 8379。')).toBeInTheDocument()
   })
 
   it('does not show the label tooltip when the sidebar is expanded', () => {
@@ -180,7 +180,7 @@ describe('NavItem', () => {
     mockSidebarState.state = 'collapsed'
     render(<NavItem item={baseItem} />)
 
-    expect(screen.getByRole('tooltip')).toHaveTextContent('Home')
+    expect(screen.getByRole('tooltip')).toHaveTextContent('首页')
   })
 
   it('does not show the label tooltip when collapsed on mobile', () => {
@@ -194,7 +194,7 @@ describe('NavItem', () => {
   it('shows the activation tooltip for a disabled item even when expanded', () => {
     render(<NavItem item={{ ...baseItem, disabled: true }} />)
 
-    expect(screen.getByText('You need to activate your Safe first.')).toBeInTheDocument()
+    expect(screen.getByText('请先激活 8379。')).toBeInTheDocument()
   })
 
   it('applies the active icon style when active', () => {
@@ -237,7 +237,7 @@ describe('NavItem', () => {
     const disabledItem = { ...baseItem, disabled: true }
     render(<NavItem item={disabledItem} isSpacesVariant />)
 
-    expect(screen.queryByText('You need to activate your Safe first.')).not.toBeInTheDocument()
+    expect(screen.queryByText('请先激活 8379。')).not.toBeInTheDocument()
   })
 
   it('sets data-active attribute when isActive is true', () => {
@@ -344,7 +344,7 @@ describe('NavItem', () => {
 
       expect(mockTrackEvent).toHaveBeenCalledWith(
         expect.objectContaining({ action: 'Sidebar clicked' }),
-        expect.objectContaining({ sidebarElement: 'Home' }),
+        expect.objectContaining({ sidebarElement: '首页' }),
       )
     })
 
@@ -366,7 +366,7 @@ describe('NavItem', () => {
       )
       expect(mockTrackEvent).toHaveBeenCalledWith(
         expect.objectContaining({ action: 'Sidebar clicked' }),
-        expect.objectContaining({ sidebarElement: 'Home' }),
+        expect.objectContaining({ sidebarElement: '首页' }),
       )
     })
 
@@ -377,7 +377,7 @@ describe('NavItem', () => {
 
       expect(mockTrackEvent).toHaveBeenCalledWith(
         expect.objectContaining({ action: 'Open Swaps', label: 'sidebar' }),
-        expect.objectContaining({ entryPoint: 'Sidebar' }),
+        expect.objectContaining({ entryPoint: '侧边栏' }),
       )
     })
 
@@ -412,7 +412,7 @@ describe('NavItem', () => {
 
   const actionItem: ResolvedSidebarActionItem = {
     icon: House,
-    label: 'Feature flags',
+    label: '功能开关',
     id: 'feature-flags',
     isActive: false,
     disabled: false,
@@ -427,7 +427,7 @@ describe('NavItem', () => {
       expect(element.tagName).toBe('BUTTON')
       expect(element).not.toHaveAttribute('href')
       expect(screen.queryByRole('link')).not.toBeInTheDocument()
-      expect(element).toHaveTextContent('Feature flags')
+      expect(element).toHaveTextContent('功能开关')
     })
 
     it('calls onSelect when clicked', () => {
@@ -444,7 +444,7 @@ describe('NavItem', () => {
 
       fireEvent.click(screen.getByTestId('sidebar-list-item'))
 
-      expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: 'Feature flags' })
+      expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: '功能开关' })
     })
 
     it('does not call onSelect when disabled', () => {
@@ -466,7 +466,7 @@ describe('NavItem', () => {
       mockSidebarState.state = 'collapsed'
       render(<NavItem item={{ ...actionItem, onSelect: jest.fn() }} />)
 
-      expect(screen.getByRole('tooltip')).toHaveTextContent('Feature flags')
+      expect(screen.getByRole('tooltip')).toHaveTextContent('功能开关')
     })
 
     it('does not close the mobile drawer, which would unmount the UI it opens', () => {

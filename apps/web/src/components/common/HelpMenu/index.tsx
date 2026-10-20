@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useCallback, type ReactElement } from 'react'
 import { HelpCircle, MessageCircle, ExternalLink } from 'lucide-react'
 import { Popover, PopoverContent } from '@safe-global/views/components/ui/popover'
@@ -52,7 +53,7 @@ const HelpMenu = ({ anchorEl, onClose }: HelpMenuProps): ReactElement | null => 
             className="h-auto w-full justify-start gap-2 px-3 py-2 font-normal"
           >
             <HelpCircle className="size-4" />
-            <span className="flex-1 text-left">Help center</span>
+            <span className="flex-1 text-left">{translateMessage('ui.helpCenter_d4f6b178')}</span>
             <ExternalLink className="size-4 text-[var(--color-text-secondary)]" />
           </Button>
 
@@ -64,7 +65,7 @@ const HelpMenu = ({ anchorEl, onClose }: HelpMenuProps): ReactElement | null => 
               className="h-auto w-full justify-start gap-2 px-3 py-2 font-normal"
             >
               <MessageCircle className="size-4" />
-              <span className="flex-1 text-left">Contact support</span>
+              <span className="flex-1 text-left">{translateMessage('ui.contactSupport_c13a54d4')}</span>
             </Button>
           ) : null}
         </PopoverContent>

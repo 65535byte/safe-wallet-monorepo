@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import WalletConnect from '@/public/images/common/walletconnect.svg'
@@ -14,7 +15,7 @@ const WcLogoHeader = ({ errorMessage }: { errorMessage?: string }): ReactElement
       </div>
 
       <Typography data-testid="wc-title" variant="h4" className={`mt-4 mb-1 ${css.title}`}>
-        {errorMessage || `Connect dApps to ${BRAND_NAME}`}
+        {errorMessage || translateMessage('ui.connectDAppsTo_decc1f9f', { p0: BRAND_NAME })}
       </Typography>
     </>
   )

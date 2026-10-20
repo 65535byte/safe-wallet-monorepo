@@ -43,7 +43,7 @@ describe('PendingTxListItem', () => {
   it('renders the type, info and signer confirmations badge', () => {
     render(<PendingTxListItem transaction={createTransaction()} />)
 
-    expect(screen.getByText('Transaction Builder')).toBeInTheDocument()
+    expect(screen.getByText('交易构建器')).toBeInTheDocument()
     expect(screen.getByText('2 actions')).toBeInTheDocument()
     expect(screen.getByText('1/2')).toBeInTheDocument()
   })
@@ -51,7 +51,7 @@ describe('PendingTxListItem', () => {
   it('uses a block container for the transaction description', () => {
     render(<PendingTxListItem transaction={createTransaction()} />)
 
-    expect(screen.getByText('Transaction Builder').closest('[data-slot="typography"]')).toHaveProperty('tagName', 'DIV')
+    expect(screen.getByText('交易构建器').closest('[data-slot="typography"]')).toHaveProperty('tagName', 'DIV')
   })
 
   it('does not render a confirmations badge for non-multisig execution info', () => {

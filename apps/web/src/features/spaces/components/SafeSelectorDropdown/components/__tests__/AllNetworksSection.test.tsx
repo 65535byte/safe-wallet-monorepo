@@ -52,7 +52,7 @@ describe('AllNetworksSection', () => {
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
 
     expect(screen.getByTestId('chain-selector-unavailable')).toBeInTheDocument()
-    expect(screen.getByText('Adding another network is not possible for this Safe.')).toBeInTheDocument()
+    expect(screen.getByText('此 8379 无法添加其他网络。')).toBeInTheDocument()
   })
 
   it('wraps the Info icon in a tooltip trigger when a raw error message is available', () => {
@@ -92,9 +92,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
 
-    expect(
-      screen.getByText('This account was created from an outdated mastercopy. Adding another network is not possible.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('此账户使用了过时的主合约，无法添加其他网络。')).toBeInTheDocument()
   })
 
   it('shows a loader while the creation data is being fetched', () => {
@@ -138,7 +136,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
 
-    expect(screen.getByText('All networks')).toBeInTheDocument()
+    expect(screen.getByText('所有网络')).toBeInTheDocument()
   })
 
   it('exposes an add button per chain once the accordion is expanded', () => {
@@ -153,10 +151,10 @@ describe('AllNetworksSection', () => {
     })
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
-    fireEvent.click(screen.getByText('All networks'))
+    fireEvent.click(screen.getByText('所有网络'))
 
-    expect(screen.getByLabelText('Add Optimism')).toBeEnabled()
-    expect(screen.getByLabelText('Add Polygon')).toBeEnabled()
+    expect(screen.getByLabelText('添加 Optimism')).toBeEnabled()
+    expect(screen.getByLabelText('添加 Polygon')).toBeEnabled()
   })
 
   it('calls onAddNetwork with the clicked chainId for an available chain', () => {
@@ -169,8 +167,8 @@ describe('AllNetworksSection', () => {
     })
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={onAddNetwork} />)
-    fireEvent.click(screen.getByText('All networks'))
-    fireEvent.click(screen.getByLabelText('Add Optimism'))
+    fireEvent.click(screen.getByText('所有网络'))
+    fireEvent.click(screen.getByLabelText('添加 Optimism'))
 
     expect(onAddNetwork).toHaveBeenCalledWith('10')
   })
@@ -185,11 +183,11 @@ describe('AllNetworksSection', () => {
     })
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={onAddNetwork} />)
-    fireEvent.click(screen.getByText('All networks'))
+    fireEvent.click(screen.getByText('所有网络'))
 
-    const button = screen.getByLabelText('Add zkSync')
+    const button = screen.getByLabelText('添加 zkSync')
     expect(button).toBeDisabled()
-    expect(screen.getByText('Not available')).toBeInTheDocument()
+    expect(screen.getByText('不可用')).toBeInTheDocument()
 
     fireEvent.click(button)
     expect(onAddNetwork).not.toHaveBeenCalled()
@@ -208,7 +206,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="o" />)
 
-    expect(screen.getByLabelText('Add Optimism')).toBeInTheDocument()
+    expect(screen.getByLabelText('添加 Optimism')).toBeInTheDocument()
   })
 
   it('should, when no search query is given, keep the section collapsed', () => {
@@ -224,7 +222,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="" />)
 
-    expect(screen.queryByLabelText('Add Optimism')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('添加 Optimism')).not.toBeInTheDocument()
   })
 
   it('should, when a search query is given, list only the matching networks', () => {
@@ -240,8 +238,8 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="poly" />)
 
-    expect(screen.getByLabelText('Add Polygon')).toBeInTheDocument()
-    expect(screen.queryByLabelText('Add Optimism')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('添加 Polygon')).toBeInTheDocument()
+    expect(screen.queryByLabelText('添加 Optimism')).not.toBeInTheDocument()
     expect(screen.queryByTestId('all-networks-empty')).not.toBeInTheDocument()
   })
 
@@ -265,9 +263,9 @@ describe('AllNetworksSection', () => {
       />,
     )
 
-    expect(screen.queryByLabelText('Add Optimism')).not.toBeInTheDocument()
-    expect(screen.queryByLabelText('Add Polygon')).not.toBeInTheDocument()
-    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('No networks match your search')
+    expect(screen.queryByLabelText('添加 Optimism')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('添加 Polygon')).not.toBeInTheDocument()
+    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('没有匹配的网络')
   })
 
   it('should, when there is no network to add and nothing above matches, still show the no-matches message', () => {
@@ -280,7 +278,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="zzz" />)
 
-    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('No networks match your search')
+    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('没有匹配的网络')
   })
 
   it('should, when a query is typed while the networks are still loading, keep showing the loader', () => {
@@ -308,11 +306,11 @@ describe('AllNetworksSection', () => {
     const { rerender } = render(
       <AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="o" />,
     )
-    expect(screen.getByLabelText('Add Optimism')).toBeInTheDocument()
+    expect(screen.getByLabelText('添加 Optimism')).toBeInTheDocument()
 
     rerender(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="" />)
 
-    expect(screen.queryByLabelText('Add Optimism')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('添加 Optimism')).not.toBeInTheDocument()
   })
 
   it('should, when a query expands the section on its own, not report it as showing all networks', () => {
@@ -325,7 +323,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="o" />)
 
-    expect(screen.getByLabelText('Add Optimism')).toBeInTheDocument()
+    expect(screen.getByLabelText('添加 Optimism')).toBeInTheDocument()
     expect(mockTrack).not.toHaveBeenCalled()
   })
 
@@ -387,7 +385,7 @@ describe('AllNetworksSection', () => {
 
     render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} search="zzz" />)
 
-    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('No networks match your search')
+    expect(screen.getByTestId('all-networks-empty')).toHaveTextContent('没有匹配的网络')
   })
 
   it('should, when the feature is disabled and a row above matches, render nothing', () => {
@@ -437,24 +435,24 @@ describe('AllNetworksSection', () => {
 
     it('fires SHOW_ALL_NETWORKS when the accordion is expanded', () => {
       render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
-      fireEvent.click(screen.getByText('All networks'))
+      fireEvent.click(screen.getByText('所有网络'))
 
       expect(mockTrack).toHaveBeenCalledWith(OVERVIEW_EVENTS.SHOW_ALL_NETWORKS)
     })
 
     it('does not fire SHOW_ALL_NETWORKS when the accordion is collapsed again', () => {
       render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
-      fireEvent.click(screen.getByText('All networks'))
+      fireEvent.click(screen.getByText('所有网络'))
       mockTrack.mockClear()
-      fireEvent.click(screen.getByText('All networks'))
+      fireEvent.click(screen.getByText('所有网络'))
 
       expect(mockTrack).not.toHaveBeenCalled()
     })
 
     it('fires ADD_NEW_NETWORK with top_bar label when a chain is clicked', () => {
       render(<AllNetworksSection safeAddress="0xSafe" deployedChainIds={['1']} onAddNetwork={jest.fn()} />)
-      fireEvent.click(screen.getByText('All networks'))
-      fireEvent.click(screen.getByLabelText('Add Optimism'))
+      fireEvent.click(screen.getByText('所有网络'))
+      fireEvent.click(screen.getByLabelText('添加 Optimism'))
 
       expect(mockTrack).toHaveBeenCalledWith({ ...OVERVIEW_EVENTS.ADD_NEW_NETWORK, label: OVERVIEW_LABELS.top_bar })
     })

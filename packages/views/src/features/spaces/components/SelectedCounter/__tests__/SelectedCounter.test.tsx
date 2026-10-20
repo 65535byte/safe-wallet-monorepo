@@ -22,7 +22,7 @@ describe('safeLimitTooltip', () => {
   })
 
   it('distinguishes an unlimited plan from a capped one', () => {
-    expect(safeLimitTooltip(null)).toBe('Your plan has no limit on Safe accounts per Workspace')
-    expect(safeLimitTooltip(20)).toBe('You can add up to 20 Safe accounts per Workspace')
+    expect(safeLimitTooltip(null)).toBe('此套餐不限制每个工作空间的 8379 账户数')
+    expect(safeLimitTooltip(20)).toBe('You can add up to 20 个 Safe 账户s per Workspace')
   })
 })

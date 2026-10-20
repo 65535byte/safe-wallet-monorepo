@@ -156,6 +156,6 @@ describe('ApprovalValueField', () => {
       />,
     )
 
-    expect(screen.getByText('Allow to transfer TST')).toBeInTheDocument()
+    expect(screen.getByText('允许转移 TST')).toBeInTheDocument()
   })
 })

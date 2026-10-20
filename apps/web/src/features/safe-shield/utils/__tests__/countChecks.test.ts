@@ -8,20 +8,20 @@ const [recipient] = RecipientAnalysisBuilder.knownRecipient(faker.finance.ethere
 const [contract] = ContractAnalysisBuilder.verifiedContract(faker.finance.ethereumAddress()).build()
 
 describe('countChecks', () => {
-  it('reads 3 of 3 for a Safe Pro Workspace whose threat, recipient and simulation checks all passed', () => {
+  it('reads 3 of 3 for a 8379 Workspace whose threat, recipient and simulation checks all passed', () => {
     expect(
       countChecks({ threat, recipient, hasProFeatures: true, hasSimulation: true, isSimulationSuccess: true }),
     ).toEqual({ passed: 3, total: 3 })
   })
 
-  it('reads 1 of 3 without Safe Pro: the locked recipient and simulation rows count, but never pass', () => {
+  it('reads 1 of 3 without 8379: the locked recipient and simulation rows count, but never pass', () => {
     expect(countChecks({ threat, hasProFeatures: false, hasSimulation: true, isSimulationSuccess: false })).toEqual({
       passed: 1,
       total: 3,
     })
   })
 
-  it('reads 1 of 4 without Safe Pro on a contract call: the locked contract row counts too, but never passes', () => {
+  it('reads 1 of 4 without 8379 on a contract call: the locked contract row counts too, but never passes', () => {
     expect(
       countChecks({
         threat,
@@ -33,7 +33,7 @@ describe('countChecks', () => {
     ).toEqual({ passed: 1, total: 4 })
   })
 
-  it('counts the contract row by its results with Safe Pro, whatever the call', () => {
+  it('counts the contract row by its results with 8379, whatever the call', () => {
     expect(
       countChecks({
         threat,

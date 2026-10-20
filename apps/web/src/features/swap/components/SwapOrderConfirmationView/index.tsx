@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { TransactionInfoType } from '@safe-global/store/gateway/types'
 import type {
   DataDecoded,
@@ -7,7 +8,8 @@ import type {
 } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { StartTimeValue } from '@safe-global/store/gateway/types'
 import OrderId from '../OrderId'
-import { formatDateTime, formatTimeInWords, getPeriod } from '@safe-global/utils/utils/date'
+import { formatDateTime, formatTimeInWords } from '@safe-global/utils/utils/date'
+import { getPeriod } from '@safe-global/views/utils/formatPeriod'
 import { Fragment, type ReactElement } from 'react'
 import { DataRow } from '@safe-global/views/components/common/Table/DataRow'
 import { DataTable } from '@safe-global/views/components/common/Table/DataTable'
@@ -54,48 +56,50 @@ const SwapOrderConfirmation = ({ order, decodedData, settlementContract }: SwapO
       {isChangingFallbackHandler && <TwapFallbackHandlerWarning />}
 
       <DataTable
-        header="Order details"
+        header={translateMessage('ui.orderDetails_ee45c9cb')}
         rows={[
           <div key="amount" className={css.amount}>
             <SwapTokens
               first={{
                 value: sellAmount,
-                label: isSellOrder ? 'Sell' : 'For at most',
+                label: isSellOrder ? translateMessage('ui.sell_aa061cbb') : translateMessage('ui.forAtMost_158e8b71'),
                 tokenInfo: sellToken,
               }}
               second={{
                 value: buyAmount,
-                label: isSellOrder ? 'For at least' : 'Buy exactly',
+                label: isSellOrder
+                  ? translateMessage('ui.forAtLeast_3747e14a')
+                  : translateMessage('ui.buyExactly_4944de3c'),
                 tokenInfo: buyToken,
               }}
             />
           </div>,
 
-          <DataRow datatestid="limit-price" key="Limit price" title="Limit price">
+          <DataRow datatestid="limit-price" key="Limit price" title={translateMessage('ui.limitPrice_557871e0')}>
             1 {buyToken.symbol} = {formatAmount(limitPrice)} {sellToken.symbol}
           </DataRow>,
 
           compareAsc(now, expires) !== 1 ? (
-            <DataRow datatestid="expiry" key="Expiry" title="Expiry">
+            <DataRow datatestid="expiry" key="Expiry" title={translateMessage('ui.expiry_e71a3433')}>
               <Typography>
                 <span className="font-bold">{formatTimeInWords(validUntil * 1000)}</span> (
                 {formatDateTime(validUntil * 1000)})
               </Typography>
             </DataRow>
           ) : (
-            <DataRow key="Expiry" title="Expiry">
+            <DataRow key="Expiry" title={translateMessage('ui.expiry_e71a3433')}>
               {formatDateTime(validUntil * 1000)}
             </DataRow>
           ),
           orderClass !== 'limit' ? (
-            <DataRow datatestid="slippage" key="Slippage" title="Slippage">
+            <DataRow datatestid="slippage" key="Slippage" title={translateMessage('ui.slippage_802afc6a')}>
               {slippage}%
             </DataRow>
           ) : (
             <Fragment key="none" />
           ),
           !isTwapOrder ? (
-            <DataRow datatestid="order-id" key="Order ID" title="Order ID">
+            <DataRow datatestid="order-id" key="Order ID" title={translateMessage('ui.orderID_fcbc2319')}>
               <OrderId orderId={order.uid} href={explorerUrl!} />
             </DataRow>
           ) : (
@@ -105,12 +109,12 @@ const SwapOrderConfirmation = ({ order, decodedData, settlementContract }: SwapO
             key="SurplusFee"
             order={order as { fullAppData?: Record<string, unknown> | null }}
           />,
-          <DataRow datatestid="interact-wth" key="Interact with" title="Interact with">
+          <DataRow datatestid="interact-wth" key="Interact with" title={translateMessage('ui.interactWith_9eefaee7')}>
             <NamedAddress address={settlementContract} onlyName hasExplorer shortAddress={false} avatarSize={24} />
           </DataRow>,
           receiver && owner !== receiver ? (
             <Fragment key="recipient-block">
-              <DataRow datatestid="recipient" key="recipient-address" title="Recipient">
+              <DataRow datatestid="recipient" key="recipient-address" title={translateMessage('ui.recipient_f737f260')}>
                 <EthHashInfo address={receiver} hasExplorer={true} avatarSize={24} />
               </DataRow>
               <div key="recipient">
@@ -119,9 +123,9 @@ const SwapOrderConfirmation = ({ order, decodedData, settlementContract }: SwapO
                   <AlertDescription>
                     <Typography variant="paragraph-small">
                       <Typography variant="paragraph-small-bold" className="inline">
-                        Order recipient address differs from order owner.
+                        {translateMessage('ui.orderRecipientAddressDiffersFromOrder_edcb6821')}
                       </Typography>{' '}
-                      Double check the address to prevent fund loss.
+                      {translateMessage('ui.doubleCheckTheAddressToPrevent_669a23e5')}
                     </Typography>
                   </AlertDescription>
                 </Alert>
@@ -139,18 +143,21 @@ const SwapOrderConfirmation = ({ order, decodedData, settlementContract }: SwapO
             rows={[
               <Typography key="title" variant="paragraph" className={css.partsBlockTitle}>
                 <strong>
-                  Order will be split in{' '}
-                  <span className={css.numberOfPartsLabel}>{order.numberOfParts} equal parts</span>
+                  {translateMessage('ui.orderWillBeSplitIn_86bc3e44')}
+                  <span className={css.numberOfPartsLabel}>
+                    {order.numberOfParts} {translateMessage('ui.equalParts_c788f98e')}
+                  </span>
                 </strong>
               </Typography>,
-              <PartSellAmount order={order} addonText="per part" key="sell_part" />,
-              <PartBuyAmount order={order} addonText="per part" key="buy_part" />,
-              <DataRow title="Start time" key="Start time">
+              <PartSellAmount order={order} addonText={translateMessage('ui.perPart_cd72b0c9')} key="sell_part" />,
+              <PartBuyAmount order={order} addonText={translateMessage('ui.perPart_cd72b0c9')} key="buy_part" />,
+              <DataRow title={translateMessage('ui.startTime_778384c0')} key="Start time">
                 {order.startTime.startType === StartTimeValue.AT_MINING_TIME && 'Now'}
-                {order.startTime.startType === StartTimeValue.AT_EPOCH && `At block number: ${order.startTime.epoch}`}
+                {order.startTime.startType === StartTimeValue.AT_EPOCH &&
+                  translateMessage('ui.atBlockNumber_dbbc936a', { p0: order.startTime.epoch })}
               </DataRow>,
               <PartDuration order={order} key="part_duration" />,
-              <DataRow title="Total duration" key="total_duration">
+              <DataRow title={translateMessage('ui.totalDuration_cad839b0')} key="total_duration">
                 {getPeriod(+order.timeBetweenParts * +order.numberOfParts)}
               </DataRow>,
             ]}

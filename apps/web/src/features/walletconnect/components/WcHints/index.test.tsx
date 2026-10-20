@@ -7,12 +7,12 @@ jest.mock('@/services/analytics', () => ({
 }))
 
 describe('WcHints component tests', () => {
-  const CONNECT_TITLE = 'How do I connect to a dApp?'
-  const INTERACT_TITLE = 'How do I interact with a dApp?'
-  const CONNECT_STEP = 'Open a WalletConnect supported dApp'
-  const INTERACT_STEP = 'Connect a dApp by following the above steps'
-  const CONNECT_WALLET = 'Connect a wallet'
-  const ENSURE_CHAIN = 'Ensure the dApp is connected to the same chain as your Safe account'
+  const CONNECT_TITLE = '如何连接 dApp？'
+  const INTERACT_TITLE = '如何与 dApp 交互？'
+  const CONNECT_STEP = '打开支持 WalletConnect 的 dApp'
+  const INTERACT_STEP = '按上述步骤连接 dApp'
+  const CONNECT_WALLET = '连接钱包'
+  const ENSURE_CHAIN = '确保 dApp 与 8379 账户连接同一条链'
 
   beforeEach(() => {
     jest.clearAllMocks()

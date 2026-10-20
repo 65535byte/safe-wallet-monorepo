@@ -29,25 +29,19 @@ describe('useTrackSpace', () => {
   it('tracks total safe accounts on mount', () => {
     renderHook(() => useTrackSpace(safes, members))
 
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      {
-        ...SPACE_EVENTS.TOTAL_SAFE_ACCOUNTS,
-        label: safes.length,
-      },
-      undefined,
-    )
+    expect(mockTrackEvent).toHaveBeenCalledWith({
+      ...SPACE_EVENTS.TOTAL_SAFE_ACCOUNTS,
+      label: safes.length,
+    })
   })
 
   it('tracks total active members on mount', () => {
     renderHook(() => useTrackSpace(safes, members))
 
-    expect(mockTrackEvent).toHaveBeenCalledWith(
-      {
-        ...SPACE_EVENTS.TOTAL_ACTIVE_MEMBERS,
-        label: members.length,
-      },
-      undefined,
-    )
+    expect(mockTrackEvent).toHaveBeenCalledWith({
+      ...SPACE_EVENTS.TOTAL_ACTIVE_MEMBERS,
+      label: members.length,
+    })
   })
 
   it('tracks each event only once per instance even if deps change', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { SpaceSummary } from '@safe-global/views/features/spaces/components/SpaceCard'
 import InitialsAvatar from '@/components/common/InitialsAvatar'
@@ -22,7 +23,7 @@ const SpaceListInvite = ({ space, invitedByName }: SpaceListInvite) => {
     <div className="mb-4 rounded-3xl bg-card p-4" data-testid="space-invite-banner">
       <div className={cn(css.spacesListInviteContent, 'mb-4')}>
         <div className="flex flex-grow flex-row flex-wrap items-center gap-x-1 gap-y-1">
-          <Typography variant="paragraph-small">You were invited to join</Typography>
+          <Typography variant="paragraph-small">{translateMessage('ui.youWereInvitedToJoin_8d8987f9')}</Typography>
           <Typography variant="paragraph-small-bold">{name}</Typography>
           <Inviter invitedByName={invitedByName} variant="paragraph-small" avatarSize={24} />
         </div>

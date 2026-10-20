@@ -68,7 +68,7 @@ export const ScoreGauge = ({
           {scorePct}
         </Typography>
         <Typography variant="paragraph-mini" color="muted" className={labelClassName}>
-          of 100
+          / 100
         </Typography>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import type { SpaceAuditLogEntryDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 
@@ -5,7 +6,7 @@ import type { SpaceAuditLogEntryDto } from '@safe-global/store/gateway/AUTO_GENE
 // untyped, so every field is treated as optional and unknown event types
 // fall back to a generic description.
 
-const FALLBACK_TARGET = 'a former member'
+const FALLBACK_TARGET = translateMessage('ui.aFormerMember_940a290d')
 
 type Payload = Record<string, unknown>
 
@@ -35,7 +36,7 @@ const hasContactDetail = (contact: Contact): boolean => Boolean(contact.name || 
 
 const ContactRef = ({ contact }: { contact: Contact }) => (
   <>
-    {contact.name ? <Em>{contact.name}</Em> : 'a contact'}
+    {contact.name ? <Em>{contact.name}</Em> : translateMessage('ui.aContact_78d7f688')}
     {contact.address ? <span className="break-all"> ({contact.address})</span> : null}
   </>
 )
@@ -61,10 +62,11 @@ export function getAuditEventDescription(
       const name = asString(payload.name)
       return name ? (
         <>
-          created the Workspace <Em>{name}</Em>
+          {translateMessage('ui.createdTheWorkspace_6443711c')}
+          <Em>{name}</Em>
         </>
       ) : (
-        'created the Workspace'
+        translateMessage('ui.createdTheWorkspace_6258f9eb')
       )
     }
     case 'SPACE_UPDATED': {
@@ -73,20 +75,23 @@ export function getAuditEventDescription(
       if (oldName && newName) {
         return (
           <>
-            renamed the Workspace from <Em>{oldName}</Em> to <Em>{newName}</Em>
+            {translateMessage('ui.renamedTheWorkspaceFrom_7cf7b56d')}
+            <Em>{oldName}</Em> {translateMessage('ui.to_e512ffaf')}
+            <Em>{newName}</Em>
           </>
         )
       }
-      return 'updated the Workspace'
+      return translateMessage('ui.updatedTheWorkspace_c5512892')
     }
     case 'SPACE_DELETED': {
       const name = asString(payload.name)
       return name ? (
         <>
-          deleted the Workspace <Em>{name}</Em>
+          {translateMessage('ui.deletedTheWorkspace_b5da92d5')}
+          <Em>{name}</Em>
         </>
       ) : (
-        'deleted the Workspace'
+        translateMessage('ui.deletedTheWorkspace_76928b69')
       )
     }
     case 'MEMBER_INVITED': {
@@ -94,18 +99,19 @@ export function getAuditEventDescription(
       return (
         <>
           {payload.reinvite === true ? 're-invited' : 'invited'} <Em>{target}</Em>
-          {role ? ` as ${role}` : ''}
+          {role ? translateMessage('ui.as_d3071f12', { p0: role }) : ''}
         </>
       )
     }
     case 'MEMBER_INVITE_ACCEPTED':
-      return 'accepted their invitation'
+      return translateMessage('ui.acceptedTheirInvitation_e610c69c')
     case 'MEMBER_INVITE_DECLINED':
-      return 'declined their invitation'
+      return translateMessage('ui.declinedTheirInvitation_24555227')
     case 'MEMBER_INVITE_RENEWED':
       return (
         <>
-          renewed the invitation for <Em>{target}</Em>
+          {translateMessage('ui.renewedTheInvitationFor_97b3dd6d')}
+          <Em>{target}</Em>
         </>
       )
     case 'MEMBER_ROLE_UPDATED': {
@@ -114,43 +120,56 @@ export function getAuditEventDescription(
       if (oldRole && newRole) {
         return (
           <>
-            changed the role of <Em>{target}</Em> from {oldRole} to {newRole}
+            {translateMessage('ui.changedTheRoleOf_2097d9e5')}
+            <Em>{target}</Em> {translateMessage('ui.from_12af86bc')}
+            {oldRole} {translateMessage('ui.to_e512ffaf')}
+            {newRole}
           </>
         )
       }
       return (
         <>
-          changed the role of <Em>{target}</Em>
+          {translateMessage('ui.changedTheRoleOf_2097d9e5')}
+          <Em>{target}</Em>
         </>
       )
     }
     case 'MEMBER_ALIAS_UPDATED':
-      return 'updated their alias'
+      return translateMessage('ui.updatedTheirAlias_6e45b0a9')
     case 'MEMBER_REMOVED':
       return (
         <>
-          removed <Em>{target}</Em> from the Workspace
+          {translateMessage('ui.removed_594e12ac')}
+          <Em>{target}</Em> {translateMessage('ui.fromTheWorkspace_17e80136')}
         </>
       )
     case 'MEMBER_LEFT':
-      return payload.accountDeleted === true ? 'left the Workspace (account deleted)' : 'left the Workspace'
+      return payload.accountDeleted === true
+        ? translateMessage('ui.leftTheWorkspaceAccountDeleted_0ce2d5ca')
+        : translateMessage('ui.leftTheWorkspace_7839ea00')
     case 'SAFE_ADDED': {
       const count = asCount(payload.safes)
-      return count > 0 ? `added ${pluralize(count, 'Safe account')}` : 'added Safe accounts'
+      return count > 0
+        ? translateMessage('ui.added_5b7abc5a', { p0: pluralize(count, translateMessage('ui.account_7e251525')) })
+        : translateMessage('ui.addedAccounts_84d3bb68')
     }
     case 'SAFE_REMOVED': {
       const count = asCount(payload.safes)
-      return count > 0 ? `removed ${pluralize(count, 'Safe account')}` : 'removed Safe accounts'
+      return count > 0
+        ? translateMessage('ui.removed_2c4043f1', { p0: pluralize(count, translateMessage('ui.account_7e251525')) })
+        : translateMessage('ui.removedAccounts_f3f6fea6')
     }
     case 'ADDRESS_BOOK_UPSERTED': {
       const created = asContacts(payload.created)
       const updated = asContacts(payload.updated)
-      const approvedSuffix = typeof payload.onBehalfOfUserId === 'number' ? ' (approved request)' : ''
+      const approvedSuffix =
+        typeof payload.onBehalfOfUserId === 'number' ? translateMessage('ui.approvedRequest_576ed3c7') : ''
 
       if (created.length === 1 && updated.length === 0 && hasContactDetail(created[0])) {
         return (
           <>
-            added the contact <ContactRef contact={created[0]} />
+            {translateMessage('ui.addedTheContact_5b342d55')}
+            <ContactRef contact={created[0]} />
             {approvedSuffix}
           </>
         )
@@ -158,49 +177,55 @@ export function getAuditEventDescription(
       if (updated.length === 1 && created.length === 0 && hasContactDetail(updated[0])) {
         return (
           <>
-            updated the contact <ContactRef contact={updated[0]} />
+            {translateMessage('ui.updatedTheContact_261008c1')}
+            <ContactRef contact={updated[0]} />
             {approvedSuffix}
           </>
         )
       }
 
       const parts: string[] = []
-      if (created.length > 0) parts.push(`added ${pluralize(created.length, 'contact')}`)
-      if (updated.length > 0) parts.push(`updated ${pluralize(updated.length, 'contact')}`)
-      const summary = parts.length > 0 ? parts.join(' and ') : 'updated the address book'
+      if (created.length > 0)
+        parts.push(translateMessage('ui.added_5b7abc5a', { p0: pluralize(created.length, 'contact') }))
+      if (updated.length > 0)
+        parts.push(translateMessage('ui.updated_30e67c8b', { p0: pluralize(updated.length, 'contact') }))
+      const summary = parts.length > 0 ? parts.join(' and ') : translateMessage('ui.updatedTheAddressBook_2615d04d')
       return `${summary}${approvedSuffix}`
     }
     case 'ADDRESS_BOOK_DELETED': {
       const contact = asContact(payload)
       return hasContactDetail(contact) ? (
         <>
-          removed the contact <ContactRef contact={contact} />
+          {translateMessage('ui.removedTheContact_3d87f42b')}
+          <ContactRef contact={contact} />
         </>
       ) : (
-        'removed a contact'
+        translateMessage('ui.removedAContact_fa9167b1')
       )
     }
     case 'ADDRESS_BOOK_REQUEST_CREATED': {
       const contact = asContact(payload)
       return hasContactDetail(contact) ? (
         <>
-          requested to add the contact <ContactRef contact={contact} /> to Workspace
+          {translateMessage('ui.requestedToAddTheContact_6b912ed5')}
+          <ContactRef contact={contact} /> {translateMessage('ui.toWorkspace_b24b12d0')}
         </>
       ) : (
-        'requested to add a contact to Workspace'
+        translateMessage('ui.requestedToAddAContactTo_1e00e329')
       )
     }
     case 'ADDRESS_BOOK_REQUEST_REJECTED': {
       const contact = asContact(payload)
       return hasContactDetail(contact) ? (
         <>
-          rejected the request to add the contact <ContactRef contact={contact} /> to Workspace
+          {translateMessage('ui.rejectedTheRequestToAddThe_81bb0112')}
+          <ContactRef contact={contact} /> {translateMessage('ui.toWorkspace_b24b12d0')}
         </>
       ) : (
-        'rejected the request to add a contact to Workspace'
+        translateMessage('ui.rejectedTheRequestToAddA_95a7f482')
       )
     }
     default:
-      return 'made a change'
+      return translateMessage('ui.madeAChange_0bfb2b92')
   }
 }

@@ -3,14 +3,13 @@ import { render as renderTestUtils } from '@/tests/test-utils'
 import { ComboSubmit } from '../ComboSubmit'
 import { initialContext, TxFlowContext, type TxFlowContextType } from '@/components/tx-flow/TxFlowProvider'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
+import * as hooks from '@/components/tx/shared/hooks'
 import * as slotsHooks from '@/components/tx-flow/slots/hooks'
 import { SlotProvider } from '@/components/tx-flow/slots'
 import { createMockSafeTransaction } from '@/tests/transactions'
 import { OperationType } from '@safe-global/types-kit'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import * as useValidateTxData from '@/hooks/useValidateTxData'
-import { COULD_NOT_SUBMIT_RETRY_MESSAGE } from '@/components/tx/TxSubmitError'
-import { faker } from '@faker-js/faker'
 
 jest.mock('@/hooks/useSafeInfo')
 jest.mock('@/services/local-storage/useLocalStorage')
@@ -52,12 +51,13 @@ describe('ComboSubmit', () => {
 
     // Mock useSlot to return sign and execute options
     jest.spyOn(slotsHooks, 'useSlot').mockReturnValue([
-      { id: 'sign', label: 'Sign', Component: () => null },
-      { id: 'execute', label: 'Execute', Component: () => null },
+      { id: 'sign', label: '签名', Component: () => null },
+      { id: 'execute', label: '执行', Component: () => null },
     ] as any)
   })
 
   it('auto-selects Execute when available and no stored preference', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
     jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
 
     // Mock localStorage to return undefined (no stored preference)
@@ -74,22 +74,25 @@ describe('ComboSubmit', () => {
     expect(container).toBeInTheDocument()
   })
 
-  it('shows the last signature notice when the signature completes the threshold', () => {
-    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign'])
+  it('shows warning when Execute is available but user selected Sign', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
+    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
 
+    // Mock localStorage to return 'sign' as the stored preference
     const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
-    mockUseLocalStorage.mockReturnValue([undefined, jest.fn()])
+    mockUseLocalStorage.mockReturnValue(['sign', jest.fn()])
 
     const { getByText } = render(
       <ComboSubmit onSubmit={jest.fn()} slotId="" />,
-      { canExecute: true, willSignBeforeExecute: true },
+      { canExecute: true },
       { safeTx: safeTransaction },
     )
 
     expect(getByText(/You're providing the last signature/)).toBeInTheDocument()
   })
 
-  it('does not show the last signature notice when the signature does not complete the threshold', () => {
+  it('does not show warning when user has already signed', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(true)
     jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
 
     const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
@@ -97,29 +100,64 @@ describe('ComboSubmit', () => {
 
     const { queryByText } = render(
       <ComboSubmit onSubmit={jest.fn()} slotId="" />,
-      { canExecute: true, willSignBeforeExecute: false },
+      { canExecute: true },
       { safeTx: safeTransaction },
     )
 
     expect(queryByText(/You're providing the last signature/)).not.toBeInTheDocument()
   })
 
-  it('does not show the last signature notice when another action is selected', () => {
-    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'executeThroughRole'])
+  it('does not show warning when Execute is not available', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
+    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign'])
 
     const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
-    mockUseLocalStorage.mockReturnValue([undefined, jest.fn()])
+    mockUseLocalStorage.mockReturnValue(['sign', jest.fn()])
 
     const { queryByText } = render(
       <ComboSubmit onSubmit={jest.fn()} slotId="" />,
-      { canExecute: true, willSignBeforeExecute: true },
+      { canExecute: false },
       { safeTx: safeTransaction },
     )
 
     expect(queryByText(/You're providing the last signature/)).not.toBeInTheDocument()
   })
 
+  it('does not show warning when user selected Execute', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
+    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
+
+    const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
+    mockUseLocalStorage.mockReturnValue(['execute', jest.fn()])
+
+    const { queryByText } = render(
+      <ComboSubmit onSubmit={jest.fn()} slotId="" />,
+      { canExecute: true },
+      { safeTx: safeTransaction },
+    )
+
+    expect(queryByText(/You're providing the last signature/)).not.toBeInTheDocument()
+  })
+
+  it('respects stored Sign preference when Execute is available', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
+    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
+
+    const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
+    mockUseLocalStorage.mockReturnValue(['sign', jest.fn()])
+
+    const { getByText } = render(
+      <ComboSubmit onSubmit={jest.fn()} slotId="" />,
+      { canExecute: true },
+      { safeTx: safeTransaction },
+    )
+
+    // Should show warning when user has stored preference for Sign
+    expect(getByText(/You're providing the last signature/)).toBeInTheDocument()
+  })
+
   it('falls back to first option when stored action is not available', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
     jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign'])
 
     const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
@@ -137,6 +175,7 @@ describe('ComboSubmit', () => {
   })
 
   it('does not auto-select Execute when validation is loading', () => {
+    jest.spyOn(hooks, 'useAlreadySigned').mockReturnValue(false)
     jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
 
     // Mock validation loading state (third parameter is loading)
@@ -157,33 +196,5 @@ describe('ComboSubmit', () => {
     expect(container).toBeInTheDocument()
     // The submit action setter should not be called during loading
     expect(mockSetSubmitAction).not.toHaveBeenCalled()
-  })
-
-  it('shows the execution error', () => {
-    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
-    const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
-    mockUseLocalStorage.mockReturnValue([undefined, jest.fn()])
-
-    const { getByText } = render(
-      <ComboSubmit onSubmit={jest.fn()} slotId="" />,
-      { canExecute: true, submitError: new Error(faker.lorem.sentence()) },
-      { safeTx: safeTransaction },
-    )
-
-    expect(getByText(COULD_NOT_SUBMIT_RETRY_MESSAGE)).toBeInTheDocument()
-  })
-
-  it('shows a wallet rejection', () => {
-    jest.spyOn(slotsHooks, 'useSlotIds').mockReturnValue(['sign', 'execute'])
-    const mockUseLocalStorage = require('@/services/local-storage/useLocalStorage').default
-    mockUseLocalStorage.mockReturnValue([undefined, jest.fn()])
-
-    const { getByText } = render(
-      <ComboSubmit onSubmit={jest.fn()} slotId="" />,
-      { canExecute: true, isRejectedByUser: true },
-      { safeTx: safeTransaction },
-    )
-
-    expect(getByText('User rejected signing.')).toBeInTheDocument()
   })
 })

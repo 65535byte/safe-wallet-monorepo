@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, type ReactElement } from 'react'
 import RecoveryPlus from '@safe-global/views/assets/images/common/recovery-plus.svg'
 import { RemoveRecoveryFlowOverview } from './RemoveRecoveryFlowOverview'
@@ -22,10 +23,10 @@ function RemoveRecoveryFlow({ delayModifier }: RecoveryFlowProps): ReactElement 
     <TxFlow
       eventCategory={TxFlowType.REMOVE_RECOVERY}
       icon={RecoveryPlus}
-      subtitle="Remove Recoverer"
+      subtitle={translateMessage('ui.removeRecoverer_64a5384d')}
       ReviewTransactionComponent={RemoveRecoveryReviewStep}
     >
-      <TxFlowStep title="Remove Account recovery">
+      <TxFlowStep title={translateMessage('ui.removeAccountRecovery_537308e2')}>
         <RemoveRecoveryFlowOverview delayModifier={delayModifier} />
       </TxFlowStep>
     </TxFlow>

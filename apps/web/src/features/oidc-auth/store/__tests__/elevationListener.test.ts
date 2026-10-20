@@ -85,7 +85,7 @@ describe('elevationListener', () => {
   it('should, when the rejection is an unrelated 403, ignore it', () => {
     const store = createTestStore()
 
-    store.dispatch(rejectedWithValue({ status: 403, data: { message: 'Signer address not authorized' } }))
+    store.dispatch(rejectedWithValue({ status: 403, data: { message: '签名人 address not authorized' } }))
 
     expect(phaseOf(store)).toBe('idle')
     expect(mockSaveStepUpTrip).not.toHaveBeenCalled()

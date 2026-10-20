@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { CircleFadingPlus } from 'lucide-react'
 import { SidebarMenuButton } from '@safe-global/views/components/ui/sidebar'
@@ -7,7 +8,7 @@ import type { SafeWorkspaceHeaderProps } from '@safe-global/views/features/space
 import { SpaceSelectorDropdown } from '../SpaceSelectorDropdown'
 import { BackToSpaceButton } from '../../BackToSpaceButton'
 import { AddToSpacePopupModal } from '../../../AddToSpacePopupModal/AddToSpacePopupModal'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { useCurrentSpaceId } from '@/features/spaces'
 
@@ -19,6 +20,13 @@ export const SafeSidebarWorkspaceHeader = ({
   workspaceHeader,
 }: SafeSidebarWorkspaceHeaderProps): ReactElement | null => {
   const spaceId = useCurrentSpaceId()
+
+  const handleAddSafeClick = () => {
+    trackEvent(
+      { ...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED, label: spaceId },
+      { workspace_id: spaceId, entry_point: 'sidebar' },
+    )
+  }
 
   switch (workspaceHeader.variant) {
     case 'backToSpace':
@@ -38,29 +46,23 @@ export const SafeSidebarWorkspaceHeader = ({
       }
 
       return (
-        <Dialog>
-          <Track
-            {...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED}
-            label={spaceId}
-            mixpanelParams={{ workspace_id: spaceId, entry_point: 'sidebar' }}
+        <Dialog onOpenChange={(open) => open && handleAddSafeClick()}>
+          <DialogTrigger
+            render={
+              <SidebarMenuButton
+                size="lg"
+                className={css.addSafeToWorkspaceTrigger}
+                data-testid="add-safe-to-workspace-button"
+                aria-label={translateMessage('ui.addToWorkspace_3f470c53')}
+                aria-haspopup="dialog"
+              />
+            }
           >
-            <DialogTrigger
-              render={
-                <SidebarMenuButton
-                  size="lg"
-                  className={css.addSafeToWorkspaceTrigger}
-                  data-testid="add-safe-to-workspace-button"
-                  aria-label="Add Safe to Workspace"
-                  aria-haspopup="dialog"
-                />
-              }
-            >
-              <span className={css.addSafeToWorkspaceRing}>
-                <CircleFadingPlus className={css.addSafeToWorkspacePlusIcon} />
-              </span>
-              <span className={css.addSafeToWorkspaceLabel}>Add Safe to Workspace</span>
-            </DialogTrigger>
-          </Track>
+            <span className={css.addSafeToWorkspaceRing}>
+              <CircleFadingPlus className={css.addSafeToWorkspacePlusIcon} />
+            </span>
+            <span className={css.addSafeToWorkspaceLabel}>{translateMessage('ui.addToWorkspace_3f470c53')}</span>
+          </DialogTrigger>
           <DialogContent
             padding="none"
             // eslint-disable-next-line no-restricted-syntax -- max-w-[420px]: bespoke width, not a size token (needs design to snap)

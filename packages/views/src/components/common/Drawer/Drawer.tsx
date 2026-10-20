@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { X } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -30,7 +31,13 @@ export const Drawer = ({ open, onClose, size = 'md', ariaLabel, children }: Draw
       <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">{children}</div>
 
       {/* Positioned by the Drawer rather than the header so every drawer has a close affordance */}
-      <Button variant="surface" size="icon" onClick={onClose} aria-label="Close" className="absolute top-6 right-6">
+      <Button
+        variant="surface"
+        size="icon"
+        onClick={onClose}
+        aria-label={translateMessage('ui.close_fbd8cee0')}
+        className="absolute top-6 right-6"
+      >
         <X />
       </Button>
     </SheetContent>

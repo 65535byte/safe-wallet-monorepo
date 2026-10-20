@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import { type KeyboardEvent, type MouseEvent, type PointerEvent } from 'react'
 import { TriangleAlert } from 'lucide-react'
@@ -47,7 +48,7 @@ const EnvHintButton = ({ chainId: chainIdProp, className }: EnvHintButtonProps =
           <div
             role="button"
             tabIndex={0}
-            aria-label="Default environment has been changed"
+            aria-label={translateMessage('ui.defaultEnvironmentHasBeenChanged_90e9b736')}
             onClick={handlePointer}
             onPointerDown={handlePointer}
             onKeyDown={handleKeyDown}
@@ -61,7 +62,7 @@ const EnvHintButton = ({ chainId: chainIdProp, className }: EnvHintButtonProps =
       >
         <TriangleAlert className="size-3.5" />
       </TooltipTrigger>
-      <TooltipContent>Default environment has been changed</TooltipContent>
+      <TooltipContent>{translateMessage('ui.defaultEnvironmentHasBeenChanged_90e9b736')}</TooltipContent>
     </Tooltip>
   )
 }

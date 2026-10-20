@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { useMemo, type ReactElement } from 'react'
 import {
@@ -48,7 +49,7 @@ const MsgDetails = ({ msg }: { msg: MessageItem }): ReactElement => {
         </div>
         {msg.proposedBy && (
           <div className={txDetailsCss.txData}>
-            <InfoDetails title="Created by:">
+            <InfoDetails title={translateMessage('ui.createdBy_e03315ec')}>
               <EthHashInfo
                 address={msg.proposedBy.value}
                 name={msg.proposedBy.name}
@@ -63,7 +64,7 @@ const MsgDetails = ({ msg }: { msg: MessageItem }): ReactElement => {
 
         {verifyingContract && (
           <div className={txDetailsCss.txData}>
-            <InfoDetails title="Verifying contract:">
+            <InfoDetails title={translateMessage('ui.verifyingContract_0b525af6')}>
               <NamedAddressInfo address={verifyingContract} shortAddress={false} showCopyButton hasExplorer />
             </InfoDetails>
           </div>
@@ -73,26 +74,33 @@ const MsgDetails = ({ msg }: { msg: MessageItem }): ReactElement => {
           <InfoDetails
             title={
               <>
-                Message <CopyButton text={JSON.stringify(msg.message, null, 2)} />
+                {translateMessage('ui.message_a553da04')}
+                <CopyButton text={JSON.stringify(msg.message, null, 2)} />
               </>
             }
           >
-            <ObservabilityErrorBoundary fallback={<div>Error decoding message</div>}>
+            <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorDecodingMessage_b649e32c')}</div>}>
               <DecodedMsg message={msg.message} />
             </ObservabilityErrorBoundary>
           </InfoDetails>
         </div>
 
         <div className={txDetailsCss.txSummary}>
-          <TxDataRow title="Created">{formatDateTime(msg.creationTimestamp)}</TxDataRow>
-          <TxDataRow title="Last modified">{formatDateTime(msg.modifiedTimestamp)}</TxDataRow>
-          <TxDataRow title="Message hash">{generateDataRowValue(msg.messageHash, 'hash')}</TxDataRow>
+          <TxDataRow title={translateMessage('ui.created_d8278ec8')}>{formatDateTime(msg.creationTimestamp)}</TxDataRow>
+          <TxDataRow title={translateMessage('ui.lastModified_85c7b6eb')}>
+            {formatDateTime(msg.modifiedTimestamp)}
+          </TxDataRow>
+          <TxDataRow title={translateMessage('ui.messageHash_b8ce78e4')}>
+            {generateDataRowValue(msg.messageHash, 'hash')}
+          </TxDataRow>
           {safeMessage && <TxDataRow title="SafeMessage">{generateDataRowValue(safeMessage, 'hash')}</TxDataRow>}
         </div>
 
         {msg.preparedSignature && (
           <div className={classNames(txDetailsCss.txSummary, txDetailsCss.multiSend)}>
-            <TxDataRow title="Prepared signature:">{generateDataRowValue(msg.preparedSignature, 'hash')}</TxDataRow>
+            <TxDataRow title={translateMessage('ui.preparedSignature_c32009f4')}>
+              {generateDataRowValue(msg.preparedSignature, 'hash')}
+            </TxDataRow>
           </div>
         )}
 
@@ -111,7 +119,7 @@ const MsgDetails = ({ msg }: { msg: MessageItem }): ReactElement => {
                   <div className={singleTxDecodedCss.summary}>
                     <CodeIcon className="size-4 shrink-0 text-muted-foreground" />
                     <Typography className={singleTxDecodedCss.summaryLabel}>
-                      <b>{`Confirmation ${i + 1}`}</b>
+                      <b>{translateMessage('ui.confirmation_2d8b1e66', { p0: i + 1 })}</b>
                     </Typography>
                   </div>
                 </AccordionTrigger>
@@ -127,7 +135,7 @@ const MsgDetails = ({ msg }: { msg: MessageItem }): ReactElement => {
                       hasExplorer
                     />
                   </div>
-                  <TxDataRow title="Signature:">
+                  <TxDataRow title={translateMessage('ui.signature_c60d1296')}>
                     <EthHashInfo address={confirmation.signature} showAvatar={false} showCopyButton />
                   </TxDataRow>
                 </AccordionContent>

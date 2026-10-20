@@ -55,7 +55,7 @@ describe('StatusStepper', () => {
   })
 
   it.each([
-    [PendingStatus.PROCESSING, 'Processing'],
+    [PendingStatus.PROCESSING, '处理中'],
     [PendingStatus.INDEXING, 'Indexing'],
     [undefined, 'Indexed'],
   ])('shows the expected status label for %s', (status, expectedText) => {

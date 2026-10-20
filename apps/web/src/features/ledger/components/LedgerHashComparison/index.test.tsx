@@ -31,7 +31,7 @@ describe('LedgerHashComparison', () => {
     showLedgerHashComparison('0xtest')
     const { container } = render(<LedgerHashComparison />)
 
-    const closeButton = screen.getByRole('button', { name: /close/i })
+    const closeButton = screen.getByRole('button', { name: /关闭/i })
     await userEvent.click(closeButton)
 
     // After clicking close, component should render null

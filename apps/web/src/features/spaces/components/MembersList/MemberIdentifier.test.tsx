@@ -98,7 +98,7 @@ describe('MemberIdentifier', () => {
     const writeText = mockClipboard()
     render(<MemberIdentifier member={addressMember} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Copy address' }))
+    fireEvent.click(screen.getByRole('button', { name: '复制地址' }))
 
     expect(writeText).toHaveBeenCalledWith(WALLET_ADDRESS)
   })

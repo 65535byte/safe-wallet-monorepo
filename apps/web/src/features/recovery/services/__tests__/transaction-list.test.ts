@@ -109,7 +109,7 @@ describe('getRecoveredSafeInfo', () => {
       }
 
       expect(getRecoveredSafeInfo(safe, transaction)).toBeUndefined()
-      expect(logError).toHaveBeenCalledWith(Errors._811, new Error('Unexpected transaction'))
+      expect(logError).toHaveBeenCalledWith(Errors._811, new Error('非预期交易'))
     })
   })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { User } from 'lucide-react'
 import { ICON_STROKE } from '@safe-global/views/components/common/iconStroke'
 import { Popover, PopoverTrigger } from '@safe-global/views/components/ui/popover'
@@ -38,7 +39,11 @@ export const AccountInfo = ({
           render={
             <PopoverTrigger
               className="flex h-10 min-w-0 shrink cursor-pointer items-center gap-1.5 rounded-lg px-2 outline-none transition-colors hover:bg-muted-foreground/10 focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label={displayName ? `Account menu, signed in as ${displayName}` : 'Account menu'}
+              aria-label={
+                displayName
+                  ? translateMessage('ui.accountMenuSignedInAs_e4af4ca6', { p0: displayName })
+                  : translateMessage('ui.accountMenu_1ca2fecb')
+              }
             />
           }
         >
@@ -55,7 +60,8 @@ export const AccountInfo = ({
 
         {displayName && (
           <TooltipContent side="bottom" data-testid="account-chip-tooltip">
-            Signed in as {displayName}
+            {translateMessage('ui.signedInAs_815fcf38')}
+            {displayName}
           </TooltipContent>
         )}
       </Tooltip>

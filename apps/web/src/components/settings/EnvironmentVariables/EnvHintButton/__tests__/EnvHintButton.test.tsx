@@ -40,36 +40,36 @@ const renderButton = (
 describe('EnvHintButton', () => {
   it('renders nothing when env is in its initial state', () => {
     renderButton()
-    expect(screen.queryByRole('button', { name: 'Default environment has been changed' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '默认环境已修改' })).not.toBeInTheDocument()
   })
 
   it('renders the warning trigger when an RPC override exists for the current chain', () => {
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' } })
-    expect(screen.getByRole('button', { name: 'Default environment has been changed' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '默认环境已修改' })).toBeInTheDocument()
   })
 
   it('renders the warning trigger when Tenderly settings are overridden', () => {
     renderButton({
       tenderly: { url: 'https://tenderly.example.com', accessToken: 'abc' },
     })
-    expect(screen.getByRole('button', { name: 'Default environment has been changed' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '默认环境已修改' })).toBeInTheDocument()
   })
 
   it('renders nothing when the override is for a different chain than the one passed via prop', () => {
     renderButton({ chainId: '5', rpc: { '1': 'https://my-rpc.example.com' } })
-    expect(screen.queryByRole('button', { name: 'Default environment has been changed' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '默认环境已修改' })).not.toBeInTheDocument()
   })
 
   it('renders the warning when the override matches the chainId prop', () => {
     renderButton({ chainId: '5', rpc: { '5': 'https://my-rpc.example.com' } })
-    expect(screen.getByRole('button', { name: 'Default environment has been changed' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '默认环境已修改' })).toBeInTheDocument()
   })
 
   it('navigates to the environment variables settings page on click', () => {
     const push = jest.fn()
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' }, routerPush: push })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Default environment has been changed' }))
+    fireEvent.click(screen.getByRole('button', { name: '默认环境已修改' }))
 
     expect(push).toHaveBeenCalledWith({
       pathname: AppRoutes.settings.environmentVariables,
@@ -82,7 +82,7 @@ describe('EnvHintButton', () => {
     const query = { safe: 'eth:0x1234567890123456789012345678901234567890' }
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' }, routerPush: push, routerQuery: query })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Default environment has been changed' }))
+    fireEvent.click(screen.getByRole('button', { name: '默认环境已修改' }))
 
     expect(push).toHaveBeenCalledWith({
       pathname: AppRoutes.settings.environmentVariables,
@@ -94,7 +94,7 @@ describe('EnvHintButton', () => {
     const push = jest.fn()
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' }, routerPush: push })
 
-    fireEvent.keyDown(screen.getByRole('button', { name: 'Default environment has been changed' }), { key: 'Enter' })
+    fireEvent.keyDown(screen.getByRole('button', { name: '默认环境已修改' }), { key: 'Enter' })
 
     expect(push).toHaveBeenCalledTimes(1)
   })
@@ -103,7 +103,7 @@ describe('EnvHintButton', () => {
     const push = jest.fn()
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' }, routerPush: push })
 
-    fireEvent.keyDown(screen.getByRole('button', { name: 'Default environment has been changed' }), { key: ' ' })
+    fireEvent.keyDown(screen.getByRole('button', { name: '默认环境已修改' }), { key: ' ' })
 
     expect(push).toHaveBeenCalledTimes(1)
   })
@@ -112,7 +112,7 @@ describe('EnvHintButton', () => {
     const push = jest.fn()
     renderButton({ rpc: { '1': 'https://my-rpc.example.com' }, routerPush: push })
 
-    fireEvent.keyDown(screen.getByRole('button', { name: 'Default environment has been changed' }), { key: 'a' })
+    fireEvent.keyDown(screen.getByRole('button', { name: '默认环境已修改' }), { key: 'a' })
 
     expect(push).not.toHaveBeenCalled()
   })
@@ -135,7 +135,7 @@ describe('EnvHintButton', () => {
       },
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Default environment has been changed' }))
+    fireEvent.click(screen.getByRole('button', { name: '默认环境已修改' }))
 
     expect(push).toHaveBeenCalledTimes(1)
     expect(parentClick).not.toHaveBeenCalled()

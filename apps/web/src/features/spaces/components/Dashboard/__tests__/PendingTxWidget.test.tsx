@@ -12,7 +12,7 @@ jest.mock('next/router', () => ({
 }))
 
 jest.mock('@/features/transactions/utils', () => ({
-  getTxStatus: () => 'Awaiting confirmations',
+  getTxStatus: () => '等待确认',
 }))
 
 jest.mock('@safe-global/utils/utils/date', () => ({
@@ -128,14 +128,14 @@ describe('PendingTxWidget – onItemClick callback', () => {
   it('renders an empty state when the transactions list is empty', () => {
     render(<PendingTxWidget transactions={[]} />)
 
-    expect(screen.getByText('No pending transactions')).toBeInTheDocument()
+    expect(screen.getByText('暂无待处理交易')).toBeInTheDocument()
     expect(getTxRows()).toHaveLength(0)
   })
 
   it('renders skeleton items while loading and no tx rows', () => {
     render(<PendingTxWidget transactions={[]} loading />)
 
-    expect(screen.queryByText('No pending transactions')).not.toBeInTheDocument()
+    expect(screen.queryByText('暂无待处理交易')).not.toBeInTheDocument()
     expect(getTxRows()).toHaveLength(0)
   })
 
@@ -144,6 +144,6 @@ describe('PendingTxWidget – onItemClick callback', () => {
 
     render(<PendingTxWidget transactions={[tx]} />)
 
-    expect(screen.queryByText('View all')).not.toBeInTheDocument()
+    expect(screen.queryByText('查看全部')).not.toBeInTheDocument()
   })
 })

@@ -17,10 +17,10 @@ describe('FeeInfoBanner', () => {
   it('renders the banner when not dismissed', () => {
     render(<FeeInfoBanner />)
 
-    expect(screen.getByText('Soon, fees will be paid from your Safe balance.')).toBeInTheDocument()
-    expect(screen.getByText('No need to fund signing wallets')).toBeInTheDocument()
-    expect(screen.getByText('Pay fees in any supported token')).toBeInTheDocument()
-    expect(screen.getByText('Learn more')).toBeInTheDocument()
+    expect(screen.getByText('即将支持从 8379 余额中支付费用。')).toBeInTheDocument()
+    expect(screen.getByText('无需为签名钱包充值')).toBeInTheDocument()
+    expect(screen.getByText('使用任何受支持的代币支付费用')).toBeInTheDocument()
+    expect(screen.getByText('了解更多')).toBeInTheDocument()
   })
 
   it('does not render when dismissed', () => {
@@ -34,7 +34,7 @@ describe('FeeInfoBanner', () => {
   it('calls setDismissed when close button is clicked', () => {
     render(<FeeInfoBanner />)
 
-    fireEvent.click(screen.getByLabelText('close'))
+    fireEvent.click(screen.getByLabelText('关闭'))
 
     expect(mockSetDismissed).toHaveBeenCalledWith(true)
   })

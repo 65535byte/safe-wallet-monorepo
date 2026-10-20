@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   ArrowRightLeft,
   WalletCards,
@@ -26,62 +27,62 @@ import type { SidebarItemConfig, SidebarGroupConfig } from '@safe-global/views/f
 export const spacesMainNavigation: SidebarItemConfig[] = [
   {
     icon: LayoutGrid,
-    label: 'Dashboard',
+    label: translateMessage('ui.dashboard_23212ed7'),
     href: AppRoutes.spaces.index,
   },
-  {
-    icon: ArrowRightLeft,
-    label: 'Transactions',
-    href: AppRoutes.spaces.transactions,
-    activeMemberOnly: true,
-  },
+  // TODO: Activate when Spaces Transactions page is ready
+  // {
+  //   icon: ArrowRightLeft,
+  //   label: 'Transactions',
+  //   href: AppRoutes.spaces.transactions,
+  // },
   {
     icon: WalletCards,
-    label: 'Safe accounts',
+    label: translateMessage('ui.transactions_1f617a12'),
     href: AppRoutes.spaces.safeAccounts,
   },
   {
     icon: BookUser,
-    label: 'Address book',
+    label: translateMessage('ui.safeAccounts_d1a4cbfe'),
     href: AppRoutes.spaces.addressBook,
   },
   {
     icon: Landmark,
-    label: 'Policies',
+    label: translateMessage('ui.addressBook_640af984'),
     href: AppRoutes.spaces.policies,
     activeMemberOnly: true,
   },
   {
     icon: History,
-    label: 'Activity',
+    label: translateMessage('ui.policies_4fbf625d'),
     href: AppRoutes.spaces.activity,
     activeMemberOnly: true,
   },
 ]
 
 export const spacesSetupGroup: SidebarGroupConfig = {
-  label: 'Setup',
+  label: translateMessage('ui.setup_f8f16b30'),
   items: [
     {
       icon: UsersRound,
-      label: 'Team',
+      label: translateMessage('ui.team_00a31af8'),
       href: AppRoutes.spaces.members,
     },
     {
       icon: Shield,
-      label: 'Security hub',
+      label: translateMessage('ui.securityHub_84cc8bb0'),
       href: AppRoutes.spaces.security,
       activeMemberOnly: true,
     },
     {
       icon: Settings,
-      label: 'Settings',
+      label: translateMessage('ui.settings_36b502ac'),
       href: AppRoutes.spaces.settings,
       activeMemberOnly: true,
     },
     {
       icon: ListChecks,
-      label: 'Plans',
+      label: translateMessage('ui.plans_9fadee1c'),
       href: AppRoutes.spaces.plans,
     },
   ],
@@ -90,52 +91,52 @@ export const spacesSetupGroup: SidebarGroupConfig = {
 export const safeMainNavigation: SidebarItemConfig[] = [
   {
     icon: Wallet,
-    label: 'Overview',
+    label: translateMessage('ui.overview_bf1fed7e'),
     href: AppRoutes.home,
   },
   {
     icon: Coins,
-    label: 'Assets',
+    label: translateMessage('ui.assets_42b9f464'),
     href: AppRoutes.balances.index,
   },
   {
     icon: ArrowRightLeft,
-    label: 'Transactions',
+    label: translateMessage('ui.transactions_50e8fab5'),
     href: AppRoutes.transactions.history,
   },
   {
     icon: BookUser,
-    label: 'Address book',
+    label: translateMessage('ui.addressBook_84131c25'),
     href: AppRoutes.addressBook,
   },
   {
     icon: LayoutGrid,
-    label: 'Apps',
+    label: translateMessage('ui.apps_efe4f96d'),
     href: AppRoutes.apps.index,
   },
 ]
 
 export const safeDefiGroup: SidebarGroupConfig = {
-  label: 'Defi',
+  label: 'DeFi',
   items: [
     {
       icon: Repeat2,
-      label: 'Swap',
+      label: translateMessage('ui.swap_cd9c7167'),
       href: AppRoutes.swap,
     },
     {
       icon: Orbit,
-      label: 'Bridge',
+      label: translateMessage('ui.bridge_e7d367f4'),
       href: AppRoutes.bridge,
     },
     {
       icon: TrendingUp,
-      label: 'Earn',
+      label: translateMessage('ui.earn_2e740029'),
       href: AppRoutes.earn,
     },
     {
       icon: Database,
-      label: 'Stake',
+      label: translateMessage('ui.stake_0e1cdece'),
       href: AppRoutes.stake,
     },
   ],

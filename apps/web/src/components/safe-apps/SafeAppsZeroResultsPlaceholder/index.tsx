@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import PagePlaceholder from '@safe-global/views/components/common/PagePlaceholder'
 import AddCustomAppIcon from '@/public/images/apps/add-custom-app.svg'
@@ -9,8 +10,10 @@ const SafeAppsZeroResultsPlaceholder = ({ searchQuery }: { searchQuery: string }
       img={<AddCustomAppIcon />}
       text={
         <Typography className="m-4 max-w-[600px] text-[var(--color-primary-light)]">
-          No Safe Apps found matching <strong>{searchQuery}</strong>. Connect to dApps that haven&apos;t yet been
-          integrated with the {BRAND_NAME} using WalletConnect.
+          {translateMessage('ui.noSafeAppsFoundMatching_f1b6f2ac')}
+          <strong>{searchQuery}</strong>
+          {translateMessage('ui.connectToDAppsThatHavenT_10f0a0d9')}
+          {BRAND_NAME} {translateMessage('ui.usingWalletConnect_53870050')}
         </Typography>
       }
     />

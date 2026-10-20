@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SignInButton from '../SignInButton'
 import { OidcAuthFeature } from '@/features/oidc-auth'
 import { useLoadFeature } from '@/features/__core__'
@@ -17,14 +18,19 @@ const SignInOptions = ({ afterSignIn, redirectLoading = false }: SignInOptionsPr
         afterSignIn={afterSignIn}
         redirectLoading={redirectLoading}
         buttonStyle="walletBtnSecondary"
-        buttonText={{ connected: 'Continue with', disconnected: 'Connect wallet' }}
+        buttonText={{
+          connected: translateMessage('ui.continueWith_0d1f7624'),
+          disconnected: translateMessage('ui.connectWallet_301090ba'),
+        }}
       />
 
       {showOidc && (
         <>
           <div className="flex items-center gap-3 py-0.5">
             <span className="h-px flex-1 bg-border" />
-            <span className="text-[13px] font-medium tracking-[0.5px] text-muted-foreground">OR</span>
+            <span className="text-[13px] font-medium tracking-[0.5px] text-muted-foreground">
+              {translateMessage('ui.oR_13988f04')}
+            </span>
             <span className="h-px flex-1 bg-border" />
           </div>
 

@@ -20,7 +20,7 @@ jest.mock('@next/third-parties/google')
 const txDetails = createMockTransactionDetails({
   txInfo: {
     type: TransactionInfoType.SETTINGS_CHANGE,
-    humanDescription: 'Add new owner 0xd8dA...6045 with threshold 1',
+    humanDescription: '添加 new owner 0xd8dA...6045 with threshold 1',
     dataDecoded: {
       method: 'addOwnerWithThreshold',
       parameters: [
@@ -160,14 +160,14 @@ describe('DecodedTx', () => {
     )
 
     await waitFor(() => {
-      expect(result.queryByText('native transfer')).toBeInTheDocument()
+      expect(result.queryByText('原生代币转账')).toBeInTheDocument()
     })
 
-    fireEvent.click(result.getByText('Transaction details'))
+    fireEvent.click(result.getByText('交易详情'))
 
     await waitFor(() => {
-      const dataField = result.queryAllByText('Data').pop()
-      const valueField = result.queryAllByText('Value').pop()
+      const dataField = result.queryAllByText('数据').pop()
+      const valueField = result.queryAllByText('价值').pop()
 
       expect(dataField).toBeInTheDocument()
       if (dataField) {
@@ -214,12 +214,12 @@ describe('DecodedTx', () => {
     )
 
     // Details live inside a collapsed accordion (unmounted) until expanded
-    fireEvent.click(result.getByText('Transaction details'))
+    fireEvent.click(result.getByText('交易详情'))
 
     await waitFor(() => {
-      expect(result.queryByText('Interacted with')).toBeInTheDocument()
+      expect(result.queryByText('已交互对象')).toBeInTheDocument()
       expect(result.queryByText('SafeTxGas')).toBeInTheDocument()
-      expect(result.queryAllByText('Data').pop()).toBeInTheDocument()
+      expect(result.queryAllByText('数据').pop()).toBeInTheDocument()
     })
   })
 
@@ -264,11 +264,11 @@ describe('DecodedTx', () => {
       />,
     )
 
-    fireEvent.click(result.getByText('Transaction details'))
+    fireEvent.click(result.getByText('交易详情'))
 
     await waitFor(() => {
       expect(result.queryAllByText('transfer').pop()).toBeInTheDocument()
-      expect(result.queryByText('to')).toBeInTheDocument()
+      expect(result.queryByText('至')).toBeInTheDocument()
       expect(result.queryAllByText('address').pop()).toBeInTheDocument()
       expect(result.queryByText('value')).toBeInTheDocument()
       expect(result.queryAllByText('uint256').pop()).toBeInTheDocument()
@@ -306,7 +306,7 @@ describe('DecodedTx', () => {
       />,
     )
 
-    fireEvent.click(result.getByText('Transaction details'))
+    fireEvent.click(result.getByText('交易详情'))
 
     expect(result.queryAllByText('deposit').pop()).toBeInTheDocument()
   })

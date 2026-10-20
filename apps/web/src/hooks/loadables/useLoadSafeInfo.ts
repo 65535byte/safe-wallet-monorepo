@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { removeUndeployedSafe, selectUndeployedSafe } from '@/features/counterfactual/store'
 import { CounterfactualFeature } from '@/features/counterfactual'
 import { useLoadFeature } from '@/features/__core__'
@@ -90,8 +91,8 @@ const useLoadSafeInfo = (): AsyncResult<ExtendedSafeInfo> => {
         'message' in cgwError
           ? String(cgwError.message)
           : 'status' in cgwError
-            ? `Error ${cgwError.status}`
-            : 'Failed to load safe info'
+            ? translateMessage('ui.error_971e0b4a', { p0: cgwError.status })
+            : translateMessage('ui.failedToLoadSafeInfo_57f4308b')
       return new Error(errorMessage)
     }
     return undeployedSafe ? undeployedError : undefined

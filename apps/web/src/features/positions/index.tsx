@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   Accordion,
   AccordionContent,
@@ -39,13 +40,13 @@ const Positions = () => {
       <div>
         <TotalAssetValue
           fiatTotal={positionsFiatTotal}
-          title="Total positions value"
+          title={translateMessage('ui.totalPositionsValue_a0ce6420')}
           action={<portfolio.PortfolioRefreshHint entryPoint="Positions" />}
         />
 
         {portfolio.$isDisabled && (
           <Typography variant="paragraph-mini" className="mt-4 block text-[var(--color-text-secondary)]">
-            Position balances are not included in the total asset value.
+            {translateMessage('ui.positionBalancesAreNotIncludedIn_30df7260')}
           </Typography>
         )}
       </div>

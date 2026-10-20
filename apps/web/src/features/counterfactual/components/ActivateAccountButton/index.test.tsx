@@ -24,7 +24,7 @@ describe('ActivateAccountButton', () => {
     render(<ActivateAccountButton />)
 
     const button = screen.getByTestId('activate-account-btn-cf')
-    expect(button).toHaveTextContent('Activate now')
+    expect(button).toHaveTextContent('立即激活')
     expect(button).not.toBeDisabled()
     expect(button.querySelector('svg.lucide-rocket')).toBeInTheDocument()
   })
@@ -35,7 +35,7 @@ describe('ActivateAccountButton', () => {
     render(<ActivateAccountButton />)
 
     const button = screen.getByTestId('activate-account-btn-cf')
-    expect(button).toHaveTextContent('Processing')
+    expect(button).toHaveTextContent('处理中')
     expect(button).toBeDisabled()
   })
 })

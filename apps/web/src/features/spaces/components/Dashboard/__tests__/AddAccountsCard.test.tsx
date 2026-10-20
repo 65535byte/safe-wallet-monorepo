@@ -24,7 +24,7 @@ describe('AddAccountsCard', () => {
   it('renders the AddAccountsChooser with the "Manage accounts" label', () => {
     render(<AddAccountsCard />)
 
-    expect(screen.getByTestId('add-accounts-chooser')).toHaveTextContent('Manage accounts')
+    expect(screen.getByTestId('add-accounts-chooser')).toHaveTextContent('管理账户')
   })
 
   it('passes "dashboard" as the entryPoint to AddAccountsChooser', () => {

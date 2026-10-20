@@ -62,7 +62,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="100" />)
 
-    expect(screen.getByText('Simulating')).toBeInTheDocument()
+    expect(screen.getByText('正在模拟')).toBeInTheDocument()
     expect(screen.getByText('By Safenet')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-attestation-link')).not.toBeInTheDocument()
     expect(screen.queryByText(/2026/)).not.toBeInTheDocument()
@@ -89,9 +89,9 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('No issues found')).toBeInTheDocument()
+    expect(screen.getByText('未发现问题')).toBeInTheDocument()
     // "By Safenet" with "Safenet" as the link — the actor line IS the proof link.
-    expect(screen.getByText(/^By/)).toBeInTheDocument()
+    expect(screen.getByText(/^操作人/)).toBeInTheDocument()
     expect(screen.getByTestId('safenet-attestation-link')).toHaveTextContent('Safenet')
     expect(screen.getByTestId('safenet-attestation-link')).toHaveAttribute(
       'href',
@@ -114,7 +114,7 @@ describe('SafenetAuditRow', () => {
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
     // The explorer page is not proof, so it never stands in for the attestation link.
-    expect(screen.getByText('No issues found')).toBeInTheDocument()
+    expect(screen.getByText('未发现问题')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-attestation-link')).not.toBeInTheDocument()
     expect(screen.getByTestId('safenet-explorer-link')).toHaveAccessibleName(SAFENET_EXPLORER_LINK_LABEL)
   })
@@ -140,7 +140,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('Check failed')).toBeInTheDocument()
+    expect(screen.getByText('检查失败')).toBeInTheDocument()
     expect(screen.getByText(formatAuditDateTime(timedOutAtMs))).toBeInTheDocument()
   })
 
@@ -152,7 +152,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('No issues found')).toBeInTheDocument()
+    expect(screen.getByText('未发现问题')).toBeInTheDocument()
     expect(screen.queryByText(/2026/)).not.toBeInTheDocument()
   })
 
@@ -171,7 +171,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('No issues found')).toBeInTheDocument()
+    expect(screen.getByText('未发现问题')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-attestation-link')).not.toBeInTheDocument()
   })
 
@@ -190,7 +190,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="100" />)
 
-    expect(screen.getByText('Risk detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到风险')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-attestation-link')).not.toBeInTheDocument()
   })
 
@@ -206,7 +206,7 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('Risk detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到风险')).toBeInTheDocument()
     const link = screen.getByTestId('safenet-explorer-link')
     expect(link).toHaveAccessibleName(SAFENET_EXPLORER_LINK_LABEL)
     expect(link).toHaveAttribute('href', expect.stringContaining(`/#/safeTx?chainId=1&safeTxHash=${HASH}`))
@@ -227,6 +227,6 @@ describe('SafenetAuditRow', () => {
 
     render(<SafenetAuditRow safeTxHash={HASH} chainId="1" />)
 
-    expect(screen.getByText('Risk detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到风险')).toBeInTheDocument()
   })
 })

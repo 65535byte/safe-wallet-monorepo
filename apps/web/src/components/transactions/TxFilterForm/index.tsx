@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
 import { RadioGroup, RadioGroupItem } from '@safe-global/views/components/ui/radio-group'
@@ -116,7 +117,7 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
           <div data-testid="filter-modal" className="flex min-w-0 flex-col md:min-h-[320px] md:flex-row">
             <div className="w-full shrink-0 p-6 md:w-[220px] md:p-8">
               <div className="flex w-full flex-col">
-                <Label className={css.filterSectionTitle}>Transaction type</Label>
+                <Label className={css.filterSectionTitle}>{translateMessage('ui.transactionType_f246e66a')}</Label>
                 <Controller
                   name={TxFilterFormFieldNames.FILTER_TYPE}
                   control={control}
@@ -145,19 +146,19 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
 
             <div className="w-full min-w-0 flex-1 p-6 md:p-8">
               <div className="flex w-full flex-col">
-                <Label className={css.filterSectionTitle}>Parameters</Label>
+                <Label className={css.filterSectionTitle}>{translateMessage('ui.parameters_a6780989')}</Label>
                 <div className="flex flex-col gap-4">
                   {!isModuleFilter && (
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                       <div className={css.paramField} data-testid="start-date">
                         <DatePickerInput
                           name={TxFilterFormFieldNames.DATE_FROM}
-                          label="From"
+                          label={translateMessage('ui.from_9ed312b5')}
                           deps={[TxFilterFormFieldNames.DATE_TO]}
                           validate={(val: TxFilterFormState[TxFilterFormFieldNames.DATE_FROM]) => {
                             const toDate = getValues(TxFilterFormFieldNames.DATE_TO)
                             if (val && toDate && isBefore(startOfDay(toDate), startOfDay(val))) {
-                              return 'Must be before "To" date'
+                              return translateMessage('ui.mustBeBeforeToDate_971c1a2d')
                             }
                           }}
                         />
@@ -165,12 +166,12 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                       <div className={css.paramField} data-testid="end-date">
                         <DatePickerInput
                           name={TxFilterFormFieldNames.DATE_TO}
-                          label="To"
+                          label={translateMessage('ui.to_fa7ba004')}
                           deps={[TxFilterFormFieldNames.DATE_FROM]}
                           validate={(val: TxFilterFormState[TxFilterFormFieldNames.DATE_FROM]) => {
                             const fromDate = getValues(TxFilterFormFieldNames.DATE_FROM)
                             if (val && fromDate && isAfter(startOfDay(fromDate), startOfDay(val))) {
-                              return 'Must be after "From" date'
+                              return translateMessage('ui.mustBeAfterFromDate_5130c075')
                             }
                           }}
                         />
@@ -198,7 +199,11 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                               variant="surface"
                               label={
                                 fieldState.error?.message ||
-                                (isIncomingFilter ? 'Amount' : `Amount (only ${chain?.nativeCurrency.symbol || 'ETH'})`)
+                                (isIncomingFilter
+                                  ? translateMessage('ui.amount_a72e74a9')
+                                  : translateMessage('ui.amountOnly_0d065f15', {
+                                      p0: chain?.nativeCurrency.symbol || 'ETH',
+                                    }))
                               }
                               error={!!fieldState.error}
                               {...field}
@@ -212,7 +217,7 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                         <div className={css.paramField}>
                           <AddressInput
                             data-testid="token-input"
-                            label="Token address"
+                            label={translateMessage('ui.tokenAddress_6f8dbc03')}
                             name={TxFilterFormFieldNames.TOKEN_ADDRESS}
                             required={false}
                             fullWidth
@@ -223,7 +228,7 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                       {isMultisigFilter && (
                         <div className={css.paramField}>
                           <AddressBookInput
-                            label="Recipient"
+                            label={translateMessage('ui.recipient_f737f260')}
                             name={TxFilterFormFieldNames.RECIPIENT}
                             required={false}
                             fullWidth
@@ -265,7 +270,7 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                   {isModuleFilter && (
                     <div className={css.paramField}>
                       <AddressBookInput
-                        label="Module"
+                        label={translateMessage('ui.module_46c34f61')}
                         name={TxFilterFormFieldNames.MODULE}
                         required={false}
                         fullWidth
@@ -283,10 +288,10 @@ const TxFilterForm = ({ onClose }: { onClose: () => void }): ReactElement => {
                   onClick={clearFilter}
                   disabled={!canClear}
                 >
-                  Clear
+                  {translateMessage('ui.clear_7164bdad')}
                 </Button>
                 <Button data-testid="apply-btn" type="submit" disabled={!isValid}>
-                  Apply
+                  {translateMessage('ui.apply_9d4c15d0')}
                 </Button>
               </div>
             </div>

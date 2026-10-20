@@ -51,14 +51,14 @@ describe('customErrorRegistry', () => {
       // Reviewer fixture (BUG-001): gas price 0x3b9aca00 = 1 gwei — a real
       // value an RPC can embed in a "misleadingly wrapped as revert" message
       const error = new Error(
-        'The contract function "execTransaction" reverted with the following reason:\nreplacement transaction underpriced: existing tx with gasPrice 0x3b9aca00 needs at least 0x77359400',
+        'The contract function "execTransaction" reverted with the following reason:\nreplacement transaction underpriced: existing tx with gasPrice 0x3b9aca00 needs，时间 least 0x77359400',
       )
       expect(extractRevertSelector(error)).toBeUndefined()
     })
 
     it('ignores unframed selectors and empty inputs', () => {
       expect(extractRevertSelector(new Error('request 0x70cc6907 failed with HTTP 500'))).toBeUndefined()
-      expect(extractRevertSelector(new Error('execution reverted at 0x70cc6907'))).toBeUndefined()
+      expect(extractRevertSelector(new Error('execution reverted，时间 0x70cc6907'))).toBeUndefined()
       expect(extractRevertSelector(undefined)).toBeUndefined()
       expect(extractRevertSelector(null)).toBeUndefined()
     })

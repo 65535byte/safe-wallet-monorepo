@@ -1057,7 +1057,7 @@ describe('SignOrExecute hooks', () => {
       const { executeTx } = result.current
 
       await expect(executeTx({ gasPrice: 1 }, tx, '123', 'origin.com', true)).rejects.toThrow(
-        'Cannot relay a transaction that is not fully signed',
+        '无法中继尚未完成全部签名的交易',
       )
 
       expect(proposeSpy).not.toHaveBeenCalled()

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -17,7 +18,7 @@ const BookmarkedSafeApps: NextPage = () => {
 
   return (
     <Head>
-      <title>{`${BRAND_NAME} – Safe Apps`}</title>
+      <title>{translateMessage('ui.safeApps_b014cd5e', { p0: BRAND_NAME })}</title>
     </Head>
   )
 }

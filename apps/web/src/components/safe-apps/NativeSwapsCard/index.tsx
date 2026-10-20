@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SafeAppIconCard from '@safe-global/views/components/safe-apps/SafeAppIconCard'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -20,26 +21,31 @@ const NativeSwapsCard = ({ onDismiss }: NativeSwapsCardProps) => {
     <Card size="none" className="h-full transition-colors">
       <div className="flex items-start justify-between px-4 pt-4 pb-2">
         <div className="rounded-full bg-[var(--color-secondary-light)] p-2">
-          <SafeAppIconCard src="/images/common/swap.svg" alt="Swap Icon" width={24} height={24} />
+          <SafeAppIconCard
+            src="/images/common/swap.svg"
+            alt={translateMessage('ui.swapIcon_5adcac87')}
+            width={24}
+            height={24}
+          />
         </div>
       </div>
 
       <div className="flex flex-1 flex-col px-4 pb-4">
         <Typography variant="paragraph-bold" className="mb-2 truncate">
-          Native swaps are here!
+          {translateMessage('ui.nativeSwapsAreHere_4d43653a')}
         </Typography>
 
         <Typography variant="paragraph-small" className="block mb-4 line-clamp-3 text-[var(--color-text-secondary)]">
-          Experience seamless trading with better decoding and security in native swaps.
+          {translateMessage('ui.experienceSeamlessTradingWithBetterDecoding_a4dae902')}
         </Typography>
 
         <div className="mt-auto flex flex-row flex-wrap justify-end gap-2 pt-2">
           <Button onClick={onDismiss} size="sm" variant="ghost" className="mr-auto">
-            Don&apos;t show
+            {translateMessage('ui.donTShow_93b3215f')}
           </Button>
           <Track {...SWAP_EVENTS.OPEN_SWAPS} label={SWAP_LABELS.safeAppsPromoWidget}>
             <Button size="sm" render={<Link href={{ pathname: AppRoutes.swap, query: safeLinkQuery }} />}>
-              Try now
+              {translateMessage('ui.tryNow_ef18cc57')}
             </Button>
           </Track>
         </div>

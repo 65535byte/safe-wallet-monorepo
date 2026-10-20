@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { type OrderByOption, selectOrderByPreference, setOrderByPreference } from '@/store/orderByPreferenceSlice'
 import debounce from 'lodash/debounce'
@@ -23,8 +24,8 @@ const AccountListFilters = ({ setSearchQuery }: { setSearchQuery: Dispatch<SetSt
           inputSize="sm"
           className="w-full"
           id="search-by-name"
-          placeholder="Search by name, ENS, address, or chain"
-          aria-label="Search Safe list by name"
+          placeholder={translateMessage('ui.searchByNameENSAddressOr_69359e90')}
+          aria-label={translateMessage('ui.searchListByName_8e4b5943')}
           onChange={(e) => {
             handleSearch(e.target.value)
           }}

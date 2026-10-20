@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SafesList from '../SafesList'
 import type { AllSafeItems } from '@/hooks/safes'
 import css from '../../styles.module.css'
@@ -25,14 +26,14 @@ const PinnedSafes = ({ allSafes, onLinkClick, onOpenSelectionModal }: PinnedSafe
       <div className={css.listHeader}>
         <BookmarkIcon className="mt-0.5 mr-2 size-5 [stroke-width:2]" />
         <Typography variant="h4" className="mb-4">
-          My accounts
+          {translateMessage('ui.myAccounts_837c511d')}
         </Typography>
       </div>
       <SafesList safes={pinnedSafes} onLinkClick={onLinkClick} />
       {onOpenSelectionModal && (
         <div className="mt-6 flex justify-center">
           <Button variant="outline" size="sm" onClick={onOpenSelectionModal} data-testid="add-more-safes-button">
-            Manage list
+            {translateMessage('ui.manageList_5be941e5')}
           </Button>
         </div>
       )}

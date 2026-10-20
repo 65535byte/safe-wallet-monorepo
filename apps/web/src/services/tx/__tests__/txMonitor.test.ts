@@ -78,7 +78,7 @@ describe('txMonitor', () => {
       expect(txDispatchSpy).toHaveBeenCalledWith('REVERTED', {
         nonce: 1,
         txId: '0x0',
-        error: new Error('Transaction reverted by EVM.'),
+        error: new Error('交易被 EVM 回退。'),
         chainId: '11155111',
         safeAddress,
       })
@@ -160,7 +160,7 @@ describe('txMonitor', () => {
         expect(txDispatchSpy).toHaveBeenCalledWith('REVERTED', {
           nonce: 1,
           txId: '0x2',
-          error: new Error('Relayed transaction reverted.'),
+          error: new Error('中继交易已回退。'),
           chainId,
           safeAddress,
         })
@@ -191,7 +191,7 @@ describe('txMonitor', () => {
         expect(txDispatchSpy).toHaveBeenCalledWith('FAILED', {
           nonce: 1,
           txId: '0x2',
-          error: new Error('Relayed transaction was rejected by relay provider.'),
+          error: new Error('中继交易被服务商拒绝。'),
           chainId,
           safeAddress,
         })
@@ -240,7 +240,7 @@ describe('txMonitor', () => {
       expect(txDispatchSpy).toHaveBeenCalledWith('FAILED', {
         nonce: 1,
         txId: '0x2',
-        error: new Error('Transaction not relayed in 3 minutes. Be aware that it might still be relayed.'),
+        error: new Error('交易在 3 分钟内未被中继，请注意它之后仍可能被中继。'),
         chainId,
         safeAddress,
       })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import css from '../Dashboard/styles.module.css'
 import SignInOptions from '../SignInOptions'
 import { OidcAuthFeature } from '@/features/oidc-auth'
@@ -21,13 +22,13 @@ const SignedOutState = ({ afterSignIn, redirectLoading = false }: SignedOutState
         <div className={cn('text-center', css.contentWrapper)}>
           <div className={css.contentInner}>
             <Typography variant="paragraph-bold" className="mb-4">
-              Sign in to see content
+              {translateMessage('ui.signInToSeeContent_5df8e3fa')}
             </Typography>
 
             <Typography color="muted" className="mb-4">
-              To view and interact with Workspaces, you need to sign in with the wallet, that is a member of the
-              Workspace
-              {!$isDisabled && ', or sign in with email'}. Sign in to continue.
+              {translateMessage('ui.toViewAndInteractWithWorkspaces_7fb47710')}
+              {!$isDisabled && ', or sign in with email'}
+              {translateMessage('ui.signInToContinue_ebd668d8')}
             </Typography>
 
             <SignInOptions afterSignIn={afterSignIn ?? (() => {})} redirectLoading={redirectLoading} />

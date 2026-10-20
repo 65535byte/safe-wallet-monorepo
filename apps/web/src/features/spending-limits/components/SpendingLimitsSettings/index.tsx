@@ -1,8 +1,8 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
 import AddIcon from '@/public/images/common/add.svg'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
 import { NoSpendingLimits } from '@safe-global/views/features/spending-limits/components/SpendingLimitsSettings/NoSpendingLimits'
 import { SpendingLimitsTable } from './SpendingLimitsTable'
 import { useHasFeature } from '@/hooks/useChains'
@@ -46,10 +46,10 @@ const SpendingLimitsSettings = () => {
             disabled={!isOk}
           >
             <AddIcon className="size-4" />
-            Add spending limit
+            {translateMessage('ui.addSpendingLimit_5fbab29f')}
             {showProTag && (
-              <span className="block h-5 w-8" role="img" aria-label="Safe Pro" data-testid="pro-tag">
-                <ProChip className="size-full" />
+              <span className="block h-5 w-8" role="img" aria-label="8379" data-testid="pro-tag">
+                <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
               </span>
             )}
           </Button>
@@ -63,23 +63,20 @@ const SpendingLimitsSettings = () => {
       <div className="flex flex-col justify-between gap-6 lg:flex-row">
         <div className="lg:w-1/5 lg:shrink-0">
           <Typography variant="h4" className="font-bold">
-            Spending limits
+            {translateMessage('ui.spendingLimits_a36dee76')}
           </Typography>
         </div>
 
         <div className="lg:min-w-0 lg:flex-1">
           {isEnabled ? (
             <div>
-              <Typography>
-                You can set rules for specific beneficiaries to access funds from this Safe account without having to
-                collect all signatures.
-              </Typography>
+              <Typography>{translateMessage('ui.youCanSetRulesForSpecific_60a4c68a')}</Typography>
 
               {isSupported ? (
                 mustUpgradeToSafePro ? (
                   <div className="my-4">
                     <SafeProLock
-                      title="Adding spending limits requires Safe Pro"
+                      title={translateMessage('ui.addingSpendingLimitsRequires_ce4cfab2')}
                       href={upgradeHref}
                       feature={UpgradeFeature.SPENDING_LIMITS}
                     />
@@ -89,8 +86,7 @@ const SpendingLimitsSettings = () => {
                 )
               ) : (
                 <Typography className="mt-4 block">
-                  The spending limit module isn&apos;t deployed on this chain yet, so new spending limits can&apos;t be
-                  created here.
+                  {translateMessage('ui.theSpendingLimitModuleIsnT_494192ef')}
                 </Typography>
               )}
 
@@ -100,7 +96,7 @@ const SpendingLimitsSettings = () => {
               )}
             </div>
           ) : (
-            <Typography>The spending limit feature is not yet available on this chain.</Typography>
+            <Typography>{translateMessage('ui.theSpendingLimitFeatureIsNot_c1f39b0d')}</Typography>
           )}
         </div>
       </div>

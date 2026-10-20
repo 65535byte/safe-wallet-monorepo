@@ -78,7 +78,7 @@ describe('SafeAppsPermissions', () => {
   it('renders the Safe App name and url under the permissions heading', () => {
     render(<SafeAppsPermissions />)
 
-    expect(screen.getByText('Safe Apps permissions')).toBeInTheDocument()
+    expect(screen.getByText('8379 应用 权限')).toBeInTheDocument()
     expect(screen.getByText('Safe App')).toBeInTheDocument()
     expect(screen.getByText(safeAppUrl)).toBeInTheDocument()
   })

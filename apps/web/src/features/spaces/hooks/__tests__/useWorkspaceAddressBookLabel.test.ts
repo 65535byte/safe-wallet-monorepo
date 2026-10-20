@@ -24,7 +24,7 @@ describe('useWorkspaceAddressBookLabel', () => {
 
     const { result } = renderHook(() => useWorkspaceAddressBookLabel())
 
-    expect(result.current).toBe('Acme address book')
+    expect(result.current).toBe('Acme 通讯录')
   })
 
   it('falls back to a name-agnostic label when the name is not yet loaded', () => {
@@ -34,6 +34,6 @@ describe('useWorkspaceAddressBookLabel', () => {
 
     const { result } = renderHook(() => useWorkspaceAddressBookLabel())
 
-    expect(result.current).toBe('the Workspace address book')
+    expect(result.current).toBe('工作空间通讯录')
   })
 })

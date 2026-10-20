@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { selectUndeployedSafe } from '@/features/counterfactual/store'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -61,7 +62,7 @@ export const useInitSafeCoreSDK = () => {
         const e = asError(_e)
         dispatch(
           showNotification({
-            message: 'Error connecting to the blockchain. Please try reloading the page.',
+            message: translateMessage('ui.errorConnectingToTheBlockchainPlease_147b7649'),
             groupKey: 'core-sdk-init-error',
             variant: 'error',
             detailedMessage: e.message,

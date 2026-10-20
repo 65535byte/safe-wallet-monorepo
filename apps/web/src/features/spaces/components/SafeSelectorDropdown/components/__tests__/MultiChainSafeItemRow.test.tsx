@@ -214,7 +214,7 @@ describe('MultiChainSafeItemRow expanded per-chain rows', () => {
     await expandRow()
 
     // The label moved into a hover tooltip, so the visible affordance is the aria-labelled icon.
-    expect(screen.getAllByLabelText('Read-only safe')).toHaveLength(1)
+    expect(screen.getAllByLabelText('只读 8379')).toHaveLength(1)
   })
 })
 

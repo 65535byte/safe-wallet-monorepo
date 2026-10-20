@@ -1,8 +1,9 @@
+import { translateMessage } from '@/i18n'
 import { useIsMultichainSafe } from '../../hooks/useIsMultichainSafe'
 import useChains, { useCurrentChain } from '@/hooks/useChains'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import { useAppSelector } from '@/store'
 import { selectCurrency, selectUndeployedSafes, useGetMultipleSafeOverviewsQuery } from '@/store/slices'
@@ -81,22 +82,24 @@ export const InconsistentSignerSetupWarning = () => {
   return (
     <Alert variant="warning" outlined={false}>
       <AlertSeverityIcon variant="warning" />
-      <AlertTitle className="font-bold">You have different signers across different networks.</AlertTitle>
+      <AlertTitle className="font-bold">
+        {translateMessage('ui.youHaveDifferentSignersAcrossDifferent_967e9986')}
+      </AlertTitle>
       <AlertDescription>
-        This could break approvals and you may risk losing control of this Safe. First, switch to the affected network
-        and review the signer setup for this Safe.
+        {translateMessage('ui.thisCouldBreakApprovalsAndYou_02614ffb')}
         <div className="mt-4">
-          <Track {...ATTENTION_PANEL_EVENTS.REVIEW_SIGNERS}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-foreground"
-              data-testid="review-signers-btn"
-              onClick={handleReviewSigners}
-            >
-              Review signers
-            </Button>
-          </Track>
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-foreground"
+            data-testid="review-signers-btn"
+            onClick={() => {
+              trackEvent(ATTENTION_PANEL_EVENTS.REVIEW_SIGNERS)
+              handleReviewSigners()
+            }}
+          >
+            {translateMessage('ui.reviewSigners_aae08736')}
+          </Button>
         </div>
       </AlertDescription>
     </Alert>

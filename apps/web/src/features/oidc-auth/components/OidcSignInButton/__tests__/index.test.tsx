@@ -27,7 +27,7 @@ const renderButton = (variant?: 'primary' | 'secondary') =>
   render(
     <OidcSignInButton
       connection={OidcConnection.EMAIL}
-      label="Continue with test"
+      label="继续使用 test"
       icon={<TestIcon />}
       analyticsEvent={testEvent}
       testId="test-btn"
@@ -53,7 +53,7 @@ describe('OidcSignInButton', () => {
     renderButton()
 
     expect(screen.getByTestId('test-btn')).toBeInTheDocument()
-    expect(screen.getByText('Continue with test')).toBeInTheDocument()
+    expect(screen.getByText('继续使用 test')).toBeInTheDocument()
     expect(screen.getByTestId('test-icon')).toBeInTheDocument()
   })
 

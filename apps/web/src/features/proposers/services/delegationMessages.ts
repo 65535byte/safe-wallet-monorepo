@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { DelegationOrigin } from '@/features/proposers/types'
 import type { CreateMessageDto } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { cgwApi } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
@@ -91,8 +92,8 @@ export async function createDelegationMessage(
         } else {
           // Different action - can't have add + remove in same TOTP window
           throw new Error(
-            `A pending "${existingAction}" delegation already exists for this proposer. ` +
-              `Please wait for it to expire (~1 hour) before initiating a "${requestedAction}" action.`,
+            translateMessage('ui.aPendingDelegationAlreadyExistsFor_8106f0da', { p0: existingAction }) +
+              translateMessage('ui.pleaseWaitForItToExpire_ee638889', { p0: requestedAction }),
           )
         }
       } else {

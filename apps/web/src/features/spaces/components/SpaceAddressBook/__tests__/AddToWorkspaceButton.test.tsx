@@ -48,7 +48,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' }, '137': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => {
       expect(mockUpsert).toHaveBeenCalledWith({
@@ -57,7 +57,7 @@ describe('AddToWorkspaceButton', () => {
       })
     })
 
-    await waitFor(() => expect(screen.getByText('Added')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('已添加')).toBeInTheDocument())
   })
 
   it('submits the sanitized name so it matches the validated value', async () => {
@@ -66,7 +66,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: ' Alice‚Bob ' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => {
       expect(mockUpsert).toHaveBeenCalledWith({
@@ -82,7 +82,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' }, '137': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => expect(mockUpsert).toHaveBeenCalled())
 
@@ -97,12 +97,12 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => expect(mockUpsert).toHaveBeenCalled())
 
     expect(getStoreInstance().getState().addressBook['1'][address]).toBe('Alice')
-    expect(screen.queryByText('Added')).not.toBeInTheDocument()
+    expect(screen.queryByText('已添加')).not.toBeInTheDocument()
   })
 
   it('surfaces the backend error message in the toast', async () => {
@@ -113,7 +113,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => {
       const notifications = getStoreInstance().getState().notifications
@@ -127,7 +127,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => {
       const notifications = getStoreInstance().getState().notifications
@@ -138,7 +138,7 @@ describe('AddToWorkspaceButton', () => {
   it('drops the label into the accessible name in the compact layout', () => {
     render(<AddToWorkspaceButton address={address} name="Alice" chainIds={['1']} isCompact />)
 
-    expect(screen.getByRole('button', { name: 'Add to Workspace' })).toHaveTextContent('')
+    expect(screen.getByRole('button', { name: '添加到工作空间' })).toHaveTextContent('')
   })
 
   it('disables the button and skips the mutation when the local name has invalid characters', async () => {
@@ -146,7 +146,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Bad/Name' } } },
     })
 
-    const button = screen.getByRole('button', { name: 'Add to Workspace' })
+    const button = screen.getByRole('button', { name: '添加到工作空间' })
     expect(button).toBeDisabled()
 
     await userEvent.click(button)
@@ -158,7 +158,7 @@ describe('AddToWorkspaceButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Bad/Name' } } },
     })
 
-    await userEvent.hover(screen.getByRole('button', { name: 'Add to Workspace' }).parentElement as HTMLElement)
+    await userEvent.hover(screen.getByRole('button', { name: '添加到工作空间' }).parentElement as HTMLElement)
 
     await waitFor(() => expect(screen.getByText(/Rename this contact to add it to the Workspace/)).toBeInTheDocument())
   })
@@ -167,7 +167,7 @@ describe('AddToWorkspaceButton', () => {
     mockUpsert.mockResolvedValue({ data: {} })
     render(<AddToWorkspaceButton address={address} name="Alice" chainIds={['1']} />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() =>
       expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.LOCAL_CONTACT_ADDED, { Source: 'local_contact_row' }),
@@ -178,7 +178,7 @@ describe('AddToWorkspaceButton', () => {
     mockUpsert.mockResolvedValue({ error: { status: 500 } })
     render(<AddToWorkspaceButton address={address} name="Alice" chainIds={['1']} />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Add to Workspace' }))
+    await userEvent.click(screen.getByRole('button', { name: '添加到工作空间' }))
 
     await waitFor(() => expect(mockUpsert).toHaveBeenCalled())
     expect(trackEvent).not.toHaveBeenCalled()

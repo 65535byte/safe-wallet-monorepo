@@ -45,14 +45,14 @@ describe('WcIcon', () => {
   it('shows dApp icon when 1 session with icon', () => {
     render(<WcIcon {...defaultProps} sessionCount={1} sessionIcon="https://cow.fi/icon.png" />)
 
-    expect(screen.getByLabelText('Connected dApp')).toBeInTheDocument()
-    expect(screen.getByAltText('Connected dApp icon')).toBeInTheDocument()
+    expect(screen.getByLabelText('已连接的 dApp')).toBeInTheDocument()
+    expect(screen.getByAltText('已连接的 dApp 图标')).toBeInTheDocument()
   })
 
   it('shows session count badge when multiple sessions', () => {
     render(<WcIcon {...defaultProps} sessionCount={3} />)
 
-    const badge = screen.getByLabelText('3 WalletConnect sessions')
+    const badge = screen.getByLabelText('3 个 WalletConnect 会话')
     expect(badge).toBeInTheDocument()
     expect(badge).toHaveTextContent('3')
   })
@@ -60,14 +60,14 @@ describe('WcIcon', () => {
   it('shows error badge when isError is true', () => {
     render(<WcIcon {...defaultProps} isError />)
 
-    expect(screen.getByLabelText('WalletConnect error')).toBeInTheDocument()
+    expect(screen.getByLabelText('WalletConnect 错误')).toBeInTheDocument()
   })
 
   it('does not show badge when sessionCount is 0 and no error', () => {
     render(<WcIcon {...defaultProps} />)
 
     expect(screen.queryByLabelText(/WalletConnect sessions/)).not.toBeInTheDocument()
-    expect(screen.queryByLabelText('WalletConnect error')).not.toBeInTheDocument()
-    expect(screen.queryByLabelText('Connected dApp')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('WalletConnect 错误')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('已连接的 dApp')).not.toBeInTheDocument()
   })
 })

@@ -27,13 +27,13 @@ const renderContent = (context: Partial<TxFlowContextType>) =>
 
 describe('TxFlowContent', () => {
   it('renders a back button past the first step', () => {
-    renderContent({ txLayoutProps: { title: 'Review details' } })
+    renderContent({ txLayoutProps: { title: '核对详情' } })
 
     expect(screen.getByTestId('modal-back-btn')).toBeInTheDocument()
   })
 
   it('hides the back button when the step asks for it', () => {
-    renderContent({ txLayoutProps: { title: 'Execute transaction', hideBack: true } })
+    renderContent({ txLayoutProps: { title: '执行交易', hideBack: true } })
 
     expect(screen.queryByTestId('modal-back-btn')).not.toBeInTheDocument()
   })

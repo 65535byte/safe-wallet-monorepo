@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { ShieldCheck } from 'lucide-react'
 import ChainIndicator from '@/components/common/ChainIndicator'
@@ -16,16 +17,22 @@ const ProposerOverview = ({
   lastUpdated,
   enforcedBy,
 }: ProposerOverviewProps): ReactElement => (
-  <DrawerSection title="Policy overview">
+  <DrawerSection title={translateMessage('ui.policyOverview_d78b3715')}>
     <DrawerList
       items={[
-        { label: 'Proposer', content: <AccountIdentity {...proposer} showCopyButton /> },
-        { label: 'Safe account', content: <AccountIdentity {...appliesTo} showCopyButton /> },
-        { label: 'Initiated by', content: <AccountIdentity {...initiatedBy} showCopyButton /> },
-        { label: 'Network', content: <ChainIndicator chainId={chainId} inline className="min-w-0! justify-end!" /> },
-        { label: 'Last updated', content: lastUpdated },
+        { label: translateMessage('ui.proposer_7ebd3069'), content: <AccountIdentity {...proposer} showCopyButton /> },
+        { label: translateMessage('ui.account_7e251525'), content: <AccountIdentity {...appliesTo} showCopyButton /> },
         {
-          label: 'Enforced by',
+          label: translateMessage('ui.initiatedBy_63ad62d6'),
+          content: <AccountIdentity {...initiatedBy} showCopyButton />,
+        },
+        {
+          label: translateMessage('ui.network_eb8f6520'),
+          content: <ChainIndicator chainId={chainId} inline className="min-w-0! justify-end!" />,
+        },
+        { label: translateMessage('ui.lastUpdated_8cd51832'), content: lastUpdated },
+        {
+          label: translateMessage('ui.enforcedBy_18db72a9'),
           content: (
             <span className="inline-flex items-center gap-1">
               <ShieldCheck className="size-3.5" />
@@ -41,15 +48,24 @@ const ProposerOverview = ({
 export default ProposerOverview
 
 export const ProposerOverviewSkeleton = (): ReactElement => (
-  <DrawerSection title="Policy overview">
+  <DrawerSection title={translateMessage('ui.policyOverview_d78b3715')}>
     <DrawerList
       items={[
-        { label: 'Proposer', content: <AccountIdentitySkeleton /> },
-        { label: 'Safe account', content: <AccountIdentitySkeleton /> },
-        { label: 'Initiated by', content: <AccountIdentitySkeleton /> },
-        { label: 'Network', content: <Skeleton className="ml-auto h-4 w-24 bg-border" /> },
-        { label: 'Last updated', content: <Skeleton className="ml-auto h-4 w-36 bg-border" /> },
-        { label: 'Enforced by', content: <Skeleton className="ml-auto h-4 w-24 bg-border" /> },
+        { label: translateMessage('ui.proposer_7ebd3069'), content: <AccountIdentitySkeleton /> },
+        { label: translateMessage('ui.account_7e251525'), content: <AccountIdentitySkeleton /> },
+        { label: translateMessage('ui.initiatedBy_63ad62d6'), content: <AccountIdentitySkeleton /> },
+        {
+          label: translateMessage('ui.network_eb8f6520'),
+          content: <Skeleton className="ml-auto h-4 w-24 bg-border" />,
+        },
+        {
+          label: translateMessage('ui.lastUpdated_8cd51832'),
+          content: <Skeleton className="ml-auto h-4 w-36 bg-border" />,
+        },
+        {
+          label: translateMessage('ui.enforcedBy_18db72a9'),
+          content: <Skeleton className="ml-auto h-4 w-24 bg-border" />,
+        },
       ]}
     />
   </DrawerSection>

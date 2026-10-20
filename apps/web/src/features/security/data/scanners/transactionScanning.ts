@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SecurityScanner } from './types'
 import { getSeverityFromScore } from './constants'
 
@@ -13,7 +14,12 @@ export const transactionScanningScanner: SecurityScanner = {
         status: 'clear',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'Transactions are scanned before execution' }],
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.transactionsAreScannedBeforeExecution_ba508d92'),
+          },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -24,7 +30,12 @@ export const transactionScanningScanner: SecurityScanner = {
       status: 'not_applicable',
       severity: getSeverityFromScore(score, { excluded: true }),
       score,
-      evidence: [{ label: 'Status', value: 'Transaction scanning not available on this network' }],
+      evidence: [
+        {
+          label: translateMessage('ui.status_8042eaf1'),
+          value: translateMessage('ui.transactionScanningNotAvailableOnThis_f63fea4f'),
+        },
+      ],
       remediation: '',
       lastChecked: now,
     }

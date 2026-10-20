@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { TriangleAlert } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -26,13 +27,11 @@ import { useTransactionsGetMultipleTransactionDetailsQuery } from '@safe-global/
 import { isMultisigDetailedExecutionInfo } from '@/utils/transaction-guards'
 import { isGtfSafePaid } from '@safe-global/utils/utils/isGtfSafePaid'
 
-const ALL_SAFE_PAID_TOOLTIP =
-  "Bulk execution is not available when all ready transactions pay fees from the Safe. You'd pay gas twice, once from the Safe and once from your signer wallet."
+const ALL_SAFE_PAID_TOOLTIP = translateMessage('ui.bulkExecutionIsNotAvailableWhen_ea3ff858')
 
-const NOT_BATCHABLE_TOOLTIP =
-  'Batch execution is only available for transactions that have been fully signed and are strictly sequential in Safe account nonce.'
+const NOT_BATCHABLE_TOOLTIP = translateMessage('ui.batchExecutionIsOnlyAvailableFor_35fc1563')
 
-const BATCHABLE_TOOLTIP = 'All highlighted transactions will be included in the batch execution.'
+const BATCHABLE_TOOLTIP = translateMessage('ui.allHighlightedTransactionsWillBeIncluded_2388f9f9')
 
 const BatchExecuteButton = () => {
   const { setTxFlow } = useContext(TxModalContext)
@@ -125,7 +124,8 @@ const BatchExecuteButton = () => {
                 disabled={isDisabled}
                 onClick={handleOpenModal}
               >
-                Bulk execute{isBatchable && ` ${batchableTransactions.length} transactions`}
+                {translateMessage('ui.bulkExecute_9d27f598')}
+                {isBatchable && translateMessage('ui.transactions_cb302d64', { p0: batchableTransactions.length })}
               </Button>
             </span>
           }
@@ -142,19 +142,21 @@ const BatchExecuteButton = () => {
               <div className="flex items-center justify-center size-10 rounded-full bg-[var(--color-warning-main)]/10 text-[var(--color-warning-main)] shrink-0">
                 <TriangleAlert className="size-5" />
               </div>
-              <AlertDialogTitle>Some transactions will be charged gas twice</AlertDialogTitle>
+              <AlertDialogTitle>{translateMessage('ui.someTransactionsWillBeChargedGas_76d83026')}</AlertDialogTitle>
               <AlertDialogDescription>
-                {safePaidCount} {safePaidCount === 1 ? 'transaction' : 'transactions'} in this batch{' '}
-                {safePaidCount === 1 ? 'pays' : 'pay'} gas fees from the Safe. Those fees will still be deducted from
-                the Safe, and your signer wallet will also pay gas to execute the batch. You&apos;ll pay gas twice on
-                those transactions.
+                {safePaidCount}{' '}
+                {safePaidCount === 1
+                  ? translateMessage('ui.transaction_fda910e6')
+                  : translateMessage('ui.transactions_679b16b1')}{' '}
+                {translateMessage('ui.inThisBatch_e95c3918')} {safePaidCount === 1 ? 'pays' : 'pay'}{' '}
+                {translateMessage('ui.gasFeesFromTheThoseFees_d583a0e2')}
               </AlertDialogDescription>
             </AlertDialogHeader>
 
             <AlertDialogFooter>
               <DialogActions
                 onCancel={() => setShowMixedWarning(false)}
-                confirmLabel="Execute anyway"
+                confirmLabel={translateMessage('ui.executeAnyway_92a67968')}
                 onConfirm={handleConfirmMixed}
               />
             </AlertDialogFooter>

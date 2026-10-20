@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -16,7 +17,7 @@ const Load: NextPage = () => {
         <SafeLogo />
       </div>
       <Head>
-        <title>{`${BRAND_NAME} – Add Safe account`}</title>
+        <title>{translateMessage('ui.addAccount_abece3e7', { p0: BRAND_NAME })}</title>
       </Head>
 
       {safeAddress ? (

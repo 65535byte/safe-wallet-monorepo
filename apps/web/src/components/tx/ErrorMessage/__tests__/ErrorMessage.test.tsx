@@ -6,7 +6,7 @@ import ErrorMessage from '..'
 describe('ErrorMessage', () => {
   it('renders the children message', () => {
     const { getByText } = render(<ErrorMessage>Transaction failed</ErrorMessage>)
-    expect(getByText('Transaction failed')).toBeInTheDocument()
+    expect(getByText('交易失败')).toBeInTheDocument()
   })
 
   it('shows an always-visible, code-only reference for a GS error — never the raw payload', () => {
@@ -18,7 +18,7 @@ describe('ErrorMessage', () => {
     )
 
     // The code is shown inline without a Details toggle
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(getByText('GS013')).toBeInTheDocument()
     expect(queryByText(/drpc\.org/)).not.toBeInTheDocument()
     expect(queryByText(/viem@/)).not.toBeInTheDocument()
@@ -26,14 +26,14 @@ describe('ErrorMessage', () => {
   })
 
   it('offers no way to reach the raw message of an error with no code at all', () => {
-    const raw = 'Request failed at https://rpc.example.org using viem@2.0.0'
+    const raw = 'Request failed，时间 https://rpc.example.org using viem@2.0.0'
 
     const { getByText, queryByText, queryByTestId, container } = render(
       <ErrorMessage error={new Error(raw)}>Something failed.</ErrorMessage>,
     )
 
     expect(getByText('Something failed.')).toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(queryByTestId('error-details')).not.toBeInTheDocument()
     expect(container.textContent).not.toContain('rpc.example.org')
   })
@@ -47,7 +47,7 @@ describe('ErrorMessage', () => {
 
     expect(getByText('Something went wrong on our end. Try again.')).toBeInTheDocument()
     expect(queryByTestId('error-details')).not.toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(queryByText(/Bad Gateway/)).not.toBeInTheDocument()
   })
 
@@ -63,9 +63,9 @@ describe('ErrorMessage', () => {
       <ErrorMessage error={error}>Unlock your Ledger and try again.</ErrorMessage>,
     )
 
-    expect(getByText('Unlock your Ledger and try again.')).toBeInTheDocument()
+    expect(getByText('请解锁 Ledger 后重试。')).toBeInTheDocument()
     // A mapped state needs no support reference, and never the raw payload
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(container.textContent).not.toContain('DeviceLockedError')
     expect(container.textContent).not.toContain('UNKNOWN_ERROR')
   })
@@ -79,7 +79,7 @@ describe('ErrorMessage', () => {
     )
 
     expect(getByText('LEDGER-UNKNOWN')).toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(container.textContent).not.toContain('V is missing')
   })
 
@@ -93,7 +93,7 @@ describe('ErrorMessage', () => {
 
     expect(getByText(/GS013 · UnapprovedHash \(Hypernative guard\)/)).toBeInTheDocument()
     // The reference replaces the raw Details toggle
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
   })
 
   it('keeps the raw selector in the reference for an undecodable custom error', () => {

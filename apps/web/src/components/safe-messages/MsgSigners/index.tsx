@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { useState, type ReactElement } from 'react'
 import { Circle as CircleOutlinedIcon } from 'lucide-react'
@@ -59,7 +60,7 @@ const MsgSigners = ({
             <Created />
           </div>
           <div className={css.listItemText}>
-            <Typography variant="paragraph-bold">Created</Typography>
+            <Typography variant="paragraph-bold">{translateMessage('ui.created_d8278ec8')}</Typography>
           </div>
         </li>
       )}
@@ -69,9 +70,9 @@ const MsgSigners = ({
         </div>
         <div className={css.listItemText}>
           <Typography variant="paragraph-bold">
-            Confirmations{' '}
+            {translateMessage('ui.confirmations_bfdbece1')}{' '}
             <span className={txSignersCss.confirmationsTotal}>
-              ({`${confirmationsSubmitted} of ${confirmationsRequired}`})
+              ({translateMessage('ui.text_602591a8', { p0: confirmationsSubmitted, p1: confirmationsRequired })})
             </span>
           </Typography>
         </div>
@@ -94,7 +95,7 @@ const MsgSigners = ({
           </div>
           <div className={css.listItemText}>
             <Link render={<button type="button" />} onClick={toggleHide} className="text-base">
-              {hideConfirmations ? 'Show all' : 'Hide all'}
+              {hideConfirmations ? translateMessage('ui.showAll_c5c3fa8c') : translateMessage('ui.hideAll_9196b8dd')}
             </Link>
           </div>
         </li>
@@ -109,7 +110,8 @@ const MsgSigners = ({
               <div className="flex flex-row items-center gap-2">
                 <Skeleton className="size-9 rounded-full" />
                 <Typography variant="paragraph-small" className="text-[var(--color-text-secondary)]">
-                  Confirmation #{idx + 1 + confirmationsSubmitted}
+                  {translateMessage('ui.confirmation_1b9f7018')}
+                  {idx + 1 + confirmationsSubmitted}
                 </Typography>
               </div>
             </div>
@@ -120,7 +122,7 @@ const MsgSigners = ({
           <div className={css.listItemIcon} style={{ backgroundColor }}>
             <Dot />
           </div>
-          <div className={css.listItemText}>Confirmed</div>
+          <div className={css.listItemText}>{translateMessage('ui.confirmed_2a0ef702')}</div>
         </li>
       )}
     </ul>

@@ -53,7 +53,7 @@ describe('MemberName', () => {
     mockCurrentUserId.mockReturnValue(11)
     render(<MemberName member={longNameMember} />)
 
-    const suffix = screen.getByText('You')
+    const suffix = screen.getByText('您')
     expect(suffix).toHaveClass('shrink-0')
     expect(suffix).not.toBe(screen.getByText(LONG_NAME))
     expect(screen.getByText(LONG_NAME)).not.toContainElement(suffix)
@@ -73,6 +73,6 @@ describe('MemberName', () => {
     mockCurrentUserId.mockReturnValue(99)
     render(<MemberName member={longNameMember} />)
 
-    expect(screen.queryByText('You')).not.toBeInTheDocument()
+    expect(screen.queryByText('您')).not.toBeInTheDocument()
   })
 })

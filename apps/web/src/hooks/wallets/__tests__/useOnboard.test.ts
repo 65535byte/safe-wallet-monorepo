@@ -30,7 +30,7 @@ describe('useOnboard', () => {
     it('returns the connected wallet', () => {
       const wallets = [
         {
-          label: 'Wallet 1',
+          label: '钱包 1',
           icon: 'wallet1.svg',
           provider: null as unknown as EIP1193Provider,
           chains: [{ id: '0x4', namespace: 'evm' }],
@@ -48,7 +48,7 @@ describe('useOnboard', () => {
           ],
         },
         {
-          label: 'Wallet 2',
+          label: '钱包 2',
           icon: 'wallet2.svg',
           provider: null as unknown as EIP1193Provider,
           chains: [{ id: '0x100', namespace: 'evm' }],
@@ -64,7 +64,7 @@ describe('useOnboard', () => {
       ] as unknown as WalletState[]
 
       expect(getConnectedWallet(wallets)).toEqual({
-        label: 'Wallet 1',
+        label: '钱包 1',
         icon: 'wallet1.svg',
         address: '0x1234567890123456789012345678901234567890',
         provider: wallets[0].provider,
@@ -78,7 +78,7 @@ describe('useOnboard', () => {
     it('should return null if the address is invalid', () => {
       const wallets = [
         {
-          label: 'Wallet 1',
+          label: '钱包 1',
           icon: 'wallet1.svg',
           provider: null as unknown as EIP1193Provider,
           chains: [{ id: '0x4', namespace: 'evm' }],
@@ -132,7 +132,7 @@ describe('useOnboard', () => {
                     id: '5',
                   },
                 ],
-                label: 'Wallet Connect',
+                label: '钱包 Connect',
               },
             ],
           }),

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   useNotificationsRegisterDeviceV1Mutation,
   useNotificationsUnregisterDeviceV1Mutation,
@@ -148,9 +149,12 @@ export const useNotificationRegistrations = (): {
 
         dispatch(
           showNotification({
-            message: `You will now receive notifications for ${
-              totalRegistered > 1 ? 'these Safe accounts' : 'this Safe account'
-            } in your browser.`,
+            message: translateMessage('ui.youWillNowReceiveNotificationsFor_13749f83', {
+              p0:
+                totalRegistered > 1
+                  ? translateMessage('ui.theseAccounts_22eef6ca')
+                  : translateMessage('ui.thisAccount_6eff2e56'),
+            }),
             variant: 'success',
             groupKey: 'notifications',
           }),

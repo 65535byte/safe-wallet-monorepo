@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { SidebarMenuButton } from '@safe-global/views/components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@safe-global/views/components/ui/avatar'
@@ -19,7 +20,7 @@ export const BackToSpaceButton = ({ spaceName, spaceInitial }: SafeWorkspaceHead
   return (
     <SidebarMenuButton
       size="lg"
-      tooltip="Back to Workspace"
+      tooltip={translateMessage('ui.backToWorkspace_5674a59a')}
       data-testid="back-to-space-button"
       className={css.spaceSelector}
       onClick={handleBackToSpace}
@@ -34,7 +35,9 @@ export const BackToSpaceButton = ({ spaceName, spaceInitial }: SafeWorkspaceHead
       </Avatar>
       <div className={css.spaceSelectorText}>
         <span className={css.spaceSelectorName}>{spaceName}</span>
-        <span className={cn(css.spaceSelectorSubtitle, 'text-muted-foreground')}>Workspace</span>
+        <span className={cn(css.spaceSelectorSubtitle, 'text-muted-foreground')}>
+          {translateMessage('ui.workspace_c8c48e9f')}
+        </span>
       </div>
       <icons.ChevronLeft className="ml-auto size-4 shrink-0 group-data-[collapsible=icon]:hidden" aria-hidden />
     </SidebarMenuButton>

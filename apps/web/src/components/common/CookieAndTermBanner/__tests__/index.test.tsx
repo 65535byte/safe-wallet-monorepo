@@ -39,25 +39,25 @@ describe('CookieAndTermBanner', () => {
     it('should render all cookie options', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      expect(screen.getByText('Necessary')).toBeInTheDocument()
+      expect(screen.getByText('必要 Cookie')).toBeInTheDocument()
       expect(screen.getByText('Beamer')).toBeInTheDocument()
-      expect(screen.getByText('Analytics')).toBeInTheDocument()
+      expect(screen.getByText('数据分析')).toBeInTheDocument()
     })
 
     it('should display intro text with terms link', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      expect(screen.getByText(/By browsing this page, you accept our/)).toBeInTheDocument()
-      expect(screen.getByText('Terms & Conditions')).toBeInTheDocument()
-      expect(screen.getByText(/last updated/)).toBeInTheDocument()
-      expect(screen.getByText('Cookie policy')).toBeInTheDocument()
+      expect(screen.getByText(/浏览此页面即表示您接受我们的/)).toBeInTheDocument()
+      expect(screen.getByText('条款与条件')).toBeInTheDocument()
+      expect(screen.getByText(/最后更新/)).toBeInTheDocument()
+      expect(screen.getByText('Cookie 政策')).toBeInTheDocument()
     })
 
     it('should display both action buttons', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      expect(screen.getByText('Save settings')).toBeInTheDocument()
-      expect(screen.getByText('Accept all')).toBeInTheDocument()
+      expect(screen.getByText('保存设置')).toBeInTheDocument()
+      expect(screen.getByText('全部接受')).toBeInTheDocument()
     })
 
     it('should display warning message when warningKey is provided', () => {
@@ -87,7 +87,7 @@ describe('CookieAndTermBanner', () => {
     it('should have necessary cookie checkbox disabled and checked', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      const necessaryCheckbox = getCheckboxByLabel('Necessary')
+      const necessaryCheckbox = getCheckboxByLabel('必要 Cookie')
       expect(necessaryCheckbox).toHaveAttribute('aria-disabled', 'true')
       expect(necessaryCheckbox).toBeChecked()
     })
@@ -106,7 +106,7 @@ describe('CookieAndTermBanner', () => {
       renderWithStore(<CookieAndTermBanner />, preloadedState)
 
       const beamerCheckbox = getCheckboxByLabel('Beamer')
-      const analyticsCheckbox = getCheckboxByLabel('Analytics')
+      const analyticsCheckbox = getCheckboxByLabel('数据分析')
 
       expect(beamerCheckbox).toBeChecked()
       expect(analyticsCheckbox).not.toBeChecked()
@@ -128,7 +128,7 @@ describe('CookieAndTermBanner', () => {
     it('should allow toggling Analytics checkbox', async () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      const analyticsCheckbox = getCheckboxByLabel('Analytics')
+      const analyticsCheckbox = getCheckboxByLabel('数据分析')
       expect(analyticsCheckbox).not.toBeChecked()
 
       await userEvent.click(analyticsCheckbox)
@@ -151,7 +151,7 @@ describe('CookieAndTermBanner', () => {
       const { store } = renderWithStore(<CookieAndTermBanner />)
 
       const beamerCheckbox = getCheckboxByLabel('Beamer')
-      const saveButton = screen.getByText('Save settings')
+      const saveButton = screen.getByText('保存设置')
 
       // Select only Beamer
       await userEvent.click(beamerCheckbox)
@@ -168,7 +168,7 @@ describe('CookieAndTermBanner', () => {
     it('should accept all cookies on "Accept all" click', async () => {
       const { store } = renderWithStore(<CookieAndTermBanner />)
 
-      const acceptAllButton = screen.getByText('Accept all')
+      const acceptAllButton = screen.getByText('全部接受')
 
       fireEvent.click(acceptAllButton)
 
@@ -182,7 +182,7 @@ describe('CookieAndTermBanner', () => {
     it('should close banner after saving settings', async () => {
       const { store } = renderWithStore(<CookieAndTermBanner />)
 
-      const saveButton = screen.getByText('Save settings')
+      const saveButton = screen.getByText('保存设置')
 
       fireEvent.click(saveButton)
 
@@ -195,7 +195,7 @@ describe('CookieAndTermBanner', () => {
     it('should close banner after accepting all', async () => {
       const { store } = renderWithStore(<CookieAndTermBanner />)
 
-      const acceptAllButton = screen.getByText('Accept all')
+      const acceptAllButton = screen.getByText('全部接受')
 
       fireEvent.click(acceptAllButton)
 
@@ -208,7 +208,7 @@ describe('CookieAndTermBanner', () => {
     it('should save terms version when accepting settings', async () => {
       const { store } = renderWithStore(<CookieAndTermBanner />)
 
-      const saveButton = screen.getByText('Save settings')
+      const saveButton = screen.getByText('保存设置')
 
       fireEvent.click(saveButton)
 
@@ -223,17 +223,17 @@ describe('CookieAndTermBanner', () => {
     it('should have proper labels for all checkboxes', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      expect(getCheckboxByLabel('Necessary')).toBeInTheDocument()
+      expect(getCheckboxByLabel('必要 Cookie')).toBeInTheDocument()
       expect(getCheckboxByLabel('Beamer')).toBeInTheDocument()
-      expect(getCheckboxByLabel('Analytics')).toBeInTheDocument()
+      expect(getCheckboxByLabel('数据分析')).toBeInTheDocument()
     })
 
     it('should have descriptions for each cookie type', () => {
       renderWithStore(<CookieAndTermBanner />)
 
-      expect(screen.getByText('Locally stored data for core functionality')).toBeInTheDocument()
-      expect(screen.getByText('New features and product announcements')).toBeInTheDocument()
-      expect(screen.getByText('Analytics tools to understand usage patterns.')).toBeInTheDocument()
+      expect(screen.getByText('在本地保存核心功能所需的数据')).toBeInTheDocument()
+      expect(screen.getByText('新功能与产品公告')).toBeInTheDocument()
+      expect(screen.getByText('用于了解使用情况的分析工具。')).toBeInTheDocument()
     })
   })
 })

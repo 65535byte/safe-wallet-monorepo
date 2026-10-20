@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactElement } from 'react'
@@ -27,7 +28,7 @@ export function NestedSafeCreation({ txData }: { txData: TransactionData }): Rea
   return (
     <div className="flex flex-col gap-2">
       <Typography variant="paragraph-small" className="text-muted-foreground whitespace-nowrap">
-        Nested Safe
+        {translateMessage('ui.nested_945d8f67')}
       </Typography>
 
       <div>

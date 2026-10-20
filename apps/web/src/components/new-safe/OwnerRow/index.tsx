@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useMemo } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -54,7 +55,10 @@ const OwnerRow = ({
       if (reservedError) {
         return reservedError
       }
-      const currentSafeError = addressIsNotCurrentSafe(safeAddress)(address)
+      const currentSafeError = addressIsNotCurrentSafe(
+        safeAddress,
+        translateMessage('ui.cannotUseAccountItselfAsSigner_509aab54'),
+      )(address)
       if (currentSafeError) {
         return currentSafeError
       }
@@ -96,11 +100,11 @@ const OwnerRow = ({
           <NameInput
             data-testid="owner-name"
             name={`${fieldName}.name`}
-            label="Signer name"
+            label={translateMessage('ui.signerName_8893c373')}
             InputLabelProps={{ shrink: true }}
             inputSize="hero"
             variant="surface"
-            placeholder={ens || `Signer ${index + 1}`}
+            placeholder={ens || translateMessage('ui.signer_0b61c910', { p0: index + 1 })}
             helperText={walletIsOwner && 'Your connected wallet'}
             InputProps={{
               endAdornment: resolving && <Spinner className="size-5" />,
@@ -120,7 +124,7 @@ const OwnerRow = ({
           <div className="flex w-full flex-col">
             <AddressBookInput
               name={`${fieldName}.address`}
-              label="Signer"
+              label={translateMessage('ui.signer_a728da3c')}
               validate={validateOwnerAddress}
               deps={deps}
               onReset={() => setValue(`${fieldName}.name`, '')}
@@ -138,7 +142,7 @@ const OwnerRow = ({
               size="icon"
               data-testid="remove-owner-btn"
               onClick={() => remove?.(index)}
-              aria-label="Remove signer"
+              aria-label={translateMessage('ui.removeSigner_c915f5e6')}
             >
               <DeleteIcon />
             </Button>

@@ -56,7 +56,7 @@ describe('CopyAddressButton', () => {
     expect(navigator.clipboard.readText()).resolves.toEqual('')
 
     act(() => {
-      result.getByText('Proceed and copy').click()
+      result.getByText('继续并复制').click()
     })
 
     await waitFor(async () => {
@@ -76,7 +76,7 @@ describe('CopyAddressButton', () => {
     expect(result.getByText(address)).toBeVisible()
     expect(navigator.clipboard.readText()).resolves.toEqual('')
 
-    result.getByLabelText('close').click()
+    result.getByLabelText('关闭').click()
 
     await waitFor(async () => {
       expect(navigator.clipboard.readText()).resolves.toEqual('')

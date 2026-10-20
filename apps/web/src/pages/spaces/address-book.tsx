@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -15,7 +16,7 @@ export default function SpaceAddressBookPage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Workspace address book`}</title>
+        <title>{translateMessage('ui.workspaceAddressBook_428a66b5', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@safe-global/views/components/ui/tabs'
 import { SCROLL_AREA } from '@/utils/styles'
@@ -26,8 +27,8 @@ const SecurityDrawerContent = ({
   <Tabs defaultValue="checks" className="flex min-h-0 flex-1 flex-col gap-4">
     {/* eslint-disable-next-line no-restricted-syntax -- gap-2 spaces this 2-tab drawer switch; no TabsList variant provides this gap */}
     <TabsList className="w-fit gap-2">
-      <TabsTrigger value="checks">Checks</TabsTrigger>
-      <TabsTrigger value="details">Details</TabsTrigger>
+      <TabsTrigger value="checks">{translateMessage('ui.checks_b5dec923')}</TabsTrigger>
+      <TabsTrigger value="details">{translateMessage('ui.details_0ae44359')}</TabsTrigger>
     </TabsList>
 
     <div className={SCROLL_AREA}>

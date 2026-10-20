@@ -35,17 +35,17 @@ describe('RecoveryListItem', () => {
     const { getByTestId, getByText, queryByText } = render(<RecoveryListItem item={item} />)
 
     expect(getByTestId('recovery-item')).toBeInTheDocument()
-    expect(getByText('Account recovery')).toBeInTheDocument()
+    expect(getByText('账户恢复')).toBeInTheDocument()
     expect(queryByText('Recovery details')).not.toBeInTheDocument()
   })
 
   it('expands and collapses when the row is clicked', async () => {
     const { getByRole, getByText, queryByText } = render(<RecoveryListItem item={item} />)
 
-    await userEvent.click(getByRole('button', { name: /Account recovery/ }))
+    await userEvent.click(getByRole('button', { name: /账户恢复/ }))
     expect(getByText('Recovery details')).toBeInTheDocument()
 
-    await userEvent.click(getByRole('button', { name: /Account recovery/ }))
+    await userEvent.click(getByRole('button', { name: /账户恢复/ }))
     expect(queryByText('Recovery details')).not.toBeInTheDocument()
   })
 

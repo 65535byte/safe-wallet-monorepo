@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, type ReactElement } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -57,7 +58,7 @@ const UntrustedSafeWarning = ({ safeAnalysis, onAddToTrustedList }: UntrustedSaf
                 {safeAnalysis.description}
               </Typography>
               <Button variant="outline" onClick={handleOpenConfirmDialog} className="mt-2 self-start">
-                Add to my accounts
+                {translateMessage('ui.addToMyAccounts_35ee2ac1')}
               </Button>
             </div>
           </div>

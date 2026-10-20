@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWalletCanPay from '@/hooks/useWalletCanPay'
 import madProps from '@/utils/mad-props'
 import { type ReactElement, type SyntheticEvent, useContext } from 'react'
@@ -101,7 +102,7 @@ export const ExecuteThroughRoleForm = ({
     setIsRejectedByUser(false)
 
     if (!txThroughRole) {
-      throw new Error('Execution through role is not possible')
+      throw new Error(translateMessage('ui.executionThroughRoleIsNotPossible_5d514fc6'))
     }
 
     const txOptions = getTxOptions(advancedParams, currentChain)
@@ -136,7 +137,7 @@ export const ExecuteThroughRoleForm = ({
     // Wait for module tx to be indexed
     const transactionService = currentChain?.transactionService
     if (!transactionService) {
-      throw new Error('Transaction service not found')
+      throw new Error(translateMessage('ui.transactionServiceNotFound_26410b9b'))
     }
     const txId = await pollModuleTransactionId(chainId, safe.address.value, txHash)
     onSubmitSuccess?.({ txId, isExecuted: true })
@@ -159,8 +160,8 @@ export const ExecuteThroughRoleForm = ({
         {!permissionsError && (
           <>
             <Typography className="mb-4">
-              Your <RoleChip>{role.roleKey}</RoleChip> role allows you to execute this transaction without the
-              confirmations of other owners.
+              {translateMessage('ui.your_44763c70')}
+              <RoleChip>{role.roleKey}</RoleChip> {translateMessage('ui.roleAllowsYouToExecuteThis_31a289ef')}
             </Typography>
 
             <div className={commonCss.params}>
@@ -178,7 +179,8 @@ export const ExecuteThroughRoleForm = ({
         {permissionsError && (
           <div className="mb-4">
             <Typography className="mb-4">
-              You are a member of the <RoleChip>{role.roleKey}</RoleChip> role but it does not allow this transaction.
+              {translateMessage('ui.youAreAMemberOfThe_9ecc3f78')}
+              <RoleChip>{role.roleKey}</RoleChip> {translateMessage('ui.roleButItDoesNotAllow_993939fb')}
             </Typography>
 
             <ErrorMessage>{permissionsError}</ErrorMessage>
@@ -186,25 +188,20 @@ export const ExecuteThroughRoleForm = ({
         )}
 
         <Typography variant="paragraph-mini" className="mb-4 flex gap-[2px] text-muted-foreground">
-          Powered by
+          {translateMessage('ui.poweredBy_9a7de8cb')}
           <img src="/images/transactions/zodiac-roles.svg" width={16} height={16} alt="Zodiac Roles" />
           <span className={css.zodiac}>Zodiac</span>
         </Typography>
 
         {multiSendImpossible && (
           <div className="mt-2">
-            <ErrorMessage>
-              The current configuration of the Zodiac Roles module does not allow executing multiple transactions in
-              batch.
-            </ErrorMessage>
+            <ErrorMessage>{translateMessage('ui.theCurrentConfigurationOfTheZodiac_9a30849e')}</ErrorMessage>
           </div>
         )}
 
         {!walletCanPay ? (
           <div className="mt-2">
-            <ErrorMessage level="info">
-              Your connected wallet doesn&apos;t have enough funds to execute this transaction.
-            </ErrorMessage>
+            <ErrorMessage level="info">{translateMessage('ui.yourConnectedWalletDoesnTHave_496964dc')}</ErrorMessage>
           </div>
         ) : (
           gasLimitError && (
@@ -244,23 +241,23 @@ export default madProps(ExecuteThroughRoleForm, {
 const PermissionsErrorMessage: Record<Status, string | null> = {
   [Status.Ok]: null,
 
-  [Status.DelegateCallNotAllowed]: 'Role is not allowed to delegate call to target address',
-  [Status.TargetAddressNotAllowed]: 'Role is not allowed to call target address',
-  [Status.FunctionNotAllowed]: 'Role is not allowed to call this function on the target address',
-  [Status.SendNotAllowed]: 'Role is not allowed to send to target address',
-  [Status.OrViolation]: 'Condition violation: None of the Or branch conditions are met',
-  [Status.NorViolation]: 'Condition violation: At least one Nor branch condition is met',
-  [Status.ParameterNotAllowed]: 'Condition violation: Parameter value is not allowed',
-  [Status.ParameterLessThanAllowed]: 'Condition violation: Parameter value is less than allowed',
-  [Status.ParameterGreaterThanAllowed]: 'Condition violation: Parameter value is greater than allowed',
-  [Status.ParameterNotAMatch]: 'Condition violation: Parameter value does not match',
-  [Status.NotEveryArrayElementPasses]: 'Condition violation: Not every array element meets the criteria',
-  [Status.NoArrayElementPasses]: 'Condition violation: None of the array elements meet the criteria',
-  [Status.ParameterNotSubsetOfAllowed]: 'Condition violation: Parameter value is not a subset of allowed values',
-  [Status.BitmaskOverflow]: 'Condition violation: Bitmask exceeded value length',
-  [Status.BitmaskNotAllowed]: 'Condition violation: Bitmask does not allow the value',
-  [Status.CustomConditionViolation]: 'Condition violation: Custom condition is not met',
-  [Status.AllowanceExceeded]: 'Condition violation: Allowance is exceeded',
-  [Status.CallAllowanceExceeded]: 'Condition violation: Call allowance is exceeded',
-  [Status.EtherAllowanceExceeded]: 'Condition violation: Ether allowance is exceeded',
+  [Status.DelegateCallNotAllowed]: translateMessage('ui.roleIsNotAllowedToDelegate_b3272eb4'),
+  [Status.TargetAddressNotAllowed]: translateMessage('ui.roleIsNotAllowedToCall_c62ce37e'),
+  [Status.FunctionNotAllowed]: translateMessage('ui.roleIsNotAllowedToCall_66d498cb'),
+  [Status.SendNotAllowed]: translateMessage('ui.roleIsNotAllowedToSend_d998d0b7'),
+  [Status.OrViolation]: translateMessage('ui.conditionViolationNoneOfTheOr_c419c6fa'),
+  [Status.NorViolation]: translateMessage('ui.conditionViolationAtLeastOneNor_17021dea'),
+  [Status.ParameterNotAllowed]: translateMessage('ui.conditionViolationParameterValueIsNot_c873db09'),
+  [Status.ParameterLessThanAllowed]: translateMessage('ui.conditionViolationParameterValueIsLess_212bef26'),
+  [Status.ParameterGreaterThanAllowed]: translateMessage('ui.conditionViolationParameterValueIsGreater_b4b7c8c1'),
+  [Status.ParameterNotAMatch]: translateMessage('ui.conditionViolationParameterValueDoesNot_2a5c5664'),
+  [Status.NotEveryArrayElementPasses]: translateMessage('ui.conditionViolationNotEveryArrayElement_a93438af'),
+  [Status.NoArrayElementPasses]: translateMessage('ui.conditionViolationNoneOfTheArray_b75ffb7f'),
+  [Status.ParameterNotSubsetOfAllowed]: translateMessage('ui.conditionViolationParameterValueIsNot_4de932b3'),
+  [Status.BitmaskOverflow]: translateMessage('ui.conditionViolationBitmaskExceededValueLength_b02a0522'),
+  [Status.BitmaskNotAllowed]: translateMessage('ui.conditionViolationBitmaskDoesNotAllow_769f6509'),
+  [Status.CustomConditionViolation]: translateMessage('ui.conditionViolationCustomConditionIsNot_ad9a859f'),
+  [Status.AllowanceExceeded]: translateMessage('ui.conditionViolationAllowanceIsExceeded_3864ac8d'),
+  [Status.CallAllowanceExceeded]: translateMessage('ui.conditionViolationCallAllowanceIsExceeded_eb97e62c'),
+  [Status.EtherAllowanceExceeded]: translateMessage('ui.conditionViolationEtherAllowanceIsExceeded_0b31bbbe'),
 }

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import type { ReactElement } from 'react'
 import { Download, Info, Upload } from 'lucide-react'
@@ -33,16 +34,16 @@ export const DataWidget = (): ReactElement => {
     <div className={cn('shadcn-scope flex flex-col items-center gap-2 py-6', isDarkMode && 'dark')}>
       <div className="flex items-center gap-1">
         <Typography variant="paragraph">
-          {hasData ? 'Export or import your Safe data' : 'Import your Safe data'}
+          {hasData
+            ? translateMessage('ui.exportOrImportYourData_e493904e')
+            : translateMessage('ui.importYourData_7171d6f1')}
         </Typography>
 
         <Tooltip>
           <TooltipTrigger render={<span className="inline-flex cursor-default text-muted-foreground" />}>
             <Info className="size-4" />
           </TooltipTrigger>
-          <TooltipContent>
-            Download or upload your local data with your added Safe accounts, address book and settings.
-          </TooltipContent>
+          <TooltipContent>{translateMessage('ui.downloadOrUploadYourLocalData_8a5caf77')}</TooltipContent>
         </Tooltip>
       </div>
 
@@ -51,7 +52,7 @@ export const DataWidget = (): ReactElement => {
           <Track {...OVERVIEW_EVENTS.EXPORT_DATA} label={trackingLabel}>
             <Button variant="outline" className="flex-1" onClick={exportAppData}>
               <Download className="size-4" />
-              Export
+              {translateMessage('ui.export_9bb429ef')}
             </Button>
           </Track>
         )}
@@ -64,7 +65,7 @@ export const DataWidget = (): ReactElement => {
             onClick={() => setImportModalOpen(true)}
           >
             <Upload className="size-4" />
-            Import
+            {translateMessage('ui.import_f0101b10')}
           </Button>
         </Track>
       </div>

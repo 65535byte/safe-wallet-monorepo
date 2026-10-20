@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -15,7 +16,7 @@ export const SpendingLimitBatchSummary = ({ txData, batch }: SpendingLimitBatchS
   <div className="flex flex-col gap-4" data-testid="spending-limit-batch-summary">
     {batch.enablesModule && (
       <Typography>
-        <b>Enable the spending limit module</b>
+        <b>{translateMessage('ui.enableTheSpendingLimitModule_6e5a96fe')}</b>
       </Typography>
     )}
 
@@ -26,9 +27,9 @@ export const SpendingLimitBatchSummary = ({ txData, batch }: SpendingLimitBatchS
     {batch.removedSpenders.map((spender, index) => (
       <div key={`${spender}-${index}`} className="flex flex-col gap-2">
         <Typography>
-          <b>Remove spender:</b>
+          <b>{translateMessage('ui.removeSpender_85c9f55b')}</b>
         </Typography>
-        <TxDetailsRow label="Spender" grid>
+        <TxDetailsRow label={translateMessage('ui.spender_77803664')} grid>
           <EthHashInfo address={spender} shortAddress={false} showCopyButton hasExplorer />
         </TxDetailsRow>
       </div>

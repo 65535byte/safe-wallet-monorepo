@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -17,7 +18,9 @@ import SettingsCard from '@safe-global/views/components/settings/SettingsCard'
 import css from '../TransactionGuards/styles.module.css'
 
 const NoModules = () => {
-  return <Typography className="mt-4 text-muted-foreground">No modules enabled</Typography>
+  return (
+    <Typography className="mt-4 text-muted-foreground">{translateMessage('ui.noModulesEnabled_a95c2650')}</Typography>
+  )
 }
 
 const ModuleDisplay = ({ moduleAddress, chainId, name }: { moduleAddress: string; chainId: string; name?: string }) => {
@@ -52,7 +55,7 @@ const ModuleDisplay = ({ moduleAddress, chainId, name }: { moduleAddress: string
             size="icon-sm"
             onClick={onRemove}
             disabled={!isOk || !$isReady}
-            title="Remove module"
+            title={translateMessage('ui.removeModule_8ec1b493')}
           >
             <DeleteIcon className="size-4 text-destructive" />
           </Button>
@@ -67,16 +70,15 @@ const SafeModules = () => {
   const safeModules = safe.modules || []
 
   return (
-    <SettingsCard title="Safe modules">
+    <SettingsCard title={translateMessage('ui.modules_a3e65cf6')}>
       <div>
         <Typography>
-          Modules allow you to customize the access-control logic of your Safe account. Modules are potentially risky,
-          so make sure to only use modules from trusted sources. Learn more about modules{' '}
+          {translateMessage('ui.modulesAllowYouToCustomizeThe_b4693bc0')}{' '}
           <ExternalLink
             className="font-bold hover:text-muted-foreground"
             href="https://help.safe.global/articles/5490514177-What-is-a-module?"
           >
-            here
+            {translateMessage('ui.here_134b2f0e')}
           </ExternalLink>
         </Typography>
         {safeModules.length === 0 ? (

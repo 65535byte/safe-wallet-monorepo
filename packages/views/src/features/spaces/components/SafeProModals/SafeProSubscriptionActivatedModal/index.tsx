@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -21,7 +22,8 @@ const SafeProSubscriptionActivatedModal = ({
   <SafeProModalFrame open={open} onOpenChange={onOpenChange}>
     <div className="flex flex-col items-center gap-4">
       <Typography variant="h4" as={DialogTitle}>
-        Your paid subscription is active, you&apos;re on <ProHighlight>{planName}</ProHighlight>!
+        {translateMessage('ui.yourPaidSubscriptionIsActiveYou_d13f5bd6')}
+        <ProHighlight>{planName}</ProHighlight>!
       </Typography>
       {seatsLabel && (
         <Badge variant="secondary" shape="tag" data-testid="subscription-seats">
@@ -31,7 +33,7 @@ const SafeProSubscriptionActivatedModal = ({
     </div>
 
     <Button accentIcon className="mt-2 min-w-64" onClick={() => onOpenChange(false)}>
-      Get started
+      {translateMessage('ui.getStarted_5801751d')}
       <ArrowRight data-icon="inline-end" />
     </Button>
   </SafeProModalFrame>

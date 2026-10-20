@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { motion } from 'motion/react'
 import { cn } from '@safe-global/views/utils/cn'
 import type { SafeOverview } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
@@ -50,7 +51,9 @@ const MockupContent = ({ accounts, safeOverviews, totalFormatted, totalFiat, hig
           )}
         >
           <div className="flex items-center justify-between px-4 pb-2 pt-4">
-            <span className="text-base font-semibold leading-tight text-foreground">Accounts</span>
+            <span className="text-base font-semibold leading-tight text-foreground">
+              {translateMessage('ui.accounts_91c225a3')}
+            </span>
             <div className="h-3 w-16 rounded-full bg-muted" />
           </div>
 

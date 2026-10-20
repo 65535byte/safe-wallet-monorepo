@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Label } from '@safe-global/views/components/ui/label'
@@ -67,7 +68,7 @@ const AppActions = ({ wallet, onConnectWallet, chain, appUrl, app }: Props): Rea
 
       button = (
         <Button style={{ width: CTA_BUTTON_WIDTH }} disabled={!safeToUse} render={<Link href={href} />}>
-          Use app
+          {translateMessage('ui.useApp_70ea3fa2')}
         </Button>
       )
       break
@@ -79,14 +80,14 @@ const AppActions = ({ wallet, onConnectWallet, chain, appUrl, app }: Props): Rea
       }
       button = (
         <Button style={{ width: CTA_BUTTON_WIDTH }} render={<Link href={createSafeHrefWithRedirect} />}>
-          Create new Safe account
+          {translateMessage('ui.createNewAccount_cf67da11')}
         </Button>
       )
       break
     default:
       button = (
         <Button onClick={onConnectWallet} style={{ width: CTA_BUTTON_WIDTH }}>
-          Connect wallet
+          {translateMessage('ui.connectWallet_301090ba')}
         </Button>
       )
   }
@@ -94,7 +95,7 @@ const AppActions = ({ wallet, onConnectWallet, chain, appUrl, app }: Props): Rea
   if (hasWallet && hasSafes) {
     body = (
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="safe-select-label">Select a Safe account</Label>
+        <Label htmlFor="safe-select-label">{translateMessage('ui.selectAAccount_59d87877')}</Label>
         <Select
           value={safeToUse?.address || ''}
           onValueChange={(value) => {
@@ -103,7 +104,7 @@ const AppActions = ({ wallet, onConnectWallet, chain, appUrl, app }: Props): Rea
           }}
         >
           <SelectTrigger id="safe-select-label" className="min-h-[56px] w-[311px]">
-            <SelectValue placeholder="Select a Safe account" />
+            <SelectValue placeholder={translateMessage('ui.selectAAccount_59d87877')} />
           </SelectTrigger>
           <SelectContent>
             {compatibleSafes.map(({ address, chainId, shortName }) => (
@@ -124,12 +125,12 @@ const AppActions = ({ wallet, onConnectWallet, chain, appUrl, app }: Props): Rea
       </div>
     )
   } else {
-    body = <CreateNewSafeSVG alt="An icon of a physical safe with a plus sign" />
+    body = <CreateNewSafeSVG alt={translateMessage('ui.anIconOfAPhysicalSafe_9a8053b6')} />
   }
 
   return (
     <div className="flex flex-col items-center justify-between font-bold" style={{ height: CTA_HEIGHT }}>
-      <Typography variant="paragraph-bold">Use the App with your Safe account</Typography>
+      <Typography variant="paragraph-bold">{translateMessage('ui.useTheAppWithYourAccount_579095cc')}</Typography>
       {body}
       {button}
     </div>

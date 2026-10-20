@@ -52,14 +52,14 @@ jest.mock('../../../config', () => {
   const { AppRoutes } = require('@/config/routes')
   const Icon = () => null
   return {
-    safeMainNavigation: [{ icon: Icon, label: 'Transactions', href: AppRoutes.transactions.history }],
+    safeMainNavigation: [{ icon: Icon, label: '交易', href: AppRoutes.transactions.history }],
     safeDefiGroup: {
-      label: 'Defi',
+      label: 'DeFi',
       items: [
-        { icon: Icon, label: 'Swap', href: AppRoutes.swap },
-        { icon: Icon, label: 'Bridge', href: AppRoutes.bridge },
-        { icon: Icon, label: 'Earn', href: AppRoutes.earn },
-        { icon: Icon, label: 'Stake', href: AppRoutes.stake },
+        { icon: Icon, label: '兑换', href: AppRoutes.swap },
+        { icon: Icon, label: '跨链桥', href: AppRoutes.bridge },
+        { icon: Icon, label: '收益', href: AppRoutes.earn },
+        { icon: Icon, label: '质押', href: AppRoutes.stake },
       ],
     },
   }
@@ -106,7 +106,7 @@ describe('SafeSidebarContent', () => {
     mockRouterPathname.current = AppRoutes.home
     mockUseResolvedSidebarNav.mockReturnValue({
       mainNavItems: [],
-      setupGroup: { label: 'Defi', items: [] },
+      setupGroup: { label: 'DeFi', items: [] },
     })
   })
 
@@ -117,7 +117,7 @@ describe('SafeSidebarContent', () => {
 
     const transactionsItem = {
       icon: ArrowUpRight,
-      label: 'Transactions',
+      label: '交易',
       href: AppRoutes.transactions.history,
     } as SidebarItemConfig
 
@@ -136,7 +136,7 @@ describe('SafeSidebarContent', () => {
 
     const assetsItem = {
       icon: ArrowUpRight,
-      label: 'Assets',
+      label: '资产',
       href: AppRoutes.balances.index,
     } as SidebarItemConfig
 
@@ -153,7 +153,7 @@ describe('SafeSidebarContent', () => {
 
     const appsItem = {
       icon: ArrowUpRight,
-      label: 'Apps',
+      label: '应用',
       href: AppRoutes.apps.index,
     } as SidebarItemConfig
 
@@ -230,9 +230,9 @@ describe('SafeSidebarContent', () => {
 
   describe('chain filtering', () => {
     it.each([
-      ['Swap', AppRoutes.swap],
-      ['Bridge', AppRoutes.bridge],
-      ['Stake', AppRoutes.stake],
+      ['兑换', AppRoutes.swap],
+      ['跨链桥', AppRoutes.bridge],
+      ['质押', AppRoutes.stake],
     ])('hides %s when the chain does not support it', (_label, href) => {
       mockIsRouteEnabled.mockImplementation((route: string) => route !== href)
       renderWithGeoblocking(false)

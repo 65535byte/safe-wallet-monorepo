@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData, MultiSend } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { type SyntheticEvent, useMemo, useCallback } from 'react'
 import { ListItem } from '@safe-global/views/components/ui/list'
@@ -45,7 +46,7 @@ const BatchTxItem = ({
   const handleDelete = useCallback(
     (e: SyntheticEvent) => {
       e.stopPropagation()
-      if (confirm('Are you sure you want to delete this transaction?')) {
+      if (confirm(translateMessage('ui.areYouSureYouWantTo_e2afeda8'))) {
         onDelete?.(id)
         trackEvent(BATCH_EVENTS.BATCH_DELETE_TX)
       }
@@ -67,7 +68,7 @@ const BatchTxItem = ({
                 <button
                   type="button"
                   onClick={handleDelete}
-                  title="Delete transaction"
+                  title={translateMessage('ui.deleteTransaction_e689b0f4')}
                   className="inline-flex cursor-pointer items-center justify-center border-0 bg-transparent p-0.5"
                 >
                   <DeleteIcon className="size-4" />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -21,17 +22,17 @@ const AddFundsToGetStarted = () => {
       </div>
       <div>
         <Typography variant="paragraph-bold" className="text-[var(--color-static-main)]">
-          Add funds to get started
+          {translateMessage('ui.addFundsToGetStarted_8cd6708f')}
         </Typography>
         <Typography variant="paragraph-small" className="block text-[var(--color-primary-light)]">
-          Onramp crypto or send tokens directly to your address from a different wallet.{' '}
+          {translateMessage('ui.onrampCryptoOrSendTokensDirectly_445ac21a')}{' '}
         </Typography>
       </div>
       <div className="md:ml-auto">
         <CopyTooltip text={addressCopyText}>
           <Button size="sm" variant="surface">
             <CopyIcon className="size-5" />
-            Copy address
+            {translateMessage('ui.copyAddress_e5bff417')}
           </Button>
         </CopyTooltip>
       </div>

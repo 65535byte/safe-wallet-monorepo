@@ -12,7 +12,7 @@ describe('guardScanner', () => {
       const result = await guardScanner.scan(ctx)
       expect(result.status).toBe('issue')
       expect(result.severity).toBe('High')
-      expect(result.ctaLabelOverride).toBe('Review modules')
+      expect(result.ctaLabelOverride).toBe('检查模块')
     })
 
     it('returns issue for unknown guard without name', async () => {
@@ -24,7 +24,7 @@ describe('guardScanner', () => {
       expect(result.severity).toBe('High')
       // No name → full address so EvidenceList shortens it and adds a copy button (WA-2371).
       expect(result.evidence).toContainEqual({
-        label: 'Guard',
+        label: '守卫',
         value: '0xabcdef1234567890abcdef1234567890abcdef12',
       })
     })
@@ -82,7 +82,7 @@ describe('guardScanner', () => {
       expect(result.status).toBe('partial')
       expect(result.severity).toBe('Medium')
       expect(result.partner).toBe('hypernative')
-      expect(result.ctaLabelOverride).toBe('Set up protection')
+      expect(result.ctaLabelOverride).toBe('设置保护')
     })
 
     it('does not recommend for balance at threshold', async () => {

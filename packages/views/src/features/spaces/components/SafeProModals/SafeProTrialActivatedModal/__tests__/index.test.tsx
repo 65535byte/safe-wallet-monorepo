@@ -11,14 +11,14 @@ describe('SafeProTrialActivatedModal', () => {
       screen.getByText(/add a payment method before the free access period ends — nothing is charged until you do/),
     ).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Get started' }))
+    fireEvent.click(screen.getByRole('button', { name: '开始使用' }))
     expect(onOpenChange).toHaveBeenCalledWith(false)
   })
 
   it('leaves the date out when the trial end is unknown', () => {
     render(<SafeProTrialActivatedModal open onOpenChange={jest.fn()} trialEndsAt={null} />)
 
-    expect(screen.getByRole('heading')).toHaveTextContent(/^Your free access is active$/)
+    expect(screen.getByRole('heading')).toHaveTextContent(/^免费使用期已生效$/)
   })
 
   it('says the subscription starts on its own when checkout already took a payment method', () => {
@@ -39,6 +39,6 @@ describe('SafeProTrialActivatedModal', () => {
       />,
     )
 
-    expect(screen.getByRole('link', { name: 'Continue' })).toHaveAttribute('href', '/welcome/select-safes')
+    expect(screen.getByRole('link', { name: '继续' })).toHaveAttribute('href', '/welcome/select-safes')
   })
 })

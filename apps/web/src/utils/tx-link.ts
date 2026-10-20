@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import type { LinkProps } from 'next/link'
 import { AppRoutes } from '@/config/routes'
@@ -14,6 +15,6 @@ export const getTxLink = (
       pathname: AppRoutes.transactions.tx,
       query: withSpaceId({ id: txId, safe: `${chain?.shortName}:${safeAddress}` }, spaceId),
     },
-    title: 'View transaction',
+    title: translateMessage('ui.viewTransaction_d98c2994'),
   }
 }

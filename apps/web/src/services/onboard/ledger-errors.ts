@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * Ledger's Device Management Kit reports failures as tagged objects, not as
  * `Error`s: `{ _tag, originalError?, errorCode? }`. The device's own
@@ -83,12 +84,12 @@ const CONNECTION_TAGS: ReadonlySet<string> = new Set([
 ])
 
 const USER_MESSAGES: Record<LedgerDeviceErrorReason, string> = {
-  rejected: 'Transaction rejected on your Ledger.',
-  locked: 'Unlock your Ledger and try again.',
-  app_closed: 'Open the Ethereum app on your Ledger.',
-  blind_signing: 'Enable blind signing in the Ethereum app on your Ledger, then try again.',
-  connection: 'Lost connection to your Ledger. Reconnect it and try again.',
-  unknown: 'Your Ledger could not complete the request.',
+  rejected: translateMessage('ui.transactionRejectedOnYourLedger_20d9e10d'),
+  locked: translateMessage('ui.unlockYourLedgerAndTryAgain_b32ca99b'),
+  app_closed: translateMessage('ui.openTheEthereumAppOnYour_9c25245a'),
+  blind_signing: translateMessage('ui.enableBlindSigningInTheEthereum_97b4eb78'),
+  connection: translateMessage('ui.lostConnectionToYourLedgerReconnect_0ad1d9e1'),
+  unknown: translateMessage('ui.yourLedgerCouldNotCompleteThe_2e334591'),
 }
 
 /**

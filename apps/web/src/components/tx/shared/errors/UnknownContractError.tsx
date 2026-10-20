@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useMemo, type ReactElement } from 'react'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -25,20 +26,18 @@ const UnknownContractError = ({ txData }: { txData: TransactionData | undefined 
   if (!isUnknown || isMigrationTx) return null
 
   return (
-    <ErrorMessage level="error" title="This Safe account was created with an unsupported base contract.">
+    <ErrorMessage level="error" title={translateMessage('ui.thisAccountWasCreatedWithAn_7ff5acf0')}>
       {isMigrationPossible ? (
-        <>
-          The Safe account can be migrated to use the supported base contract. We advise to do that in the Safe&apos;s
-          settings before executing other transactions.
-        </>
+        <>{translateMessage('ui.theAccountCanBeMigratedTo_16dac64e')}</>
       ) : (
         <>
-          It should <b>ONLY</b> be used for fund recovery. Transactions will execute but the transaction list may not
-          update. Transaction success can be verified on the{' '}
+          {translateMessage('ui.itShould_4ab1b165')}
+          <b>{translateMessage('ui.oNLY_106e25d1')}</b>{' '}
+          {translateMessage('ui.beUsedForFundRecoveryTransactions_ba833cd4')}{' '}
           <ExternalLink
             href={currentChain ? getExplorerLink(safeAddress, currentChain.blockExplorerUriTemplate).href : ''}
           >
-            {currentChain?.chainName} explorer
+            {currentChain?.chainName} {translateMessage('ui.explorer_7bf22594')}
           </ExternalLink>
           .
         </>

@@ -21,7 +21,7 @@ describe('SafeProPlanSwitchedModal', () => {
       screen.getByText("Your free access continues until Sep 20, 2026. After that, you'll pay €189/mo."),
     ).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Get started' }))
+    fireEvent.click(screen.getByRole('button', { name: '开始使用' }))
     expect(onOpenChange).toHaveBeenCalledWith(false)
   })
 

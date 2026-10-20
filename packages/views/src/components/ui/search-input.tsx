@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import * as React from 'react'
 import { Search, XIcon } from 'lucide-react'
 
@@ -45,7 +46,7 @@ function SearchInput({
             variant="ghost"
             size="icon-xs"
             className="text-foreground"
-            aria-label="Clear search"
+            aria-label={translateMessage('ui.clearSearch_281b0946')}
             onClick={onClear}
             data-testid="search-clear"
           >

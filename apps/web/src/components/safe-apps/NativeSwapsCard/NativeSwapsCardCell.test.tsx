@@ -20,7 +20,7 @@ describe('NativeSwapsCardCell', () => {
 
     const { container } = render(<NativeSwapsCardCell />)
 
-    expect(screen.getByText('Native swaps are here!')).toBeInTheDocument()
+    expect(screen.getByText('原生兑换已上线！')).toBeInTheDocument()
     expect(container.querySelector('li')).toBeInTheDocument()
   })
 
@@ -29,7 +29,7 @@ describe('NativeSwapsCardCell', () => {
 
     const { container } = render(<NativeSwapsCardCell />)
 
-    expect(screen.queryByText('Native swaps are here!')).not.toBeInTheDocument()
+    expect(screen.queryByText('原生兑换已上线！')).not.toBeInTheDocument()
     expect(container.querySelector('li')).not.toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
 import { DrawerSection } from '@/components/common/Drawer'
@@ -16,13 +17,13 @@ const findName = (names: SpendingLimitsProps['names'], address: string): string 
   Object.entries(names ?? {}).find(([key]) => sameAddress(key, address))?.[1]
 
 const SpendingLimits = ({ spenders, names, showUsage }: SpendingLimitsProps): ReactElement => (
-  <DrawerSection title="Limits">
+  <DrawerSection title={translateMessage('ui.limits_6692cf92')}>
     <div className="flex flex-col gap-3">
       {spenders.map((spender, index) => (
         <SpenderCard
           key={spender.spender}
           spender={spender}
-          label={`Spender ${index + 1}`}
+          label={translateMessage('ui.spender_321366b9', { p0: index + 1 })}
           name={findName(names, spender.spender)}
           showUsage={showUsage}
         />

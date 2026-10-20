@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useRef, useState } from 'react'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -58,7 +59,7 @@ const IdentitySection = ({ space }: { space: GetSpaceResponse | undefined }) => 
       dispatch(
         showNotification({
           variant: 'success',
-          message: 'Workspace name updated',
+          message: translateMessage('ui.workspaceNameUpdated_a0138081'),
           groupKey: 'space-update-name',
         }),
       )
@@ -72,11 +73,11 @@ const IdentitySection = ({ space }: { space: GetSpaceResponse | undefined }) => 
 
   return (
     <SpaceSettingsSection>
-      <SpaceSettingsSectionTitle>Identity</SpaceSettingsSectionTitle>
+      <SpaceSettingsSectionTitle>{translateMessage('ui.identity_630af9e6')}</SpaceSettingsSectionTitle>
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="space-name" className="text-muted-foreground">
-          Workspace name
+          {translateMessage('ui.workspaceName_6b883ca0')}
         </Label>
         <div className="flex items-center gap-3">
           <InitialsAvatar name={space?.name ?? '?'} size="large" />
@@ -98,11 +99,11 @@ const IdentitySection = ({ space }: { space: GetSpaceResponse | undefined }) => 
           />
           {canCancel && (
             <Button variant="outline" onClick={handleCancel} data-testid="space-cancel-button">
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
           )}
           <Button onClick={handleSave} disabled={!canSave} data-testid="space-save-button">
-            {isSaving ? 'Saving…' : 'Save'}
+            {isSaving ? 'Saving…' : translateMessage('ui.save_5fe30f30')}
           </Button>
         </div>
       </div>

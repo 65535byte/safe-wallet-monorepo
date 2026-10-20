@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import css from './styles.module.css'
 import { useAppSelector } from '@/store'
 import { isAuthenticated } from '@/store/authSlice'
@@ -34,7 +35,7 @@ const SpaceBreadcrumbs = () => {
         <Button
           variant="ghost"
           size="icon-sm"
-          aria-label="Workspaces"
+          aria-label={translateMessage('ui.workspaces_2fe24fcf')}
           render={<Link href={{ pathname: AppRoutes.welcome.spaces }} />}
         >
           <SpaceIcon className="size-4 fill-none text-[var(--color-primary-main)]" />
@@ -55,7 +56,7 @@ const SpaceBreadcrumbs = () => {
       <Typography variant="paragraph-small">/</Typography>
 
       {/* In case the nested breadcrumbs are not rendered we want to show the current safe address */}
-      {!parentSafe && <BreadcrumbItem title="Current Safe" address={safeAddress} />}
+      {!parentSafe && <BreadcrumbItem title={translateMessage('ui.current_7bfb35e9')} address={safeAddress} />}
     </>
   )
 }

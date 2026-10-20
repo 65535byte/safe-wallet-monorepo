@@ -36,9 +36,9 @@ describe('SpenderSummaryCard', () => {
     const rows = screen.getAllByTestId('spending-limit-summary-limit')
     expect(rows).toHaveLength(2)
     expect(rows[0]).toHaveTextContent('0.5466 ETH')
-    expect(rows[0]).toHaveTextContent('Weekly')
+    expect(rows[0]).toHaveTextContent('每周')
     expect(rows[1]).toHaveTextContent('250 USDC')
-    expect(rows[1]).toHaveTextContent('Monthly')
+    expect(rows[1]).toHaveTextContent('每月')
   })
 
   it('shows the address alone when the spender has no name', () => {

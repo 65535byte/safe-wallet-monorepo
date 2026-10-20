@@ -1,8 +1,8 @@
+import { translateMessage } from '@/i18n'
 import { AppRoutes } from '@/config/routes'
 import Link from 'next/link'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useIsAdmin } from '../../hooks/useSpaceMembers'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { getDeterministicColor } from '@/utils/colors'
 import { Card } from '@safe-global/views/components/ui/card'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -24,13 +24,13 @@ export const SpaceSummaryNew = ({
 
       <div className="mt-0.5 flex items-center gap-2">
         <Typography variant="paragraph-mini" color="muted">
-          {numberOfAccounts} Account{maybePlural(numberOfAccounts)}
+          {numberOfAccounts} {translateMessage('ui.account_9eaf55d5')}
         </Typography>
 
         <div className="bg-border size-0.5 rounded-full" />
 
         <Typography variant="paragraph-mini" color="muted">
-          {numberOfMembers} Member{maybePlural(numberOfMembers)}
+          {numberOfMembers} {translateMessage('ui.member_f50da31c')}
         </Typography>
       </div>
     </div>
@@ -57,7 +57,7 @@ const SpaceCardNew = ({ space, isLink = true }: { space: GetSpaceResponse; isLin
         <Link
           className="absolute left-0 top-0 size-full"
           href={{ pathname: AppRoutes.spaces.index, query: { spaceId: uuid } }}
-          aria-label={`Go to ${name}`}
+          aria-label={translateMessage('ui.goTo_cb62d232', { p0: name })}
         />
       )}
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { CreateSafeOnNewChain } from '@/features/multichain'
 import { OVERVIEW_EVENTS, OVERVIEW_LABELS } from '@/services/analytics'
@@ -20,7 +21,7 @@ export const AddNetworkButton = ({
     <>
       <Track {...OVERVIEW_EVENTS.ADD_NEW_NETWORK} label={OVERVIEW_LABELS.sidebar}>
         <Button data-testid="add-network-btn" variant="ghost" className="w-full" onClick={() => setOpen(true)}>
-          <PlusIcon /> Add another network
+          <PlusIcon /> {translateMessage('ui.addAnotherNetwork_c80abd46')}
         </Button>
       </Track>
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { TxModalContext } from '@/components/tx-flow'
 import { NewTxFlow } from '@/components/tx-flow/flows'
@@ -20,10 +21,10 @@ const NoFeeCampaignBanner = ({ onDismiss }: { onDismiss: () => void }) => {
 
   return (
     <PromoBanner
-      title="Enjoy Free January"
+      title={translateMessage('ui.enjoyFreeJanuary_1c2a3bae')}
       description={
         <>
-          No-Fee for Ethena USDe holders on Ethereum Mainnet, this January!{' '}
+          {translateMessage('ui.noFeeForEthenaUSDeHolders_207ab909')}{' '}
           <Link
             href="https://help.safe.global/articles/9605526657-no-fee-january-campaign"
             target="_blank"
@@ -31,16 +32,16 @@ const NoFeeCampaignBanner = ({ onDismiss }: { onDismiss: () => void }) => {
             variant="inherit"
             className="font-bold underline"
           >
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </Link>
         </>
       }
-      ctaLabel="New transaction"
+      ctaLabel={translateMessage('ui.newTransaction_7f00cf16')}
       onCtaClick={handleNewTransaction}
       ctaVariant="contained"
       ctaDisabled={ctaDisabled}
       imageSrc="/images/common/no-fee-campaign/Cards_USDe.svg"
-      imageAlt="USDe logo"
+      imageAlt={translateMessage('ui.uSDeLogo_dcd3bbb9')}
       trackingEvents={{ category: 'overview', action: 'open_no_fee_campaign_new_tx' }}
       trackHideProps={{ category: 'overview', action: 'hide_no_fee_campaign_banner' }}
       onDismiss={onDismiss}

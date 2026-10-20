@@ -7,7 +7,6 @@ import { type AllowanceModule } from '@safe-global/utils/types/contracts'
 import { getERC20TokenInfoOnChain } from '@/utils/tokens'
 import { multicall } from '@safe-global/utils/utils/multicall'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
-import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
 
 const DEFAULT_TOKEN_INFO = {
   decimals: 18,
@@ -40,22 +39,11 @@ export const getTokenAllowances = async (
     (result) => contract.interface.decodeFunctionResult('getTokenAllowance', result.returnData)[0],
   )
 
-  // Removed limits are discarded later, so their tokens aren't looked up.
   const missingTokenAddresses = tokenAllowances
-    .map((tokenAllowance, index) => ({ tokenAllowance, token: allowanceRequests[index].token }))
-    .filter(({ tokenAllowance: [amount, , resetTimeMin] }) => !(amount === 0n && resetTimeMin === 0n))
-    .map(({ token }) => token)
-    .filter(
-      (tokenAddress) =>
-        !sameAddress(tokenAddress, ZERO_ADDRESS) && !getTokenInfoFromBalances(tokenInfoFromBalances, tokenAddress),
-    )
+    .map((_, index) => allowanceRequests[index].token)
+    .filter((tokenAddress) => !getTokenInfoFromBalances(tokenInfoFromBalances, tokenAddress))
 
-  // One lookup per token, so a non-ERC-20 token address can't fail the others.
-  const missingTokenInfos = (
-    await Promise.all(
-      missingTokenAddresses.map((address) => getERC20TokenInfoOnChain(address, provider).catch(() => undefined)),
-    )
-  ).flatMap((tokenInfos) => tokenInfos ?? [])
+  const missingTokenInfos = await getERC20TokenInfoOnChain(missingTokenAddresses, provider)
 
   return tokenAllowances.map((tokenAllowance, index) => {
     const { delegate, token } = allowanceRequests[index]
@@ -63,7 +51,7 @@ export const getTokenAllowances = async (
     return {
       beneficiary: delegate,
       token: getTokenInfoFromBalances(tokenInfoFromBalances, token) ||
-        missingTokenInfos.find((tokenInfo) => sameAddress(tokenInfo.address, token)) || {
+        missingTokenInfos?.find((tokenInfo) => sameAddress(tokenInfo.address, token)) || {
           ...DEFAULT_TOKEN_INFO,
           address: token,
         },

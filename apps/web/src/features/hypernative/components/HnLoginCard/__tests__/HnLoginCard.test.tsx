@@ -35,7 +35,7 @@ describe('HnLoginCard', () => {
 
     render(<HnLoginCard />)
 
-    await user.click(screen.getByText('Log in'))
+    await user.click(screen.getByText('登录'))
 
     expect(trackEvent).toHaveBeenCalledWith(HYPERNATIVE_EVENTS.HYPERNATIVE_LOGIN_CLICKED, {
       [MixpanelEventParams.SOURCE]: HYPERNATIVE_SOURCE.Queue,

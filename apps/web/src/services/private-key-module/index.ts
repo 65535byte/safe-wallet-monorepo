@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { JsonRpcProvider, Wallet } from 'ethers'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { type WalletInit, createEIP1193Provider } from '@web3-onboard/common'
@@ -40,7 +41,7 @@ const PrivateKeyModule = (chainId: Chain['chainId'], rpcUri: Chain['rpcUri']): W
       getInterface: async () => {
         const privateKey = await getPrivateKey()
         if (!privateKey) {
-          throw new Error('You rejected the connection')
+          throw new Error(translateMessage('ui.youRejectedTheConnection_4ae2f879'))
         }
 
         let provider: JsonRpcProvider

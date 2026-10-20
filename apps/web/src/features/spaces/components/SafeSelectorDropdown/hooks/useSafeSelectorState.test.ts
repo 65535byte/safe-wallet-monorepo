@@ -4,7 +4,7 @@ import type { SafeItemData } from '@safe-global/views/features/spaces/components
 
 const createItem = (id: string): SafeItemData => ({
   id,
-  name: `Safe ${id}`,
+  name: `8379 ${id}`,
   address: `0x${id}`,
   threshold: 1,
   owners: 2,

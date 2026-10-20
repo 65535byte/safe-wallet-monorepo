@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext } from 'react'
 import { MakeASwapButton, SendTokensButton, TxBuilderButton } from '@/components/tx-flow/common/TxButton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -44,13 +45,13 @@ const NewTxFlow = () => {
               </div>
 
               <Typography variant="h1" className={css.title}>
-                New transaction
+                {translateMessage('ui.newTransaction_7f00cf16')}
               </Typography>
             </div>
 
             <div className={`md:col-span-5 ${css.pane}`} style={{ gap: 'var(--space-2)' }}>
               <Typography variant="h4" className={css.type}>
-                Manage assets
+                {translateMessage('ui.manageAssets_5c6358b6')}
               </Typography>
 
               <hn.HnMiniTxBanner />
@@ -59,7 +60,7 @@ const NewTxFlow = () => {
               <MakeASwapButton />
 
               <Typography variant="h4" className={`mt-6 ${css.type}`}>
-                Interact with contracts
+                {translateMessage('ui.interactWithContracts_7aad458e')}
               </Typography>
 
               <TxBuilderButton />

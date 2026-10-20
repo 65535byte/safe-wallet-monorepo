@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { memo, type ReactElement } from 'react'
 import { generateDataRowValue, TxDataRow } from '@/components/transactions/TxDetails/Summary/TxDataRow'
@@ -80,19 +81,19 @@ const Summary = ({
       )}
 
       {showAuditLogFields && submittedAt && (
-        <TxDataRow datatestid="tx-created-at" title="Created">
+        <TxDataRow datatestid="tx-created-at" title={translateMessage('ui.created_d8278ec8')}>
           <div className="text-sm">{dateString(submittedAt)}</div>
         </TxDataRow>
       )}
 
       {showAuditLogFields && executedAt && (
-        <TxDataRow datatestid="tx-executed-at" title="Executed">
+        <TxDataRow datatestid="tx-executed-at" title={translateMessage('ui.executed_5762f231')}>
           <div className="text-sm">{dateString(executedAt)}</div>
         </TxDataRow>
       )}
 
       {showAuditLogFields && txHash && (
-        <TxDataRow datatestid="tx-hash" title="Transaction hash">
+        <TxDataRow datatestid="tx-hash" title={translateMessage('ui.transactionHash_62979280')}>
           {generateDataRowValue(txHash, 'hash', true)}{' '}
         </TxDataRow>
       )}

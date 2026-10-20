@@ -29,7 +29,7 @@ describe('Track', () => {
       </Track>,
     )
 
-    await userEvent.click(screen.getByRole('button', { name: 'Go to Nested Safe' }))
+    await userEvent.click(screen.getByRole('button', { name: '前往嵌套 Safe' }))
 
     expect(mockTrackEvent).toHaveBeenCalledTimes(1)
     expect(mockTrackEvent).toHaveBeenCalledWith(trackData, undefined)
@@ -71,7 +71,7 @@ describe('Track', () => {
       </Track>,
     )
 
-    await userEvent.click(screen.getByRole('link', { name: 'Go to Nested Safe' }))
+    await userEvent.click(screen.getByRole('link', { name: '前往嵌套 Safe' }))
 
     expect(mockTrackEvent).toHaveBeenCalledTimes(1)
   })

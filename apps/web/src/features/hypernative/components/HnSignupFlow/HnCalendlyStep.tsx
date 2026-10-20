@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRef, useState, useEffect } from 'react'
 import HnSignupLayout from '@safe-global/views/features/hypernative/components/HnSignupFlow/HnSignupLayout'
 import { useCalendly } from '../../hooks/useCalendly'
@@ -75,19 +76,19 @@ const HnCalendlyStep = ({ calendlyUrl, onBookingScheduled }: HnCalendlyStepProps
         {hasError ? (
           <div className={css.errorContainer}>
             <Typography variant="h3" className={css.errorTitle}>
-              Something went wrong
+              {translateMessage('ui.somethingWentWrong_b021881e')}
             </Typography>
             <Typography variant="paragraph-small" className={css.errorMessage}>
-              Please reload the page.
+              {translateMessage('ui.pleaseReloadThePage_a62081c8')}
             </Typography>
             <div className="mt-6 flex flex-col gap-4">
               <Button onClick={handleRefresh} className={css.reloadButton}>
                 <RotateCw />
-                Reload
+                {translateMessage('ui.reload_00a35ede')}
               </Button>
               <Button variant="outline" onClick={handleOpenInNewTab} className="w-full">
                 <OpenInNewIcon />
-                Open in a new tab
+                {translateMessage('ui.openInANewTab_f17fff5b')}
               </Button>
             </div>
           </div>

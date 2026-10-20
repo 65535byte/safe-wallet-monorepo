@@ -116,7 +116,7 @@ describe('SpeedUpModal', () => {
   it('enables Confirm for an owner who submitted the transaction', async () => {
     const { findByText } = renderModal()
 
-    expect(await findByText('Confirm')).not.toBeDisabled()
+    expect(await findByText('确认')).not.toBeDisabled()
   })
 
   it('enables Confirm for a non-owner who submitted the transaction', async () => {
@@ -124,8 +124,8 @@ describe('SpeedUpModal', () => {
 
     const { findByText, queryByLabelText } = renderModal()
 
-    expect(await findByText('Confirm')).not.toBeDisabled()
-    expect(queryByLabelText('Your connected wallet is not a signer of this Safe account')).not.toBeInTheDocument()
+    expect(await findByText('确认')).not.toBeDisabled()
+    expect(queryByLabelText('已连接钱包不是此 8379 账户的签名人')).not.toBeInTheDocument()
   })
 
   it('disables Confirm and explains why when connected to the wrong chain', async () => {
@@ -133,16 +133,16 @@ describe('SpeedUpModal', () => {
 
     const { findByText, getByText } = renderModal()
 
-    expect(await findByText('Confirm')).toBeDisabled()
-    expect(getByText('Change your wallet network')).toBeInTheDocument()
-    expect(getByText(/trying to speed up a transaction/)).toBeInTheDocument()
+    expect(await findByText('确认')).toBeDisabled()
+    expect(getByText('切换钱包网络')).toBeInTheDocument()
+    expect(getByText(/trying to speed up a 笔交易/)).toBeInTheDocument()
   })
 
   it('shows no network warning when Confirm is enabled', async () => {
     const { findByText, queryByText } = renderModal()
 
-    expect(await findByText('Confirm')).not.toBeDisabled()
-    expect(queryByText('Change your wallet network')).not.toBeInTheDocument()
+    expect(await findByText('确认')).not.toBeDisabled()
+    expect(queryByText('切换钱包网络')).not.toBeInTheDocument()
   })
 
   it('renders nothing when no wallet is connected', async () => {

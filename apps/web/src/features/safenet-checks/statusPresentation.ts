@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Severity } from '@safe-global/utils/features/safe-shield/types'
 import {
   CheckStatus,
@@ -25,28 +26,28 @@ export const STATUS_PRESENTATION: Record<
 > = {
   [CheckStatus.SUBMITTED]: {
     severity: Severity.INFO,
-    label: 'Submitted',
-    copy: 'Check submitted to Safenet.',
+    label: translateMessage('ui.submitted_267f4ba8'),
+    copy: translateMessage('ui.checkSubmittedToSafenet_ab2f0ec2'),
   },
   [CheckStatus.IN_PROGRESS]: {
     severity: Severity.INFO,
-    label: 'Simulating',
-    copy: 'Safenet is simulating this transaction.',
+    label: translateMessage('ui.simulating_2930a886'),
+    copy: translateMessage('ui.safenetIsSimulatingThisTransaction_9b95e08b'),
   },
   [CheckStatus.BENIGN]: {
     severity: Severity.OK,
-    label: 'No issues found',
-    copy: 'Safenet found no issues',
+    label: translateMessage('ui.noIssuesFound_caa28585'),
+    copy: translateMessage('ui.safenetFoundNoIssues_005900b4'),
   },
   [CheckStatus.MALICIOUS]: {
     severity: Severity.CRITICAL,
-    label: 'Risk detected',
-    copy: 'Safenet flagged this address/transaction as malicious',
+    label: translateMessage('ui.riskDetected_7f12b903'),
+    copy: translateMessage('ui.safenetFlaggedThisAddressTransactionAs_123353cd'),
   },
   [CheckStatus.TIMED_OUT]: {
     severity: Severity.ERROR,
-    label: 'Check failed',
-    copy: 'Safenet check is unavailable. You can still continue.',
+    label: translateMessage('ui.checkFailed_9c0a0139'),
+    copy: translateMessage('ui.safenetCheckIsUnavailableYouCan_5f2cd73f'),
   },
 }
 
@@ -57,28 +58,27 @@ export const STATUS_PRESENTATION: Record<
  */
 export const UNAVAILABLE_PRESENTATION: Record<UnavailableReason, Pick<SafenetStatusPresentation, 'label' | 'copy'>> = {
   NO_CHECK: {
-    label: 'Not checked',
-    copy: 'No Safenet check was requested for this transaction.',
+    label: translateMessage('ui.notChecked_13d9791c'),
+    copy: translateMessage('ui.noSafenetCheckWasRequestedFor_edf36e11'),
   },
   READ_FAILED: {
-    label: "Couldn't read Safenet status",
-    copy: "We couldn't reach Safenet to read this check. We'll keep trying. You can still continue.",
+    label: translateMessage('ui.couldnTReadSafenetStatus_0210fcd0'),
+    copy: translateMessage('ui.weCouldnTReachSafenetTo_cf8a2f95'),
   },
   // Found nothing where it looked, which never proves that no check was requested.
   WINDOW_UNCERTAIN: {
-    label: 'Safenet status unknown',
-    copy: "We couldn't confirm whether Safenet checked this transaction. You can still continue.",
+    label: translateMessage('ui.safenetStatusUnknown_f58565d3'),
+    copy: translateMessage('ui.weCouldnTConfirmWhetherSafenet_a7a2c005'),
   },
 }
 
 /** Shown before the first signature, while no check exists yet. */
-export const SAFENET_ABOUT =
-  "Independent sentinels simulate this transaction and check it against Safenet's security rules."
+export const SAFENET_ABOUT = translateMessage('ui.independentSentinelsSimulateThisTransactionAnd_009d837d')
 
 export const PRE_CHECK_COPY = {
-  multisig: 'The check starts after you sign. The next signer will see the result.',
-  single: "The check starts after you sign. Execute from the queue once it's in.",
-  executeNow: 'The check starts after you sign. Choose "No, later" to see the result before executing.',
+  multisig: translateMessage('ui.theCheckStartsAfterYouSign_ad87efcd'),
+  single: translateMessage('ui.theCheckStartsAfterYouSign_a0332015'),
+  executeNow: translateMessage('ui.theCheckStartsAfterYouSign_bd6e8ee6'),
 }
 
 export const CHIP_VARIANT = {
@@ -89,9 +89,9 @@ export const CHIP_VARIANT = {
   [CheckStatus.TIMED_OUT]: 'warning',
 } as const satisfies Record<Exclude<PublicCheckStatus, CheckStatus.UNAVAILABLE>, string>
 
-export const STALE_NOTE = 'Status may be out of date.'
+export const STALE_NOTE = translateMessage('ui.statusMayBeOutOfDate_1c7acd0b')
 
-export const MULTIPLE_RULES_TITLE = 'Risks detected'
+export const MULTIPLE_RULES_TITLE = translateMessage('ui.risksDetected_06fc0df1')
 
 export const SAFENET_DOCS_URL = 'https://docs.safefoundation.org/safenet'
 

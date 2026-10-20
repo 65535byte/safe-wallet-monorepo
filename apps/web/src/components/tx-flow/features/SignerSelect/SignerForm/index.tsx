@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { useNestedSafeOwners } from '@/hooks/useNestedSafeOwners'
 import { useWalletContext } from '@/hooks/wallets/useWallet'
@@ -92,13 +93,14 @@ export const SignerForm = ({ willExecute, txId }: { willExecute?: boolean; txId?
     <>
       <TxSectionTitle>
         <SignatureIcon className="size-4" />
-        {willExecute ? 'Execute' : 'Sign'} with
+        {willExecute ? translateMessage('ui.execute_eea2eb83') : translateMessage('ui.sign_1e67e9a4')}{' '}
+        {translateMessage('ui.with_5429a29c')}
         <Tooltip>
           <TooltipTrigger render={<InfoIcon className="size-4 text-[var(--color-border-main)]" />} />
           <TooltipContent side="top">
-            {`Your connected wallet controls other Safe accounts, which can sign this transaction. You can select which Account to ${
-              willExecute ? 'execute' : 'sign'
-            } with.`}
+            {translateMessage('ui.yourConnectedWalletControlsOtherAccounts_e2094975', {
+              p0: willExecute ? translateMessage('ui.execute_ecb1914a') : translateMessage('ui.sign_1852a486'),
+            })}
           </TooltipContent>
         </Tooltip>
       </TxSectionTitle>
@@ -108,7 +110,7 @@ export const SignerForm = ({ willExecute, txId }: { willExecute?: boolean; txId?
         value={signerAddress}
         onChange={onChange}
         isOptionDisabled={isOptionDisabled}
-        disabledReason={() => 'Already signed'}
+        disabledReason={() => translateMessage('ui.alreadySigned_3dcf1f87')}
       />
     </>
   )

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { CircleCheck } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -15,16 +16,16 @@ export type HnSignupIntroProps = {
 const HnSignupIntro = ({ onGetStarted, onClose }: HnSignupIntroProps) => {
   const features = [
     {
-      title: 'Automatic blocking',
-      description: "Automatically prevents malicious or non-compliant transactions before they're executed",
+      title: translateMessage('ui.automaticBlocking_0e2dc3a4'),
+      description: translateMessage('ui.automaticallyPreventsMaliciousOrNonCompliant_248e40ba'),
     },
     {
-      title: 'Custom security rules',
-      description: 'Create tailored policies using granular parameters to stop unwanted transactions.',
+      title: translateMessage('ui.customSecurityRules_e1a8084d'),
+      description: translateMessage('ui.createTailoredPoliciesUsingGranularParameters_3f29ebc7'),
     },
     {
-      title: 'Seamless integration',
-      description: 'Works natively within your Safe workflow. No extra steps required.',
+      title: translateMessage('ui.seamlessIntegration_b4bf2b4e'),
+      description: translateMessage('ui.worksNativelyWithinYourWorkflowNo_b8b308e1'),
     },
   ]
 
@@ -33,16 +34,16 @@ const HnSignupIntro = ({ onGetStarted, onClose }: HnSignupIntroProps) => {
       <div className={css.contentWrapper}>
         <div className={css.header}>
           <Typography variant="h1" className={css.title}>
-            Guardian
+            {translateMessage('ui.guardian_eedd2209')}
           </Typography>
           <div className={css.poweredBy}>
             <Typography variant="paragraph-small" className={css.poweredByText}>
-              powered by
+              {translateMessage('ui.poweredBy_27cb45a1')}
             </Typography>
             <HypernativeLogo fill="var(--color-primary-light)" className="w-[66px]" />
           </div>
           <Typography variant="paragraph-small" className={css.subtitle}>
-            Enterprise-level protection for teams and organizations.
+            {translateMessage('ui.enterpriseLevelProtectionForTeamsAnd_1beda9d6')}
           </Typography>
         </div>
 
@@ -68,11 +69,11 @@ const HnSignupIntro = ({ onGetStarted, onClose }: HnSignupIntroProps) => {
             {...HYPERNATIVE_EVENTS.GUARDIAN_FORM_STARTED}
           >
             <Button onClick={onGetStarted} className="w-full">
-              Get started
+              {translateMessage('ui.getStarted_5801751d')}
             </Button>
           </Track>
           <Button variant="ghost" onClick={onClose} className="w-full">
-            Close
+            {translateMessage('ui.close_fbd8cee0')}
           </Button>
         </div>
       </div>

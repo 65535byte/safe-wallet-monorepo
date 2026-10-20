@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -6,7 +7,7 @@ import { useOpenSafenetStakingApp } from '@/hooks/useOpenSafenetStakingApp'
 import StakeIcon from '@/public/images/common/stake.svg'
 import assetActionCss from '@/components/common/AssetActionButton/styles.module.css'
 
-const LABEL = 'Go to Safenet staking'
+const LABEL = translateMessage('ui.goToSafenetStaking_8ca54127')
 
 const SafenetStakeButton = (): ReactElement => {
   const { openSafenetStakingApp, isNavigating } = useOpenSafenetStakingApp()

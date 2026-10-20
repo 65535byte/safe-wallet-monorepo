@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import TokenIcon from '@/components/common/TokenIcon'
 import css from '@/components/tx/ApprovalEditor/styles.module.css'
 import type { Approval } from '@safe-global/utils/services/security/modules/ApprovalModule'
@@ -13,10 +14,12 @@ export const approvalMethodDescription: Record<
   (symbol: string, type?: Balance['tokenInfo']['type']) => string
 > = {
   approve: (symbol: string, type?: Balance['tokenInfo']['type']) =>
-    type === TokenType.ERC721 ? `Allow to transfer ${symbol}` : `Set ${symbol} allowance to`,
-  increaseAllowance: (symbol: string) => `Increase ${symbol} allowance by`,
-  Permit2: (symbol: string) => `Give permission to spend ${symbol}`,
-  Permit: (symbol: string) => `Give permission to spend ${symbol}`,
+    type === TokenType.ERC721
+      ? translateMessage('ui.allowToTransfer_f92c4d15', { p0: symbol })
+      : translateMessage('ui.setAllowanceTo_86039f00', { p0: symbol }),
+  increaseAllowance: (symbol: string) => translateMessage('ui.increaseAllowanceBy_ffd2b771', { p0: symbol }),
+  Permit2: (symbol: string) => translateMessage('ui.givePermissionToSpend_12163774', { p0: symbol }),
+  Permit: (symbol: string) => translateMessage('ui.givePermissionToSpend_12163774', { p0: symbol }),
 }
 
 const ApprovalItem = ({

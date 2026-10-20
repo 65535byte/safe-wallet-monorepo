@@ -1,6 +1,9 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSpacesCreateV1Mutation, useSpacesUpdateV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { AppRoutes } from '@/config/routes'
 import { getRtkQueryErrorMessage } from '@/utils/rtkQuery'
 import { useSafeQueryParam } from '@/hooks/useSafeAddressFromUrl'
@@ -60,6 +63,7 @@ const useSpaceSubmit = (
 
     if (response.data) {
       const newSpaceId = response.data.uuid
+      trackEvent({ ...SPACE_EVENTS.WORKSPACE_CREATED, label: newSpaceId }, { workspace_id: newSpaceId })
 
       if (isSafePro) {
         setCreatedSpaceId(newSpaceId)
@@ -93,7 +97,9 @@ const useSpaceSubmit = (
       const errorMessage =
         error instanceof Error
           ? error.message
-          : `Failed ${isEditMode ? 'updating' : 'creating'} the Workspace. Please try again.`
+          : translateMessage('ui.failedTheWorkspacePleaseTryAgain_24824172', {
+              p0: isEditMode ? 'updating' : 'creating',
+            })
       setError(errorMessage)
     }
   })

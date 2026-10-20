@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
@@ -14,7 +15,7 @@ const EarnPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Earn`}</title>
+        <title>{translateMessage('ui.earn_f55d6c09', { p0: BRAND_NAME })}</title>
       </Head>
 
       {isFeatureEnabled === true ? (
@@ -22,7 +23,7 @@ const EarnPage: NextPage = () => {
       ) : isFeatureEnabled === false ? (
         <main>
           <Typography align="center" className="my-6">
-            Earn is not available on this network.
+            {translateMessage('ui.earnIsNotAvailableOnThis_10aa2a63')}
           </Typography>
         </main>
       ) : null}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NextLink from 'next/link'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Link } from '@safe-global/views/components/ui/link'
@@ -21,7 +22,7 @@ const FALLBACK_HANDLER_VERSION = '>=1.1.1'
 
 export const FallbackHandlerWarning = ({
   message,
-  txBuilderLinkPrefix = 'It can be altered via the',
+  txBuilderLinkPrefix = translateMessage('ui.itCanBeAlteredViaThe_a9f91b3b'),
 }: {
   message: ReactElement | string
   txBuilderLinkPrefix?: string
@@ -33,7 +34,7 @@ export const FallbackHandlerWarning = ({
       {!!txBuilder && !!txBuilderLinkPrefix && (
         <>
           {` ${txBuilderLinkPrefix} `}
-          <Link render={<NextLink href={txBuilder.link} />}>Transaction Builder</Link>.
+          <Link render={<NextLink href={txBuilder.link} />}>{translateMessage('ui.transactionBuilder_04499512')}</Link>.
         </>
       )}
     </>
@@ -56,29 +57,30 @@ export const FallbackHandler = (): ReactElement | null => {
 
   const warning = !hasFallbackHandler ? (
     <FallbackHandlerWarning
-      message={`The ${BRAND_NAME} may not work correctly as no fallback handler is currently set.`}
-      txBuilderLinkPrefix="It can be set via the"
+      message={translateMessage('ui.theMayNotWorkCorrectlyAs_56bb35f3', { p0: BRAND_NAME })}
+      txBuilderLinkPrefix={translateMessage('ui.itCanBeSetViaThe_98b44a7b')}
     />
   ) : isTWAPFallbackHandler ? (
-    <>This is CoW&apos;s fallback handler. It is needed for this Safe to be able to use the TWAP feature for Swaps.</>
+    <>{translateMessage('ui.thisIsCoWSFallbackHandler_8130bcb9')}</>
   ) : isUntrusted ? (
     <FallbackHandlerWarning
       message={
         <>
-          An <b>unofficial</b> fallback handler is currently set.
+          {translateMessage('ui.an_9d30959d')}
+          <b>{translateMessage('ui.unofficial_35ccf315')}</b>{' '}
+          {translateMessage('ui.fallbackHandlerIsCurrentlySet_1cfbda81')}
         </>
       }
     />
   ) : undefined
 
   return (
-    <SettingsCard title="Fallback handler">
+    <SettingsCard title={translateMessage('ui.fallbackHandler_f0282998')}>
       <div>
         <Typography>
-          The fallback handler adds fallback logic for funtionality that may not be present in the Safe account
-          contract. Learn more about the fallback handler{' '}
+          {translateMessage('ui.theFallbackHandlerAddsFallbackLogic_620eedbd')}{' '}
           <ExternalLink className="font-bold hover:text-muted-foreground" href={HelpCenterArticle.FALLBACK_HANDLER}>
-            here
+            {translateMessage('ui.here_134b2f0e')}
           </ExternalLink>
         </Typography>
 

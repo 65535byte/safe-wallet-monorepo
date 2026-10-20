@@ -53,14 +53,14 @@ describe('useSafeNotifications', () => {
       expect(result.current).toBeUndefined()
       expect(showNotification).toHaveBeenCalledWith({
         variant: 'warning',
-        message: `Your Safe account version 1.1.1 is out of date. Please update it.`,
+        message: 'Your Safe account version 1.1.1 is / 共 date. Please update it.',
         groupKey: 'safe-outdated-version',
         link: {
           href: {
             pathname: '/settings/setup',
             query: { safe: 'eth:0x123' },
           },
-          title: 'Update Safe account',
+          title: '更新 8379 账户',
         },
         onClose: expect.anything(),
       })
@@ -85,11 +85,12 @@ describe('useSafeNotifications', () => {
       expect(result.current).toBeUndefined()
       expect(showNotification).toHaveBeenCalledWith({
         variant: 'warning',
-        message: `Safe account version 0.0.1 is not supported by this web app anymore. You can update your Safe account via the CLI.`,
+        message:
+          'Safe account version 0.0.1 is not supported by this web app anymore. You can update your 个 Safe 账户 via the CLI.',
         groupKey: 'safe-outdated-version',
         link: {
           href: 'https://github.com/5afe/safe-cli',
-          title: 'Get CLI',
+          title: '获取 CLI',
         },
         onClose: expect.anything(),
       })

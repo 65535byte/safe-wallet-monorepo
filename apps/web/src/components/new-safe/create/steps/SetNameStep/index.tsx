@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -17,13 +18,14 @@ import { PRIVACY_URL, TERMS_URL } from '@safe-global/utils/config/constants'
 import { useRouter } from 'next/router'
 import NoWalletConnectedWarning from '../../NoWalletConnectedWarning'
 import { type SafeVersion } from '@safe-global/types-kit'
-import { useCurrentChain, useChain } from '@/hooks/useChains'
+import { useCurrentChain } from '@/hooks/useChains'
 import { useEffect } from 'react'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { useSafeSetupHints } from '../OwnerPolicyStep/useSafeSetupHints'
 import type { CreateSafeInfoItem } from '../../CreateSafeInfos'
 import { SafeCreationNetworkInput } from '@/features/multichain'
 import useWallet from '@/hooks/wallets/useWallet'
+import { SAFE_CREATION_NETWORKS } from '@/config/safeCreationNetworks'
 import { getLatestSafeVersion } from '@safe-global/utils/utils/chains'
 
 type SetNameStepForm = {
@@ -56,9 +58,12 @@ function SetNameStep({
   const router = useRouter()
   const currentChain = useCurrentChain()
   const wallet = useWallet()
-  const walletChain = useChain(wallet?.chainId || '')
+  const walletChain = SAFE_CREATION_NETWORKS.find((chain) => chain.chainId === wallet?.chainId)
 
-  const initialState = data.networks.length ? data.networks : walletChain ? [walletChain] : []
+  const configuredNetworks = data.networks.flatMap((network) =>
+    SAFE_CREATION_NETWORKS.filter((chain) => chain.chainId === network.chainId),
+  )
+  const initialState = configuredNetworks.length ? configuredNetworks : walletChain ? [walletChain] : []
   const formMethods = useForm<SetNameStepForm>({
     mode: 'all',
     defaultValues: {
@@ -122,7 +127,7 @@ function SetNameStep({
               <NameInput
                 inputSize="hero"
                 name={SetNameStepFields.name}
-                label={errors?.[SetNameStepFields.name]?.message || 'Name'}
+                label={errors?.[SetNameStepFields.name]?.message || translateMessage('ui.name_84f28b85')}
                 placeholder={fallbackName}
                 className="[&_label]:text-base [&_label]:font-semibold"
                 InputLabelProps={{ shrink: true }}
@@ -136,9 +141,7 @@ function SetNameStep({
                           </span>
                         }
                       />
-                      <TooltipContent>
-                        This name is stored locally and will never be shared with us or any third parties.
-                      </TooltipContent>
+                      <TooltipContent>{translateMessage('ui.thisNameIsStoredLocallyAnd_b263e90d')}</TooltipContent>
                     </Tooltip>
                   ),
                 }}
@@ -147,22 +150,26 @@ function SetNameStep({
 
             <div className="col-span-12">
               <Typography variant="paragraph-bold" className="mt-4 inline-flex items-center gap-2">
-                Select networks
+                {translateMessage('ui.selectNetworks_e0c1529e')}
               </Typography>
               <Typography variant="paragraph-small" className="mb-4 block">
-                Choose which networks you want your account to be active on. You can add more networks later.{' '}
+                {translateMessage('ui.chooseWhichNetworksYouWantYour_5683ca2c')}{' '}
               </Typography>
-              <SafeCreationNetworkInput isAdvancedFlow={isAdvancedFlow} name={SetNameStepFields.networks} />
+              <SafeCreationNetworkInput
+                isAdvancedFlow={isAdvancedFlow}
+                name={SetNameStepFields.networks}
+                networks={SAFE_CREATION_NETWORKS}
+              />
             </div>
           </div>
           <Typography variant="paragraph-small" className="mt-4 block">
-            By continuing, you agree to our{' '}
+            {translateMessage('ui.byContinuingYouAgreeToOur_8899e815')}{' '}
             <ExternalLink href={TERMS_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-              terms of use
+              {translateMessage('ui.termsOfUse_273d4cdf')}
             </ExternalLink>{' '}
-            and{' '}
+            {translateMessage('ui.and_ee3cc19b')}{' '}
             <ExternalLink href={PRIVACY_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-              privacy policy
+              {translateMessage('ui.privacyPolicy_695dc448')}
             </ExternalLink>
             .
           </Typography>
@@ -173,10 +180,10 @@ function SetNameStep({
         <div className={layoutCss.row}>
           <div className="flex flex-row justify-between gap-6">
             <Button data-testid="cancel-btn" variant="outline" onClick={onCancel} size="lg">
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
             <Button data-testid="next-btn" type="submit" variant="default" size="lg" disabled={isDisabled}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </div>
         </div>

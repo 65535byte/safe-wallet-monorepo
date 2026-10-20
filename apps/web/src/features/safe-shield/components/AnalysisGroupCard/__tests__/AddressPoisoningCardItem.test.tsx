@@ -18,9 +18,9 @@ describe('AddressPoisoningCardItem', () => {
     render(<AddressPoisoningCardItem result={baseResult} />)
 
     expect(screen.getByText(baseResult.description)).toBeInTheDocument()
-    expect(screen.getByText('Address entered')).toBeInTheDocument()
-    expect(screen.getByText('Saved address: Alice')).toBeInTheDocument()
-    expect(screen.queryByText('Show all')).not.toBeInTheDocument()
+    expect(screen.getByText('已输入地址')).toBeInTheDocument()
+    expect(screen.getByText('已保存地址：Alice')).toBeInTheDocument()
+    expect(screen.queryByText('全部显示')).not.toBeInTheDocument()
   })
 
   it('falls back to "Saved address" when the trusted anchor has no local name', () => {
@@ -28,7 +28,7 @@ describe('AddressPoisoningCardItem', () => {
       <AddressPoisoningCardItem result={{ ...baseResult, addresses: [{ address: ENTERED }, { address: ANCHOR }] }} />,
     )
 
-    expect(screen.getByText('Saved address')).toBeInTheDocument()
+    expect(screen.getByText('已保存地址')).toBeInTheDocument()
     expect(screen.queryByText(/Saved address:/)).not.toBeInTheDocument()
   })
 

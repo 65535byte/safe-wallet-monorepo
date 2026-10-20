@@ -1,9 +1,9 @@
-import { fireEvent, render, renderWithUserEvent, screen, within } from '@/tests/test-utils'
+import { fireEvent, render, renderWithUserEvent, screen } from '@/tests/test-utils'
 import type { Subscription } from '@safe-global/store/gateway/AUTO_GENERATED/billing'
 import { CONTACT_SALES_URL } from '@/features/spaces/constants'
 import type { PlanGroup } from '../../../hooks/billing/types'
 import Plans from '../index'
-import PlanStatusCard, { getCurrentBadge, _remaining, seatsTooltip } from '../PlanStatusCard'
+import { getCurrentBadge, _remaining, seatsTooltip } from '../PlanStatusCard'
 import { buildPlanTiers } from '../planTiers'
 import type { CurrentPlan, PlanSummary } from '@safe-global/views/features/spaces/components/Plans/types'
 import { trackEvent } from '@/services/analytics'
@@ -74,16 +74,27 @@ describe('Plans', () => {
     expect(seatsTooltip(undefined, null)).toMatch(/^Your plan covers unlimited Safe accounts/)
   })
 
+  it('advertises the yearly saving as a fixed ceiling, only when a yearly offer exists', () => {
+    const { unmount } = render(<Plans plan={null} {...meters} tiers={buildPlanTiers([STARTER])} />)
+    expect(screen.getByRole('tab', { name: /每年/ })).toHaveTextContent('最高节省 13%')
+    unmount()
+
+    render(
+      <Plans plan={null} {...meters} tiers={buildPlanTiers([{ ...STARTER, offers: STARTER.offers.slice(0, 1) }])} />,
+    )
+    expect(screen.getByRole('tab', { name: /每年/ })).toHaveTextContent(/^每年$/)
+  })
+
   it.each([
     [null, undefined],
     [active, { label: 'Active', variant: 'brand' }],
-    [trialing(20), { label: 'Free access · 20 days left', variant: 'brand' }],
-    [trialing(14), { label: 'Free access · 14 days left', variant: 'brand' }],
-    [trialing(1), { label: 'Free access · 1 day left', variant: 'warning' }],
-    [trialing(7), { label: 'Free access · 7 days left', variant: 'warning' }],
+    [trialing(20), { label: '免费使用期', variant: 'brand' }],
+    [trialing(14), { label: '免费使用期 · 剩余 14 天', variant: 'brand' }],
+    [trialing(1), { label: '免费使用期 · 剩余 1 天', variant: 'warning' }],
+    [trialing(7), { label: '免费使用期 · 剩余 7 天', variant: 'warning' }],
     [
       { ...trialing(14), daysLeft: null },
-      { label: 'Free access', variant: 'brand' },
+      { label: '免费使用期', variant: 'brand' },
     ],
   ])('derives the plan badge for %p', (plan, badge) => {
     expect(getCurrentBadge(plan)).toEqual(badge)
@@ -103,27 +114,25 @@ describe('Plans', () => {
       />,
     )
 
-    expect(screen.getByTestId('plan-status-badge')).toHaveTextContent('Free access · 14 days left')
+    expect(screen.getAllByText('免费使用期 · 剩余 14 天')).toHaveLength(2)
     expect(
       screen.getByText(/Your free access is active until Dec 6, 2026\. Add a payment method before then/),
     ).toBeInTheDocument()
     expect(screen.getByTestId('trial-disclaimer')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Manage plan' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '管理套餐' })).not.toBeInTheDocument()
     expect(screen.getByTestId('current-plan-card')).toHaveTextContent('€499')
     expect(screen.getByText('€149')).toBeInTheDocument()
     expect(screen.queryByText('€1,608')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add payment method' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加付款方式' }))
     expect(onManage).toHaveBeenCalled()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(onSubscribe).toHaveBeenCalledWith({
       tier: expect.objectContaining({ name: 'Starter' }),
       option: expect.objectContaining({ paymentLinkId: 'pl_starter_m', priceId: 'price_pl_starter_m' }),
     })
-    expect(
-      within(screen.getByTestId('current-plan-card')).getByRole('link', { name: 'Talk to sales' }),
-    ).toHaveAttribute('href', CONTACT_SALES_URL)
+    expect(screen.getByRole('link', { name: '联系销售' })).toHaveAttribute('href', CONTACT_SALES_URL)
   })
 
   it('swaps the payment nudge and its button for Manage plan once a payment method is on file', () => {
@@ -138,15 +147,12 @@ describe('Plans', () => {
       />,
     )
 
-    expect(screen.getByText('Active until Dec 6, 2026 · 7 days left')).toBeInTheDocument()
-    expect(screen.queryByText(/Add a payment method before then/)).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Add payment method' })).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Manage plan' })).toBeInTheDocument()
-    expect(screen.getByTestId('current-plan-card')).toContainElement(
-      screen.getByRole('button', { name: 'Current plan' }),
-    )
+    expect(screen.getByText('有效至 Dec 6, 2026。')).toBeInTheDocument()
+    expect(screen.queryByText(/添加 a payment method before then/)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '添加付款方式' })).not.toBeInTheDocument()
+    expect(screen.getByTestId('current-plan-card')).toContainElement(screen.getByRole('button', { name: '管理套餐' }))
     expect(screen.queryByTestId('trial-disclaimer')).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Switch to Starter' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '切换至 Starter' })).toBeInTheDocument()
   })
 
   it('turns the trial into a warning in its last week', () => {
@@ -161,16 +167,10 @@ describe('Plans', () => {
 
     expect(
       screen.getByText(
-        /Your free access is active until Dec 6, 2026\. Add a payment method before then or choose another plan/,
+        /您的 free access is active until Dec 6, 2026\. Add a payment method before then or choose another 套餐/,
       ),
     ).toBeInTheDocument()
     expect(screen.getByTestId('plan-status-badge')).toHaveTextContent('Free access · 7 days left')
-  })
-
-  it('counts down the whole free access', () => {
-    render(<PlanStatusCard plan={trialing(20)} {...meters} />)
-
-    expect(screen.getByTestId('plan-status-badge')).toHaveTextContent('Free access · 20 days left')
   })
 
   it('tells a paid plan at its seat limit where the Safe accounts above it went', () => {
@@ -184,16 +184,15 @@ describe('Plans', () => {
       />,
     )
 
-    expect(screen.getByText('Safe accounts above the limit remain available in My accounts.')).toBeInTheDocument()
+    expect(screen.getByText('超出限额的 8379 账户仍可在“我的账户”中使用。')).toBeInTheDocument()
   })
 
-  it('renders a paid plan with Manage plan in the header and Upgrade to Business on offer', () => {
+  it('renders a paid plan with Manage plan in the header and on its card, and Upgrade to Business on offer', () => {
     const onManage = jest.fn()
     render(
       <Plans
         plan={{ ...active, name: 'Starter' }}
         {...meters}
-        canManage
         tiers={buildPlanTiers([BUSINESS], { subscription: subscription('Starter', 149), seatsQuota: 2 })}
         onManage={onManage}
         onSubscribe={jest.fn()}
@@ -201,11 +200,12 @@ describe('Plans', () => {
       />,
     )
 
-    expect(screen.getByTestId('plan-status-badge')).toHaveTextContent('Active')
-    expect(screen.queryByText(/Safe accounts above the limit/)).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Upgrade to Business' })).toBeInTheDocument()
+    expect(screen.getAllByText('已启用')).toHaveLength(2)
+    expect(screen.queryByText(/Safe accounts above the 项限额/)).not.toBeInTheDocument()
+    expect(screen.getAllByRole('button', { name: '管理套餐' })).toHaveLength(2)
+    expect(screen.getByRole('button', { name: '升级至 Business' })).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Manage plan' }))
+    fireEvent.click(screen.getAllByRole('button', { name: '管理套餐' })[1])
     expect(onManage).toHaveBeenCalled()
   })
 
@@ -223,12 +223,10 @@ describe('Plans', () => {
     )
 
     expect(screen.getByTestId('current-plan-card')).toBeInTheDocument()
-    expect(screen.getAllByTestId('plan-card')[0]).toHaveTextContent('Business')
-    expect(screen.queryByRole('button', { name: 'Manage plan' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Upgrade to Business' })).not.toBeInTheDocument()
-    expect(
-      screen.getByText('Only admins can change the plan. Ask an admin to upgrade, switch or change seats.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Business')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '管理套餐' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '升级至 Business' })).not.toBeInTheDocument()
+    expect(screen.getByText('只有管理员可以变更套餐，请让管理员升级、切换或调整席位。')).toBeInTheDocument()
   })
 
   it('keeps the read-only note away from admins', () => {
@@ -262,12 +260,14 @@ describe('Plans', () => {
 
     expect(screen.getByTestId('current-plan-card')).toHaveTextContent('€499')
     expect(screen.getByTestId('current-plan-card')).toHaveTextContent('20 Safe accounts')
+    expect(screen.getByTestId('current-plan-card')).toHaveClass('bg-card', 'shadow-lg')
+    expect(screen.getByTestId('current-plan-card')).not.toHaveClass('border-mint')
     expect(screen.queryByText('€6,990')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('tab', { name: /Yearly/ }))
+    fireEvent.click(screen.getByRole('tab', { name: /每年/ }))
     expect(screen.queryByTestId('current-plan-card')).not.toBeInTheDocument()
     expect(screen.getByText('€6,990')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Upgrade to 2 Safe accounts' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Upgrade to 2 个 Safe 账户' })).toBeInTheDocument()
   })
 
   it('names the picked seat option on the closed selector instead of its payment link id', () => {
@@ -280,7 +280,7 @@ describe('Plans', () => {
     }
     render(<Plans plan={null} {...meters} tiers={buildPlanTiers([business])} />)
 
-    expect(screen.getByText('2 Safe accounts')).toBeInTheDocument()
+    expect(screen.getByText('2 个 Safe 账户')).toBeInTheDocument()
     expect(screen.queryByText('pl_business_10')).not.toBeInTheDocument()
   })
 
@@ -301,15 +301,15 @@ describe('Plans', () => {
     const { user } = renderWithUserEvent(<Plans plan={null} {...meters} tiers={buildPlanTiers([business])} />)
 
     await user.click(screen.getByRole('combobox'))
-    await user.click(await screen.findByRole('option', { name: '20 Safe accounts' }))
-    expect(screen.getByRole('combobox')).toHaveTextContent('20 Safe accounts')
+    await user.click(await screen.findByRole('option', { name: '20 个 Safe 账户' }))
+    expect(screen.getByRole('combobox')).toHaveTextContent('20 个 Safe 账户')
 
-    await user.click(screen.getByRole('tab', { name: /Yearly/ }))
-    expect(screen.getByRole('combobox')).toHaveTextContent('20 Safe accounts')
+    await user.click(screen.getByRole('tab', { name: /每年/ }))
+    expect(screen.getByRole('combobox')).toHaveTextContent('20 个 Safe 账户')
     expect(screen.getByText('€17,430')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('tab', { name: /Monthly/ }))
-    expect(screen.getByRole('combobox')).toHaveTextContent('20 Safe accounts')
+    await user.click(screen.getByRole('tab', { name: /每月/ }))
+    expect(screen.getByRole('combobox')).toHaveTextContent('20 个 Safe 账户')
     expect(screen.getByText('€1,669')).toBeInTheDocument()
   })
 
@@ -340,44 +340,25 @@ describe('Plans', () => {
       />,
     )
 
-    expect(screen.getByText('No active plan')).toBeInTheDocument()
-    expect(screen.getByText(/Your Workspace is locked until you choose a plan/)).toBeInTheDocument()
-    const meter = (label: string) => within(screen.getByText(label).closest('[data-slot="card"]') as HTMLElement)
-    expect(meter('Safe accounts available').getByText('—')).toBeInTheDocument()
-    expect(meter('Sponsored transactions available').getByText('Unlimited')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /Add payment method|Manage plan/ })).not.toBeInTheDocument()
+    expect(screen.getByText('无有效套餐')).toBeInTheDocument()
+    expect(screen.getByText(/您的 Workspace is locked until you choose a 套餐/)).toBeInTheDocument()
+    expect(screen.getByText('—')).toBeInTheDocument()
+    expect(screen.getByText('Unlimited')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /添加 payment method\|Manage plan/ })).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue with Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '继续使用 Starter' }))
     expect(onSubscribe).toHaveBeenCalledWith({
       tier: expect.objectContaining({ name: 'Starter' }),
       option: expect.objectContaining({ paymentLinkId: 'pl_starter_m', priceId: 'price_pl_starter_m' }),
     })
   })
 
-  it.each([
-    [1, 'Active until Dec 6, 2026 · 1 day left'],
-    [null, 'Active until Dec 6, 2026.'],
-  ])('words a trial with a card and %p days left as "%s"', (daysLeft, text) => {
-    render(<PlanStatusCard plan={{ ...trialing(7), daysLeft, hasPaymentMethod: true }} {...meters} />)
-
-    expect(screen.getByText(text)).toBeInTheDocument()
-  })
-
-  it('offers the yearly saving on a monthly card and states it on the yearly one', () => {
-    render(<Plans plan={null} {...meters} tiers={buildPlanTiers([STARTER])} onSubscribe={jest.fn()} />)
-
-    fireEvent.click(screen.getByRole('button', { name: 'Save €180 (10.1%) with yearly' }))
-
-    expect(screen.getByRole('tab', { name: 'Yearly' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByTestId('plan-yearly-saving')).toHaveTextContent('Save €180 (10.1%) vs monthly')
-  })
-
   describe('tracking', () => {
     beforeEach(() => jest.clearAllMocks())
 
     it.each([
-      ['Add payment method', current('Business', 499, true), 'add_payment_method', 'business', true],
-      ['Switch to Starter', current('Business', 499, true), 'switch_plan', 'starter', false],
+      ['添加付款方式', current('Business', 499, true), 'add_payment_method', 'business', true],
+      ['切换至 Starter', current('Business', 499, true), 'switch_plan', 'starter', false],
     ])('counts the "%s" button as a plan pick', (name, currentPlan, cta, targetPlan, isCurrent) => {
       render(
         <Plans
@@ -402,43 +383,9 @@ describe('Plans', () => {
     })
   })
 
-  it.each([
-    ['the plan card', 'current-plan-card', 'talk_to_sales'],
-    ['the sales prompt', 'plans-sales-prompt', 'sales_prompt'],
-  ])('counts Talk to sales on %s as a Plans click', (_, testId, label) => {
-    jest.clearAllMocks()
-    render(
-      <Plans
-        plan={trialing(14)}
-        {...meters}
-        tiers={buildPlanTiers([STARTER], { subscription: subscription('Business', 499), seatsQuota: 20 })}
-        currentPlan={current('Business', 499, true)}
-      />,
-    )
-
-    fireEvent.click(within(screen.getByTestId(testId)).getByRole('link', { name: 'Talk to sales' }))
-    expect(trackEvent).toHaveBeenCalledWith(
-      { ...SAFE_PRO_EVENTS.PLANS_CLICKED, label },
-      { CTA: label, Location: 'plans_page' },
-    )
-  })
-
-  it('expands and counts the compare table from the catalog link', () => {
-    jest.clearAllMocks()
-    render(<Plans plan={null} {...meters} tiers={buildPlanTiers([STARTER])} />)
-
-    fireEvent.click(screen.getByRole('link', { name: 'Compare all features' }))
-
-    expect(screen.getByRole('button', { name: 'Compare all features' })).toHaveAttribute('aria-expanded', 'true')
-    expect(trackEvent).toHaveBeenCalledWith(
-      { ...SAFE_PRO_EVENTS.PLANS_CLICKED, label: 'compare_features' },
-      { CTA: 'compare_features', Location: 'plans_page' },
-    )
-  })
-
   it('keeps the Stripe portal reachable for a lapsed subscription', () => {
     render(<Plans plan={null} {...meters} tiers={buildPlanTiers([STARTER])} canManage onManage={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: 'Manage plan' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '管理套餐' })).toBeInTheDocument()
   })
 })

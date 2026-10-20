@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Alert, AlertDescription } from '@safe-global/views/components/ui/alert'
 import InfoOutlinedIcon from '@safe-global/views/assets/images/notifications/info.svg'
 
@@ -6,10 +7,9 @@ export const TwapFallbackHandlerWarning = () => {
     <Alert variant="warning" outlined={false} className="mb-2">
       <InfoOutlinedIcon />
       <AlertDescription>
-        <b>Enable TWAPs and submit order.</b>
+        <b>{translateMessage('ui.enableTWAPsAndSubmitOrder_bc9a993d')}</b>
         {` `}
-        To enable TWAP orders you need to set a custom fallback handler. This software is developed by CoW Swap and Safe
-        will not be responsible for any possible issues with it.
+        {translateMessage('ui.toEnableTWAPOrdersYouNeed_28ad36ab')}
       </AlertDescription>
     </Alert>
   )

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import * as React from 'react'
 import { Input as InputPrimitive } from '@base-ui/react/input'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -82,7 +83,7 @@ const inputErrorVariants = cva('mt-1 text-destructive', {
 const SCRIPT_TAG_REGEX = /<script[\s>][\s\S]*?(?:<\/script>|$)/gi
 const EVENT_HANDLER_REGEX = /\bon\w+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]*)/gi
 
-const SCRIPT_INJECTION_ERROR = 'Scripts and event handlers are not allowed'
+const SCRIPT_INJECTION_ERROR = translateMessage('ui.scriptsAndEventHandlersAreNot_78cdaefa')
 
 function containsScriptInjection(value: string): boolean {
   SCRIPT_TAG_REGEX.lastIndex = 0

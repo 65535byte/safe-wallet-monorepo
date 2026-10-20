@@ -1,16 +1,18 @@
+import { translateMessage } from '@/i18n'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { ICON_STROKE } from '@safe-global/views/components/common/iconStroke'
 import { Card } from '@safe-global/views/components/ui/card'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { cn } from '@safe-global/views/utils/cn'
-import { SAFE_PRO_INTRO_URL } from '@/config/constants'
+import { SAFE_PRO_ANNOUNCEMENT_URL } from '@/config/constants'
+import { useIsSafeProEnabled } from '@/hooks/useIsSafeProEnabled'
 import { MixpanelEventParams } from '@/services/analytics'
 import { useTrackOnce } from '@/services/analytics/useTrackOnce'
 import { SAFE_PRO_EVENTS } from '@/services/analytics/events/safe-pro'
 import { trackSafeProBannerClick, type SafeProBannerLocation } from '../../utils/trackSafeProBannerClick'
 import css from './styles.module.css'
-import { SAFE_PRO_HEADLINE } from '../../utils/safeProHeadline'
+import { safeProMoveHeadline } from '../../utils/safeProMoveHeadline'
 
 const SafeProBanner = ({
   className,
@@ -19,13 +21,14 @@ const SafeProBanner = ({
   className?: string
   location?: SafeProBannerLocation
 }) => {
+  const isLive = useIsSafeProEnabled()
   useTrackOnce(SAFE_PRO_EVENTS.SAFE_PRO_BANNER_VIEWED, { [MixpanelEventParams.LOCATION]: location })
 
   return (
     <Card
       as="a"
-      href={SAFE_PRO_INTRO_URL}
-      onClick={() => trackSafeProBannerClick(location, SAFE_PRO_INTRO_URL)}
+      href={SAFE_PRO_ANNOUNCEMENT_URL}
+      onClick={() => trackSafeProBannerClick(location)}
       target="_blank"
       rel="noopener noreferrer"
       size="none"
@@ -36,10 +39,10 @@ const SafeProBanner = ({
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <Badge variant="subtle" shape="tag" className={css.tag}>
             <Sparkles strokeWidth={ICON_STROKE} className="max-md:hidden" />
-            New
+            {translateMessage('ui.new_891f3045')}
           </Badge>
           <Typography variant="paragraph-small-bold" className="truncate">
-            {SAFE_PRO_HEADLINE}
+            {safeProMoveHeadline(isLive)}
           </Typography>
         </div>
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import { type ReactNode, useCallback, useContext, useEffect } from 'react'
 import { TxFlowContext } from '../../TxFlowProvider'
@@ -64,7 +65,7 @@ const useShouldRegisterSlot = () => {
 const ExecuteSlot = withSlot({
   Component: Execute,
   slotName: SlotName.ComboSubmit,
-  label: 'Execute',
+  label: translateMessage('ui.execute_eea2eb83'),
   id: 'execute',
   useSlotCondition: useShouldRegisterSlot,
 })

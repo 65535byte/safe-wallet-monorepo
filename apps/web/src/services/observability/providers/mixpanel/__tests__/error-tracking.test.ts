@@ -16,7 +16,7 @@ describe('trackErrorSurfaced', () => {
   })
 
   it('emits the Error Surfaced event with the normalized taxonomy', () => {
-    trackErrorSurfaced({ code: 804, message: 'Code 804: Error executing a transaction', isUserFacing: true })
+    trackErrorSurfaced({ code: 804, message: 'Code 804: Error executing a 笔交易', isUserFacing: true })
 
     expect(mockedTrack).toHaveBeenCalledTimes(1)
     const [eventName, props] = mockedTrack.mock.calls[0]

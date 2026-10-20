@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { shortenText } from '@safe-global/utils/utils/formatters'
 import { Link } from '@safe-global/views/components/ui/link'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -18,8 +19,8 @@ interface Props {
 const FIRST_BYTES = 10
 const ZEROES_PATTERN = /^0+$/
 
-const SHOW_MORE = 'Show more'
-const SHOW_LESS = 'Show less'
+const SHOW_MORE = translateMessage('ui.showMore_fcbb41e6')
+const SHOW_LESS = translateMessage('ui.showLess_a9f77250')
 
 const TOGGLE_CLASSES = 'cursor-pointer text-[var(--color-text-primary)] decoration-current'
 
@@ -37,7 +38,7 @@ export const HexEncodedData = ({ hexData, title, highlightFirstBytes = true, lim
   const firstBytes = highlightFirstBytes ? (
     <Tooltip>
       <TooltipTrigger render={<b>{hexData.slice(0, FIRST_BYTES)}</b>} />
-      <TooltipContent>The first 4 bytes determine the contract method that is being called</TooltipContent>
+      <TooltipContent>{translateMessage('ui.theFirstBytesDetermineTheContract_4bc86735')}</TooltipContent>
     </Tooltip>
   ) : null
   const restBytes = highlightFirstBytes ? hexData.slice(FIRST_BYTES) : hexData

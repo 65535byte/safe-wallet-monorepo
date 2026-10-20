@@ -1,4 +1,4 @@
-export const EXECUTION_FEE_TOOLTIP =
-  'Covers third-party services required to securely execute this transaction. Based on the transaction amount. Currently free while the new model is introduced.'
+import { translateMessage } from '@safe-global/views/i18n'
+export const EXECUTION_FEE_TOOLTIP = translateMessage('ui.coversThirdPartyServicesRequiredTo_fffee4f2')
 
-export const GAS_FEE_TOOLTIP = 'Network cost required to process this transaction on the blockchain.'
+export const GAS_FEE_TOOLTIP = translateMessage('ui.networkCostRequiredToProcessThis_ce1f0868')

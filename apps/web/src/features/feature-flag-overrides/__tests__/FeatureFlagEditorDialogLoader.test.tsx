@@ -23,7 +23,7 @@ describe('FeatureFlagEditorDialogLoader', () => {
   it('renders the dialog outside production', async () => {
     const { findByRole } = render(<FeatureFlagEditorDialogLoader open onOpenChange={jest.fn()} />)
 
-    expect(await findByRole('heading', { name: 'Feature flags' })).toBeInTheDocument()
+    expect(await findByRole('heading', { name: '功能开关' })).toBeInTheDocument()
   })
 
   it('renders nothing in production', async () => {

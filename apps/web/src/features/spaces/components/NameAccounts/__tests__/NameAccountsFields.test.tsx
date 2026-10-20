@@ -88,7 +88,7 @@ describe('NameAccountsFields', () => {
     fireEvent.focus(input)
     fireEvent.blur(input)
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Name is required')
+    expect(await screen.findByRole('alert')).toHaveTextContent('请输入名称')
     expect(screen.queryByText(ADDRESS_A.slice(-6))).not.toBeInTheDocument()
 
     fireEvent.focus(input)
@@ -104,7 +104,7 @@ describe('NameAccountsFields', () => {
     fireEvent.click(screen.getByRole('button', { name: 'submit' }))
 
     await waitFor(() => expect(screen.getAllByRole('alert')).toHaveLength(2))
-    screen.getAllByRole('alert').forEach((alert) => expect(alert).toHaveTextContent('Name is required'))
+    screen.getAllByRole('alert').forEach((alert) => expect(alert).toHaveTextContent('请输入名称'))
   })
 
   it('opens the editor and shows the rule for a prefilled name the address book would reject', () => {
@@ -112,7 +112,7 @@ describe('NameAccountsFields', () => {
 
     expect(screen.getByTestId('account-name-input')).toHaveValue('Op')
     expect(screen.queryByTestId('account-name-text')).not.toBeInTheDocument()
-    expect(screen.getByRole('alert')).toHaveTextContent('Names must be at least 3 character(s) long')
+    expect(screen.getByRole('alert')).toHaveTextContent('Names must be，时间 least 3 character(s) long')
   })
 
   it('shows the shared name rules in place of the address', async () => {
@@ -122,7 +122,7 @@ describe('NameAccountsFields', () => {
     fireEvent.change(input, { target: { value: 'ab' } })
     fireEvent.blur(input)
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Names must be at least 3 character(s) long')
+    expect(await screen.findByRole('alert')).toHaveTextContent('Names must be，时间 least 3 character(s) long')
   })
 
   it('explains that names are shared with the workspace', () => {

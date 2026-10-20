@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -11,7 +12,7 @@ const Positions: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Assets`}</title>
+        <title>{translateMessage('ui.assets_80ae5d8f', { p0: BRAND_NAME })}</title>
       </Head>
 
       <AssetsHeader />

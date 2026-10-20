@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWallet from '@/hooks/wallets/useWallet'
 import { useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@safe-global/views/components/ui/dialog'
@@ -42,7 +43,7 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
 
     if (!wallet?.provider || !safeAddress || !chain || !safeTxHash) {
       setIsLoading(false)
-      setError(new Error('Please connect your wallet first'))
+      setError(new Error(translateMessage('ui.pleaseConnectYourWalletFirst_7c9cf431')))
       trackEvent(REJECT_TX_EVENTS.DELETE_FAIL)
       return
     }
@@ -81,14 +82,20 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
           <div data-testid="untrusted-token-warning" className="flex items-center">
             <Typography variant="paragraph-bold" className="flex items-center gap-2">
               <InfoIcon className="size-5 text-[var(--color-error-main)]" />
-              Delete this transaction?
+              {translateMessage('ui.deleteThisTransaction_05afa63d')}
             </Typography>
 
             <div className="grow" />
 
             <ChainIndicator chainId={chain?.chainId} />
 
-            <Button aria-label="close" variant="ghost" size="icon-sm" onClick={onClose} className="ml-auto">
+            <Button
+              aria-label={translateMessage('ui.close_aaaeeafe')}
+              variant="ghost"
+              size="icon-sm"
+              onClick={onClose}
+              className="ml-auto"
+            >
               <Close />
             </Button>
           </div>
@@ -97,17 +104,14 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
         <Separator />
 
         <div className="p-6">
-          <div>
-            Are you sure you want to delete this transaction? This will permanently remove it from the queue but the
-            already given signatures will remain valid.
-          </div>
+          <div>{translateMessage('ui.areYouSureYouWantTo_819488ac')}</div>
 
           <div className="mt-4">
-            Make sure that you are aware of the{' '}
+            {translateMessage('ui.makeSureThatYouAreAware_82aac528')}{' '}
             <ExternalLink href="https://help.safe.global/articles/4016097317-Why-do-I-need-to-pay-for-cancelling-a-transaction?">
-              potential risks
+              {translateMessage('ui.potentialRisks_60aa1498')}
             </ExternalLink>{' '}
-            related to deleting a transaction off-chain.
+            {translateMessage('ui.relatedToDeletingATransactionOff_296a49ce')}
           </div>
 
           <div className="mt-4">
@@ -116,7 +120,7 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
 
           {error && (
             <div className="mt-4">
-              <ErrorMessage error={error}>Error deleting transaction</ErrorMessage>
+              <ErrorMessage error={error}>{translateMessage('ui.errorDeletingTransaction_b36499d2')}</ErrorMessage>
             </div>
           )}
         </div>
@@ -125,7 +129,7 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
 
         <div className="flex items-center justify-between p-6">
           <Button size="sm" variant="ghost" onClick={onCancel}>
-            Keep it
+            {translateMessage('ui.keepIt_61da94e7')}
           </Button>
 
           <CheckWallet checkNetwork>
@@ -137,7 +141,7 @@ const InternalDeleteTxModal = ({ safeTxHash, onSuccess, onClose, wallet, safeAdd
                 disabled={!isOk || isLoading}
                 className="min-h-9 min-w-[122px]"
               >
-                {isLoading ? <Spinner className="size-5" /> : 'Yes, delete'}
+                {isLoading ? <Spinner className="size-5" /> : translateMessage('ui.yesDelete_185fdfd2')}
               </Button>
             )}
           </CheckWallet>

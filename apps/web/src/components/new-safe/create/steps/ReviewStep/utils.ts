@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ExecutionMethod } from '@/components/tx/ExecutionMethodSelector'
 import { PayMethod } from '@safe-global/utils/features/counterfactual/types'
 import type { TransactionOptions } from '@safe-global/types-kit'
@@ -7,15 +8,15 @@ import { AppRoutes } from '@/config/routes'
  * Returns the pluralized network label based on the number of networks.
  */
 export function getNetworkLabel(networkCount: number): string {
-  return networkCount > 1 ? 'Networks' : 'Network'
+  return networkCount > 1 ? translateMessage('ui.networks_e4d25fbc') : translateMessage('ui.network_eb8f6520')
 }
 
 /**
  * Returns the threshold display string, e.g. "2 out of 3 signers".
  */
 export function getThresholdLabel(threshold: number, ownerCount: number): string {
-  const noun = ownerCount > 1 ? 'signers' : 'signer'
-  return `${threshold} out of ${ownerCount} ${noun}`
+  const noun = ownerCount > 1 ? translateMessage('ui.signers_a7dacaaf') : translateMessage('ui.signer_c3e9cabd')
+  return translateMessage('ui.outOf_567d726e', { p0: threshold, p1: ownerCount, p2: noun })
 }
 
 /**

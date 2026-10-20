@@ -39,7 +39,7 @@ describe('GoogleSignInButton', () => {
     render(<GoogleSignInButton />)
 
     expect(screen.getByTestId('google-login-btn')).toBeInTheDocument()
-    expect(screen.getByText('Continue with Google')).toBeInTheDocument()
+    expect(screen.getByText('使用 Google 继续')).toBeInTheDocument()
   })
 
   it('should track analytics event on click', () => {

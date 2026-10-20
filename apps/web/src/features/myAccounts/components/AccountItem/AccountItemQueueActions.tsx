@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import { type ReactNode, useCallback, type MouseEvent } from 'react'
 import { CheckIcon } from 'lucide-react'
@@ -55,14 +56,14 @@ function AccountItemQueueActions({
         {queued > 0 && (
           <ChipLink>
             <TransactionsIcon className="size-4" />
-            {queued} pending
+            {queued} {translateMessage('ui.pending_81062d87')}
           </ChipLink>
         )}
 
         {awaitingConfirmation > 0 && (
           <ChipLink variant="warning">
             <CheckIcon className="size-4 text-[var(--color-warning-main)]" />
-            {awaitingConfirmation} to confirm
+            {awaitingConfirmation} {translateMessage('ui.toConfirm_197b1d46')}
           </ChipLink>
         )}
       </button>

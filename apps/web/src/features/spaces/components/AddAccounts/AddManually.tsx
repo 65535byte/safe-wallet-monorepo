@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddressInput from '@/components/common/AddressInput'
 import ChainIndicator from '@/components/common/ChainIndicator'
 import ModalDialog from '@/components/common/ModalDialog'
@@ -58,10 +59,10 @@ const AddManually = ({
     try {
       const result = await triggerGetSafe({ chainId, safeAddress: address }).unwrap()
       if (!result) {
-        return 'Address given is not a valid Safe account address'
+        return translateMessage('ui.addressGivenIsNotAValid_9d6ebe4a')
       }
     } catch (error) {
-      return 'Address given is not a valid Safe account address'
+      return translateMessage('ui.addressGivenIsNotAValid_9d6ebe4a')
     }
   }
 
@@ -77,11 +78,11 @@ const AddManually = ({
         className="w-full"
       >
         <Plus className="size-4" />
-        Add manually
+        {translateMessage('ui.addManually_3c392d2e')}
       </Button>
       <ModalDialog
         open={addManuallyOpen}
-        dialogTitle="Add safe account"
+        dialogTitle={translateMessage('ui.addSafeAccount_299baa09')}
         onClose={onClose}
         hideChainIndicator
         forceBackdrop
@@ -98,7 +99,7 @@ const AddManually = ({
               <div className="flex flex-col gap-4 md:flex-row md:items-end">
                 <AddressInput
                   data-testid="add-address-input"
-                  label="Safe account"
+                  label={translateMessage('ui.account_7e251525')}
                   chain={selectedChain}
                   validate={validateSafeAddress}
                   name="address"
@@ -128,10 +129,10 @@ const AddManually = ({
             </div>
             <div className="flex justify-end gap-2 px-6 py-4">
               <Button variant="ghost" onClick={onClose}>
-                Cancel
+                {translateMessage('ui.cancel_d94a8eaf')}
               </Button>
               <Button data-testid="add-space-account-manually-button" disabled={!formState.isValid} type="submit">
-                Add
+                {translateMessage('ui.add_10c0b4eb')}
               </Button>
             </div>
           </form>

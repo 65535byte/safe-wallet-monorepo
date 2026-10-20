@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -35,7 +36,7 @@ export const useUpdateSpace = (space: GetSpaceResponse | undefined, onSuccess?: 
       dispatch(
         showNotification({
           variant: 'success',
-          message: 'Updated Workspace name',
+          message: translateMessage('ui.updatedWorkspaceName_c7ca435a'),
           groupKey: 'space-update-name',
         }),
       )

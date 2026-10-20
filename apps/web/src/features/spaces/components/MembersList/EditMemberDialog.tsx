@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import DialogActions from '@/components/common/DialogActions'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -25,6 +26,8 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { showNotification } from '@/store/notificationsSlice'
 import MemberInfoForm from '../AddMemberModal/MemberInfoForm'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
 import { getRtkQueryErrorMessage } from '@/utils/rtkQuery'
@@ -74,7 +77,7 @@ const EditMemberDialog = ({ member, handleClose }: { member: MemberDto; handleCl
     setError(undefined)
 
     if (!spaceId) {
-      setError('Something went wrong. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongPleaseTryAgain_ee89925b'))
       return
     }
 
@@ -106,13 +109,32 @@ const EditMemberDialog = ({ member, handleClose }: { member: MemberDto; handleCl
       return
     }
 
+    if (hasNameChanged) {
+      trackEvent(
+        { ...SPACE_EVENTS.WORKSPACE_MEMBER_NAME_CHANGED, label: spaceId },
+        { workspace_id: spaceId, user_id: member.user.id },
+      )
+    }
+
+    if (hasRoleChanged) {
+      trackEvent(
+        { ...SPACE_EVENTS.WORKSPACE_MEMBER_ROLE_CHANGED, label: spaceId },
+        {
+          workspace_id: spaceId,
+          target_user_id: member.user.id,
+          from_role: member.role.toLowerCase(),
+          to_role: roleValue.toLowerCase(),
+        },
+      )
+    }
+
     const roleLabel = capitalize(roleValue.toLowerCase())
     const successMessage =
       hasNameChanged && hasRoleChanged
-        ? `Updated your name and role to ${roleLabel}`
+        ? translateMessage('ui.updatedYourNameAndRoleTo_6ffdb3ad', { p0: roleLabel })
         : hasNameChanged
-          ? 'Your name was updated'
-          : `Updated role of ${displayName} to ${roleLabel}`
+          ? translateMessage('ui.yourNameWasUpdated_09ac1b2b')
+          : translateMessage('ui.updatedRoleOfTo_4ae3d814', { p0: displayName, p1: roleLabel })
 
     dispatch(
       showNotification({
@@ -126,13 +148,14 @@ const EditMemberDialog = ({ member, handleClose }: { member: MemberDto; handleCl
   })
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Edit member" hideChainIndicator>
+    <ModalDialog open onClose={handleClose} dialogTitle={translateMessage('ui.editMember_f2c4fa4b')} hideChainIndicator>
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             <div className="p-6">
               <Typography variant="paragraph" className="mb-4">
-                Edit <b>{displayName}</b> in this Workspace.
+                {translateMessage('ui.edit_1b6b8026')}
+                <b>{displayName}</b> {translateMessage('ui.inThisWorkspace_2669c5ea')}
               </Typography>
 
               <MemberInfoForm
@@ -148,7 +171,7 @@ const EditMemberDialog = ({ member, handleClose }: { member: MemberDto; handleCl
               className="px-6 pb-6"
               onCancel={handleClose}
               cancelTestId="cancel-btn"
-              confirmLabel="Update"
+              confirmLabel={translateMessage('ui.update_5cb0e4fd')}
               confirmType="submit"
               confirmDestructive
               confirmDisabled={!canSubmit}

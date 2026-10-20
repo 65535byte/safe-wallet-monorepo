@@ -47,7 +47,7 @@ describe('ApprovalEditor', () => {
   it('renders an error', async () => {
     jest
       .spyOn(approvalInfos, 'useApprovalInfos')
-      .mockReturnValue([undefined, new Error('Error parsing approvals'), false])
+      .mockReturnValue([undefined, new Error('错误 parsing approvals'), false])
     const mockSafeTx = createMockSafeTransaction({
       to: faker.finance.ethereumAddress(),
       data: '0x',
@@ -56,7 +56,7 @@ describe('ApprovalEditor', () => {
 
     const result = render(<ApprovalEditor safeTransaction={mockSafeTx} />)
 
-    expect(result.getByText('Error while decoding approval transactions.')).toBeInTheDocument()
+    expect(result.getByText('批准交易解码失败。')).toBeInTheDocument()
   })
 
   it('renders a loading skeleton', async () => {
@@ -192,7 +192,7 @@ describe('ApprovalEditor', () => {
     })
 
     // One edit button for each approval
-    const editButtons = getAllByTitle(result.container, 'Edit')
+    const editButtons = getAllByTitle(result.container, '编辑')
     expect(editButtons).toHaveLength(2)
 
     // Edit and Save first value
@@ -202,7 +202,7 @@ describe('ApprovalEditor', () => {
       fireEvent.change(amountInput1!, { target: { value: '100' } })
     })
 
-    let saveButton = result.getByTitle('Save')
+    let saveButton = result.getByTitle('保存')
     await waitFor(() => {
       expect(saveButton).toBeEnabled()
     })
@@ -299,7 +299,7 @@ describe('ApprovalEditor', () => {
     })
 
     // One edit button for each approval
-    const editButtons = getAllByTitle(result.container, 'Edit')
+    const editButtons = getAllByTitle(result.container, '编辑')
     expect(editButtons).toHaveLength(2)
 
     // Edit and Save second value
@@ -309,7 +309,7 @@ describe('ApprovalEditor', () => {
       fireEvent.change(amountInput2!, { target: { value: '300' } })
     })
 
-    let saveButton = result.getByTitle('Save')
+    let saveButton = result.getByTitle('保存')
     await waitFor(() => {
       expect(saveButton).toBeEnabled()
     })

@@ -23,12 +23,12 @@ jest.mock('@/services/analytics', () => ({
 }))
 
 const mockSpace: GetSpaceResponse = {
+  experimentalFeatures: [],
   uuid: MOCK_SPACE_UUID,
   name: 'My Workspace',
   members: [],
   safeCount: 0,
   memberCount: 0,
-  experimentalFeatures: [],
 }
 
 const renderDialog = (opts: { space?: GetSpaceResponse | undefined; onClose?: () => void } = {}) => {
@@ -95,7 +95,7 @@ describe('LeaveSpaceDialog', () => {
       const notifications = store.getState().notifications
       expect(notifications.length).toBeGreaterThan(0)
       const last = notifications[notifications.length - 1]
-      expect(last.message).toBe('Left Workspace My Workspace.')
+      expect(last.message).toBe('已退出工作空间 My Workspace。')
       expect(last.variant).toBe('success')
     })
   })
@@ -107,7 +107,7 @@ describe('LeaveSpaceDialog', () => {
     fireEvent.click(screen.getByTestId('space-confirm-leave-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Error leaving the Workspace. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('退出工作空间失败，请重试。')).toBeInTheDocument()
     })
   })
 
@@ -118,7 +118,7 @@ describe('LeaveSpaceDialog', () => {
     fireEvent.click(screen.getByTestId('space-confirm-leave-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Error leaving the Workspace. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('退出工作空间失败，请重试。')).toBeInTheDocument()
     })
     expect(mockRouterPush).not.toHaveBeenCalled()
   })
@@ -127,7 +127,7 @@ describe('LeaveSpaceDialog', () => {
     const onClose = jest.fn()
     renderDialog({ onClose })
 
-    fireEvent.click(screen.getByRole('button', { name: /cancel/i }))
+    fireEvent.click(screen.getByRole('button', { name: /取消/i }))
 
     expect(onClose).toHaveBeenCalled()
   })
@@ -139,6 +139,6 @@ describe('LeaveSpaceDialog', () => {
     expect(screen.getByTestId('space-confirm-leave-button')).toBeDisabled()
     // DialogActions swaps the confirm label for a spinner while loading
     expect(screen.getByRole('status')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /cancel/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /取消/i })).toBeDisabled()
   })
 })

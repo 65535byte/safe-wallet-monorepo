@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import { useForm, Controller, FormProvider } from 'react-hook-form'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -31,7 +32,7 @@ const DATE_RANGE_LABELS: Record<DateRangeOption, string> = {
   [DateRangeOption.LAST_30_DAYS]: 'Last 30 days',
   [DateRangeOption.LAST_6_MONTHS]: 'Last 6 months',
   [DateRangeOption.LAST_12_MONTHS]: 'Last 12 months',
-  [DateRangeOption.YTD]: 'Year to date (YTD)',
+  [DateRangeOption.YTD]: translateMessage('ui.yearToDateYTD_3509e468'),
   [DateRangeOption.CUSTOM]: 'Custom',
 }
 
@@ -97,8 +98,8 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
       showNotification({
         variant: 'info',
         groupKey: 'export-csv-started',
-        title: 'Generating CSV export',
-        message: 'This might take a few minutes.',
+        title: translateMessage('ui.generatingCSVExport_9c793e51'),
+        message: translateMessage('ui.thisMightTakeAFewMinutes_d053aa2b'),
         icon: <UpdateIcon />,
       }),
     )
@@ -109,8 +110,8 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
       showNotification({
         variant: 'error',
         groupKey: 'export-csv-error',
-        title: 'Something went wrong',
-        message: 'Please try exporting the CSV again.',
+        title: translateMessage('ui.somethingWentWrong_b021881e'),
+        message: translateMessage('ui.pleaseTryExportingTheCSVAgain_d333e808'),
       }),
     )
   }
@@ -176,7 +177,7 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
       dialogTitle={
         <>
           <ExportIcon className="mr-2 inline size-4" />
-          Export CSV
+          {translateMessage('ui.exportCSV_a3cc6803')}
         </>
       }
       hideChainIndicator
@@ -186,17 +187,17 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
         <form onSubmit={onSubmit}>
           <div className="p-6">
             <Typography className="mb-6">
-              The CSV includes transactions from the selected period, suitable for reporting.
+              {translateMessage('ui.theCSVIncludesTransactionsFromThe_abfdb246')}
             </Typography>
 
             {hasActiveFilter && (
               <Alert className="mb-6 bg-[var(--color-background-main)]">
-                Transaction history filters won&apos;t apply here.
+                {translateMessage('ui.transactionHistoryFiltersWonTApply_fb64fdd6')}
               </Alert>
             )}
 
             <div className="mb-2 flex w-full flex-col gap-1.5">
-              <Label htmlFor="csv-export-range">Date range</Label>
+              <Label htmlFor="csv-export-range">{translateMessage('ui.dateRange_7040a907')}</Label>
               <Controller
                 name={CsvTxExportField.RANGE}
                 control={control}
@@ -206,8 +207,12 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
                     value={field.value || null}
                     onValueChange={(value) => field.onChange(value ?? '')}
                   >
-                    <SelectTrigger id="csv-export-range" aria-label="Date range" className="w-full">
-                      <SelectValue placeholder="Date range" />
+                    <SelectTrigger
+                      id="csv-export-range"
+                      aria-label={translateMessage('ui.dateRange_7040a907')}
+                      className="w-full"
+                    >
+                      <SelectValue placeholder={translateMessage('ui.dateRange_7040a907')} />
                     </SelectTrigger>
                     <SelectContent>
                       {Object.values(DateRangeOption).map((option) => (
@@ -226,23 +231,23 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <DatePickerInput
                     name={CsvTxExportField.FROM}
-                    label="From"
+                    label={translateMessage('ui.from_9ed312b5')}
                     deps={[CsvTxExportField.TO]}
                     validate={(val) => {
                       const toDate = getValues(CsvTxExportField.TO)
                       if (val && toDate && isBefore(startOfDay(toDate), startOfDay(val))) {
-                        return 'Must be before "To" date'
+                        return translateMessage('ui.mustBeBeforeToDate_971c1a2d')
                       }
                     }}
                   />
                   <DatePickerInput
                     name={CsvTxExportField.TO}
-                    label="To"
+                    label={translateMessage('ui.to_fa7ba004')}
                     deps={[CsvTxExportField.FROM]}
                     validate={(val) => {
                       const fromDate = getValues(CsvTxExportField.FROM)
                       if (val && fromDate && isAfter(startOfDay(fromDate), startOfDay(val))) {
-                        return 'Must be after "From" date'
+                        return translateMessage('ui.mustBeAfterFromDate_5130c075')
                       }
                     }}
                   />
@@ -255,7 +260,7 @@ const CsvTxExportModal = ({ onClose, onExport, hasActiveFilter }: CsvTxExportMod
           <div className="flex justify-end p-4">
             <Button type="submit" variant="default" size="sm" disabled={isExportDisabled}>
               <ExportIcon className="size-4" />
-              Export
+              {translateMessage('ui.export_9bb429ef')}
             </Button>
           </div>
         </form>
@@ -268,11 +273,11 @@ const YearRangeAlert = ({ isOverYear }: { isOverYear: boolean }): ReactElement =
   const { variant, message } = isOverYear
     ? {
         variant: 'warning' as const,
-        message: 'Date range cannot exceed 12 months.',
+        message: translateMessage('ui.dateRangeCannotExceedMonths_2b62940b'),
       }
     : {
         variant: 'info' as const,
-        message: 'You can select up to 12 months.',
+        message: translateMessage('ui.youCanSelectUpToMonths_23a5cd4d'),
       }
 
   return (

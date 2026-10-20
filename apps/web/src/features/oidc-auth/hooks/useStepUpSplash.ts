@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useRef } from 'react'
 import { MAX_DISPLAY_MS } from '@/components/common/LaunchScreen/useLaunchScreen'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -5,8 +6,8 @@ import { selectStepUpPhase, selectStepUpReturnUrl, stepUpSettled } from '../stor
 import { startStepUp } from '../utils/stepUp'
 
 const CAPTIONS = {
-  leaving: 'Verifying your identity…',
-  returning: 'Finishing your request…',
+  leaving: translateMessage('ui.verifyingYourIdentity_f64074a3'),
+  returning: translateMessage('ui.finishingYourRequest_38a106a6'),
 } as const
 
 export const useStepUpSplash = (): string | undefined => {

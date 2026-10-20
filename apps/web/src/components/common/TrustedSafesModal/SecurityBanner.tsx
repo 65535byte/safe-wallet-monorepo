@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertDescription, AlertTitle, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -18,13 +19,13 @@ const SecurityBanner = ({ title, className }: SecurityBannerProps) => {
       <AlertSeverityIcon variant="warning" />
       {title && <AlertTitle className="font-bold">{title}</AlertTitle>}
       <AlertDescription>
-        Some Safe accounts may be malicious or impersonations. Only trust Safe accounts you can verify.{' '}
+        {translateMessage('ui.someAccountsMayBeMaliciousOr_32b07ab2')}{' '}
         <ExternalLink
           href={HelpCenterArticle.ADDRESS_POISONING}
           noIcon
           className="font-bold text-inherit [&>span]:underline"
         >
-          Learn more
+          {translateMessage('ui.learnMore_0c11daba')}
         </ExternalLink>
       </AlertDescription>
     </Alert>

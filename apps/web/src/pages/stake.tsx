@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -11,7 +12,7 @@ const StakePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Stake`}</title>
+        <title>{translateMessage('ui.stake_c424d94f', { p0: BRAND_NAME })}</title>
       </Head>
 
       {stake.$isReady ? (
@@ -19,7 +20,7 @@ const StakePage: NextPage = () => {
       ) : stake.$isDisabled ? (
         <main>
           <Typography align="center" className="my-6">
-            Staking is not available on this network.
+            {translateMessage('ui.stakingIsNotAvailableOnThis_3a1738a6')}
           </Typography>
         </main>
       ) : null}

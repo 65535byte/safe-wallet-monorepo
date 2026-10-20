@@ -1,3 +1,5 @@
+import { getLanguage } from '@/i18n'
+import { translateMessage } from '@/i18n'
 import { Plus, Smartphone } from 'lucide-react'
 import { FEATURES } from '@safe-global/utils/utils/chains'
 import { Badge, BadgeDot } from '@safe-global/views/components/ui/badge'
@@ -9,7 +11,7 @@ import { useAuthenticators } from '../../hooks/useAuthenticators'
 
 const formatDate = (iso?: string): string =>
   iso
-    ? new Date(iso).toLocaleString('en-GB', {
+    ? new Date(iso).toLocaleString(getLanguage(), {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
@@ -42,18 +44,17 @@ const SwitchAuthenticatorSection = () => {
     <section className="bg-card rounded-2xl p-6 mb-3" data-testid="settings-account-authenticators">
       <div className="flex items-center gap-3 mb-2">
         <Typography variant="paragraph-bold" className="block tracking-tight">
-          Two-factor authentication
+          {translateMessage('ui.twoFactorAuthentication_9f727397')}
         </Typography>
         {authenticator && (
           <Badge variant="success" size="status" shape="status">
             <BadgeDot />
-            Active
+            {translateMessage('ui.active_889c3246')}
           </Badge>
         )}
       </div>
       <Typography variant="paragraph-small" color="muted" className="mb-4 block max-w-[560px]">
-        Required for everyone in this Workspace. Signing in takes your email code and a 6-digit code from your
-        authenticator app.
+        {translateMessage('ui.requiredForEveryoneInThisWorkspace_57ccffdb')}
       </Typography>
 
       {error && (
@@ -72,23 +73,24 @@ const SwitchAuthenticatorSection = () => {
             </div>
             <div className="min-w-0">
               <Typography variant="paragraph-small-bold" className="block truncate">
-                Authenticator app
+                {translateMessage('ui.authenticatorApp_1c851ae1')}
               </Typography>
               {authenticator.createdAt && (
                 <Typography variant="paragraph-mini" color="muted" className="block">
-                  Added {formatDate(authenticator.createdAt)}
+                  {translateMessage('ui.added_42dc28b7')}
+                  {formatDate(authenticator.createdAt)}
                 </Typography>
               )}
             </div>
           </div>
           <Button variant="outline" size="sm" onClick={enrollNewAuthenticator} data-testid="change-authenticator-btn">
-            Change
+            {translateMessage('ui.change_16056c3a')}
           </Button>
         </div>
       ) : (
         <Button variant="outline" size="sm" onClick={enrollNewAuthenticator} data-testid="add-authenticator-btn">
           <Plus className="h-3.5 w-3.5" />
-          Add authenticator
+          {translateMessage('ui.addAuthenticator_06619c45')}
         </Button>
       )}
     </section>

@@ -6,8 +6,7 @@ import css from './SafeLogoHalo.module.css'
 const SafeLogoHalo = (): ReactElement => (
   <span className="relative flex items-center justify-center">
     <span aria-hidden className={cn('absolute size-40 rounded-full', css.halo)} />
-    <img src="/images/logo-no-text.svg" alt="" className="size-[72px] dark:hidden" />
-    <span aria-hidden className={cn('hidden size-[72px] dark:block', css.logoDarkFill)} />
+    <img src="/images/brand-logo.png" alt="" className="size-[72px] rounded-xl object-contain" />
   </span>
 )
 

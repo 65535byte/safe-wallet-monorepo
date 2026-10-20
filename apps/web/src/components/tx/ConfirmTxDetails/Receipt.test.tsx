@@ -212,7 +212,7 @@ describe('Receipt To row', () => {
     const address = getByText(baseSafeTxData.to).parentElement
 
     expect(row).toHaveClass('flex-wrap', 'justify-between')
-    expect(row?.firstElementChild).toHaveTextContent('To')
+    expect(row?.firstElementChild).toHaveTextContent('至')
     expect(chip.nextElementSibling).toBe(address)
     expect(address).toHaveClass('w-full', 'text-right', '[&>*]:justify-end')
   })

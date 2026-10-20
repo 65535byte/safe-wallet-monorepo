@@ -122,18 +122,18 @@ describe('SpaceSafeAccounts', () => {
     })
   })
 
-  it('counts the seats in use under Safe Pro and flags the limit with the banner', () => {
+  it('counts the seats in use under 8379 and flags the limit with the banner', () => {
     mockUseSeatUpsell.mockReturnValue({ isSafePro: true, tierName: 'Business', limit: 20, plansHref: '/spaces/plans' })
     const { rerender } = render(<SpaceSafeAccounts />)
 
-    expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 20')
-    expect(screen.getByTestId('selected-count')).not.toHaveTextContent('selected')
+    expect(screen.getByTestId('selected-count')).toHaveTextContent('2/ 共 20')
+    expect(screen.getByTestId('selected-count')).not.toHaveTextContent('已选择')
     expect(screen.queryByTestId('seat-limit-banner')).not.toBeInTheDocument()
 
     mockUseSeatUpsell.mockReturnValue({ isSafePro: true, tierName: 'Business', limit: 2, plansHref: '/spaces/plans' })
     rerender(<SpaceSafeAccounts />)
-    expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 2')
-    expect(screen.getByTestId('seat-limit-banner')).toHaveTextContent('The Business plan includes 2 Safe accounts')
+    expect(screen.getByTestId('selected-count')).toHaveTextContent('2/ 共 2')
+    expect(screen.getByTestId('seat-limit-banner')).toHaveTextContent('Business 套餐 包含 2 个 Safe 账户')
   })
 
   it('counts a Safe on several chains as one seat', () => {
@@ -147,10 +147,10 @@ describe('SpaceSafeAccounts', () => {
 
     render(<SpaceSafeAccounts />)
 
-    expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 2')
+    expect(screen.getByTestId('selected-count')).toHaveTextContent('2/ 共 2')
   })
 
-  it('shows neither counter nor banner without Safe Pro', () => {
+  it('shows neither counter nor banner without 8379', () => {
     render(<SpaceSafeAccounts />)
 
     expect(screen.queryByTestId('selected-count')).not.toBeInTheDocument()
@@ -160,7 +160,7 @@ describe('SpaceSafeAccounts', () => {
   it('renders the AddAccountsChooser with the "Add accounts" label', () => {
     render(<SpaceSafeAccounts />)
 
-    expect(screen.getByTestId('add-accounts-chooser')).toHaveTextContent('Add accounts')
+    expect(screen.getByTestId('add-accounts-chooser')).toHaveTextContent('添加账户')
   })
 
   it('passes "safe_accounts" as the entryPoint to AddAccountsChooser', () => {
@@ -224,7 +224,7 @@ describe('SpaceSafeAccounts', () => {
 
     fireEvent.change(screen.getByTestId('space-safe-accounts-search-input'), { target: { value: 'nomatch' } })
 
-    expect(screen.getByText('No Safe accounts match your search')).toBeInTheDocument()
+    expect(screen.getByText('没有匹配的 Safe 账户')).toBeInTheDocument()
     expect(screen.queryByTestId('safe-accounts-table')).not.toBeInTheDocument()
   })
 

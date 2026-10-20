@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -14,7 +15,7 @@ const NFTs: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – NFTs`}</title>
+        <title>{translateMessage('ui.nFT_d2ffff0b', { p0: BRAND_NAME })}</title>
       </Head>
 
       <AssetsHeader />
@@ -26,7 +27,7 @@ const NFTs: NextPage = () => {
       ) : isFeatureEnabled === false ? (
         <main>
           <Typography align="center" className="my-6">
-            NFTs are not available on this network.
+            {translateMessage('ui.nFTsAreNotAvailableOnThis_5b1df7bd')}
           </Typography>
         </main>
       ) : null}

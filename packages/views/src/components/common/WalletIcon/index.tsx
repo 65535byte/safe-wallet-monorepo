@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 
 const WalletIcon = ({
@@ -16,7 +17,7 @@ const WalletIcon = ({
       width={width}
       height={height}
       src={icon.startsWith('data:') ? icon : `data:image/svg+xml;utf8,${encodeURIComponent(icon)}`}
-      alt={`${provider} logo`}
+      alt={translateMessage('ui.logo_efd72bef', { p0: provider })}
     />
   ) : (
     <Skeleton className="rounded-full" style={{ width, height }} />

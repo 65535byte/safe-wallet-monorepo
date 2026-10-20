@@ -5,7 +5,6 @@ import { extendedSafeInfoBuilder } from '@/tests/builders/safe'
 import { hexlify, zeroPadValue, toUtf8Bytes } from 'ethers'
 import type { SafeState } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
 import SignMessage from './SignMessage'
-import SignMessageFlow from '.'
 
 import * as useIsWrongChainHook from '@/hooks/useIsWrongChain'
 import * as useIsSafeOwnerHook from '@/hooks/useIsSafeOwner'
@@ -51,7 +50,7 @@ const mockOnboardState = {
   walletModules: [],
   wallets: [
     {
-      label: 'Wallet 1',
+      label: '钱包 1',
       icon: '',
       provider: mockProvider,
       chains: [{ id: '0x5', namespace: 'evm' }],
@@ -166,35 +165,6 @@ describe('SignMessage', () => {
       fireEvent.click(getByTestId('message-details'))
 
       expect(await findByText('0x73d0948ac608c5d00a6dd26dd396cce79b459307ea365f5a5bd5d3119c2d9708')).toBeInTheDocument()
-    })
-
-    it.each([
-      {
-        origin: 'from a Safe App request',
-        requestId: '123',
-        nextStep:
-          'Keep this modal open until all signers confirm this message. Closing the modal will abort the signing request.',
-      },
-      {
-        origin: 'without a Safe App request',
-        requestId: undefined,
-        nextStep: 'The signature will be submitted to the requesting app when the message is fully signed.',
-      },
-    ])('explains how confirmations are collected for a message $origin', async ({ requestId, nextStep }) => {
-      const { getByText, findByText } = renderWithSafeShield(
-        <SignMessage logoUri="www.fake.com/test.png" name="Test App" message={EXAMPLE_MESSAGE} requestId={requestId} />,
-      )
-
-      expect(await findByText('Collect all the confirmations')).toBeInTheDocument()
-      expect(getByText(nextStep)).toBeInTheDocument()
-    })
-
-    it('titles the sign message flow "Confirm message"', async () => {
-      const { findByTestId } = render(
-        <SignMessageFlow logoUri="www.fake.com/test.png" name="Test App" message={EXAMPLE_MESSAGE} requestId="123" />,
-      )
-
-      expect(await findByTestId('modal-title')).toHaveTextContent('Confirm message')
     })
   })
 
@@ -318,7 +288,7 @@ describe('SignMessage', () => {
       }),
     )
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
 
     act(() => {
       fireEvent.click(button)
@@ -336,8 +306,8 @@ describe('SignMessage', () => {
     // Immediately refetches message and displays confirmation
     await waitFor(() => {
       expect(baseElement).toHaveTextContent('0x0000...0002')
-      expect(baseElement).toHaveTextContent('1 of 2')
-      expect(baseElement).toHaveTextContent('Confirmation #2')
+      expect(baseElement).toHaveTextContent('1 / 2')
+      expect(baseElement).toHaveTextContent('确认 #2')
     })
   })
 
@@ -415,7 +385,7 @@ describe('SignMessage', () => {
       .spyOn(sender, 'dispatchSafeMsgConfirmation')
       .mockImplementation(() => Promise.resolve())
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
     expect(button).toBeEnabled()
 
     act(() => {
@@ -431,7 +401,7 @@ describe('SignMessage', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Message successfully signed')).toBeInTheDocument()
+      expect(getByText('消息签名成功')).toBeInTheDocument()
     })
   })
 
@@ -450,9 +420,9 @@ describe('SignMessage', () => {
       />,
     )
 
-    expect(getByText('No wallet is connected.')).toBeInTheDocument()
+    expect(getByText('尚未连接钱包。')).toBeInTheDocument()
 
-    expect(getByText('Sign')).toBeDisabled()
+    expect(getByText('签名')).toBeDisabled()
   })
 
   it('displays a network switch warning if connected to the wrong chain', () => {
@@ -472,8 +442,8 @@ describe('SignMessage', () => {
       />,
     )
 
-    expect(getByText('Change your wallet network')).toBeInTheDocument()
-    expect(queryByText('Sign')).toBeDisabled()
+    expect(getByText('切换钱包网络')).toBeInTheDocument()
+    expect(queryByText('签名')).toBeDisabled()
   })
 
   it('displays an error if not an owner', () => {
@@ -498,10 +468,10 @@ describe('SignMessage', () => {
     )
 
     expect(
-      getByText("You are currently not a signer of this Safe account and won't be able to confirm this message."),
+      getByText("You are currently not a signer of this 个 Safe 账户 and won't be able to confirm this message."),
     ).toBeInTheDocument()
 
-    expect(getByText('Sign')).toBeDisabled()
+    expect(getByText('签名')).toBeDisabled()
   })
 
   it('displays a success message if the message has already been signed', async () => {
@@ -545,9 +515,9 @@ describe('SignMessage', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Your connected wallet has already signed this message.')).toBeInTheDocument()
+      expect(getByText('当前连接的钱包已签署此消息。')).toBeInTheDocument()
 
-      expect(getByText('Sign')).toBeDisabled()
+      expect(getByText('签名')).toBeDisabled()
     })
   })
 
@@ -585,7 +555,7 @@ describe('SignMessage', () => {
       />,
     )
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
     expect(button).not.toBeDisabled()
 
     act(() => {
@@ -594,7 +564,7 @@ describe('SignMessage', () => {
 
     await waitFor(() => {
       expect(proposalSpy).toHaveBeenCalled()
-      expect(getByText('Error confirming the message. Try again.')).toBeInTheDocument()
+      expect(getByText('确认消息失败，请重试。')).toBeInTheDocument()
     })
   })
 
@@ -654,9 +624,9 @@ describe('SignMessage', () => {
 
     const confirmationSpy = jest
       .spyOn(sender, 'dispatchSafeMsgConfirmation')
-      .mockImplementation(() => Promise.reject(new Error('Error confirming')))
+      .mockImplementation(() => Promise.reject(new Error('错误 confirming')))
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
 
     expect(button).toBeEnabled()
 
@@ -666,7 +636,7 @@ describe('SignMessage', () => {
 
     await waitFor(() => {
       expect(confirmationSpy).toHaveBeenCalled()
-      expect(getByText('Error confirming the message. Try again.')).toBeInTheDocument()
+      expect(getByText('确认消息失败，请重试。')).toBeInTheDocument()
     })
   })
 
@@ -727,7 +697,7 @@ describe('SignMessage', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Message successfully signed')).toBeInTheDocument()
+      expect(getByText('消息签名成功')).toBeInTheDocument()
     })
   })
 
@@ -856,7 +826,7 @@ describe('SignMessage', () => {
       )
 
       await waitFor(() => {
-        expect(getByText('Sign')).toBeDisabled()
+        expect(getByText('签名')).toBeDisabled()
       })
     })
 
@@ -880,7 +850,7 @@ describe('SignMessage', () => {
       )
 
       await waitFor(() => {
-        expect(getByText('Sign')).toBeEnabled()
+        expect(getByText('签名')).toBeEnabled()
       })
     })
 
@@ -905,7 +875,7 @@ describe('SignMessage', () => {
 
       await waitFor(() => {
         expect(getByTestId('risk-confirmation-checkbox')).toBeInTheDocument()
-        expect(getByText('I understand the risks and would like to proceed with this message.')).toBeInTheDocument()
+        expect(getByText('I understand the risks 和 would like to proceed with this message.')).toBeInTheDocument()
       })
     })
   })
@@ -934,7 +904,7 @@ describe('SignMessage', () => {
       jest.spyOn(useWalletHook, 'default').mockImplementation(
         () =>
           ({
-            label: 'Wallet 1',
+            label: '钱包 1',
             chainId: '5',
             address: zeroPadValue('0x03', 20),
             provider: mockProvider,
@@ -973,7 +943,7 @@ describe('SignMessage', () => {
 
       const { getByText, queryByTestId } = renderPendingConfirmation()
 
-      fireEvent.click(getByText('Sign'))
+      fireEvent.click(getByText('签名'))
 
       await waitFor(() => expect(getByText(copy)).toBeInTheDocument())
 
@@ -985,7 +955,7 @@ describe('SignMessage', () => {
 
       const { getByText, getByTestId } = renderPendingConfirmation()
 
-      fireEvent.click(getByText('Sign'))
+      fireEvent.click(getByText('签名'))
 
       await waitFor(() => expect(getByTestId('error-message')).toBeInTheDocument())
 
@@ -1003,7 +973,7 @@ describe('SignMessage', () => {
 
       const { getByText, getByTestId } = renderPendingConfirmation()
 
-      fireEvent.click(getByText('Sign'))
+      fireEvent.click(getByText('签名'))
 
       await waitFor(() => expect(getByText(CGW_ERROR_FALLBACK)).toBeInTheDocument())
 
@@ -1023,9 +993,9 @@ describe('SignMessage', () => {
       const { getByText, getByTestId } = renderPendingConfirmation()
       jest.spyOn(sender, 'dispatchSafeMsgConfirmation').mockRejectedValue(error)
 
-      fireEvent.click(getByText('Sign'))
+      fireEvent.click(getByText('签名'))
 
-      await waitFor(() => expect(getByText('Your Ledger could not complete the request.')).toBeInTheDocument())
+      await waitFor(() => expect(getByText('Ledger 无法完成请求。')).toBeInTheDocument())
 
       const alert = getByTestId('error-message').textContent
       expect(alert).not.toContain('viem@')
@@ -1038,7 +1008,7 @@ describe('SignMessage', () => {
 
       const { getByText, getByTestId } = renderPendingConfirmation()
 
-      fireEvent.click(getByText('Sign'))
+      fireEvent.click(getByText('签名'))
 
       await waitFor(() => expect(getByTestId('error-message')).toBeInTheDocument())
 

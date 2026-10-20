@@ -1,3 +1,5 @@
+import { translateMessage } from '@/i18n'
+import { BRAND_NAME } from '@/config/constants'
 import type { NextPage } from 'next'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { TERMS_URL } from '@safe-global/utils/config/constants'
@@ -9,13 +11,15 @@ const Custom403: NextPage = () => {
       <div className="fixed top-0 left-0 z-[1300] flex items-center px-6" style={{ height: 'var(--header-height)' }}>
         <SafeLogo />
       </div>
-      <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1rem' }}>403 – Access Restricted</h1>
+      <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '1rem' }}>
+        {translateMessage('ui.accessRestricted_403e6dcd')}
+      </h1>
       <p>
-        Safe{'{Wallet}'} is not available in your region. See our{' '}
+        {BRAND_NAME} {translateMessage('ui.safe_2a000cb1')}{' '}
         <ExternalLink href={TERMS_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-          terms
+          {translateMessage('ui.terms_0af7f334')}
         </ExternalLink>{' '}
-        for details.
+        。
       </p>
     </main>
   )

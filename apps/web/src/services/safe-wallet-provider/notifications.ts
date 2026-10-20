@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { BRAND_NAME } from '@/config/constants'
 import type { AppInfo } from '.'
 
@@ -7,7 +8,7 @@ export const showNotification = (title: string, options?: NotificationOptions) =
   }
 
   const notification = new Notification(title, {
-    icon: '/images/safe-logo-green.png',
+    icon: '/images/brand-logo.png',
     ...options,
   })
 
@@ -26,15 +27,15 @@ export const NotificationMessages: Record<
   (appInfo: AppInfo) => { title: string; options: NotificationOptions }
 > = {
   SIGNATURE_REQUEST: (appInfo: AppInfo) => ({
-    title: 'Signature request',
+    title: translateMessage('ui.signatureRequest_c1ab94cb'),
     options: {
-      body: `${appInfo.name} wants you to sign a message. Open the ${BRAND_NAME} to continue.`,
+      body: translateMessage('ui.wantsYouToSignAMessage_22050d15', { p0: appInfo.name, p1: BRAND_NAME }),
     },
   }),
   TRANSACTION_REQUEST: (appInfo: AppInfo) => ({
-    title: 'Transaction request',
+    title: translateMessage('ui.transactionRequest_1a4f7061'),
     options: {
-      body: `${appInfo.name} wants to submit a transaction. Open the ${BRAND_NAME} to continue.`,
+      body: translateMessage('ui.wantsToSubmitATransactionOpen_f6798636', { p0: appInfo.name, p1: BRAND_NAME }),
     },
   }),
 }

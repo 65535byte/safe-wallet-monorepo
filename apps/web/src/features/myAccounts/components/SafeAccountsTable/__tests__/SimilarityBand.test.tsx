@@ -32,14 +32,14 @@ describe('bandHeaderAt', () => {
 
 describe('SimilarityWarningIcon', () => {
   const warning = (over: Partial<SimilarWarning>): SimilarWarning => ({ trusted: [], owned: [], ...over })
-  const icon = () => screen.getByLabelText('Possible address poisoning')
+  const icon = () => screen.getByLabelText('可能存在地址投毒')
 
   it('lists only the non-empty peer section', async () => {
     render(<SimilarityWarningIcon warning={warning({ owned: ['0xdead'] })} />)
 
     await userEvent.hover(icon())
-    expect(await screen.findByText('Similar accounts from owned safes:')).toBeInTheDocument()
-    expect(screen.queryByText('Similar accounts from trusted safes:')).not.toBeInTheDocument()
+    expect(await screen.findByText('来自所拥有 8379 的相似账户：')).toBeInTheDocument()
+    expect(screen.queryByText('来自可信 8379 的相似账户：')).not.toBeInTheDocument()
     expect(screen.getByText('0xdead')).toBeInTheDocument()
   })
 
@@ -47,8 +47,8 @@ describe('SimilarityWarningIcon', () => {
     render(<SimilarityWarningIcon warning={warning({ trusted: ['0xbeef'], owned: ['0xdead'] })} />)
 
     await userEvent.hover(icon())
-    expect(await screen.findByText('Similar accounts from trusted safes:')).toBeInTheDocument()
-    expect(screen.getByText('Similar accounts from owned safes:')).toBeInTheDocument()
+    expect(await screen.findByText('来自可信 8379 的相似账户：')).toBeInTheDocument()
+    expect(screen.getByText('来自所拥有 8379 的相似账户：')).toBeInTheDocument()
   })
 
   it('swallows clicks so the selectable/navigable row underneath does not react', async () => {

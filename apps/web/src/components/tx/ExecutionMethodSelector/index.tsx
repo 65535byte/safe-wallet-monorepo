@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { RadioGroup, RadioGroupItem } from '@safe-global/views/components/ui/radio-group'
 import { Label } from '@safe-global/views/components/ui/label'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -40,12 +41,14 @@ const CampaignLabel = ({ offer }: { offer: Extract<SponsoredOffer, { option: 'NO
     return (
       <div className={css.noFeeCampaignLabel}>
         <Chip size="sm" shape="tag">
-          {offer.disabledReason === 'LIMIT_REACHED' ? `${offer.remaining}/${offer.limit} available` : 'Not available'}
+          {offer.disabledReason === 'LIMIT_REACHED'
+            ? translateMessage('ui.available_a4daf655', { p0: offer.remaining, p1: offer.limit })
+            : translateMessage('ui.notAvailable_6505d8d6')}
         </Chip>
-        <Typography className={css.notAvailableTitle}>Sponsored gas</Typography>
+        <Typography className={css.notAvailableTitle}>{translateMessage('ui.sponsoredGas_dfc0d96f')}</Typography>
         <div className={css.descriptionWrapper}>
           <Typography className={css.descriptionText}>
-            Part of the Free January, Safe Foundation&apos;s gas sponsorship program for USDe holders
+            {translateMessage('ui.partOfTheFreeJanuaryFoundation_981c7e12')}
           </Typography>
         </div>
       </div>
@@ -54,15 +57,15 @@ const CampaignLabel = ({ offer }: { offer: Extract<SponsoredOffer, { option: 'NO
 
   return (
     <div className={css.noFeeCampaignLabel}>
-      <Typography className={css.mainLabel}>Sponsored gas</Typography>
+      <Typography className={css.mainLabel}>{translateMessage('ui.sponsoredGas_dfc0d96f')}</Typography>
       <div className={css.subLabel}>
         <Typography variant="paragraph-small" className="text-muted-foreground">
-          Part of the Free January, Safe Foundation&apos;s gas sponsorship program for USDe holders{' '}
+          {translateMessage('ui.partOfTheFreeJanuaryFoundation_981c7e12')}{' '}
           <Tooltip>
             <TooltipTrigger render={<Info className={css.infoIconInline} />} />
             <TooltipContent>
               <span>
-                USDe holders enjoy gasless transactions on Ethereum Mainnet this January.{' '}
+                {translateMessage('ui.uSDeHoldersEnjoyGaslessTransactionsOn_76fd8a95')}{' '}
                 <Link
                   href="https://help.safe.global/articles/9605526657-no-fee-january-campaign"
                   className="font-bold underline"
@@ -70,7 +73,7 @@ const CampaignLabel = ({ offer }: { offer: Extract<SponsoredOffer, { option: 'NO
                   rel="noopener noreferrer"
                   variant="inherit"
                 >
-                  Learn more
+                  {translateMessage('ui.learnMore_0c11daba')}
                 </Link>
               </span>
             </TooltipContent>
@@ -86,7 +89,7 @@ const SponsoredRadioLabel = ({ offer, chainId }: { offer: SponsoredOffer; chainI
     <CampaignLabel offer={offer} />
   ) : (
     <Typography className={`${css.radioLabel} whitespace-nowrap`}>
-      Sponsored by
+      {translateMessage('ui.sponsoredBy_f390cdd7')}
       <SponsoredBy option={offer.option} chainId={chainId} />
     </Typography>
   )
@@ -116,8 +119,8 @@ const SponsoredRadio = ({ offer, chainId }: { offer: SponsoredOffer; chainId: st
       />
       <TooltipContent>
         {offer.disabledReason === 'GAS_TOO_HIGH'
-          ? 'Gas prices are too high right now'
-          : 'You reached the limit of sponsored transactions.'}
+          ? translateMessage('ui.gasPricesAreTooHighRight_98393df1')
+          : translateMessage('ui.youReachedTheLimitOfSponsored_a55ea135')}
       </TooltipContent>
     </Tooltip>
   )
@@ -142,7 +145,8 @@ const SponsoredStrip = ({
     case 'NO_FEE_CAMPAIGN':
       return isRelay ? (
         <Typography variant="paragraph-small" className={css.transactionCounter}>
-          <span className={css.counterNumber}>{offer.remaining}</span> free transactions left
+          <span className={css.counterNumber}>{offer.remaining}</span>{' '}
+          {translateMessage('ui.freeTransactionsLeft_e086888f')}
         </Typography>
       ) : (
         balance
@@ -218,7 +222,7 @@ export const _ExecutionMethodSelector = ({
         <div className="flex flex-col">
           {!noLabel ? (
             <Typography variant="paragraph-small" className={css.label}>
-              Who will pay gas fees
+              {translateMessage('ui.whoWillPayGasFees_ac5397ff')}
             </Typography>
           ) : null}
 
@@ -235,8 +239,8 @@ export const _ExecutionMethodSelector = ({
             >
               <RadioGroupItem value={ExecutionMethod.WALLET} />
               <Typography className={css.radioLabel}>
-                <WalletIcon provider={wallet?.label || ''} width={20} height={20} icon={wallet?.icon} /> Connected
-                wallet
+                <WalletIcon provider={wallet?.label || ''} width={20} height={20} icon={wallet?.icon} />{' '}
+                {translateMessage('ui.connectedWallet_5054cd1e')}
               </Typography>
             </Label>
           </RadioGroup>

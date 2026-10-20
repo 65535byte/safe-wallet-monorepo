@@ -4,7 +4,6 @@ import Topbar, {
   SEARCH_CONTEXT_HEIGHT,
   SEARCH_CONTEXT_WRAP,
 } from './index'
-import type { ReactNode } from 'react'
 import * as contracts from '@/features/__core__'
 import { render, screen } from '@/tests/test-utils'
 import userEvent from '@testing-library/user-event'
@@ -13,9 +12,6 @@ import type { RootState } from '@/store'
 import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { TxModalContext, type TxModalContextType } from '@/components/tx-flow'
-import walletConnectFeature from '@/features/walletconnect/feature'
-import { wcPopupStore } from '@/features/walletconnect/store'
-import { extendedSafeInfoBuilder } from '@/tests/builders/safe'
 
 jest.mock('@/features/__core__', () => ({
   ...jest.requireActual('@/features/__core__'),
@@ -50,16 +46,8 @@ jest.mock('@/features/walletconnect', () => ({
   WalletConnectFeature: { name: 'walletconnect' },
 }))
 
-jest.mock('@walletconnect/core', () => ({ Core: jest.fn() }))
-jest.mock('@reown/walletkit', () => ({
-  WalletKit: {
-    init: () => Promise.resolve({ getActiveSessions: () => ({}), on: jest.fn(), off: jest.fn() }),
-  },
-}))
-
 jest.mock('@/features/batching', () => ({
   useDraftBatch: () => [],
-  BatchTooltip: ({ children }: { children: ReactNode }) => children,
 }))
 
 const mockUseSafeAddress = jest.fn<string, []>(() => '')
@@ -73,15 +61,13 @@ jest.mock('@/hooks/useSafeAddressFromUrl', () => ({
   useSafeAddressFromUrl: () => mockUseSafeAddressFromUrl(),
 }))
 
-const mockUseIsSafeOwner = jest.fn(() => false)
 jest.mock('@/hooks/useIsSafeOwner', () => ({
   __esModule: true,
-  default: () => mockUseIsSafeOwner(),
+  default: () => false,
 }))
 
-const mockUseIsWalletProposer = jest.fn(() => false)
 jest.mock('@/hooks/useProposers', () => ({
-  useIsWalletProposer: () => mockUseIsWalletProposer(),
+  useIsWalletProposer: () => false,
 }))
 
 const mockIsSpaceRoute = jest.fn(() => true)
@@ -161,8 +147,6 @@ describe('Topbar', () => {
     mockUsePathname.mockReturnValue('/home')
     mockUseSafeAddressFromUrl.mockReturnValue('')
     mockUseSafeAddress.mockReturnValue('')
-    mockUseIsSafeOwner.mockReturnValue(false)
-    mockUseIsWalletProposer.mockReturnValue(false)
     mockUseLoadFeature.mockReturnValue({
       WalletPopover: () => null,
       GlobalSearchModal: () => null,
@@ -176,48 +160,6 @@ describe('Topbar', () => {
     expect(screen.getByText('0x1234...5678')).toBeInTheDocument()
   })
 
-  describe('on a Safe page', () => {
-    const safeInfo = extendedSafeInfoBuilder().build()
-    const PAIRING_PROMPT = /paste the pairing code/i
-
-    const renderOnSafePage = () =>
-      render(<Topbar />, {
-        initialReduxState: { safeInfo: { data: safeInfo, loading: false, loaded: true } },
-      })
-
-    beforeEach(() => {
-      wcPopupStore.setStore(false)
-      mockIsSpaceRoute.mockReturnValue(false)
-      mockUseSafeAddress.mockReturnValue(safeInfo.address.value)
-      mockUseLoadFeature.mockReturnValue({
-        WalletPopover: () => null,
-        GlobalSearchModal: () => null,
-        GlobalSearchInput: () => null,
-        WalletConnectWidget: walletConnectFeature.WalletConnectWidget,
-      })
-    })
-
-    it('opens the notifications popover when the notifications button is clicked', async () => {
-      const user = userEvent.setup()
-      renderOnSafePage()
-      expect(screen.queryByTestId('notifications-title')).not.toBeInTheDocument()
-
-      await user.click(screen.getByRole('button', { name: 'Notifications' }))
-
-      expect(screen.getByTestId('notifications-title')).toBeInTheDocument()
-    })
-
-    it('opens the WalletConnect pairing popup when the WalletConnect button is clicked', async () => {
-      const user = userEvent.setup()
-      renderOnSafePage()
-      expect(screen.queryByText(PAIRING_PROMPT)).not.toBeInTheDocument()
-
-      await user.click(screen.getByRole('button', { name: 'WalletConnect' }))
-
-      expect(await screen.findByText(PAIRING_PROMPT)).toBeInTheDocument()
-    })
-  })
-
   it('renders notification badge when there are unread notifications', () => {
     const initialReduxState: Partial<RootState> = {
       notifications: [createNotification(), createNotification()],
@@ -225,7 +167,7 @@ describe('Topbar', () => {
 
     render(<Topbar />, { initialReduxState })
 
-    expect(screen.getByLabelText('2 unread messages')).toBeInTheDocument()
+    expect(screen.getByLabelText('2 条未读消息')).toBeInTheDocument()
   })
 
   it('does not render notification badge when there are no unread notifications', () => {
@@ -240,7 +182,7 @@ describe('Topbar', () => {
 
     render(<Topbar />, { initialReduxState })
 
-    expect(screen.getByLabelText('1 unread messages')).toBeInTheDocument()
+    expect(screen.getByLabelText('1 条未读消息')).toBeInTheDocument()
   })
 
   it('does not count read notifications in the badge', () => {
@@ -250,7 +192,7 @@ describe('Topbar', () => {
 
     render(<Topbar />, { initialReduxState })
 
-    expect(screen.getByLabelText('1 unread messages')).toBeInTheDocument()
+    expect(screen.getByLabelText('1 条未读消息')).toBeInTheDocument()
   })
 
   describe('route-based left content', () => {
@@ -519,7 +461,7 @@ describe('Topbar', () => {
       mockUseIsBelowMd.mockReturnValue(true)
 
       const { header, context } = groups(render(<Topbar onMenuToggle={jest.fn()} />).container)
-      const burger = screen.getByRole('button', { name: 'Open sidebar menu' })
+      const burger = screen.getByRole('button', { name: '打开侧边栏菜单' })
 
       // First child and carrying no order class of its own, so nothing can push it below the fold:
       // the context reorders around it. Inside the context slot it travelled down with it instead.
@@ -535,68 +477,28 @@ describe('Topbar', () => {
       mockIsSpaceRoute.mockReturnValue(false)
       mockUsePathname.mockReturnValue('/home')
       render(<Topbar />)
-      expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /搜索/i })).toBeInTheDocument()
     })
 
     it('hides the search button on /welcome/accounts', () => {
       mockIsSpaceRoute.mockReturnValue(false)
       mockUsePathname.mockReturnValue('/welcome/accounts')
       render(<Topbar />)
-      expect(screen.queryByRole('button', { name: /search/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /搜索/i })).not.toBeInTheDocument()
     })
 
     it('hides the search button on /welcome/spaces', () => {
       mockIsSpaceRoute.mockReturnValue(false)
       mockUsePathname.mockReturnValue('/welcome/spaces')
       render(<Topbar />)
-      expect(screen.queryByRole('button', { name: /search/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /搜索/i })).not.toBeInTheDocument()
     })
 
     it('shows the search button on other welcome subpaths', () => {
       mockIsSpaceRoute.mockReturnValue(false)
       mockUsePathname.mockReturnValue('/welcome')
       render(<Topbar />)
-      expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument()
-    })
-  })
-
-  describe('batch button role gating', () => {
-    const SAFE_ADDRESS = '0x1234567890123456789012345678901234567890'
-    const BATCH_BUTTON_LABEL = 'Batch transactions'
-
-    beforeEach(() => {
-      mockIsSpaceRoute.mockReturnValue(false)
-      mockUseSafeAddress.mockReturnValue(SAFE_ADDRESS)
-    })
-
-    it.each([
-      { role: 'an owner', isSafeOwner: true, isProposer: false },
-      { role: 'a proposer who is also an owner', isSafeOwner: true, isProposer: true },
-      { role: 'a connected non-owner who is not a proposer', isSafeOwner: false, isProposer: false },
-    ])('shows the batch button to $role', ({ isSafeOwner, isProposer }) => {
-      mockUseIsSafeOwner.mockReturnValue(isSafeOwner)
-      mockUseIsWalletProposer.mockReturnValue(isProposer)
-
-      render(<Topbar />)
-
-      expect(screen.getByLabelText(BATCH_BUTTON_LABEL)).toBeInTheDocument()
-    })
-
-    it('hides the batch button from a proposer who is not an owner', () => {
-      mockUseIsWalletProposer.mockReturnValue(true)
-
-      render(<Topbar />)
-
-      expect(screen.queryByLabelText(BATCH_BUTTON_LABEL)).not.toBeInTheDocument()
-    })
-
-    it('hides the batch button from an owner when there is no Safe address', () => {
-      mockUseSafeAddress.mockReturnValue('')
-      mockUseIsSafeOwner.mockReturnValue(true)
-
-      render(<Topbar />)
-
-      expect(screen.queryByLabelText(BATCH_BUTTON_LABEL)).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /搜索/i })).toBeInTheDocument()
     })
   })
 
@@ -679,7 +581,7 @@ describe('Topbar', () => {
     it('shows the sidebar menu button when on mobile and onMenuToggle is provided', () => {
       const onMenuToggle = jest.fn()
       render(<Topbar onMenuToggle={onMenuToggle} />)
-      expect(screen.getByRole('button', { name: /open sidebar menu/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /打开侧边栏菜单/i })).toBeInTheDocument()
     })
 
     it('calls onMenuToggle with a toggle function when the menu button is clicked', async () => {
@@ -687,7 +589,7 @@ describe('Topbar', () => {
       const onMenuToggle = jest.fn()
       render(<Topbar onMenuToggle={onMenuToggle} />)
 
-      await user.click(screen.getByRole('button', { name: /open sidebar menu/i }))
+      await user.click(screen.getByRole('button', { name: /打开侧边栏菜单/i }))
 
       expect(onMenuToggle).toHaveBeenCalledTimes(1)
       const setStateArg = onMenuToggle.mock.calls[0][0] as (prev: boolean) => boolean

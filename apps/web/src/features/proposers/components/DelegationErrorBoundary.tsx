@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Component, type ReactElement, type ReactNode } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -63,7 +64,7 @@ function DelegationFallback({
         </Typography>
       )}
       <Button size="sm" variant="outline" className="text-destructive" onClick={onRetry}>
-        Try again
+        {translateMessage('ui.tryAgain_27537f8f')}
       </Button>
     </div>
   )

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { DrawerList, DrawerSection } from '@/components/common/Drawer'
 import { AccountIdentity } from '../../../components/AccountIdentity'
@@ -10,8 +11,15 @@ export type PendingSignaturesProps = {
 }
 
 const PendingSignatures = ({ safe, signed, required }: PendingSignaturesProps): ReactElement => (
-  <DrawerSection title="Pending signatures" rightNode={formatSignedCount(signed, required)}>
-    <DrawerList items={[{ label: 'Safe account', content: <AccountIdentity {...safe} showCopyButton /> }]} />
+  <DrawerSection
+    title={translateMessage('ui.pendingSignatures_934af063')}
+    rightNode={formatSignedCount(signed, required)}
+  >
+    <DrawerList
+      items={[
+        { label: translateMessage('ui.account_7e251525'), content: <AccountIdentity {...safe} showCopyButton /> },
+      ]}
+    />
   </DrawerSection>
 )
 

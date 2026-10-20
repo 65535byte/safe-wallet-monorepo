@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { DayPicker, getDefaultClassNames, type DayButton, type Locale } from 'react-day-picker'
+import { zhCN } from 'react-day-picker/locale'
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from 'lucide-react'
 
 import { cn } from '@safe-global/views/utils/cn'
@@ -17,7 +18,7 @@ function Calendar({
   showWeekNumber,
   captionLayout = 'label',
   buttonVariant = 'ghost',
-  locale,
+  locale = zhCN,
   formatters,
   components,
   ...props
@@ -142,7 +143,7 @@ function CalendarDayButton({
   className,
   day,
   modifiers,
-  locale,
+  locale = zhCN,
   ...props
 }: React.ComponentProps<typeof DayButton> & { locale?: Partial<Locale> }) {
   const defaultClassNames = getDefaultClassNames()

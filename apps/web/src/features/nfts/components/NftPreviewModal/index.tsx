@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Collectible } from '@safe-global/store/gateway/AUTO_GENERATED/collectibles'
 import ModalDialog from '@/components/common/ModalDialog'
 import css from './styles.module.css'
@@ -27,7 +28,12 @@ const NftPreviewModal = ({ nft, onClose }: { nft?: Collectible; onClose: () => v
             <Spinner className={`${css.loader} size-10`} />
           </div>
 
-          {linkTemplate && <ExternalLink href={linkTemplate.getUrl(nft)}>View on {linkTemplate.title}</ExternalLink>}
+          {linkTemplate && (
+            <ExternalLink href={linkTemplate.getUrl(nft)}>
+              {translateMessage('ui.viewOn_0fa1e5fc')}
+              {linkTemplate.title}
+            </ExternalLink>
+          )}
         </div>
       )}
     </ModalDialog>

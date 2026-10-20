@@ -7,7 +7,7 @@ describe('EmailInfo', () => {
   it.each([
     ['empty string', ''],
     ['whitespace only', '   '],
-    ['tabs and newlines', '\t\n '],
+    ['tabs 和 newlines', '\t\n '],
   ])('renders nothing when email is %s', (_, email) => {
     const { container } = render(<EmailInfo email={email} />)
     expect(container).toBeEmptyDOMElement()

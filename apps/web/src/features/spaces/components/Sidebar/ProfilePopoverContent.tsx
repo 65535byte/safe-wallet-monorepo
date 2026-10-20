@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { PopoverContent } from '@safe-global/views/components/ui/popover'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -39,7 +40,7 @@ export const ProfilePopoverContent = ({
     data-testid="sidebar-profile-popover"
   >
     <div className={css.profileSection}>
-      <span className={css.profileSectionLabel}>Your account</span>
+      <span className={css.profileSectionLabel}>{translateMessage('ui.yourAccount_33020868')}</span>
 
       <div className={css.profileIdentity}>
         {signerAddress ? (
@@ -59,7 +60,9 @@ export const ProfilePopoverContent = ({
       </div>
 
       <span className={css.profileSectionCaption}>
-        {isMember ? 'Your Safe Pro membership.' : 'Manages your Safe Pro subscription.'}
+        {isMember
+          ? translateMessage('ui.yourMembership_69b9a866')
+          : translateMessage('ui.managesYourSubscription_c6bcd964')}
       </span>
       {role && <span className={css.profileRole}>{role}</span>}
     </div>
@@ -69,7 +72,7 @@ export const ProfilePopoverContent = ({
         <Separator className={css.profileDivider} />
 
         <div className={css.profileSection} data-testid="sidebar-profile-wallet-hint">
-          <span className={css.profileSectionLabel}>Connected wallet</span>
+          <span className={css.profileSectionLabel}>{translateMessage('ui.connectedWallet_eba39177')}</span>
 
           <div className={css.profileIdentity}>
             <Identicon address={connectedWallet} size={32} />
@@ -82,7 +85,9 @@ export const ProfilePopoverContent = ({
             <CopyAddressIconButton address={connectedWallet} />
           </div>
 
-          <span className={css.profileSectionCaption}>Signs and executes transactions.</span>
+          <span className={css.profileSectionCaption}>
+            {translateMessage('ui.signsAndExecutesTransactions_e137820b')}
+          </span>
         </div>
       </>
     )}
@@ -94,10 +99,10 @@ export const ProfilePopoverContent = ({
       className={css.profileSignOut}
       onClick={onSignOut}
       data-testid="sidebar-profile-sign-out"
-      aria-label="Sign out"
+      aria-label={translateMessage('ui.signOut_7392794f')}
     >
       <LogOut className="size-4" strokeWidth={2.5} aria-hidden="true" />
-      <span>Sign out</span>
+      <span>{translateMessage('ui.signOut_7392794f')}</span>
     </button>
   </PopoverContent>
 )

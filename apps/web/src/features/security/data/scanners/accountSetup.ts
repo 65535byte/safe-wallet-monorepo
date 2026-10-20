@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SecurityScanner } from './types'
 import { getSeverityFromScore } from './constants'
 import { hasRecoverySetup } from './recoveryDetection'
@@ -19,15 +20,15 @@ export const accountSetupScanner: SecurityScanner = {
         status: 'inconclusive',
         severity: getSeverityFromScore(score, { excluded: true }),
         score,
-        evidence: ['Signer data not yet available'],
-        remediation: 'Signer information will load shortly.',
+        evidence: [translateMessage('ui.signerDataNotYetAvailable_16febc0a')],
+        remediation: translateMessage('ui.signerInformationWillLoadShortly_2d857210'),
         lastChecked: now,
       }
     }
 
     const baseEvidence = [
-      { label: 'Signers', value: String(ownerCount) },
-      { label: 'Threshold', value: `${threshold} of ${ownerCount}` },
+      { label: translateMessage('ui.signers_e1137966'), value: String(ownerCount) },
+      { label: translateMessage('ui.threshold_60fbd8eb'), value: `${threshold} / ${ownerCount}` },
     ]
 
     // Simple majority = strictly more than half. For even N this is N/2 + 1, not N/2.
@@ -44,8 +45,8 @@ export const accountSetupScanner: SecurityScanner = {
           status: 'issue',
           severity: getSeverityFromScore(score),
           score,
-          evidence: [...baseEvidence, 'Losing any signer would permanently lock this Safe'],
-          remediation: 'Add another signer and lower the threshold so losing one key cannot lock this Safe.',
+          evidence: [...baseEvidence, translateMessage('ui.losingAnySignerWouldPermanentlyLock_60b82430')],
+          remediation: translateMessage('ui.addAnotherSignerAndLowerThe_f8fed010'),
           lastChecked: now,
         }
       }
@@ -67,13 +68,13 @@ export const accountSetupScanner: SecurityScanner = {
       const score = 40
       const remediation =
         ownerCount === 1
-          ? 'Set up account recovery, or add signers, so this Safe cannot be permanently locked if a signer loses access.'
-          : 'Set up account recovery so this Safe can be recovered if a signer loses access.'
+          ? translateMessage('ui.setUpAccountRecoveryOrAdd_4e60e8bb')
+          : translateMessage('ui.setUpAccountRecoverySoThis_9cc254e5')
       return {
         status: 'issue',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [...baseEvidence, 'Losing any signer would permanently lock this Safe'],
+        evidence: [...baseEvidence, translateMessage('ui.losingAnySignerWouldPermanentlyLock_60b82430')],
         remediation,
         lastChecked: now,
       }
@@ -86,13 +87,13 @@ export const accountSetupScanner: SecurityScanner = {
       // (losing any one key permanently locks the Safe). Recommend adding a signer instead.
       const remediation =
         ownerCount === 2
-          ? 'Add another signer and increase the threshold for stronger security.'
-          : `Increase the threshold to at least ${simpleMajority} of ${ownerCount}.`
+          ? translateMessage('ui.addAnotherSignerAndIncreaseThe_b1974d8f')
+          : translateMessage('ui.increaseTheThresholdToAtLeast_40aacbbe', { p0: simpleMajority, p1: ownerCount })
       return {
         status: 'issue',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [...baseEvidence, 'Any single signer can approve transactions'],
+        evidence: [...baseEvidence, translateMessage('ui.anySingleSignerCanApproveTransactions_774a6076')],
         remediation,
         lastChecked: now,
       }
@@ -105,8 +106,17 @@ export const accountSetupScanner: SecurityScanner = {
         status: 'partial',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [...baseEvidence, { label: 'Recommended', value: `at least ${simpleMajority} of ${ownerCount}` }],
-        remediation: `Consider increasing the threshold to ${simpleMajority} of ${ownerCount} for stronger security.`,
+        evidence: [
+          ...baseEvidence,
+          {
+            label: translateMessage('ui.recommended_99a8fb6a'),
+            value: translateMessage('ui.atLeastOf_59df1934', { p0: simpleMajority, p1: ownerCount }),
+          },
+        ],
+        remediation: translateMessage('ui.considerIncreasingTheThresholdToOf_550ca413', {
+          p0: simpleMajority,
+          p1: ownerCount,
+        }),
         lastChecked: now,
       }
     }

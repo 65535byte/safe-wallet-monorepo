@@ -59,7 +59,7 @@ jest.mock('@/components/common/CheckWallet', () => ({
   default: ({ children }: { children: (ok: boolean) => ReactElement }) => children(true),
 }))
 
-const TX_ORIGIN = getTxOrigin({ url: 'https://apps.safe.global/tx-builder', name: 'Transaction Builder' })
+const TX_ORIGIN = getTxOrigin({ url: 'https://apps.safe.global/tx-builder', name: '交易构建器' })
 
 const safeTx = createMockSafeTransaction({ to: '0x1', data: '0x', operation: OperationType.Call })
 const safeInfo = extendedSafeInfoBuilder().build()

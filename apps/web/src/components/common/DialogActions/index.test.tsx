@@ -5,8 +5,8 @@ describe('DialogActions', () => {
   it('renders a confirm-only footer when no onCancel is given', () => {
     render(<DialogActions confirmLabel="Confirm" />)
 
-    expect(screen.getByRole('button', { name: 'Confirm' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Cancel' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '取消' })).not.toBeInTheDocument()
   })
 
   it('forwards test ids and the disabled state', () => {
@@ -27,8 +27,8 @@ describe('DialogActions', () => {
   it('swaps the confirm label for a spinner and disables both buttons while loading', () => {
     render(<DialogActions confirmLabel="Confirm" confirmLoading onCancel={jest.fn()} />)
 
-    expect(screen.queryByText('Confirm')).not.toBeInTheDocument()
-    expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled()
+    expect(screen.queryByText('确认')).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: '加载中' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '取消' })).toBeDisabled()
   })
 })

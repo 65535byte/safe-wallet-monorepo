@@ -18,8 +18,6 @@ export type PlanSeatOption = {
   features?: string[]
 }
 
-export type PlanCardCopy = { subtitle?: string; supportLevel?: string; supportDetail?: string }
-
 export type PlanTier = {
   id: string
   name: string
@@ -27,7 +25,6 @@ export type PlanTier = {
   billingCycle: 'month' | 'year' | null
   options: PlanSeatOption[]
   features: string[]
-  copy?: PlanCardCopy
   isCurrent?: boolean
   /** On the current plan's card, the price the subscription is on; the other options are seat changes. */
   currentPriceId?: string | null
@@ -57,12 +54,11 @@ export type PlanChangeDirection = 'upgrade' | 'downgrade' | 'change'
 
 /** What a plan card's button does: manage the current plan, move to another one, buy one, or contact sales. */
 export type PlanCta =
-  | { kind: 'billing'; label: 'Add payment method' }
-  | { kind: 'current'; label: 'Current plan' }
-  | { kind: 'account-team'; label: 'Change via your account team' }
+  | { kind: 'billing'; label: string }
+  | { kind: 'manage'; label: string }
   | { kind: 'change'; label: string; direction: PlanChangeDirection }
   | { kind: 'subscribe'; label: string }
-  | { kind: 'sales'; label: 'Talk to sales' }
+  | { kind: 'sales'; label: string }
 
 export type PlanSummary = {
   name: string

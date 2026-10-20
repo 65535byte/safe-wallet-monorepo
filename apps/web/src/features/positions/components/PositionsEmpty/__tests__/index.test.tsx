@@ -35,40 +35,40 @@ describe('PositionsEmpty', () => {
     it('should render empty positions message with explore earn button', () => {
       render(<PositionsEmpty />)
 
-      expect(screen.getByText('You have no active DeFi positions yet')).toBeInTheDocument()
-      expect(screen.getByText('Explore Earn')).toBeInTheDocument()
+      expect(screen.getByText('您还没有活跃的 DeFi 持仓')).toBeInTheDocument()
+      expect(screen.getByText('探索收益功能')).toBeInTheDocument()
     })
 
     it('should track EMPTY_POSITIONS_EXPLORE_CLICKED event when button is clicked with dashboard entry point', () => {
       render(<PositionsEmpty entryPoint="Dashboard" />)
 
-      const exploreButton = screen.getByText('Explore Earn')
+      const exploreButton = screen.getByText('探索收益功能')
       fireEvent.click(exploreButton)
 
       expect(mockTrackEvent).toHaveBeenCalledWith(POSITIONS_EVENTS.EMPTY_POSITIONS_EXPLORE_CLICKED, {
-        [MixpanelEventParams.ENTRY_POINT]: 'Dashboard',
+        [MixpanelEventParams.ENTRY_POINT]: '仪表盘',
       })
     })
 
     it('should track EMPTY_POSITIONS_EXPLORE_CLICKED event when button is clicked with positions entry point', () => {
       render(<PositionsEmpty entryPoint="Positions" />)
 
-      const exploreButton = screen.getByText('Explore Earn')
+      const exploreButton = screen.getByText('探索收益功能')
       fireEvent.click(exploreButton)
 
       expect(mockTrackEvent).toHaveBeenCalledWith(POSITIONS_EVENTS.EMPTY_POSITIONS_EXPLORE_CLICKED, {
-        [MixpanelEventParams.ENTRY_POINT]: 'Positions',
+        [MixpanelEventParams.ENTRY_POINT]: '持仓',
       })
     })
 
     it('should default to dashboard entry point when no prop is provided', () => {
       render(<PositionsEmpty />)
 
-      const exploreButton = screen.getByText('Explore Earn')
+      const exploreButton = screen.getByText('探索收益功能')
       fireEvent.click(exploreButton)
 
       expect(mockTrackEvent).toHaveBeenCalledWith(POSITIONS_EVENTS.EMPTY_POSITIONS_EXPLORE_CLICKED, {
-        [MixpanelEventParams.ENTRY_POINT]: 'Dashboard',
+        [MixpanelEventParams.ENTRY_POINT]: '仪表盘',
       })
     })
   })
@@ -81,8 +81,8 @@ describe('PositionsEmpty', () => {
     it('should render empty positions message without explore earn button', () => {
       render(<PositionsEmpty />)
 
-      expect(screen.getByText('You have no active DeFi positions yet')).toBeInTheDocument()
-      expect(screen.queryByText('Explore Earn')).not.toBeInTheDocument()
+      expect(screen.getByText('您还没有活跃的 DeFi 持仓')).toBeInTheDocument()
+      expect(screen.queryByText('探索收益功能')).not.toBeInTheDocument()
     })
 
     it('should not call trackEvent when earn feature is disabled', () => {

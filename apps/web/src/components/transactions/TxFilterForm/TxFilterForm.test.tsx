@@ -41,8 +41,8 @@ describe('TxFilterForm Component Tests', () => {
   it('Verify that when an end date is behind a start date, there are validation rules applied', async () => {
     renderComponent()
 
-    const errorMsgEndDate = 'Must be after "From" date'
-    const errorMsgStartDate = 'Must be before "To" date'
+    const errorMsgEndDate = '必须晚于开始日期'
+    const errorMsgStartDate = '必须早于结束日期'
 
     const fromDateInput = screen.getAllByPlaceholderText(placeholder)[0]
     const toDateInput = screen.getAllByPlaceholderText(placeholder)[1]
@@ -74,7 +74,7 @@ describe('TxFilterForm Component Tests', () => {
     renderComponent()
 
     const futureDate = '20/01/2036'
-    const errorMsgFutureDate = 'Date cannot be in the future'
+    const errorMsgFutureDate = '日期不能晚于今天'
 
     const fromDateInput = screen.getAllByPlaceholderText(placeholder)[0]
     const toDateInput = screen.getAllByPlaceholderText(placeholder)[1]
@@ -169,7 +169,7 @@ describe('TxFilterForm Component Tests', () => {
     const outgoingRadio = screen.getByLabelText('Module-based')
     fireEvent.click(outgoingRadio)
 
-    const addressInput = screen.getByLabelText('Module') as HTMLInputElement
+    const addressInput = screen.getByLabelText('模块') as HTMLInputElement
 
     expect(addressInput).toBeInTheDocument()
 

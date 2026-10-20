@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ConnectWalletButton from '@/components/common/ConnectWallet/ConnectWalletButton'
 import Track from '@/components/common/Track'
 import { AppRoutes } from '@/config/routes'
@@ -29,7 +30,7 @@ const AddSafeButton = ({ trackingLabel, onLinkClick }: { trackingLabel: string; 
         render={<NextLink href={{ pathname: AppRoutes.newSafe.load, query: { next } }} />}
       >
         <AddIcon color="currentColor" className="size-5 fill-primary" />
-        Add
+        {translateMessage('ui.add_10c0b4eb')}
       </Button>
     </Track>
   )
@@ -52,7 +53,7 @@ const AccountsHeader = ({ isSidebar, onLinkClick }: { isSidebar: boolean; onLink
       )}
     >
       {isSidebar || !isSpacesFeatureEnabled ? (
-        <Typography variant={isSidebar ? 'h3' : 'h1'}>Accounts</Typography>
+        <Typography variant={isSidebar ? 'h3' : 'h1'}>{translateMessage('ui.accounts_91c225a3')}</Typography>
       ) : (
         <AccountsNavigation />
       )}

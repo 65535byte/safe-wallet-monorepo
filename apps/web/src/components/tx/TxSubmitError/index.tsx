@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useCurrentChain } from '@/hooks/useChains'
 import { getGs026Message } from '@safe-global/utils/services/exceptions/contractErrors'
@@ -14,11 +15,11 @@ import { getCgwErrorInfo } from '@/utils/cgw-errors'
 import ErrorMessage from '@/components/tx/ErrorMessage'
 import { getLedgerDeviceError, getLedgerUserMessage } from '@/services/onboard/ledger-errors'
 
-export const COULD_NOT_SUBMIT_MESSAGE = 'Could not submit the transaction.'
-export const COULD_NOT_SUBMIT_RETRY_MESSAGE = 'Could not submit the transaction. Try again.'
+export const COULD_NOT_SUBMIT_MESSAGE = translateMessage('ui.couldNotSubmitTheTransaction_21785512')
+export const COULD_NOT_SUBMIT_RETRY_MESSAGE = translateMessage('ui.couldNotSubmitTheTransactionTry_0b65d1be')
 
 export const getRevertedMessage = (network?: string): string =>
-  `Transaction reverted on ${network ?? 'the network'}. Gas was spent.`
+  translateMessage('ui.transactionRevertedOnGasWasSpent_b954b18c', { p0: network ?? 'the network' })
 
 /**
  * Renders a submit/execution error.

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MouseEvent } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -82,7 +83,11 @@ function AccountItemPinButton(props: AccountItemPinButtonProps) {
             variant="ghost"
             size="icon"
             onClick={handleClick}
-            aria-label={isPinned ? 'Remove from my accounts' : 'Add to my accounts'}
+            aria-label={
+              isPinned
+                ? translateMessage('ui.removeFromMyAccounts_6ca72cba')
+                : translateMessage('ui.addToMyAccounts_35ee2ac1')
+            }
           >
             <PinIcon
               className={cn('size-4', isPinned ? 'fill-current text-primary' : 'text-[var(--color-border-main)]')}
@@ -90,7 +95,11 @@ function AccountItemPinButton(props: AccountItemPinButtonProps) {
           </Button>
         }
       />
-      <TooltipContent>{isPinned ? 'Remove from my accounts' : 'Add to my accounts'}</TooltipContent>
+      <TooltipContent>
+        {isPinned
+          ? translateMessage('ui.removeFromMyAccounts_6ca72cba')
+          : translateMessage('ui.addToMyAccounts_35ee2ac1')}
+      </TooltipContent>
     </Tooltip>
   )
 }

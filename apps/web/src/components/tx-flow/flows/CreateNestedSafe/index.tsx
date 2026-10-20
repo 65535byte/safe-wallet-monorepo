@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import NestedSafeIcon from '@safe-global/views/assets/images/sidebar/nested-safes-icon.svg'
 import { ReviewNestedSafe } from '@/components/tx-flow/flows/CreateNestedSafe/ReviewNestedSafe'
@@ -74,11 +75,11 @@ const CreateNestedSafe = () => {
     <TxFlow<SetupNestedSafeForm>
       initialData={{ name: '', assets: [] }}
       icon={NestedSafeIcon}
-      subtitle="Create a Nested Safe"
+      subtitle={translateMessage('ui.createANested_a793628d')}
       ReviewTransactionComponent={ReviewNestedSafeCreationComponent}
       onSubmit={handleSubmit}
     >
-      <TxFlowStep title="Set up Nested Safe">
+      <TxFlowStep title={translateMessage('ui.setUpNested_92c41d9c')}>
         <SetUpNestedSafe />
       </TxFlowStep>
     </TxFlow>

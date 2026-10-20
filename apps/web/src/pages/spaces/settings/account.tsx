@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { BRAND_NAME } from '@/config/constants'
@@ -15,7 +16,7 @@ export default function SpaceSettingsAccountPage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Account`}</title>
+        <title>{translateMessage('ui.settingsAccount_60ec2722', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

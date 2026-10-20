@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState, type ReactElement } from 'react'
 import { Search, TriangleAlert } from 'lucide-react'
 import { Alert, AlertTitle, AlertDescription } from '@safe-global/views/components/ui/alert'
@@ -26,11 +27,9 @@ export const FeatureFlagEditor = (): ReactElement => {
         className="mb-4 dark:bg-[var(--color-warning-background)] dark:text-[var(--color-text-primary)]"
       >
         <TriangleAlert className="dark:text-[var(--color-warning-main)]" />
-        <AlertTitle className="font-bold">Development tool</AlertTitle>
+        <AlertTitle className="font-bold">{translateMessage('ui.developmentTool_7bb06549')}</AlertTitle>
         <AlertDescription className="dark:text-current">
-          These are local feature-flag overrides — they live only in this browser and never affect production, the
-          config service, or other users. Every override is global: it applies to all chains, whatever per-chain scope
-          the config service reports below. Available in dev &amp; staging builds only.
+          {translateMessage('ui.theseAreLocalFeatureFlagOverrides_9bc6272e')}
         </AlertDescription>
       </Alert>
 
@@ -39,20 +38,30 @@ export const FeatureFlagEditor = (): ReactElement => {
         <Input
           className="pl-9"
           type="search"
-          placeholder="Search feature flags"
+          placeholder={translateMessage('ui.searchFeatureFlags_1e1b987d')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          aria-label="Search flags"
+          aria-label={translateMessage('ui.searchFlags_1cde091b')}
         />
       </div>
 
       <div className={SCROLL_AREA}>
         {hasNoMatches ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">No feature flags match your search.</p>
+          <p className="py-8 text-center text-sm text-muted-foreground">
+            {translateMessage('ui.noFeatureFlagsMatchYourSearch_1b047e02')}
+          </p>
         ) : (
           <>
-            <FeatureFlagSection title="Local overrides" rows={filteredOverridden} valueLabel="Local value" />
-            <FeatureFlagSection title="All feature flags" rows={filteredRest} valueLabel="Remote value" />
+            <FeatureFlagSection
+              title={translateMessage('ui.localOverrides_2b54a0d2')}
+              rows={filteredOverridden}
+              valueLabel={translateMessage('ui.localValue_16c94789')}
+            />
+            <FeatureFlagSection
+              title={translateMessage('ui.allFeatureFlags_5ebb4313')}
+              rows={filteredRest}
+              valueLabel={translateMessage('ui.remoteValue_76ceedb1')}
+            />
           </>
         )}
       </div>

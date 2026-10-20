@@ -27,7 +27,7 @@ describe('HypernativeLoginLine', () => {
     render(<HypernativeLoginLine hypernativeAuth={hypernativeAuth} />)
 
     expect(screen.getByTestId('hypernative-login-line')).toHaveTextContent('Already using Hypernative? Log in')
-    fireEvent.click(screen.getByRole('button', { name: 'Log in' }))
+    fireEvent.click(screen.getByRole('button', { name: '登录' }))
 
     expect(hypernativeAuth.initiateLogin).toHaveBeenCalled()
     expect(mockTrackEvent).toHaveBeenCalledTimes(1)

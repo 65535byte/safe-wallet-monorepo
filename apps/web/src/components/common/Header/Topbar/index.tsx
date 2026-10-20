@@ -1,3 +1,5 @@
+import LanguageSelector from '@/components/common/LanguageSelector'
+import { translateMessage } from '@/i18n'
 import type { Dispatch, SetStateAction } from 'react'
 import { useContext, useMemo, useRef, type ReactElement } from 'react'
 import { Menu } from 'lucide-react'
@@ -108,7 +110,7 @@ const Topbar = ({ onMenuToggle, onBatchToggle }: TopbarProps): ReactElement => {
             size="icon"
             className="mr-2"
             onClick={() => onMenuToggle?.((open) => !open)}
-            aria-label="Open sidebar menu"
+            aria-label={translateMessage('ui.openSidebarMenu_476d1dff')}
           >
             <Menu className="size-5" strokeWidth={ICON_STROKE} />
           </Button>
@@ -148,6 +150,7 @@ const Topbar = ({ onMenuToggle, onBatchToggle }: TopbarProps): ReactElement => {
             onBatchClick={() => onBatchToggle?.((open) => !open)}
           />
 
+          <LanguageSelector disabled={Boolean(txFlow)} />
           <HeaderAccountInfo />
         </div>
       </header>

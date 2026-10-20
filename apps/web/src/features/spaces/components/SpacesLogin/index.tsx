@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Head from 'next/head'
 import { SpacesFeature } from '../../SpacesFeature'
 import { useLoadFeature } from '@/features/__core__'
@@ -14,7 +15,7 @@ const SpacesLogin = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Workspaces`}</title>
+        <title>{translateMessage('ui.workspaces_e8ff5d9a', { p0: BRAND_NAME })}</title>
       </Head>
 
       {isSpacesFeatureEnabled && <spaces.SpacesList />}

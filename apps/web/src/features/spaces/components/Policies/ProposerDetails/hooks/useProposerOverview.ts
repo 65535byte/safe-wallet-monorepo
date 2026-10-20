@@ -1,3 +1,5 @@
+import { translateMessage } from '@/i18n'
+import { BRAND_NAME } from '@/config/constants'
 import { useAddressBookItem } from '@/hooks/useAllAddressBooks'
 import { useChain } from '@/hooks/useChains'
 import { AppRoutes } from '@/config/routes'
@@ -7,10 +9,9 @@ import type { ProposerOverviewProps } from '../../ProposerDrawer/components/Prop
 import type { ProposerRef } from '@safe-global/views/features/spaces/components/Policies/ProposerDetails/hooks/types'
 
 /** The grant carries no timestamp, so the drawer cannot say when it was made. */
-const NO_TIMESTAMP = 'Not available'
+const NO_TIMESTAMP = translateMessage('ui.notAvailable_6505d8d6')
 
 /** A proposer is a delegate registration that Safe{Wallet} enforces off-chain. */
-const ENFORCED_BY = 'Safe{Wallet}'
 
 export const useProposerOverview = ({ policy, proposer }: ProposerRef): ProposerOverviewProps => {
   const { chainId, address: safeAddress } = policy.safe
@@ -34,6 +35,6 @@ export const useProposerOverview = ({ policy, proposer }: ProposerRef): Proposer
     initiatedBy: { address: grantor ?? '', name: grantorContact?.name },
     chainId,
     lastUpdated: NO_TIMESTAMP,
-    enforcedBy: ENFORCED_BY,
+    enforcedBy: BRAND_NAME,
   }
 }

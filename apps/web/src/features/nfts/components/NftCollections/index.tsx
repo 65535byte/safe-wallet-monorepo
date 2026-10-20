@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type SyntheticEvent, type ReactElement, useCallback, useEffect, useMemo, useState, useContext } from 'react'
 import type { Collectible } from '@safe-global/store/gateway/AUTO_GENERATED/collectibles'
 import ErrorMessage from '@/components/tx/ErrorMessage'
@@ -49,14 +50,14 @@ const NftCollections = (): ReactElement => {
 
   // No NFTs to display
   if (!isInitialLoading && nfts.length === 0) {
-    return <PagePlaceholder img={<NftIcon />} text="No NFTs available or none detected" />
+    return <PagePlaceholder img={<NftIcon />} text={translateMessage('ui.noNFTsAvailableOrNoneDetected_b53409fb')} />
   }
 
   return (
     <>
       {error ? (
         /* Loading error */
-        <ErrorMessage error={error}>Failed to load NFTs</ErrorMessage>
+        <ErrorMessage error={error}>{translateMessage('ui.failedToLoadNFTs_7bae34a8')}</ErrorMessage>
       ) : (
         /* NFTs */
         <form onSubmit={onSendSubmit}>

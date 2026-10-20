@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import SafeShieldLogoFull from '@/public/images/safe-shield/safe-shield-logo.svg'
@@ -41,7 +42,7 @@ const SecurityHub = (): ReactElement => {
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
           <Typography variant="h2" className="font-bold leading-none tracking-tight">
-            Security hub
+            {translateMessage('ui.securityHub_84cc8bb0')}
           </Typography>
         </div>
 

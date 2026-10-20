@@ -1,3 +1,4 @@
+import '@/config/locale'
 import Analytics from '@/services/analytics/Analytics'
 import type { ReactNode } from 'react'
 import { type ReactElement } from 'react'
@@ -197,9 +198,6 @@ const SafeWalletApp = ({ Component, pageProps, router }: AppProps): ReactElement
 
       <AppProviders>
         <CaptchaProvider>
-          {/* Before InitApp and the page, so GA exists before their mount effects send events */}
-          <Analytics />
-
           <InitApp />
 
           <LazyWeb3Init />
@@ -222,6 +220,8 @@ const SafeWalletApp = ({ Component, pageProps, router }: AppProps): ReactElement
 
           <SpendingLimitsLoaderWrapper />
 
+          <Analytics />
+
           <PkModulePopup />
         </CaptchaProvider>
       </AppProviders>
@@ -229,11 +229,11 @@ const SafeWalletApp = ({ Component, pageProps, router }: AppProps): ReactElement
   )
 }
 
-// In dev the server renders every page as empty (see next.config.mjs), so the first client render must be empty too.
-const DevClientOnlyApp = (props: AppProps): ReactElement => (
+// Browser language preferences must be restored before translated content mounts.
+const ClientOnlyApp = (props: AppProps): ReactElement => (
   <RenderAfterMount>
     <SafeWalletApp {...props} />
   </RenderAfterMount>
 )
 
-export default process.env.NODE_ENV === 'development' ? DevClientOnlyApp : SafeWalletApp
+export default ClientOnlyApp

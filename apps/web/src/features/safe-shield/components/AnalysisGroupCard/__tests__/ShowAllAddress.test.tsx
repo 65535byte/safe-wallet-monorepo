@@ -17,7 +17,7 @@ describe('ShowAllAddress', () => {
     it('should render the component with show all button', () => {
       render(<ShowAllAddress addresses={mockAddresses} />)
 
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
     })
 
     it('should render with correct initial structure', () => {
@@ -43,18 +43,18 @@ describe('ShowAllAddress', () => {
     it('should expand when clicking "Show all"', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
       // After clicking, should show "Hide all"
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
-      expect(screen.queryByText('Show all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
+      expect(screen.queryByText('全部显示')).not.toBeInTheDocument()
     })
 
     it('should display all addresses when expanded', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
       // All addresses should now be visible
@@ -67,17 +67,17 @@ describe('ShowAllAddress', () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
       // First expand
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
       // Then collapse
-      const hideAllButton = screen.getByText('Hide all')
+      const hideAllButton = screen.getByText('全部隐藏')
       await user.click(hideAllButton)
 
-      expect(screen.getByText('Show all')).toBeInTheDocument()
-      expect(screen.queryByText('Hide all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
+      expect(screen.queryByText('全部隐藏')).not.toBeInTheDocument()
     })
 
     it('should hide addresses when collapsed again', async () => {
@@ -90,7 +90,7 @@ describe('ShowAllAddress', () => {
       })
 
       // Expand
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Verify all addresses are now visible
       mockAddresses.forEach((item) => {
@@ -99,31 +99,31 @@ describe('ShowAllAddress', () => {
       })
 
       // Collapse
-      await user.click(screen.getByText('Hide all'))
+      await user.click(screen.getByText('全部隐藏'))
 
       // After collapsing, verify "Show all" is back
-      expect(screen.getByText('Show all')).toBeInTheDocument()
-      expect(screen.queryByText('Hide all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
+      expect(screen.queryByText('全部隐藏')).not.toBeInTheDocument()
     })
 
     it('should toggle state multiple times', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
       // Toggle 1: Show
-      await user.click(screen.getByText('Show all'))
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部显示'))
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
       // Toggle 2: Hide
-      await user.click(screen.getByText('Hide all'))
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部隐藏'))
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
 
       // Toggle 3: Show again
-      await user.click(screen.getByText('Show all'))
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部显示'))
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
       // Toggle 4: Hide again
-      await user.click(screen.getByText('Hide all'))
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部隐藏'))
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
     })
   })
 
@@ -131,7 +131,7 @@ describe('ShowAllAddress', () => {
     it('should render all addresses with correct keys', async () => {
       const { user, container } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Check that each address is rendered
       mockAddresses.forEach((item) => {
@@ -147,7 +147,7 @@ describe('ShowAllAddress', () => {
       const singleAddress = [{ address: faker.finance.ethereumAddress() }]
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={singleAddress} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       expect(screen.getByText(singleAddress[0].address)).toBeVisible()
     })
@@ -156,7 +156,7 @@ describe('ShowAllAddress', () => {
       const manyAddresses = Array.from({ length: 10 }, () => ({ address: faker.finance.ethereumAddress() }))
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={manyAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       manyAddresses.forEach((item) => {
         expect(screen.getByText(item.address)).toBeVisible()
@@ -170,7 +170,7 @@ describe('ShowAllAddress', () => {
       ]
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={longAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Check that both addresses are rendered
       longAddresses.forEach((item) => {
@@ -182,7 +182,7 @@ describe('ShowAllAddress', () => {
       const longAddress = [{ address: '0x1234567890123456789012345678901234567890' }]
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={longAddress} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       expect(screen.getByText(longAddress[0].address)).toHaveClass('break-all')
     })
@@ -192,16 +192,16 @@ describe('ShowAllAddress', () => {
     it('should handle empty addresses array', () => {
       render(<ShowAllAddress addresses={[]} />)
 
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
     })
 
     it('should not render any addresses when empty and expanded', async () => {
       const { user, container } = renderWithUserEvent(<ShowAllAddress addresses={[]} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Should show "Hide all" but no addresses
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
       // No address boxes should be rendered
       const addressBoxes = container.querySelectorAll('.rounded-\\[4px\\]')
@@ -214,7 +214,7 @@ describe('ShowAllAddress', () => {
       render(<ShowAllAddress addresses={mockAddresses} />)
 
       // Check that the clickable text is present
-      const showAllText = screen.getByText('Show all')
+      const showAllText = screen.getByText('全部显示')
       expect(showAllText).toBeInTheDocument()
     })
 
@@ -228,7 +228,7 @@ describe('ShowAllAddress', () => {
     it('should rotate expand icon when expanded', async () => {
       const { user, container } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       const expandIcon = container.querySelector('[data-testid="ExpandMoreIcon"]')
       expect(expandIcon).toHaveStyle({ transform: 'rotate(-180deg)' })
@@ -237,7 +237,7 @@ describe('ShowAllAddress', () => {
     it('should render correct number of address boxes when expanded', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Each address should be rendered
       mockAddresses.forEach((item) => {
@@ -248,7 +248,7 @@ describe('ShowAllAddress', () => {
     it('should render addresses in separate containers', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       // Check that all addresses are present and visible
       mockAddresses.forEach((address) => {
@@ -262,21 +262,21 @@ describe('ShowAllAddress', () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
       await user.tab()
-      expect(screen.getByRole('button', { name: 'Show all' })).toHaveFocus()
+      expect(screen.getByRole('button', { name: '全部显示' })).toHaveFocus()
 
       await user.keyboard('{Enter}')
 
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
     })
 
     it('should maintain focus management during interaction', async () => {
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={mockAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部显示'))
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
-      await user.click(screen.getByText('Hide all'))
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      await user.click(screen.getByText('全部隐藏'))
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
     })
   })
 
@@ -289,7 +289,7 @@ describe('ShowAllAddress', () => {
       ]
       const { user } = renderWithUserEvent(<ShowAllAddress addresses={differentAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       differentAddresses.forEach((item) => {
         expect(screen.getByText(item.address)).toBeVisible()
@@ -300,7 +300,7 @@ describe('ShowAllAddress', () => {
       const initialAddresses = [{ address: faker.finance.ethereumAddress() }]
       const { user, rerender } = renderWithUserEvent(<ShowAllAddress addresses={initialAddresses} />)
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
       expect(screen.getByText(initialAddresses[0].address)).toBeVisible()
 
       // Update addresses

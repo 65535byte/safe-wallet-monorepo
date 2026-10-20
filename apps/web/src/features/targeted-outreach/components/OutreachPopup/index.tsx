@@ -1,3 +1,5 @@
+import { translateMessage } from '@/i18n'
+import { BRAND_NAME } from '@/config/constants'
 import {
   useTargetedMessagingGetSubmissionV1Query,
   useTargetedMessagingCreateSubmissionV1Mutation,
@@ -88,24 +90,29 @@ const OutreachPopup = (): ReactElement | null => {
         <div className="flex flex-col gap-4">
           <div className="flex items-center">
             <Avatar size="sm">
-              <AvatarImage src="/images/common/outreach-popup-avatar.png" alt="Product marketing lead avatar" />
+              <AvatarImage
+                src="/images/common/outreach-popup-avatar.png"
+                alt={translateMessage('ui.productMarketingLeadAvatar_71f1e7fd')}
+              />
               <AvatarFallback>DP</AvatarFallback>
             </Avatar>
             <div className="ml-2">
               <Typography variant="paragraph-small">Danilo Pereira</Typography>
               <Typography variant="paragraph-small" color="muted">
-                Product Marketing Lead
+                {translateMessage('ui.productMarketingLead_bbdb02ac')}
               </Typography>
             </div>
           </div>
           <Typography variant="h4">
-            Your voice matters!
+            {translateMessage('ui.yourVoiceMatters_6a40f293')}
             <br />
-            Help us improve {'Safe{Wallet}'}.
+            {translateMessage('ui.helpUsImprove_f42dcfa5')}
+            {BRAND_NAME}.
           </Typography>
           <Typography>
-            In 1 minute, tell us why you use {'Safe{Wallet}'}. Your input will help us create a better, smarter wallet
-            experience for you!
+            {translateMessage('ui.inMinuteTellUsWhyYou_8ace684d')}
+            {BRAND_NAME}
+            {translateMessage('ui.yourInputWillHelpUsCreate_8af42863')}
           </Typography>
           <Track {...OUTREACH_EVENTS.OPEN_SURVEY}>
             <Button
@@ -114,16 +121,16 @@ const OutreachPopup = (): ReactElement | null => {
               onClick={handleOpenSurvey}
               render={<Link rel="noreferrer noopener" target="_blank" href={outreachUrl} />}
             >
-              Get Involved
+              {translateMessage('ui.getInvolved_e7fd0543')}
             </Button>
           </Track>
           <Track {...OUTREACH_EVENTS.ASK_AGAIN_LATER}>
             <Button className="w-full" variant="ghost" onClick={handleAskAgainLater}>
-              Ask me later
+              {translateMessage('ui.askMeLater_7751fe73')}
             </Button>
           </Track>
           <Typography variant="paragraph-small" color="muted" align="center">
-            It&apos;ll only take 1 minute.
+            {translateMessage('ui.itLlOnlyTakeMinute_26d7799a')}
           </Typography>
         </div>
         <Track {...OUTREACH_EVENTS.CLOSE_POPUP}>
@@ -131,7 +138,7 @@ const OutreachPopup = (): ReactElement | null => {
             className={css.close}
             variant="ghost"
             size="icon-sm"
-            aria-label="close outreach popup"
+            aria-label={translateMessage('ui.closeOutreachPopup_557d7daf')}
             onClick={handleClose}
           >
             <XIcon className="size-4" />

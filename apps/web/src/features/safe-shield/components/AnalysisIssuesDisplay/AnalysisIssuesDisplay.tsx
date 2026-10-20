@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React from 'react'
 import type {
   AnalysisResult,
@@ -71,7 +72,9 @@ export const AnalysisIssuesDisplay = ({ result, issueBackgroundColor }: Analysis
                         </Typography>
                       </TooltipTrigger>
                       <TooltipContent>
-                        {copiedIndex === globalIndex ? 'Copied to clipboard' : 'Copy address'}
+                        {copiedIndex === globalIndex
+                          ? translateMessage('ui.copiedToClipboard_f1ab9263')
+                          : translateMessage('ui.copyAddress_e5bff417')}
                       </TooltipContent>
                     </Tooltip>
                     <span className="text-[var(--color-text-secondary)]">

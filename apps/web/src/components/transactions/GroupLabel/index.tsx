@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { LabelValue } from '@safe-global/store/gateway/types'
 import type { LabelQueuedItem } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
@@ -9,7 +10,7 @@ const GroupLabel = ({ item }: { item: LabelQueuedItem }): ReactElement => {
 
   const label =
     item.label === LabelValue.Queued
-      ? `${item.label} - transaction with nonce ${safe.nonce} needs to be executed first`
+      ? translateMessage('ui.transactionWithNonceNeedsToBe_b5a698b1', { p0: item.label, p1: safe.nonce })
       : item.label
 
   return <div className={css.container}>{label}</div>

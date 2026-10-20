@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { useMemo } from 'react'
@@ -107,36 +108,35 @@ const ReviewSignMessageOnChain = ({ message, method, children, ...props }: SignM
     <ReviewTransaction {...props}>
       <SendFromBlock />
 
-      <InfoDetails title="Interact with SignMessageLib">
+      <InfoDetails title={translateMessage('ui.interactWithSignMessageLib_fc2e9f9e')}>
         <EthHashInfo address={signMessageAddress} shortAddress={false} showCopyButton hasExplorer />
       </InfoDetails>
 
       {isEIP712TypedData(decodedMessage) && (
-        <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+        <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
           <ApprovalEditor safeMessage={decodedMessage} />
         </ObservabilityErrorBoundary>
       )}
 
       {safeTx && (
         <div className="pb-2">
-          <HexEncodedData title="Data:" hexData={safeTx.data.data} />
+          <HexEncodedData title={translateMessage('ui.data_21623aea')} hexData={safeTx.data.data} />
         </div>
       )}
 
       <Typography className="my-2">
-        <b>Signing method:</b> <code>{method}</code>
+        <b>{translateMessage('ui.signingMethod_ac3b1023')}</b> <code>{method}</code>
       </Typography>
 
       <Typography className="my-4">
-        <b>Signing message:</b> {readableMessage && <CopyButton text={readableMessage} />}
+        <b>{translateMessage('ui.signingMessage_643c5d26')}</b>{' '}
+        {readableMessage && <CopyButton text={readableMessage} />}
       </Typography>
       <DecodedMsg message={decodedMessage} isInModal />
 
       <div className="my-4 flex items-center">
         <WarningIcon className="size-4 text-[var(--color-warning-main)]" />
-        <Typography className="ml-2">
-          Signing a message with your Safe account requires a transaction on the blockchain
-        </Typography>
+        <Typography className="ml-2">{translateMessage('ui.signingAMessageWithYourAccount_182cb64e')}</Typography>
       </div>
 
       {children}

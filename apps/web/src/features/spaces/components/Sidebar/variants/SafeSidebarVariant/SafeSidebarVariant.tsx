@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { Settings } from 'lucide-react'
@@ -63,7 +64,7 @@ export const SafeSidebarVariant = ({
   // active state depend on the current Safe. Render it through NavItem so styling stays in sync.
   const settingsItem: ResolvedSidebarNavItem = {
     icon: Settings,
-    label: 'Settings',
+    label: translateMessage('ui.settings_36b502ac'),
     href: AppRoutes.settings.setup,
     link: settingsHref,
     isActive: isSettingsActive,

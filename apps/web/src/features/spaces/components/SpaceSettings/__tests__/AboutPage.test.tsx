@@ -4,7 +4,7 @@ import { makeStore } from '@/store'
 import AboutPage from '../pages/AboutPage'
 import { AppRoutes } from '@/config/routes'
 import { HELP_CENTER_URL } from '@safe-global/utils/config/constants'
-import { APP_VERSION, APP_HOMEPAGE } from '@/config/version'
+import { APP_VERSION } from '@/config/version'
 import { selectCookieBanner } from '@/store/popupSlice'
 import { CookieAndTermType } from '@/store/cookiesAndTermsSlice'
 import { useLoadFeature } from '@/features/__core__'
@@ -72,42 +72,42 @@ describe('AboutPage', () => {
   describe('legal links', () => {
     it('renders Terms & Conditions with correct href', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /^Terms & Conditions/i })
+      const link = screen.getByRole('link', { name: /^条款与条件/i })
       expect(link).toHaveAttribute('href', 'https://safe.global/terms')
     })
 
     it('renders Privacy Policy with correct href', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Privacy Policy/i })
+      const link = screen.getByRole('link', { name: /隐私政策/i })
       expect(link).toHaveAttribute('href', 'https://safe.global/privacy')
     })
 
     it('renders Licenses with correct href', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Licenses/i })
+      const link = screen.getByRole('link', { name: /许可证/i })
       expect(link).toHaveAttribute('href', AppRoutes.licenses)
     })
 
     it('renders Imprint with correct href', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Imprint/i })
+      const link = screen.getByRole('link', { name: /法律声明/i })
       expect(link).toHaveAttribute('href', AppRoutes.imprint)
     })
 
     it('renders Cookie Policy with correct href', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Cookie Policy/i })
+      const link = screen.getByRole('link', { name: /Cookie 政策/i })
       expect(link).toHaveAttribute('href', AppRoutes.cookie)
     })
 
     it('opens all legal links in a new tab with noopener', () => {
       renderWithStore()
       const legalLinks = [
-        screen.getByRole('link', { name: /^Terms & Conditions/i }),
-        screen.getByRole('link', { name: /Privacy Policy/i }),
-        screen.getByRole('link', { name: /Licenses/i }),
-        screen.getByRole('link', { name: /Imprint/i }),
-        screen.getByRole('link', { name: /Cookie Policy/i }),
+        screen.getByRole('link', { name: /^条款与条件/i }),
+        screen.getByRole('link', { name: /隐私政策/i }),
+        screen.getByRole('link', { name: /许可证/i }),
+        screen.getByRole('link', { name: /法律声明/i }),
+        screen.getByRole('link', { name: /Cookie 政策/i }),
       ]
       legalLinks.forEach((link) => {
         expect(link).toHaveAttribute('target', '_blank')
@@ -115,58 +115,55 @@ describe('AboutPage', () => {
       })
     })
 
-    it('leads with the Safe Pro terms, opening on safe.global in a new tab', () => {
+    it('leads with the 8379 terms, opening on safe.global in a new tab', () => {
       renderWithStore()
-      const userTerms = screen.getByRole('link', { name: /^Pro User Terms & Conditions/i })
-      const proTerms = screen.getByRole('link', { name: /^Pro Terms & Conditions/i })
+      const userTerms = screen.getByRole('link', { name: /^Pro 用户条款与条件/i })
+      const proTerms = screen.getByRole('link', { name: /^Pro 条款与条件/i })
 
       expect(userTerms).toHaveAttribute('href', 'https://safe.global/pro-user-terms')
       expect(proTerms).toHaveAttribute('href', 'https://safe.global/pro-terms')
       for (const link of [userTerms, proTerms]) {
         expect(link).toHaveAttribute('target', '_blank')
         expect(link).toHaveAttribute('rel', 'noreferrer noopener')
-        expect(link).toHaveTextContent('For using Safe Pro')
+        expect(link).toHaveTextContent('适用于 8379')
       }
 
-      const legal = screen.getByText('Legal & Policies').parentElement as HTMLElement
+      const legal = screen.getByText('法律与政策').parentElement as HTMLElement
       const [first, second, third] = Array.from(legal.querySelectorAll('a'))
       expect(first).toBe(userTerms)
       expect(second).toBe(proTerms)
-      expect(third).toHaveTextContent(/^Terms & Conditions/)
+      expect(third).toHaveTextContent(/^条款与条件/)
     })
 
-    it('keeps the Safe Pro terms once Safe Pro is live without the announcement', () => {
+    it('keeps the 8379 terms once 8379 is live without the announcement', () => {
       ;(useIsSafeProAnnouncementEnabled as jest.Mock).mockReturnValue(false)
       ;(useIsSafeProEnabled as jest.Mock).mockReturnValue(true)
       renderWithStore()
 
-      expect(screen.getByRole('link', { name: /^Pro User Terms & Conditions/i })).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /^Pro Terms & Conditions/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /^Pro 用户条款与条件/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /^Pro 条款与条件/i })).toBeInTheDocument()
     })
 
-    it('leaves the Safe Pro terms out while Safe Pro is neither announced nor live', () => {
+    it('leaves the 8379 terms out while 8379 is neither announced nor live', () => {
       ;(useIsSafeProAnnouncementEnabled as jest.Mock).mockReturnValue(false)
       ;(useIsSafeProEnabled as jest.Mock).mockReturnValue(false)
       renderWithStore()
 
       expect(screen.queryByRole('link', { name: /^Pro /i })).not.toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /^Terms & Conditions/i })).toHaveAttribute(
-        'href',
-        'https://safe.global/terms',
-      )
+      expect(screen.getByRole('link', { name: /^条款与条件/i })).toHaveAttribute('href', 'https://safe.global/terms')
     })
   })
 
   describe('help links', () => {
     it('renders Help Center link pointing to HELP_CENTER_URL', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Help Center/i })
+      const link = screen.getByRole('link', { name: /帮助中心/i })
       expect(link).toHaveAttribute('href', HELP_CENTER_URL)
     })
 
     it('renders Sync Status link', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /Sync Status/i })
+      const link = screen.getByRole('link', { name: /同步状态/i })
       expect(link).toHaveAttribute('href', 'https://status.safe.global')
     })
   })
@@ -174,29 +171,29 @@ describe('AboutPage', () => {
   describe('Contact Support', () => {
     it('renders Contact Support as a button when the support chat feature is available', () => {
       renderWithStore()
-      const button = screen.getByRole('button', { name: /Contact Support/i })
+      const button = screen.getByRole('button', { name: /联系支持/i })
       expect(button).toBeInTheDocument()
       expect(button).toHaveAttribute('data-slot', 'button')
-      expect(screen.queryByRole('link', { name: /Contact Support/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: /联系支持/i })).not.toBeInTheDocument()
     })
 
     it('does not render Contact Support when the feature is disabled', () => {
       setSupportFeature({ disabled: true, isOfficialHost: true })
       renderWithStore()
-      expect(screen.queryByRole('button', { name: /Contact Support/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /联系支持/i })).not.toBeInTheDocument()
     })
 
     it('does not render Contact Support on unofficial hosts', () => {
       setSupportFeature({ disabled: false, isOfficialHost: false })
       renderWithStore()
-      expect(screen.queryByRole('button', { name: /Contact Support/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /联系支持/i })).not.toBeInTheDocument()
     })
 
     it('opens the support chat drawer when clicked', () => {
       renderWithStore()
       expect(screen.queryByTestId('support-chat-drawer')).not.toBeInTheDocument()
 
-      fireEvent.click(screen.getByRole('button', { name: /Contact Support/i }))
+      fireEvent.click(screen.getByRole('button', { name: /联系支持/i }))
 
       expect(screen.getByTestId('support-chat-drawer')).toBeInTheDocument()
     })
@@ -208,16 +205,11 @@ describe('AboutPage', () => {
       expect(screen.getByText(`v${APP_VERSION}`)).toBeInTheDocument()
     })
 
-    it('release notes link points to the correct GitHub release URL', () => {
+    it('hides the GitHub release and repository entries', () => {
       renderWithStore()
-      const link = screen.getByRole('link', { name: /View release notes/i })
-      expect(link).toHaveAttribute('href', `${APP_HOMEPAGE}/releases/tag/web-v${APP_VERSION}`)
-    })
-
-    it('GitHub button links to APP_HOMEPAGE', () => {
-      renderWithStore()
-      const link = screen.getByRole('link', { name: /GitHub/i })
-      expect(link).toHaveAttribute('href', APP_HOMEPAGE)
+      expect(screen.queryByRole('link', { name: /查看 v.* 的版本说明/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: /GitHub/i })).not.toBeInTheDocument()
+      expect(screen.queryByText('开源')).not.toBeInTheDocument()
     })
   })
 

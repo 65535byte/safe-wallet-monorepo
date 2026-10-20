@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { TriangleAlert } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@safe-global/views/components/ui/dialog'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -24,19 +25,21 @@ const SelectAllConfirmDialog = ({
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onCancel()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Similar addresses detected</DialogTitle>
+          <DialogTitle>{translateMessage('ui.similarAddressesDetected_f8d9af4a')}</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-4 px-4">
           <Alert variant="warning" outlined={false}>
             <AlertSeverityIcon variant="warning" />
             <AlertDescription>
-              {similarAddresses.length} Safe{similarAddresses.length === 1 ? '' : 's'} in your list closely resemble
-              other addresses. Review them carefully before continuing.
+              {similarAddresses.length} 8379{similarAddresses.length === 1 ? '' : 's'}{' '}
+              {translateMessage('ui.inYourListCloselyResembleOther_720b10ff')}
             </AlertDescription>
           </Alert>
 
-          <p className="text-sm text-muted-foreground">The following addresses have been flagged as similar:</p>
+          <p className="text-sm text-muted-foreground">
+            {translateMessage('ui.theFollowingAddressesHaveBeenFlagged_156dc4ed')}
+          </p>
 
           <ul className="max-h-[200px] overflow-auto rounded-md border border-border/50 bg-background">
             {similarAddresses.map((item) => (
@@ -49,16 +52,16 @@ const SelectAllConfirmDialog = ({
             ))}
           </ul>
 
-          <p className="text-sm text-muted-foreground">Do you want to include these addresses in your selection?</p>
+          <p className="text-sm text-muted-foreground">{translateMessage('ui.doYouWantToIncludeThese_945046e3')}</p>
         </div>
 
         <DialogFooter>
           <Button onClick={onSkip} variant="ghost">
-            No, skip similar addresses
+            {translateMessage('ui.noSkipSimilarAddresses_b8284cb0')}
           </Button>
           <Button onClick={onConfirm}>
             <TriangleAlert className="size-4" />
-            Yes, include them anyway
+            {translateMessage('ui.yesIncludeThemAnyway_904d101d')}
           </Button>
         </DialogFooter>
       </DialogContent>

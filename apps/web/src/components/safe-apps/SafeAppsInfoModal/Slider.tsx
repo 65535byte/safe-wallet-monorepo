@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React, { useState, useEffect, useMemo } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import css from '@safe-global/views/components/safe-apps/SafeAppsInfoModal/styles.module.css'
@@ -70,11 +71,11 @@ const Slider: React.FC<SliderProps> = ({ onSlideChange, children, initialStep })
       </div>
       <div className="mt-4 flex w-full shrink-0 gap-2 border-border pt-4">
         <Button variant="outline" size="sm" className="min-w-0 flex-1" onClick={prevSlide}>
-          {isFirstStep ? 'Cancel' : 'Back'}
+          {isFirstStep ? translateMessage('ui.cancel_d94a8eaf') : translateMessage('ui.back_dae8bf43')}
         </Button>
 
         <Button variant="default" size="sm" className="min-w-0 flex-1" onClick={nextSlide}>
-          Continue
+          {translateMessage('ui.continue_a4bd8255')}
         </Button>
       </div>
     </>

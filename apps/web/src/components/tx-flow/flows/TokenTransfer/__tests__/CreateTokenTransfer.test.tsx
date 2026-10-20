@@ -71,13 +71,13 @@ describe('CreateTokenTransfer', () => {
   it('should display a token amount input', () => {
     const { getByText } = renderCreateTokenTransfer()
 
-    expect(getByText('Amount')).toBeInTheDocument()
+    expect(getByText('金额')).toBeInTheDocument()
   })
 
   it('should display a recipient input', () => {
     const { getAllByText } = renderCreateTokenTransfer()
 
-    expect(getAllByText('Recipient address')[0]).toBeInTheDocument()
+    expect(getAllByText('接收方地址')[0]).toBeInTheDocument()
   })
 
   // With `delayError`, react-hook-form parked the "Invalid address format" from the typed search text
@@ -92,7 +92,7 @@ describe('CreateTokenTransfer', () => {
       )
 
       // waitFor advances the fake timers, so the debounced labels settle deterministically.
-      fireEvent.input(getByLabelText('Recipient address', { exact: false }), { target: { value: 'E2E' } })
+      fireEvent.input(getByLabelText('接收方地址', { exact: false }), { target: { value: 'E2E' } })
       await waitFor(() => expect(getByText('Invalid address format')).toBeInTheDocument())
 
       fireEvent.click(getByText('E2E Contact'))
@@ -145,7 +145,7 @@ describe('CreateTokenTransfer', () => {
 
     const { getByText } = renderCreateTokenTransfer()
 
-    expect(getByText('Send as')).toBeInTheDocument()
+    expect(getByText('发送方式')).toBeInTheDocument()
 
     expect(useHasPermissionSpy).toHaveBeenCalledWith(Permission.CreateSpendingLimitTransaction)
   })
@@ -154,14 +154,14 @@ describe('CreateTokenTransfer', () => {
     useHasPermissionSpy.mockReturnValueOnce(false)
     const { queryByText } = renderCreateTokenTransfer({ txNonce: 1 })
 
-    expect(queryByText('Send as')).not.toBeInTheDocument()
+    expect(queryByText('发送方式')).not.toBeInTheDocument()
     expect(useHasPermissionSpy).toHaveBeenCalledWith(Permission.CreateSpendingLimitTransaction)
   })
 
   it('should not display a type selection if there is a txNonce', () => {
     const { queryByText } = renderCreateTokenTransfer({ txNonce: 1 })
 
-    expect(queryByText('Send as')).not.toBeInTheDocument()
+    expect(queryByText('发送方式')).not.toBeInTheDocument()
   })
 
   it('should preselect a specific token (USDC) when passed in data', () => {
@@ -481,7 +481,7 @@ describe('CreateTokenTransfer', () => {
         expect(getByTestId('gtf-fee-banner')).toBeInTheDocument()
       })
 
-      fireEvent.click(getByLabelText('Dismiss fee banner'))
+      fireEvent.click(getByLabelText('关闭费用提示'))
 
       expect(queryByTestId('gtf-fee-banner')).not.toBeInTheDocument()
     })
@@ -531,7 +531,7 @@ describe('CreateTokenTransfer', () => {
 
     const csvApp: SafeApp = {
       id: 1,
-      name: 'CSV Airdrop',
+      name: 'CSV 空投',
       url: 'https://example.com/csv-airdrop',
       description: '',
       chainIds: [],
@@ -571,7 +571,7 @@ describe('CreateTokenTransfer', () => {
       fireEvent.click(getByTestId('add-recipient-btn'))
       expect(getByTestId('csv-airdrop-hint')).toBeInTheDocument()
 
-      fireEvent.click(getByLabelText('close'))
+      fireEvent.click(getByLabelText('关闭'))
 
       expect(queryByTestId('csv-airdrop-hint')).not.toBeInTheDocument()
     })

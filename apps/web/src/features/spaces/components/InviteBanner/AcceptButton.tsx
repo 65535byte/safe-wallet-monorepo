@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -22,8 +23,13 @@ const AcceptButton = ({ space }: AcceptButtonProps) => {
 
   return (
     <>
-      <Button data-testid="accept-invite-button" onClick={handleAcceptInvite} aria-label="Accept invitation" size="sm">
-        Accept
+      <Button
+        data-testid="accept-invite-button"
+        onClick={handleAcceptInvite}
+        aria-label={translateMessage('ui.acceptInvitation_632f1e7b')}
+        size="sm"
+      >
+        {translateMessage('ui.accept_b264ffc7')}
       </Button>
       {inviteOpen && <AcceptInviteDialog space={space} onClose={handleCloseInviteDialog} />}
     </>

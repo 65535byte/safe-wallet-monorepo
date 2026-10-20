@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React from 'react'
 import { useRouter } from 'next/router'
 
@@ -18,22 +19,22 @@ export type LoadSafeFormData = NamedAddress & {
 
 export const LoadSafeSteps: TxStepperProps<LoadSafeFormData>['steps'] = [
   {
-    title: 'Choose address, network and a name',
-    subtitle: 'Paste the address of the Safe account you want to add, select the network and choose a name.',
+    title: translateMessage('ui.chooseAddressNetworkAndAName_3e658dc7'),
+    subtitle: translateMessage('ui.pasteTheAddressOfTheAccount_3c4324d0'),
     render: (data, onSubmit, onBack, setStep) => (
       <SetAddressStep onSubmit={onSubmit} onBack={onBack} data={data} setStep={setStep} />
     ),
   },
   {
-    title: 'Signers and confirmations',
-    subtitle: 'Optional: Provide a name for each signer.',
+    title: translateMessage('ui.signersAndConfirmations_434f9efb'),
+    subtitle: translateMessage('ui.optionalProvideANameForEach_d23f43cf'),
     render: (data, onSubmit, onBack, setStep) => (
       <SafeOwnerStep onSubmit={onSubmit} onBack={onBack} data={data} setStep={setStep} />
     ),
   },
   {
-    title: 'Review',
-    subtitle: 'Confirm adding Safe account to your Watchlist',
+    title: translateMessage('ui.review_ce84ccb0'),
+    subtitle: translateMessage('ui.confirmAddingAccountToYourWatchlist_cffbd796'),
     render: (data, onSubmit, onBack, setStep) => (
       <SafeReviewStep onSubmit={onSubmit} onBack={onBack} data={data} setStep={setStep} />
     ),
@@ -56,7 +57,7 @@ const LoadSafe = ({ initialData }: { initialData?: TxStepperProps<LoadSafeFormDa
       <div className="grid grid-cols-12 gap-x-6">
         <div className="col-span-12 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3">
           <Typography variant="h2" className="pb-4">
-            Add existing Safe account
+            {translateMessage('ui.addExistingAccount_cd04bbcb')}
           </Typography>
         </div>
         <div className="order-1 col-span-12 md:order-0 md:col-span-10 md:col-start-2 lg:col-span-8 lg:col-start-3">

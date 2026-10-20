@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import LoadingSpinner, { SpinnerStatus } from '@/components/new-safe/create/steps/StatusStep/LoadingSpinner'
 import { SafeCreationEvent } from '@/features/counterfactual/services'
@@ -11,34 +12,33 @@ const getStep = (status: SafeCreationEvent) => {
   switch (status) {
     case SafeCreationEvent.AWAITING_EXECUTION:
       return {
-        description: 'Your account is awaiting activation',
-        instruction: 'Activate the account to unlock all features of your smart wallet',
+        description: translateMessage('ui.yourAccountIsAwaitingActivation_4cc4daa3'),
+        instruction: translateMessage('ui.activateTheAccountToUnlockAll_9bfecff7'),
       }
     case SafeCreationEvent.PROCESSING:
     case SafeCreationEvent.RELAYING:
       return {
-        description: 'We are activating your account',
-        instruction: 'It can take some minutes to create your account, but you can check the progress below.',
+        description: translateMessage('ui.weAreActivatingYourAccount_ed2f1d13'),
+        instruction: translateMessage('ui.itCanTakeSomeMinutesTo_c9a97fd2'),
       }
     case SafeCreationEvent.FAILED:
       return {
-        description: "Your account couldn't be created",
-        instruction:
-          'The creation transaction was rejected by the connected wallet. You can retry or create an account from scratch.',
+        description: translateMessage('ui.yourAccountCouldnTBeCreated_00c8d0be'),
+        instruction: translateMessage('ui.theCreationTransactionWasRejectedBy_7ae31d4a'),
       }
     case SafeCreationEvent.REVERTED:
       return {
-        description: "Your account couldn't be created",
-        instruction: 'The creation transaction reverted. You can retry or create an account from scratch.',
+        description: translateMessage('ui.yourAccountCouldnTBeCreated_00c8d0be'),
+        instruction: translateMessage('ui.theCreationTransactionRevertedYouCan_e7db587b'),
       }
     case SafeCreationEvent.SUCCESS:
       return {
-        description: 'Your Safe account is being indexed..',
-        instruction: 'The account will be ready for use shortly. Please do not leave this page.',
+        description: translateMessage('ui.yourAccountIsBeingIndexed_74da5d84'),
+        instruction: translateMessage('ui.theAccountWillBeReadyFor_c5a5022d'),
       }
     case SafeCreationEvent.INDEXED:
       return {
-        description: 'Your Safe account was successfully created!',
+        description: translateMessage('ui.yourAccountWasSuccessfullyCreated_e0df73ae'),
         instruction: '',
       }
   }
@@ -78,7 +78,9 @@ const StatusMessage = ({
           </Typography>
         )}
         {!isError && explorerLink && (
-          <ExternalLink href={explorerLink.href}>Check status on block explorer</ExternalLink>
+          <ExternalLink href={explorerLink.href}>
+            {translateMessage('ui.checkStatusOnBlockExplorer_6df281ed')}
+          </ExternalLink>
         )}
       </div>
     </>

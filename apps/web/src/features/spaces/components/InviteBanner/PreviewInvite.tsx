@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useSpacesGetOneV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useUsersGetWithWalletsV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/users'
 import InitialsAvatar from '@/components/common/InitialsAvatar'
@@ -35,7 +36,7 @@ const PreviewInvite = () => {
       <div className="flex flex-row gap-4 max-[600px]:flex-col max-[600px]:gap-2">
         <InitialsAvatar name={space.name} size="medium" />
         <div className="flex flex-grow flex-row flex-wrap items-center gap-x-1 gap-y-1">
-          <Typography variant="paragraph">You were invited to join</Typography>
+          <Typography variant="paragraph">{translateMessage('ui.youWereInvitedToJoin_8d8987f9')}</Typography>
           <Typography variant="paragraph-bold">{space.name}</Typography>
           <Inviter invitedByName={invitedByName} variant="paragraph" avatarSize={20} />
         </div>

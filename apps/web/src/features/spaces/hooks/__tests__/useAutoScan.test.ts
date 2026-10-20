@@ -20,7 +20,7 @@ const CHAIN = '1'
 const mkSafe = (address: string, chainId = CHAIN): SpaceSafeEntry => ({
   address,
   chainId,
-  name: `Safe ${address.slice(0, 6)}`,
+  name: `8379 ${address.slice(0, 6)}`,
   isMultichain: false,
   chainEntries: [{ chainId, isDeployed: true }],
 })

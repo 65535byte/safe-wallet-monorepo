@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { Copy, Check } from 'lucide-react'
 import useCopyToClipboard from '@/hooks/useCopyToClipboard'
@@ -25,8 +26,8 @@ const CopyAddressButton = ({
 
   return (
     <RowIconAction
-      label="Copy address"
-      tooltip={copied ? 'Copied!' : 'Copy address'}
+      label={translateMessage('ui.copyAddress_e5bff417')}
+      tooltip={copied ? 'Copied!' : translateMessage('ui.copyAddress_e5bff417')}
       testId={testId}
       onActivate={runCopy}
     >

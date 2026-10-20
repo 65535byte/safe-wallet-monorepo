@@ -116,7 +116,7 @@ describe('useHistoryFeesBreakdown', () => {
       const { result } = renderHook(() => useHistoryFeesBreakdown(mockSafePaysTx))
 
       await waitFor(() => expect(result.current).not.toBeNull())
-      expect(result.current?.gasFee).toEqual(expect.objectContaining({ label: 'Max gas fee', currency: 'WETH' }))
+      expect(result.current?.gasFee).toEqual(expect.objectContaining({ label: '最高 Gas 费用', currency: 'WETH' }))
       expect(result.current?.gasFee.amount).toMatch(/^0\.0001/)
       expect(result.current?.gasFee.fiatAmount).toBeDefined()
     })
@@ -125,7 +125,7 @@ describe('useHistoryFeesBreakdown', () => {
       const { result } = renderHook(() => useHistoryFeesBreakdown(mockSafePaysTx))
 
       await waitFor(() => expect(result.current).not.toBeNull())
-      expect(result.current?.executionFee).toEqual({ label: 'Execution fee', isFree: true })
+      expect(result.current?.executionFee).toEqual({ label: '执行费用', isFree: true })
     })
 
     it('mirrors total to gasFee while execution fee is free', async () => {
@@ -160,10 +160,10 @@ describe('useHistoryFeesBreakdown', () => {
 
       await waitFor(() => expect(result.current).not.toBeNull())
       expect(result.current?.gasFee).toEqual(
-        expect.objectContaining({ label: 'Max gas fee', currency: 'ETH', amount: '0.0024' }),
+        expect.objectContaining({ label: '最高 Gas 费用', currency: 'ETH', amount: '0.0024' }),
       )
       expect(result.current?.gasFee.fiatAmount).toBeDefined()
-      expect(result.current?.executionFee).toEqual({ label: 'Execution fee', isFree: true })
+      expect(result.current?.executionFee).toEqual({ label: '执行费用', isFree: true })
     })
 
     it('returns null when the on-chain receipt is unavailable', async () => {
@@ -258,7 +258,7 @@ describe('useHistoryFeesBreakdown', () => {
       let throttled: unknown
       try {
         new FetchResponse(429, 'Too Many Requests', {}, null, undefined)
-          .makeServerError('exceeded maximum retry limit')
+          .makeServerError('exceeded maximum retry 项限额')
           .assertOk()
       } catch (error) {
         throttled = error

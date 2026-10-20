@@ -1,12 +1,13 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState, type ReactElement } from 'react'
 import { cn } from '@safe-global/views/utils/cn'
 import { useLaunchScreen } from './useLaunchScreen'
 import css from './LaunchScreen.module.css'
 
 const LAUNCH_STEPS = [
-  { progress: 30, caption: 'Loading Safe{Wallet}…' },
-  { progress: 65, caption: 'Fetching your accounts…' },
-  { progress: 90, caption: 'Almost there…' },
+  { progress: 30, caption: translateMessage('ui.loadingSafeWallet_effc1443') },
+  { progress: 65, caption: translateMessage('ui.fetchingYourAccounts_f6069b33') },
+  { progress: 90, caption: translateMessage('ui.almostThere_2508b5f6') },
 ] as const
 
 const STEP_INTERVAL_MS = 700
@@ -49,7 +50,7 @@ function LaunchScreen({ stepUpCaption }: { stepUpCaption?: string }): ReactEleme
       role="status"
       aria-busy={!exiting}
       aria-live="polite"
-      aria-label={stepUpCaption ?? 'Loading Safe{Wallet}'}
+      aria-label={stepUpCaption ?? translateMessage('ui.loadingSafeWallet_9b403beb')}
       data-testid="launch-screen"
       className={cn(
         'fixed inset-0 z-[1401] flex flex-col items-center justify-center gap-8 bg-background transition-opacity duration-300',
@@ -59,8 +60,13 @@ function LaunchScreen({ stepUpCaption }: { stepUpCaption?: string }): ReactEleme
       <div className="relative flex items-center justify-center">
         <span aria-hidden className={cn('absolute size-40 rounded-full', css.halo)} />
         <div className={css.breathe}>
-          <img src="/images/logo-no-text.svg" alt="Safe" width={72} height={72} className="size-[72px] dark:hidden" />
-          <span aria-hidden className={cn('hidden size-[72px] dark:block', css.logoDarkFill)} />
+          <img
+            src="/images/brand-logo.png"
+            alt={translateMessage('ui.safe_32142578')}
+            width={72}
+            height={72}
+            className="size-[72px] rounded-xl object-contain"
+          />
         </div>
       </div>
 

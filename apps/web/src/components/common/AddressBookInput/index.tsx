@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type KeyboardEvent, type ReactElement, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useFormContext, useWatch } from 'react-hook-form'
@@ -13,8 +14,6 @@ import type { ContactSource } from '@/hooks/useAllAddressBooks'
 import { useMergedAddressBooks, useSafeNameResolver, type ExtendedContact } from '@/hooks/useAllAddressBooks'
 import { useCurrentChain } from '@/hooks/useChains'
 import useChainId from '@/hooks/useChainId'
-import useSafeInfo from '@/hooks/useSafeInfo'
-import { isOwner } from '@/utils/transaction-guards'
 import { useMemberNameResolver } from '@/features/spaces'
 import RecipientOption from './RecipientOption'
 import RecipientGroupHeader from './RecipientGroupHeader'
@@ -106,9 +105,6 @@ const AddressBookInput = ({ name, canAdd, excludeAddresses, ...props }: AddressB
 
   // Same set the list renders from, so the click and chevron paths agree with the typed one.
   const hasVisibleOptions = filteredEntries.length > 0
-
-  const { safe } = useSafeInfo()
-  const isSafeSigner = isOwner(safe.owners, addressValue)
 
   const wrapperRef = useRef<HTMLDivElement>(null)
   // The portalled list is not inside wrapperRef, so dismissal has to check it separately or a
@@ -307,9 +303,9 @@ const AddressBookInput = ({ name, canAdd, excludeAddresses, ...props }: AddressB
         <Typography variant="paragraph-small" className={css.unknownAddress}>
           <InfoIcon className="size-4" />
           <span>
-            {isSafeSigner ? 'This is a signer of this Safe' : 'This is an unknown address'}. You can{' '}
+            {translateMessage('ui.youCan_ad1dd1fe')}{' '}
             <a role="button" onClick={onAddressBookClick}>
-              add it to your address book
+              {translateMessage('ui.addItToYourAddressBook_4ffd2593')}
             </a>
             .
           </span>

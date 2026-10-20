@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -58,8 +59,7 @@ export function SetUpNestedSafe(): ReactElement {
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(onFormSubmit)}>
           <Typography variant="paragraph-small" className="block mt-2">
-            Name your Nested Safe and select which assets to fund it with. All selected assets will be transferred when
-            deployed.
+            {translateMessage('ui.nameYourNestedAndSelectWhich_6eb05cdc')}
           </Typography>
 
           <div className="mt-6 w-full">
@@ -67,7 +67,7 @@ export function SetUpNestedSafe(): ReactElement {
               inputSize="hero"
               data-testid="nested-safe-name-input"
               name={SetupNestedSafeFormFields.name}
-              label="Name"
+              label={translateMessage('ui.name_84f28b85')}
               placeholder={fallbackName}
               InputLabelProps={{ shrink: true }}
               InputProps={{
@@ -80,9 +80,7 @@ export function SetUpNestedSafe(): ReactElement {
                         </span>
                       }
                     />
-                    <TooltipContent>
-                      This name is stored locally and will never be shared with us or any third parties.
-                    </TooltipContent>
+                    <TooltipContent>{translateMessage('ui.thisNameIsStoredLocallyAnd_b263e90d')}</TooltipContent>
                   </Tooltip>
                 ),
               }}
@@ -95,7 +93,7 @@ export function SetUpNestedSafe(): ReactElement {
 
           <TxCardActions>
             <Button data-testid="next-button" type="submit">
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </form>
@@ -173,7 +171,7 @@ function AssetInputs({ name }: { name: SetupNestedSafeFormFields.assets }) {
         disabled={nonSelectedAssets.length === 0}
       >
         <AddIcon className="size-4" />
-        Fund new asset
+        {translateMessage('ui.fundNewAsset_acf44a26')}
       </Button>
     </>
   )

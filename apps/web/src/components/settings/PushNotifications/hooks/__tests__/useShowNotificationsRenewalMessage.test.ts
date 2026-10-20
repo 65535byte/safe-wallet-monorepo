@@ -109,7 +109,7 @@ describe('useShowNotificationsRenewalMessage', () => {
         groupKey: `${RENEWAL_NOTIFICATION_KEY}-${chainId}-${safeAddress1}`,
         link: {
           onClick: expect.any(Function),
-          title: 'Sign',
+          title: '签名',
         },
       })
 

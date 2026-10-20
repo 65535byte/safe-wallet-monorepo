@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, type ReactNode } from 'react'
 import { Info } from 'lucide-react'
 import {
@@ -126,13 +127,16 @@ const ManageTokensMenu = ({ onClose, onHideTokens, _hasDefaultTokenlist }: Manag
     >
       {hasDefaultTokenlist && (
         <MenuToggleRow
-          label="Show all tokens"
+          label={translateMessage('ui.showAllTokens_5f66e553')}
           infoTooltip={
             <MenuInfoTooltip
               data-testid="show-all-tokens-info-tooltip"
               title={
                 <Typography variant="paragraph-small">
-                  Learn more about <ExternalLink href={HelpCenterArticle.SPAM_TOKENS}>default tokens</ExternalLink>
+                  {translateMessage('ui.learnMoreAbout_7e5d19ab')}
+                  <ExternalLink href={HelpCenterArticle.SPAM_TOKENS}>
+                    {translateMessage('ui.defaultTokens_684edc87')}
+                  </ExternalLink>
                 </Typography>
               }
             />
@@ -149,12 +153,15 @@ const ManageTokensMenu = ({ onClose, onHideTokens, _hasDefaultTokenlist }: Manag
 
       {safe.deployed && (
         <MenuToggleRow
-          label="Hide small balances"
+          label={translateMessage('ui.hideSmallBalances_3015e18a')}
           infoTooltip={
             <MenuInfoTooltip
               data-testid="hide-small-balances-info-tooltip"
               title={
-                <Typography variant="paragraph-small">Hide tokens with a value less than ${DUST_THRESHOLD}</Typography>
+                <Typography variant="paragraph-small">
+                  {translateMessage('ui.hideTokensWithAValueLess_24565c2c')}
+                  {DUST_THRESHOLD}
+                </Typography>
               }
             />
           }
@@ -173,7 +180,10 @@ const ManageTokensMenu = ({ onClose, onHideTokens, _hasDefaultTokenlist }: Manag
         data-testid="hide-tokens-menu-item"
       >
         <Track {...ASSETS_EVENTS.SHOW_HIDDEN_ASSETS}>
-          <span>Hide tokens{hiddenTokensCount > 0 ? ` (${hiddenTokensCount})` : ''}</span>
+          <span>
+            {translateMessage('ui.hideTokens_0f041e72')}
+            {hiddenTokensCount > 0 ? ` (${hiddenTokensCount})` : ''}
+          </span>
         </Track>
       </DropdownMenuItem>
     </DropdownMenuContent>

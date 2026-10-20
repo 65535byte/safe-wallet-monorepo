@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React, { useCallback, useMemo, useState, type ReactElement } from 'react'
 import { ArrowUpRight, ShieldCheck } from 'lucide-react'
 import AddAccounts from '../../../AddAccounts'
@@ -85,7 +86,7 @@ const SecurityEmptyState = (): ReactElement => {
       {
         label: 'enterprise',
         title: 'Hypernative Guardian',
-        description: 'Block risky transactions automatically.',
+        description: translateMessage('ui.blockRiskyTransactionsAutomatically_35e0c478'),
         icon: '/images/hypernative/hypernative-icon.svg',
         onClick: handleHypernativeClick,
       },
@@ -99,18 +100,18 @@ const SecurityEmptyState = (): ReactElement => {
         <WidgetEmptyState
           className="max-w-[360px] mx-auto py-16"
           icon={<ShieldCheck className="size-6 text-green-500" />}
-          text="No accounts to check yet"
-          subtitle="Add a Safe account to this Workspace to start running security checks and see its health here."
+          text={translateMessage('ui.noAccountsToCheckYet_562c7907')}
+          subtitle={translateMessage('ui.addAAccountToThisWorkspace_ece5a264')}
           action={
             <Track {...SPACE_EVENTS.ADD_ACCOUNTS_MODAL} label={SPACE_LABELS.security_page}>
-              <AddAccounts buttonVariant="default" buttonLabel="Add account" />
+              <AddAccounts buttonVariant="default" buttonLabel={translateMessage('ui.addAccount_22fb37e4')} />
             </Track>
           }
         />
       </div>
 
       <Typography as="h4" variant="paragraph-mini" className="my-3 text-secondary-foreground">
-        AVAILABLE ON EVERY SAFE YOU ADD
+        {translateMessage('ui.aVAILABLEONEVERYSAFEYOUADD_3410d0d7')}
       </Typography>
 
       <div className="flex gap-4 flex-1 md:flex-row flex-col">

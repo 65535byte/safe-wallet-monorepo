@@ -19,8 +19,8 @@ const safeAddress = safe.address.value
 const safeAnalysis: SafeAnalysisResult = {
   severity: Severity.CRITICAL,
   type: SafeStatus.UNTRUSTED,
-  title: 'Not in your accounts',
-  description: "You're creating a transaction from a Safe that isn't in your accounts. Add it if you recognize it.",
+  title: '不在您的账户中',
+  description: '您正在从未添加到“我的账户”的 8379 创建交易。如果认识此账户，请先添加。',
 }
 
 const addressBookState = {
@@ -52,13 +52,13 @@ describe('UntrustedSafeWarning', () => {
     expect(screen.getByTestId('untrusted-safe-warning')).toBeInTheDocument()
     expect(screen.getByText(safeAnalysis.title)).toBeInTheDocument()
     expect(screen.getByText(safeAnalysis.description)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Add to my accounts' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '添加到我的账户' })).toBeInTheDocument()
   })
 
   it('opens the confirmation dialog and tracks the click', async () => {
     renderWarning()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add to my accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加到我的账户' }))
 
     await waitFor(() => {
       expect(screen.getByTestId('add-trusted-safe-dialog')).toBeInTheDocument()
@@ -71,7 +71,7 @@ describe('UntrustedSafeWarning', () => {
   it('prefills the address book name and adds the Safe on confirm', async () => {
     const onAddToTrustedList = renderWarning()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add to my accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加到我的账户' }))
     await waitFor(() => expect(screen.getByTestId('safe-name-input')).toBeInTheDocument())
     expect(screen.getByTestId('safe-name-input')).toHaveValue('Treasury')
 
@@ -91,7 +91,7 @@ describe('UntrustedSafeWarning', () => {
     })
     renderWarning()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add to my accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加到我的账户' }))
 
     expect(screen.queryByTestId('add-trusted-safe-dialog')).not.toBeInTheDocument()
   })

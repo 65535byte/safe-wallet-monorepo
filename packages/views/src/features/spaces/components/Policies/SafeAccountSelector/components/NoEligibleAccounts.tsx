@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { getEligibilityCopy, NO_WALLET_TEXT } from '../constants'
@@ -20,7 +21,7 @@ const NoEligibleAccounts = ({
     data-testid="no-eligible-accounts"
     action={
       <Button variant="secondary" size="sm" onClick={onSwitchWallet}>
-        {hasWallet ? 'Switch wallet' : 'Connect wallet'}
+        {hasWallet ? translateMessage('ui.switchWallet_b2cf4f66') : translateMessage('ui.connectWallet_301090ba')}
       </Button>
     }
   >

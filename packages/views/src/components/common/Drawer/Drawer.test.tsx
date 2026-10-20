@@ -49,7 +49,7 @@ describe('Drawer', () => {
       </Drawer>,
     )
 
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '关闭' })).toBeInTheDocument()
   })
 
   it('calls onClose when the close button is clicked', () => {
@@ -60,7 +60,7 @@ describe('Drawer', () => {
       </Drawer>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
 
     expect(onClose).toHaveBeenCalledTimes(1)
   })

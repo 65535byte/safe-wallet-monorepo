@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
 import { useCSVDownloader } from 'react-papaparse'
@@ -59,12 +60,18 @@ function ExportDialog({
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Export address book" hideChainIndicator>
+    <ModalDialog
+      open
+      onClose={handleClose}
+      dialogTitle={translateMessage('ui.exportAddressBook_d9f12c3a')}
+      hideChainIndicator
+    >
       <div className="p-6">
         <Typography data-testid="export-summary">
-          You&apos;re about to export a CSV file with{' '}
+          {translateMessage('ui.youReAboutToExportA_8aa985cd')}{' '}
           <b>
-            {length} address book {length === 1 ? 'entry' : 'entries'}
+            {length} {translateMessage('ui.addressBook_f5b4d15c')}
+            {length === 1 ? 'entry' : 'entries'}
           </b>
           .
         </Typography>
@@ -72,20 +79,20 @@ function ExportDialog({
         <Typography className="mt-2">
           <ExternalLink
             href={HelpCenterArticle.ADDRESS_BOOK_DATA}
-            title="Learn about the address book import and export"
+            title={translateMessage('ui.learnAboutTheAddressBookImport_9c121ed2')}
           >
-            Learn about the address book import and export
+            {translateMessage('ui.learnAboutTheAddressBookImport_9c121ed2')}
           </ExternalLink>
         </Typography>
       </div>
 
       <div className="flex items-center justify-between gap-2 p-6 pt-2">
         <Button variant="ghost" onClick={handleClose}>
-          Cancel
+          {translateMessage('ui.cancel_d94a8eaf')}
         </Button>
         <CSVDownloader filename={filename} bom config={{ delimiter: ',' }} data={csvData} style={{ order: 2 }}>
           <Button data-testid="export-modal-btn" onClick={onSubmit}>
-            Export
+            {translateMessage('ui.export_9bb429ef')}
           </Button>
         </CSVDownloader>
       </div>

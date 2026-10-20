@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MemberDto, useMembersRenewInviteV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useCurrentSpaceId } from '@/features/spaces'
 import { useAppDispatch } from '@/store'
@@ -33,7 +34,7 @@ const useRenewInvite = (member: MemberDto) => {
 
     dispatch(
       showNotification({
-        message: `Invitation renewed for ${member.name}`,
+        message: translateMessage('ui.invitationRenewedFor_7ca1159e', { p0: member.name }),
         variant: 'success',
         groupKey: 'renew-invite-success',
       }),

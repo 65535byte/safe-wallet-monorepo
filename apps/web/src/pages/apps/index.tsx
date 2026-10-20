@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -51,12 +52,12 @@ const SafeApps: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Safe Apps`}</title>
+        <title>{translateMessage('ui.safeApps_b014cd5e', { p0: BRAND_NAME })}</title>
       </Head>
 
       {isSafeAppsEnabled === undefined ? null : !isSafeAppsEnabled ? (
         <Typography align="center" className="my-6">
-          Safe Apps are not available on this network.
+          {translateMessage('ui.safeAppsAreNotAvailableOn_c33ad816')}
         </Typography>
       ) : (
         <>
@@ -75,7 +76,7 @@ const SafeApps: NextPage = () => {
             {/* Pinned apps */}
             {!isFiltered && pinnedSafeApps.length > 0 && (
               <SafeAppList
-                title="My pinned apps"
+                title={translateMessage('ui.myPinnedApps_df78af9f')}
                 safeAppsList={pinnedSafeApps}
                 bookmarkedSafeAppsId={pinnedSafeAppIds}
                 eventLabel={SAFE_APPS_LABELS.apps_pinned}
@@ -85,7 +86,7 @@ const SafeApps: NextPage = () => {
             {/* Featured apps */}
             {!isFiltered && featuredSafeApps.length > 0 && (
               <SafeAppList
-                title="Featured apps"
+                title={translateMessage('ui.featuredApps_be63302a')}
                 safeAppsList={featuredSafeApps}
                 bookmarkedSafeAppsId={pinnedSafeAppIds}
                 eventLabel={SAFE_APPS_LABELS.apps_featured}
@@ -94,7 +95,7 @@ const SafeApps: NextPage = () => {
 
             {/* All apps */}
             <SafeAppList
-              title="All apps"
+              title={translateMessage('ui.allApps_7ff52c5c')}
               isFiltered={isFiltered}
               safeAppsList={isFiltered ? filteredApps : nonPinnedApps}
               safeAppsListLoading={remoteSafeAppsLoading}

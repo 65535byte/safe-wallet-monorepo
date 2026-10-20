@@ -36,7 +36,7 @@ describe('RecoverAccountFlowSetup', () => {
 
     it('rejects the Safe account itself', () => {
       expect(_validateNewOwner({ value: safeAddress, safeAddress, newOwners: [] })).toBe(
-        'Cannot use Safe account itself as signer.',
+        '不能将 8379 账户本身作为签名人。',
       )
     })
 

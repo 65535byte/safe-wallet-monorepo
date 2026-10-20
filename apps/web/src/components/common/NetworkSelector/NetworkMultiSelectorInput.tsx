@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useRef, useState, type KeyboardEvent, type ReactElement } from 'react'
 import { XIcon } from 'lucide-react'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
@@ -12,6 +13,7 @@ import useChains from '@/hooks/useChains'
 
 type NetworkMultiSelectorInputProps = {
   value: Chain[]
+  networks?: Chain[]
   name: string
   onNetworkChange?: (networks: Chain[]) => void
   isOptionDisabled?: (network: Chain) => boolean
@@ -20,7 +22,7 @@ type NetworkMultiSelectorInputProps = {
   showSelectAll?: boolean
 }
 
-const SELECT_ALL_OPTION = { chainId: 'select-all', chainName: 'Select All' } as Chain
+const SELECT_ALL_OPTION = { chainId: 'select-all', chainName: translateMessage('ui.selectAll_23cc93bd') } as Chain
 
 const NetworkMultiSelectorInput = ({
   value,
@@ -30,8 +32,10 @@ const NetworkMultiSelectorInput = ({
   error,
   helperText,
   showSelectAll = false,
+  networks,
 }: NetworkMultiSelectorInputProps): ReactElement => {
-  const { configs } = useChains()
+  const { configs: chainConfigs } = useChains()
+  const configs = networks ?? chainConfigs
   const { setValue } = useFormContext()
   const [open, setOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
@@ -105,7 +109,8 @@ const NetworkMultiSelectorInput = ({
     if (showSelectAll && isAllSelected) {
       return (
         <Typography variant="paragraph-small">
-          All networks <span className="text-muted-foreground">(Default)</span>
+          {translateMessage('ui.allNetworks_66bfe78c')}
+          <span className="text-muted-foreground">{translateMessage('ui.default_bbd47dbd')}</span>
         </Typography>
       )
     }
@@ -116,7 +121,7 @@ const NetworkMultiSelectorInput = ({
         <span>{chain.chainName}</span>
         <button
           type="button"
-          aria-label={`Remove ${chain.chainName}`}
+          aria-label={translateMessage('ui.remove_a5d07fea', { p0: chain.chainName })}
           className={css.chipDelete}
           onClick={(e) => {
             e.stopPropagation()
@@ -134,7 +139,7 @@ const NetworkMultiSelectorInput = ({
       return (
         <>
           <Checkbox data-testid="select-all-checkbox" checked={isAllSelected} className="pointer-events-none" />
-          <span>Select All</span>
+          <span>{translateMessage('ui.selectAll_23cc93bd')}</span>
         </>
       )
     }
@@ -220,7 +225,7 @@ const NetworkMultiSelectorInput = ({
             aria-invalid={error || undefined}
             aria-activedescendant={activeOption ? getOptionId(activeOption) : undefined}
             className={css.multiSelectInput}
-            placeholder={value.length === 0 ? 'Select networks' : undefined}
+            placeholder={value.length === 0 ? translateMessage('ui.selectNetworks_e0c1529e') : undefined}
             value={inputValue}
             onChange={(e) => {
               setInputValue(e.target.value)
@@ -233,7 +238,7 @@ const NetworkMultiSelectorInput = ({
           {value.length > 0 && (
             <button
               type="button"
-              aria-label="Clear all"
+              aria-label={translateMessage('ui.clearAll_6e64c421')}
               className={css.clearAll}
               onClick={(e) => {
                 e.stopPropagation()

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactNode, CSSProperties } from 'react'
 import { type ReactElement, memo, useMemo } from 'react'
@@ -81,7 +82,7 @@ const ColorCodedTxAccordion = ({ txInfo, txData, children, defaultExpanded }: De
 
   const methodLabel =
     txInfo && isTransferTxInfo(txInfo) && isNativeTokenTransfer(txInfo.transferInfo)
-      ? 'native transfer'
+      ? translateMessage('ui.nativeTransfer_20c77786')
       : decodedData?.method
 
   const accordionVars = {
@@ -96,7 +97,7 @@ const ColorCodedTxAccordion = ({ txInfo, txData, children, defaultExpanded }: De
           <AccordionTrigger data-testid="decoded-tx-summary" className={cn(css.trigger, 'items-center px-4')}>
             <div className="flex w-full flex-row items-center justify-between">
               <Typography variant="paragraph-small-bold" data-testid="tx-advanced-details">
-                Transaction details
+                {translateMessage('ui.transactionDetails_42b5fe84')}
                 <HelpTooltip />
               </Typography>
 

@@ -74,13 +74,13 @@ describe('TxStatusWidget', () => {
 
     const labels = screen.getAllByRole('listitem').map((item) => item.textContent)
 
-    expect(labels).toEqual(['Create', 'Confirmed (0 of 1)+1', 'Sign', 'Execute'])
+    expect(labels).toEqual(['创建', 'Confirmed (0 / 1)+1', '签名', '执行'])
   })
 
   it('marks the Sign step incomplete until the signer has signed', () => {
     renderWidget(1)
 
-    expect(screen.getByText('Sign').closest('li')).toHaveClass('incomplete')
+    expect(screen.getByText('签名').closest('li')).toHaveClass('incomplete')
   })
 
   it('marks the Sign step complete once the signer has signed', () => {
@@ -88,7 +88,7 @@ describe('TxStatusWidget', () => {
 
     renderWidget(1)
 
-    expect(screen.getByText('Sign').closest('li')).not.toHaveClass('incomplete')
+    expect(screen.getByText('签名').closest('li')).not.toHaveClass('incomplete')
   })
 
   it('shows a Sign step before Execute when the signature completes the threshold of an m/n Safe', () => {
@@ -96,26 +96,26 @@ describe('TxStatusWidget', () => {
 
     const labels = screen.getAllByRole('listitem').map((item) => item.textContent)
 
-    expect(labels).toEqual(['Create', 'Confirmed (2 of 3)+1', 'Sign', 'Execute'])
+    expect(labels).toEqual(['创建', 'Confirmed (2 / 3)+1', '签名', '执行'])
   })
 
   it('shows no Sign step on an m/n Safe while other signatures are still missing', () => {
     renderWidget(3, { txSummary: createTxSummary(1, 3) })
 
-    expect(screen.queryByText('Sign')).not.toBeInTheDocument()
+    expect(screen.queryByText('签名')).not.toBeInTheDocument()
   })
 
   it('shows no Sign step when creating a transaction on an m/n Safe', () => {
     renderWidget(2)
 
-    expect(screen.queryByText('Sign')).not.toBeInTheDocument()
+    expect(screen.queryByText('签名')).not.toBeInTheDocument()
   })
 
   it('shows no Sign step for batches or messages', () => {
     renderWidget(1, { isBatch: true })
-    expect(screen.queryByText('Sign')).not.toBeInTheDocument()
+    expect(screen.queryByText('签名')).not.toBeInTheDocument()
 
     renderWidget(1, { isMessage: true })
-    expect(screen.queryByText('Sign')).not.toBeInTheDocument()
+    expect(screen.queryByText('签名')).not.toBeInTheDocument()
   })
 })

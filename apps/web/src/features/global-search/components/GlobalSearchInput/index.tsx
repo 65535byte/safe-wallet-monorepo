@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Search } from 'lucide-react'
 import { cn } from '@safe-global/views/utils/cn'
 import { useAppDispatch } from '@/store'
@@ -20,10 +21,10 @@ const GlobalSearchInput = ({ className }: GlobalSearchInputProps) => {
         'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring',
         className,
       )}
-      aria-label="Search for anything"
+      aria-label={translateMessage('ui.searchForAnything_b2ea824b')}
     >
       <Search className="size-4 shrink-0" />
-      <span>Search for anything</span>
+      <span>{translateMessage('ui.searchForAnything_b2ea824b')}</span>
     </button>
   )
 }

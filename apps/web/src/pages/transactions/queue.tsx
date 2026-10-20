@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useId } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -33,7 +34,7 @@ const Queue: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Transaction queue`}</title>
+        <title>{translateMessage('ui.transactionQueue_d80dfe92', { p0: BRAND_NAME })}</title>
       </Head>
 
       <BatchExecuteHoverProvider>

@@ -56,8 +56,8 @@ describe('useActiveProposer', () => {
 
     expect(result.current).toMatchObject({
       status: ProposerStatus.ACTIVE,
-      actionLabel: 'Connect wallet',
-      actionHint: 'Connect a signer wallet of Treasury to edit.',
+      actionLabel: '连接钱包',
+      actionHint: '请连接 Treasury 的签名人钱包以编辑。',
       onAction: mockConnectWallet,
     })
   })
@@ -68,16 +68,16 @@ describe('useActiveProposer', () => {
     const { result } = renderHook(() => useActiveProposer(args))
 
     expect(result.current).toMatchObject({
-      actionLabel: 'Remove proposer',
+      actionLabel: '移除提案人',
       actionDisabled: true,
-      actionHint: 'Only the signer who granted this proposer role, or the proposer themselves, can remove it',
+      actionHint: '仅授予此角色的签名人或提案人本人可以移除',
     })
   })
 
   it('should, when the wallet granted the role, enable the remove action', () => {
     const { result } = renderHook(() => useActiveProposer(args))
 
-    expect(result.current).toMatchObject({ actionLabel: 'Remove proposer', actionDisabled: false })
+    expect(result.current).toMatchObject({ actionLabel: '移除提案人', actionDisabled: false })
     expect(result.current.actionHint).toBeUndefined()
   })
 
@@ -114,7 +114,7 @@ describe('useActiveProposer', () => {
       const { result } = renderHook(() => useActiveProposer(nestedArgs))
 
       expect(result.current).toMatchObject({
-        actionLabel: 'Remove proposer',
+        actionLabel: '移除提案人',
         actionDisabled: true,
         actionHint: REMOVE_NESTED_PROPOSER_HINT,
         nestedSafeGrant: {
@@ -139,7 +139,7 @@ describe('useActiveProposer', () => {
       const { result } = renderHook(() => useActiveProposer(nestedArgs))
 
       expect(result.current).toMatchObject({
-        actionLabel: 'Connect wallet',
+        actionLabel: '连接钱包',
         nestedSafeGrant: { parentSafeName: 'Ops' },
       })
     })

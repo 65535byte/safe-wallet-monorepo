@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -37,7 +38,7 @@ const SwapPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Swap`}</title>
+        <title>{translateMessage('ui.swap_12784373', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main style={{ height: 'calc(100vh - var(--topbar-height))' }}>
@@ -47,7 +48,7 @@ const SwapPage: NextPage = () => {
           <FallbackSwapWidget fromToken={sell?.asset} />
         ) : isFeatureEnabled === false ? (
           <Typography align="center" className="my-6">
-            Swaps are not supported on this network.
+            {translateMessage('ui.swapsAreNotSupportedOnThis_544d4427')}
           </Typography>
         ) : null}
       </main>

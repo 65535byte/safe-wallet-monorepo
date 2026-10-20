@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -16,7 +17,7 @@ export default function TxNote({ txDetails }: { txDetails: TransactionDetails | 
   return (
     <div>
       <TxSectionTitle className="gap-0">
-        Note
+        {translateMessage('ui.note_b1eff7f0')}
         <Tooltip>
           <TooltipTrigger
             data-testid="tx-note-tooltip"
@@ -26,11 +27,11 @@ export default function TxNote({ txDetails }: { txDetails: TransactionDetails | 
           </TooltipTrigger>
           <TooltipContent>
             <div data-testid="note-creator" className="flex flex-row gap-2">
-              <span>By </span>
+              <span>{translateMessage('ui.by_2940cb18')}</span>
               {creator ? (
                 <EthHashInfo avatarSize={20} address={creator.value} showName onlyName />
               ) : (
-                <span>transaction creator</span>
+                <span>{translateMessage('ui.transactionCreator_05ba6ddb')}</span>
               )}
             </div>
           </TooltipContent>

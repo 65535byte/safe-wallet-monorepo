@@ -58,27 +58,27 @@ describe('UpsertRecoveryFlowReview', () => {
       moduleAddress: faker.finance.ethereumAddress(),
     })
 
-    expect(getByText('3 days, 5 hours')).toBeInTheDocument()
-    expect(getByText('Proposal expiry')).toBeInTheDocument()
-    expect(getByText('10 days')).toBeInTheDocument()
+    expect(getByText('3 天 5 小时')).toBeInTheDocument()
+    expect(getByText('提案有效期')).toBeInTheDocument()
+    expect(getByText('10 天')).toBeInTheDocument()
   })
 
   it('renders the label of a dropdown delay and expiry', () => {
     const { getByText } = renderReview({ expiry: `${DAY_IN_SECONDS * 7}` })
 
-    expect(getByText('28 days')).toBeInTheDocument()
-    expect(getByText('7 days')).toBeInTheDocument()
+    expect(getByText('28 天')).toBeInTheDocument()
+    expect(getByText('7 天')).toBeInTheDocument()
   })
 
   it('renders a custom delay entered in days', () => {
     const { getByText } = renderReview({ delay: `${DAY_IN_SECONDS}`, selectedDelay: '0', customDelay: '1' })
 
-    expect(getByText('1 day')).toBeInTheDocument()
+    expect(getByText('1 天')).toBeInTheDocument()
   })
 
   it('hides the expiry row when the expiry is never', () => {
     const { queryByText } = renderReview({ expiry: '0' })
 
-    expect(queryByText('Proposal expiry')).not.toBeInTheDocument()
+    expect(queryByText('提案有效期')).not.toBeInTheDocument()
   })
 })

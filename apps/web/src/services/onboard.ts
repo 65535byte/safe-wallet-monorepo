@@ -1,9 +1,12 @@
+import { getLanguage } from '@/i18n'
+import { translateMessage } from '@/i18n'
 import Onboard, { type OnboardAPI } from '@web3-onboard/core'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { getAllWallets } from '@/hooks/wallets/wallets'
 import { getRpcServiceUrl } from '@/hooks/wallets/web3'
 import { numberToHex } from '@/utils/hex'
 import { BRAND_NAME } from '@/config/constants'
+import { onboardZhCN } from './onboard/zhCN'
 import type { EnvState } from '@safe-global/store/settingsSlice'
 
 let onboard: OnboardAPI | null = null
@@ -30,6 +33,7 @@ export const createOnboard = (
 
   onboard = Onboard({
     wallets,
+    i18n: getLanguage() === 'en' ? undefined : { en: onboardZhCN, zh: onboardZhCN, 'zh-CN': onboardZhCN },
 
     chains,
 
@@ -44,8 +48,8 @@ export const createOnboard = (
 
     appMetadata: {
       name: BRAND_NAME,
-      icon: location.origin + '/images/logo-round.svg',
-      description: `${BRAND_NAME} – smart contract wallet for Ethereum (ex-Gnosis Safe multisig)`,
+      icon: location.origin + '/images/brand-logo.png',
+      description: translateMessage('ui.smartContractWalletForEthereumEx_edba0ac0', { p0: BRAND_NAME }),
     },
 
     connect: {

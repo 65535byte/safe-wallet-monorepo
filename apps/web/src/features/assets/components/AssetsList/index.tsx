@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { ChevronRight } from 'lucide-react'
@@ -39,7 +40,7 @@ const AssetsList = (): ReactElement => {
 
   return (
     <SafeWidget
-      title="Assets"
+      title={translateMessage('ui.assets_42b9f464')}
       action={
         <Button variant="ghost" size="icon-sm" onClick={handleViewAll}>
           <ChevronRight className="size-6" />
@@ -49,7 +50,7 @@ const AssetsList = (): ReactElement => {
       {isLoading ? (
         Array.from({ length: MAX_ASSETS }).map((_, i) => <SafeWidget.ItemSkeleton key={i} />)
       ) : items.length === 0 ? (
-        <p className="px-4 py-3 text-sm text-muted-foreground">No assets</p>
+        <p className="px-4 py-3 text-sm text-muted-foreground">{translateMessage('ui.noAssets_aa2a5935')}</p>
       ) : (
         items.map((item) => (
           <SafeWidget.Item
@@ -74,7 +75,11 @@ const AssetsList = (): ReactElement => {
         ))
       )}
       {!isLoading && items.length > 0 && (
-        <SafeWidget.Footer count={remainingCount} text="View all assets" onClick={handleViewAll} />
+        <SafeWidget.Footer
+          count={remainingCount}
+          text={translateMessage('ui.viewAllAssets_4f2ed93e')}
+          onClick={handleViewAll}
+        />
       )}
     </SafeWidget>
   )

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -9,7 +10,7 @@ const SelectSafesPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Select Safe accounts`}</title>
+        <title>{translateMessage('ui.selectAccounts_c5a4d309', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SelectSafesOnboarding />

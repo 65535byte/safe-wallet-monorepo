@@ -19,7 +19,7 @@ import {
 const ethersHttpError = (statusCode: number, statusMessage: string, exhaustRetries = false): unknown => {
   const response = new FetchResponse(statusCode, statusMessage, {}, null, undefined)
   try {
-    ;(exhaustRetries ? response.makeServerError('exceeded maximum retry limit') : response).assertOk()
+    ;(exhaustRetries ? response.makeServerError('exceeded maximum retry 项限额') : response).assertOk()
   } catch (error) {
     return error
   }
@@ -32,7 +32,7 @@ const ethersRpcError = (method: string, code: number, params: unknown[] = []): u
   try {
     return provider.getRpcError(
       { id: 1, jsonrpc: '2.0', method, params },
-      { id: 1, error: { code, message: 'rate limit exceeded' } },
+      { id: 1, error: { code, message: 'rate 项限额 exceeded' } },
     )
   } finally {
     provider.destroy()
@@ -83,27 +83,25 @@ describe('transaction-errors', () => {
         'The contract function "execTransaction" reverted with the following reason:\nintrinsic gas too low: gas 21000, minimum needed 25484',
       )
 
-      expect(getGasLimitTooLowMessage(viemWrapped)).toBe(
-        'Gas limit too low. Minimum needed: 25,484. Increase the gas limit and try again.',
-      )
+      expect(getGasLimitTooLowMessage(viemWrapped)).toBe('Gas 上限过低，最低需要 25,484。请提高后重试。')
     })
 
     it('reads the "want" phrasing some clients use', () => {
       expect(getGasLimitTooLowMessage(new Error('intrinsic gas too low: have 21000, want 25484'))).toBe(
-        'Gas limit too low. Minimum needed: 25,484. Increase the gas limit and try again.',
+        'Gas 上限过低，最低需要 25,484。请提高后重试。',
       )
     })
 
     it('drops the minimum when the node quoted none', () => {
       // Besu's phrasing carries no numbers.
-      expect(getGasLimitTooLowMessage(new Error('Intrinsic gas exceeds gas limit'))).toBe(
-        'Gas limit too low. Increase the gas limit and try again.',
+      expect(getGasLimitTooLowMessage(new Error('Intrinsic gas exceeds gas 项限额'))).toBe(
+        'Gas 上限过低，请提高后重试。',
       )
     })
 
     it('returns undefined for unrelated errors, including a real revert', () => {
       expect(getGasLimitTooLowMessage(new Error('execution reverted: GS013'))).toBeUndefined()
-      expect(getGasLimitTooLowMessage(new Error('out of gas'))).toBeUndefined()
+      expect(getGasLimitTooLowMessage(new Error('out / gas'))).toBeUndefined()
       expect(getGasLimitTooLowMessage(null)).toBeUndefined()
       expect(getGasLimitTooLowMessage(undefined)).toBeUndefined()
     })
@@ -194,7 +192,7 @@ describe('transaction-errors', () => {
     })
 
     it('should return "Unknown" for unrecognized codes', () => {
-      expect(getGuardErrorName('0x12345678')).toBe('Unknown')
+      expect(getGuardErrorName('0x12345678')).toBe('未知')
     })
   })
 
@@ -215,7 +213,7 @@ describe('transaction-errors', () => {
 
     it('returns false for a guard revert from another source', () => {
       expect(isHypernativeGuardRevert(new Error('execution reverted: GS013'))).toBe(false)
-      expect(isHypernativeGuardRevert(new Error('Transaction reverted: 0x12345678'))).toBe(false)
+      expect(isHypernativeGuardRevert(new Error('交易 reverted: 0x12345678'))).toBe(false)
     })
 
     it('returns false for unrelated and missing errors', () => {
@@ -249,7 +247,7 @@ describe('transaction-errors', () => {
       // revert string containing "rate limit" must NOT be classified as a
       // network-layer rate limit, or users would be told to "try again" on a
       // transaction that is guaranteed to fail on-chain.
-      expect(isRateLimitError(new Error('execution reverted: rate limit exceeded'))).toBe(false)
+      expect(isRateLimitError(new Error('execution reverted: rate 项限额 exceeded'))).toBe(false)
       expect(isRateLimitError(new Error('transfer throttled'))).toBe(false)
     })
 

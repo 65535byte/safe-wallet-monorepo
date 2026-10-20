@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useEffect } from 'react'
 import { PendingStatus, selectPendingTxById } from '@/store/pendingTxsSlice'
 import EthHashInfo from '@/components/common/EthHashInfo'
@@ -44,7 +45,7 @@ const NestedTxSuccessScreen = ({ txId }: Props) => {
       : undefined
 
   if (cachedPendingTx?.status !== PendingStatus.NESTED_SIGNING) {
-    return <ErrorMessage>No transaction data found</ErrorMessage>
+    return <ErrorMessage>{translateMessage('ui.noTransactionDataFound_302b0ff3')}</ErrorMessage>
   }
 
   const currentSafeAddress = addressBook[cachedPendingTx.safeAddress]
@@ -55,22 +56,24 @@ const NestedTxSuccessScreen = ({ txId }: Props) => {
     <div className="mx-auto w-full max-w-[825px] rounded-lg bg-[var(--color-background-paper)] text-center">
       <div className="mt-6 flex flex-col items-center gap-4 p-6">
         <div className={css.icon}>
-          <NestedSafeIcon className="size-9" aria-label="Nested Safe" />
+          <NestedSafeIcon className="size-9" aria-label={translateMessage('ui.nested_945d8f67')} />
         </div>
         <Typography data-testid="transaction-status" variant="h4" className="mt-4">
-          {isExecuted ? 'Transaction submitted' : 'One more step in the parent Safe'}
+          {isExecuted
+            ? translateMessage('ui.transactionSubmitted_a5db0a72')
+            : translateMessage('ui.oneMoreStepInTheParent_d59ad674')}
         </Typography>
         <Typography variant="paragraph-small" className="mb-6 block">
           {isExecuted
-            ? 'The parent Safe executed this transaction on-chain.'
+            ? translateMessage('ui.theParentExecutedThisTransactionOn_2a45ed1e')
             : isExecTransaction
-              ? "Executing as the parent Safe created a transaction inside it. The parent Safe's owners still need to confirm and execute that transaction before this Safe's transaction runs."
-              : "Signing as the parent Safe created an approval transaction inside it. The parent Safe's owners still need to confirm and execute that transaction before it signs this Safe's transaction."}
+              ? translateMessage('ui.executingAsTheParentCreatedA_6dbec12f')
+              : translateMessage('ui.signingAsTheParentCreatedAn_d72782ea')}
         </Typography>
         <div className="flex w-[70%] flex-col gap-4">
           <div className="flex flex-col items-start gap-2">
             <Typography variant="paragraph-small" className="text-[var(--color-text-secondary)]">
-              Parent Safe
+              {translateMessage('ui.parent_0517a13e')}
             </Typography>
             <EthHashInfo address={cachedPendingTx.signerAddress} name={parentSafeAddress} shortAddress={false} />
           </div>
@@ -85,7 +88,7 @@ const NestedTxSuccessScreen = ({ txId }: Props) => {
           </div>
           <div className="flex flex-col items-start gap-2">
             <Typography variant="paragraph-small" className="text-[var(--color-text-secondary)]">
-              Current Safe
+              {translateMessage('ui.current_7bfb35e9')}
             </Typography>
             <EthHashInfo address={cachedPendingTx.safeAddress} name={currentSafeAddress} shortAddress={false} />
           </div>
@@ -93,7 +96,7 @@ const NestedTxSuccessScreen = ({ txId }: Props) => {
         <Track {...MODALS_EVENTS.OPEN_PARENT_TX}>
           {explorerLink ? (
             <ExternalLink href={explorerLink.href} mode="button">
-              Open the transaction
+              {translateMessage('ui.openTheTransaction_c1f51ec2')}
             </ExternalLink>
           ) : (
             <Link
@@ -111,7 +114,7 @@ const NestedTxSuccessScreen = ({ txId }: Props) => {
               passHref
               legacyBehavior
             >
-              <ExternalLink mode="button">Open the transaction</ExternalLink>
+              <ExternalLink mode="button">{translateMessage('ui.openTheTransaction_c1f51ec2')}</ExternalLink>
             </Link>
           )}
         </Track>

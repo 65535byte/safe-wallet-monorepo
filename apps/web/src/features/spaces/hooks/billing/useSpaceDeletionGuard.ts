@@ -1,14 +1,14 @@
+import { translateMessage } from '@/i18n'
 import { formatDate } from '@safe-global/utils/utils/date'
 import { isSpaceDeletionBlocked } from './subscription'
 import { useSpaceSubscription } from './useSpaceSubscription'
 
-export const SUBSCRIPTION_CHECK_FAILED_MESSAGE =
-  "We couldn't check this Workspace's subscription. Please try again later to delete it."
+export const SUBSCRIPTION_CHECK_FAILED_MESSAGE = translateMessage('ui.weCouldnTCheckThisWorkspace_b8a1cfa9')
 
 export const getDeletionBlockedReason = (cancelAt: number | null | undefined): string =>
   cancelAt
-    ? `The subscription is set to cancel on ${formatDate(cancelAt * 1000)}. You can delete this Workspace once the cancellation is complete.`
-    : 'Cancel the subscription before deleting this Workspace.'
+    ? translateMessage('ui.theSubscriptionIsSetToCancel_6adc3440', { p0: formatDate(cancelAt * 1000) })
+    : translateMessage('ui.cancelTheSubscriptionBeforeDeletingThis_1f8a7ac1')
 
 type SpaceDeletionGuard = {
   isDeletionBlocked: boolean

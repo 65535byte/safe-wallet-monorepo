@@ -39,8 +39,8 @@ describe('WalletTwoFactorSection', () => {
     render(<WalletTwoFactorSection />)
 
     expect(screen.getByTestId('settings-wallet-2fa')).toBeInTheDocument()
-    expect(screen.getByText('Two-factor authentication')).toBeInTheDocument()
-    expect(screen.getByText('Not available for wallet sign-in')).toBeInTheDocument()
+    expect(screen.getByText('双重身份验证')).toBeInTheDocument()
+    expect(screen.getByText('钱包登录暂不支持')).toBeInTheDocument()
   })
 
   it('tells wallet users to create a new email or Google account, not to sign in with one', () => {

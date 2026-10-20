@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { type Balance } from '@safe-global/store/gateway/AUTO_GENERATED/balances'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -41,7 +42,7 @@ const SendButton = ({
                       data-testid="send-button"
                       onClick={onSendClick}
                       disabled={!isOk}
-                      aria-label="Send"
+                      aria-label={translateMessage('ui.send_f1004bfb')}
                       className={`size-7 min-w-7 p-1.5 ${css.assetActionIconButton}`}
                     >
                       <ArrowIconNW />
@@ -49,7 +50,7 @@ const SendButton = ({
                   </span>
                 }
               />
-              {isOk && <TooltipContent>Send</TooltipContent>}
+              {isOk && <TooltipContent>{translateMessage('ui.send_f1004bfb')}</TooltipContent>}
             </Tooltip>
           ) : (
             <Button
@@ -61,7 +62,7 @@ const SendButton = ({
               className="h-8 px-[var(--space-2)]"
             >
               <ArrowIconNW />
-              Send
+              {translateMessage('ui.send_f1004bfb')}
             </Button>
           )}
         </Track>

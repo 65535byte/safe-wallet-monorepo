@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Controller, type Control } from 'react-hook-form'
 import { Checkbox } from '@safe-global/views/components/ui/checkbox'
@@ -35,8 +36,10 @@ const CookieOptionsList = ({ control }: { control: Control<CookieFormData> }): R
   return (
     <div className="flex-1">
       <div className="mb-4">
-        <CookieCheckbox id="necessary" disabled label="Necessary" checked />
-        <Typography variant="paragraph-small">Locally stored data for core functionality</Typography>
+        <CookieCheckbox id="necessary" disabled label={translateMessage('ui.necessary_8c3b92ff')} checked />
+        <Typography variant="paragraph-small">
+          {translateMessage('ui.locallyStoredDataForCoreFunctionality_f822c041')}
+        </Typography>
       </div>
 
       <div className="mb-4">
@@ -47,7 +50,9 @@ const CookieOptionsList = ({ control }: { control: Control<CookieFormData> }): R
             <CookieCheckbox id="beamer" label="Beamer" checked={field.value} onCheckedChange={field.onChange} />
           )}
         />
-        <Typography variant="paragraph-small">New features and product announcements</Typography>
+        <Typography variant="paragraph-small">
+          {translateMessage('ui.newFeaturesAndProductAnnouncements_0eac60e9')}
+        </Typography>
       </div>
 
       <div>
@@ -55,10 +60,17 @@ const CookieOptionsList = ({ control }: { control: Control<CookieFormData> }): R
           name={CookieAndTermType.ANALYTICS}
           control={control}
           render={({ field }) => (
-            <CookieCheckbox id="ga" label="Analytics" checked={field.value} onCheckedChange={field.onChange} />
+            <CookieCheckbox
+              id="ga"
+              label={translateMessage('ui.analytics_4fcbb88b')}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
           )}
         />
-        <Typography variant="paragraph-small">Analytics tools to understand usage patterns.</Typography>
+        <Typography variant="paragraph-small">
+          {translateMessage('ui.analyticsToolsToUnderstandUsagePatterns_b464d6ca')}
+        </Typography>
       </div>
     </div>
   )

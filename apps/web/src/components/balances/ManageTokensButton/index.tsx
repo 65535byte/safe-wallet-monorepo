@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useImperativeHandle, forwardRef, type ReactElement } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { DropdownMenu, DropdownMenuTrigger } from '@safe-global/views/components/ui/dropdown-menu'
@@ -42,7 +43,7 @@ const ManageTokensButton = forwardRef<ManageTokensButtonHandle, ManageTokensButt
           render={
             <Button variant="outline" size="sm" data-testid="manage-tokens-button">
               <SettingsIcon className="size-4 sm:mr-2" />
-              <span className="hidden sm:inline">Manage tokens</span>
+              <span className="hidden sm:inline">{translateMessage('ui.manageTokens_f513292f')}</span>
             </Button>
           }
         />

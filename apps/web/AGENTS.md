@@ -216,3 +216,7 @@ Don't add `loaders: [mswLoader]` — it is global in `preview.tsx`. Don't overri
 ## Code complexity
 
 See [docs/code-style.md](docs/code-style.md) for code complexity guidelines (lookup tables, early returns, switch for type discrimination, nesting limits).
+
+## Localization
+
+Web UI copy uses `translateMessage` from `@/i18n`; keep both catalogs in `src/i18n/locales/` in sync. Shared views use `@safe-global/views/i18n` and their own catalogs. Preserve `8379` branding and use the pinned English reference documented in [src/i18n/README.md](src/i18n/README.md). Never translate machine identifiers or transaction data. Language changes reload the page so module-level copy is re-evaluated; translated app content mounts after hydration.

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -18,7 +19,6 @@ import { LOAD_SAFE_EVENTS, OPEN_SAFE_LABELS, OVERVIEW_EVENTS, trackEvent } from 
 import { AppRoutes } from '@/config/routes'
 import ReviewRow from '@safe-global/views/components/new-safe/ReviewRow'
 import { upsertAddressBookEntries } from '@/store/addressBookSlice'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 const SafeReviewStep = ({ data, onBack }: StepRenderProps<LoadSafeFormData>) => {
   const chain = useCurrentChain()
@@ -121,7 +121,8 @@ const SafeReviewStep = ({ data, onBack }: StepRenderProps<LoadSafeFormData>) => 
             name="Threshold"
             value={
               <Typography>
-                {data.threshold} out of {data.owners.length} signer{maybePlural(data.owners)}
+                {data.threshold} {translateMessage('ui.outOf_d22acd25')}
+                {data.owners.length} {translateMessage('ui.signer_efab2dcb')}
               </Typography>
             }
           />
@@ -131,10 +132,10 @@ const SafeReviewStep = ({ data, onBack }: StepRenderProps<LoadSafeFormData>) => 
       <div className={layoutCss.row}>
         <div className="flex justify-between gap-2">
           <Button type="button" variant="outline" size="lg" onClick={handleBack}>
-            Back
+            {translateMessage('ui.back_dae8bf43')}
           </Button>
           <Button type="button" size="lg" onClick={addSafe}>
-            Add
+            {translateMessage('ui.add_10c0b4eb')}
           </Button>
         </div>
       </div>

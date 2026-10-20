@@ -41,7 +41,7 @@ describe('NonPinnedWarning', () => {
     render(<NonPinnedWarning />)
 
     expect(screen.getByTestId('non-pinned-warning')).toBeInTheDocument()
-    expect(screen.getByText('Not in your accounts')).toBeInTheDocument()
+    expect(screen.getByText('不在您的账户中')).toBeInTheDocument()
     expect(screen.getByText(/haven.t added it to your accounts yet/i)).toBeInTheDocument()
   })
 
@@ -59,7 +59,7 @@ describe('NonPinnedWarning', () => {
   it('should call openConfirmDialog when action button is clicked', () => {
     render(<NonPinnedWarning />)
 
-    fireEvent.click(screen.getByText('Add to my accounts'))
+    fireEvent.click(screen.getByText('添加到我的账户'))
 
     expect(mockOpenConfirmDialog).toHaveBeenCalled()
   })
@@ -77,7 +77,6 @@ describe('NonPinnedWarning', () => {
       expect.objectContaining({
         action: 'Show untrusted Safe warning',
       }),
-      undefined,
     )
   })
 
@@ -91,7 +90,7 @@ describe('NonPinnedWarning', () => {
 
     const dialog = screen.getByTestId('add-trusted-safe-dialog')
     expect(dialog).toBeInTheDocument()
-    expect(within(dialog).getByText('Add to my accounts')).toBeInTheDocument()
+    expect(within(dialog).getByText('添加到我的账户')).toBeInTheDocument()
   })
 
   it('should show similar address warning in dialog when hasSimilarAddress is true', () => {
@@ -105,9 +104,9 @@ describe('NonPinnedWarning', () => {
 
     render(<NonPinnedWarning />)
 
-    expect(screen.getByText('Similar address detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到相似地址')).toBeInTheDocument()
     expect(screen.getByText(/address poisoning attack/i)).toBeInTheDocument()
-    expect(screen.getByText('I understand, add anyway')).toBeInTheDocument()
+    expect(screen.getByText('我已了解，仍然添加')).toBeInTheDocument()
     expect(screen.getByText('Similar Safe in your account')).toBeInTheDocument()
   })
 
@@ -135,7 +134,7 @@ describe('NonPinnedWarning', () => {
 
     render(<NonPinnedWarning />)
 
-    fireEvent.click(screen.getByText('Cancel'))
+    fireEvent.click(screen.getByText('取消'))
 
     expect(mockCloseConfirmDialog).toHaveBeenCalled()
   })

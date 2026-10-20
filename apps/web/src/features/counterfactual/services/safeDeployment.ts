@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ImplementationVersionState } from '@safe-global/store/gateway/types'
 import { POLLING_INTERVAL } from '@/config/constants'
 import { safeCreationDispatch, SafeCreationEvent } from './safeCreationEvents'
@@ -143,7 +144,7 @@ async function retryGetTransaction(provider: Provider, txHash: string, maxAttemp
       await delay(exponentialDelay)
     }
   }
-  throw new Error('Transaction not found')
+  throw new Error(translateMessage('ui.transactionNotFound_9644dd7d'))
 }
 
 export const checkSafeActivation = async (
@@ -168,7 +169,7 @@ export const checkSafeActivation = async (
     if (didRevert(receipt)) {
       safeCreationDispatch(SafeCreationEvent.REVERTED, {
         groupKey: CF_TX_GROUP_KEY,
-        error: new Error('Transaction reverted'),
+        error: new Error(translateMessage('ui.transactionReverted_d0ca6c56')),
         safeAddress,
       })
     }
@@ -195,7 +196,7 @@ export const checkSafeActivation = async (
     if (didRevert(_err.receipt)) {
       safeCreationDispatch(SafeCreationEvent.REVERTED, {
         groupKey: CF_TX_GROUP_KEY,
-        error: new Error('Transaction reverted'),
+        error: new Error(translateMessage('ui.transactionReverted_d0ca6c56')),
         safeAddress,
       })
       return
@@ -244,7 +245,7 @@ export const checkSafeActionViaRelay = (taskId: string, safeAddress: string, typ
       case RelayStatus.Rejected:
         safeCreationDispatch(SafeCreationEvent.FAILED, {
           groupKey: CF_TX_GROUP_KEY,
-          error: new Error('Transaction failed'),
+          error: new Error(translateMessage('ui.transactionFailed_92e27ef6')),
           safeAddress,
         })
         break
@@ -260,7 +261,7 @@ export const checkSafeActionViaRelay = (taskId: string, safeAddress: string, typ
   failAfterTimeoutId = setTimeout(() => {
     safeCreationDispatch(SafeCreationEvent.FAILED, {
       groupKey: CF_TX_GROUP_KEY,
-      error: new Error('Transaction failed'),
+      error: new Error(translateMessage('ui.transactionFailed_92e27ef6')),
       safeAddress,
     })
 

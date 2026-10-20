@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useEffect } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -44,11 +45,11 @@ const FEE_PRECOMPILE_ABI = [
 const feePrecompile_interface = new Interface(FEE_PRECOMPILE_ABI)
 
 const FEE_TOKEN_ERRORS = {
-  FAILED_TO_FETCH_PREFERENCE: 'Failed to fetch current preference',
-  PLEASE_SELECT_TOKEN: 'Please select a token',
-  TRANSACTION_FAILED: 'Transaction failed',
-  TRANSACTION_REJECTED: 'Transaction rejected',
-  FAILED_TO_UPDATE: 'Failed to update preference. Please try again.',
+  FAILED_TO_FETCH_PREFERENCE: translateMessage('ui.failedToFetchCurrentPreference_cddb0b56'),
+  PLEASE_SELECT_TOKEN: translateMessage('ui.pleaseSelectAToken_c422e09b'),
+  TRANSACTION_FAILED: translateMessage('ui.transactionFailed_92e27ef6'),
+  TRANSACTION_REJECTED: translateMessage('ui.transactionRejected_a2cfa6f0'),
+  FAILED_TO_UPDATE: translateMessage('ui.failedToUpdatePreferencePleaseTry_c5489f2d'),
 } as const
 
 const useTempoFeeTokenBalances = () => {
@@ -248,20 +249,26 @@ export const FeeTokenPreference = () => {
   const loading = loadingBalances || loadingPreference
 
   return (
-    <SettingsCard title="Fee token preference" data-testid="fee-token-preference-section" className="mt-4">
+    <SettingsCard
+      title={translateMessage('ui.feeTokenPreference_73328bf0')}
+      data-testid="fee-token-preference-section"
+      className="mt-4"
+    >
       {wallet ? (
         <div>
-          <Typography className="mb-6">
-            Select your preferred token for paying transaction fees on Tempo. This preference will be used for all
-            future transactions for the connected wallet.
-          </Typography>
+          <Typography className="mb-6">{translateMessage('ui.selectYourPreferredTokenForPaying_9e67a3fb')}</Typography>
 
           {error && (
             <Alert variant="destructive" className="mb-4">
               <AlertSeverityIcon variant="destructive" />
               <AlertDescription>{error}</AlertDescription>
               <AlertAction>
-                <Button variant="ghost" size="icon-xs" aria-label="Dismiss" onClick={() => setError(undefined)}>
+                <Button
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label={translateMessage('ui.dismiss_900510da')}
+                  onClick={() => setError(undefined)}
+                >
                   <XIcon />
                 </Button>
               </AlertAction>
@@ -271,9 +278,16 @@ export const FeeTokenPreference = () => {
           {success && (
             <Alert variant="success" className="mb-4">
               <AlertSeverityIcon variant="success" />
-              <AlertDescription>Fee token preference updated successfully!</AlertDescription>
+              <AlertDescription>
+                {translateMessage('ui.feeTokenPreferenceUpdatedSuccessfully_836d985b')}
+              </AlertDescription>
               <AlertAction>
-                <Button variant="ghost" size="icon-xs" aria-label="Dismiss" onClick={() => setSuccess(false)}>
+                <Button
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label={translateMessage('ui.dismiss_900510da')}
+                  onClick={() => setSuccess(false)}
+                >
                   <XIcon />
                 </Button>
               </AlertAction>
@@ -281,7 +295,7 @@ export const FeeTokenPreference = () => {
           )}
 
           <div className="mb-4 flex flex-col gap-1.5">
-            <Label htmlFor="fee-token">Fee token</Label>
+            <Label htmlFor="fee-token">{translateMessage('ui.feeToken_55de4eba')}</Label>
             <Select
               value={loading ? null : selectedToken || null}
               onValueChange={(value) => {
@@ -292,7 +306,11 @@ export const FeeTokenPreference = () => {
             >
               <SelectTrigger id="fee-token" className="w-full">
                 {loading && <Spinner className="size-5" />}
-                <SelectValue placeholder={loading ? 'Loading...' : 'Fee token'} />
+                <SelectValue
+                  placeholder={
+                    loading ? translateMessage('ui.loading_db0a03bf') : translateMessage('ui.feeToken_55de4eba')
+                  }
+                />
               </SelectTrigger>
               <SelectContent>
                 {tokenOptions.map((token) => {
@@ -303,7 +321,8 @@ export const FeeTokenPreference = () => {
                       <div className="flex w-full justify-between">
                         <Typography>{token.name}</Typography>
                         <Typography variant="paragraph-small" className="text-muted-foreground">
-                          Balance: {balanceStr}
+                          {translateMessage('ui.balance_81116cc1')}
+                          {balanceStr}
                         </Typography>
                       </div>
                     </SelectItem>
@@ -317,15 +336,15 @@ export const FeeTokenPreference = () => {
             {saving ? (
               <>
                 <Spinner className="mr-1 size-4" />
-                Saving...
+                {translateMessage('ui.saving_a69a1e3f')}
               </>
             ) : (
-              'Save preference'
+              translateMessage('ui.savePreference_c65ed6a4')
             )}
           </Button>
         </div>
       ) : (
-        <Typography>Please connect your wallet to configure fee token preference.</Typography>
+        <Typography>{translateMessage('ui.pleaseConnectYourWalletToConfigure_68362c4f')}</Typography>
       )}
     </SettingsCard>
   )

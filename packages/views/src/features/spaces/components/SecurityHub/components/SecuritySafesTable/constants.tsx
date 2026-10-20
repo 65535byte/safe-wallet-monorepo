@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 /** Em-dash glyph used wherever a cell has no value to display. */
 export const DASH = '—'
 
@@ -36,11 +37,11 @@ export const HIDE_BALANCE = 'hidden sm:flex'
  * label collapses together with its column. Widths are governed by `GRID_COLS`.
  */
 export const COLUMNS: { label: string; hideClass: string; align?: 'right' }[] = [
-  { label: 'Account', hideClass: '' },
-  { label: 'Network', hideClass: '' },
-  { label: 'Balance', hideClass: HIDE_BALANCE },
-  { label: 'Score', hideClass: '' },
-  { label: 'Status', hideClass: '' },
+  { label: translateMessage('ui.account_70117169'), hideClass: '' },
+  { label: translateMessage('ui.network_eb8f6520'), hideClass: '' },
+  { label: translateMessage('ui.balance_413e035a'), hideClass: HIDE_BALANCE },
+  { label: translateMessage('ui.score_c1a63d90'), hideClass: '' },
+  { label: translateMessage('ui.status_8042eaf1'), hideClass: '' },
   { label: '', hideClass: '' },
   { label: '', hideClass: '', align: 'right' },
 ]

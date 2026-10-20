@@ -9,15 +9,15 @@ describe('GlobalSearchInput', () => {
   it('renders the search button with placeholder text', () => {
     render(<GlobalSearchInput />)
 
-    const button = screen.getByRole('button', { name: 'Search for anything' })
+    const button = screen.getByRole('button', { name: '搜索所有内容' })
     expect(button).toBeInTheDocument()
-    expect(button).toHaveTextContent('Search for anything')
+    expect(button).toHaveTextContent('搜索所有内容')
   })
 
   it('applies custom className', () => {
     render(<GlobalSearchInput className="max-w-md" />)
 
-    const button = screen.getByRole('button', { name: 'Search for anything' })
+    const button = screen.getByRole('button', { name: '搜索所有内容' })
     expect(button).toHaveClass('max-w-md')
   })
 
@@ -33,7 +33,7 @@ describe('GlobalSearchInput', () => {
 
     expect(store.getState().globalSearch.open).toBe(false)
 
-    await user.click(screen.getByRole('button', { name: 'Search for anything' }))
+    await user.click(screen.getByRole('button', { name: '搜索所有内容' }))
 
     expect(store.getState().globalSearch.open).toBe(true)
   })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { FlaskConical } from 'lucide-react'
 import type { SidebarDeveloperGroupConfig } from '@safe-global/views/features/spaces/components/Sidebar/types'
 import { useFeatureFlagsItem } from './useFeatureFlagsItem'
@@ -11,11 +12,11 @@ import { useFeatureFlagsItem } from './useFeatureFlagsItem'
  * and free of runtime dependencies.
  */
 export const sidebarDeveloperGroup: SidebarDeveloperGroupConfig = {
-  label: 'Developer',
+  label: translateMessage('ui.developer_87261cd3'),
   items: [
     {
       icon: FlaskConical,
-      label: 'Feature flags',
+      label: translateMessage('ui.featureFlags_91d3122f'),
       id: 'feature-flags',
       useItemState: useFeatureFlagsItem,
     },

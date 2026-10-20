@@ -1,4 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { MemberRole } from '../../../hooks/useSpaceMembers'
 import useInviteForm, { toInviteName } from './useInviteForm'
 
@@ -9,6 +11,17 @@ const mockDispatch = jest.fn()
 
 jest.mock('@/store', () => ({
   useAppDispatch: () => mockDispatch,
+}))
+
+jest.mock('@/services/analytics', () => ({
+  trackEvent: jest.fn(),
+}))
+
+jest.mock('@/services/analytics/events/spaces', () => ({
+  SPACE_EVENTS: {
+    WORKSPACE_MEMBER_INVITE_SENT: { action: 'Workspace member invite sent', category: 'spaces' },
+  },
+  SPACE_LABELS: {},
 }))
 
 jest.mock('@safe-global/store/gateway/AUTO_GENERATED/spaces', () => ({
@@ -58,12 +71,12 @@ describe('toInviteName', () => {
   })
 
   it('falls back to a default when nothing valid remains', () => {
-    expect(toInviteName('+++@example.com')).toBe('Member')
+    expect(toInviteName('+++@example.com')).toBe('成员')
   })
 
   it('falls back to a default when the local part is shorter than the minimum name length', () => {
-    expect(toInviteName('r@cc0x.dev')).toBe('Member')
-    expect(toInviteName('ab@example.com')).toBe('Member')
+    expect(toInviteName('r@cc0x.dev')).toBe('成员')
+    expect(toInviteName('ab@example.com')).toBe('成员')
   })
 
   it('keeps a local part at the minimum name length', () => {
@@ -71,9 +84,51 @@ describe('toInviteName', () => {
   })
 })
 
-describe('useInviteForm payload', () => {
+describe('useInviteForm tracking', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+  })
+
+  it('tracks WORKSPACE_MEMBER_INVITE_SENT per member with workspace_id, user_id, role and batch_size on submit', async () => {
+    mockInviteMembers.mockResolvedValue({
+      data: [
+        {
+          userId: 7,
+          spaceId: mockSpaceId,
+          name: 'Alice',
+          role: 'MEMBER',
+          status: 'INVITED',
+        },
+      ],
+    })
+
+    render(<TestComponent spaceId={mockSpaceId} />)
+
+    fireEvent.change(screen.getByTestId('address-0'), {
+      target: { value: '0x1234567890123456789012345678901234567890' },
+    })
+    fireEvent.click(screen.getByTestId('submit'))
+
+    await waitFor(() => {
+      expect(mockInviteMembers).toHaveBeenCalledWith({
+        spaceId: mockSpaceId,
+        inviteUsersDto: {
+          users: [
+            {
+              type: 'wallet',
+              address: '0x1234567890123456789012345678901234567890',
+              name: '0x1234567890123456789012345678901234567890',
+              role: 'MEMBER',
+            },
+          ],
+        },
+      })
+      expect(trackEvent).toHaveBeenCalledTimes(1)
+      expect(trackEvent).toHaveBeenCalledWith(
+        { ...SPACE_EVENTS.WORKSPACE_MEMBER_INVITE_SENT, label: mockSpaceId },
+        { workspace_id: mockSpaceId, user_id: 7, role: 'member', batch_size: 1 },
+      )
+    })
   })
 
   it('builds an email invite payload with a lowercased email and a name derived from the local part', async () => {
@@ -174,6 +229,7 @@ describe('useInviteForm payload', () => {
           ],
         },
       })
+      expect(trackEvent).toHaveBeenCalledTimes(2)
     })
   })
 })

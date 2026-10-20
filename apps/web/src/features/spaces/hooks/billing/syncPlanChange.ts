@@ -1,3 +1,4 @@
+import { SAFE_PRO_ENABLED } from '@/config/pro'
 import { cgwApi as billingApi } from '@safe-global/store/gateway/AUTO_GENERATED/billing'
 import type { ThunkDispatch, UnknownAction } from '@reduxjs/toolkit'
 import type { RootState } from '@/store'
@@ -15,6 +16,7 @@ export const syncPlanChange = async (
   planId: string,
   { intervalMs = PLAN_SYNC_INTERVAL_MS, timeoutMs = PLAN_SYNC_TIMEOUT_MS } = {},
 ): Promise<boolean> => {
+  if (!SAFE_PRO_ENABLED) return false
   const deadline = Date.now() + timeoutMs
   for (;;) {
     const { data } = await refreshSpaceEntitlements(dispatch, spaceId)

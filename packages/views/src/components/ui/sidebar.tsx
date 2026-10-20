@@ -1,5 +1,7 @@
 'use client'
 
+import { translateMessage } from '@safe-global/views/i18n'
+
 import {
   createContext,
   useCallback,
@@ -347,8 +349,8 @@ function Sidebar({
           side={side}
         >
           <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+            <SheetTitle>{translateMessage('ui.sidebar_3e0dd2a9')}</SheetTitle>
+            <SheetDescription>{translateMessage('ui.displaysTheMobileSidebar_2faff52d')}</SheetDescription>
           </SheetHeader>
           <div className="flex h-full w-full flex-col">{children}</div>
         </SheetContent>
@@ -431,7 +433,7 @@ function SidebarTrigger({ className, onClick, ...props }: ComponentProps<typeof 
       {...props}
     >
       <PanelRightIcon />
-      <span className="sr-only">Toggle Sidebar</span>
+      <span className="sr-only">{translateMessage('ui.toggleSidebar_d6bd6206')}</span>
     </Button>
   )
 }
@@ -443,10 +445,10 @@ function SidebarRail({ className, ...props }: ComponentProps<'button'>) {
     <button
       data-sidebar="rail"
       data-slot="sidebar-rail"
-      aria-label="Toggle Sidebar"
+      aria-label={translateMessage('ui.toggleSidebar_d6bd6206')}
       tabIndex={-1}
       onClick={toggleSidebar}
-      title="Toggle Sidebar"
+      title={translateMessage('ui.toggleSidebar_d6bd6206')}
       className={cn(
         'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex',
         'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',

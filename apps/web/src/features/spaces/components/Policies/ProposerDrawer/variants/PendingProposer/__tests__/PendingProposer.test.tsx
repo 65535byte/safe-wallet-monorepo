@@ -13,7 +13,7 @@ const OVERVIEW = {
 }
 
 const PROPS = {
-  description: 'Marketing is a nested Safe account.',
+  description: 'Marketing is a nested 个 Safe 账户.',
   safe: SAFE,
   signatures: 2,
   overview: OVERVIEW,
@@ -23,8 +23,8 @@ describe('PendingProposer', () => {
   it('explains that the role has not activated yet and why', () => {
     render(<PendingProposer {...PROPS} />)
 
-    expect(screen.getByText('The proposer role is not active yet')).toBeInTheDocument()
-    expect(screen.getByText('Marketing is a nested Safe account.')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色尚未生效')).toBeInTheDocument()
+    expect(screen.getByText('Marketing is a nested 个 Safe 账户.')).toBeInTheDocument()
   })
 
   it('tints the alert as a warning rather than an error', () => {
@@ -36,7 +36,7 @@ describe('PendingProposer', () => {
   it('shows the signing progress with the time left to sign', () => {
     render(<PendingProposer {...PROPS} expiresLabel="Expires in 1h 33 min" />)
 
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
     expect(screen.getByText('Expires in 1h 33 min')).toBeInTheDocument()
     expect(screen.getByTestId('safe-signature-progress')).toHaveTextContent('2 of 3 signed')
   })
@@ -44,8 +44,8 @@ describe('PendingProposer', () => {
   it('omits the expiry note when the request does not expire', () => {
     render(<PendingProposer {...PROPS} />)
 
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
-    expect(screen.queryByText(/Expires/)).not.toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
+    expect(screen.queryByText(/过期时间/)).not.toBeInTheDocument()
   })
 
   it('leaves the progress on the in-flight tone while signatures can still arrive', () => {
@@ -57,7 +57,7 @@ describe('PendingProposer', () => {
   it('includes the proposer overview', () => {
     render(<PendingProposer {...PROPS} />)
 
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
   })
 })

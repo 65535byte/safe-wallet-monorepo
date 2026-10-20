@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Disclaimer from '@safe-global/views/components/common/Disclaimer'
 import WidgetDisclaimer from '@/components/common/WidgetDisclaimer'
 import BlockedAddress from '@/components/common/BlockedAddress'
@@ -13,7 +14,7 @@ const EarnPage = () => {
   if (blockedAddress) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
-        <BlockedAddress address={blockedAddress} featureTitle="Earn feature with Kiln" />
+        <BlockedAddress address={blockedAddress} featureTitle={translateMessage('ui.earnFeatureWithKiln_0047c935')} />
       </div>
     )
   }
@@ -27,10 +28,10 @@ const EarnPage = () => {
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center">
           <Disclaimer
-            title="Note"
-            content={<WidgetDisclaimer widgetName="Earn Widget by Kiln" />}
+            title={translateMessage('ui.note_b1eff7f0')}
+            content={<WidgetDisclaimer widgetName={translateMessage('ui.earnWidgetByKiln_914c74f3')} />}
             onAccept={onAccept}
-            buttonText="Continue"
+            buttonText={translateMessage('ui.continue_a4bd8255')}
           />
         </div>
       )}

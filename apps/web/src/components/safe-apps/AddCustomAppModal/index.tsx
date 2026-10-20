@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
 import { Controller, useForm } from 'react-hook-form'
@@ -41,9 +42,9 @@ type CustomAppFormData = {
 }
 
 const HELP_LINK = 'https://docs.safe.global/apps-sdk-overview'
-const APP_ALREADY_IN_THE_LIST_ERROR = 'This Safe App is already in the list'
-const MANIFEST_ERROR = "The app doesn't support Safe App functionality"
-const INVALID_URL_ERROR = 'The url is invalid'
+const APP_ALREADY_IN_THE_LIST_ERROR = translateMessage('ui.thisAppIsAlreadyInThe_308a4d70')
+const MANIFEST_ERROR = translateMessage('ui.theAppDoesnTSupportApp_606f3b34')
+const INVALID_URL_ERROR = translateMessage('ui.theUrlIsInvalid_7cfee655')
 
 export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props) => {
   const currentChain = useCurrentChain()
@@ -90,12 +91,12 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
   const isCustomAppInTheDefaultList = errors?.appUrl?.type === 'alreadyExists'
 
   return (
-    <ModalDialog open={open} onClose={handleClose} dialogTitle="Add custom Safe App">
+    <ModalDialog open={open} onClose={handleClose} dialogTitle={translateMessage('ui.addCustomApp_89278ec2')}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={css.addCustomAppContainer}>
           <div className={css.addCustomAppFields}>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="appUrl">Safe App URL</Label>
+              <Label htmlFor="appUrl">{translateMessage('ui.appURL_ec4b69b5')}</Label>
               <Input
                 id="appUrl"
                 error={errors?.appUrl?.type === 'validUrl' ? errors?.appUrl?.message : undefined}
@@ -117,7 +118,9 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
                   {isCustomAppInTheDefaultList ? (
                     <div className="mt-4 flex items-center">
                       <Check className="text-[var(--color-success-main)]" />
-                      <Typography className="ml-2">This Safe App is already registered</Typography>
+                      <Typography className="ml-2">
+                        {translateMessage('ui.thisAppIsAlreadyRegistered_abcd7d9c')}
+                      </Typography>
                     </div>
                   ) : (
                     <>
@@ -129,7 +132,7 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
                           <Field orientation="horizontal" className="mt-4">
                             <Checkbox id="riskAcknowledgement" checked={field.value} onCheckedChange={field.onChange} />
                             <FieldLabel htmlFor="riskAcknowledgement" className="font-normal">
-                              {`This Safe App is not part of ${BRAND_NAME} and I agree to use it at my own risk.`}
+                              {translateMessage('ui.thisAppIsNotPartOf_320b702a', { p0: BRAND_NAME })}
                             </FieldLabel>
                           </Field>
                         )}
@@ -137,7 +140,7 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
 
                       {errors.riskAcknowledgement && (
                         <p role="alert" className="mt-1 text-sm text-destructive">
-                          Accepting the disclaimer is mandatory
+                          {translateMessage('ui.acceptingTheDisclaimerIsMandatory_2044a819')}
                         </p>
                       )}
                     </>
@@ -151,9 +154,9 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
 
           <div className={css.addCustomAppHelp}>
             <Info className={css.addCustomAppHelpIcon} />
-            <Typography className="ml-0.5">Learn more about building</Typography>
+            <Typography className="ml-0.5">{translateMessage('ui.learnMoreAboutBuilding_8aef822f')}</Typography>
             <ExternalLink className={`${css.addCustomAppHelpLink} font-bold`} href={HELP_LINK}>
-              Safe Apps
+              {translateMessage('ui.safeApps_234a7c1c')}
             </ExternalLink>
             .
           </div>
@@ -161,10 +164,10 @@ export const AddCustomAppModal = ({ open, onClose, onSave, safeAppsList }: Props
 
         <div className="flex justify-between gap-2 p-6 pt-2">
           <Button variant="ghost" onClick={handleClose}>
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
           <Button type="submit" disabled={!isSafeAppValid}>
-            Add
+            {translateMessage('ui.add_10c0b4eb')}
           </Button>
         </div>
       </form>

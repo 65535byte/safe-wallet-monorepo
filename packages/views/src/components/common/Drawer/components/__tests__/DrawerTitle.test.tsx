@@ -11,7 +11,7 @@ describe('DrawerTitle', () => {
   it('renders at the large size when asked', () => {
     render(<DrawerTitle size="lg">Proposer role</DrawerTitle>)
 
-    expect(screen.getByText('Proposer role')).toHaveAttribute('data-variant', 'paragraph-bold')
+    expect(screen.getByText('提案人角色')).toHaveAttribute('data-variant', 'paragraph-bold')
   })
 
   it('truncates rather than wrapping a long title', () => {

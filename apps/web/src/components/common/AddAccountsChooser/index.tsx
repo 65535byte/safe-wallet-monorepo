@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { CirclePlus, Plus } from 'lucide-react'
@@ -6,8 +7,7 @@ import { useNewSafeNextParam } from '@/components/new-safe/getReturnUrl'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import { ChooserRow } from '@safe-global/views/components/common/ChooserRow'
-import { OVERVIEW_EVENTS, OVERVIEW_LABELS } from '@/services/analytics'
-import Track from '@/components/common/Track'
+import { OVERVIEW_EVENTS, OVERVIEW_LABELS, trackEvent } from '@/services/analytics'
 
 interface AddAccountsChooserProps {
   onLinkClick?: () => void
@@ -32,6 +32,16 @@ const AddAccountsChooser = ({ onLinkClick, buttonVariant = 'outline', className 
     router.push({ pathname, query: { next } })
   }
 
+  const handleSelectExisting = () => {
+    trackEvent({ ...OVERVIEW_EVENTS.ADD_TO_WATCHLIST, label: OVERVIEW_LABELS.login_page })
+    navigate(AppRoutes.newSafe.load)
+  }
+
+  const handleCreate = () => {
+    trackEvent({ ...OVERVIEW_EVENTS.CREATE_NEW_SAFE, label: OVERVIEW_LABELS.login_page })
+    navigate(AppRoutes.newSafe.create)
+  }
+
   return (
     <>
       <Button
@@ -41,7 +51,7 @@ const AddAccountsChooser = ({ onLinkClick, buttonVariant = 'outline', className 
         data-testid="open-add-accounts-chooser-button"
       >
         <Plus className="size-4" />
-        Add accounts
+        {translateMessage('ui.addAccounts_5b9c31e4')}
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
@@ -49,25 +59,21 @@ const AddAccountsChooser = ({ onLinkClick, buttonVariant = 'outline', className 
         <DialogContent showCloseButton className="max-w-[440px] p-6 dark:border dark:border-border">
           {/* eslint-disable-next-line no-restricted-syntax -- bespoke header padding preserved from dev's #8271 redesign */}
           <DialogHeader className="p-0 pb-3">
-            <DialogTitle className="font-bold">Add Safe accounts</DialogTitle>
+            <DialogTitle className="font-bold">{translateMessage('ui.addAccounts_d96ccdc1')}</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-2">
-            <Track {...OVERVIEW_EVENTS.ADD_TO_WATCHLIST} label={OVERVIEW_LABELS.login_page}>
-              <ChooserRow
-                icon={<Plus className="size-4" />}
-                title="Select existing"
-                onClick={() => navigate(AppRoutes.newSafe.load)}
-                testId="add-accounts-select-existing"
-              />
-            </Track>
-            <Track {...OVERVIEW_EVENTS.CREATE_NEW_SAFE} label={OVERVIEW_LABELS.login_page}>
-              <ChooserRow
-                icon={<CirclePlus className="size-4" />}
-                title="Create new"
-                onClick={() => navigate(AppRoutes.newSafe.create)}
-                testId="add-accounts-create-new"
-              />
-            </Track>
+            <ChooserRow
+              icon={<Plus className="size-4" />}
+              title={translateMessage('ui.selectExisting_af372c07')}
+              onClick={handleSelectExisting}
+              testId="add-accounts-select-existing"
+            />
+            <ChooserRow
+              icon={<CirclePlus className="size-4" />}
+              title={translateMessage('ui.createNew_ec872d74')}
+              onClick={handleCreate}
+              testId="add-accounts-create-new"
+            />
           </div>
         </DialogContent>
       </Dialog>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -13,7 +14,7 @@ const RecoveryInfo = ({ isMalicious }: { isMalicious: boolean }): ReactElement |
       <TooltipTrigger render={<span />}>
         <WarningIcon className="size-6 fill-current text-[var(--color-error-main)]" />
       </TooltipTrigger>
-      <TooltipContent side="top">Suspicious activity</TooltipContent>
+      <TooltipContent side="top">{translateMessage('ui.suspiciousActivity_c266144e')}</TooltipContent>
     </Tooltip>
   )
 }

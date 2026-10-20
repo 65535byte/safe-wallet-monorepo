@@ -23,7 +23,7 @@ describe('Address book import validation', () => {
         size: 1_000_000_000,
       } as File
 
-      expect(abCsvReaderValidator(file)).toEqual(['Address book cannot be larger than 1MB'])
+      expect(abCsvReaderValidator(file)).toEqual(['通讯录文件不能超过 1 MB'])
     })
   })
   describe('hasValidAbHeader', () => {
@@ -123,7 +123,7 @@ describe('Address book import validation', () => {
         meta: {} as ParseMeta,
       } as ParseResult<string[]>
 
-      expect(abOnUploadValidator(result)).toBe('CSV file is empty')
+      expect(abOnUploadValidator(result)).toBe('CSV 文件为空')
     })
 
     it('should return an error if the header is invalid', () => {
@@ -133,7 +133,7 @@ describe('Address book import validation', () => {
         meta: {} as ParseMeta,
       } as ParseResult<string[]>
 
-      expect(abOnUploadValidator(result)).toBe('Invalid or corrupt address book header')
+      expect(abOnUploadValidator(result)).toBe('通讯录表头无效或已损坏')
     })
 
     it('should return an error if no entries are present', () => {
@@ -143,7 +143,7 @@ describe('Address book import validation', () => {
         meta: {} as ParseMeta,
       } as ParseResult<string[]>
 
-      expect(abOnUploadValidator(result)).toBe('No entries found in address book')
+      expect(abOnUploadValidator(result)).toBe('通讯录中未找到联系人')
     })
 
     it('should return an error if some entries have invalid addresses', () => {
@@ -156,7 +156,7 @@ describe('Address book import validation', () => {
         meta: {} as ParseMeta,
       } as ParseResult<string[]>
 
-      expect(abOnUploadValidator(result)).toBe('Address book contains an invalid address on row 2')
+      expect(abOnUploadValidator(result)).toBe('通讯录第 2 行包含无效地址')
     })
 
     it('should return an error if some entries have empty names', () => {
@@ -169,7 +169,7 @@ describe('Address book import validation', () => {
         meta: {} as ParseMeta,
       } as ParseResult<string[]>
 
-      expect(abOnUploadValidator(result)).toBe('Address book contains an invalid name on row 2')
+      expect(abOnUploadValidator(result)).toBe('通讯录第 2 行包含无效名称')
     })
   })
 })

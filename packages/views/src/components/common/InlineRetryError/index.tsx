@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Alert, AlertTitle, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
 import { RotateCw } from 'lucide-react'
@@ -7,7 +8,10 @@ type InlineRetryErrorProps = {
   onRetry?: () => void
 }
 
-function InlineRetryError({ message = 'Failed to load data', onRetry }: InlineRetryErrorProps) {
+function InlineRetryError({
+  message = translateMessage('ui.failedToLoadData_db836d66'),
+  onRetry,
+}: InlineRetryErrorProps) {
   return (
     <Alert
       variant="destructive"
@@ -25,7 +29,7 @@ function InlineRetryError({ message = 'Failed to load data', onRetry }: InlineRe
             onClick={onRetry}
           >
             <RotateCw className="size-3.5" />
-            Retry
+            {translateMessage('ui.retry_2cd6945d')}
           </Button>
         )}
       </AlertTitle>

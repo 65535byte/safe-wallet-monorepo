@@ -28,6 +28,6 @@ describe('QRCode', () => {
   it('exposes the generated code as a named image', () => {
     render(<QRCode value="0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552" size={150} />)
 
-    expect(screen.getByRole('img', { name: 'QR code' })).toHaveAttribute('data-size', '150')
+    expect(screen.getByRole('img', { name: '二维码' })).toHaveAttribute('data-size', '150')
   })
 })

@@ -61,7 +61,7 @@ describe('DatePickerInput', () => {
     // does not. Without the mount validation the form is invalid with nothing on screen saying why.
     renderInput(new Date('1999-01-01T00:00:00'))
 
-    expect(await screen.findByText('Date is out of range')).toBeInTheDocument()
+    expect(await screen.findByText('日期超出范围')).toBeInTheDocument()
     await waitFor(() => expect(screen.getByTestId('form-valid')).toHaveTextContent('false'))
   })
 
@@ -69,14 +69,14 @@ describe('DatePickerInput', () => {
     renderInput(new Date('2020-03-09T00:00:00'))
 
     await waitFor(() => expect(screen.getByTestId('form-valid')).toHaveTextContent('true'))
-    expect(screen.queryByText('Date is out of range')).not.toBeInTheDocument()
+    expect(screen.queryByText('日期超出范围')).not.toBeInTheDocument()
   })
 
   it('stays quiet on mount when there is no seeded date', async () => {
     renderInput()
 
     await waitFor(() => expect(screen.getByTestId('form-valid')).toHaveTextContent('true'))
-    expect(screen.queryByText('Invalid date')).not.toBeInTheDocument()
+    expect(screen.queryByText('日期无效')).not.toBeInTheDocument()
   })
 
   describe('editing a complete date in place', () => {
@@ -209,10 +209,10 @@ describe('DatePickerInput', () => {
       const input = screen.getByLabelText('Start date')
 
       await userEvent.type(input, '30')
-      expect(screen.queryByText('Invalid date')).not.toBeInTheDocument()
+      expect(screen.queryByText('日期无效')).not.toBeInTheDocument()
 
       await userEvent.tab()
-      expect(await screen.findByText('Invalid date')).toBeInTheDocument()
+      expect(await screen.findByText('日期无效')).toBeInTheDocument()
     })
 
     it('opens the calendar on the first click even with an unfinished entry (WA-3231)', async () => {
@@ -230,7 +230,7 @@ describe('DatePickerInput', () => {
 
       await userEvent.type(input, '32/13/2023')
 
-      expect(await screen.findByText('Invalid date')).toBeInTheDocument()
+      expect(await screen.findByText('日期无效')).toBeInTheDocument()
       expect(screen.getByTestId('value')).toHaveTextContent('invalid')
     })
 
@@ -241,7 +241,7 @@ describe('DatePickerInput', () => {
       // this replaced clamped to 1900-2099.
       await userEvent.type(screen.getByLabelText('Start date'), '01/01/0002')
 
-      expect(await screen.findByText('Date is out of range')).toBeInTheDocument()
+      expect(await screen.findByText('日期超出范围')).toBeInTheDocument()
       await waitFor(() => expect(screen.getByTestId('form-valid')).toHaveTextContent('false'))
     })
 
@@ -251,8 +251,8 @@ describe('DatePickerInput', () => {
       await userEvent.type(screen.getByLabelText('Start date'), '09/03/2020')
 
       await waitFor(() => expect(screen.getByTestId('value')).toHaveTextContent('2020-03-09'))
-      expect(screen.queryByText('Date is out of range')).not.toBeInTheDocument()
-      expect(screen.queryByText('Invalid date')).not.toBeInTheDocument()
+      expect(screen.queryByText('日期超出范围')).not.toBeInTheDocument()
+      expect(screen.queryByText('日期无效')).not.toBeInTheDocument()
     })
 
     it('rejects a future date', async () => {
@@ -260,7 +260,7 @@ describe('DatePickerInput', () => {
 
       await userEvent.type(screen.getByLabelText('Start date'), '01/01/2100')
 
-      expect(await screen.findByText('Date cannot be in the future')).toBeInTheDocument()
+      expect(await screen.findByText('日期不能晚于今天')).toBeInTheDocument()
     })
 
     it('clears the form value when the entry is deleted', async () => {
@@ -271,7 +271,7 @@ describe('DatePickerInput', () => {
 
       expect(input).toHaveValue('')
       await waitFor(() => expect(screen.getByTestId('value')).toHaveTextContent('empty'))
-      expect(screen.queryByText('Invalid date')).not.toBeInTheDocument()
+      expect(screen.queryByText('日期无效')).not.toBeInTheDocument()
     })
 
     it('clears an unfinished entry and its error when the form is reset', async () => {
@@ -280,12 +280,12 @@ describe('DatePickerInput', () => {
 
       await userEvent.type(input, '01/01')
       await userEvent.tab()
-      expect(await screen.findByText('Invalid date')).toBeInTheDocument()
+      expect(await screen.findByText('日期无效')).toBeInTheDocument()
 
-      await userEvent.click(screen.getByRole('button', { name: 'Clear' }))
+      await userEvent.click(screen.getByRole('button', { name: '清除' }))
 
       await waitFor(() => expect(input).toHaveValue(''))
-      await waitFor(() => expect(screen.queryByText('Invalid date')).not.toBeInTheDocument())
+      await waitFor(() => expect(screen.queryByText('日期无效')).not.toBeInTheDocument())
       expect(screen.getByTestId('value')).toHaveTextContent('empty')
     })
   })

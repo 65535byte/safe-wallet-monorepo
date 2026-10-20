@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { isSafeToken } from '@/utils/safe-token'
 import useBalances from '@/hooks/useBalances'
 import useChainId from '@/hooks/useChainId'
@@ -27,7 +28,7 @@ const SafenetStakingWidget = () => {
           render={
             <button
               type="button"
-              aria-label="Safenet Staking"
+              aria-label={translateMessage('ui.safenetStaking_36dd4ab7')}
               className={css.tokenButton}
               onClick={openSafenetStakingApp}
               disabled={isNavigating}
@@ -39,7 +40,7 @@ const SafenetStakingWidget = () => {
             {loading ? <Skeleton className="h-4 w-4" /> : safeBalance}
           </Typography>
         </TooltipTrigger>
-        <TooltipContent>Go to Safenet Staking</TooltipContent>
+        <TooltipContent>{translateMessage('ui.goToSafenetStaking_effcb2d0')}</TooltipContent>
       </Tooltip>
     </div>
   )

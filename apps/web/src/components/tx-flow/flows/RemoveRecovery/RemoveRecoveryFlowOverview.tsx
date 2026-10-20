@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, type ReactElement } from 'react'
 
 import EthHashInfo from '@/components/common/EthHashInfo'
@@ -14,17 +15,16 @@ export function RemoveRecoveryFlowOverview({ delayModifier }: RecoveryFlowProps)
   return (
     <TxCard>
       <Typography variant="paragraph-small" className="block">
-        This transaction will remove the recovery module from your Safe account. You will no longer be able to recover
-        your Safe account.
+        {translateMessage('ui.thisTransactionWillRemoveTheRecovery_cb1d90b0')}
       </Typography>
 
       <Typography variant="paragraph-small" className="block">
-        This Recoverer will not be able to initiate the recovery process once this transaction is executed.
+        {translateMessage('ui.thisRecovererWillNotBeAble_8c395585')}
       </Typography>
 
       <div data-testid="remove-recoverer-section">
         <Typography variant="paragraph-small" className="mb-2 block text-[var(--color-text-secondary)]">
-          Removing Recoverer
+          {translateMessage('ui.removingRecoverer_9cf0179f')}
         </Typography>
 
         {delayModifier.recoverers.map((recoverer) => (
@@ -43,7 +43,7 @@ export function RemoveRecoveryFlowOverview({ delayModifier }: RecoveryFlowProps)
 
       <TxCardActions className="!mt-0">
         <Button data-testid="next-btn" variant="default" onClick={onNext}>
-          Next
+          {translateMessage('ui.next_9cff86c8')}
         </Button>
       </TxCardActions>
     </TxCard>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CheckWallet from '@/components/common/CheckWallet'
 import Track from '@/components/common/Track'
 import { AppRoutes } from '@/config/routes'
@@ -60,7 +61,7 @@ const SwapButton = ({
                       disabled={!isOk}
                       variant="ghost"
                       size="icon-sm"
-                      aria-label="Swap"
+                      aria-label={translateMessage('ui.swap_cd9c7167')}
                       className={assetActionCss.assetActionIconButton}
                     >
                       <SwapIcon />
@@ -68,7 +69,7 @@ const SwapButton = ({
                   </span>
                 }
               />
-              {isOk ? <TooltipContent>Swap</TooltipContent> : null}
+              {isOk ? <TooltipContent>{translateMessage('ui.swap_cd9c7167')}</TooltipContent> : null}
             </Tooltip>
           ) : (
             <Button
@@ -79,7 +80,7 @@ const SwapButton = ({
               className={assetActionCss.sendButton}
             >
               <SwapIcon />
-              Swap
+              {translateMessage('ui.swap_cd9c7167')}
             </Button>
           )}
         </Track>

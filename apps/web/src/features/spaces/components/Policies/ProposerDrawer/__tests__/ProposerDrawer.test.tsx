@@ -13,7 +13,7 @@ const OVERVIEW = {
 
 const PENDING_PROPS = {
   status: ProposerStatus.PENDING,
-  description: 'Marketing is a nested Safe account.',
+  description: 'Marketing is a nested 个 Safe 账户.',
   safe: { address: '0x8675B754342754A30A2AeF474D114d8460bca19b', name: 'Ops', threshold: 3 },
   signatures: 2,
   overview: OVERVIEW,
@@ -36,14 +36,14 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.getByText('Proposer role')).toBeInTheDocument()
-    expect(screen.getByText('Not activated')).toBeInTheDocument()
-    expect(screen.getByText('The proposer role was not activated')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色')).toBeInTheDocument()
+    expect(screen.getByText('未激活')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色未激活')).toBeInTheDocument()
     expect(screen.getByText('The time window expired. Set the policy up again to retry.')).toBeInTheDocument()
-    expect(screen.getByText('Expired')).toBeInTheDocument()
+    expect(screen.getByText('已过期')).toBeInTheDocument()
     expect(screen.getByTestId('safe-signature-progress')).toHaveTextContent('2 of 3 signed')
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Retry' })).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '重试' })).toBeInTheDocument()
   })
 
   it('renders the active variant as the proposer overview alone', () => {
@@ -59,10 +59,10 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.getByText('Active')).toBeInTheDocument()
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Remove proposer' })).toBeInTheDocument()
-    expect(screen.queryByText('Pending signatures')).not.toBeInTheDocument()
+    expect(screen.getByText('已启用')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '移除提案人' })).toBeInTheDocument()
+    expect(screen.queryByText('待签名')).not.toBeInTheDocument()
   })
 
   it('keeps the active action out of reach for a wallet that cannot sign', () => {
@@ -79,8 +79,8 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: 'Remove proposer' })).toBeDisabled()
-    expect(screen.getByText('Only signers of this Treasury can delete or edit this Proposer role.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '移除提案人' })).toBeDisabled()
+    expect(screen.getByText('Only signers / this Treasury can delete or edit this Proposer role.')).toBeInTheDocument()
   })
 
   it('tells the user to remove a parent Safe grant from the Safe settings', () => {
@@ -101,13 +101,13 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.getByText('Remove this proposer on the Safe account level')).toBeInTheDocument()
+    expect(screen.getByText('在 8379 账户设置中移除此提案人')).toBeInTheDocument()
     expect(screen.getByTestId('nested-safe-grant-notice')).toHaveTextContent('The parent Safe account, Ops')
-    expect(screen.getByRole('link', { name: 'Go to Safe settings' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '前往 8379 设置' })).toHaveAttribute(
       'href',
       `/settings/setup?safe=eth%3A${OVERVIEW.appliesTo.address}`,
     )
-    expect(screen.getByRole('button', { name: 'Remove proposer' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '移除提案人' })).toBeDisabled()
   })
 
   it('shows no nested Safe notice for a role granted by a signer', () => {
@@ -136,14 +136,14 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.getByText('Pending')).toBeInTheDocument()
-    expect(screen.getByText('The proposer role is not active yet')).toBeInTheDocument()
+    expect(screen.getByText('待处理')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色尚未生效')).toBeInTheDocument()
     expect(screen.getByText(PENDING_PROPS.description)).toBeInTheDocument()
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
     expect(screen.getByTestId('safe-signature-progress')).toHaveTextContent('2 of 3 signed')
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Review transaction' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '检查交易' })).toBeInTheDocument()
   })
 
   it('renders nothing while closed', () => {
@@ -158,18 +158,18 @@ describe('ProposerDrawer', () => {
       />,
     )
 
-    expect(screen.queryByText('Proposer role')).not.toBeInTheDocument()
+    expect(screen.queryByText('提案人角色')).not.toBeInTheDocument()
   })
 
   it('stands in with skeletons while the policy is still loading', () => {
     render(<ProposerDrawer open onClose={jest.fn()} isLoading />)
 
-    expect(screen.getByText('Proposer role')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色')).toBeInTheDocument()
     expect(screen.getByTestId('policy-status-skeleton')).toBeInTheDocument()
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
     expect(screen.getAllByTestId('account-identity-skeleton')).toHaveLength(3)
     expect(screen.getByTestId('policy-drawer-actions-skeleton')).toBeInTheDocument()
-    expect(screen.queryByText('Active')).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /remove proposer|retry|review transaction/i })).not.toBeInTheDocument()
+    expect(screen.queryByText('已启用')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /remove proposer\|retry\|review 笔交易/i })).not.toBeInTheDocument()
   })
 })

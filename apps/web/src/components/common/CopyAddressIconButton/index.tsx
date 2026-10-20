@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { KeyboardEvent } from 'react'
 import { Copy } from 'lucide-react'
 import CopyTooltip from '../CopyTooltip'
@@ -18,11 +19,11 @@ const CopyAddressIconButton = ({ address, className }: { address: string; classN
   }
 
   return (
-    <CopyTooltip text={address} initialToolTipText="Copy address">
+    <CopyTooltip text={address} initialToolTipText={translateMessage('ui.copyAddress_e5bff417')}>
       <span
         role="button"
         tabIndex={0}
-        aria-label="Copy address"
+        aria-label={translateMessage('ui.copyAddress_e5bff417')}
         onKeyDown={handleKeyDown}
         className={cn(
           'text-muted-foreground hover:bg-muted hover:text-foreground inline-flex shrink-0 cursor-pointer rounded p-0.5 transition-colors',

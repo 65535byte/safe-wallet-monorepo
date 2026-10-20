@@ -139,7 +139,7 @@ export const IS_OFFICIAL_HOST = process.env.NEXT_PUBLIC_IS_OFFICIAL_HOST === 'tr
 export const OFFICIAL_HOSTS =
   /app\.safe\.global|.+\.5afe\.dev|localhost:3000|localhost:3001|localhost:4000|localhost:6006/
 export const IPFS_HOSTS = /app\.safe\.eth\.limo|app\.5afedev\.eth\.limo/
-export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME || (IS_OFFICIAL_HOST ? 'Safe{Wallet}' : 'Wallet fork')
+export const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME || '8379'
 export const BRAND_LOGO = process.env.NEXT_PUBLIC_BRAND_LOGO || ''
 
 export const CHAINALYSIS_OFAC_CONTRACT = '0x40c57923924b5c5c5455c48d93317139addac8fb'
@@ -152,13 +152,11 @@ export const MULTICHAIN_HELP_ARTICLE = `${HELP_CENTER_URL}/articles/9317165368-d
 export const WORKSPACE_ANNOUNCEMENT_URL = `${SAFE_GLOBAL_DOMAIN}/blog/introducing-workspace-the-onchain-operating-environment-for-treasury-teams`
 
 export const SAFE_PRO_ANNOUNCEMENT_URL = `${SAFE_GLOBAL_DOMAIN}/blog/safe-pro-early-partner-program`
-export const SAFE_PRO_INTRO_URL = `${SAFE_GLOBAL_DOMAIN}/blog/introducing-safe-pro`
 export const SAFE_PRO_PRICING_URL = `${SAFE_GLOBAL_DOMAIN}/pricing`
 
-export const SAFE_PRO_USER_TERMS_URL = `${SAFE_GLOBAL_DOMAIN}/pro-user-terms`
+export const SAFE_PRO_USER_TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL || ''
 export const SAFE_PRO_TERMS_URL = `${SAFE_GLOBAL_DOMAIN}/pro-terms`
 export const LEGAL_URL = `${SAFE_GLOBAL_DOMAIN}/legal`
-export const SAFE_PRO_SERVICE_DESCRIPTIONS_URL = `${HELP_CENTER_URL}/articles/4148651106-safe-pro-service-descriptions`
 
 // Hypernative Campaign IDs
 export const PROD_HYPERNATIVE_OUTREACH_ID = parseInt(process.env.NEXT_PUBLIC_PROD_HYPERNATIVE_OUTREACH_ID ?? `${3}`)

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState, useCallback } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -70,7 +71,7 @@ function SpaceChainSelector({ isLoading }: { isLoading?: boolean }) {
               disabled
             />
           </TooltipTrigger>
-          <TooltipContent>Changing the network is not allowed in this screen</TooltipContent>
+          <TooltipContent>{translateMessage('ui.changingTheNetworkIsNotAllowed_d5af565e')}</TooltipContent>
         </Tooltip>
       ) : (
         <ChainSelectorBlock

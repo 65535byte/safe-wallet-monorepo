@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -19,11 +20,17 @@ function Disclaimer({ isMalicious }: { isMalicious: boolean }): ReactElement {
   return (
     <div className={css.disclaimerContainer}>
       <Typography>
-        <span className="font-semibold">Cancelling {isMalicious ? 'malicious transaction' : 'Account recovery'}.</span>{' '}
-        You will need to execute the cancellation.{' '}
+        <span className="font-semibold">
+          {translateMessage('ui.cancelling_94804e73')}
+          {isMalicious
+            ? translateMessage('ui.maliciousTransaction_0a248ef1')
+            : translateMessage('ui.accountRecovery_a5ed5ee0')}
+          .
+        </span>{' '}
+        {translateMessage('ui.youWillNeedToExecuteThe_f1e615ce')}{' '}
         <Track {...RECOVERY_EVENTS.LEARN_MORE} label="tx-queue">
           <ExternalLink href={HelpCenterArticle.RECOVERY} title={HelperCenterArticleTitles.RECOVERY}>
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </ExternalLink>
         </Track>
       </Typography>

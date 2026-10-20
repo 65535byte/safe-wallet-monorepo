@@ -29,7 +29,7 @@ describe('CsvTxExportModal', () => {
     renderWithUserEvent(<CsvTxExportModal onClose={onClose} onExport={onExport} hasActiveFilter={hasActiveFilter} />)
 
   const selectRange = async (user: ReturnType<typeof renderComponent>['user'], optionName: string) => {
-    await user.click(screen.getByLabelText('Date range'))
+    await user.click(screen.getByLabelText('日期范围'))
     await user.click(await screen.findByRole('option', { name: optionName }))
   }
 
@@ -48,13 +48,11 @@ describe('CsvTxExportModal', () => {
   it('renders modal with message and disabled export button', () => {
     renderComponent()
 
-    expect(
-      screen.getByText('The CSV includes transactions from the selected period, suitable for reporting.'),
-    ).toBeTruthy()
-    expect(screen.queryByText("Transaction history filters won't apply here.")).not.toBeTruthy()
-    expect(screen.getByLabelText('Date range')).toBeTruthy()
+    expect(screen.getByText('CSV 包含所选时间段内的交易，可用于报告。')).toBeTruthy()
+    expect(screen.queryByText("交易 history filters won't apply here.")).not.toBeTruthy()
+    expect(screen.getByLabelText('日期范围')).toBeTruthy()
 
-    const exportBtn = screen.getByRole('button', { name: 'Export' })
+    const exportBtn = screen.getByRole('button', { name: '导出' })
     expect(exportBtn).toBeDisabled()
   })
 
@@ -63,7 +61,7 @@ describe('CsvTxExportModal', () => {
 
     await selectRange(user, 'Last 30 days')
 
-    expect(screen.getByRole('button', { name: 'Export' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '导出' })).toBeEnabled()
   })
 
   it('shows the range label on the closed trigger, not the raw value', async () => {
@@ -71,7 +69,7 @@ describe('CsvTxExportModal', () => {
 
     await selectRange(user, 'Last 30 days')
 
-    expect(screen.getByLabelText('Date range')).toHaveTextContent('Last 30 days')
+    expect(screen.getByLabelText('日期范围')).toHaveTextContent('Last 30 days')
   })
 
   it('requires both custom dates before enabling export', async () => {
@@ -79,16 +77,16 @@ describe('CsvTxExportModal', () => {
 
     await selectRange(user, 'Custom')
 
-    const exportBtn = screen.getByRole('button', { name: 'Export' })
+    const exportBtn = screen.getByRole('button', { name: '导出' })
     expect(exportBtn).toBeDisabled()
 
-    await act(async () => fireEvent.change(screen.getByLabelText('From'), { target: { value: '01/02/2023' } }))
+    await act(async () => fireEvent.change(screen.getByLabelText('从'), { target: { value: '01/02/2023' } }))
     expect(exportBtn).toBeDisabled()
 
-    await act(async () => fireEvent.change(screen.getByLabelText('To'), { target: { value: '02/02/2023' } }))
+    await act(async () => fireEvent.change(screen.getByLabelText('至'), { target: { value: '02/02/2023' } }))
     expect(exportBtn).toBeEnabled()
 
-    expect(screen.getByText('You can select up to 12 months.')).toBeInTheDocument()
+    expect(screen.getByText('最多可选择 12 个月。')).toBeInTheDocument()
   })
 
   it('validates from/to date order', async () => {
@@ -97,14 +95,14 @@ describe('CsvTxExportModal', () => {
     await selectRange(user, 'Custom')
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText('From'), { target: { value: '02/02/2023' } })
-      fireEvent.change(screen.getByLabelText('To'), { target: { value: '01/02/2023' } })
+      fireEvent.change(screen.getByLabelText('从'), { target: { value: '02/02/2023' } })
+      fireEvent.change(screen.getByLabelText('至'), { target: { value: '01/02/2023' } })
     })
 
     await waitFor(() => {
-      expect(screen.getByText('Must be before "To" date')).toBeInTheDocument()
-      expect(screen.getByText('Must be after "From" date')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Export' })).toBeDisabled()
+      expect(screen.getByText('必须早于结束日期')).toBeInTheDocument()
+      expect(screen.getByText('必须晚于开始日期')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '导出' })).toBeDisabled()
     })
   })
 
@@ -113,24 +111,24 @@ describe('CsvTxExportModal', () => {
 
     await selectRange(user, 'Custom')
 
-    expect(screen.getByText('You can select up to 12 months.')).toBeInTheDocument()
+    expect(screen.getByText('最多可选择 12 个月。')).toBeInTheDocument()
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText('From'), { target: { value: '01/02/2022' } })
-      fireEvent.change(screen.getByLabelText('To'), { target: { value: '02/03/2023' } })
+      fireEvent.change(screen.getByLabelText('从'), { target: { value: '01/02/2022' } })
+      fireEvent.change(screen.getByLabelText('至'), { target: { value: '02/03/2023' } })
     })
 
     await waitFor(() => {
-      expect(screen.getByText('Date range cannot exceed 12 months.')).toBeInTheDocument()
-      expect(screen.queryByText('You can select up to 12 months.')).not.toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Export' })).toBeDisabled()
+      expect(screen.getByText('日期范围不能超过 12 个月。')).toBeInTheDocument()
+      expect(screen.queryByText('最多可选择 12 个月。')).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '导出' })).toBeDisabled()
     })
   })
 
   it('shows warning when filters are active', () => {
     renderComponent(true)
 
-    expect(screen.getByText("Transaction history filters won't apply here.")).toBeInTheDocument()
+    expect(screen.getByText("交易 history filters won't apply here.")).toBeInTheDocument()
   })
 
   it('should track CSV_EXPORT_SUBMITTED event with DATE_RANGE parameter when form is submitted', async () => {
@@ -138,7 +136,7 @@ describe('CsvTxExportModal', () => {
 
     await selectRange(user, 'Last 30 days')
 
-    const exportBtn = screen.getByRole('button', { name: 'Export' })
+    const exportBtn = screen.getByRole('button', { name: '导出' })
     await act(async () => fireEvent.click(exportBtn))
 
     await waitFor(() => {

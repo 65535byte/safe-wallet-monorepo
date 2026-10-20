@@ -153,7 +153,7 @@ describe.each([
 
     it('resolves false when the proposers cannot be fetched', async () => {
       mockProposersData(undefined)
-      mockUnwrap.mockRejectedValue(new Error('Request failed'))
+      mockUnwrap.mockRejectedValue(new Error('请求失败'))
 
       const { result } = renderHook(() => useGetIsWalletProposer())
 

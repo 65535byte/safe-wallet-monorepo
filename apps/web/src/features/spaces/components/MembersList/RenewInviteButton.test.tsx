@@ -58,7 +58,7 @@ describe('RenewInviteButton', () => {
     expect(mockRenew).toHaveBeenCalledWith({ spaceId: mockSpaceId, userId: 42 })
     expect(mockDispatch).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: expect.objectContaining({ message: 'Invitation renewed for Bob', variant: 'success' }),
+        payload: expect.objectContaining({ message: '已为 Bob 重新发送邀请', variant: 'success' }),
       }),
     )
   })
@@ -91,7 +91,7 @@ describe('RenewInviteButton', () => {
     await userEvent.hover(screen.getByRole('button'))
 
     // Base UI tooltips do not expose role="tooltip"; assert on the visible tooltip text.
-    expect(await screen.findByText('Renew invitation and resend the email')).toBeInTheDocument()
+    expect(await screen.findByText('更新邀请并重新发送邮件')).toBeInTheDocument()
   })
 
   it('shows the default tooltip when the invite has no email', async () => {
@@ -99,6 +99,6 @@ describe('RenewInviteButton', () => {
 
     await userEvent.hover(screen.getByRole('button'))
 
-    expect(await screen.findByText('Renew invitation')).toBeInTheDocument()
+    expect(await screen.findByText('重新发送邀请')).toBeInTheDocument()
   })
 })

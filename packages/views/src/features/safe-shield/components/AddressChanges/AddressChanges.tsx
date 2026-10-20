@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { MasterCopyChangeThreatAnalysisResult } from '@safe-global/utils/features/safe-shield/types'
 import React from 'react'
@@ -13,11 +14,11 @@ export const AddressChanges = ({ result }: AddressChangesProps) => {
 
   const items = [
     {
-      label: 'CURRENT MASTERCOPY:',
+      label: translateMessage('ui.cURRENTMASTERCOPY_73033d76'),
       value: result.before,
     },
     {
-      label: 'NEW MASTERCOPY:',
+      label: translateMessage('ui.nEWMASTERCOPY_4c1024c9'),
       value: result.after,
     },
   ]

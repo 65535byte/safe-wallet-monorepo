@@ -10,12 +10,12 @@ describe('Card', () => {
 
   it('can render a semantic section', () => {
     render(
-      <Card as="section" aria-label="Workspace settings">
+      <Card as="section" aria-label="工作空间设置">
         Settings content
       </Card>,
     )
 
-    const section = screen.getByRole('region', { name: 'Workspace settings' })
+    const section = screen.getByRole('region', { name: '工作空间设置' })
     expect(section.tagName).toBe('SECTION')
     expect(section).toHaveAttribute('data-slot', 'card')
   })

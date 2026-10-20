@@ -1,4 +1,3 @@
-import type { PlanCardCopy } from '@safe-global/views/features/spaces/components/Plans/types'
 export type BillingCycle = 'month' | 'year'
 
 export type PlanOffer = {
@@ -15,7 +14,6 @@ export type PlanOffer = {
   trialPeriodDays: number | null
   /** The plan's selling points as Stripe carries them (`metadata.planDescriptions`), shown verbatim and in order. */
   features?: string[]
-  copy?: PlanCardCopy
 }
 
 export type PlanGroup = {

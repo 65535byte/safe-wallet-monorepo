@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Head from 'next/head'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import { useSafeAppUrl } from '@/hooks/safe-apps/useSafeAppUrl'
@@ -12,7 +13,7 @@ const ShareSafeApp = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Safe Apps`}</title>
+        <title>{translateMessage('ui.safeApps_b014cd5e', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

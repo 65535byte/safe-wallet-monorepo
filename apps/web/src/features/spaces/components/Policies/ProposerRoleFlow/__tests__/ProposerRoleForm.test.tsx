@@ -69,7 +69,7 @@ const renderForm = (props: Partial<ProposerRoleFormProps> = {}, addressBook = {}
     { initialReduxState: { addressBook } },
   )
 
-const submitButton = () => screen.getByRole('button', { name: 'Submit' })
+const submitButton = () => screen.getByRole('button', { name: '提交' })
 
 // The proposer field is a combobox too, so the account field is addressed by its test id.
 const accountField = () => screen.getByTestId('safe-account-selector')
@@ -84,10 +84,8 @@ describe('ProposerRoleForm', () => {
   it('warns that the grant needs a wallet signature to complete', () => {
     renderForm()
 
-    expect(screen.getByText('You are about to grant the ability to propose transactions.')).toBeInTheDocument()
-    expect(
-      screen.getByText('To complete the setup, confirm with a signature from your connected wallet.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('您即将授予发起交易的权限。')).toBeInTheDocument()
+    expect(screen.getByText('请使用已连接钱包签名确认以完成配置。')).toBeInTheDocument()
   })
 
   it('points at the proposer settings in the nested Safes notice', async () => {
@@ -103,8 +101,8 @@ describe('ProposerRoleForm', () => {
   it('explains the proposer field and where a member name goes', () => {
     renderForm()
 
-    expect(screen.getByText('The beneficiary that will have the ability to propose transactions.')).toBeInTheDocument()
-    expect(screen.getByText('Sent to an admin to add to the Workspace address book.')).toBeInTheDocument()
+    expect(screen.getByText('将获得发起交易权限的受益人。')).toBeInTheDocument()
+    expect(screen.getByText('已提交管理员，申请添加到工作空间通讯录。')).toBeInTheDocument()
   })
 
   describe('submit gating', () => {
@@ -139,7 +137,7 @@ describe('ProposerRoleForm', () => {
         defaultValues: { proposer: PROPOSER },
       })
 
-      await screen.findByText('You need to activate this Safe before transacting')
+      await screen.findByText('交易前需要先激活此 8379')
       expect(submitButton()).toBeDisabled()
     })
 
@@ -155,15 +153,15 @@ describe('ProposerRoleForm', () => {
         },
       })
 
-      expect(screen.getByText('Add this proposer on the Safe account level')).toBeInTheDocument()
+      expect(screen.getByText('在 8379 账户设置中添加此提案人')).toBeInTheDocument()
       expect(screen.getByTestId('parent-safe-wallet-notice')).toHaveTextContent(
         'Your connected wallet, Ops, is a parent Safe account of Treasury. To grant this role on its behalf, open the settings of Treasury with a signer of Ops.',
       )
-      expect(screen.getByRole('link', { name: 'Go to Safe settings' })).toHaveAttribute(
+      expect(screen.getByRole('link', { name: '前往 8379 设置' })).toHaveAttribute(
         'href',
         expect.stringContaining('/settings/setup?safe='),
       )
-      await waitFor(() => expect(screen.getByRole('combobox', { name: 'Proposer' })).toHaveValue(PROPOSER))
+      await waitFor(() => expect(screen.getByRole('combobox', { name: '提案人' })).toHaveValue(PROPOSER))
       expect(submitButton()).toBeDisabled()
     })
 
@@ -188,7 +186,7 @@ describe('ProposerRoleForm', () => {
         { routerProps: { push } },
       )
 
-      await user.click(screen.getByRole('link', { name: 'Go to Safe settings' }))
+      await user.click(screen.getByRole('link', { name: '前往 8379 设置' }))
 
       expect(onNavigate).toHaveBeenCalledTimes(1)
       expect(push).toHaveBeenCalledTimes(1)
@@ -203,7 +201,7 @@ describe('ProposerRoleForm', () => {
         parentSafeWallet: { ...PARENT_SAFE_WALLET_COPY, safeName: 'Treasury', parentSafeName: 'Ops', settingsHref: {} },
       })
 
-      fireEvent.mouseDown(screen.getByRole('link', { name: 'Go to Safe settings' }))
+      fireEvent.mouseDown(screen.getByRole('link', { name: '前往 8379 设置' }))
       fireEvent.mouseDown(screen.getByTestId('parent-safe-wallet-notice'))
 
       expect(guard).toHaveBeenCalledTimes(1)
@@ -213,20 +211,18 @@ describe('ProposerRoleForm', () => {
     it('keeps submit disabled while the picked Safe account is missing from the resolved accounts', async () => {
       renderForm({ safeAccount: buildSafeAccountId('137', SAFE), defaultValues: { proposer: PROPOSER } })
 
-      await waitFor(() => expect(screen.getByRole('combobox', { name: 'Proposer' })).toHaveValue(PROPOSER))
+      await waitFor(() => expect(screen.getByRole('combobox', { name: '提案人' })).toHaveValue(PROPOSER))
       expect(submitButton()).toBeDisabled()
     })
 
     it('runs the proposer rule on the typed address and blocks submit on its message', async () => {
-      const validateProposer = jest.fn().mockResolvedValue('Cannot add a signer of this Safe account as proposer')
+      const validateProposer = jest.fn().mockResolvedValue('不能将此 8379 账户的签名人添加为提案人')
       const { user } = renderForm({ safeAccount: treasury.id, validateProposer })
 
-      await user.type(screen.getByRole('combobox', { name: 'Proposer' }), PROPOSER)
+      await user.type(screen.getByRole('combobox', { name: '提案人' }), PROPOSER)
 
       await waitFor(() => expect(validateProposer).toHaveBeenCalledWith(PROPOSER))
-      await waitFor(() =>
-        expect(screen.getByText('Cannot add a signer of this Safe account as proposer')).toBeInTheDocument(),
-      )
+      await waitFor(() => expect(screen.getByText('不能将此 8379 账户的签名人添加为提案人')).toBeInTheDocument())
       expect(submitButton()).toBeDisabled()
     })
 
@@ -234,7 +230,7 @@ describe('ProposerRoleForm', () => {
       const validateProposer = jest.fn().mockResolvedValue(undefined)
       const { user, rerender } = renderForm({ safeAccount: treasury.id, validateProposer })
 
-      await user.type(screen.getByRole('combobox', { name: 'Proposer' }), PROPOSER)
+      await user.type(screen.getByRole('combobox', { name: '提案人' }), PROPOSER)
       await waitFor(() => expect(validateProposer).toHaveBeenCalled())
       validateProposer.mockClear()
 
@@ -252,12 +248,12 @@ describe('ProposerRoleForm', () => {
     })
 
     it('re-validates the proposer when the rule itself changes, e.g. once the Safe has loaded', async () => {
-      const loading = jest.fn().mockResolvedValue('Loading the Safe account details, please wait')
+      const loading = jest.fn().mockResolvedValue('正在加载 8379 账户详情，请稍候')
       const loaded = jest.fn().mockResolvedValue(undefined)
       const { user, rerender } = renderForm({ safeAccount: treasury.id, validateProposer: loading })
 
-      await user.type(screen.getByRole('combobox', { name: 'Proposer' }), PROPOSER)
-      await waitFor(() => expect(screen.getByText('Loading the Safe account details, please wait')).toBeInTheDocument())
+      await user.type(screen.getByRole('combobox', { name: '提案人' }), PROPOSER)
+      await waitFor(() => expect(screen.getByText('正在加载 8379 账户详情，请稍候')).toBeInTheDocument())
       expect(submitButton()).toBeDisabled()
 
       rerender(
@@ -272,7 +268,7 @@ describe('ProposerRoleForm', () => {
 
       await waitFor(() => expect(loaded).toHaveBeenCalledWith(PROPOSER))
       await waitFor(() => expect(submitButton()).toBeEnabled())
-      expect(screen.queryByText('Loading the Safe account details, please wait')).not.toBeInTheDocument()
+      expect(screen.queryByText('正在加载 8379 账户详情，请稍候')).not.toBeInTheDocument()
     })
 
     it('re-validates a prefilled proposer when the Safe account changes', async () => {
@@ -326,8 +322,8 @@ describe('ProposerRoleForm', () => {
         isSubmitting: true,
       })
 
-      expect(screen.queryByRole('button', { name: 'Submit' })).not.toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Loading' })).toBeDisabled()
+      expect(screen.queryByRole('button', { name: '提交' })).not.toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '加载中' })).toBeDisabled()
     })
 
     it('submits without a name, which is optional', async () => {
@@ -346,8 +342,8 @@ describe('ProposerRoleForm', () => {
   })
 
   describe('proposer name', () => {
-    const nameField = () => screen.getByRole('textbox', { name: 'Proposer name' })
-    const queryNameField = () => screen.queryByRole('textbox', { name: 'Proposer name' })
+    const nameField = () => screen.getByRole('textbox', { name: '提案人名称' })
+    const queryNameField = () => screen.queryByRole('textbox', { name: '提案人名称' })
     const localContact = { [CHAIN_ID]: { [PROPOSER]: 'Alice' } }
     const workspaceContact: SpaceAddressBookItemDto = {
       name: 'Workspace Alice',
@@ -386,7 +382,7 @@ describe('ProposerRoleForm', () => {
       await user.clear(nameField())
       await user.type(nameField(), 'Bob')
       expect(nameField()).toHaveValue('Bob')
-      expect(screen.getByText('Saved to the Workspace address book, visible to all members.')).toBeInTheDocument()
+      expect(screen.getByText('已保存到工作空间通讯录，对所有成员可见。')).toBeInTheDocument()
     })
 
     it.each([
@@ -427,7 +423,7 @@ describe('ProposerRoleForm', () => {
         .mockReturnValue([{ ...workspaceContact, name: 'Alice', address: otherContact }])
       const onSubmit = jest.fn()
       const { user } = renderForm({ safeAccount: treasury.id, onSubmit }, localContact)
-      const proposerField = () => screen.getByRole('combobox', { name: 'Proposer' })
+      const proposerField = () => screen.getByRole('combobox', { name: '提案人' })
 
       await user.type(proposerField(), PROPOSER)
       await waitFor(() => expect(nameField()).toHaveValue('Alice'))
@@ -459,12 +455,12 @@ describe('ProposerRoleForm', () => {
       renderForm({ defaultValues: { proposer: PROPOSER } }, { [CHAIN_ID]: { [PROPOSER]: 'Al' } })
 
       await waitFor(() => expect(nameField()).toHaveValue('Al'))
-      expect(screen.getByText('Names must be at least 3 character(s) long')).toBeInTheDocument()
+      expect(screen.getByText('Names must be，时间 least 3 character(s) long')).toBeInTheDocument()
     })
   })
 
   describe('proposer field', () => {
-    const proposerField = () => screen.getByRole('combobox', { name: 'Proposer' })
+    const proposerField = () => screen.getByRole('combobox', { name: '提案人' })
 
     afterEach(() => jest.restoreAllMocks())
 
@@ -520,7 +516,7 @@ describe('ProposerRoleForm', () => {
     it('states the signer-only rule below the field', () => {
       renderForm()
 
-      expect(screen.getByText("You only see accounts where you're a signer.")).toBeInTheDocument()
+      expect(screen.getByText('仅显示您具有以下身份的账户：signer。')).toBeInTheDocument()
     })
 
     it('reports a picked account to onSafeAccountChange', async () => {
@@ -569,7 +565,7 @@ describe('ProposerRoleForm', () => {
       const { user } = renderForm({ safeAccounts: { ...eligible, accounts: [], isError: true, refetch } })
 
       await openAccountField(user)
-      await user.click(await screen.findByRole('button', { name: /retry/i }))
+      await user.click(await screen.findByRole('button', { name: /重试/i }))
 
       expect(refetch).toHaveBeenCalled()
     })
@@ -591,7 +587,7 @@ describe('ProposerRoleForm', () => {
 
       renderForm({ safeAccount: treasury.id })
 
-      expect(screen.getByText('Change your wallet network')).toBeInTheDocument()
+      expect(screen.getByText('切换钱包网络')).toBeInTheDocument()
       expect(screen.getByText(/You are trying to sign on Ethereum/)).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /Switch to/ })).toBeInTheDocument()
     })
@@ -601,7 +597,7 @@ describe('ProposerRoleForm', () => {
 
       renderForm({ safeAccount: treasury.id })
 
-      expect(screen.queryByText('Change your wallet network')).not.toBeInTheDocument()
+      expect(screen.queryByText('切换钱包网络')).not.toBeInTheDocument()
     })
   })
 
@@ -612,7 +608,7 @@ describe('ProposerRoleForm', () => {
       errorMessage: <span>Error adding proposer</span>,
     })
 
-    expect(screen.getByText('Error adding proposer')).toBeInTheDocument()
+    expect(screen.getByText('添加提案人失败')).toBeInTheDocument()
     expect(accountField()).toHaveTextContent('Treasury')
   })
 })

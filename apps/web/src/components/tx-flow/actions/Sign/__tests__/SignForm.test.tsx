@@ -71,8 +71,8 @@ describe('SignForm', () => {
       isOffchainMessage: false,
     },
     options: [
-      { id: 'sign', label: 'Sign' },
-      { id: 'execute', label: 'Execute' },
+      { id: 'sign', label: '签名' },
+      { id: 'execute', label: '执行' },
     ],
     onChange: jest.fn(),
     slotId: 'sign',
@@ -88,7 +88,7 @@ describe('SignForm', () => {
 
     const { getByText } = render(<SignForm {...defaultProps} />)
 
-    expect(getByText('You have already signed this transaction.')).toBeInTheDocument()
+    expect(getByText('您已签署此交易。')).toBeInTheDocument()
   })
 
   it('does not display a warning if connected wallet has not signed the tx yet', () => {
@@ -96,7 +96,7 @@ describe('SignForm', () => {
 
     const { queryByText } = render(<SignForm {...defaultProps} />)
 
-    expect(queryByText('You have already signed this transaction.')).not.toBeInTheDocument()
+    expect(queryByText('您已签署此交易。')).not.toBeInTheDocument()
   })
 
   it('shows a non-owner error', () => {
@@ -104,11 +104,7 @@ describe('SignForm', () => {
 
     const { queryByText } = render(<SignForm {...defaultProps} isOwner={false} />)
 
-    expect(
-      queryByText(
-        'You are currently not a signer of this Safe account and won&apos;t be able to submit this transaction.',
-      ),
-    ).not.toBeInTheDocument()
+    expect(queryByText('您不是此 8379 账户的签名人，无法提交此交易。')).not.toBeInTheDocument()
   })
 
   it('signs a transaction', async () => {
@@ -127,7 +123,7 @@ describe('SignForm', () => {
       />,
     )
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
 
     fireEvent.click(button)
 
@@ -152,7 +148,7 @@ describe('SignForm', () => {
       { willSignBeforeExecute: false, continueToExecute },
     )
 
-    fireEvent.click(getByText('Sign'))
+    fireEvent.click(getByText('签名'))
 
     await waitFor(() => {
       expect(setTxFlow).toHaveBeenCalledWith(undefined)
@@ -176,7 +172,7 @@ describe('SignForm', () => {
       { willSignBeforeExecute: true, continueToExecute },
     )
 
-    fireEvent.click(getByText('Sign'))
+    fireEvent.click(getByText('签名'))
 
     await waitFor(() => {
       expect(continueToExecute).toHaveBeenCalledWith(signedTxId)
@@ -188,7 +184,7 @@ describe('SignForm', () => {
     it('there is no safeTx', () => {
       const { getByText } = render(<SignForm {...defaultProps} safeTx={undefined} />)
 
-      const button = getByText('Sign')
+      const button = getByText('签名')
 
       expect(button).toBeInTheDocument()
       expect(button).toBeDisabled()
@@ -206,7 +202,7 @@ describe('SignForm', () => {
     it('passed via props', () => {
       const { getByText } = render(<SignForm {...defaultProps} safeTx={safeTransaction} disableSubmit />)
 
-      const button = getByText('Sign')
+      const button = getByText('签名')
 
       expect(button).toBeInTheDocument()
       expect(button).toBeDisabled()
@@ -215,7 +211,7 @@ describe('SignForm', () => {
     it('connected wallet is not an owner', () => {
       const { getByText } = render(<SignForm {...defaultProps} safeTx={safeTransaction} isOwner={false} />)
 
-      const button = getByText('Sign')
+      const button = getByText('签名')
 
       expect(button).toBeInTheDocument()
       expect(button).toBeDisabled()
@@ -230,7 +226,7 @@ describe('SignForm', () => {
         />,
       )
 
-      const button = getByText('Sign')
+      const button = getByText('签名')
 
       expect(button).toBeInTheDocument()
       expect(button).toBeDisabled()
@@ -246,7 +242,7 @@ describe('SignForm', () => {
       />,
     )
 
-    const button = getByText('Sign')
+    const button = getByText('签名')
 
     expect(button).toBeInTheDocument()
     expect(button).not.toBeDisabled()

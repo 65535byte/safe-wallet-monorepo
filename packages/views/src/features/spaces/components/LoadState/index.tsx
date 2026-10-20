@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import SafeLogoHalo from '@safe-global/views/components/common/SafeLogoHalo'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -5,7 +6,7 @@ import { Empty, EmptyContent, EmptyDescription, EmptyMedia } from '@safe-global/
 import { cn } from '@safe-global/views/utils/cn'
 import css from './LoadState.module.css'
 
-export const SPACE_LOAD_ERROR = 'The website failed to load data. Please try again.'
+export const SPACE_LOAD_ERROR = translateMessage('ui.theWebsiteFailedToLoadData_9a9dff2f')
 
 type LoadStateProps = {
   /** What is loading, for the busy label. */
@@ -14,7 +15,13 @@ type LoadStateProps = {
 }
 
 export const SpaceLoading = ({ subject, testId }: LoadStateProps): ReactElement => (
-  <Empty data-testid={testId} role="status" aria-busy aria-live="polite" aria-label={`Loading ${subject}`}>
+  <Empty
+    data-testid={testId}
+    role="status"
+    aria-busy
+    aria-live="polite"
+    aria-label={translateMessage('ui.loading_93663f70', { p0: subject })}
+  >
     <EmptyMedia>
       <SafeLogoHalo />
     </EmptyMedia>
@@ -25,7 +32,7 @@ export const SpaceLoading = ({ subject, testId }: LoadStateProps): ReactElement 
       </div>
     </EmptyContent>
 
-    <EmptyDescription>Almost there…</EmptyDescription>
+    <EmptyDescription>{translateMessage('ui.almostThere_2508b5f6')}</EmptyDescription>
   </Empty>
 )
 
@@ -41,7 +48,7 @@ export const SpaceLoadError = ({ onReload, testId }: { onReload?: () => void; te
     {onReload && (
       <EmptyContent>
         <Button variant="outline" onClick={onReload}>
-          Reload
+          {translateMessage('ui.reload_00a35ede')}
         </Button>
       </EmptyContent>
     )}

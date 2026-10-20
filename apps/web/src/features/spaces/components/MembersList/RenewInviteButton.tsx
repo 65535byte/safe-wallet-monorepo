@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { Send } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -28,7 +29,9 @@ const RenewInviteButton = ({ member }: { member: MemberDto }) => {
         }
       />
       <TooltipContent>
-        {member.user.email ? 'Renew invitation and resend the email' : 'Renew invitation'}
+        {member.user.email
+          ? translateMessage('ui.renewInvitationAndResendTheEmail_68d29bfd')
+          : translateMessage('ui.renewInvitation_8c0c0f9f')}
       </TooltipContent>
     </Tooltip>
   )

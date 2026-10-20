@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import WalletLogin, {
   type WalletLoginButtonStyle,
   type WalletLoginButtonText,
@@ -20,14 +21,14 @@ import { useEffect, useRef } from 'react'
 const getSignInErrorMessage = async (wallet: ConnectedWallet | null): Promise<string> => {
   if (wallet?.address && (await isSmartContractWallet(wallet.chainId, wallet.address))) {
     const walletName = getWalletConnectLabel(wallet) || wallet.label
-    return `${walletName} for logging into Workspace is not supported at the moment.`
+    return translateMessage('ui.forLoggingIntoWorkspaceIsNot_a21ed715', { p0: walletName })
   }
 
   if (wallet && isLedger(wallet)) {
-    return 'Ledger for logging into Workspace is not supported at the moment.'
+    return translateMessage('ui.ledgerForLoggingIntoWorkspaceIs_3168070b')
   }
 
-  return 'Something went wrong while trying to sign in'
+  return translateMessage('ui.somethingWentWrongWhileTryingTo_f3b15962')
 }
 
 interface SignInButtonProps {

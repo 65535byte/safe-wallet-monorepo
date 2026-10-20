@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import TokenIcon from '@/components/common/TokenIcon'
 import { Badge } from '@safe-global/views/components/ui/badge'
@@ -62,7 +63,10 @@ const AllowanceRow = ({ allowance, showUsage }: AllowanceRowProps): ReactElement
           {/* Track and fill match the preview in SpendingLimitIntroDialog; the default track is the card's own colour. */}
           <Progress
             value={remainingPercent(allowance)}
-            aria-label={`${allowance.token.symbol}: ${formatRemaining(allowance)}`}
+            aria-label={translateMessage('ui.text_f6d9a181', {
+              p0: allowance.token.symbol,
+              p1: formatRemaining(allowance),
+            })}
           >
             <ProgressTrack className="bg-border">
               <ProgressIndicator className="bg-badge-dot-success" />
@@ -76,7 +80,8 @@ const AllowanceRow = ({ allowance, showUsage }: AllowanceRowProps): ReactElement
 
             {allowance.resetsAtMinute !== null && (
               <Typography variant="paragraph-mini" color="muted" className="shrink-0">
-                Resets {formatResetUtc(allowance.resetsAtMinute)}
+                {translateMessage('ui.resets_6ba84fcd')}
+                {formatResetUtc(allowance.resetsAtMinute)}
               </Typography>
             )}
           </div>

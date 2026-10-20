@@ -33,11 +33,11 @@ const render = (pendingTx?: PendingTx) =>
 
 describe('useTransactionStatus', () => {
   it('returns the gateway status when the tx is not pending', () => {
-    expect(render().result.current).toBe('Awaiting confirmations')
+    expect(render().result.current).toBe('等待确认')
   })
 
   it('returns "Awaiting parent signature" while the child tx is only queued in the parent Safe', () => {
-    expect(render(nestedPendingTx(false)).result.current).toBe('Awaiting parent signature')
+    expect(render(nestedPendingTx(false)).result.current).toBe('等待上级 8379 签名')
   })
 
   it('returns "Signing" when the parent Safe executed the nested call immediately', () => {

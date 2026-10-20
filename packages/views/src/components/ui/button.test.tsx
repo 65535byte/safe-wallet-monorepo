@@ -39,7 +39,7 @@ describe('Button', () => {
       </Button>,
     )
 
-    const link = screen.getByRole('link', { name: 'Go to Nested Safe' })
+    const link = screen.getByRole('link', { name: '前往嵌套 Safe' })
     expect(link).toHaveAttribute('aria-disabled', 'true')
     expect(link).toHaveAttribute('tabindex', '-1')
     // an <a disabled> is invalid HTML and inert, so the attribute must not be forwarded
@@ -58,7 +58,7 @@ describe('Button', () => {
       </Button>,
     )
 
-    const link = screen.getByRole('link', { name: 'Go to Nested Safe' })
+    const link = screen.getByRole('link', { name: '前往嵌套 Safe' })
     expect(link).toHaveAttribute('href', '/nested-safe')
     expect(link).not.toHaveAttribute('aria-disabled')
     expect(link).not.toHaveAttribute('tabindex')
@@ -72,7 +72,7 @@ describe('Button', () => {
 
     render(<Button render={<NextLink href="/nested-safe" onClick={onClick} />}>Go to Nested Safe</Button>)
 
-    await userEvent.click(screen.getByRole('link', { name: 'Go to Nested Safe' }))
+    await userEvent.click(screen.getByRole('link', { name: '前往嵌套 Safe' }))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
@@ -83,12 +83,12 @@ describe('Button', () => {
       </Button>,
     )
 
-    expect(screen.getByRole('button', { name: 'Go to Nested Safe' })).toHaveAttribute('aria-disabled', 'true')
+    expect(screen.getByRole('button', { name: '前往嵌套 Safe' })).toHaveAttribute('aria-disabled', 'true')
   })
 
   it('marks a disabled native button as disabled', () => {
     render(<Button disabled>Go to Nested Safe</Button>)
 
-    expect(screen.getByRole('button', { name: 'Go to Nested Safe' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '前往嵌套 Safe' })).toBeDisabled()
   })
 })

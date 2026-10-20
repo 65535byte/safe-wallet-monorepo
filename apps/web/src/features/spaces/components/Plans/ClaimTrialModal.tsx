@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState, type CSSProperties } from 'react'
 import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -33,42 +34,45 @@ export type ClaimTrialVariant = 'existing' | 'new'
 export type ClaimTrialCopy = { title: string; subtitle: string; note: string; back: string; claim: string }
 
 /** What happens when the trial runs out, behind the info icon next to the note. */
-export const TRIAL_END_TOOLTIP =
-  "Your paid subscription only starts once you add a payment method. If you don't add one or choose another plan before your free access ends, your Workspace will be locked. Its data is kept for 90 days and your Safe accounts remain available in My accounts."
+export const TRIAL_END_TOOLTIP = translateMessage('ui.yourPaidSubscriptionOnlyStartsOnce_bc4eec70')
 
 /** The price tag's green word: a new Workspace is told how long the free period lasts, an existing one just "Free". */
 export const _freeLabel = (trialPeriodDays: number | null, variant: ClaimTrialVariant): string =>
-  variant === 'new' && trialPeriodDays !== null ? `${trialPeriodDays}-day free` : 'Free'
+  variant === 'new' && trialPeriodDays !== null
+    ? translateMessage('ui.dayFree_a5b654f8', { p0: trialPeriodDays })
+    : translateMessage('ui.free_b34fd7a2')
 
 export const claimCopy = (trialPeriodDays: number | null, variant: ClaimTrialVariant = 'existing'): ClaimTrialCopy => {
   if (variant === 'new') {
     return {
-      title: 'Workspaces run on Safe Pro',
-      subtitle: trialPeriodDays === null ? 'Your first days are free.' : `Your first ${trialPeriodDays} days are free.`,
-      note: "No payment method required. We'll remind you 7 days before your free access ends.",
-      back: 'Go to My accounts',
-      claim: 'Claim free access',
+      title: translateMessage('ui.workspacesRunOn_41399e7d'),
+      subtitle:
+        trialPeriodDays === null
+          ? translateMessage('ui.yourFirstDaysAreFree_c0b203ae')
+          : translateMessage('ui.yourFirstDaysAreFree_a48cc9be', { p0: trialPeriodDays }),
+      note: translateMessage('ui.noPaymentMethodRequiredWeLl_58f17b5e'),
+      back: translateMessage('ui.goToMyAccounts_c5906669'),
+      claim: translateMessage('ui.claimFreeAccess_2779de5b'),
     }
   }
   const existing = {
-    note: "No payment method required. We'll remind you 7 days before your free access ends.",
-    back: 'Go to My accounts',
-    claim: 'Claim free access',
+    note: translateMessage('ui.noPaymentMethodRequiredWeLl_58f17b5e'),
+    back: translateMessage('ui.goToMyAccounts_c5906669'),
+    claim: translateMessage('ui.claimFreeAccess_2779de5b'),
   }
   return trialPeriodDays === MIGRATED_TRIAL_DAYS
     ? {
         ...existing,
-        title: 'Your Workspace moved to Safe Pro',
-        subtitle:
-          'You’ve used Safe before, so your free access is 60 days instead of 30.\nYour Safe accounts remain available in My accounts.',
+        title: translateMessage('ui.yourWorkspaceMovedTo_bef1b87d'),
+        subtitle: translateMessage('ui.youVeUsedBeforeSoYour_67791055'),
       }
     : {
         ...existing,
         title:
           trialPeriodDays === null
-            ? 'Start your free access to Safe Pro'
-            : `Start your ${trialPeriodDays}-day free access to Safe Pro`,
-        subtitle: 'All Pro features unlocked. No billing details needed upfront.',
+            ? translateMessage('ui.startYourFreeAccessTo_6ccadd12')
+            : translateMessage('ui.startYourDayFreeAccessTo_bf2f80bd', { p0: trialPeriodDays }),
+        subtitle: translateMessage('ui.allProFeaturesUnlockedNoBilling_3ec788aa'),
       }
 }
 
@@ -118,7 +122,9 @@ const TrialOfferCard = ({
             </div>
             {availableUntil && (
               <Typography variant="paragraph-small" color="muted">
-                Available until {availableUntil}. You can subscribe any time after that.
+                {translateMessage('ui.availableUntil_b2c52104')}
+                {availableUntil}
+                {translateMessage('ui.youCanSubscribeAnyTimeAfter_4c8ec82f')}
               </Typography>
             )}
           </div>
@@ -219,7 +225,8 @@ export default function ClaimTrialModal({
                 variant="muted"
                 className="self-start"
               >
-                Compare all features <ArrowUpRight />
+                {translateMessage('ui.compareAllFeatures_d346bd9e')}
+                <ArrowUpRight />
               </Link>
 
               {isLoading ? (
@@ -227,7 +234,7 @@ export default function ClaimTrialModal({
               ) : tiers.length === 0 ? (
                 <Alert variant="info">
                   <AlertSeverityIcon variant="info" />
-                  <AlertDescription>There is no free access available for this Workspace.</AlertDescription>
+                  <AlertDescription>{translateMessage('ui.thereIsNoFreeAccessAvailable_00943163')}</AlertDescription>
                 </Alert>
               ) : (
                 <div

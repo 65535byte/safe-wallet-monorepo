@@ -2,11 +2,11 @@ import { vaultTypeToLabel, isEligibleEarnToken } from '../utils'
 
 describe('vaultTypeToLabel', () => {
   it('maps VaultDeposit to Deposit', () => {
-    expect(vaultTypeToLabel.VaultDeposit).toBe('Deposit')
+    expect(vaultTypeToLabel.VaultDeposit).toBe('存入')
   })
 
   it('maps VaultRedeem to Withdraw', () => {
-    expect(vaultTypeToLabel.VaultRedeem).toBe('Withdraw')
+    expect(vaultTypeToLabel.VaultRedeem).toBe('提取')
   })
 })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type SyntheticEvent, useContext, useCallback, useEffect } from 'react'
 import CheckWallet from '@/components/common/CheckWallet'
 import { Errors, trackError } from '@/services/exceptions'
@@ -76,9 +77,9 @@ const RecoveryAttemptReview = ({ item }: RecoveryAttemptReviewProps) => {
     <TxCard>
       <form onSubmit={onFormSubmit}>
         <div className="mb-4 flex flex-col gap-6">
-          <Typography>Execute this transaction to finalize the recovery.</Typography>
+          <Typography>{translateMessage('ui.executeThisTransactionToFinalizeThe_6a1dccbd')}</Typography>
 
-          <FieldsGrid title="Initiator">
+          <FieldsGrid title={translateMessage('ui.initiator_354b9cfb')}>
             <EthHashInfo address={item.executor} showName showCopyButton hasExplorer />
           </FieldsGrid>
 
@@ -106,7 +107,7 @@ const RecoveryAttemptReview = ({ item }: RecoveryAttemptReviewProps) => {
                 type="submit"
                 disabled={!isOk || isLoading}
               >
-                {isLoading ? <Spinner className="size-5" /> : 'Execute'}
+                {isLoading ? <Spinner className="size-5" /> : translateMessage('ui.execute_eea2eb83')}
               </Button>
             )}
           </CheckWallet>

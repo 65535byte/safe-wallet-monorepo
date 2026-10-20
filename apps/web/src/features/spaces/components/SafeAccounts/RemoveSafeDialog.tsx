@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import { isMultiChainSafeItem, type SafeItem, type MultiChainSafeItem } from '@/hooks/safes'
 import { getChainIdsParam, useCurrentSpaceId } from '@/features/spaces'
@@ -54,25 +55,38 @@ const RemoveSafeDialog = ({
         throw result.error
       }
 
+      safeAccounts.forEach(({ chainId, address }) => {
+        trackEvent(
+          { ...SPACE_EVENTS.WORKSPACE_SAFE_UNLINKED, label: spaceId },
+          { workspace_id: spaceId, safe_address: address, chain_id: chainId },
+        )
+      })
+
       dispatch(
         showNotification({
-          message: `Removed safe account from space`,
+          message: translateMessage('ui.accountRemovedFromWorkspace_9dd83385'),
           variant: 'success',
           groupKey: 'remove-safe-account-success',
         }),
       )
     } catch (e) {
       if (isElevationRequiredError(e)) return
-      setError('Error removing safe account.')
+      setError(translateMessage('ui.errorRemovingSafeAccount_0bc14175'))
     }
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Remove Safe account" hideChainIndicator>
+    <ModalDialog
+      open
+      onClose={handleClose}
+      dialogTitle={translateMessage('ui.removeAccount_e119a314')}
+      hideChainIndicator
+    >
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="p-6">
           <Typography variant="paragraph">
-            Are you sure you want to remove <b>{address}</b> from this space?
+            {translateMessage('ui.areYouSureYouWantTo_e3a808ce')}
+            <b>{address}</b> {translateMessage('ui.fromThisSpace_e2b5728e')}
           </Typography>
           {error && (
             <Alert variant="destructive" className="mt-4">
@@ -86,7 +100,7 @@ const RemoveSafeDialog = ({
           className="px-6 pb-6"
           onCancel={handleClose}
           cancelTestId="cancel-btn"
-          confirmLabel="Remove"
+          confirmLabel={translateMessage('ui.remove_1498adee')}
           onConfirm={handleConfirm}
           confirmTestId="delete-btn"
           confirmDestructive

@@ -17,14 +17,14 @@ describe('SafeProSidebarBanner', () => {
   it('renders the headline and the supporting line', () => {
     render(<SafeProSidebarBanner />)
 
-    expect(screen.getByText('Your Workspace moves to Safe Pro on Oct 6, 2026')).toBeInTheDocument()
-    expect(screen.getByText('Your Safe accounts remain available outside the Workspace.')).toBeInTheDocument()
+    expect(screen.getByText('您的工作空间将于 2026 年 10 月 6 日迁移至 8379')).toBeInTheDocument()
+    expect(screen.getByText('工作空间之外的 Safe 账户仍然可用。')).toBeInTheDocument()
   })
 
   it('points the Learn more CTA at the announcement in a safe new tab', () => {
     render(<SafeProSidebarBanner />)
 
-    const cta = screen.getByRole('link', { name: 'Learn more' })
+    const cta = screen.getByRole('link', { name: '了解更多' })
     expect(cta).toHaveAttribute('href', SAFE_PRO_ANNOUNCEMENT_URL)
     expect(cta).toHaveAttribute('target', '_blank')
     expect(cta).toHaveAttribute('rel', 'noopener noreferrer')
@@ -34,14 +34,14 @@ describe('SafeProSidebarBanner', () => {
   it('has no close button unless it can be dismissed', () => {
     render(<SafeProSidebarBanner />)
 
-    expect(screen.queryByRole('button', { name: 'Dismiss' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '关闭' })).not.toBeInTheDocument()
   })
 
   it('calls onDismiss from the close button', () => {
     const onDismiss = jest.fn()
     render(<SafeProSidebarBanner onDismiss={onDismiss} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
 
     expect(onDismiss).toHaveBeenCalledTimes(1)
   })

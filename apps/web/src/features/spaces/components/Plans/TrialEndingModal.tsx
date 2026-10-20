@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useState } from 'react'
 import { useSpacesGetOneV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -17,22 +18,26 @@ import { useSpacePlan } from '../../hooks/useSpacePlan'
 import { markTrialReminderSeen, wasTrialReminderSeen } from '../../store/trialReminder'
 import ChangePlanFlow from './ChangePlanFlow'
 import { ENTERPRISE_TIER } from '@safe-global/views/features/spaces/components/Plans/planCatalog'
-import { PlanCatalog } from './PlanCatalog'
+import { PlanCatalog } from './PlanCards'
+import { salesHintFor } from './PlanChooserModal'
 import { buildPlanTiers, toCurrentPlan } from './planTiers'
 import { InfoTip } from './PlanStatusCard'
 import type { CurrentPlan, PlanPick } from '@safe-global/views/features/spaces/components/Plans/types'
 
 export const _endsIn = (daysLeft: number | null): string =>
-  daysLeft === null || daysLeft > 1 ? `in ${daysLeft ?? 7} days` : daysLeft === 1 ? 'in 1 day' : 'today'
+  daysLeft === null || daysLeft > 1
+    ? translateMessage('ui.inDays_fab6caad', { p0: daysLeft ?? 7 })
+    : daysLeft === 1
+      ? translateMessage('ui.inDay_913b5ac9')
+      : translateMessage('ui.today_ffc61ad5')
 
-const TRIAL_REMINDER_TOOLTIP =
-  'Your paid subscription only starts once you add a payment method. Your Workspace data is kept for 90 days and your Safe accounts stay available in My accounts.'
+const TRIAL_REMINDER_TOOLTIP = translateMessage('ui.yourPaidSubscriptionOnlyStartsOnce_9dca46a1')
 
 /** What the reminder asks of the viewer: an admin can act, a member is told who can. */
 export const reminderSubtitle = (endsAt: string, isAdmin: boolean, spaceName?: string): string =>
   isAdmin
-    ? `If you don't select a plan and add a payment method by ${endsAt}, your Workspace will be locked.`
-    : `${spaceName ?? 'This Workspace'} will be locked on ${endsAt} unless an admin chooses a plan and adds a payment method.\nYour Safe accounts remain available in My accounts.`
+    ? translateMessage('ui.ifYouDonTSelectA_7d4f83e3', { p0: endsAt })
+    : translateMessage('ui.willBeLockedOnUnlessAn_3bd6a396', { p0: spaceName ?? 'This Workspace', p1: endsAt })
 
 const TrialEndingChooser = ({
   spaceId,
@@ -64,7 +69,7 @@ const TrialEndingChooser = ({
   )
   const endsAt = currentPlan.periodEndsAt
     ? formatDate(Date.parse(currentPlan.periodEndsAt))
-    : 'the end of your free access'
+    : translateMessage('ui.theEndOfYourFreeAccess_d4d68d09')
   const entry = { [MixpanelEventParams.ENTRY_POINT]: PlanSelectionEntryPoint.REMINDER_MODAL }
   useTrackOnce(
     SAFE_PRO_EVENTS.FREE_ACCESS_REMINDER_VIEWED,
@@ -78,11 +83,13 @@ const TrialEndingChooser = ({
   return (
     <>
       <Dialog open={!isChanged} onOpenChange={(open) => !open && onClose()}>
-        <DialogContent size="lg" surface="card" padding="sm">
+        <DialogContent size="md" surface="card" padding="sm">
           <div className="flex flex-col gap-6 pt-5">
             <div className="flex flex-col gap-1">
               <Typography variant="h3" as={DialogTitle}>
-                Your free access will end {_endsIn(currentPlan.daysLeft ?? null)}
+                {translateMessage('ui.yourFreeAccessWillEnd_a84c53e3')}
+                {_endsIn(currentPlan.daysLeft ?? null)}
+                {translateMessage('ui.yourFreeAccessWillEnd_0a0d3c9a')}
               </Typography>
               <Typography color="muted" className="flex items-center gap-1 whitespace-pre-line">
                 {reminderSubtitle(endsAt, isAdmin, spaceName)}
@@ -98,13 +105,13 @@ const TrialEndingChooser = ({
             ) : tiers.length === 0 ? (
               <Alert variant="info">
                 <AlertSeverityIcon variant="info" />
-                <AlertDescription>There is no plan available for this Workspace right now.</AlertDescription>
+                <AlertDescription>{translateMessage('ui.thereIsNoPlanAvailableFor_c1c312cf')}</AlertDescription>
               </Alert>
             ) : (
               <PlanCatalog
-                embedded
                 tiers={tiers}
                 currentPlan={currentPlan}
+                salesHint={salesHintFor(tiers)}
                 onManage={() => void openPortal()}
                 onSubscribe={setPick}
                 isBusy={isRedirecting}
@@ -116,11 +123,11 @@ const TrialEndingChooser = ({
 
             {isAdmin ? (
               <Button variant="ghost-muted" size="sm" className="self-center" onClick={onClose}>
-                Continue without Safe Pro
+                {translateMessage('ui.continueWithout_b017586b')}
               </Button>
             ) : (
               <Button size="lg" className="self-center" onClick={onClose}>
-                Got it
+                {translateMessage('ui.gotIt_008f9813')}
               </Button>
             )}
           </div>

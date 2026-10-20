@@ -58,7 +58,7 @@ describe('multichainSetupScanner', () => {
     )
     const affectedEvidence = result.evidence.find((e) => typeof e === 'object' && e.label === 'Affected')
     if (typeof affectedEvidence === 'object') {
-      expect(affectedEvidence.value).toBe('Multiple networks')
+      expect(affectedEvidence.value).toBe('多个网络')
     }
   })
 })

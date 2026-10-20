@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { ReviewRemoveOwner } from './ReviewRemoveOwner'
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
@@ -42,10 +43,10 @@ const RemoveOwnerFlow = (props: Owner) => {
       initialData={defaultValues}
       eventCategory={TxFlowType.REMOVE_OWNER}
       icon={SaveAddressIcon}
-      subtitle="Remove signer"
+      subtitle={translateMessage('ui.removeSigner_c915f5e6')}
       ReviewTransactionComponent={ReviewOwnerStep}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <SetThresholdStep />
       </TxFlowStep>
     </TxFlow>

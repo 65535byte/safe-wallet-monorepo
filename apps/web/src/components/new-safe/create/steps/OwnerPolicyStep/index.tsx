@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useAddressBook from '@/hooks/useAddressBook'
 import useWallet from '@/hooks/wallets/useWallet'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -20,7 +21,6 @@ import { ArrowLeft as ArrowBackIcon } from 'lucide-react'
 import layoutCss from '@/components/new-safe/create/styles.module.css'
 import { CREATE_SAFE_EVENTS, trackEvent } from '@/services/analytics'
 import OwnerRow from '@/components/new-safe/OwnerRow'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 enum OwnerPolicyStepFields {
   owners = 'owners',
@@ -120,14 +120,14 @@ const OwnerPolicyStep = ({
             size="lg"
           >
             <AddIcon className="size-4" />
-            Add new signer
+            {translateMessage('ui.addNewSigner_d338b9bd')}
           </Button>
         </div>
 
         <Separator />
         <div className={layoutCss.row}>
           <Typography variant="h4" className="inline-flex items-center gap-2">
-            Threshold
+            {translateMessage('ui.threshold_60fbd8eb')}
             <Tooltip>
               <TooltipTrigger
                 render={
@@ -136,14 +136,11 @@ const OwnerPolicyStep = ({
                   </span>
                 }
               />
-              <TooltipContent>
-                The threshold of a Safe account specifies how many signers need to confirm a Safe account transaction
-                before it can be executed.
-              </TooltipContent>
+              <TooltipContent>{translateMessage('ui.theThresholdOfAAccountSpecifies_fc4cfa69')}</TooltipContent>
             </Tooltip>
           </Typography>
           <Typography variant="paragraph-small" className="mb-4 block">
-            Any transaction requires the confirmation of:
+            {translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}
           </Typography>
           <div className="flex flex-row items-center gap-4 pt-2">
             <div>
@@ -168,7 +165,8 @@ const OwnerPolicyStep = ({
             </div>
             <div>
               <Typography>
-                out of {ownerFields.length} signer{maybePlural(ownerFields)}
+                {translateMessage('ui.outOf_9bf030fe')}
+                {ownerFields.length} {translateMessage('ui.signer_efab2dcb')}
               </Typography>
             </div>
           </div>
@@ -178,10 +176,10 @@ const OwnerPolicyStep = ({
           <div className="flex flex-row justify-between gap-6">
             <Button data-testid="back-btn" variant="outline" size="lg" onClick={handleBack}>
               <ArrowBackIcon className="size-4" />
-              Back
+              {translateMessage('ui.back_dae8bf43')}
             </Button>
             <Button data-testid="next-btn" type="submit" variant="default" size="lg" disabled={isDisabled}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </div>
         </div>

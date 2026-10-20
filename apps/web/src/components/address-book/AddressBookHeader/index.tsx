@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
@@ -30,10 +31,10 @@ const SpaceAddressBookCTA = () => {
 
   return (
     <Typography className="max-w-[500px] text-sm">
-      This data is stored in your local storage. Do you want to manage your <b>{space?.name}</b> Workspace address book
-      instead?{' '}
+      {translateMessage('ui.thisDataIsStoredInYour_cb03043c')}
+      <b>{space?.name}</b> {translateMessage('ui.workspaceAddressBookInstead_15dee886')}{' '}
       <ShadcnLink render={<Link href={{ pathname: AppRoutes.spaces.addressBook, query: { spaceId } }} passHref />}>
-        Click here
+        {translateMessage('ui.clickHere_14350b1b')}
       </ShadcnLink>
     </Typography>
   )
@@ -65,21 +66,21 @@ function AddressBookHeader({
           <Track {...ADDRESS_BOOK_EVENTS.CREATE_ENTRY}>
             <Button size="action" onClick={handleOpenModal(ModalType.ENTRY)}>
               <Plus className="mr-1 size-4 text-green-500" />
-              New entry
+              {translateMessage('ui.newEntry_48b5995d')}
             </Button>
           </Track>
 
           <Track {...ADDRESS_BOOK_EVENTS.IMPORT_BUTTON}>
             <Button variant="outline" size="action" onClick={handleOpenModal(ModalType.IMPORT)}>
               <ImportIcon className="size-4" />
-              Import
+              {translateMessage('ui.import_f0101b10')}
             </Button>
           </Track>
 
           <Track {...ADDRESS_BOOK_EVENTS.DOWNLOAD_BUTTON}>
             <Button variant="outline" size="action" onClick={handleOpenModal(ModalType.EXPORT)} disabled={!canExport}>
               <ExportIcon className="size-4" />
-              Export
+              {translateMessage('ui.export_9bb429ef')}
             </Button>
           </Track>
         </div>
@@ -88,7 +89,7 @@ function AddressBookHeader({
           <AddressBookSearchInput
             value={searchQuery}
             onChange={onSearchQueryChange}
-            placeholder="Search for contacts"
+            placeholder={translateMessage('ui.searchForContacts_b534aed3')}
             inputSize="default"
           />
         )}

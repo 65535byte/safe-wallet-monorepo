@@ -40,17 +40,17 @@ describe('formatTimestamp', () => {
   })
 
   it('returns "Just now" for < 60s ago', () => {
-    expect(formatTimestamp(Date.now() - 30_000)).toBe('Just now')
+    expect(formatTimestamp(Date.now() - 30_000)).toBe('刚刚')
   })
 
   it('returns minutes ago for < 1h', () => {
     const result = formatTimestamp(Date.now() - 5 * 60_000)
-    expect(result).toBe('5m ago')
+    expect(result).toBe('5 分钟前')
   })
 
   it('returns hours ago for < 24h', () => {
     const result = formatTimestamp(Date.now() - 3 * 3_600_000)
-    expect(result).toBe('3h ago')
+    expect(result).toBe('3 小时前')
   })
 
   it('returns formatted date for older timestamps', () => {
@@ -198,7 +198,7 @@ describe('withScannerTimeout', () => {
       /* never resolves */
     })
     const wrapped = withScannerTimeout(hanging)
-    const assertion = expect(wrapped).rejects.toThrow('Scanner timed out')
+    const assertion = expect(wrapped).rejects.toThrow('扫描超时')
     jest.advanceTimersByTime(SCANNER_TIMEOUT_MS)
     await assertion
   })

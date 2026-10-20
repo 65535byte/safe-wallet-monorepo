@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import useLocalStorage from '@/services/local-storage/useLocalStorage'
@@ -45,7 +46,8 @@ const WcNoSessions = () => {
   return (
     <>
       <Typography variant="paragraph-small" align="center" className="text-muted-foreground">
-        No dApps are connected yet.{sampleDapps ? ' Try one of these:' : ''}
+        {translateMessage('ui.noDAppsAreConnectedYet_d149940c')}
+        {sampleDapps ? translateMessage('ui.tryOneOfThese_de432d8f') : ''}
       </Typography>
 
       {sampleDapps}

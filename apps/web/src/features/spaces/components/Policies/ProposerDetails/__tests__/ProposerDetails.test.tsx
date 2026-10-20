@@ -40,11 +40,11 @@ describe('ProposerDetails', () => {
 
     render(<ProposerDetails policy={policy} proposer={proposer} onClose={jest.fn()} />)
 
-    expect(screen.getByText('Proposer role')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色')).toBeInTheDocument()
     expect(screen.getByText('Robert')).toBeInTheDocument()
     expect(screen.getByText('Treasury')).toBeInTheDocument()
     expect(screen.getByText('Alice')).toBeInTheDocument()
-    expect(screen.getByText('Safe{Wallet}')).toBeInTheDocument()
+    expect(screen.getByText('8379')).toBeInTheDocument()
   })
 
   it('should, when the proposer has no address book entry, not show the grant label', () => {
@@ -57,7 +57,7 @@ describe('ProposerDetails', () => {
     mockUseWallet.mockReturnValue(null)
 
     render(<ProposerDetails policy={policy} proposer={proposer} onClose={jest.fn()} />)
-    fireEvent.click(screen.getByRole('button', { name: 'Connect wallet' }))
+    fireEvent.click(screen.getByRole('button', { name: '连接钱包' }))
 
     expect(mockConnectWallet).toHaveBeenCalledTimes(1)
   })
@@ -65,10 +65,8 @@ describe('ProposerDetails', () => {
   it('should, when the wallet did not grant the role, keep the remove action out of reach', () => {
     render(<ProposerDetails policy={policy} proposer={proposer} onClose={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: 'Remove proposer' })).toBeDisabled()
-    expect(
-      screen.getByText('Only the signer who granted this proposer role, or the proposer themselves, can remove it'),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '移除提案人' })).toBeDisabled()
+    expect(screen.getByText('仅授予此角色的签名人或提案人本人可以移除')).toBeInTheDocument()
   })
 
   it('should, when the wallet granted the role, enable the remove action', () => {
@@ -76,7 +74,7 @@ describe('ProposerDetails', () => {
 
     render(<ProposerDetails policy={policy} proposer={proposer} onClose={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: 'Remove proposer' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '移除提案人' })).toBeEnabled()
     expect(screen.queryByText(/Only the signer who granted/)).not.toBeInTheDocument()
   })
 
@@ -87,19 +85,19 @@ describe('ProposerDetails', () => {
 
     expect(screen.queryByTestId('remove-proposer-modal')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Remove proposer' }))
+    fireEvent.click(screen.getByRole('button', { name: '移除提案人' }))
 
-    expect(screen.getByText('Remove this proposer?')).toBeInTheDocument()
+    expect(screen.getByText('移除此提案人？')).toBeInTheDocument()
   })
 
   it('should, when the removal is kept, close the confirmation and leave the drawer open', async () => {
     mockUseWallet.mockReturnValue({ address: MOCK_ADDRESSES.alice })
 
     render(<ProposerDetails policy={policy} proposer={proposer} onClose={jest.fn()} />)
-    fireEvent.click(screen.getByRole('button', { name: 'Remove proposer' }))
-    fireEvent.click(screen.getByRole('button', { name: 'No, keep it' }))
+    fireEvent.click(screen.getByRole('button', { name: '移除提案人' }))
+    fireEvent.click(screen.getByRole('button', { name: '否，保留' }))
 
     await waitFor(() => expect(screen.queryByTestId('remove-proposer-modal')).not.toBeInTheDocument())
-    expect(screen.getByText('Proposer role')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色')).toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import { type AllSafeItems } from '@/hooks/safes'
 import { SafeAccountsTable, type AccountLine, type SafeAccountColumnId } from '@/features/myAccounts'
@@ -40,11 +41,11 @@ const OnboardingSafesList = ({
 
   return (
     <div className="flex w-full min-w-0 flex-col gap-4">
-      {flaggedAddresses.size > 0 && <SecurityBanner title="Verify before you trust" />}
+      {flaggedAddresses.size > 0 && <SecurityBanner title={translateMessage('ui.verifyBeforeYouTrust_1ad58b4e')} />}
 
       {trustedSafes.length > 0 && (
         <div className="flex flex-col gap-2">
-          <SectionLabel>My accounts</SectionLabel>
+          <SectionLabel>{translateMessage('ui.myAccounts_837c511d')}</SectionLabel>
           <SafeAccountsTable
             items={trustedSafes}
             columns={COLUMNS}
@@ -58,7 +59,7 @@ const OnboardingSafesList = ({
 
       {ownedSafes.length > 0 && (
         <div className="flex flex-col gap-2">
-          <SectionLabel>Owned safe accounts</SectionLabel>
+          <SectionLabel>{translateMessage('ui.ownedSafeAccounts_cc30b129')}</SectionLabel>
           <SafeAccountsTable
             items={ownedSafes}
             columns={COLUMNS}

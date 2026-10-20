@@ -67,15 +67,15 @@ describe('addressBookSlice', () => {
       upsertAddressBookEntries({
         chainIds: ['1', '10', '100', '137'],
         address,
-        name: 'Max',
+        name: '最大',
       }),
     )
     expect(state).toEqual({
-      '1': { '0x0': 'Alice', '0x1': 'Bob', [address]: 'Max' },
+      '1': { '0x0': 'Alice', '0x1': 'Bob', [address]: '最大' },
       '4': { '0x0': 'Charlie', '0x1': 'Dave' },
-      '10': { [address]: 'Max' },
-      '100': { [address]: 'Max' },
-      '137': { [address]: 'Max' },
+      '10': { [address]: '最大' },
+      '100': { [address]: '最大' },
+      '137': { [address]: '最大' },
     })
   })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useHiddenTokenCounts } from '@/hooks/useHiddenTokenCounts'
 
@@ -11,11 +12,11 @@ export const HiddenTokensInfo = ({ onOpenManageTokens }: HiddenTokensInfoProps) 
   const parts: string[] = []
 
   if (hiddenByDustFilter > 0) {
-    parts.push(`${hiddenByDustFilter} small balance${hiddenByDustFilter !== 1 ? 's' : ''}`)
+    parts.push(translateMessage('ui.smallBalance_d67f4bb2', { p0: hiddenByDustFilter }))
   }
 
   if (hiddenByTokenList > 0) {
-    parts.push(`${hiddenByTokenList} token${hiddenByTokenList !== 1 ? 's' : ''} hidden`)
+    parts.push(translateMessage('ui.tokenHidden_728d88c2', { p0: hiddenByTokenList }))
   }
 
   if (parts.length === 0) {
@@ -30,7 +31,7 @@ export const HiddenTokensInfo = ({ onOpenManageTokens }: HiddenTokensInfoProps) 
         onClick={onOpenManageTokens}
         className="cursor-pointer text-[14px] text-[var(--color-primary-light)] underline"
       >
-        Manage Tokens
+        {translateMessage('ui.manageTokens_099ad4f7')}
       </Typography>
     </Typography>
   )

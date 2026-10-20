@@ -75,7 +75,7 @@ describe('BackToSpaceButton', () => {
     render(<BackToSpaceButton {...createProps({ spaceName: 'My Workspace' })} />)
 
     expect(screen.getByText('My Workspace')).toBeInTheDocument()
-    expect(screen.getByText('Workspace')).toBeInTheDocument()
+    expect(screen.getByText('工作空间')).toBeInTheDocument()
     expect(screen.getByText('ChevronLeft')).toBeInTheDocument()
   })
 

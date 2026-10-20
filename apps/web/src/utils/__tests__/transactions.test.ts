@@ -31,7 +31,7 @@ describe('transactions', () => {
         next: undefined,
         previous: undefined,
         results: [
-          { label: 'Next', type: 'LABEL' } as LabelQueuedItem,
+          { label: '下一步', type: 'LABEL' } as LabelQueuedItem,
           { nonce: 0, type: 'CONFLICT_HEADER' } as ConflictHeaderQueuedItem,
         ],
       }

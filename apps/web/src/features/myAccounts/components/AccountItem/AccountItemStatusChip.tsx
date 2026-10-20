@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Chip } from '@safe-global/views/components/ui/chip'
 import { EyeIcon, CircleAlertIcon } from 'lucide-react'
 import { LoopIcon } from '@/features/counterfactual'
@@ -17,14 +18,14 @@ const ActivationChip = ({ isActivating }: { isActivating: boolean }) => (
     ) : (
       <CircleAlertIcon className="size-4 text-[var(--color-warning-main)]" />
     )}
-    {isActivating ? 'Activating account' : 'Not activated'}
+    {isActivating ? translateMessage('ui.activatingAccount_204cb5ea') : translateMessage('ui.notActivated_6a9f8fff')}
   </Chip>
 )
 
 const ReadOnlyChip = () => (
   <Chip data-testid="read-only-chip" variant="outline" size="sm">
     <EyeIcon className={cn('size-4', css.visibilityIcon)} />
-    Read-only
+    {translateMessage('ui.readOnly_4b05ccec')}
   </Chip>
 )
 

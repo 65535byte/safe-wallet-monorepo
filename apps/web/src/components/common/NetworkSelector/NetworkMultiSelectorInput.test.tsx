@@ -144,7 +144,7 @@ describe('NetworkMultiSelectorInput', () => {
     fireEvent.keyDown(input, { key: 'ArrowDown' })
 
     const options = screen.getAllByRole('option')
-    expect(options[0]).toHaveTextContent('Select All')
+    expect(options[0]).toHaveTextContent('全选')
     expect(options[0]).not.toHaveAttribute('data-active')
     expect(options[1]).toHaveAttribute('data-active')
 
@@ -161,7 +161,7 @@ describe('NetworkMultiSelectorInput', () => {
     fireEvent.keyDown(input, { key: 'ArrowDown' })
 
     const options = screen.getAllByRole('option')
-    expect(options[0]).toHaveTextContent('Select All')
+    expect(options[0]).toHaveTextContent('全选')
     expect(options[0]).toHaveAttribute('data-active')
 
     fireEvent.keyDown(input, { key: 'Enter' })

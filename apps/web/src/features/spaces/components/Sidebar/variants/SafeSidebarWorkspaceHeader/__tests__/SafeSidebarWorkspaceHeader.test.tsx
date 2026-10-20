@@ -172,21 +172,21 @@ describe('SafeSidebarWorkspaceHeader', () => {
       render(
         <SafeSidebarWorkspaceHeader
           workspaceHeader={createBackHeader({
-            spaceName: 'My Safe account',
+            spaceName: 'My 个 Safe 账户',
             spaceInitial: 'M',
             spaceId: '123',
           })}
         />,
       )
 
-      expect(screen.getByText('My Safe account')).toBeInTheDocument()
-      expect(screen.getByText('Workspace')).toBeInTheDocument()
+      expect(screen.getByText('My 个 Safe 账户')).toBeInTheDocument()
+      expect(screen.getByText('工作空间')).toBeInTheDocument()
       expect(screen.getByText('M')).toBeInTheDocument()
       expect(screen.getByText('ChevronLeft')).toBeInTheDocument()
     })
 
     it('applies deterministic avatar color from space name', () => {
-      const spaceName = 'My Safe account'
+      const spaceName = 'My 个 Safe 账户'
 
       render(
         <SafeSidebarWorkspaceHeader
@@ -241,7 +241,7 @@ describe('SafeSidebarWorkspaceHeader', () => {
       render(
         <SafeSidebarWorkspaceHeader
           workspaceHeader={createBackHeader({
-            spaceName: 'My Safe account',
+            spaceName: 'My 个 Safe 账户',
             spaceInitial: 'M',
             spaceId: '42',
           })}
@@ -340,7 +340,7 @@ describe('SafeSidebarWorkspaceHeader', () => {
 
       expect(screen.queryByText('ChevronLeft')).not.toBeInTheDocument()
       expect(screen.getByTestId('dialog-root')).toBeInTheDocument()
-      expect(screen.getByText('Add Safe to Workspace')).toBeInTheDocument()
+      expect(screen.getByText('将 8379 添加到工作空间')).toBeInTheDocument()
       expect(screen.getByTestId('add-to-space-popup-modal')).toBeInTheDocument()
     })
   })

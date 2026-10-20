@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type Dispatch, type SetStateAction, useCallback } from 'react'
 import debounce from 'lodash/debounce'
 import { SearchInput } from '@safe-global/views/components/ui/search-input'
@@ -16,8 +17,8 @@ const AccountsSearch = ({ setSearchQuery }: AccountsSearchProps) => {
         variant="surface"
         className="shadow-xs"
         id="search-by-name"
-        placeholder="by name, address or network"
-        aria-label="Search Safe accounts by name, address or network"
+        placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+        aria-label={translateMessage('ui.searchAccountsByNameAddressOr_cda42767')}
         onChange={(e) => handleSearch(e.target.value)}
       />
     </div>

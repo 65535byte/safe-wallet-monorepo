@@ -5,7 +5,7 @@ describe('ConnectionCenter', () => {
   it('displays the ConnectWalletButton', () => {
     const { getByText, queryByText } = render(<ConnectionCenter />)
 
-    expect(queryByText('Connect wallet')).not.toBeInTheDocument()
-    expect(getByText('Connect')).toBeInTheDocument()
+    expect(queryByText('连接钱包')).not.toBeInTheDocument()
+    expect(getByText('连接')).toBeInTheDocument()
   })
 })

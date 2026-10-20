@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import SpendingLimitIcon from '@safe-global/views/features/spaces/components/Policies/SpendingLimitFlow/SpendingLimitIcon'
 import TxCard from '@safe-global/views/components/tx-flow/common/TxCard'
@@ -10,8 +11,7 @@ import {
   FLOW_SUBTITLE,
 } from '@safe-global/views/features/spaces/components/Policies/SpendingLimitFlow/constants'
 
-export const BASELINE_LOAD_ERROR =
-  "The Safe account's current spending limits could not be read, so this policy cannot be edited right now."
+export const BASELINE_LOAD_ERROR = translateMessage('ui.theAccountSCurrentSpendingLimits_4694864d')
 
 export type BaselineGateProps = {
   /** The limits once read; `undefined` while the read is still out. */

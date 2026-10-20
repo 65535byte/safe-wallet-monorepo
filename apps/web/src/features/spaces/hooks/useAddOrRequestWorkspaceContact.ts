@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { useAddressBookRequestsCreateRequestV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
@@ -26,18 +27,18 @@ const CONFIRMATIONS: Partial<Record<WorkspaceContactResult, Confirmation>> = {
     event: SPACE_EVENTS.ADDRESS_BOOK_ENTRY_CREATED,
     variant: 'success',
     groupKey: 'add-to-workspace-success',
-    message: 'Contact added to Workspace address book',
+    message: translateMessage('ui.contactAddedToWorkspaceAddressBook_d80ca85c'),
   },
   requested: {
     event: SPACE_EVENTS.ADDRESS_REQUEST_SENT,
     variant: 'info',
     groupKey: 'request-to-add-success',
-    message: 'This contact will be added to the Workspace address book on admin approval',
+    message: translateMessage('ui.thisContactWillBeAddedTo_3b02c57b'),
   },
   pending: {
     variant: 'info',
     groupKey: 'request-to-add-pending',
-    message: 'A request to add this contact to the Workspace address book is already pending admin approval',
+    message: translateMessage('ui.aRequestToAddThisContact_f868edcd'),
   },
 }
 

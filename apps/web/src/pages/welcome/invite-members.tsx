@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -9,7 +10,7 @@ const InviteMembersPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Invite members`}</title>
+        <title>{translateMessage('ui.inviteMembers_a3e756d9', { p0: BRAND_NAME })}</title>
       </Head>
 
       <InviteMembersOnboarding />

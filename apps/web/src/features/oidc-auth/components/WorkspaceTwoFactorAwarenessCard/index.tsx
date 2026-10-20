@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ArrowRight, ShieldCheck, X } from 'lucide-react'
 import NextLink from 'next/link'
 import { AppRoutes } from '@/config/routes'
@@ -27,7 +28,7 @@ const WorkspaceTwoFactorAwarenessCard = ({
       type="button"
       className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
       onClick={onDismiss}
-      aria-label="Dismiss"
+      aria-label={translateMessage('ui.dismiss_900510da')}
       data-testid="workspace-2fa-awareness-dismiss"
     >
       <X className="size-4" />
@@ -39,10 +40,10 @@ const WorkspaceTwoFactorAwarenessCard = ({
 
     <div className="flex w-full flex-1 flex-col gap-1">
       <Typography variant="paragraph-small-bold" className="text-foreground">
-        Protect your Workspace with 2FA
+        {translateMessage('ui.protectYourWorkspaceWithFA_d0cf20ec')}
       </Typography>
       <Typography variant="paragraph-mini" color="muted">
-        A second factor is required on all sensitive actions.
+        {translateMessage('ui.aSecondFactorIsRequiredOn_943893f5')}
       </Typography>
     </div>
 
@@ -55,7 +56,7 @@ const WorkspaceTwoFactorAwarenessCard = ({
       }
       data-testid="workspace-2fa-awareness-continue"
     >
-      Continue
+      {translateMessage('ui.continue_a4bd8255')}
       <ArrowRight data-icon="inline-end" />
     </Button>
   </div>

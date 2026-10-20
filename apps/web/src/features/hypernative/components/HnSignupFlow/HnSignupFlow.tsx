@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useAppDispatch } from '@/store'
@@ -89,7 +90,7 @@ const HnSignupFlow = ({ open, onClose }: HnSignupFlowProps) => {
           return (
             <div className="p-8">
               <Typography className="text-[var(--color-error-main)]">
-                HubSpot configuration is missing or invalid.
+                {translateMessage('ui.hubSpotConfigurationIsMissingOrInvalid_e4c2b776')}
               </Typography>
             </div>
           )
@@ -109,7 +110,8 @@ const HnSignupFlow = ({ open, onClose }: HnSignupFlowProps) => {
           return (
             <div className="p-8">
               <Typography className="text-[var(--color-error-main)]">
-                Calendly configuration is missing for region: {selectedRegion}
+                {translateMessage('ui.calendlyConfigurationIsMissingForRegion_fd732ba3')}
+                {selectedRegion}
               </Typography>
             </div>
           )

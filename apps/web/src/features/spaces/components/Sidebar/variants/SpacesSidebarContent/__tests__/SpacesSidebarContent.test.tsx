@@ -43,43 +43,43 @@ jest.mock('../../../config', () => ({
   spacesMainNavigation: [
     {
       icon: () => <div>Home</div>,
-      label: 'Home',
+      label: '首页',
       href: '/spaces',
     },
     {
       icon: () => <div>Transactions</div>,
-      label: 'Transactions',
+      label: '交易',
       href: '/spaces/transactions',
     },
     {
       icon: () => <div>Policies</div>,
-      label: 'Policies',
+      label: '策略',
       href: '/spaces/policies',
       activeMemberOnly: true,
     },
     {
       icon: () => <div>Activity</div>,
-      label: 'Activity',
+      label: '活动',
       href: '/spaces/activity',
       activeMemberOnly: true,
     },
   ],
   spacesSetupGroup: {
-    label: 'Setup',
+    label: '账户配置',
     items: [
       {
         icon: () => <div>Pro</div>,
-        label: 'Plans',
+        label: '套餐',
         href: '/spaces/plans',
       },
       {
         icon: () => <div>Team</div>,
-        label: 'Team',
+        label: '团队',
         href: '/spaces/members',
       },
       {
         icon: () => <div>Security</div>,
-        label: 'Security',
+        label: '安全',
         href: '/spaces/security',
         activeMemberOnly: true,
       },
@@ -118,7 +118,7 @@ describe('SpacesSidebarContent', () => {
     mainNavItems: [
       {
         icon: () => <div>Home</div>,
-        label: 'Home',
+        label: '首页',
         href: '/spaces',
         badge: 0,
         isActive: true,
@@ -127,11 +127,11 @@ describe('SpacesSidebarContent', () => {
       },
     ],
     setupGroup: {
-      label: 'Setup',
+      label: '账户配置',
       items: [
         {
           icon: () => <div>Team</div>,
-          label: 'Team',
+          label: '团队',
           href: '/spaces/members',
           badge: 0,
           isActive: false,
@@ -235,8 +235,8 @@ describe('SpacesSidebarContent', () => {
     }
 
     it.each([
-      { name: 'Safe Pro is only announced', isAnnounced: true, isSafePro: false },
-      { name: 'Safe Pro is only live', isAnnounced: false, isSafePro: true },
+      { name: '8379 is only announced', isAnnounced: true, isSafePro: false },
+      { name: '8379 is only live', isAnnounced: false, isSafePro: true },
     ])('shows the Plans entry when $name', ({ isAnnounced, isSafePro }) => {
       mockUseIsSafeProAnnouncementEnabled.mockReturnValue(isAnnounced)
       mockUseIsSafeProEnabled.mockReturnValue(isSafePro)
@@ -246,7 +246,7 @@ describe('SpacesSidebarContent', () => {
       expect(setupHrefs()).toContain('/spaces/plans')
     })
 
-    it('hides the Plans entry when both Safe Pro flags are off', () => {
+    it('hides the Plans entry when both 8379 flags are off', () => {
       mockUseIsSafeProAnnouncementEnabled.mockReturnValue(false)
       mockUseIsSafeProEnabled.mockReturnValue(false)
 
@@ -287,35 +287,6 @@ describe('SpacesSidebarContent', () => {
 
       const [mainNav] = mockUseResolvedSidebarNav.mock.calls[0]
       expect(mainNav).toHaveLength(4)
-    })
-  })
-
-  describe('SPACE_TRANSACTIONS feature flag', () => {
-    it('hides the Transactions entry when the flag is explicitly off', () => {
-      mockUseHasFeature.mockImplementation((feature) => feature !== FEATURES.SPACE_TRANSACTIONS)
-
-      render(<SpacesSidebarContent spaceInitial="T" selectedSpace={mockSpace} spaces={mockSpaces} />)
-
-      const [mainNav] = mockUseResolvedSidebarNav.mock.calls[0]
-      expect(mainNav.map((i: { href: string }) => i.href)).toEqual(['/spaces', '/spaces/policies', '/spaces/activity'])
-    })
-
-    it('keeps the Transactions entry while the flag is undefined (chain config still loading)', () => {
-      mockUseHasFeature.mockImplementation((feature) => (feature === FEATURES.SPACE_TRANSACTIONS ? undefined : true))
-
-      render(<SpacesSidebarContent spaceInitial="T" selectedSpace={mockSpace} spaces={mockSpaces} />)
-
-      const [mainNav] = mockUseResolvedSidebarNav.mock.calls[0]
-      expect(mainNav.map((i: { href: string }) => i.href)).toContain('/spaces/transactions')
-    })
-
-    it('keeps the Transactions entry when the flag is enabled', () => {
-      mockUseHasFeature.mockReturnValue(true)
-
-      render(<SpacesSidebarContent spaceInitial="T" selectedSpace={mockSpace} spaces={mockSpaces} />)
-
-      const [mainNav] = mockUseResolvedSidebarNav.mock.calls[0]
-      expect(mainNav.map((i: { href: string }) => i.href)).toContain('/spaces/transactions')
     })
   })
 

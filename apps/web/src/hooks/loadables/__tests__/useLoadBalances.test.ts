@@ -227,7 +227,7 @@ describe('useLoadBalances', () => {
     })
 
     it('should handle transaction service endpoint errors', async () => {
-      const mockError = new Error('Transaction service endpoint error')
+      const mockError = new Error('交易 service endpoint error')
 
       jest
         .spyOn(balancesQueries, 'useBalancesGetBalancesV1Query')
@@ -243,7 +243,7 @@ describe('useLoadBalances', () => {
 
       expect(balances).toBeUndefined()
       expect(error).toBeInstanceOf(Error)
-      expect(error?.message).toBe('Error: Transaction service endpoint error')
+      expect(error?.message).toBe('错误：Transaction service endpoint error')
     })
   })
 
@@ -399,7 +399,7 @@ describe('useLoadBalances', () => {
 
     it('should return error when both portfolio and transaction service fail', async () => {
       const mockPortfolioError = new Error('Portfolio endpoint error')
-      const mockTxServiceError = new Error('Transaction service endpoint error')
+      const mockTxServiceError = new Error('交易 service endpoint error')
 
       jest
         .spyOn(portfolioQueries, 'usePortfolioGetPortfolioV1Query')
@@ -579,7 +579,7 @@ describe('useLoadBalances', () => {
               address: toBeHex('0x3', 20),
               decimals: 18,
               logoUri: '',
-              name: 'Token Without Logo',
+              name: 'Token Without 标志',
               symbol: 'TWL',
               type: 'ERC20' as const,
               chainId: CHAIN_ID,

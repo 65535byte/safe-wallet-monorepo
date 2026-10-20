@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import RejectTx from './RejectTx'
 import { TxFlowType } from '@/services/analytics'
@@ -9,7 +10,7 @@ type RejectTxProps = {
 
 const RejectTxFlow = ({ txNonce }: RejectTxProps): ReactElement => (
   <TxFlow
-    subtitle="Reject"
+    subtitle={translateMessage('ui.reject_39589b77')}
     eventCategory={TxFlowType.REJECT_TX}
     ReviewTransactionComponent={RejectTx}
     isBatchable={false}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import type { SafeGrade, ScanContext, ScanResult } from '@/features/security/types'
 import SectionPanel from './SectionPanel'
@@ -38,7 +39,10 @@ const SecurityChecksSection = ({
       {groups.map(({ grade, rows }, idx) => (
         <div key={grade}>
           <div className="mb-2">
-            <SafeGradeChip grade={grade} label={`${SAFE_GRADE_LABEL[grade]} · ${rows.length}`} />
+            <SafeGradeChip
+              grade={grade}
+              label={translateMessage('ui.text_ab9a17ec', { p0: SAFE_GRADE_LABEL[grade], p1: rows.length })}
+            />
           </div>
           <SectionPanel rows={rows} baseDelay={0.08 + idx * 0.04} />
         </div>

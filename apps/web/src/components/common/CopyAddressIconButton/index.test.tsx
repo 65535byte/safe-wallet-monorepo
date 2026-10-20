@@ -13,13 +13,13 @@ describe('CopyAddressIconButton', () => {
 
   it('renders a copy button labelled with the address action', () => {
     render(<CopyAddressIconButton address={ADDRESS} />)
-    expect(screen.getByRole('button', { name: 'Copy address' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '复制地址' })).toBeInTheDocument()
   })
 
   it('copies the address to the clipboard on click', () => {
     render(<CopyAddressIconButton address={ADDRESS} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Copy address' }))
+    fireEvent.click(screen.getByRole('button', { name: '复制地址' }))
 
     expect(writeText).toHaveBeenCalledWith(ADDRESS)
   })
@@ -27,7 +27,7 @@ describe('CopyAddressIconButton', () => {
   it.each(['Enter', ' '])('copies the address when activated via the keyboard (%s)', (key) => {
     render(<CopyAddressIconButton address={ADDRESS} />)
 
-    fireEvent.keyDown(screen.getByRole('button', { name: 'Copy address' }), { key })
+    fireEvent.keyDown(screen.getByRole('button', { name: '复制地址' }), { key })
 
     expect(writeText).toHaveBeenCalledWith(ADDRESS)
   })
@@ -41,7 +41,7 @@ describe('CopyAddressIconButton', () => {
       </a>,
     )
 
-    const event = fireEvent.click(screen.getByRole('button', { name: 'Copy address' }))
+    const event = fireEvent.click(screen.getByRole('button', { name: '复制地址' }))
 
     // The click is consumed by the copy button (preventDefault + stopPropagation)
     expect(event).toBe(false)

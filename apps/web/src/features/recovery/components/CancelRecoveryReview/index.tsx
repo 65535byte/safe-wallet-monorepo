@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -39,15 +40,14 @@ function CancelRecoveryReview({
 
   return (
     <ReviewTransaction onSubmit={handleSubmit}>
-      <Typography className="mb-2">
-        All actions initiated by the Recoverer will be cancelled. The current signers will remain the signers of the
-        Safe account.
-      </Typography>
+      <Typography className="mb-2">{translateMessage('ui.allActionsInitiatedByTheRecoverer_883b14dd')}</Typography>
 
       <ErrorMessage level="info">
-        This transaction will initiate the cancellation of the{' '}
-        {recovery.isMalicious ? 'malicious transaction' : 'recovery proposal'}. It requires other signer signatures in
-        order to be executed.
+        {translateMessage('ui.thisTransactionWillInitiateTheCancellation_fd2f1d77')}
+        {recovery.isMalicious
+          ? translateMessage('ui.maliciousTransaction_0a248ef1')
+          : translateMessage('ui.recoveryProposal_0bf13280')}
+        {translateMessage('ui.itRequiresOtherSignerSignaturesIn_1c813a16')}
       </ErrorMessage>
 
       {children}

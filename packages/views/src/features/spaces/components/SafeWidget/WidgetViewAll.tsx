@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -25,7 +26,7 @@ const WidgetViewAll = ({ count, onClick, className }: WidgetViewAllProps): React
       className="gap-1 px-2 font-normal text-primary"
       data-testid="widget-view-all"
     >
-      View all
+      {translateMessage('ui.viewAll_51f8dcd8')}
       <ChevronRight className="size-4" />
     </Button>
   </div>

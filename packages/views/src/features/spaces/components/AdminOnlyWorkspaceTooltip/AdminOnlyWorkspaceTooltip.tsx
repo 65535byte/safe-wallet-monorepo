@@ -1,7 +1,8 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 
-export const ADMIN_ONLY_WORKSPACE_TOOLTIP_MESSAGE = 'Only admins can add Safes to this Workspace'
+export const ADMIN_ONLY_WORKSPACE_TOOLTIP_MESSAGE = translateMessage('ui.onlyAdminsCanAddAccountsTo_94643e31')
 
 type Side = 'top' | 'right' | 'bottom' | 'left'
 

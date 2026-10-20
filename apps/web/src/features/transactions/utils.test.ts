@@ -52,7 +52,7 @@ describe('getTxStatus', () => {
       confirmationsRequired: 2,
     })
 
-    expect(getTxStatus(tx)).toBe('Execution needed')
+    expect(getTxStatus(tx)).toBe('需要执行')
   })
 
   it('returns "Execution needed" when confirmations exceed required', () => {
@@ -63,7 +63,7 @@ describe('getTxStatus', () => {
       confirmationsRequired: 2,
     })
 
-    expect(getTxStatus(tx)).toBe('Execution needed')
+    expect(getTxStatus(tx)).toBe('需要执行')
   })
 
   it('returns singular signature needed message', () => {
@@ -74,7 +74,7 @@ describe('getTxStatus', () => {
       confirmationsRequired: 2,
     })
 
-    expect(getTxStatus(tx)).toBe('1 signature needed')
+    expect(getTxStatus(tx)).toBe('还需 1 个签名')
   })
 
   it('returns plural signatures needed message', () => {
@@ -85,7 +85,7 @@ describe('getTxStatus', () => {
       confirmationsRequired: 3,
     })
 
-    expect(getTxStatus(tx)).toBe('3 signatures needed')
+    expect(getTxStatus(tx)).toBe('还需 3 个签名')
   })
 })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useGetChainsConfigV2Query } from '@safe-global/store/gateway'
@@ -29,7 +30,7 @@ const Accounts: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – My accounts`}</title>
+        <title>{translateMessage('ui.myAccounts_5cb56144', { p0: BRAND_NAME })}</title>
       </Head>
 
       {renderAccounts()}

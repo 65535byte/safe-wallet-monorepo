@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -28,11 +29,14 @@ const SafeProPlanSwitchedModal = ({
   <SafeProModalFrame open={open} onOpenChange={onOpenChange}>
     <div className="flex flex-col items-center gap-3">
       <Typography variant="h4" as={DialogTitle}>
-        You&apos;re on <ProHighlight>{planName}</ProHighlight>!
+        {translateMessage('ui.youReOn_187340cd')}
+        <ProHighlight>{planName}</ProHighlight>!
       </Typography>
       <Typography variant="paragraph-small" color="muted">
-        Your free access continues{trialEndsAt !== null ? ` until ${formatDate(trialEndsAt)}` : ''}. After that,
-        you&apos;ll pay {price}.
+        {translateMessage('ui.yourFreeAccessContinues_b82978c3')}
+        {trialEndsAt !== null ? translateMessage('ui.until_045d6239', { p0: formatDate(trialEndsAt) }) : ''}
+        {translateMessage('ui.afterThatYouLlPay_b1c5e4a4')}
+        {price}.
       </Typography>
       {seatsLabel && (
         <Badge variant="secondary" shape="tag" className="mt-1" data-testid="subscription-seats">
@@ -42,7 +46,7 @@ const SafeProPlanSwitchedModal = ({
     </div>
 
     <Button accentIcon className="mt-2 min-w-64" onClick={() => onOpenChange(false)}>
-      Get started
+      {translateMessage('ui.getStarted_5801751d')}
       <ArrowRight data-icon="inline-end" />
     </Button>
   </SafeProModalFrame>

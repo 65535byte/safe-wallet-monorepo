@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SafeAppIconCard from '@safe-global/views/components/safe-apps/SafeAppIconCard'
 import { getPeerName } from '../../services/utils'
 import { WalletConnectContext } from '../WalletConnectContext'
@@ -68,7 +69,11 @@ const WcSessionListItem = ({ session }: { session: SessionTypes.Struct }) => {
           className="py-[var(--space-1)] px-[var(--space-2)]"
           disabled={!!loading}
         >
-          {loading === WCLoadingState.DISCONNECT ? <Spinner className="size-5" /> : 'Disconnect'}
+          {loading === WCLoadingState.DISCONNECT ? (
+            <Spinner className="size-5" />
+          ) : (
+            translateMessage('ui.disconnect_90cc09c1')
+          )}
         </Button>
       </div>
     </ListItem>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useMemo } from 'react'
 import type { ReactElement } from 'react'
@@ -27,7 +28,7 @@ export default function RecoveryDescription({ item }: { item: RecoveryQueueItem 
 
   if (isMalicious) {
     return (
-      <ErrorMessage>This transaction potentially calls malicious actions. We recommend cancelling it.</ErrorMessage>
+      <ErrorMessage>{translateMessage('ui.thisTransactionPotentiallyCallsMaliciousActions_740f0a43')}</ErrorMessage>
     )
   }
 
@@ -35,24 +36,25 @@ export default function RecoveryDescription({ item }: { item: RecoveryQueueItem 
   if (!newSetup || newSetup.owners.length === 0) {
     return (
       <ErrorMessage>
-        This recovery proposal will fail as the owner structure has since been modified. We recommend cancelling it
-        {isRecoverer ? ' and trying again' : ''}.
+        {translateMessage('ui.thisRecoveryProposalWillFailAs_5a503d78')}
+        {isRecoverer ? translateMessage('ui.andTryingAgain_3053f58a') : ''}.
       </ErrorMessage>
     )
   }
 
   return (
-    <InfoDetails title="Add signer(s):">
+    <InfoDetails title={translateMessage('ui.addSignerS_c859d792')}>
       {newSetup.owners.map((owner) => (
         <EthHashInfo key={owner.value} address={owner.value} shortAddress={false} showCopyButton hasExplorer />
       ))}
 
       <div>
         <Typography variant="paragraph-bold" className="mb-2">
-          Required confirmations for new transactions:
+          {translateMessage('ui.requiredConfirmationsForNewTransactions_5c5fcf18')}
         </Typography>
         <Typography>
-          {newSetup.threshold} out of {newSetup.owners.length} owner(s)
+          {newSetup.threshold} {translateMessage('ui.outOf_d22acd25')}
+          {newSetup.owners.length} {translateMessage('ui.ownerS_b0ef869e')}
         </Typography>
       </div>
     </InfoDetails>

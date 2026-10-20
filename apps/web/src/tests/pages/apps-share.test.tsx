@@ -39,8 +39,8 @@ describe('Share Safe App Page', () => {
     fetchSafeAppFromManifestSpy = jest.spyOn(manifest, 'fetchSafeAppFromManifest').mockResolvedValue({
       id: Math.random(),
       url: TX_BUILDER,
-      name: 'Transaction Builder',
-      description: 'A Safe app to compose custom transactions',
+      name: '交易构建器',
+      description: 'A Safe app to compose custom 笔交易',
       accessControl: { type: SafeAppAccessPolicyTypes.NoRestrictions },
       tags: [],
       features: [],
@@ -85,9 +85,9 @@ describe('Share Safe App Page', () => {
     await waitFor(() => {
       expect(fetchSafeAppFromManifestSpy).toHaveBeenCalledWith(TX_BUILDER, '1')
 
-      expect(screen.getByText('Transaction Builder')).toBeInTheDocument()
+      expect(screen.getByText('交易构建器')).toBeInTheDocument()
       expect(
-        screen.getByText('Compose custom contract interactions and batch them into a single transaction'),
+        screen.getByText('Compose custom contract interactions and batch them into a single 笔交易'),
       ).toBeInTheDocument()
       expect(screen.getByText(TX_BUILDER)).toBeInTheDocument()
     })
@@ -107,7 +107,7 @@ describe('Share Safe App Page', () => {
     await waitFor(() => {
       expect(fetchSafeAppFromManifestSpy).toHaveBeenCalledWith(TX_BUILDER, '1')
 
-      expect(screen.getByText('Connect wallet')).toBeInTheDocument()
+      expect(screen.getByText('连接钱包')).toBeInTheDocument()
     })
   })
 
@@ -125,7 +125,7 @@ describe('Share Safe App Page', () => {
     await waitFor(() => {
       expect(fetchSafeAppFromManifestSpy).toHaveBeenCalledWith(TX_BUILDER, '1')
 
-      expect(screen.getByText('Try demo')).toBeInTheDocument()
+      expect(screen.getByText('试用演示')).toBeInTheDocument()
     })
   })
 
@@ -156,7 +156,7 @@ describe('Share Safe App Page', () => {
     await waitFor(() => {
       expect(fetchSafeAppFromManifestSpy).toHaveBeenCalledWith(TX_BUILDER, '5')
 
-      expect(screen.getByText('Create new Safe account')).toBeInTheDocument()
+      expect(screen.getByText('创建新的 8379 账户')).toBeInTheDocument()
     })
   })
 
@@ -188,7 +188,7 @@ describe('Share Safe App Page', () => {
     await waitFor(() => {
       expect(fetchSafeAppFromManifestSpy).toHaveBeenCalledWith(TX_BUILDER, '1')
 
-      expect(screen.getByLabelText('Select a Safe account')).toBeInTheDocument()
+      expect(screen.getByLabelText('选择 8379 账户')).toBeInTheDocument()
     })
   })
 })

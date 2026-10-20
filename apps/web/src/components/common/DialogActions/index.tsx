@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -59,7 +60,7 @@ const DialogActions = ({
   confirmCheckWallet,
   confirmTooltip,
   onCancel,
-  cancelLabel = 'Cancel',
+  cancelLabel = translateMessage('ui.cancel_d94a8eaf'),
   cancelDisabled = false,
   cancelTestId,
   className,

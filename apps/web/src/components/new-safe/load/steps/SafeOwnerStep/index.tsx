@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React, { useEffect } from 'react'
 import { useSafesGetSafeV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form'
@@ -74,10 +75,10 @@ const SafeOwnerStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeFormD
         <div className={layoutCss.row}>
           <div className="flex justify-between gap-2">
             <Button type="button" variant="outline" size="lg" onClick={handleBack}>
-              Back
+              {translateMessage('ui.back_dae8bf43')}
             </Button>
             <Button type="submit" size="lg" disabled={!isValid}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </div>
         </div>

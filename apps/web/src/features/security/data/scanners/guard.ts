@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
 import { ContractVersions, KnownContracts, type SupportedNetworks } from '@gnosis.pm/zodiac'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
@@ -71,13 +72,15 @@ export const guardScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [
-          { label: 'Guard', value: guardLabel },
-          { label: 'Status', value: 'Unverified guard contract' },
+          { label: translateMessage('ui.guard_4c67c700'), value: guardLabel },
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.unverifiedGuardContract_e310e8ab'),
+          },
         ],
-        remediation:
-          'A transaction guard is set but could not be verified as trusted. Review it in Settings to ensure it is from a recognized provider.',
+        remediation: translateMessage('ui.aTransactionGuardIsSetBut_50c26d91'),
         lastChecked: now,
-        ctaLabelOverride: 'Review modules',
+        ctaLabelOverride: translateMessage('ui.reviewModules_3f4d09d9'),
       }
     }
 
@@ -90,8 +93,8 @@ export const guardScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [
-          { label: 'Guard', value: guard.name ?? 'Trusted Guard' },
-          { label: 'Status', value: 'Active protection' },
+          { label: translateMessage('ui.guard_4c67c700'), value: guard.name ?? 'Trusted Guard' },
+          { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.activeProtection_9cfb9c49') },
         ],
         remediation: '',
         lastChecked: now,
@@ -106,11 +109,15 @@ export const guardScanner: SecurityScanner = {
         status: 'partial',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'No transaction guard configured' }],
-        remediation:
-          'For high-value accounts, a transaction guard adds pre-execution validation. Enterprise-grade protection is available via Hypernative.',
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.noTransactionGuardConfigured_f6ccc39e'),
+          },
+        ],
+        remediation: translateMessage('ui.forHighValueAccountsATransaction_42ef08e7'),
         lastChecked: now,
-        ctaLabelOverride: 'Set up protection',
+        ctaLabelOverride: translateMessage('ui.setUpProtection_872d86ba'),
         partner: 'hypernative',
       }
     }
@@ -121,7 +128,9 @@ export const guardScanner: SecurityScanner = {
       status: 'not_applicable',
       severity: getSeverityFromScore(score, { excluded: true }),
       score,
-      evidence: [{ label: 'Status', value: 'No guard required' }],
+      evidence: [
+        { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.noGuardRequired_c00ae2d7') },
+      ],
       remediation: '',
       lastChecked: now,
     }

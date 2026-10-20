@@ -59,8 +59,8 @@ describe('OnboardingSafesList', () => {
       <OnboardingSafesList trustedSafes={[]} ownedSafes={[]} {...baseProps} />,
     )
 
-    expect(queryByText('My accounts')).not.toBeInTheDocument()
-    expect(queryByText('Owned safe accounts')).not.toBeInTheDocument()
+    expect(queryByText('我的账户')).not.toBeInTheDocument()
+    expect(queryByText('拥有的 8379 账户')).not.toBeInTheDocument()
     expect(queryByTestId('onboarding-trusted-table')).not.toBeInTheDocument()
     expect(queryByTestId('onboarding-owned-table')).not.toBeInTheDocument()
   })
@@ -70,7 +70,7 @@ describe('OnboardingSafesList', () => {
       <OnboardingSafesList trustedSafes={[buildSafeItem('0xTrusted')]} ownedSafes={[]} {...baseProps} />,
     )
 
-    expect(getByText('My accounts')).toBeInTheDocument()
+    expect(getByText('我的账户')).toBeInTheDocument()
     expect(getByTestId('onboarding-trusted-table')).toHaveTextContent('0xTrusted')
   })
 
@@ -79,7 +79,7 @@ describe('OnboardingSafesList', () => {
       <OnboardingSafesList trustedSafes={[]} ownedSafes={[buildSafeItem('0xOwned')]} {...baseProps} />,
     )
 
-    expect(getByText('Owned safe accounts')).toBeInTheDocument()
+    expect(getByText('拥有的 8379 账户')).toBeInTheDocument()
     expect(getByTestId('onboarding-owned-table')).toHaveTextContent('0xOwned')
   })
 

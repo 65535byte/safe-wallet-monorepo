@@ -73,10 +73,10 @@ describe('Notifications', () => {
   })
 
   it('never auto-hides a toast with autoHideDuration: null', () => {
-    renderNotifications(makeNotification({ autoHideDuration: null, message: 'Awaiting confirmations' }))
+    renderNotifications(makeNotification({ autoHideDuration: null, message: '等待确认' }))
 
     act(() => jest.advanceTimersByTime(60_000))
 
-    expect(screen.getByText('Awaiting confirmations')).toBeInTheDocument()
+    expect(screen.getByText('等待确认')).toBeInTheDocument()
   })
 })

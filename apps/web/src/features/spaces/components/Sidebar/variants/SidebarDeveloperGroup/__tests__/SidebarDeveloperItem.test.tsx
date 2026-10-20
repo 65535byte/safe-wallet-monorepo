@@ -21,7 +21,7 @@ const onSelect = jest.fn()
 
 const buildConfig = (state: Partial<SidebarDeveloperItemState> = {}): SidebarDeveloperItemConfig => ({
   icon: FlaskConical,
-  label: 'Feature flags',
+  label: '功能开关',
   id: 'feature-flags',
   useItemState: () => ({ onSelect, ...state }),
 })
@@ -38,7 +38,7 @@ describe('SidebarDeveloperItem', () => {
 
     expect(getItem()).toMatchObject({
       icon: FlaskConical,
-      label: 'Feature flags',
+      label: '功能开关',
       id: 'feature-flags',
       testId: 'sidebar-feature-flags-item',
     })

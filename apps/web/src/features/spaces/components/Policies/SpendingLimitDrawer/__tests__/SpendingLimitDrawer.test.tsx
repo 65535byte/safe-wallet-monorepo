@@ -26,7 +26,7 @@ const SAFE_ADDRESS = '0x8675B754342754A30A2AeF474D114d8460bca19b'
 
 const OVERVIEW = {
   lastUpdated: 'Sep 22, 2026',
-  enforcedBy: 'Safe allowance module',
+  enforcedBy: '8379 额度模块',
 }
 
 const TRANSACTION_LINK = 'https://app.safe.global/transactions/tx?id=0x9f3c'
@@ -68,24 +68,22 @@ describe('SpendingLimitDrawer', () => {
   it('calls an executed transaction activating in the header, not pending', () => {
     setup(mockPendingPolicy(), MOCK_VIEWERS.signer, { outcome: 'executed' })
 
-    expect(screen.getByText('Activating')).toBeInTheDocument()
-    expect(screen.queryByText('Pending')).not.toBeInTheDocument()
+    expect(screen.getByText('正在激活')).toBeInTheDocument()
+    expect(screen.queryByText('待处理')).not.toBeInTheDocument()
   })
 
   it('shows no status chip for a transaction that will never execute', () => {
     setup(mockPendingPolicy(), MOCK_VIEWERS.signer, { outcome: 'deleted' })
 
-    expect(screen.queryByText('Pending')).not.toBeInTheDocument()
+    expect(screen.queryByText('待处理')).not.toBeInTheDocument()
     expect(screen.queryByTestId('policy-status-skeleton')).not.toBeInTheDocument()
   })
 
   it('drops the signatures and the footer once the transaction has left the queue', () => {
     setup(mockPendingPolicy(), MOCK_VIEWERS.signer, { outcome: 'replaced' })
 
-    expect(
-      screen.getByText('Another transaction used this nonce, so this one can no longer be executed.'),
-    ).toBeInTheDocument()
-    expect(screen.queryByText('Pending signatures')).not.toBeInTheDocument()
+    expect(screen.getByText('其他交易已使用此 nonce，因此此交易无法再执行。')).toBeInTheDocument()
+    expect(screen.queryByText('待签名')).not.toBeInTheDocument()
     expect(
       screen.queryByRole('button', { name: /review transaction|copy transaction link|connect wallet/i }),
     ).not.toBeInTheDocument()
@@ -94,16 +92,16 @@ describe('SpendingLimitDrawer', () => {
   it('titles itself from the policy type rather than a stored name', () => {
     setup()
 
-    expect(screen.getByText('Spending limit')).toBeInTheDocument()
-    expect(screen.getByText('Active')).toBeInTheDocument()
+    expect(screen.getByText('支出限额')).toBeInTheDocument()
+    expect(screen.getByText('已启用')).toBeInTheDocument()
   })
 
   // Editing covers removal, so Edit is the only action an active policy offers.
   it('offers edit, and only edit, to a connected signer', () => {
     setup()
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeEnabled()
-    expect(screen.queryByRole('button', { name: 'Delete' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeEnabled()
+    expect(screen.queryByRole('button', { name: '删除' })).not.toBeInTheDocument()
   })
 
   it('shows a usage bar per allowance for an active policy', () => {
@@ -116,26 +114,24 @@ describe('SpendingLimitDrawer', () => {
   it('disables editing for a non-signer and explains why without hover', () => {
     setup(mockActiveSpendingLimit(), MOCK_VIEWERS.nonSigner)
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled()
-    expect(screen.getByText('Only signers of this Safe account can edit this spending limit.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeDisabled()
+    expect(screen.getByText('仅此 8379 账户的签名人可以编辑此支出限额。')).toBeInTheDocument()
   })
 
   it('asks a disconnected viewer to connect instead of showing dead controls', () => {
     setup(mockActiveSpendingLimit(), MOCK_VIEWERS.disconnected)
 
-    expect(screen.getByRole('button', { name: 'Connect wallet' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '连接钱包' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '编辑' })).not.toBeInTheDocument()
   })
 
   it('shows the pending banner, the signature count, a review action and no usage bars', () => {
     setup(mockPendingPolicy(), MOCK_VIEWERS.signer)
 
-    expect(screen.getByText('Pending')).toBeInTheDocument()
-    expect(
-      screen.getByText('The spending limit is not active as the transaction is not yet executed.'),
-    ).toBeInTheDocument()
-    expect(screen.getByText('1 of 2 signed')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Review transaction' })).toBeInTheDocument()
+    expect(screen.getByText('待处理')).toBeInTheDocument()
+    expect(screen.getByText('交易尚未执行，支出限额尚未生效。')).toBeInTheDocument()
+    expect(screen.getByText('1 / 2 signed')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '检查交易' })).toBeInTheDocument()
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
   })
 
@@ -143,8 +139,8 @@ describe('SpendingLimitDrawer', () => {
   it('calls a policy whose module is disabled not enforced, never active', () => {
     setup(asActivePolicy(mockUnenforcedPolicy()))
 
-    expect(screen.getByText('Not enforced')).toBeInTheDocument()
-    expect(screen.queryByText('Active')).not.toBeInTheDocument()
+    expect(screen.getByText('未执行')).toBeInTheDocument()
+    expect(screen.queryByText('已启用')).not.toBeInTheDocument()
   })
 
   it('warns that the module was deleted and offers a signer to add it back instead of editing', async () => {
@@ -163,11 +159,11 @@ describe('SpendingLimitDrawer', () => {
       />,
     )
 
-    expect(screen.queryByRole('button', { name: 'Edit' })).not.toBeInTheDocument()
-    expect(screen.getByText('Spending limit module deleted')).toBeInTheDocument()
-    expect(screen.getByText('Spending limit not applied as module is deleted.')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '编辑' })).not.toBeInTheDocument()
+    expect(screen.getByText('支出限额模块已删除')).toBeInTheDocument()
+    expect(screen.getByText('模块已删除，支出限额未应用。')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Add module' }))
+    await user.click(screen.getByRole('button', { name: '添加模块' }))
 
     expect(onEnableModule).toHaveBeenCalledTimes(1)
   })
@@ -175,8 +171,8 @@ describe('SpendingLimitDrawer', () => {
   it('leaves out the enforced by row for an unenforced policy, which nothing enforces', () => {
     setup(asActivePolicy(mockUnenforcedPolicy()))
 
-    expect(screen.queryByText('Enforced by')).not.toBeInTheDocument()
-    expect(screen.queryByText('Safe allowance module')).not.toBeInTheDocument()
+    expect(screen.queryByText('执行方')).not.toBeInTheDocument()
+    expect(screen.queryByText('8379 额度模块')).not.toBeInTheDocument()
   })
 
   it('shows no usage bars for an unenforced policy, whose spending nothing measures', () => {
@@ -188,8 +184,8 @@ describe('SpendingLimitDrawer', () => {
   it('disables editing and points to the upgrade while no edit flow is supplied', () => {
     setup(mockActiveSpendingLimit(), MOCK_VIEWERS.signer, {})
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled()
-    expect(screen.getByText('Upgrade to Business to edit spending limits.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeDisabled()
+    expect(screen.getByText('升级至 Business 以编辑支出限额。')).toBeInTheDocument()
   })
 
   it('leaves out the last updated row while the payload carries no timestamp', () => {
@@ -200,13 +196,13 @@ describe('SpendingLimitDrawer', () => {
         policy={mockActiveSpendingLimit()}
         viewer={MOCK_VIEWERS.signer}
         safe={{ address: SAFE_ADDRESS, name: MOCK_SAFE_NAME }}
-        overview={{ enforcedBy: 'Safe allowance module' }}
+        overview={{ enforcedBy: '8379 额度模块' }}
         onConnectWallet={jest.fn()}
       />,
     )
 
-    expect(screen.queryByText('Last updated')).not.toBeInTheDocument()
-    expect(screen.getByText('Enforced by')).toBeInTheDocument()
+    expect(screen.queryByText('最后更新')).not.toBeInTheDocument()
+    expect(screen.getByText('执行方')).toBeInTheDocument()
   })
 
   it('offers to copy every spender and the Safe account', () => {
@@ -260,14 +256,14 @@ describe('SpendingLimitDrawer', () => {
     it('offers a copy-link button', () => {
       setup(mockPendingPolicy(), MOCK_VIEWERS.signerWhoSigned)
 
-      expect(screen.getByRole('button', { name: /Copy transaction link/ })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /复制交易链接/ })).toBeInTheDocument()
     })
 
     it('copies the transaction link when clicked', async () => {
       setup(mockPendingPolicy(), MOCK_VIEWERS.signerWhoSigned)
 
       act(() => {
-        screen.getByRole('button', { name: /Copy transaction link/ }).click()
+        screen.getByRole('button', { name: /复制交易链接/ }).click()
       })
 
       await waitFor(() => {

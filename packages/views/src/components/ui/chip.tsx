@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { type ComponentProps } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { XIcon } from 'lucide-react'
@@ -77,7 +78,7 @@ function Chip({ className, variant, size, shape, onDelete, children, ...props }:
       {onDelete && (
         <button
           type="button"
-          aria-label="Remove"
+          aria-label={translateMessage('ui.remove_1498adee')}
           onClick={onDelete}
           className="-mr-1 ml-0.5 inline-flex items-center justify-center rounded-full p-0.5 outline-none hover:bg-foreground/10 focus-visible:ring-ring/50 focus-visible:ring-[3px]"
         >

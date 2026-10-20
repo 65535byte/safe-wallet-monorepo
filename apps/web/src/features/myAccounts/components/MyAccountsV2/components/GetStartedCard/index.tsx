@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import { ExternalLink, Wallet } from 'lucide-react'
 import NextLink from 'next/link'
-import SafeWalletLockup from '@/public/images/safe-wallet-lockup.svg'
 import useConnectWallet from '@/components/common/ConnectWallet/useConnectWallet'
 import Track from '@/components/common/Track'
 import { AppRoutes } from '@/config/routes'
@@ -29,45 +29,52 @@ const GetStartedCard = () => {
         className="w-full max-w-[440px] rounded-2xl bg-card p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]"
       >
         <div className="mx-auto mb-6 flex h-10 items-center justify-center text-foreground">
-          <SafeWalletLockup className="h-10 w-auto" />
+          <img
+            src="/images/brand-logo.png"
+            alt={translateMessage('ui.safeLogo_9a51e835')}
+            className="size-10 rounded-lg object-contain"
+          />
         </div>
 
         <Typography variant="h3" className="text-center">
-          Get started
+          {translateMessage('ui.getStarted_5801751d')}
         </Typography>
 
         <p className="mx-auto mt-6 max-w-[300px] text-center text-[13px] leading-[18px] text-muted-foreground">
-          By continuing you accept the{' '}
+          {translateMessage('ui.byContinuingYouAcceptThe_dd11de9b')}{' '}
           <Link
             variant="muted"
-            href={TERMS_URL}
+            href={TERMS_URL || undefined}
             target="_blank"
             rel="noreferrer noopener"
             className="underline underline-offset-2"
           >
-            Safe{'{'}Wallet{'}'} Terms
+            {translateMessage('ui.safe_33fd427c')}
           </Link>{' '}
-          and{' '}
+          {translateMessage('ui.and_ee3cc19b')}{' '}
           <Link
             variant="muted"
-            href={PRIVACY_URL}
+            href={PRIVACY_URL || undefined}
             target="_blank"
             rel="noreferrer noopener"
             className="whitespace-nowrap underline underline-offset-2"
           >
-            Privacy Policy. <ExternalLink className="ml-0.5 inline size-4 align-text-bottom" />
+            {translateMessage('ui.privacyPolicy_fa189aa0')}
+            <ExternalLink className="ml-0.5 inline size-4 align-text-bottom" />
           </Link>
         </p>
 
         <div className="mt-5 flex flex-col gap-2.5">
           <Button size="xl" className="w-full" onClick={connectWallet} data-testid="connect-wallet-button">
             <Wallet className="size-[18px]" />
-            Connect wallet
+            {translateMessage('ui.connectWallet_301090ba')}
           </Button>
 
           <div className="flex items-center gap-3 py-0.5">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-[13px] font-medium tracking-[0.5px] text-muted-foreground">OR</span>
+            <span className="text-[13px] font-medium tracking-[0.5px] text-muted-foreground">
+              {translateMessage('ui.oR_13988f04')}
+            </span>
             <div className="h-px flex-1 bg-border" />
           </div>
 
@@ -79,7 +86,7 @@ const GetStartedCard = () => {
               data-testid="watch-account-button"
               render={<NextLink href={{ pathname: AppRoutes.newSafe.load, query: { next } }} />}
             >
-              Watch any account
+              {translateMessage('ui.watchAnyAccount_997f2b7d')}
             </Button>
           </Track>
         </div>

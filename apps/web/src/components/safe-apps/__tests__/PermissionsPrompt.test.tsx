@@ -25,7 +25,7 @@ describe('PermissionsPrompt', () => {
   it('passes the requestId when Reject is pressed', () => {
     const { onReject } = setup()
 
-    fireEvent.click(screen.getByText('Reject'))
+    fireEvent.click(screen.getByText('拒绝'))
 
     expect(onReject).toHaveBeenCalledWith(requestId)
   })
@@ -44,7 +44,7 @@ describe('PermissionsPrompt', () => {
   it('passes the origin and requestId when Accept is pressed', () => {
     const { onAccept } = setup()
 
-    fireEvent.click(screen.getByText('Accept'))
+    fireEvent.click(screen.getByText('接受'))
 
     expect(onAccept).toHaveBeenCalledWith('https://app.url', requestId)
   })

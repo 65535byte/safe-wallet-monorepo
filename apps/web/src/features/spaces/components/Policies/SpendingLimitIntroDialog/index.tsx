@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { CalendarClock, HandCoins, UsersRound } from 'lucide-react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
@@ -9,15 +10,15 @@ import SpendingLimitPreview from './SpendingLimitPreview'
 const EXPLAINERS: PolicyIntroExplainer[] = [
   {
     Icon: UsersRound,
-    text: "Anyone can be a spender, they don't need to be signers of this Safe account.",
+    text: translateMessage('ui.anyoneCanBeASpenderThey_607afdc8'),
   },
   {
     Icon: CalendarClock,
-    text: 'Choose a token and an amount per day, week, or month. When the period ends, the limit resets automatically.',
+    text: translateMessage('ui.chooseATokenAndAnAmount_c62fb533'),
   },
   {
     Icon: HandCoins,
-    text: "Creating the limit requires a transaction. Once it's active, spending within the limit needs no further approvals.",
+    text: translateMessage('ui.creatingTheLimitRequiresATransaction_01d28fac'),
   },
 ]
 
@@ -32,13 +33,13 @@ const SpendingLimitIntroDialog = ({ open, onOpenChange, onProceed }: SpendingLim
     open={open}
     onOpenChange={onOpenChange}
     onProceed={onProceed}
-    title="Spending limit"
-    description="Let spenders access assets without collecting signatures."
+    title={translateMessage('ui.spendingLimit_26abdb30')}
+    description={translateMessage('ui.letSpendersAccessAssetsWithoutCollecting_4450464f')}
     helpArticle={HelpCenterArticle.SPENDING_LIMITS}
-    helpLabel="Learn more about spending limits"
+    helpLabel={translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')}
     explainers={EXPLAINERS}
     preview={<SpendingLimitPreview />}
-    proceedLabel="Set up spending limit"
+    proceedLabel={translateMessage('ui.setUpSpendingLimit_07e06abe')}
     testId="spending-limit-intro-dialog"
   />
 )

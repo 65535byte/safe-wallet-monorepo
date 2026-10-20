@@ -100,7 +100,7 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.getByText('Audit log')).toBeInTheDocument()
+    expect(screen.getByText('审计日志')).toBeInTheDocument()
   })
 
   it('displays the confirmation count chip', () => {
@@ -139,7 +139,7 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.getByText('Created')).toBeInTheDocument()
+    expect(screen.getByText('已创建')).toBeInTheDocument()
   })
 
   it('shows "Proposed" label for proposer-initiated transactions', () => {
@@ -174,8 +174,8 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.getByText('Signed (1/3)')).toBeInTheDocument()
-    expect(screen.getByText('Signed (2/3)')).toBeInTheDocument()
+    expect(screen.getByText('已签名（1/3）')).toBeInTheDocument()
+    expect(screen.getByText('已签名（2/3）')).toBeInTheDocument()
   })
 
   it('shows "Executed" label when executor is present', () => {
@@ -195,7 +195,7 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.getByText('Executed')).toBeInTheDocument()
+    expect(screen.getByText('已执行')).toBeInTheDocument()
   })
 
   it('shows info banner when below threshold', () => {
@@ -213,8 +213,8 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.getByText('Can be executed once the threshold is reached.')).toBeInTheDocument()
-    const alert = screen.getByText('Can be executed once the threshold is reached.').closest('[role="alert"]')
+    expect(screen.getByText('达到签名阈值后即可执行。')).toBeInTheDocument()
+    const alert = screen.getByText('达到签名阈值后即可执行。').closest('[role="alert"]')
     expect(alert).toHaveClass('bg-[var(--color-info-background)]')
     expect(alert?.querySelector('svg.lucide-info')).toBeTruthy()
   })
@@ -241,9 +241,7 @@ describe('TxSigners (Audit Log)', () => {
       />,
     )
 
-    expect(
-      screen.getByText('This transaction was created by a proposer. Please review and either confirm or reject it.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('此交易由提案人创建，请检查并确认或拒绝。')).toBeInTheDocument()
   })
 
   it('hides info banners once threshold is reached', () => {
@@ -260,7 +258,7 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    expect(screen.queryByText('Can be executed once the threshold is reached.')).not.toBeInTheDocument()
+    expect(screen.queryByText('达到签名阈值后即可执行。')).not.toBeInTheDocument()
   })
 
   it('shows the expired warning for a queued expired order', () => {
@@ -285,7 +283,7 @@ describe('TxSigners (Audit Log)', () => {
       />,
     )
 
-    expect(screen.getByText('This order has expired. Reject this transaction and try again.')).toBeInTheDocument()
+    expect(screen.getByText('此订单已过期。请拒绝此交易后重试。')).toBeInTheDocument()
   })
 
   it('hides the expired warning once the transaction has been executed', () => {
@@ -313,7 +311,7 @@ describe('TxSigners (Audit Log)', () => {
       />,
     )
 
-    expect(screen.queryByText('This order has expired. Reject this transaction and try again.')).not.toBeInTheDocument()
+    expect(screen.queryByText('此订单已过期。请拒绝此交易后重试。')).not.toBeInTheDocument()
   })
 
   it('shows proposer banner even after threshold is reached but not executed', () => {
@@ -337,11 +335,9 @@ describe('TxSigners (Audit Log)', () => {
       />,
     )
 
-    expect(
-      screen.getByText('This transaction was created by a proposer. Please review and either confirm or reject it.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('此交易由提案人创建，请检查并确认或拒绝。')).toBeInTheDocument()
     // Threshold alert should still be hidden since threshold is met
-    expect(screen.queryByText('Can be executed once the threshold is reached.')).not.toBeInTheDocument()
+    expect(screen.queryByText('达到签名阈值后即可执行。')).not.toBeInTheDocument()
   })
 
   it('shows alerts for the last signer who can execute', () => {
@@ -367,10 +363,8 @@ describe('TxSigners (Audit Log)', () => {
       />,
     )
 
-    expect(screen.getByText('Can be executed once the threshold is reached.')).toBeInTheDocument()
-    expect(
-      screen.getByText('This transaction was created by a proposer. Please review and either confirm or reject it.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('达到签名阈值后即可执行。')).toBeInTheDocument()
+    expect(screen.getByText('此交易由提案人创建，请检查并确认或拒绝。')).toBeInTheDocument()
   })
 
   it('shows disabled explorer button with tooltip for queued transactions', () => {
@@ -417,8 +411,8 @@ describe('TxSigners (Audit Log)', () => {
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
     // Cancellation uses same labels as normal transactions
-    expect(screen.getByText('Created')).toBeInTheDocument()
-    expect(screen.getByText('Signed (1/2)')).toBeInTheDocument()
+    expect(screen.getByText('已创建')).toBeInTheDocument()
+    expect(screen.getByText('已签名（1/2）')).toBeInTheDocument()
   })
 
   it('copies the transaction hash to clipboard via the hash button', async () => {
@@ -490,7 +484,7 @@ describe('TxSigners (Audit Log)', () => {
       expect(trigger).not.toBeDisabled()
     }
 
-    for (const label of ['Copy transaction hash', 'View on block explorer']) {
+    for (const label of ['复制交易哈希', '在区块浏览器中查看']) {
       const button = within(actionsList).getByLabelText(label)
       expect(button).toBeDisabled()
 
@@ -518,7 +512,7 @@ describe('TxSigners (Audit Log)', () => {
 
     render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} proposer={ownerAddress} />)
 
-    const copyButtons = screen.getAllByRole('button', { name: /^Copy address / })
+    const copyButtons = screen.getAllByRole('button', { name: /^操作人 / })
     fireEvent.click(copyButtons[0])
 
     await waitFor(() => {
@@ -579,9 +573,9 @@ describe('TxSigners (Audit Log)', () => {
 
       render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} />)
 
-      expect(screen.getByText('Audit log')).toBeInTheDocument()
-      expect(screen.getByText('Created')).toBeInTheDocument()
-      expect(screen.getByText('Executed')).toBeInTheDocument()
+      expect(screen.getByText('审计日志')).toBeInTheDocument()
+      expect(screen.getByText('已创建')).toBeInTheDocument()
+      expect(screen.getByText('已执行')).toBeInTheDocument()
       expect(screen.getByText(/Allowance Module/)).toBeInTheDocument()
 
       await waitFor(() => {
@@ -597,7 +591,7 @@ describe('TxSigners (Audit Log)', () => {
 
       render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} />)
 
-      expect(screen.getByText('Created')).toBeInTheDocument()
+      expect(screen.getByText('已创建')).toBeInTheDocument()
       expect(screen.getByText('—')).toBeInTheDocument()
     })
 
@@ -627,8 +621,8 @@ describe('TxSigners (Audit Log)', () => {
 
       render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} />)
 
-      expect(screen.getByText('Audit log')).toBeInTheDocument()
-      expect(screen.getByText('Executed')).toBeInTheDocument()
+      expect(screen.getByText('审计日志')).toBeInTheDocument()
+      expect(screen.getByText('已执行')).toBeInTheDocument()
       expect(screen.getByTestId('transaction-actions-list')).toBeInTheDocument()
     })
 
@@ -725,7 +719,7 @@ describe('TxSigners (Audit Log)', () => {
       await waitFor(() => expect(screen.getByTestId('safenet-attestation-link')).toHaveTextContent('Safenet'), {
         timeout: 10_000,
       })
-      expect(screen.getByText('No issues found')).toBeInTheDocument()
+      expect(screen.getByText('未发现问题')).toBeInTheDocument()
       // The hook watches THIS transaction's hash, aimed at its submission time.
       expect(useSafenetCheck).toHaveBeenCalledWith(
         safenetTxHash,
@@ -794,8 +788,8 @@ describe('TxSigners (Audit Log)', () => {
 
       const { container } = render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} />)
 
-      await waitFor(() => expect(screen.getByText('No issues found')).toBeInTheDocument(), { timeout: 10_000 })
-      expect(screen.queryByText('Executed')).not.toBeInTheDocument()
+      await waitFor(() => expect(screen.getByText('未发现问题')).toBeInTheDocument(), { timeout: 10_000 })
+      expect(screen.queryByText('已执行')).not.toBeInTheDocument()
       // Created + Signed keep their connectors; the Safenet step is the last row.
       expect(container.getElementsByClassName('timelineLine')).toHaveLength(2)
     }, 15_000)
@@ -818,7 +812,7 @@ describe('TxSigners (Audit Log)', () => {
 
       const { container } = render(<TxSigners txDetails={txDetails} txSummary={txSummary} isTxFromProposer={false} />)
 
-      await waitFor(() => expect(screen.getByText(/Signed/)).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText(/已签名/)).toBeInTheDocument())
       // Created connects to Signed; Signed is the last visible row.
       expect(container.getElementsByClassName('timelineLine')).toHaveLength(1)
     })

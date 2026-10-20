@@ -32,7 +32,7 @@ const leaf = (chainId: string, address: string) => ({
 })
 
 let mockAllSafes: unknown[] = [
-  { address: '0xB', name: 'Payroll', isPinned: false, lastVisited: 0, safes: [leaf('1', '0xB'), leaf('10', '0xB')] },
+  { address: '0xB', name: '薪资', isPinned: false, lastVisited: 0, safes: [leaf('1', '0xB'), leaf('10', '0xB')] },
   leaf('1', '0xC'),
 ]
 jest.mock('../../../hooks/useSpaceSafes', () => ({
@@ -51,7 +51,7 @@ const pick: PlanPick = {
   option: {
     paymentLinkId: 'pl_starter',
     priceId: 'price_starter',
-    label: '2 Safe accounts',
+    label: '2 个 Safe 账户',
     seats: 2,
     price: 189,
     originalPrice: null,
@@ -65,7 +65,7 @@ const currentPlan = {
   isTrialing: false,
   periodEndsAt: '2026-12-06T00:00:00Z',
   seats: 20,
-  seatsLabel: '20 Safe accounts',
+  seatsLabel: '20 个 Safe 账户',
 }
 const ENTRY = { 'Entry Point': 'sidebar' }
 const CHANGE = { 'From Plan': 'business', 'To Plan': 'starter', 'From Seats': 20, 'To Seats': 2 }
@@ -118,15 +118,15 @@ describe('ChangePlanDialog', () => {
       />,
     )
 
-    expect(screen.getByRole('heading', { name: 'Switch to 2 Safe accounts' })).toBeInTheDocument()
-    expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('Current plan')
+    expect(screen.getByRole('heading', { name: 'Switch to 2 个 Safe 账户' })).toBeInTheDocument()
+    expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('当前套餐')
     expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('Business· 20 Safe accounts€499/mo')
-    expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('New plan')
+    expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('新套餐')
     expect(screen.getByTestId('change-plan-summary')).toHaveTextContent('Starter· 2 Safe accounts€189/mo')
     expect(screen.getByText('Unused time on Business')).toBeInTheDocument()
-    expect(screen.getByText('Your plan will be downgraded immediately')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Confirm change' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument()
+    expect(screen.getByText('套餐将立即降级')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认变更' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '取消' })).toBeInTheDocument()
     expect(screen.getByTestId('change-plan-amount-due')).toHaveTextContent('-€ 310')
     expect(screen.getByText(/Next billing date: Dec 6, 2026/)).toBeInTheDocument()
 
@@ -239,7 +239,7 @@ describe('ChangePlanDialog', () => {
   })
 
   it('keeps the dialog open and shows the error when the change is rejected', async () => {
-    mockState = { preview, changeError: { status: 409, data: { message: 'The workspace is already on this plan' } } }
+    mockState = { preview, changeError: { status: 409, data: { message: 'workspace is already on this 套餐' } } }
     mockChangePlan.mockResolvedValue(false)
     const onClose = jest.fn()
     render(
@@ -257,7 +257,7 @@ describe('ChangePlanDialog', () => {
 
     await waitFor(() => expect(mockChangePlan).toHaveBeenCalled())
     expect(onClose).not.toHaveBeenCalled()
-    expect(screen.getByText('The workspace is already on this plan')).toBeInTheDocument()
+    expect(screen.getByText('workspace is already on this 套餐')).toBeInTheDocument()
   })
 
   it('reads as an upgrade when the new plan costs more', () => {
@@ -273,9 +273,9 @@ describe('ChangePlanDialog', () => {
       />,
     )
 
-    expect(screen.getByRole('heading', { name: 'Upgrade to 2 Safe accounts' })).toBeInTheDocument()
-    expect(screen.getByText('Your plan will be upgraded immediately')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Confirm change' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Upgrade to 2 个 Safe 账户' })).toBeInTheDocument()
+    expect(screen.getByText('套餐将立即升级')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认变更' })).toBeInTheDocument()
   })
 
   it('skips the proration preview during a trial and explains when billing starts', async () => {

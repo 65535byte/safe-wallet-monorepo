@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { useContext } from 'react'
@@ -47,7 +48,7 @@ export function DelayModifierRow({ delayModifier }: { delayModifier: RecoverySta
                 </Button>
               </Track>
             </TooltipTrigger>
-            {isOk && <TooltipContent>Edit recovery setup</TooltipContent>}
+            {isOk && <TooltipContent>{translateMessage('ui.editRecoverySetup_c5811099')}</TooltipContent>}
           </Tooltip>
 
           <Tooltip>
@@ -64,7 +65,7 @@ export function DelayModifierRow({ delayModifier }: { delayModifier: RecoverySta
                 </Button>
               </Track>
             </TooltipTrigger>
-            {isOk && <TooltipContent>Remove recovery</TooltipContent>}
+            {isOk && <TooltipContent>{translateMessage('ui.removeRecovery_df8f4c07')}</TooltipContent>}
           </Tooltip>
         </>
       )}

@@ -407,7 +407,7 @@ describe('simulation utils', () => {
           },
           scopeWithoutProvider,
         ),
-      ).rejects.toThrow('The provider for the selected Safe account is not initialized yet.')
+      ).rejects.toThrow('所选 8379 账户的服务尚未初始化。')
 
       expect(Web3.getWeb3ReadOnly).not.toHaveBeenCalled()
     })

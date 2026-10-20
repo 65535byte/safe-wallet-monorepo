@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CreateTokenTransfer from './CreateTokenTransfer'
 import ReviewTokenTx from '@/components/tx-flow/flows/TokenTransfer/ReviewTokenTx'
 import AssetsIcon from '@safe-global/views/assets/images/sidebar/assets.svg'
@@ -55,11 +56,11 @@ const TokenTransferFlow = ({ txNonce, ...params }: MultiTokenTransferFlowProps) 
     <TxFlow
       initialData={initialData}
       icon={AssetsIcon}
-      subtitle="Send tokens"
+      subtitle={translateMessage('ui.sendTokens_6858aefd')}
       eventCategory={TxFlowType.TOKEN_TRANSFER}
       ReviewTransactionComponent={ReviewTokenTx}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <CreateTokenTransfer txNonce={txNonce} />
       </TxFlowStep>
     </TxFlow>

@@ -80,7 +80,7 @@ describe('TxData — MultiSend executing-Safe resolution', () => {
 
     // Resolves to the child Safe (the tx's own Safe), not "This Safe account" (connected parent) nor 0x0
     expect(result.getAllByText(/Child Safe/).length).toBeGreaterThan(0)
-    expect(result.queryByText('This Safe account')).not.toBeInTheDocument()
+    expect(result.queryByText('此 8379 账户')).not.toBeInTheDocument()
     expect(result.queryByText('0x0000...0000')).not.toBeInTheDocument()
   })
 })
@@ -139,9 +139,9 @@ describe('TxData — spending limit batch', () => {
     ])
 
     expect(result.getByTestId('spending-limit-batch-summary')).toBeInTheDocument()
-    expect(result.getByText('Modify spending limit:')).toBeInTheDocument()
+    expect(result.getByText('Modify 支出限额：')).toBeInTheDocument()
     expect(result.getByText('1.5 USDC')).toBeInTheDocument()
-    expect(result.getByText('Reset to 0')).toBeInTheDocument()
+    expect(result.getByText('重置为 0')).toBeInTheDocument()
     expect(result.getByTestId('all-actions')).toBeInTheDocument()
   })
 
@@ -181,6 +181,6 @@ describe('TxData — spending limit batch', () => {
   it('summarises a deleted limit', () => {
     const result = renderBatch([moduleCall('deleteAllowance', [spender, token])])
 
-    expect(result.getByText('Delete spending limit:')).toBeInTheDocument()
+    expect(result.getByText('Delete 支出限额：')).toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import RecoveryPlusIcon from '@safe-global/views/assets/images/common/recovery-plus.svg'
@@ -24,7 +25,9 @@ export default function RecoveryType({
           variant={isDashboard ? 'paragraph' : 'paragraph-small'}
           className={isMalicious ? 'text-[var(--color-error-main)]' : undefined}
         >
-          {isMalicious ? 'Malicious transaction' : 'Account recovery'}
+          {isMalicious
+            ? translateMessage('ui.maliciousTransaction_3b4ecee3')
+            : translateMessage('ui.accountRecovery_a5ed5ee0')}
         </Typography>
 
         {date && (

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionInfo } from '@safe-global/store/gateway/types'
 import { SettingsInfoType } from '@safe-global/store/gateway/types'
 import type {
@@ -26,7 +27,7 @@ import {
   isVaultDepositTxInfo,
   isVaultRedeemTxInfo,
 } from '@/utils/transaction-guards'
-import { ellipsis, maybePlural, shortenAddress } from '@safe-global/utils/utils/formatters'
+import { ellipsis, shortenAddress } from '@safe-global/utils/utils/formatters'
 import { useCurrentChain } from '@/hooks/useChains'
 import { StakingTxDepositInfo, StakingTxExitInfo, StakingTxWithdrawInfo } from './Staking'
 import css from './styles.module.css'
@@ -82,7 +83,7 @@ export const TransferTx = ({
       <TokenAmount
         {...transfer}
         tokenSymbol={ellipsis(
-          `${transfer.tokenSymbol ? transfer.tokenSymbol : 'Unknown NFT'} #${transfer.tokenId}`,
+          `${transfer.tokenSymbol ? transfer.tokenSymbol : translateMessage('ui.unknownNFT_3bd6e355')} #${transfer.tokenId}`,
           withLogo ? 16 : 100,
         )}
         value="1"
@@ -103,13 +104,18 @@ const CustomTx = ({ info }: { info: CustomTransactionInfo }): ReactElement => {
 }
 
 const CreationTx = ({ info }: { info: CreationTransactionInfo }): ReactElement => {
-  return <div className={css.txInfo}>Created by {shortenAddress(info.creator.value)}</div>
+  return (
+    <div className={css.txInfo}>
+      {translateMessage('ui.createdBy_15cccf32')}
+      {shortenAddress(info.creator.value)}
+    </div>
+  )
 }
 
 const MultiSendTx = ({ info }: { info: MultiSendTransactionInfo }): ReactElement => {
   return (
     <div className={css.txInfo}>
-      {info.actionCount} {`action${maybePlural(info.actionCount)}`}
+      {info.actionCount} {translateMessage('ui.action_4e446929', { count: info.actionCount })}
     </div>
   )
 }
@@ -125,7 +131,7 @@ const SettingsChangeTx = ({ info }: { info: SettingsChangeTransaction }): ReactE
 }
 
 const MigrationToL2Tx = (): ReactElement => {
-  return <>Migrate base contract</>
+  return <>{translateMessage('ui.migrateBaseContract_f16a35d4')}</>
 }
 
 const TxInfo = ({ info, ...rest }: { info: TransactionInfo; omitSign?: boolean; withLogo?: boolean }): ReactElement => {

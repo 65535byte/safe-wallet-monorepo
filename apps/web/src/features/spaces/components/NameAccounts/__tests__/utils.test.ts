@@ -127,19 +127,19 @@ describe('hasAllNames', () => {
 
 describe('withWorkspaceNames', () => {
   it('shows the workspace name over a local one', () => {
-    const [safe] = withWorkspaceNames([safeItem('1', ADDRESS_A, 'Local')], [entry(ADDRESS_A, 'Workspace', ['1'])])
+    const [safe] = withWorkspaceNames([safeItem('1', ADDRESS_A, 'Local')], [entry(ADDRESS_A, '工作空间', ['1'])])
 
-    expect(safe.name).toBe('Workspace')
+    expect(safe.name).toBe('工作空间')
   })
 
   it('shows the workspace name for a Safe with no local name', () => {
-    const [safe] = withWorkspaceNames([safeItem('1', ADDRESS_A)], [entry(ADDRESS_A.toLowerCase(), 'Workspace', ['1'])])
+    const [safe] = withWorkspaceNames([safeItem('1', ADDRESS_A)], [entry(ADDRESS_A.toLowerCase(), '工作空间', ['1'])])
 
-    expect(safe.name).toBe('Workspace')
+    expect(safe.name).toBe('工作空间')
   })
 
   it('keeps the local name when the workspace entry covers another chain', () => {
-    const [safe] = withWorkspaceNames([safeItem('10', ADDRESS_A, 'Local')], [entry(ADDRESS_A, 'Workspace', ['1'])])
+    const [safe] = withWorkspaceNames([safeItem('10', ADDRESS_A, 'Local')], [entry(ADDRESS_A, '工作空间', ['1'])])
 
     expect(safe.name).toBe('Local')
   })

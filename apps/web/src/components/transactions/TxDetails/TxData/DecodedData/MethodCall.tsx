@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NamedAddressInfo from '@/components/common/NamedAddressInfo'
 
 const MethodCall = ({
@@ -13,11 +14,11 @@ const MethodCall = ({
 }) => {
   return (
     <div className="flex flex-wrap items-center gap-2 font-bold md:flex-nowrap">
-      Call
+      {translateMessage('ui.call_95d59f25')}
       <code className="bg-[var(--color-background-main)] whitespace-nowrap rounded-sm px-2 py-1 font-mono text-sm font-normal">
         {method}
       </code>{' '}
-      on
+      {translateMessage('ui.on_ce1f9b2f')}
       <NamedAddressInfo
         address={contractAddress}
         name={contractName}

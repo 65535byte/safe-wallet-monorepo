@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import classnames from 'classnames'
 import type { ReactElement, ReactNode } from 'react'
@@ -30,7 +31,12 @@ const TxModalDialog = ({ children, open, onClose, fullWidth = false }: TxModalDi
         >
           <div className={css.title}>
             <div className={css.buttons}>
-              <button type="button" className={css.close} aria-label="close" onClick={() => onClose?.()}>
+              <button
+                type="button"
+                className={css.close}
+                aria-label={translateMessage('ui.close_aaaeeafe')}
+                onClick={() => onClose?.()}
+              >
                 <X />
               </button>
             </div>

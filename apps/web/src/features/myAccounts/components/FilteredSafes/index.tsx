@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import SafesList from '../SafesList'
 import { type AllSafeItems, useSafesSearch } from '@/hooks/safes'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { OVERVIEW_EVENTS } from '@/services/analytics'
 import { trackEvent } from '@/services/analytics'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -26,7 +26,8 @@ const FilteredSafes = ({
   return (
     <>
       <Typography variant="paragraph" color="muted" className="mb-4">
-        Found {filteredSafes.length} result{maybePlural(filteredSafes)}
+        {translateMessage('ui.found_9874f24d')}
+        {filteredSafes.length} {translateMessage('ui.result_21bddc08')}
       </Typography>
       <div className="mt-2">
         <SafesList safes={filteredSafes} onLinkClick={onLinkClick} />

@@ -337,7 +337,7 @@ describe('SpendingLimitPolicyForm', () => {
     expect(screen.getByTestId('spender-address-input')).toHaveValue('')
     expect(screen.getByTestId('limit-token-selector')).toHaveValue('')
     expect(screen.getByTestId('limit-amount-input')).toHaveValue('')
-    expect(screen.getByTestId('frequency-select')).toHaveTextContent('One time')
+    expect(screen.getByTestId('frequency-select')).toHaveTextContent('一次性')
     expect(screen.getByLabelText(SAFE_ACCOUNT_SELECTOR_LABEL)).toHaveTextContent('Treasury')
     await waitFor(() => expect(screen.getByRole('button', { name: NEXT_LABEL })).toBeDisabled())
   })

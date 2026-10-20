@@ -18,12 +18,12 @@ const Step = () => <div data-testid="step-content">Step content</div>
 describe('TxLayoutBase', () => {
   it('renders the title and the current step content', () => {
     render(
-      <TxLayoutBase title="Review details" step={0} stepCount={1} progress={100}>
+      <TxLayoutBase title="核对详情" step={0} stepCount={1} progress={100}>
         <Step />
       </TxLayoutBase>,
     )
 
-    expect(screen.getByTestId('modal-title')).toHaveTextContent('Review details')
+    expect(screen.getByTestId('modal-title')).toHaveTextContent('核对详情')
     expect(screen.getByTestId('step-content')).toBeInTheDocument()
   })
 
@@ -31,7 +31,7 @@ describe('TxLayoutBase', () => {
     // The right gutter belongs to TxModalDialog, which reserves the column its sticky close button
     // scrolls in. Any `px-`/`pr-` utility here stacks on that and pushes the widget away from the X.
     const { container } = render(
-      <TxLayoutBase title="Send tokens" step={0} stepCount={2} progress={50}>
+      <TxLayoutBase title="发送代币" step={0} stepCount={2} progress={50}>
         <Step />
       </TxLayoutBase>,
     )
@@ -45,7 +45,7 @@ describe('TxLayoutBase', () => {
 
   it('shows the Safe Shield widget and status rail by default', () => {
     render(
-      <TxLayoutBase title="Send tokens" step={0} stepCount={2} progress={50}>
+      <TxLayoutBase title="发送代币" step={0} stepCount={2} progress={50}>
         <Step />
       </TxLayoutBase>,
     )
@@ -56,7 +56,7 @@ describe('TxLayoutBase', () => {
 
   it('hides the Safe Shield widget when hideSafeShield is set', () => {
     render(
-      <TxLayoutBase title="Activate account" step={0} stepCount={1} progress={100} hideSafeShield>
+      <TxLayoutBase title="激活账户" step={0} stepCount={1} progress={100} hideSafeShield>
         <Step />
       </TxLayoutBase>,
     )
@@ -66,7 +66,7 @@ describe('TxLayoutBase', () => {
 
   it('hides both the status rail and the Safe Shield widget for replacement flows', () => {
     render(
-      <TxLayoutBase title="Reject transaction" step={0} stepCount={1} progress={100} isReplacement>
+      <TxLayoutBase title="拒绝交易" step={0} stepCount={1} progress={100} isReplacement>
         <Step />
       </TxLayoutBase>,
     )
@@ -77,7 +77,7 @@ describe('TxLayoutBase', () => {
 
   it('hides the status rail but keeps the step content when hideStatusRail is set', () => {
     render(
-      <TxLayoutBase title="Create new policy" step={0} stepCount={1} progress={100} hideStatusRail hideSafeShield>
+      <TxLayoutBase title="创建策略" step={0} stepCount={1} progress={100} hideStatusRail hideSafeShield>
         <Step />
       </TxLayoutBase>,
     )
@@ -90,7 +90,7 @@ describe('TxLayoutBase', () => {
   it('renders the sidebar slot content under the widget when provided', () => {
     render(
       <TxLayoutBase
-        title="Send tokens"
+        title="发送代币"
         step={0}
         stepCount={2}
         progress={50}
@@ -105,7 +105,7 @@ describe('TxLayoutBase', () => {
 
   it('does not render a back button on the first step', () => {
     render(
-      <TxLayoutBase title="Send tokens" step={0} stepCount={3} progress={33} onBack={jest.fn()}>
+      <TxLayoutBase title="发送代币" step={0} stepCount={3} progress={33} onBack={jest.fn()}>
         <Step />
       </TxLayoutBase>,
     )
@@ -116,7 +116,7 @@ describe('TxLayoutBase', () => {
   it('renders a back button past the first step and calls onBack when clicked', async () => {
     const onBack = jest.fn()
     const { user } = renderWithUserEvent(
-      <TxLayoutBase title="Confirm transaction" step={1} stepCount={3} progress={66} onBack={onBack}>
+      <TxLayoutBase title="确认交易" step={1} stepCount={3} progress={66} onBack={onBack}>
         <Step />
       </TxLayoutBase>,
     )
@@ -130,7 +130,7 @@ describe('TxLayoutBase', () => {
 
   it('should, past the first step, render a back button with no icon and no minimum width', () => {
     render(
-      <TxLayoutBase title="Confirm transaction" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
+      <TxLayoutBase title="确认交易" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
         <Step />
       </TxLayoutBase>,
     )
@@ -156,7 +156,7 @@ describe('TxLayoutBase', () => {
 
     try {
       render(
-        <TxLayoutBase title="Confirm transaction" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
+        <TxLayoutBase title="确认交易" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
           <Step />
         </TxLayoutBase>,
       )
@@ -183,7 +183,7 @@ describe('TxLayoutBase', () => {
 
     try {
       render(
-        <TxLayoutBase title="Confirm transaction" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
+        <TxLayoutBase title="确认交易" step={1} stepCount={3} progress={66} onBack={jest.fn()}>
           <Step />
         </TxLayoutBase>,
       )

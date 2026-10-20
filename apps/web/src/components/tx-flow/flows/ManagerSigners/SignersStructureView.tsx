@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -13,7 +14,6 @@ import commonCss from '@safe-global/views/components/tx-flow/common/styles.modul
 import TxCard, { TxCardActions } from '@safe-global/views/components/tx-flow/common/TxCard'
 import OwnerRow from '@/components/new-safe/OwnerRow'
 import { useSafeShieldForAddressPoisoning } from '@/features/safe-shield/SafeShieldContext'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { ManageSignersFormFields } from '.'
 import { TxFlowContext } from '../../TxFlowProvider'
 import { SETTINGS_EVENTS, SETTINGS_LABELS, trackEvent } from '@/services/analytics'
@@ -55,7 +55,7 @@ export function SignersStructureView(props: Props): ReactElement {
               type="submit"
               disabled={props.isSameSetup || !props.formMethods.formState.isValid}
             >
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </form>
@@ -95,7 +95,7 @@ function Signers({
           className="-mt-2 mb-6 self-start"
         >
           <AddIcon className="size-4" />
-          Add new signer
+          {translateMessage('ui.addNewSigner_d338b9bd')}
         </Button>
       </Track>
     </>
@@ -106,7 +106,7 @@ function Threshold({ formMethods, newOwners }: Pick<Props, 'formMethods' | 'newO
   return (
     <div className="my-6">
       <Typography variant="h4" className="inline-flex items-center gap-2 font-bold">
-        Threshold
+        {translateMessage('ui.threshold_60fbd8eb')}
         <Tooltip>
           <TooltipTrigger
             render={
@@ -115,15 +115,12 @@ function Threshold({ formMethods, newOwners }: Pick<Props, 'formMethods' | 'newO
               </span>
             }
           />
-          <TooltipContent>
-            The threshold of a Safe account specifies how many signers need to confirm a Safe account transaction before
-            it can be executed.
-          </TooltipContent>
+          <TooltipContent>{translateMessage('ui.theThresholdOfAAccountSpecifies_fc4cfa69')}</TooltipContent>
         </Tooltip>
       </Typography>
 
       <Typography variant="paragraph-small" className="mb-4 block">
-        Any transaction requires the confirmation of:
+        {translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}
       </Typography>
 
       <div className="flex flex-row items-center gap-4 pt-2">
@@ -157,7 +154,8 @@ function Threshold({ formMethods, newOwners }: Pick<Props, 'formMethods' | 'newO
         </div>
         <div>
           <Typography>
-            out of {newOwners.length} signer{maybePlural(newOwners)}
+            {translateMessage('ui.outOf_9bf030fe')}
+            {newOwners.length} {translateMessage('ui.signer_efab2dcb')}
           </Typography>
         </div>
       </div>

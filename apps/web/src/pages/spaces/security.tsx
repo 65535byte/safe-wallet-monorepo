@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -17,7 +18,7 @@ export default function SpaceSecurityPage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Security hub`}</title>
+        <title>{translateMessage('ui.securityHub_5da98aa7', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

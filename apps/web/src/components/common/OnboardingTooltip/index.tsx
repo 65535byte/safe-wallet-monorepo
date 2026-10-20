@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { CSSProperties, ReactElement } from 'react'
 import useLocalStorage from '@/services/local-storage/useLocalStorage'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@safe-global/views/components/ui/tooltip'
@@ -59,7 +60,7 @@ export const OnboardingTooltip = ({
           {iconShown && <InfoIcon className="size-5" />}
           <div className="min-w-[150px]">{text}</div>
           <Button variant="ghost" size="sm" className="whitespace-nowrap" onClick={() => setWidgetHidden(true)}>
-            Got it
+            {translateMessage('ui.gotIt_008f9813')}
           </Button>
         </div>
       </TooltipContent>

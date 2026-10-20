@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import NextLink from 'next/link'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -48,7 +49,9 @@ const TenderlySection = ({
   } = useFormContext<EnvVariablesFormData>()
   const { hasProFeatures, spaceId } = useSafeProAccess()
   const [isTokenVisible, setIsTokenVisible] = useState(false)
-  const tokenVisibilityLabel = isTokenVisible ? 'Hide access token' : 'Show access token'
+  const tokenVisibilityLabel = isTokenVisible
+    ? translateMessage('ui.hideAccessToken_7901118a')
+    : translateMessage('ui.showAccessToken_d8f26fcf')
   const urlError = errors[EnvVariablesField.tenderlyURL]
   const tokenError = errors[EnvVariablesField.tenderlyToken]
   const urlDescriptionId = `${EnvVariablesField.tenderlyURL}-description`
@@ -64,12 +67,12 @@ const TenderlySection = ({
       <Alert variant="info" className="mb-4" data-testid="tenderly-info">
         <AlertSeverityIcon variant="info" />
         <AlertDescription>
-          Transaction simulation is included in Safe Pro. You can also connect your own Tenderly project.{' '}
-          <ExternalLink href={TENDERLY_SETUP_GUIDE_URL}>View setup guide</ExternalLink>
+          {translateMessage('ui.transactionSimulationIsIncludedInYou_65e8e49d')}{' '}
+          <ExternalLink href={TENDERLY_SETUP_GUIDE_URL}>{translateMessage('ui.viewSetupGuide_9db6566b')}</ExternalLink>
           {!hasProFeatures && (
             <span className="mt-2 flex">
               <Button variant="surface" size="sm" weight="semibold" render={<NextLink href={plansHref} />}>
-                See plans
+                {translateMessage('ui.seePlans_7aff6eee')}
                 <ArrowRight data-icon="inline-end" className="text-badge-dot-success" />
               </Button>
             </span>
@@ -80,7 +83,7 @@ const TenderlySection = ({
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor={EnvVariablesField.tenderlyURL} className={cn('gap-1.5', urlError && 'text-destructive')}>
-            Tenderly API URL
+            {translateMessage('ui.tenderlyAPIURL_8852e62f')}
           </Label>
           <Controller
             name={EnvVariablesField.tenderlyURL}
@@ -114,12 +117,16 @@ const TenderlySection = ({
                       <Tooltip>
                         <TooltipTrigger
                           render={
-                            <InputGroupButton size="icon-sm" onClick={onResetUrl} aria-label="Reset to default value">
+                            <InputGroupButton
+                              size="icon-sm"
+                              onClick={onResetUrl}
+                              aria-label={translateMessage('ui.resetToDefaultValue_dd4acebd')}
+                            >
                               <RotateCcwIcon />
                             </InputGroupButton>
                           }
                         />
-                        <TooltipContent>Reset to default value</TooltipContent>
+                        <TooltipContent>{translateMessage('ui.resetToDefaultValue_dd4acebd')}</TooltipContent>
                       </Tooltip>
                     </InputGroupAddon>
                   )}
@@ -136,7 +143,7 @@ const TenderlySection = ({
 
         <div className="flex flex-col gap-1.5">
           <Label htmlFor={EnvVariablesField.tenderlyToken} className={cn('gap-1.5', tokenError && 'text-destructive')}>
-            Tenderly access token
+            {translateMessage('ui.tenderlyAccessToken_656a31b5')}
           </Label>
           <Controller
             name={EnvVariablesField.tenderlyToken}
@@ -184,12 +191,16 @@ const TenderlySection = ({
                       <Tooltip>
                         <TooltipTrigger
                           render={
-                            <InputGroupButton size="icon-sm" onClick={onResetToken} aria-label="Reset to default value">
+                            <InputGroupButton
+                              size="icon-sm"
+                              onClick={onResetToken}
+                              aria-label={translateMessage('ui.resetToDefaultValue_dd4acebd')}
+                            >
                               <RotateCcwIcon />
                             </InputGroupButton>
                           }
                         />
-                        <TooltipContent>Reset to default value</TooltipContent>
+                        <TooltipContent>{translateMessage('ui.resetToDefaultValue_dd4acebd')}</TooltipContent>
                       </Tooltip>
                     )}
                   </InputGroupAddon>

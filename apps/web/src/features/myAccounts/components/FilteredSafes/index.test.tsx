@@ -21,7 +21,7 @@ describe('FilteredSafes', () => {
 
     render(<FilteredSafes searchQuery="test" allSafes={allSafes} />)
 
-    expect(screen.getByText('Found 0 results')).toBeInTheDocument()
+    expect(screen.getByText('找到 0 条结果')).toBeInTheDocument()
     // SafesList should be rendered with empty array
     const safesListProps = (SafesList as jest.Mock).mock.calls[0][0]
     expect(safesListProps.safes).toHaveLength(0)

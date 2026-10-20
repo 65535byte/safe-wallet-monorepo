@@ -1,11 +1,12 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { getPolicyLabel } from './policyLabel'
 import { getPolicyStatus, type Policy, type PolicySafe } from '../types'
 
 export const POLICY_SORT_OPTIONS = [
-  { value: 'rule', label: 'Rule A–Z' },
-  { value: 'appliesTo', label: 'Applies to' },
-  { value: 'network', label: 'Network' },
-  { value: 'status', label: 'Status' },
+  { value: 'rule', label: translateMessage('ui.ruleAZ_a22c92f9') },
+  { value: 'appliesTo', label: translateMessage('ui.appliesTo_4fadde80') },
+  { value: 'network', label: translateMessage('ui.network_eb8f6520') },
+  { value: 'status', label: translateMessage('ui.status_8042eaf1') },
 ] as const
 
 export type PolicySortOption = (typeof POLICY_SORT_OPTIONS)[number]['value']

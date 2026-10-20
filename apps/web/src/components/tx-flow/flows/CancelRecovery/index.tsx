@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import { CancelRecoveryFlowReview } from './CancelRecoveryFlowReview'
 import { CancelRecoveryOverview } from './CancelRecoveryOverview'
@@ -7,7 +8,7 @@ import { TxFlow } from '../../TxFlow'
 import { TxFlowStep } from '../../TxFlowStep'
 import type ReviewTransaction from '@/components/tx/ReviewTransactionV2'
 
-const TITLE = 'Cancel Account recovery'
+const TITLE = translateMessage('ui.cancelAccountRecovery_7fc092fa')
 
 type CancelRecoveryFlowProps = {
   recovery: RecoveryQueueItem

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Operation } from '@safe-global/store/gateway/types'
 import { useState, useEffect } from 'react'
@@ -24,7 +25,7 @@ export const MultisendActionsHeader = ({
   setOpen,
   amount,
   compact = false,
-  title = 'All actions',
+  title = translateMessage('ui.allActions_8569da9a'),
 }: {
   setOpen: Dispatch<SetStateAction<Record<number, boolean> | undefined>>
   amount: number
@@ -40,10 +41,10 @@ export const MultisendActionsHeader = ({
       <span className="text-base">{title}</span>
       <div className="flex flex-row">
         <Button data-testid="expande-all-btn" onClick={onClickAll(true)} variant="ghost" size="xs">
-          Expand all
+          {translateMessage('ui.expandAll_eac67b22')}
         </Button>
         <Button data-testid="collapse-all-btn" onClick={onClickAll(false)} variant="ghost" size="xs">
-          Collapse all
+          {translateMessage('ui.collapseAll_196f6542')}
         </Button>
       </div>
     </div>

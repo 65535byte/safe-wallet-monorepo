@@ -1,8 +1,7 @@
-import { type ReactElement } from 'react'
+import { useEffect, type ReactElement } from 'react'
 import { SafeShieldDisplay } from './components/SafeShieldDisplay'
 import { useSafeShield } from './SafeShieldContext'
-import { SAFE_SHIELD_EVENTS } from '@/services/analytics'
-import { useTrackOnce } from '@/services/analytics/useTrackOnce'
+import { SAFE_SHIELD_EVENTS, trackEvent } from '@/services/analytics'
 import { useHypernativeOAuth, useIsHypernativeEligible } from '@/features/hypernative'
 
 const SafeShieldWidget = (): ReactElement => {
@@ -23,7 +22,10 @@ const SafeShieldWidget = (): ReactElement => {
   const showHnInfo = !eligibilityLoading && isHypernativeEligible
   const showHnActiveStatus = !eligibilityLoading && isHypernativeGuard
 
-  useTrackOnce(SAFE_SHIELD_EVENTS.TRANSACTION_STARTED)
+  // Track when a transaction flow is started
+  useEffect(() => {
+    trackEvent(SAFE_SHIELD_EVENTS.TRANSACTION_STARTED)
+  }, [])
 
   return (
     <SafeShieldDisplay

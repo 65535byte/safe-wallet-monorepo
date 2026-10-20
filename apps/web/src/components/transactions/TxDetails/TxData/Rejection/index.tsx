@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MultisigExecutionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { NOT_AVAILABLE } from '@/components/transactions/TxDetails'
@@ -13,13 +14,11 @@ interface Props {
 
 const RejectionTxInfo = ({ nonce, isTxExecuted }: Props) => {
   const txNonce = nonce ?? NOT_AVAILABLE
-  const message = `This is an on-chain rejection that ${isTxExecuted ? "didn't" : "won't"} send any funds. ${
-    isTxExecuted
-      ? `This on-chain rejection replaced all transactions with nonce ${txNonce}.`
-      : `Executing this on-chain rejection will replace all currently awaiting transactions with nonce ${txNonce}.`
-  }`
+  const message = isTxExecuted
+    ? translateMessage('ui.thisIsAnOnChainRejection_685c5803', { p0: txNonce })
+    : translateMessage('ui.thisIsAnOnChainRejection_5469fbbd', { p0: txNonce })
 
-  const title = 'Why do I need to pay to reject a transaction?'
+  const title = translateMessage('ui.whyDoINeedToPay_21abcba9')
 
   return (
     <>

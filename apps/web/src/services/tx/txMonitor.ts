@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { didRevert, type EthersError } from '@/utils/ethers-utils'
 
 import { txDispatch, TxEvent } from '@/services/tx/txEvents'
@@ -36,7 +37,7 @@ export const waitForTx = async (
           txId,
           chainId,
           safeAddress,
-          error: new Error(`Transaction not found. It might have been replaced or cancelled in the connected wallet.`),
+          error: new Error(translateMessage('ui.transactionNotFoundItMightHave_803b77d9')),
         })
       })
     } else if (didRevert(receipt)) {
@@ -46,7 +47,7 @@ export const waitForTx = async (
           txId,
           chainId,
           safeAddress,
-          error: new Error('Transaction reverted by EVM.'),
+          error: new Error(translateMessage('ui.transactionRevertedByEVM_3d1d4ee1')),
         })
       })
     } else {
@@ -159,7 +160,7 @@ export const waitForRelayedTx = (
             txId,
             chainId,
             safeAddress,
-            error: new Error('Relayed transaction reverted.'),
+            error: new Error(translateMessage('ui.relayedTransactionReverted_708b5cfb')),
             groupKey,
           }),
         )
@@ -171,7 +172,7 @@ export const waitForRelayedTx = (
             txId,
             chainId,
             safeAddress,
-            error: new Error('Relayed transaction was rejected by relay provider.'),
+            error: new Error(translateMessage('ui.relayedTransactionWasRejectedByRelay_41a64231')),
             groupKey,
           }),
         )
@@ -193,9 +194,7 @@ export const waitForRelayedTx = (
         chainId,
         safeAddress,
         error: new Error(
-          `Transaction not relayed in ${
-            WAIT_FOR_RELAY_TIMEOUT / 60_000
-          } minutes. Be aware that it might still be relayed.`,
+          translateMessage('ui.transactionNotRelayedInMinutesBe_0cb92b66', { p0: WAIT_FOR_RELAY_TIMEOUT / 60_000 }),
         ),
         groupKey,
       }),

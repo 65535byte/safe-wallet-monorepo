@@ -50,6 +50,6 @@ describe('SpendingLimitSummary', () => {
     render(<SpendingLimitSummary policy={policy} />)
 
     const labels = screen.getAllByTestId('spending-limit-summary-frequency').map((node) => node.textContent)
-    expect(labels).toEqual(['One time only', 'Weekly', 'Monthly', 'Daily'])
+    expect(labels).toEqual(['仅一次', '每周', '每月', '每天'])
   })
 })

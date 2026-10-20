@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SpacesEnhancedSidebar } from '@/features/spaces'
 import { useRouter } from 'next/router'
 import { useEffect, type ReactElement } from 'react'
@@ -115,7 +116,7 @@ const SideDrawer = ({
           )}
         >
           <div className={css.sidebarToggle} role="button" onClick={() => onToggle(!isOpen)}>
-            <Button variant="ghost" size="icon-sm" aria-label="collapse sidebar">
+            <Button variant="ghost" size="icon-sm" aria-label={translateMessage('ui.collapseSidebar_c2bdb49b')}>
               {isOpen ? <ChevronsLeft className="size-5" /> : <ChevronsRight className="size-5" />}
             </Button>
           </div>

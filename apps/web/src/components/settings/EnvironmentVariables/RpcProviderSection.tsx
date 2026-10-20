@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Controller, useFormContext } from 'react-hook-form'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -24,12 +25,12 @@ const RpcProviderSection = ({ onReset, showResetButton }: RpcProviderSectionProp
   return (
     <>
       <Typography variant="paragraph-bold" className="mb-2 mt-6">
-        RPC provider
+        {translateMessage('ui.rPCProvider_3f2416a4')}
       </Typography>
 
       <Alert variant="info" className="mb-3" data-testid="rpc-info">
         <AlertSeverityIcon variant="info" />
-        <AlertDescription>Any provider that implements the Ethereum JSON-RPC standard can be used.</AlertDescription>
+        <AlertDescription>{translateMessage('ui.anyProviderThatImplementsTheEthereum_48d43240')}</AlertDescription>
       </Alert>
 
       <Controller
@@ -43,12 +44,16 @@ const RpcProviderSection = ({ onReset, showResetButton }: RpcProviderSectionProp
                 <Tooltip>
                   <TooltipTrigger
                     render={
-                      <InputGroupButton size="icon-sm" onClick={onReset} aria-label="Reset to default value">
+                      <InputGroupButton
+                        size="icon-sm"
+                        onClick={onReset}
+                        aria-label={translateMessage('ui.resetToDefaultValue_dd4acebd')}
+                      >
                         <RotateCcwIcon />
                       </InputGroupButton>
                     }
                   />
-                  <TooltipContent>Reset to default value</TooltipContent>
+                  <TooltipContent>{translateMessage('ui.resetToDefaultValue_dd4acebd')}</TooltipContent>
                 </Tooltip>
               </InputGroupAddon>
             )}

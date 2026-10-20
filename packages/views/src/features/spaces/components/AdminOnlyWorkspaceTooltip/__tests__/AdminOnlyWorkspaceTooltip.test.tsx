@@ -16,7 +16,7 @@ describe('AdminOnlyWorkspaceTooltip', () => {
       </AdminOnlyWorkspaceTooltip>,
     )
 
-    expect(screen.getByRole('button', { name: 'Add Safe' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '添加 Safe' })).toBeInTheDocument()
     expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument()
   })
 
@@ -29,7 +29,7 @@ describe('AdminOnlyWorkspaceTooltip', () => {
 
     expect(screen.getByTestId('tooltip')).toBeInTheDocument()
     expect(screen.getByTestId('tooltip-content')).toHaveTextContent(ADMIN_ONLY_WORKSPACE_TOOLTIP_MESSAGE)
-    expect(screen.getByRole('button', { name: 'Add Safe' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '添加 Safe' })).toBeInTheDocument()
   })
 
   it('supports overriding the tooltip message', () => {

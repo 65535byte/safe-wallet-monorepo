@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
 import type { UseFormSetValue, UseFormReturn, UseFormTrigger } from 'react-hook-form'
@@ -18,13 +19,13 @@ import type { InviteMembersFormValues } from '../hooks/useInviteForm'
 import { EMAIL_MAX_LENGTH, INVALID_IDENTIFIER_ERROR, isEmailAddress } from '../../AddMemberModal/utils'
 
 const ROLE_LABELS: Record<MemberRole, string> = {
-  [MemberRole.ADMIN]: 'Admin',
-  [MemberRole.MEMBER]: 'Member',
+  [MemberRole.ADMIN]: translateMessage('ui.admin_f22d5ee6'),
+  [MemberRole.MEMBER]: translateMessage('ui.member_ddb02644'),
 }
 
 const ADDRESS_RE = /^0x[0-9a-f]{40}$/i
 const ERROR_DEBOUNCE_MS = 500
-const INVALID_ADDRESS_ERROR = 'Invalid address'
+const INVALID_ADDRESS_ERROR = translateMessage('ui.invalidAddress_5459fcbc')
 
 type AutoChecksumCallback = (checksummed: string) => void
 
@@ -120,7 +121,8 @@ const MemberInviteRow = ({
                 if (!trimmed) return undefined
 
                 if (isEmailAddress(trimmed)) {
-                  if (trimmed.length > EMAIL_MAX_LENGTH) return `Email must be ${EMAIL_MAX_LENGTH} characters or less.`
+                  if (trimmed.length > EMAIL_MAX_LENGTH)
+                    return translateMessage('ui.emailMustBeCharactersOrLess_03654d13', { p0: EMAIL_MAX_LENGTH })
 
                   const isDuplicateEmail = members?.some((member, i) => {
                     // Trim to match the trimmed-on-submit value
@@ -132,7 +134,7 @@ const MemberInviteRow = ({
                       otherIdentifier.toLowerCase() === trimmed.toLowerCase()
                     )
                   })
-                  if (isDuplicateEmail) return 'Email already added'
+                  if (isDuplicateEmail) return translateMessage('ui.emailAlreadyAdded_afe160ff')
 
                   return undefined
                 }
@@ -148,10 +150,10 @@ const MemberInviteRow = ({
                   (member, i) =>
                     i !== index && member.identifier?.trim() && sameAddress(member.identifier.trim(), trimmed),
                 )
-                if (isDuplicate) return 'Address already added'
+                if (isDuplicate) return translateMessage('ui.addressAlreadyAdded_3b6d9450')
               },
             })}
-            placeholder="Email, wallet address or ENS name"
+            placeholder={translateMessage('ui.emailWalletAddressOrENSName_db235888')}
             variant="surface"
             // eslint-disable-next-line no-restricted-syntax -- bespoke 44px invite field (h-11, rounded-lg, px-4); between the lg/xl tiers, no size fits
             className={cn('h-11 rounded-lg px-4', resolving && 'pr-10')}
@@ -166,7 +168,9 @@ const MemberInviteRow = ({
           )}
         </div>
 
-        {resolverError && <p className="text-xs text-destructive">Failed to resolve ENS name</p>}
+        {resolverError && (
+          <p className="text-xs text-destructive">{translateMessage('ui.failedToResolveENSName_9eb43855')}</p>
+        )}
       </div>
 
       <div className="flex h-11 items-center gap-2">
@@ -176,7 +180,7 @@ const MemberInviteRow = ({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="min-w-[120px] cursor-pointer data-[size=default]:h-11">
-                <SelectValue placeholder="Role">{ROLE_LABELS[field.value]}</SelectValue>
+                <SelectValue placeholder={translateMessage('ui.role_9362a435')}>{ROLE_LABELS[field.value]}</SelectValue>
               </SelectTrigger>
               <SelectContent alignItemWithTrigger={false} align="start">
                 <SelectItem value={MemberRole.ADMIN}>{ROLE_LABELS[MemberRole.ADMIN]}</SelectItem>
@@ -192,7 +196,7 @@ const MemberInviteRow = ({
             variant="ghost"
             size="icon-sm"
             onClick={onRemove}
-            aria-label="Remove member"
+            aria-label={translateMessage('ui.removeMember_3f76a158')}
             data-testid={`remove-member-${index}`}
           >
             <X className="size-4" />

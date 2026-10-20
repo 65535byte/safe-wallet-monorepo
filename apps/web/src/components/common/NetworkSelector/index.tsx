@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ChainIndicator from '@/components/common/ChainIndicator'
 import Track from '@/components/common/Track'
 import Link from 'next/link'
@@ -85,14 +86,14 @@ const UndeployedNetworkMenuItem = ({
             <ChainIndicator responsive={isSelected} chainId={chain.chainId} inline />
             {isDisabled ? (
               <Typography variant="paragraph-mini" className={css.comingSoon}>
-                Not available
+                {translateMessage('ui.notAvailable_6505d8d6')}
               </Typography>
             ) : (
               <PlusIcon className={css.plusIcon} />
             )}
           </span>
         </TooltipTrigger>
-        <TooltipContent side="left">Add network</TooltipContent>
+        <TooltipContent side="left">{translateMessage('ui.addNetwork_d36fbc53')}</TooltipContent>
       </Tooltip>
     </Track>
   )
@@ -112,7 +113,7 @@ const TestnetDivider = () => {
     <div className="my-0 flex items-center gap-2 px-4">
       <Separator className="flex-1" />
       <Typography variant="paragraph-mini" className="text-[var(--color-border-main)] uppercase">
-        Testnets
+        {translateMessage('ui.testnets_a0b06e1b')}
       </Typography>
       <Separator className="flex-1" />
     </div>
@@ -182,10 +183,10 @@ const UndeployedNetworks = ({
             <TooltipContent>{safeCreationDataError?.message}</TooltipContent>
           </Tooltip>
         )}
-        <Typography>Adding another network is not possible for this Safe. </Typography>
+        <Typography>{translateMessage('ui.addingAnotherNetworkIsNotPossible_3dd46ad8')}</Typography>
       </div>
     ) : isUnsupportedSafeCreationVersion ? (
-      'This account was created from an outdated mastercopy. Adding another network is not possible.'
+      translateMessage('ui.thisAccountWasCreatedFromAn_e0bb778a')
     ) : (
       ''
     )
@@ -212,7 +213,7 @@ const UndeployedNetworks = ({
     <Collapsible open={open} onOpenChange={onShowAllNetworks}>
       <CollapsibleTrigger className={css.listSubHeader} tabIndex={-1}>
         <span className="flex items-center gap-2">
-          <span data-testid="show-all-networks">Show all networks</span>
+          <span data-testid="show-all-networks">{translateMessage('ui.showAllNetworks_e8a4b3f8')}</span>
 
           <ChevronDownIcon className={open ? 'size-4 rotate-180' : 'size-4'} />
         </span>
@@ -400,7 +401,7 @@ const NetworkSelector = ({
           triggerClassName ?? 'h-full',
         )}
         iconWrapperClassName={compactButton ? 'text-base' : undefined}
-        aria-label="Network"
+        aria-label={translateMessage('ui.network_eb8f6520')}
       >
         <SelectValue>{renderSelectedValue}</SelectValue>
       </SelectTrigger>
@@ -413,8 +414,8 @@ const NetworkSelector = ({
             variant="surface"
             // eslint-disable-next-line no-restricted-syntax -- the radius has to be the popup's less this field's inset; no preset can know the container it is nested in
             className="rounded-[6px] shadow-xs"
-            placeholder="Search networks"
-            aria-label="Search networks"
+            placeholder={translateMessage('ui.searchNetworks_7e7f2748')}
+            aria-label={translateMessage('ui.searchNetworks_7e7f2748')}
             ref={searchRef}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -438,7 +439,7 @@ const NetworkSelector = ({
             className="px-4 py-6 text-center text-sm text-muted-foreground"
             data-testid="network-selector-empty"
           >
-            No networks match your search
+            {translateMessage('ui.noNetworksMatchYourSearch_0aa8a97f')}
           </p>
         )}
 

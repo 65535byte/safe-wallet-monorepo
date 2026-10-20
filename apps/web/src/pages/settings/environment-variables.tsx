@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import SettingsHeader from '@/components/settings/SettingsHeader'
@@ -8,7 +9,7 @@ const EnvironmentVariablesPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Environment variables`}</title>
+        <title>{translateMessage('ui.settingsEnvironmentVariables_ce1a6b15', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { CSSProperties, ReactNode } from 'react'
 import { PendingBadge, ThresholdBadge, formatPendingLabel } from '@safe-global/views/components/common/AccountBadges'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@safe-global/views/components/ui/tooltip'
@@ -63,7 +64,9 @@ const SafeRowStats = ({
   fitColumns?: boolean
 }) => {
   const iconOnlyThreshold = thresholdIconOnly || !owners
-  const thresholdLabel = iconOnlyThreshold ? 'Signer threshold' : `${threshold} out of ${owners} signers required`
+  const thresholdLabel = iconOnlyThreshold
+    ? translateMessage('ui.signerThreshold_04946a9f')
+    : translateMessage('ui.outOfSignersRequired_c20278c2', { p0: threshold, p1: owners })
   const visibleChains = chains.slice(0, MAX_CHAIN_LOGOS)
   const overflowChains = chains.slice(MAX_CHAIN_LOGOS)
   const pendingLabel = formatPendingLabel(pending, awaitingConfirmation)

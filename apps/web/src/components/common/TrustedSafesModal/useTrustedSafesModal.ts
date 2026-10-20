@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useMemo, useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { addOrUpdateSafe, unpinSafe, selectAllAddedSafes } from '@/store/addedSafesSlice'
@@ -30,20 +31,26 @@ const getSubmitNotification = (
 ): { title: string; message: string } | null => {
   if (pinnedCount > 0 && unpinnedCount > 0) {
     return {
-      title: 'Trusted Safes updated',
-      message: `${pinnedCount} Safe${pinnedCount !== 1 ? 's' : ''} added, ${unpinnedCount} Safe${unpinnedCount !== 1 ? 's' : ''} removed`,
+      title: translateMessage('ui.trustedAccountsUpdated_84ebee0c'),
+      message: translateMessage('ui.addedRemoved_133bb00b', { p0: pinnedCount, p1: unpinnedCount }),
     }
   }
   if (pinnedCount > 0) {
     return {
-      title: pinnedCount === 1 ? 'Safe confirmed' : `${pinnedCount} Safes confirmed`,
-      message: 'Trusted Safe(s) added to your list',
+      title:
+        pinnedCount === 1
+          ? translateMessage('ui.confirmed_77845f8f')
+          : translateMessage('ui.accountsConfirmed_92e0e800', { p0: pinnedCount }),
+      message: translateMessage('ui.trustedSAddedToYourList_de280b22'),
     }
   }
   if (unpinnedCount > 0) {
     return {
-      title: unpinnedCount === 1 ? 'Safe removed' : `${unpinnedCount} Safes removed`,
-      message: 'Safes have been removed from your Trusted Safes list',
+      title:
+        unpinnedCount === 1
+          ? translateMessage('ui.removed_5427f83b')
+          : translateMessage('ui.accountsRemoved_62404269', { p0: unpinnedCount }),
+      message: translateMessage('ui.accountsHaveBeenRemovedFromYour_05f57b6a'),
     }
   }
   return null

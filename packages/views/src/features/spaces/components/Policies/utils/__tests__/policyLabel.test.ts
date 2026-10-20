@@ -17,7 +17,7 @@ import {
 
 describe('getResetPeriodLabel', () => {
   it('should, when the period is zero, label it as one time', () => {
-    expect(getResetPeriodLabel(0)).toBe('one time')
+    expect(getResetPeriodLabel(0)).toBe('一次性')
   })
 
   it('should, when the period is one day, label it as day', () => {
@@ -33,16 +33,16 @@ describe('getResetPeriodLabel', () => {
   })
 
   it('should, when the period is one of the short test periods, label it in minutes', () => {
-    expect(getResetPeriodLabel(5)).toBe('5 minutes')
+    expect(getResetPeriodLabel(5)).toBe('5 分钟')
   })
 
   it('should, when the period is not one the design names, fall back to minutes', () => {
-    expect(getResetPeriodLabel(1234)).toBe('1234 minutes')
+    expect(getResetPeriodLabel(1234)).toBe('1234 分钟')
   })
 
   // CGW returns minutes; reading them as seconds silently mislabels every repeating period.
   it('should, when handed a seconds-valued period, not resolve a named label', () => {
-    expect(getResetPeriodLabel(86_400)).toBe('86400 minutes')
+    expect(getResetPeriodLabel(86_400)).toBe('86400 分钟')
   })
 })
 
@@ -56,21 +56,21 @@ describe('formatAllowance', () => {
   it('should, when the allowance does not repeat, render it as one time', () => {
     const allowance = mockSpendingLimitPolicy().data.spenders[0].allowances[0]
 
-    expect(formatAllowance({ ...allowance, resetPeriodMinutes: 0, resetsAtMinute: null })).toBe('1,500 USDC one time')
+    expect(formatAllowance({ ...allowance, resetPeriodMinutes: 0, resetsAtMinute: null })).toBe('1,500 USDC，仅一次')
   })
 })
 
 describe('getPolicyLabel', () => {
   it('should, when the policy is a spending limit, label it Spending limit', () => {
-    expect(getPolicyLabel(asActivePolicy(mockSpendingLimitPolicy()))).toBe('Spending limit')
+    expect(getPolicyLabel(asActivePolicy(mockSpendingLimitPolicy()))).toBe('支出限额')
   })
 
   it('should, when the policy is a recovery, label it Account recovery', () => {
-    expect(getPolicyLabel(asActivePolicy(mockRecoveryPolicy()))).toBe('Account recovery')
+    expect(getPolicyLabel(asActivePolicy(mockRecoveryPolicy()))).toBe('账户恢复')
   })
 
   it('should, when the policy is a proposer grant, label it Proposer', () => {
-    expect(getPolicyLabel(asActivePolicy(mockProposerPolicy()))).toBe('Proposer')
+    expect(getPolicyLabel(asActivePolicy(mockProposerPolicy()))).toBe('提案人')
   })
 })
 
@@ -83,22 +83,22 @@ describe('getPolicySummary', () => {
   })
 
   it('should, when a spending limit holds several spenders, summarise it by counting them', () => {
-    expect(getPolicySummary(asActivePolicy(mockMultiSpenderPolicy()))).toBe('3 spenders · 4 limits')
+    expect(getPolicySummary(asActivePolicy(mockMultiSpenderPolicy()))).toBe('3 spenders · 4 项限额')
   })
 
   it('should, when a spending limit holds no allowances, still return a summary', () => {
     const policy = mockSpendingLimitPolicy()
     policy.data.spenders = []
 
-    expect(getPolicySummary(asActivePolicy(policy))).toBe('No limits set')
+    expect(getPolicySummary(asActivePolicy(policy))).toBe('未设置限额')
   })
 
   it('should, when the policy is a recovery, summarise it by its review window', () => {
-    expect(getPolicySummary(asActivePolicy(mockRecoveryPolicy()))).toBe('28 days review window')
+    expect(getPolicySummary(asActivePolicy(mockRecoveryPolicy()))).toBe('28 days 审核期')
   })
 
   it('should, when the policy is a proposer grant, summarise it as never expiring', () => {
-    expect(getPolicySummary(asActivePolicy(mockProposerPolicy()))).toBe('Never expires')
+    expect(getPolicySummary(asActivePolicy(mockProposerPolicy()))).toBe('永不过期')
   })
 
   it('should, when a removal is queued, say the limit is being removed rather than gone', () => {
@@ -109,7 +109,7 @@ describe('getPolicySummary', () => {
     const removal = mockPendingRemoval()
     removal.data = { spenders: [{ spender: MOCK_ADDRESSES.alice, allowances: [] }] }
 
-    expect(getPolicySummary(removal)).toBe('Removing 1 spender')
+    expect(getPolicySummary(removal)).toBe('Removing 1 位支出授权人')
   })
 })
 

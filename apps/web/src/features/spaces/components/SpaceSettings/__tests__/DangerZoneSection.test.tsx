@@ -32,12 +32,12 @@ describe('DangerZoneSection', () => {
 
   it('passes the viewed space id to useIsAdmin and useIsActiveMember', () => {
     const space: GetSpaceResponse = {
+      experimentalFeatures: [],
       uuid: MOCK_SPACE_UUID,
       name: 'Other Workspace',
       members: [],
       memberCount: 0,
       safeCount: 0,
-      experimentalFeatures: [],
     }
 
     renderSection(space)
@@ -55,12 +55,12 @@ describe('DangerZoneSection', () => {
 
   it('does not fall back to the last-used space when a different space is viewed', () => {
     const viewedSpace: GetSpaceResponse = {
+      experimentalFeatures: [],
       uuid: MOCK_SPACE_UUID_ALT,
       name: 'Viewed',
       members: [],
       memberCount: 0,
       safeCount: 0,
-      experimentalFeatures: [],
     }
 
     renderSection(viewedSpace)
@@ -72,12 +72,12 @@ describe('DangerZoneSection', () => {
 
   describe('Delete Workspace', () => {
     const space: GetSpaceResponse = {
+      experimentalFeatures: [],
       uuid: MOCK_SPACE_UUID,
       name: 'Acme',
       members: [],
       memberCount: 0,
       safeCount: 0,
-      experimentalFeatures: [],
     }
 
     beforeEach(() => {
@@ -102,7 +102,7 @@ describe('DangerZoneSection', () => {
     it('disables deletion and explains why while a subscription is still live', async () => {
       jest.mocked(useSpaceDeletionGuard).mockReturnValue({
         isDeletionBlocked: true,
-        blockedReason: 'Cancel the subscription before deleting this Workspace.',
+        blockedReason: '删除工作空间前请先取消订阅。',
       })
       renderSection(space)
 
@@ -110,7 +110,7 @@ describe('DangerZoneSection', () => {
 
       await userEvent.hover(screen.getByTestId('space-delete-button').parentElement as HTMLElement)
 
-      expect(await screen.findByText('Cancel the subscription before deleting this Workspace.')).toBeInTheDocument()
+      expect(await screen.findByText('删除工作空间前请先取消订阅。')).toBeInTheDocument()
     })
 
     it('keeps deletion disabled without a tooltip while the subscription is loading', () => {

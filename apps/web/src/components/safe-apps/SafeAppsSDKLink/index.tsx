@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import { ChevronsUp } from 'lucide-react'
 import classnames from 'classnames'
@@ -30,11 +31,12 @@ const SafeAppsSDKLink = () => {
       <CodeIcon />
 
       <Typography variant="h4" className={css.title}>
-        How to build on <i>Safe</i>?
+        {translateMessage('ui.howToBuildOn_733b3414')}
+        <i>{translateMessage('ui.safe_32142578')}</i>?
       </Typography>
 
       <ExternalLink href={SAFE_APPS_SDK_DOCS_URL} className={`${css.link} text-sm`} noIcon>
-        <span>Learn more about Safe Apps SDK</span>
+        <span>{translateMessage('ui.learnMoreAboutSafeAppsSDK_0c0b8896')}</span>
       </ExternalLink>
 
       <Button

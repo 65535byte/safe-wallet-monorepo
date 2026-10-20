@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useVisibleTokens } from '@/components/tx-flow/flows/TokenTransfer/utils'
 import { type ReactElement, useContext, useEffect, useMemo, useState } from 'react'
 import { type Balance } from '@safe-global/store/gateway/AUTO_GENERATED/balances'
@@ -159,7 +160,7 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
 
   const CsvAirdropLink = () => (
     <Link render={<button type="button" />} className="cursor-pointer" onClick={() => setCsvAirdropModalOpen(true)}>
-      CSV Airdrop
+      {translateMessage('ui.cSVAirdrop_4dd1fc85')}
     </Link>
   )
 
@@ -202,7 +203,7 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
                       disabled={!canAddMoreRecipients}
                     >
                       <AddIcon className="size-4" />
-                      Add recipient
+                      {translateMessage('ui.addRecipient_1d269d74')}
                     </Button>
                   </Track>
                   <Typography
@@ -211,7 +212,9 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
                     className={
                       canAddMoreRecipients ? 'text-[var(--color-primary-main)]' : 'text-[var(--color-error-main)]'
                     }
-                  >{`${recipientFields.length}/${MAX_RECIPIENTS}`}</Typography>
+                  >
+                    {translateMessage('ui.text_136eb3db', { p0: recipientFields.length, p1: MAX_RECIPIENTS })}
+                  </Typography>
                 </div>
 
                 {isEligible && isNoFeeCampaignEnabled && <NoFeeCampaignTransactionCard />}
@@ -219,11 +222,8 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
                 {hasInsufficientFunds && (
                   <Alert data-testid="insufficient-balance-error" variant="destructive" outlined={false}>
                     <AlertSeverityIcon variant="destructive" />
-                    <AlertTitle>Insufficient balance</AlertTitle>
-                    <AlertDescription>
-                      The total amount assigned to all recipients exceeds your available balance. Please adjust the
-                      amounts you want to send.
-                    </AlertDescription>
+                    <AlertTitle>{translateMessage('ui.insufficientBalance_d331cf9d')}</AlertTitle>
+                    <AlertDescription>{translateMessage('ui.theTotalAmountAssignedToAll_7ba57a9f')}</AlertDescription>
                   </Alert>
                 )}
 
@@ -231,11 +231,13 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
                   <Alert data-testid="csv-airdrop-hint" variant="info">
                     <AlertSeverityIcon variant="info" />
                     <AlertDescription>
-                      If you want to add more than {MAX_RECIPIENTS} recipients, use <CsvAirdropLink />
+                      {translateMessage('ui.ifYouWantToAddMore_90b0baa0')}
+                      {MAX_RECIPIENTS} {translateMessage('ui.recipientsUse_ceb6ae28')}
+                      <CsvAirdropLink />
                     </AlertDescription>
                     <AlertAction>
                       <Button
-                        aria-label="close"
+                        aria-label={translateMessage('ui.close_aaaeeafe')}
                         variant="ghost"
                         size="icon-sm"
                         onClick={() => setMaxRecipientsInfo(false)}
@@ -250,11 +252,12 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
                   <Alert data-testid="max-recipients-reached" variant="warning" outlined={false}>
                     <AlertSeverityIcon variant="warning" />
                     <AlertDescription>
-                      No more recipients can be added.
+                      {translateMessage('ui.noMoreRecipientsCanBeAdded_b7fbad8a')}
                       {!!csvAirdropAppUrl && (
                         <>
                           <br />
-                          Please use <CsvAirdropLink />
+                          {translateMessage('ui.pleaseUse_21f6f2d5')}
+                          <CsvAirdropLink />
                         </>
                       )}
                     </AlertDescription>
@@ -272,7 +275,7 @@ const CreateTokenTransfer = ({ txNonce }: CreateTokenTransferProps): ReactElemen
 
               <TxCardActions>
                 <Button type="submit" size="submit" disabled={!formState.isValid}>
-                  Next
+                  {translateMessage('ui.next_9cff86c8')}
                 </Button>
               </TxCardActions>
             </div>

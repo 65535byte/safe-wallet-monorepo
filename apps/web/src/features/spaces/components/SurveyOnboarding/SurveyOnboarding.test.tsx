@@ -27,8 +27,8 @@ const surveyFixture: SurveyStateDto = {
       pages: [
         {
           id: 'use_cases',
-          title: 'How will you use Safe?',
-          subtitle: 'Select all that apply.',
+          title: '您将如何使用 Safe？',
+          subtitle: '选择 all that apply.',
           multiSelect: true,
           options: [
             { key: 'run_payments', label: 'Run payments', icon: 'cash' },
@@ -109,7 +109,7 @@ describe('SurveyOnboarding', () => {
   it('renders the active survey page with all options when data is loaded', () => {
     render(<SurveyOnboarding />)
 
-    expect(screen.getByText('How will you use Safe?')).toBeInTheDocument()
+    expect(screen.getByText('您将如何使用 Safe？')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Run payments' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Hold assets' })).toBeInTheDocument()
   })
@@ -145,7 +145,7 @@ describe('SurveyOnboarding', () => {
 
     render(<SurveyOnboarding />)
 
-    expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument()
+    expect(screen.getByRole('status', { name: '加载中' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Run payments' })).not.toBeInTheDocument()
   })
 
@@ -186,7 +186,7 @@ describe('SurveyOnboarding', () => {
     fireEvent.click(screen.getByTestId('survey-finish-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to submit. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('提交失败，请重试。')).toBeInTheDocument()
     })
     expect(mockPush).not.toHaveBeenCalled()
   })
@@ -202,7 +202,7 @@ describe('SurveyOnboarding', () => {
         query: { spaceId: '11111111-1111-1111-1111-111111111111' },
       })
     })
-    expect(screen.queryByText('Failed to load survey. Please refresh.')).not.toBeInTheDocument()
+    expect(screen.queryByText('加载问卷失败，请刷新。')).not.toBeInTheDocument()
   })
 
   it('shows the destructive alert for non-404 errors instead of redirecting', () => {
@@ -210,7 +210,7 @@ describe('SurveyOnboarding', () => {
 
     render(<SurveyOnboarding />)
 
-    expect(screen.getByText('Failed to load survey. Please refresh.')).toBeInTheDocument()
+    expect(screen.getByText('加载问卷失败，请刷新。')).toBeInTheDocument()
     expect(mockReplace).not.toHaveBeenCalled()
   })
 

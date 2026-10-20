@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { MixpanelEventParams } from '@/services/analytics/mixpanel-events'
@@ -8,7 +9,7 @@ import AddContactDialog from './AddContactDialog'
 
 export type { ContactField } from './AddContactDialog'
 
-const AddContact = ({ label = 'Add contact' }: { label?: string }) => {
+const AddContact = ({ label = translateMessage('ui.addContact_fa12fe86') }: { label?: string }) => {
   const addressBookItems = useGetSpaceAddressBook()
   const workspaceAddressBookLabel = useWorkspaceAddressBookLabel()
   const [upsertAddressBook] = useAddressBooksUpsertAddressBookItemsV1Mutation()
@@ -16,7 +17,7 @@ const AddContact = ({ label = 'Add contact' }: { label?: string }) => {
   return (
     <AddContactDialog
       triggerLabel={label}
-      dialogTitle="Add contact"
+      dialogTitle={translateMessage('ui.addContact_fa12fe86')}
       successMessage={getContactAddedMessage(workspaceAddressBookLabel)}
       successGroupKey="add-contact-success"
       validateCharset

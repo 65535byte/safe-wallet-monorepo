@@ -325,7 +325,7 @@ describe('useOnboardingSubmit', () => {
     expect(mockAddSafesToSpace).not.toHaveBeenCalled()
     expect(mockRemoveSafesFromSpace).not.toHaveBeenCalled()
     expect(onSuccess).not.toHaveBeenCalled()
-    expect(result.current.error).toBe('No Workspace is selected. Reload the page and try again.')
+    expect(result.current.error).toBe('未选择工作空间，请刷新页面重试。')
   })
 
   it('blocks submit and reports why while the address book could not be read', () => {
@@ -333,12 +333,12 @@ describe('useOnboardingSubmit', () => {
     const { result } = renderHook(() => useOnboardingSubmit('42', onSuccess))
 
     expect(result.current.isAddressBookReady).toBe(false)
-    expect(result.current.error).toBe('The Workspace address book is unavailable. Try again in a moment.')
+    expect(result.current.error).toBe('工作空间通讯录暂不可用，请稍后重试。')
   })
 
   it('should set error on add failure', async () => {
     mockAddSafesToSpace.mockResolvedValue({
-      error: { status: 400, data: { message: 'Add failed' } },
+      error: { status: 400, data: { message: '添加 failed' } },
     })
 
     const { result } = renderHook(() => useOnboardingSubmit('1', onSuccess))
@@ -351,7 +351,7 @@ describe('useOnboardingSubmit', () => {
       await result.current.onSubmit()
     })
 
-    expect(result.current.error).toBe('Add failed')
+    expect(result.current.error).toBe('添加 failed')
     expect(result.current.isSubmitting).toBe(false)
     expect(onSuccess).not.toHaveBeenCalled()
   })
@@ -359,7 +359,7 @@ describe('useOnboardingSubmit', () => {
   it('should set error on remove failure', async () => {
     mockSpaceSafes = [buildSafeItem('1', '0xexisting')]
     mockRemoveSafesFromSpace.mockResolvedValue({
-      error: { status: 400, data: { message: 'Remove failed' } },
+      error: { status: 400, data: { message: '移除 failed' } },
     })
 
     const { result } = renderHook(() => useOnboardingSubmit('1', onSuccess))
@@ -376,7 +376,7 @@ describe('useOnboardingSubmit', () => {
       await result.current.onSubmit()
     })
 
-    expect(result.current.error).toBe('Remove failed')
+    expect(result.current.error).toBe('移除 failed')
     expect(result.current.isSubmitting).toBe(false)
     expect(onSuccess).not.toHaveBeenCalled()
   })

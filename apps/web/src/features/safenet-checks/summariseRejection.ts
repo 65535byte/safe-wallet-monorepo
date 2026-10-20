@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   AttestationVerificationStatus,
   CheckEventType,
@@ -65,17 +66,23 @@ export const summariseRejection = (events: ReadonlyArray<NormalizedCheckEvent>):
 
 /** "3 of 4 sentinels flagged this." — null when no sentinel revealed a vote. */
 export const formatFlaggedCount = ({ flagged, revealed }: RejectionSummary): string | null =>
-  revealed > 0 ? `${flagged} of ${revealed} ${revealed === 1 ? 'sentinel' : 'sentinels'} flagged this.` : null
+  revealed > 0
+    ? translateMessage('ui.ofFlaggedThis_208f2726', {
+        p0: flagged,
+        p1: revealed,
+        p2: revealed === 1 ? 'sentinel' : 'sentinels',
+      })
+    : null
 
 /** Checked in order: the furthest step a failed check reached names what was missing. */
 const FAILURE_REASONS: ReadonlyArray<[ReadonlyArray<CheckEventType>, string]> = [
-  [[CheckEventType.DISPUTE_OUT_OF_SCOPE], 'Safenet gave no ruling because this transaction is out of scope.'],
+  [[CheckEventType.DISPUTE_OUT_OF_SCOPE], translateMessage('ui.safenetGaveNoRulingBecauseThis_91e1a372')],
   [
     [CheckEventType.DISPUTE_TRIGGERED, CheckEventType.ARBITRATION_TIMED_OUT],
-    'Sentinels disagreed, and the dispute got no final ruling.',
+    translateMessage('ui.sentinelsDisagreedAndTheDisputeGot_aad5e0d0'),
   ],
-  [[CheckEventType.ORACLE_RESULT], 'Sentinels voted, but the validators did not sign the result in time.'],
-  [[CheckEventType.SENTINEL_REVEALED], 'Not enough sentinels voted before the deadline.'],
+  [[CheckEventType.ORACLE_RESULT], translateMessage('ui.sentinelsVotedButTheValidatorsDid_596f5aaa')],
+  [[CheckEventType.SENTINEL_REVEALED], translateMessage('ui.notEnoughSentinelsVotedBeforeThe_ced707c0')],
 ]
 
 /** Why a check failed, read from the lifecycle step it never got past. */
@@ -84,9 +91,9 @@ export const explainFailure = ({
   attestation,
 }: Pick<SafenetCheckSnapshot, 'events' | 'attestation'>): string => {
   if (attestation.status === AttestationVerificationStatus.INVALID) {
-    return "The validators' signature could not be verified."
+    return translateMessage('ui.theValidatorsSignatureCouldNotBe_17eb24e0')
   }
   const seen = new Set(events.map(({ type }) => type))
   const match = FAILURE_REASONS.find(([types]) => types.some((type) => seen.has(type)))
-  return match ? match[1] : 'No sentinel voted before the deadline.'
+  return match ? match[1] : translateMessage('ui.noSentinelVotedBeforeTheDeadline_7b213cba')
 }

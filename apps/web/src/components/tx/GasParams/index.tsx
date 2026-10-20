@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, SyntheticEvent } from 'react'
 import {
   Accordion,
@@ -88,7 +89,7 @@ export const _GasParams = ({
     <>
       {gasLimitError || !isExecution || (isExecution && !isLoading) ? (
         <Link render={<button type="button" />} onClick={onEditClick} className="mt-4 text-base font-bold">
-          Edit
+          {translateMessage('ui.edit_ed035142')}
         </Link>
       ) : (
         <Skeleton className="mt-4 inline-block h-4 min-w-[2em]" />
@@ -103,11 +104,11 @@ export const _GasParams = ({
           <AccordionTrigger className={classnames(accordionCss.accordion, 'items-center px-4')}>
             {isExecution ? (
               <span className="flex w-full items-center">
-                <span className="flex-1">Estimated fee </span>
+                <span className="flex-1">{translateMessage('ui.estimatedFee_fb33dd3c')}</span>
                 {gasLimitError ? (
                   <>
                     <WarningIcon className="mr-[var(--space-1)] size-4 text-[var(--color-error-main)]" />
-                    <span className="font-normal">Cannot estimate</span>
+                    <span className="font-normal">{translateMessage('ui.cannotEstimate_8024d910')}</span>
                   </>
                 ) : isLoading ? (
                   <Skeleton className="inline-block h-4 min-w-[7em]" />
@@ -115,25 +116,31 @@ export const _GasParams = ({
                   <div className={css.feeContainer}>
                     {noFeeCampaign?.isEligible ? (
                       <>
-                        <span className={css.feeAmount}>Free</span>
+                        <span className={css.feeAmount}>{translateMessage('ui.free_b34fd7a2')}</span>
                         <Tooltip>
                           <TooltipTrigger
-                            render={<span className={css.noFeeCampaignTag}>Free January Sponsored</span>}
+                            render={
+                              <span className={css.noFeeCampaignTag}>
+                                {translateMessage('ui.freeJanuarySponsored_11276188')}
+                              </span>
+                            }
                           />
-                          <TooltipContent>
-                            As a USDe holder, you are eligible for the gas sponsorship program
-                          </TooltipContent>
+                          <TooltipContent>{translateMessage('ui.asAUSDeHolderYouAre_1b09b1f4')}</TooltipContent>
                         </Tooltip>
                       </>
                     ) : (
-                      <span>{willRelay ? 'Free' : `${totalFee} ${chain?.nativeCurrency.symbol}`}</span>
+                      <span>
+                        {willRelay
+                          ? translateMessage('ui.free_b34fd7a2')
+                          : `${totalFee} ${chain?.nativeCurrency.symbol}`}
+                      </span>
                     )}
                   </div>
                 )}
               </span>
             ) : (
               <span>
-                Signing the transaction with nonce&nbsp;
+                {translateMessage('ui.signingTheTransactionWithNonce_d2014873')}
                 {nonce !== undefined ? nonce : <Skeleton className="inline-block h-4 min-w-[2em]" />}
               </span>
             )}
@@ -141,7 +148,11 @@ export const _GasParams = ({
 
           <AccordionContent className="px-4 pt-4">
             {nonce !== undefined && (
-              <GasDetail isLoading={false} name="Safe account transaction nonce" value={nonce.toString()} />
+              <GasDetail
+                isLoading={false}
+                name={translateMessage('ui.accountTransactionNonce_109d7ebd')}
+                value={nonce.toString()}
+              />
             )}
 
             {safeTxGas !== undefined && <GasDetail isLoading={false} name="safeTxGas" value={safeTxGas.toString()} />}
@@ -149,22 +160,38 @@ export const _GasParams = ({
             {isExecution && (
               <>
                 {userNonce !== undefined && (
-                  <GasDetail isLoading={false} name="Wallet nonce" value={userNonce.toString()} />
+                  <GasDetail
+                    isLoading={false}
+                    name={translateMessage('ui.walletNonce_4409d032')}
+                    value={userNonce.toString()}
+                  />
                 )}
 
                 <GasDetail
                   isLoading={isLoading}
-                  name="Gas limit"
-                  value={isError ? 'Cannot estimate' : gasLimitString}
+                  name={translateMessage('ui.gasLimit_24018a1a')}
+                  value={isError ? translateMessage('ui.cannotEstimate_8024d910') : gasLimitString}
                 />
 
                 {isEIP1559 ? (
                   <>
-                    <GasDetail isLoading={isLoading} name="Max priority fee (Gwei)" value={maxPrioGasGwei} />
-                    <GasDetail isLoading={isLoading} name="Max fee (Gwei)" value={maxFeePerGasGwei} />
+                    <GasDetail
+                      isLoading={isLoading}
+                      name={translateMessage('ui.maxPriorityFeeGwei_75ffb753')}
+                      value={maxPrioGasGwei}
+                    />
+                    <GasDetail
+                      isLoading={isLoading}
+                      name={translateMessage('ui.maxFeeGwei_bac57a85')}
+                      value={maxFeePerGasGwei}
+                    />
                   </>
                 ) : (
-                  <GasDetail isLoading={isLoading} name="Gas price (Gwei)" value={maxFeePerGasGwei} />
+                  <GasDetail
+                    isLoading={isLoading}
+                    name={translateMessage('ui.gasPriceGwei_5d9c2dae')}
+                    value={maxFeePerGasGwei}
+                  />
                 )}
               </>
             )}

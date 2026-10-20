@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { CSSProperties, ReactElement } from 'react'
 import { Check, Globe, RotateCcw } from 'lucide-react'
 import { Switch } from '@safe-global/views/components/ui/switch'
@@ -13,9 +14,9 @@ import type { FeatureFlagRowData } from '../hooks/useFeatureFlagEditorData'
 // Kept in the DOM but hidden so the controls column stays aligned across rows.
 const HIDDEN: CSSProperties = { visibility: 'hidden' }
 
-const MATCH_LABEL = 'Matches config service setting for the current chain'
+const MATCH_LABEL = translateMessage('ui.matchesConfigServiceSettingForThe_be93d8d9')
 
-const REVERT_LABEL = 'Revert override'
+const REVERT_LABEL = translateMessage('ui.revertOverride_dccc5a7e')
 
 // Shared so the section column header lines up with the rows.
 export const GRID = 'grid grid-cols-[minmax(200px,1fr)_minmax(140px,240px)_minmax(60px,140px)] items-center gap-3'
@@ -25,12 +26,12 @@ const ConfigScope = ({ scope }: { scope: FeatureFlagRowData['chainScope'] }): Re
     return (
       <Badge variant="secondary">
         <Globe />
-        Global
+        {translateMessage('ui.global_84a17314')}
       </Badge>
     )
   }
   if (scope === 'off') {
-    return <Badge variant="destructive">Off</Badge>
+    return <Badge variant="destructive">{translateMessage('ui.off_ba73348a')}</Badge>
   }
   return <NetworkLogosList networks={scope} showHasMore />
 }
@@ -63,7 +64,7 @@ export const FeatureFlagRow = ({ row }: { row: FeatureFlagRowData }): ReactEleme
         <Switch
           checked={row.effective}
           onCheckedChange={(value) => dispatch(setOverride({ feature: row.feature, value }))}
-          aria-label={`Toggle ${row.feature}`}
+          aria-label={translateMessage('ui.toggle_a3d40708', { p0: row.feature })}
         />
 
         {isOverridden && (

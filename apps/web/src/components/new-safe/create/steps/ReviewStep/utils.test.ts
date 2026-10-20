@@ -41,26 +41,26 @@ describe('getEffectivePayMethod', () => {
 
 describe('getNetworkLabel', () => {
   it('returns "Network" for a single network', () => {
-    expect(getNetworkLabel(1)).toBe('Network')
+    expect(getNetworkLabel(1)).toBe('网络')
   })
 
   it('returns "Networks" for multiple networks', () => {
-    expect(getNetworkLabel(2)).toBe('Networks')
-    expect(getNetworkLabel(10)).toBe('Networks')
+    expect(getNetworkLabel(2)).toBe('网络')
+    expect(getNetworkLabel(10)).toBe('网络')
   })
 })
 
 describe('getThresholdLabel', () => {
   it('uses "signer" for a single owner', () => {
-    expect(getThresholdLabel(1, 1)).toBe('1 out of 1 signer')
+    expect(getThresholdLabel(1, 1)).toBe('1 / 共 1 signer')
   })
 
   it('uses "signers" for multiple owners', () => {
-    expect(getThresholdLabel(2, 3)).toBe('2 out of 3 signers')
+    expect(getThresholdLabel(2, 3)).toBe('2 / 共 3 signers')
   })
 
   it('handles threshold equal to owner count', () => {
-    expect(getThresholdLabel(5, 5)).toBe('5 out of 5 signers')
+    expect(getThresholdLabel(5, 5)).toBe('5 / 共 5 signers')
   })
 })
 

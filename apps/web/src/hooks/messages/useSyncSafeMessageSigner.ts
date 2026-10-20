@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TypedData, MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { cgwApi } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import useWallet from '@/hooks/wallets/useWallet'
@@ -29,7 +30,7 @@ export const fetchSafeMessage = async (safeMessageHash: string, chainId: string)
       // Convert Message to MessageItem by adding the type field
       message = { ...result.data, type: 'MESSAGE' as const }
     } else {
-      throw 'error' in result ? asError(result.error) : new Error('Failed to fetch message')
+      throw 'error' in result ? asError(result.error) : new Error(translateMessage('ui.failedToFetchMessage_603fa79c'))
     }
   } catch (err) {
     logError(Errors._613, err)

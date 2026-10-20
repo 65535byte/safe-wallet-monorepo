@@ -7,9 +7,10 @@ import { render, waitFor } from '@/tests/test-utils'
 import { act } from 'react'
 import userEvent from '@testing-library/user-event'
 import * as router from 'next/router'
+import { SAFE_CREATION_NETWORKS } from '@/config/safeCreationNetworks'
 import { FEATURES } from '@safe-global/utils/utils/chains'
 
-const TestForm = ({ isAdvancedFlow = false }: { isAdvancedFlow?: boolean }) => {
+const TestForm = ({ isAdvancedFlow = false, networks }: { isAdvancedFlow?: boolean; networks?: Chain[] }) => {
   const formMethods = useForm<{ networks: Chain[] }>({
     mode: 'all',
     defaultValues: {
@@ -20,7 +21,7 @@ const TestForm = ({ isAdvancedFlow = false }: { isAdvancedFlow?: boolean }) => {
   return (
     <FormProvider {...formMethods}>
       <form>
-        <SafeCreationNetworkInput name="networks" isAdvancedFlow={isAdvancedFlow} />
+        <SafeCreationNetworkInput name="networks" isAdvancedFlow={isAdvancedFlow} networks={networks} />
       </form>
     </FormProvider>
   )
@@ -65,6 +66,24 @@ describe('NetworkMultiSelector', () => {
       .with({ recommendedMasterCopyVersion: '1.4.1' })
       .build(),
   ]
+
+  it('uses configured creation networks instead of gateway options and switches to the selected chain', async () => {
+    jest.spyOn(useChains, 'useCurrentChain').mockReturnValue(SAFE_CREATION_NETWORKS[0])
+    jest.spyOn(useChains, 'default').mockReturnValue({ configs: mockChains, loading: false })
+    jest
+      .spyOn(useChains, 'useChain')
+      .mockImplementation((chainId) => SAFE_CREATION_NETWORKS.find((chain) => chain.chainId === chainId))
+    const replace = jest.fn()
+    const { getByRole, getAllByRole, queryByText } = render(<TestForm networks={SAFE_CREATION_NETWORKS} />, {
+      routerProps: { pathname: '/new-safe/create', replace },
+    })
+
+    await userEvent.click(getByRole('combobox'))
+    expect(getAllByRole('option')).toHaveLength(1)
+    expect(queryByText('Ethereum')).not.toBeInTheDocument()
+    await userEvent.click(getByRole('option', { name: /bnb-test/ }))
+    expect(replace).toHaveBeenCalledWith(expect.objectContaining({ query: expect.objectContaining({ chain: 'bnbt' }) }))
+  })
 
   it('should be possible to select and deselect networks', async () => {
     jest.spyOn(useChains, 'useCurrentChain').mockReturnValue(mockChains[0])
@@ -161,7 +180,7 @@ describe('NetworkMultiSelector', () => {
       expect(queryByText('Optimism')).toBeNull()
       expect(queryByText('Gnosis Chain')).toBeNull()
       expect(queryByText('Worldchain')).toBeNull()
-      expect(queryByText('Select at least one network')).toBeVisible()
+      expect(queryByText('请至少选择一个网络')).toBeVisible()
     })
   })
 

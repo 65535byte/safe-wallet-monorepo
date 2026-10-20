@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * Builds the two sentences in the summary's callout from the policy model. Pure string work, which is what keeps the
  * wording rules — when a frequency may be named, singular against plural, how several spenders are joined — readable
@@ -32,7 +33,7 @@ export const spenderDisplayName = ({ name, address }: Pick<SpenderSummary, 'name
 export const joinNames = (names: readonly string[]): string => {
   if (names.length === 0) return ''
   if (names.length === 1) return names[0]
-  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+  return translateMessage('ui.and_ac13c4f1', { p0: names.slice(0, -1).join(', '), p1: names[names.length - 1] })
 }
 
 /** The callout adjective when every limit shares one canonical period; undefined for a mixed or test-chain set. */
@@ -53,7 +54,7 @@ export const describePolicy = (policy: SpendingLimitSummaryModel): PolicyDescrip
   const subject = names ? `${CALLOUT_TITLE_PREFIX} ${names}` : CALLOUT_TITLE_PREFIX
 
   return {
-    title: `${subject} ${noun}.`,
+    title: translateMessage('ui.text_0f3a54ae', { p0: subject, p1: noun }),
     description: count === 1 ? CALLOUT_DESCRIPTION_SINGULAR : CALLOUT_DESCRIPTION_PLURAL,
   }
 }
@@ -78,14 +79,17 @@ const countChanges = (policy: SpendingLimitSummaryModel) =>
 export const describeEdit = (policy: SpendingLimitSummaryModel): PolicyDescription => {
   const { added, changed, removed } = countChanges(policy)
   const parts = [
-    added > 0 ? `${added} added` : undefined,
-    changed > 0 ? `${changed} changed` : undefined,
-    removed > 0 ? `${removed} removed` : undefined,
+    added > 0 ? translateMessage('ui.added_a2a15879', { p0: added }) : undefined,
+    changed > 0 ? translateMessage('ui.changed_ae02aa21', { p0: changed }) : undefined,
+    removed > 0 ? translateMessage('ui.removed_70765fd6', { p0: removed }) : undefined,
   ].filter((part): part is string => part !== undefined)
 
   const total = added + changed + removed
   const noun = total === 1 ? CALLOUT_NOUN_SINGULAR : CALLOUT_NOUN_PLURAL
-  const title = total === 0 ? EDIT_CALLOUT_NO_CHANGES : `${joinNames(parts)} — ${total} ${noun} in all.`
+  const title =
+    total === 0
+      ? EDIT_CALLOUT_NO_CHANGES
+      : translateMessage('ui.inAll_c170a6c2', { p0: joinNames(parts), p1: total, p2: noun })
 
   return { title, description: EDIT_CALLOUT_DESCRIPTION }
 }

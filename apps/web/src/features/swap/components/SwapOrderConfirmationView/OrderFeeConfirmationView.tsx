@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type {
   SwapOrderTransactionInfo,
   TwapOrderTransactionInfo,
@@ -22,16 +23,15 @@ export const OrderFeeConfirmationView = ({
 
   const title = (
     <>
-      Widget fee{' '}
+      {translateMessage('ui.widgetFee_f20e6afa')}{' '}
       <HelpIconTooltip
         title={
           <>
-            The tiered widget fee incurred here is charged by CoW Protocol for the operation of this widget. The fee is
-            automatically calculated into this quote. Part of the fee will contribute to a license fee that supports the
-            Safe Community. Neither the Safe Ecosystem Foundation nor {`${BRAND_NAME}`} operate the CoW Swap Widget
-            and/or CoW Swap.
+            {translateMessage('ui.theTieredWidgetFeeIncurredHere_156d137d')}
+            {translateMessage('ui.text_235b1dbc', { p0: BRAND_NAME })}{' '}
+            {translateMessage('ui.operateTheCoWSwapWidgetAnd_f4a287c4')}
             <Link href={HelpCenterArticle.SWAP_WIDGET_FEES} target="_blank" rel="noopener noreferrer">
-              Learn more
+              {translateMessage('ui.learnMore_0c11daba')}
             </Link>
           </>
         }

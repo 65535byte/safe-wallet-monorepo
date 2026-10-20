@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -5,7 +6,7 @@ import { Button } from '@safe-global/views/components/ui/button'
 import { useTxBuilderApp } from '@/hooks/safe-apps/useTxBuilderApp'
 import { AppRoutes } from '@/config/routes'
 import Track from '@/components/common/Track'
-import { MODALS_EVENTS } from '@/services/analytics'
+import { MODALS_EVENTS, trackEvent } from '@/services/analytics'
 import { SWAP_EVENTS, SWAP_LABELS } from '@/services/analytics/events/swaps'
 import { MixpanelEventParams } from '@/services/analytics/mixpanel-events'
 import { GA_LABEL_TO_MIXPANEL_PROPERTY } from '@/services/analytics/ga-mixpanel-mapping'
@@ -23,7 +24,7 @@ export const SendTokensButton = ({ onClick }: { onClick: () => void; sx?: object
     <Track {...MODALS_EVENTS.SEND_FUNDS}>
       <Button data-testid="send-tokens-btn" onClick={onClick} className={buttonClasses}>
         <AssetsIcon width={20} />
-        Send tokens
+        {translateMessage('ui.sendTokens_6858aefd')}
       </Button>
     </Track>
   )
@@ -46,8 +47,12 @@ export const TxBuilderButton = () => {
         render={<Link href={txBuilder.link} style={{ width: '100%' }} />}
       >
         {/* Sized via classes: Tailwind's preflight (img { height: auto }) overrides the height attribute. */}
-        <img src="/images/apps/tx-builder.png" className="h-6 w-auto" alt="Transaction Builder" />
-        Transaction Builder
+        <img
+          src="/images/apps/tx-builder.png"
+          className="h-6 w-auto"
+          alt={translateMessage('ui.transactionBuilder_04499512')}
+        />
+        {translateMessage('ui.transactionBuilder_04499512')}
       </Button>
     </Track>
   )
@@ -63,6 +68,13 @@ export const MakeASwapButton = () => {
   const isSwapPage = router.pathname === AppRoutes.swap
 
   const onClick = () => {
+    trackEvent(
+      { ...SWAP_EVENTS.OPEN_SWAPS, label: SWAP_LABELS.newTransaction },
+      {
+        [MixpanelEventParams.ENTRY_POINT]: GA_LABEL_TO_MIXPANEL_PROPERTY[SWAP_LABELS.newTransaction],
+      },
+    )
+
     if (isSwapPage) {
       setTxFlow(undefined)
     } else {
@@ -75,17 +87,9 @@ export const MakeASwapButton = () => {
   }
 
   return (
-    <Track
-      {...SWAP_EVENTS.OPEN_SWAPS}
-      label={SWAP_LABELS.newTransaction}
-      mixpanelParams={{
-        [MixpanelEventParams.ENTRY_POINT]: GA_LABEL_TO_MIXPANEL_PROPERTY[SWAP_LABELS.newTransaction],
-      }}
-    >
-      <Button className={buttonClasses} onClick={onClick}>
-        <SwapIcon width={20} />
-        Swap tokens
-      </Button>
-    </Track>
+    <Button className={buttonClasses} onClick={onClick}>
+      <SwapIcon width={20} />
+      {translateMessage('ui.swapTokens_60b423cd')}
+    </Button>
   )
 }

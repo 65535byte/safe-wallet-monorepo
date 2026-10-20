@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ComponentProps, ReactElement } from 'react'
 
 import SearchField from '@/components/common/SearchField'
@@ -17,10 +18,10 @@ interface AddressBookSearchInputProps {
 const AddressBookSearchInput = ({
   value,
   onChange,
-  placeholder = 'Search for contacts',
+  placeholder = translateMessage('ui.searchForContacts_b534aed3'),
   className,
   inputSize,
-  'aria-label': ariaLabel = 'Search contacts by name or address',
+  'aria-label': ariaLabel = translateMessage('ui.searchContactsByNameOrAddress_6b72f2fa'),
 }: AddressBookSearchInputProps): ReactElement => {
   return (
     <SearchField

@@ -41,8 +41,8 @@ describe('WorkspaceTwoFactorSection', () => {
   it('states that 2FA is required for everyone', () => {
     render(<WorkspaceTwoFactorSection members={[oidcMember(1)]} />)
 
-    expect(screen.getByText('Two-factor authentication')).toBeInTheDocument()
-    expect(screen.getByText('Required for everyone')).toBeInTheDocument()
+    expect(screen.getByText('双重身份验证')).toBeInTheDocument()
+    expect(screen.getByText('所有成员必须启用')).toBeInTheDocument()
   })
 
   it('counts wallet members as not covered', () => {
@@ -85,12 +85,12 @@ describe('WorkspaceTwoFactorSection', () => {
   it('offers to manage members to an admin', () => {
     render(<WorkspaceTwoFactorSection members={[oidcMember(1)]} isAdmin />)
 
-    expect(screen.getByTestId('workspace-2fa-manage-members')).toHaveTextContent('Manage members')
+    expect(screen.getByTestId('workspace-2fa-manage-members')).toHaveTextContent('管理成员')
   })
 
   it('only offers to see members to a non-admin, who cannot manage anyone', () => {
     render(<WorkspaceTwoFactorSection members={[oidcMember(1)]} isAdmin={false} />)
 
-    expect(screen.getByTestId('workspace-2fa-manage-members')).toHaveTextContent('See members')
+    expect(screen.getByTestId('workspace-2fa-manage-members')).toHaveTextContent('查看成员')
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Users } from 'lucide-react'
 import SafeWidget from '../SafeWidget'
@@ -46,26 +47,31 @@ const PendingTxWidget = ({
 
   if (hasError) {
     return (
-      <SafeWidget title="Pending" testId="space-dashboard-pending-widget">
-        <SafeWidget.ErrorState message="Unable to load content" onRefresh={onRefresh} />
+      <SafeWidget title={translateMessage('ui.pending_c096ae70')} testId="space-dashboard-pending-widget">
+        <SafeWidget.ErrorState message={translateMessage('ui.unableToLoadContent_b6cc4694')} onRefresh={onRefresh} />
       </SafeWidget>
     )
   }
 
   if (isEmpty) {
     return (
-      <SafeWidget title="Pending" testId="space-dashboard-pending-widget">
-        <SafeWidget.EmptyState icon={<Users className="size-6 text-green-500" />} text="No pending transactions" />
+      <SafeWidget title={translateMessage('ui.pending_c096ae70')} testId="space-dashboard-pending-widget">
+        <SafeWidget.EmptyState
+          icon={<Users className="size-6 text-green-500" />}
+          text={translateMessage('ui.noPendingTransactions_233bb81d')}
+        />
       </SafeWidget>
     )
   }
 
   return (
-    <SafeWidget title="Pending" testId="space-dashboard-pending-widget">
+    <SafeWidget title={translateMessage('ui.pending_c096ae70')} testId="space-dashboard-pending-widget">
       {loading ? (
         Array.from({ length: SKELETON_COUNT }).map((_, i) => <SafeWidget.ItemSkeleton key={i} />)
       ) : transactions.length === 0 ? (
-        <p className="px-4 py-3 text-sm text-muted-foreground">No pending transactions</p>
+        <p className="px-4 py-3 text-sm text-muted-foreground">
+          {translateMessage('ui.noPendingTransactions_233bb81d')}
+        </p>
       ) : (
         transactions.map((tx) => {
           const shortName = getEip3770ShortName(tx.chainId ?? '')

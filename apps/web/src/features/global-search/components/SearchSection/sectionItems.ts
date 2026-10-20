@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ComponentType } from 'react'
 import { useIsSpaceRoute } from '@/hooks/useIsSpaceRoute'
 import { AccountsSection } from './sections/Accounts'
@@ -32,17 +33,17 @@ const useNotInSpace = () => {
 
 export const sectionItems: SectionItem[] = [
   {
-    label: 'Navigate to',
+    label: translateMessage('ui.navigateTo_09f0ba66'),
     useActivate: useAlwaysActive,
     Component: NavigateToSection,
   },
   {
-    label: 'Safe accounts',
+    label: translateMessage('ui.accounts_0ecf161b'),
     useActivate: useIsInSpace,
     Component: AccountsSection,
   },
   {
-    label: 'My accounts',
+    label: translateMessage('ui.myAccounts_837c511d'),
     useActivate: useNotInSpace,
     Component: TrustedSafesSection,
   },

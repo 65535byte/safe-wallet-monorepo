@@ -24,7 +24,7 @@ describe('AddPolicyDialog', () => {
   it('lists every policy a user can set up', () => {
     renderDialog()
 
-    expect(screen.getByRole('heading', { name: 'Add policy' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '添加策略' })).toBeInTheDocument()
 
     ADD_POLICY_OPTIONS.forEach(({ title, description }) => {
       expect(screen.getByText(title)).toBeInTheDocument()

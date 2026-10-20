@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useRef, useEffect, type ReactElement, type ReactNode } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -85,18 +86,23 @@ export const ActionRequiredPanel = ({ children, defaultExpanded = false }: Actio
         role="button"
         tabIndex={0}
         aria-expanded={isExpanded}
-        aria-label="Toggle action required panel"
+        aria-label={translateMessage('ui.toggleActionRequiredPanel_c9974f80')}
         data-testid="action-required-panel-toggle"
       >
         <Typography variant="paragraph-bold" className={css.headerText}>
-          Action required <PanelCounter count={warningCount.toString()} variant="subtle" />
+          {translateMessage('ui.actionRequired_a9b39feb')}
+          <PanelCounter count={warningCount.toString()} variant="subtle" />
         </Typography>
 
         <Button
           variant="ghost"
           size="icon-sm"
           className="pointer-events-none ml-2"
-          aria-label={isExpanded ? 'Collapse action required panel' : 'Expand action required panel'}
+          aria-label={
+            isExpanded
+              ? translateMessage('ui.collapseActionRequiredPanel_c3123fcc')
+              : translateMessage('ui.expandActionRequiredPanel_b443be95')
+          }
         >
           <ChevronDown
             className={classnames(css.chevron, 'transition-transform duration-200 ease-in-out', {

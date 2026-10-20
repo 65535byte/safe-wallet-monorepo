@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import SubmitButton from '@safe-global/views/components/common/SubmitButton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -5,14 +6,13 @@ import ArrowIcon from '@/public/images/common/arrow-up-right.svg'
 import type { Collectible } from '@safe-global/store/gateway/AUTO_GENERATED/collectibles'
 import { Sticky } from '@safe-global/views/components/common/Sticky'
 import CheckWallet from '@/components/common/CheckWallet'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 type NftSendFormProps = {
   selectedNfts: Collectible[]
 }
 
 const NftSendForm = ({ selectedNfts }: NftSendFormProps): ReactElement => {
-  const nftsText = `NFT${maybePlural(selectedNfts)}`
+  const nftsText = `NFT`
   const noSelected = selectedNfts.length === 0
 
   return (
@@ -24,7 +24,7 @@ const NftSendForm = ({ selectedNfts }: NftSendFormProps): ReactElement => {
               <ArrowIcon className="size-3 text-[var(--color-border-main)]" />
 
               <Typography variant="paragraph-small" className="leading-[inherit]">
-                {`${selectedNfts.length} ${nftsText} selected`}
+                {translateMessage('ui.selected_505446f6', { p0: selectedNfts.length, p1: nftsText })}
               </Typography>
             </div>
           </div>
@@ -34,7 +34,9 @@ const NftSendForm = ({ selectedNfts }: NftSendFormProps): ReactElement => {
           <CheckWallet>
             {(isOk) => (
               <SubmitButton data-testid={`nft-send-btn-${!isOk || noSelected}`} disabled={!isOk || noSelected}>
-                {noSelected ? 'Send' : `Send ${selectedNfts.length} ${nftsText}`}
+                {noSelected
+                  ? translateMessage('ui.send_f1004bfb')
+                  : translateMessage('ui.send_e31b821f', { p0: selectedNfts.length, p1: nftsText })}
               </SubmitButton>
             )}
           </CheckWallet>

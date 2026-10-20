@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { type ReactElement } from 'react'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -28,7 +29,8 @@ const MsgAuditLog = ({ msg }: { msg: MessageItem }): ReactElement => {
   const resolveName = (address: string | undefined, apiFallback?: string | null): string | undefined =>
     address ? addressBook[address] || apiFallback || undefined : undefined
 
-  const signingLabel = (idx: number) => `Signed (${idx + 1}/${confirmationsRequired})`
+  const signingLabel = (idx: number) =>
+    translateMessage('ui.signed_1a0692d9', { p0: idx + 1, p1: confirmationsRequired })
 
   return (
     <AuditLog className="mb-4" data-testid="msg-audit-log">
@@ -40,7 +42,7 @@ const MsgAuditLog = ({ msg }: { msg: MessageItem }): ReactElement => {
           />
         }
         actions={
-          <CopyTooltip text={msgUrl} initialToolTipText="Copy message link">
+          <CopyTooltip text={msgUrl} initialToolTipText={translateMessage('ui.copyMessageLink_bc8be17d')}>
             <Button variant="ghost" size="icon-xs" className="text-inherit">
               <CopyIcon className="size-4" />
             </Button>
@@ -50,7 +52,7 @@ const MsgAuditLog = ({ msg }: { msg: MessageItem }): ReactElement => {
 
       {proposedBy && (
         <AuditRow
-          label="Created"
+          label={translateMessage('ui.created_d8278ec8')}
           actionType="created"
           address={proposedBy.value}
           name={resolveName(proposedBy.value, proposedBy.name)}
@@ -70,12 +72,19 @@ const MsgAuditLog = ({ msg }: { msg: MessageItem }): ReactElement => {
         />
       ))}
 
-      {isConfirmed && <AuditRow label="Confirmed" actionType="confirmed" timestamp={msg.modifiedTimestamp} isLast />}
+      {isConfirmed && (
+        <AuditRow
+          label={translateMessage('ui.confirmed_2a0ef702')}
+          actionType="confirmed"
+          timestamp={msg.modifiedTimestamp}
+          isLast
+        />
+      )}
 
       {!isConfirmed && (
         <Alert variant="info" className="mt-4">
           <AlertSeverityIcon variant="info" />
-          <AlertDescription>Can be confirmed once the threshold is reached.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.canBeConfirmedOnceTheThreshold_95866e7d')}</AlertDescription>
         </Alert>
       )}
     </AuditLog>

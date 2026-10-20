@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 
@@ -33,7 +34,7 @@ export const ChainIcon = ({ chainId }: { chainId: string }) => {
   return (
     <img
       src={chainConfig.chainLogoUri ?? undefined}
-      alt={`${chainConfig.chainName} Logo`}
+      alt={translateMessage('ui.logo_307b8133', { p0: chainConfig.chainName })}
       width={40}
       height={40}
       loading="lazy"

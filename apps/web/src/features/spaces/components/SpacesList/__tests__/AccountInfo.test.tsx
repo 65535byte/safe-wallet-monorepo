@@ -61,9 +61,9 @@ describe('AccountInfo', () => {
   it('renders a user icon trigger and the display name in the popover', () => {
     render(<AccountInfo profileName="Alice" displayName="alice@safe.global" />)
 
-    expect(screen.getByRole('button', { name: 'Account menu, signed in as alice@safe.global' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '账户菜单，当前登录身份为 alice@safe.global' })).toBeInTheDocument()
     expect(screen.getAllByText('alice@safe.global').length).toBeGreaterThan(0)
-    expect(screen.getByText('Your account')).toBeInTheDocument()
+    expect(screen.getByText('您的账户')).toBeInTheDocument()
   })
 
   it('shows the wallet address in the popover when signed in with SIWE', () => {
@@ -87,7 +87,7 @@ describe('AccountInfo', () => {
   it('labels the trigger generically when there is no display name', () => {
     render(<AccountInfo />)
 
-    expect(screen.getByRole('button', { name: 'Account menu' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '账户菜单' })).toBeInTheDocument()
   })
 
   it('renders the sign-out button when no props are provided', () => {

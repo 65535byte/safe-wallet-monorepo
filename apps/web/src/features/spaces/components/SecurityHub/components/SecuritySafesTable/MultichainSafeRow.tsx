@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Fragment } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -148,9 +149,9 @@ const MultichainChildRow = ({
               tabIndex={0}
               className="text-right text-[0.65rem] leading-tight text-muted-foreground"
             >
-              Not deployed
+              {translateMessage('ui.notDeployed_2c79f1a3')}
             </TooltipTrigger>
-            <TooltipContent>Safe not yet deployed on this network</TooltipContent>
+            <TooltipContent>{translateMessage('ui.notYetDeployedOnThisNetwork_90dd6f11')}</TooltipContent>
           </Tooltip>
         )}
       </div>
@@ -213,7 +214,7 @@ const MultichainSafeRow = ({
                 </span>
                 <button
                   type="button"
-                  aria-label="Toggle networks"
+                  aria-label={translateMessage('ui.toggleNetworks_6fd54cc5')}
                   data-testid="expand-networks"
                   onClick={(e) => {
                     e.stopPropagation()
@@ -226,13 +227,13 @@ const MultichainSafeRow = ({
                 {showMultichainWarning && (
                   <Tooltip>
                     <TooltipTrigger
-                      render={<span aria-label="Signer setup differs across networks" />}
+                      render={<span aria-label={translateMessage('ui.signerSetupDiffersAcrossNetworks_a4c825b4')} />}
                       tabIndex={0}
                       className="inline-flex shrink-0 items-center"
                     >
                       <TriangleAlert className="h-[18px] w-[18px] text-amber-500" />
                     </TooltipTrigger>
-                    <TooltipContent>Signer setup differs across networks</TooltipContent>
+                    <TooltipContent>{translateMessage('ui.signerSetupDiffersAcrossNetworks_a4c825b4')}</TooltipContent>
                   </Tooltip>
                 )}
               </div>

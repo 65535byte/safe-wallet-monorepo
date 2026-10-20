@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SettingsInfoType, TransactionInfoType } from '@safe-global/store/gateway/types'
 import type { AddressInfo, Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { getOrderClass } from '@/features/swap'
@@ -66,7 +67,7 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
     case TransactionInfoType.CREATION: {
       return {
         icon: toAddress?.logoUri || <TxIcon icon={Settings} />,
-        text: 'Safe account created',
+        text: translateMessage('ui.accountCreated_51ce01ad'),
       }
     }
     case TransactionInfoType.SWAP_TRANSFER:
@@ -79,7 +80,11 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
         ) : (
           <TxIcon icon={ArrowDownLeft} className="text-accent-success" />
         ),
-        text: isSendTx ? (isTxQueued(tx.txStatus) ? 'Send' : 'Sent') : 'Received',
+        text: isSendTx
+          ? isTxQueued(tx.txStatus)
+            ? translateMessage('ui.send_f1004bfb')
+            : translateMessage('ui.sent_0fe51d4a')
+          : translateMessage('ui.received_c5666664'),
       }
     }
     case TransactionInfoType.SETTINGS_CHANGE: {
@@ -94,7 +99,8 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
     }
     case TransactionInfoType.SWAP_ORDER: {
       const orderClass = getOrderClass(tx.txInfo)
-      const altText = orderClass === 'limit' ? 'Limit order' : 'Swap order'
+      const altText =
+        orderClass === 'limit' ? translateMessage('ui.limitOrder_630405ee') : translateMessage('ui.swapOrder_b58d9943')
 
       return {
         icon: <TxIcon icon={Repeat} className="size-3.5" />,
@@ -110,33 +116,33 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
     case TransactionInfoType.NATIVE_STAKING_DEPOSIT: {
       return {
         icon: <TxIcon icon={Database} />,
-        text: 'Stake',
+        text: translateMessage('ui.stake_0e1cdece'),
       }
     }
     case TransactionInfoType.NATIVE_STAKING_VALIDATORS_EXIT: {
       return {
         icon: <TxIcon icon={Database} />,
-        text: 'Withdraw request',
+        text: translateMessage('ui.withdrawRequest_98c96bda'),
       }
     }
     case TransactionInfoType.NATIVE_STAKING_WITHDRAW: {
       return {
         icon: <TxIcon icon={Database} />,
-        text: 'Claim',
+        text: translateMessage('ui.claim_4f900c2c'),
       }
     }
     // @ts-ignore TODO: Add types to old SDK or switch to auto-generated
     case 'VaultDeposit': {
       return {
         icon: <TxIcon icon={TrendingUp} />,
-        text: 'Deposit',
+        text: translateMessage('ui.deposit_99d820fe'),
       }
     }
     // @ts-ignore TODO: Add types to old SDK or switch to auto-generated
     case 'VaultRedeem': {
       return {
         icon: <TxIcon icon={TrendingUp} />,
-        text: 'Withdraw',
+        text: translateMessage('ui.withdraw_e0a8b34b'),
       }
     }
 
@@ -144,7 +150,7 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
     case 'SwapAndBridge': {
       return {
         icon: <TxIcon icon={SendToBack} />,
-        text: 'Bridge',
+        text: translateMessage('ui.bridge_e7d367f4'),
       }
     }
 
@@ -152,7 +158,7 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
     case 'Swap': {
       return {
         icon: <TxIcon icon={Repeat} className="size-3.5" />,
-        text: 'Swap',
+        text: translateMessage('ui.swap_cd9c7167'),
       }
     }
 
@@ -167,40 +173,40 @@ export const getTransactionType = (tx: Transaction, addressBook: AddressBook): T
       if (isMultiSendTxInfo(tx.txInfo)) {
         return {
           icon: <TxIcon icon={Layers} />,
-          text: 'Batch',
+          text: translateMessage('ui.batch_f201b6db'),
         }
       }
 
       if (isModuleExecutionInfo(tx.executionInfo)) {
         return {
           icon: toAddress?.logoUri || <TxIcon icon={Code} />,
-          text: toAddress?.name || 'Contract interaction',
+          text: toAddress?.name || translateMessage('ui.contractInteraction_d205639c'),
         }
       }
 
       if (isCancellationTxInfo(tx.txInfo)) {
         return {
           icon: <TxIcon icon={CircleX} className="text-destructive" />,
-          text: 'On-chain rejection',
+          text: translateMessage('ui.onChainRejection_a8695311'),
         }
       }
 
       if (isNestedConfirmationTxInfo(tx.txInfo)) {
         return {
           icon: <TxIcon icon={GitMerge} />,
-          text: `Nested Safe${addressBookName ? `: ${addressBookName}` : ''}`,
+          text: translateMessage('ui.nested_b4c67d4f', { p0: addressBookName ? `: ${addressBookName}` : '' }),
         }
       }
 
       return {
         icon: toAddress?.logoUri || <TxIcon icon={Code} />,
-        text: addressBookName || toAddress?.name || 'Contract interaction',
+        text: addressBookName || toAddress?.name || translateMessage('ui.contractInteraction_d205639c'),
       }
     }
     default: {
       return {
         icon: <TxIcon icon={Code} />,
-        text: addressBookName || 'Contract interaction',
+        text: addressBookName || translateMessage('ui.contractInteraction_d205639c'),
       }
     }
   }

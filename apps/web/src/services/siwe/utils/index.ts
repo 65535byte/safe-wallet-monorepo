@@ -1,9 +1,9 @@
+import { translateMessage } from '@/i18n'
 const getSignableMessage = (address: string, chainId: bigint, nonce: string) => {
   const message = {
     domain: window.location.host,
     address,
-    statement:
-      'By signing, you are agreeing to store this data in the Safe infrastructure. This does not initiate a transaction or cost any fees.',
+    statement: translateMessage('ui.bySigningYouAreAgreeingTo_31194a80'),
     uri: window.location.origin,
     version: '1',
     chainId: Number(chainId),

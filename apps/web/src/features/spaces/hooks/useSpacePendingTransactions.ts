@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useEffect, useCallback } from 'react'
 import type { TransactionQueuedItem } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { getTransactionQueue } from '@/services/transactions'
@@ -55,7 +56,7 @@ export const useSpacePendingTransactions = (limit = 3) => {
 
       setAllTransactions(merged)
     } catch {
-      setError('Failed to load pending transactions')
+      setError(translateMessage('ui.failedToLoadPendingTransactions_cb67d4d2'))
     } finally {
       setIsLoading(false)
     }

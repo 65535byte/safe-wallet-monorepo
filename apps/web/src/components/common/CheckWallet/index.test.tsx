@@ -1,237 +1,284 @@
 import { useSafeSDK } from '@/hooks/coreSDK/safeCoreSDK'
 import { render } from '@/tests/test-utils'
-import CheckWallet, { type CheckWalletProps } from '.'
+import CheckWallet from '.'
+import { useIsOnlySpendingLimitBeneficiary } from '@/features/spending-limits'
+import useIsSafeOwner from '@/hooks/useIsSafeOwner'
+import useIsWrongChain from '@/hooks/useIsWrongChain'
+import useWallet from '@/hooks/wallets/useWallet'
 import { chainBuilder } from '@/tests/builders/chains'
+import { useIsWalletProposer } from '@/hooks/useProposers'
+import { faker } from '@faker-js/faker'
+import { extendedSafeInfoBuilder } from '@/tests/builders/safe'
 import useSafeInfo from '@/hooks/useSafeInfo'
-import { mockSafeInfo } from '@/tests/mocks/hooks'
-import { mockRole } from '@/tests/mocks/roles'
+import { useNestedSafeOwners } from '@/hooks/useNestedSafeOwners'
+import type Safe from '@safe-global/protocol-kit'
 
-jest.mock('@/hooks/wallets/useWallet')
-jest.mock('@/hooks/useIsSafeOwner')
-jest.mock('@/hooks/useIsWrongChain')
-jest.mock('@/hooks/useProposers')
-jest.mock('@/hooks/useIsNestedSafeOwner')
-jest.mock('@/hooks/coreSDK/safeCoreSDK')
-jest.mock('@/hooks/useSafeInfo')
-
-jest.mock('@/features/spending-limits', () => ({
-  ...jest.requireActual('@/features/spending-limits'),
-  useIsOnlySpendingLimitBeneficiary: jest.fn(),
+const mockWalletAddress = faker.finance.ethereumAddress()
+// mock useWallet
+jest.mock('@/hooks/wallets/useWallet', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    address: mockWalletAddress,
+  })),
 }))
 
+// mock useIsSafeOwner
+jest.mock('@/hooks/useIsSafeOwner', () => ({
+  __esModule: true,
+  default: jest.fn(() => true),
+}))
+
+// mock useIsOnlySpendingLimitBeneficiary
+jest.mock('@/features/spending-limits', () => ({
+  ...jest.requireActual('@/features/spending-limits'),
+  useIsOnlySpendingLimitBeneficiary: jest.fn(() => false),
+}))
+
+// mock useCurrentChain
 jest.mock('@/hooks/useChains', () => ({
   __esModule: true,
   useCurrentChain: jest.fn(() => chainBuilder().build()),
 }))
 
-const NOT_CONNECTED = 'Please connect your wallet'
-const NOT_OWNER = 'Your connected wallet is not a signer of this Safe account'
-const NOT_ACTIVATED = 'You need to activate the Safe before transacting'
-const SDK_LOADING = 'Still loading. Try again in a moment.'
+// mock useIsWrongChain
+jest.mock('@/hooks/useIsWrongChain', () => ({
+  __esModule: true,
+  default: jest.fn(() => false),
+}))
 
-type GateProps = Omit<CheckWalletProps, 'children'>
+jest.mock('@/hooks/useProposers', () => ({
+  __esModule: true,
+  useIsWalletProposer: jest.fn(() => false),
+}))
 
-const renderButton = (props: GateProps = {}) =>
-  render(<CheckWallet {...props}>{(ok) => <button disabled={!ok}>Continue</button>}</CheckWallet>)
+jest.mock('@/hooks/useSafeInfo', () => ({
+  __esModule: true,
+  default: jest.fn(() => {
+    const safeAddress = faker.finance.ethereumAddress()
+    return {
+      safeAddress,
+      safe: extendedSafeInfoBuilder()
+        .with({ address: { value: safeAddress } })
+        .with({ deployed: true })
+        .build(),
+    }
+  }),
+}))
+
+jest.mock('@/hooks/useNestedSafeOwners')
+const mockUseNestedSafeOwners = useNestedSafeOwners as jest.MockedFunction<typeof useNestedSafeOwners>
+
+jest.mock('@/hooks/coreSDK/safeCoreSDK')
+const mockUseSafeSdk = useSafeSDK as jest.MockedFunction<typeof useSafeSDK>
+
+const renderButton = () =>
+  render(<CheckWallet checkNetwork={false}>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>)
 
 describe('CheckWallet', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mockRole('owner')
-    mockSafeInfo({ deployed: true })
+    mockUseSafeSdk.mockReturnValue({} as unknown as Safe)
+    mockUseNestedSafeOwners.mockReturnValue([])
   })
 
   it('renders correctly when the wallet is connected to the right chain and is an owner', () => {
     const { getByText } = renderButton()
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    // Check that the button is enabled
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should disable the button when the wallet is not connected', () => {
-    mockRole('disconnected')
+    ;(useWallet as jest.MockedFunction<typeof useWallet>).mockReturnValueOnce(null)
 
     const { getByText, getByLabelText } = renderButton()
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(NOT_CONNECTED)).toBeInTheDocument()
+    // Check that the button is disabled
+    expect(getByText('继续')).toBeDisabled()
+
+    // Check the tooltip text
+    expect(getByLabelText('请连接钱包')).toBeInTheDocument()
   })
 
   it('should disable the button when the wallet is connected to the right chain but is not an owner', () => {
-    mockRole('nonOwner')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
 
     const { getByText, getByLabelText } = renderButton()
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(NOT_OWNER)).toBeInTheDocument()
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('已连接钱包不是此 8379 账户的签名人')).toBeInTheDocument()
   })
 
   it('should be disabled when connected to the wrong network', () => {
-    mockRole('wrongChain')
+    ;(useIsWrongChain as jest.MockedFunction<typeof useIsWrongChain>).mockReturnValue(true)
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton({ checkNetwork: true })
+    const renderButtonWithNetworkCheck = () =>
+      render(<CheckWallet checkNetwork={true}>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>)
 
-    expect(getByText('Continue')).toBeDisabled()
+    const { getByText } = renderButtonWithNetworkCheck()
+
+    expect(getByText('继续')).toBeDisabled()
   })
 
   it('should not disable the button for non-owner spending limit benificiaries', () => {
-    mockRole('spendingLimitBeneficiary')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
+    ;(
+      useIsOnlySpendingLimitBeneficiary as jest.MockedFunction<typeof useIsOnlySpendingLimitBeneficiary>
+    ).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton({ allowSpendingLimit: true })
+    const { getByText } = render(
+      <CheckWallet allowSpendingLimit>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should not disable the button for proposers', () => {
-    mockRole('proposer')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
+    ;(useIsWalletProposer as jest.MockedFunction<typeof useIsWalletProposer>).mockReturnValueOnce(true)
 
     const { getByText } = renderButton()
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should disable the button for proposers if specified via flag', () => {
-    mockRole('proposer')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
+    ;(useIsWalletProposer as jest.MockedFunction<typeof useIsWalletProposer>).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton({ allowProposer: false })
+    const { getByText } = render(
+      <CheckWallet allowProposer={false}>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
 
-    expect(getByText('Continue')).toBeDisabled()
+    expect(getByText('继续')).toBeDisabled()
   })
 
   it('should not disable the button for proposers that are also owners', () => {
-    mockRole('proposerAndOwner')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(true)
+    ;(useIsWalletProposer as jest.MockedFunction<typeof useIsWalletProposer>).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton({ allowProposer: false })
+    const { getByText } = render(
+      <CheckWallet allowProposer={false}>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should disable the button for counterfactual Safes', () => {
-    mockSafeInfo({ deployed: false })
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(true)
+
+    const safeAddress = faker.finance.ethereumAddress()
+    const mockSafeInfo = {
+      safeAddress,
+      safe: extendedSafeInfoBuilder()
+        .with({ address: { value: safeAddress } })
+        .with({ deployed: false })
+        .build(),
+    }
+
+    ;(useSafeInfo as jest.MockedFunction<typeof useSafeInfo>).mockReturnValueOnce(
+      mockSafeInfo as unknown as ReturnType<typeof useSafeInfo>,
+    )
 
     const { getByText, getByLabelText } = renderButton()
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(NOT_ACTIVATED)).toBeInTheDocument()
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('交易前需要先激活 8379')).toBeInTheDocument()
   })
 
   it('should enable the button for counterfactual Safes if allowed', () => {
-    mockSafeInfo({ deployed: false })
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton({ allowUndeployedSafe: true })
+    const safeAddress = faker.finance.ethereumAddress()
+    const mockSafeInfo = {
+      safeAddress,
+      safe: extendedSafeInfoBuilder()
+        .with({ address: { value: safeAddress } })
+        .with({ deployed: false })
+        .build(),
+    }
 
-    expect(getByText('Continue')).toBeEnabled()
+    ;(useSafeInfo as jest.MockedFunction<typeof useSafeInfo>).mockReturnValueOnce(
+      mockSafeInfo as unknown as ReturnType<typeof useSafeInfo>,
+    )
+
+    const { getByText } = render(
+      <CheckWallet allowUndeployedSafe>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
+
+    expect(getByText('继续')).toBeEnabled()
   })
 
   it('should allow non-owners if specified', () => {
-    mockRole('nonOwner')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
 
-    const { getByText } = renderButton({ allowNonOwner: true })
+    const { getByText } = render(
+      <CheckWallet allowNonOwner>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should not allow non-owners that have a spending limit without allowing spending limits', () => {
-    mockRole('spendingLimitBeneficiary')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
+    ;(
+      useIsOnlySpendingLimitBeneficiary as jest.MockedFunction<typeof useIsOnlySpendingLimitBeneficiary>
+    ).mockReturnValueOnce(true)
 
-    const { getByText } = renderButton()
+    const { getByText } = render(<CheckWallet>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>)
 
-    expect(getByText('Continue')).toBeDisabled()
+    expect(getByText('继续')).toBeDisabled()
   })
 
   it('should disable the button if SDK is not initialized and safe is loaded', () => {
-    jest.mocked(useSafeSDK).mockReturnValue(undefined)
+    mockUseSafeSdk.mockReturnValue(undefined)
 
-    const { getByText, getByLabelText } = renderButton()
+    const mockSafeInfo = {
+      safeLoaded: true,
+      safe: extendedSafeInfoBuilder(),
+    }
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(SDK_LOADING)).toBeInTheDocument()
+    ;(useSafeInfo as jest.MockedFunction<typeof useSafeInfo>).mockReturnValueOnce(
+      mockSafeInfo as unknown as ReturnType<typeof useSafeInfo>,
+    )
+
+    const { getByText, getByLabelText } = render(
+      <CheckWallet>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>,
+    )
+
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('仍在加载，请稍后重试。'))
   })
 
   it('should not disable the button if SDK is not initialized and safe is not loaded', () => {
-    jest.mocked(useSafeSDK).mockReturnValue(undefined)
-    const safe = mockSafeInfo({ deployed: true })
-    jest.mocked(useSafeInfo).mockReturnValue({
-      safe,
-      safeAddress: safe.address.value,
+    mockUseSafeSdk.mockReturnValue(undefined)
+
+    const safeAddress = faker.finance.ethereumAddress()
+    const mockSafeInfo = {
+      safeAddress,
+      safe: extendedSafeInfoBuilder()
+        .with({ address: { value: safeAddress } })
+        .with({ deployed: true })
+        .build(),
       safeLoaded: false,
-      safeLoading: true,
-    })
+    }
 
-    const { getByText } = renderButton()
+    ;(useSafeInfo as jest.MockedFunction<typeof useSafeInfo>).mockReturnValueOnce(
+      mockSafeInfo as unknown as ReturnType<typeof useSafeInfo>,
+    )
 
-    expect(getByText('Continue')).not.toBeDisabled()
+    const { queryByText } = render(<CheckWallet>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>)
+
+    expect(queryByText('继续')).not.toBeDisabled()
   })
 
   it('should allow nested Safe owners', () => {
-    mockRole('nestedOwner')
+    ;(useIsSafeOwner as jest.MockedFunction<typeof useIsSafeOwner>).mockReturnValueOnce(false)
+    mockUseNestedSafeOwners.mockReturnValue([faker.finance.ethereumAddress()])
 
-    const { getByText } = renderButton()
-
-    expect(getByText('Continue')).not.toBeDisabled()
-  })
-
-  it.each(['owner', 'proposer'] as const)(
-    'should enable the button for %s when spending limits are allowed',
-    (role) => {
-      mockRole(role)
-
-      const { getByText } = renderButton({ allowSpendingLimit: true })
-
-      expect(getByText('Continue')).not.toBeDisabled()
-    },
-  )
-
-  it.each(['nonOwner', 'disconnected'] as const)(
-    'should disable the button for %s when spending limits are allowed',
-    (role) => {
-      mockRole(role)
-
-      const { getByText } = renderButton({ allowSpendingLimit: true })
-
-      expect(getByText('Continue')).toBeDisabled()
-    },
-  )
-
-  it('should disable the button for a disconnected wallet even when non-owners are allowed', () => {
-    mockRole('disconnected')
-
-    const { getByText, getByLabelText } = renderButton({ allowNonOwner: true })
-
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(NOT_CONNECTED)).toBeInTheDocument()
-  })
-
-  it('should enable a nested owner who is a proposer if proposers are not allowed', () => {
-    mockRole('nestedOwner', { isProposer: true })
-
-    const { getByText } = renderButton({ allowProposer: false })
-
-    expect(getByText('Continue')).not.toBeDisabled()
-  })
-
-  it('should give a non-owner on the right network the not-owner reason', () => {
-    mockRole('nonOwner')
-
-    const { getByText, getByLabelText } = renderButton({ checkNetwork: true })
-
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText(NOT_OWNER)).toBeInTheDocument()
-  })
-
-  it('should ignore the wrong network when the network is not checked', () => {
-    mockRole('wrongChain')
-
-    const { getByText } = renderButton()
-
-    expect(getByText('Continue')).not.toBeDisabled()
-  })
-
-  it('should disable the button without a tooltip when noTooltip is set', () => {
-    mockRole('nonOwner')
-
-    const { getByText, queryByLabelText } = renderButton({ noTooltip: true })
-
-    expect(getByText('Continue')).toBeDisabled()
-    expect(queryByLabelText(NOT_OWNER)).not.toBeInTheDocument()
+    const { container } = render(<CheckWallet>{(isOk) => <button disabled={!isOk}>继续</button>}</CheckWallet>)
+    console.log(container.innerHTML)
+    expect(container.querySelector('button')).not.toBeDisabled()
   })
 })

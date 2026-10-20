@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useCallback, useEffect, useRef } from 'react'
 import type { ScanContext, ScanResult, ScannerId } from '../data/scanners/types'
 import { SCANNERS } from '../data/scanners/registry'
@@ -35,7 +36,10 @@ const useSecurityScan = (ctx: ScanContext | null): ScanState => {
         setResults((prev) => ({ ...prev, [scannerId]: result }))
       } catch (err: unknown) {
         if (guardId !== undefined && scanIdRef.current !== guardId) return
-        setErrors((prev) => ({ ...prev, [scannerId]: err instanceof Error ? err.message : 'Scan failed' }))
+        setErrors((prev) => ({
+          ...prev,
+          [scannerId]: err instanceof Error ? err.message : translateMessage('ui.scanFailed_8792859a'),
+        }))
       } finally {
         if (guardId !== undefined && scanIdRef.current !== guardId) return
         setLoading((prev) => ({ ...prev, [scannerId]: false }))

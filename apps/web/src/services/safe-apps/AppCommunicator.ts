@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { RefObject } from 'react'
 import type { SDKMessageEvent, MethodToResponse, ErrorResponse, RequestId } from '@safe-global/safe-apps-sdk'
 import { getSDKVersion, Methods, MessageFormatter } from '@safe-global/safe-apps-sdk'
@@ -78,7 +79,7 @@ class AppCommunicator {
       } catch (e) {
         const error = asError(e)
 
-        this.send('Request failed', msg.data.id, true)
+        this.send(translateMessage('ui.requestFailed_3f59f97b'), msg.data.id, true)
         this.config?.onError?.(error, msg.data)
       }
     }

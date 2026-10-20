@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddressInputReadOnly from '@/components/common/AddressInputReadOnly'
 import useAddressBook from '@/hooks/useAddressBook'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
@@ -165,7 +166,7 @@ const AddressInput = ({
   // Label the field with the source ENS name while it still holds that resolved address
   const resolvedFromLabel =
     resolvedFrom && sameAddress(watchedValue, resolvedFrom.address)
-      ? `Address resolved from ${resolvedFrom.name}`
+      ? translateMessage('ui.addressResolvedFrom_b38b22be', { p0: resolvedFrom.name })
       : undefined
 
   // Retransform the value when chain changes
@@ -227,9 +228,14 @@ const AddressInput = ({
   }
 
   const labelText =
-    error?.message || resolvedFromLabel || label || `Recipient address${isDomainLookupEnabled ? ' or ENS' : ''}`
+    error?.message ||
+    resolvedFromLabel ||
+    label ||
+    translateMessage('ui.recipientAddress_8aece976', {
+      p0: isDomainLookupEnabled ? translateMessage('ui.orENS_730e1f41') : '',
+    })
 
-  const resolvedPlaceholder = placeholder ?? (required ? undefined : 'Optional')
+  const resolvedPlaceholder = placeholder ?? (required ? undefined : translateMessage('ui.optional_00a972f2'))
 
   const registerProps = register(name, {
     deps,

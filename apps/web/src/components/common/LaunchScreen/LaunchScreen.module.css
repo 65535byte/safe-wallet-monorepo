@@ -38,13 +38,6 @@
   }
 }
 
-/* Dark-mode logo: mask the SVG and fill with the theme primary (green in dark mode), mirroring SafeLogo. */
-.logoDarkFill {
-  background-color: var(--primary);
-  mask: url(/images/logo-no-text.svg) center / contain no-repeat;
-  -webkit-mask: url(/images/logo-no-text.svg) center / contain no-repeat;
-}
-
 /* Smooth the eased progress steps. */
 .bar {
   transition: width 0.4s ease;

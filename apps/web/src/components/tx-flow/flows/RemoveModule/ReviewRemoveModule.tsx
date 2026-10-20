@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useCallback, useContext, useEffect, type PropsWithChildren } from 'react'
 import { trackEvent, SETTINGS_EVENTS } from '@/services/analytics'
@@ -25,14 +26,11 @@ export const ReviewRemoveModule = ({
 
   return (
     <ReviewTransaction onSubmit={onFormSubmit}>
-      <Typography className="text-[var(--color-primary-light)]">Module</Typography>
+      <Typography className="text-[var(--color-primary-light)]">{translateMessage('ui.module_46c34f61')}</Typography>
 
       <EthHashInfo address={params.address} showCopyButton hasExplorer shortAddress={false} />
 
-      <Typography className="my-4">
-        After removing this module, any feature or app that uses this module might no longer work. If this Safe account
-        requires more than one signature, the module removal will have to be confirmed by other signers as well.
-      </Typography>
+      <Typography className="my-4">{translateMessage('ui.afterRemovingThisModuleAnyFeature_f6bfc718')}</Typography>
 
       {children}
     </ReviewTransaction>

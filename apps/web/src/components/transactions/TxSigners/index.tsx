@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails, Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { type ReactElement } from 'react'
 import { Copy } from 'lucide-react'
@@ -34,10 +35,10 @@ import { useWeb3ReadOnly } from '@/hooks/wallets/web3ReadOnly'
 import useAsync from '@safe-global/utils/hooks/useAsync'
 
 const WAITING_STATUSES = new Set([
-  'Awaiting confirmations',
-  'Awaiting execution',
-  'Needs your confirmation',
-  'Awaiting review',
+  translateMessage('ui.awaitingConfirmations_8f51482e'),
+  translateMessage('ui.awaitingExecution_028707aa'),
+  translateMessage('ui.needsYourConfirmation_120ee18e'),
+  translateMessage('ui.awaitingReview_8fc63464'),
 ])
 const shortenAuditStatus = (status: string): string => (WAITING_STATUSES.has(status) ? 'Waiting' : status)
 
@@ -65,14 +66,14 @@ const CopyTxHashButton = ({ txHash }: { txHash?: string | null }) => {
                 size="icon-xs"
                 className="text-inherit"
                 disabled
-                aria-label="Copy transaction hash"
+                aria-label={translateMessage('ui.copyTransactionHash_4345c3df')}
               >
                 <HashIcon className="size-4" />
               </Button>
             </span>
           }
         />
-        <TooltipContent side="top">Available after execution</TooltipContent>
+        <TooltipContent side="top">{translateMessage('ui.availableAfterExecution_a3ad2a73')}</TooltipContent>
       </Tooltip>
     )
   }
@@ -89,13 +90,15 @@ const CopyTxHashButton = ({ txHash }: { txHash?: string | null }) => {
             onClick={handleCopy}
             // MUI's Tooltip put its `title` on the child as an aria-label; Base UI's wires no ARIA at
             // all, so an icon-only trigger needs its own name or it announces as just "button".
-            aria-label="Copy transaction hash"
+            aria-label={translateMessage('ui.copyTransactionHash_4345c3df')}
           >
             <HashIcon className="size-4" />
           </Button>
         }
       />
-      <TooltipContent side="top">{copied ? 'Copied' : 'Copy transaction hash'}</TooltipContent>
+      <TooltipContent side="top">
+        {copied ? translateMessage('ui.copied_6ec3e1e2') : translateMessage('ui.copyTransactionHash_4345c3df')}
+      </TooltipContent>
     </Tooltip>
   )
 }
@@ -120,7 +123,7 @@ const TxAuditLogActions = ({
         variant="ghost"
         size="icon-xs"
         className="text-inherit"
-        aria-label="Copy transaction link"
+        aria-label={translateMessage('ui.copyTransactionLink_ad3fc406')}
       >
         <Copy className="size-4" />
       </Button>
@@ -132,13 +135,18 @@ const TxAuditLogActions = ({
         <TooltipTrigger
           render={
             <span tabIndex={0}>
-              <Button variant="ghost" size="icon-xs" disabled aria-label="View on block explorer">
+              <Button
+                variant="ghost"
+                size="icon-xs"
+                disabled
+                aria-label={translateMessage('ui.viewOnBlockExplorer_4378f4ce')}
+              >
                 <ExplorerFallbackIcon className="size-4" />
               </Button>
             </span>
           }
         />
-        <TooltipContent side="top">Available after execution</TooltipContent>
+        <TooltipContent side="top">{translateMessage('ui.availableAfterExecution_a3ad2a73')}</TooltipContent>
       </Tooltip>
     )}
   </>
@@ -198,7 +206,7 @@ const TxSigners = ({
           actions={<TxAuditLogActions txId={txId} txHash={txDetails.txHash} explorerLink={explorerLink} />}
         />
         <AuditRow
-          label="Executed"
+          label={translateMessage('ui.executed_5762f231')}
           actionType="executed"
           address={onChainFrom}
           name={resolveName(onChainFrom)}
@@ -222,7 +230,7 @@ const TxSigners = ({
         />
 
         <AuditRow
-          label="Created"
+          label={translateMessage('ui.created_d8278ec8')}
           actionType="created"
           address={onChainFrom}
           name={resolveName(onChainFrom)}
@@ -230,7 +238,7 @@ const TxSigners = ({
         />
 
         <AuditRow
-          label="Executed"
+          label={translateMessage('ui.executed_5762f231')}
           actionType="executed"
           address={moduleAddress}
           name={resolveName(moduleAddress, moduleName)}
@@ -252,14 +260,15 @@ const TxSigners = ({
 
   const isCancellation = isCancellationTxInfo(txInfo)
 
-  const creationLabel = isTxFromProposer ? 'Proposed' : 'Created'
-  const signingLabel = (idx: number) => `Signed (${idx + 1}/${confirmationsRequired})`
+  const creationLabel = isTxFromProposer ? 'Proposed' : translateMessage('ui.created_d8278ec8')
+  const signingLabel = (idx: number) =>
+    translateMessage('ui.signed_1a0692d9', { p0: idx + 1, p1: confirmationsRequired })
 
   const executionStatus = executor
-    ? 'Executed'
+    ? translateMessage('ui.executed_5762f231')
     : isPending
       ? txStatus
-      : shortenAuditStatus(isTxFromProposer && !isConfirmed ? 'Awaiting review' : txStatus)
+      : shortenAuditStatus(isTxFromProposer && !isConfirmed ? translateMessage('ui.awaitingReview_8fc63464') : txStatus)
 
   const showExecutionRow = isConfirmed || !!executor || txDetails.txStatus !== 'AWAITING_CONFIRMATIONS'
 
@@ -322,8 +331,8 @@ const TxSigners = ({
           <AlertSeverityIcon variant="info" />
           <AlertDescription>
             {isCancellation
-              ? 'Cancellation can be executed once the required approvals are collected.'
-              : 'Can be executed once the threshold is reached.'}
+              ? translateMessage('ui.cancellationCanBeExecutedOnceThe_46afc983')
+              : translateMessage('ui.canBeExecutedOnceTheThreshold_8e028187')}
           </AlertDescription>
         </Alert>
       )}
@@ -333,8 +342,8 @@ const TxSigners = ({
           <AlertSeverityIcon variant="info" />
           <AlertDescription>
             {isCancellation
-              ? 'This on-chain rejection was initiated by a proposer. Please review and approve or dismiss it.'
-              : 'This transaction was created by a proposer. Please review and either confirm or reject it.'}
+              ? translateMessage('ui.thisOnChainRejectionWasInitiated_b9216014')
+              : translateMessage('ui.thisTransactionWasCreatedByA_c313bfec')}
           </AlertDescription>
         </Alert>
       )}
@@ -342,7 +351,7 @@ const TxSigners = ({
       {isExpired && !executor && (
         <Alert variant="warning" outlined={false} className="mt-4">
           <AlertSeverityIcon variant="warning" />
-          <AlertDescription>This order has expired. Reject this transaction and try again.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.thisOrderHasExpiredRejectThis_d32ba91f')}</AlertDescription>
         </Alert>
       )}
     </AuditLog>

@@ -63,9 +63,9 @@ describe('SpacePlansPage (/spaces/plans)', () => {
   })
 
   it.each([
-    { name: 'both Safe Pro flags are off', isAnnounced: false, isSafePro: false, isOn: false },
-    { name: 'Safe Pro is only announced', isAnnounced: true, isSafePro: false, isOn: true },
-    { name: 'Safe Pro is only live', isAnnounced: false, isSafePro: true, isOn: true },
+    { name: 'both 8379 flags are off', isAnnounced: false, isSafePro: false, isOn: false },
+    { name: '8379 is only announced', isAnnounced: true, isSafePro: false, isOn: true },
+    { name: '8379 is only live', isAnnounced: false, isSafePro: true, isOn: true },
     {
       name: 'the chain config is still loading',
       isAnnounced: false,

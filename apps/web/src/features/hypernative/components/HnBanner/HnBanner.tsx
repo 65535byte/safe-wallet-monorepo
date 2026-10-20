@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import PromoBanner from '@/components/common/PromoBanner/PromoBanner'
 import { ArrowRight as ArrowForwardIcon } from 'lucide-react'
 import type { WithHnSignupFlowProps } from '../withHnSignupFlow'
@@ -26,16 +27,16 @@ export const HnBanner = ({ onHnSignupClick, onDismiss, label }: HnBannerProps) =
         action: HYPERNATIVE_EVENTS.GUARDIAN_BANNER_DISMISSED.action,
         label,
       }}
-      title="Enforce enterprise-grade security"
+      title={translateMessage('ui.enforceEnterpriseGradeSecurity_47eda011')}
       description={
         <>
-          Automatically monitor and block risky transactions using advanced, user-defined security policies, powered by{' '}
+          {translateMessage('ui.automaticallyMonitorAndBlockRiskyTransactions_6d0dc5ec')}{' '}
           <span style={{ color: '#00B460', fontWeight: 'bold' }}>Hypernative</span>.
         </>
       }
-      ctaLabel="Learn more"
+      ctaLabel={translateMessage('ui.learnMore_0c11daba')}
       imageSrc="/images/hypernative/guardian-badge.svg"
-      imageAlt="Guardian badge"
+      imageAlt={translateMessage('ui.guardianBadge_ddb92c27')}
       onBannerClick={onHnSignupClick}
       ctaVariant="text"
       onDismiss={onDismiss}

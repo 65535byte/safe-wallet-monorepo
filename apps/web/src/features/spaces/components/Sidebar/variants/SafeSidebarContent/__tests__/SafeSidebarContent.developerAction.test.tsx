@@ -132,7 +132,7 @@ describe('SafeSidebarContent Developer action (real NavItem)', () => {
     const item = screen.getByTestId('sidebar-feature-flags-item')
     expect(item.tagName).toBe('BUTTON')
     expect(item).not.toHaveAttribute('href')
-    expect(item).toHaveTextContent('Feature flags')
+    expect(item).toHaveTextContent('功能开关')
   })
 
   it('opens the editor dialog on click without routing anywhere', () => {
@@ -145,7 +145,7 @@ describe('SafeSidebarContent Developer action (real NavItem)', () => {
     expect(screen.getByTestId('feature-flag-editor-dialog')).toBeInTheDocument()
     expect(mockPush).not.toHaveBeenCalled()
     // Proves the click ran through the real NavItem handler rather than a bare onSelect prop.
-    expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: 'Feature flags' })
+    expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: '功能开关' })
   })
 
   it('keeps regular nav items as links so the action item is genuinely the odd one out', () => {

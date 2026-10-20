@@ -79,7 +79,7 @@ describe('SafeCardReadOnly', () => {
 
     render(<SafeCardReadOnly safe={safe} />)
 
-    const copyButton = screen.getByRole('button', { name: 'Copy address' })
+    const copyButton = screen.getByRole('button', { name: '复制地址' })
     expect(copyButton).toBeInTheDocument()
 
     fireEvent.click(copyButton)

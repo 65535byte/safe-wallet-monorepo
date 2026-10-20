@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   Accordion,
   AccordionItem,
@@ -57,22 +58,22 @@ const HintAccordion = ({
   )
 }
 
-const ConnectionTitle = 'How do I connect to a dApp?'
+const ConnectionTitle = translateMessage('ui.howDoIConnectToA_d740be5c')
 const ConnectionSteps = [
-  'Open a WalletConnect supported dApp',
-  'Connect a wallet',
-  'Select WalletConnect as the wallet',
-  'Copy the pairing code and paste it into the input field above',
-  'Approve the session',
-  'dApp is now connected to the Safe',
+  translateMessage('ui.openAWalletConnectSupportedDApp_05d56cca'),
+  translateMessage('ui.connectAWallet_c6475877'),
+  translateMessage('ui.selectWalletConnectAsTheWallet_30980432'),
+  translateMessage('ui.copyThePairingCodeAndPaste_fbad96f2'),
+  translateMessage('ui.approveTheSession_d7751a2a'),
+  translateMessage('ui.dAppIsNowConnectedToThe_a478dab3'),
 ]
 
-const InteractionTitle = 'How do I interact with a dApp?'
+const InteractionTitle = translateMessage('ui.howDoIInteractWithA_2d0c2c79')
 const InteractionSteps = [
-  'Connect a dApp by following the above steps',
-  'Ensure the dApp is connected to the same chain as your Safe account',
-  'Initiate a transaction/signature request via the dApp',
-  'Transact/sign as normal via the Safe',
+  translateMessage('ui.connectADAppByFollowingThe_640574b2'),
+  translateMessage('ui.ensureTheDAppIsConnectedTo_9ac6070c'),
+  translateMessage('ui.initiateATransactionSignatureRequestVia_862ce3b0'),
+  translateMessage('ui.transactSignAsNormalViaThe_5889f9b3'),
 ]
 
 const WcHints = (): ReactElement => {

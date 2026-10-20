@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useMemo } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Badge } from '@safe-global/views/components/ui/badge'
@@ -14,6 +15,8 @@ import {
   useAddressBookRequestsRejectRequestV1Mutation,
 } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useCurrentSpaceId, useGetSpaceAddressBook, useIsAdmin } from '@/features/spaces'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { showNotification } from '@/store/notificationsSlice'
 import { useAppDispatch } from '@/store'
 import useChains from '@/hooks/useChains'
@@ -29,7 +32,9 @@ type PendingRequestsTableProps = {
 
 const getApproveErrorMessage = (error: unknown): string => {
   const err = error as { data?: { message?: string } }
-  return typeof err?.data?.message === 'string' ? err.data.message : 'Failed to approve request'
+  return typeof err?.data?.message === 'string'
+    ? err.data.message
+    : translateMessage('ui.failedToApproveRequest_fd6c5f6d')
 }
 
 function RequestedBy({ requestedBy }: { requestedBy: string }) {
@@ -99,15 +104,22 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
         )
         return
       }
+      trackEvent(SPACE_EVENTS.ADDRESS_REQUEST_APPROVED)
       dispatch(
         showNotification({
-          message: 'Contact added to Workspace address book',
+          message: translateMessage('ui.contactAddedToWorkspaceAddressBook_d80ca85c'),
           variant: 'success',
           groupKey: 'approve-success',
         }),
       )
     } catch {
-      dispatch(showNotification({ message: 'Something went wrong', variant: 'error', groupKey: 'approve-error' }))
+      dispatch(
+        showNotification({
+          message: translateMessage('ui.somethingWentWrong_b021881e'),
+          variant: 'error',
+          groupKey: 'approve-error',
+        }),
+      )
     } finally {
       setLoadingId(null)
     }
@@ -119,12 +131,31 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
     try {
       const result = await rejectRequest({ spaceId: spaceId ?? '', requestId })
       if (result.error) {
-        dispatch(showNotification({ message: 'Failed to reject request', variant: 'error', groupKey: 'reject-error' }))
+        dispatch(
+          showNotification({
+            message: translateMessage('ui.failedToRejectRequest_653c07ba'),
+            variant: 'error',
+            groupKey: 'reject-error',
+          }),
+        )
         return
       }
-      dispatch(showNotification({ message: 'Request rejected', variant: 'success', groupKey: 'reject-success' }))
+      trackEvent(SPACE_EVENTS.ADDRESS_REQUEST_REJECTED)
+      dispatch(
+        showNotification({
+          message: translateMessage('ui.requestRejected_36e714f1'),
+          variant: 'success',
+          groupKey: 'reject-success',
+        }),
+      )
     } catch {
-      dispatch(showNotification({ message: 'Something went wrong', variant: 'error', groupKey: 'reject-error' }))
+      dispatch(
+        showNotification({
+          message: translateMessage('ui.somethingWentWrong_b021881e'),
+          variant: 'error',
+          groupKey: 'reject-error',
+        }),
+      )
     } finally {
       setLoadingId(null)
     }
@@ -136,7 +167,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
       <NetworkLogosTooltip
         networks={req.chainIds.map((chainId) => ({ chainId }))}
         maxVisible={3}
-        trigger={<Badge variant="secondary">All</Badge>}
+        trigger={<Badge variant="secondary">{translateMessage('ui.all_bafb97cd')}</Badge>}
       />
     ) : (
       <NetworkLogosPill networks={req.chainIds.map((chainId) => ({ chainId }))} />
@@ -145,7 +176,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
   const columns: DataTableColumn<AddressBookRequestItemDto>[] = [
     {
       id: 'name',
-      header: 'Name',
+      header: translateMessage('ui.name_84f28b85'),
       width: '15%',
       sticky: true,
       minWidth: 120,
@@ -158,8 +189,12 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
             <span className={cn('min-w-0', !isCompact && 'truncate')}>{req.name}</span>
             {spaceAddresses.has(req.address.toLowerCase()) && (
               <Tooltip>
-                <TooltipTrigger render={<Badge variant="outline">Already in Workspace</Badge>} />
-                <TooltipContent>Approving replaces the existing Workspace entry for this address.</TooltipContent>
+                <TooltipTrigger
+                  render={<Badge variant="outline">{translateMessage('ui.alreadyInWorkspace_732d8652')}</Badge>}
+                />
+                <TooltipContent>
+                  {translateMessage('ui.approvingReplacesTheExistingWorkspaceEntry_97efefbf')}
+                </TooltipContent>
               </Tooltip>
             )}
           </span>
@@ -169,7 +204,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
     },
     {
       id: 'address',
-      header: 'Address',
+      header: translateMessage('ui.address_ad6c5986'),
       width: '30%',
       minWidth: 240,
       priority: 'secondary',
@@ -177,7 +212,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
     },
     {
       id: 'chains',
-      header: 'Chains',
+      header: translateMessage('ui.chains_a433a021'),
       width: '15%',
       priority: 'secondary',
       minWidth: 90,
@@ -185,7 +220,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
     },
     {
       id: 'requestedBy',
-      header: 'Requested by',
+      header: translateMessage('ui.requestedBy_64c20cf6'),
       width: '30%',
       priority: 'secondary',
       minWidth: 140,
@@ -214,7 +249,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
                       <Check className="size-4" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Accept</TooltipContent>
+                  <TooltipContent>{translateMessage('ui.accept_b264ffc7')}</TooltipContent>
                 </Tooltip>
                 <Tooltip>
                   <TooltipTrigger render={<span className="inline-flex" />}>
@@ -227,13 +262,13 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
                       <X className="size-4" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>Decline</TooltipContent>
+                  <TooltipContent>{translateMessage('ui.decline_c2bad7cb')}</TooltipContent>
                 </Tooltip>
               </>
             )}
           </span>
         ) : (
-          <Badge variant="secondary">Pending</Badge>
+          <Badge variant="secondary">{translateMessage('ui.pending_c096ae70')}</Badge>
         ),
     },
   ]
@@ -242,7 +277,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
   const renderRowDetail = (req: AddressBookRequestItemDto) => (
     <div className="flex flex-col gap-2 text-sm">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-muted-foreground w-24 shrink-0">Chains</span>
+        <span className="text-muted-foreground w-24 shrink-0">{translateMessage('ui.chains_a433a021')}</span>
         <div className="flex flex-wrap gap-1">
           {req.chainIds.map((chainId) => (
             <ChainIndicator key={chainId} chainId={chainId} />
@@ -251,7 +286,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
       </div>
       {req.requestedBy && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-muted-foreground w-24 shrink-0">Requested by</span>
+          <span className="text-muted-foreground w-24 shrink-0">{translateMessage('ui.requestedBy_64c20cf6')}</span>
           <RequestedBy requestedBy={req.requestedBy} />
         </div>
       )}
@@ -259,7 +294,7 @@ function PendingRequestsTable({ requests }: PendingRequestsTableProps) {
   )
 
   if (requests.length === 0) {
-    return <p className="text-muted-foreground p-4 text-sm">No pending requests.</p>
+    return <p className="text-muted-foreground p-4 text-sm">{translateMessage('ui.noPendingRequests_1cc4d8ac')}</p>
   }
 
   return (

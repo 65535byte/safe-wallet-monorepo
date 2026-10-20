@@ -102,12 +102,12 @@ describe('LocalContactActions', () => {
     render(<LocalContactActions entry={localEntry} />)
 
     await userEvent.click(screen.getAllByRole('button')[1])
-    await userEvent.click(screen.getByRole('button', { name: 'Delete' }))
+    await userEvent.click(screen.getByRole('button', { name: '删除' }))
 
     expect(mockRemoveAddressBookEntry).toHaveBeenCalledWith({ chainId: '1', address: localEntry.address })
     expect(mockRemoveAddressBookEntry).toHaveBeenCalledWith({ chainId: '137', address: localEntry.address })
     expect(mockShowNotification).toHaveBeenCalledWith({
-      message: 'Contact removed',
+      message: '联系人已移除',
       variant: 'success',
       groupKey: 'remove-local-contact-success',
     })

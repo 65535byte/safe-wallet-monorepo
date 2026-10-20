@@ -152,7 +152,7 @@ describe('SecuritySafesTable', () => {
 
   it('renders a copy-address button on the safe row', () => {
     renderTable()
-    expect(screen.getByRole('button', { name: 'Copy address' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '复制地址' })).toBeInTheDocument()
   })
 
   it('copying the address does not trigger the row click', () => {
@@ -161,7 +161,7 @@ describe('SecuritySafesTable', () => {
     const onViewReport = jest.fn()
     renderTable({ onViewReport })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Copy address' }))
+    fireEvent.click(screen.getByRole('button', { name: '复制地址' }))
 
     expect(writeText).toHaveBeenCalledWith(singleSafe.address)
     expect(onViewReport).not.toHaveBeenCalled()
@@ -183,7 +183,7 @@ describe('SecuritySafesTable', () => {
     renderTable({ safes: [undeployed], onViewReport, scanResults: {} })
     fireEvent.click(screen.getByText('My Vault').closest('[data-testid="security-safe-row"]')!)
     expect(onViewReport).not.toHaveBeenCalled()
-    expect(screen.getByText('Not deployed')).toBeInTheDocument()
+    expect(screen.getByText('未部署')).toBeInTheDocument()
   })
 
   it('shows a dash when no scan results are available', () => {
@@ -225,14 +225,14 @@ describe('SecuritySafesTable', () => {
     renderTable({ scanResults })
     // 1 issue + 2 partial = 3 non-passing; chip color is at_risk (issue → at_risk), text leads
     // with the grade word so the column matches the panel header and sidebar group chips.
-    expect(screen.getByText('At risk · 3 issues found')).toBeInTheDocument()
+    expect(screen.getByText('发现 At risk · 3 个问题')).toBeInTheDocument()
   })
 
   it('renders just "Healthy" with no count when every check passes', () => {
     // Default scan results in renderTable are all clear → grade=passing → chip is the bare "Healthy" label.
     renderTable()
-    expect(screen.getByText('Healthy')).toBeInTheDocument()
-    expect(screen.queryByText(/0 issues found/i)).not.toBeInTheDocument()
+    expect(screen.getByText('安全状况良好')).toBeInTheDocument()
+    expect(screen.queryByText(/发现 0 个问题/i)).not.toBeInTheDocument()
   })
 
   describe('contract update available', () => {
@@ -244,8 +244,8 @@ describe('SecuritySafesTable', () => {
           contract_version: upgradeAvailable,
         }),
       })
-      expect(screen.getByText('Healthy')).toBeInTheDocument()
-      const link = screen.getByRole('link', { name: 'Update contracts' })
+      expect(screen.getByText('安全状况良好')).toBeInTheDocument()
+      const link = screen.getByRole('link', { name: '更新合约' })
       expect(link).toHaveAttribute('href', expect.stringContaining(AppRoutes.settings.setup))
       expect(link).toHaveAttribute('href', expect.stringContaining(encodeURIComponent(`eth:${singleSafe.address}`)))
     })
@@ -256,8 +256,8 @@ describe('SecuritySafesTable', () => {
           contract_version: upgradeAvailable,
         }),
       })
-      const link = screen.getByRole('link', { name: 'Update contracts' })
-      expect(screen.getByLabelText('Healthy').parentElement).not.toContainElement(link)
+      const link = screen.getByRole('link', { name: '更新合约' })
+      expect(screen.getByLabelText('安全状况良好').parentElement).not.toContainElement(link)
 
       const row = screen.getByText('My Vault').closest('[data-testid="security-safe-row"]')!
       const header = container.querySelector('.min-w-\\[960px\\]')!.firstElementChild!
@@ -272,7 +272,7 @@ describe('SecuritySafesTable', () => {
           contract_version: upgradeAvailable,
         }),
       })
-      fireEvent.click(screen.getByRole('link', { name: 'Update contracts' }))
+      fireEvent.click(screen.getByRole('link', { name: '更新合约' }))
       expect(onViewReport).not.toHaveBeenCalled()
     })
 
@@ -282,13 +282,13 @@ describe('SecuritySafesTable', () => {
           contract_version: { ...mkResult('partial'), severity: 'Medium', upgradeAvailable: true },
         }),
       })
-      expect(screen.getByText('Needs review · 1 issue found')).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: 'Update contracts' })).toBeInTheDocument()
+      expect(screen.getByText('发现 Needs review · 1 个问题')).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: '更新合约' })).toBeInTheDocument()
     })
 
     it('shows no Update link when the contract version is current', () => {
       renderTable()
-      expect(screen.queryByRole('link', { name: 'Update contracts' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: '更新合约' })).not.toBeInTheDocument()
     })
 
     it('links each network that needs an update, not the collapsed multichain row', () => {
@@ -301,10 +301,10 @@ describe('SecuritySafesTable', () => {
         scanResults: buildScanResults(chains, { contract_version: upgradeAvailable }),
       })
 
-      expect(screen.queryByRole('link', { name: 'Update contracts' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: '更新合约' })).not.toBeInTheDocument()
 
       fireEvent.click(screen.getAllByText('Multi Safe')[0].closest('[data-testid="security-safe-row"]')!)
-      const links = screen.getAllByRole('link', { name: 'Update contracts' })
+      const links = screen.getAllByRole('link', { name: '更新合约' })
       expect(links).toHaveLength(2)
       expect(screen.getByTestId('chain-1').closest('[data-testid="security-safe-row"]')).toContainElement(links[0])
       expect(links[0]).toHaveAttribute('href', expect.stringContaining(encodeURIComponent(`eth:${multiSafe.address}`)))
@@ -323,7 +323,7 @@ describe('SecuritySafesTable', () => {
       renderTable({ safes: [multiSafe], scanResults })
 
       fireEvent.click(screen.getAllByText('Multi Safe')[0].closest('[data-testid="security-safe-row"]')!)
-      const links = screen.getAllByRole('link', { name: 'Update contracts' })
+      const links = screen.getAllByRole('link', { name: '更新合约' })
       expect(links).toHaveLength(1)
       expect(screen.getByTestId('chain-137').closest('[data-testid="security-safe-row"]')).toContainElement(links[0])
     })
@@ -366,7 +366,7 @@ describe('SecuritySafesTable', () => {
         { multichain_setup: { status: 'partial', severity: 'Medium' } as ScanResult },
       )
       renderTable({ safes: [multiSafe], scanResults: warnResults })
-      expect(screen.getByLabelText('Signer setup differs across networks')).toBeInTheDocument()
+      expect(screen.getByLabelText('不同网络的签名人配置不一致')).toBeInTheDocument()
     })
   })
 

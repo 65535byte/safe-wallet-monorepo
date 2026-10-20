@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import StatusStepper from './StatusStepper'
 import classnames from 'classnames'
 import NextLink from 'next/link'
@@ -131,7 +132,7 @@ const SuccessScreenContent = ({ txId, txHash }: ContentProps) => {
       <div className={classnames(css.row, css.buttons)}>
         {isSwapOrder && (
           <Button data-testid="finish-transaction-btn" variant="outline" size="sm" onClick={onClose}>
-            Back to swaps
+            {translateMessage('ui.backToSwaps_fc47e114')}
           </Button>
         )}
 
@@ -143,7 +144,7 @@ const SuccessScreenContent = ({ txId, txHash }: ContentProps) => {
             onClick={onClose}
             render={<NextLink {...txLink} target="_blank" rel="noreferrer" />}
           >
-            View transaction
+            {translateMessage('ui.viewTransaction_d98c2994')}
           </Button>
         )}
 
@@ -165,12 +166,12 @@ const SuccessScreenContent = ({ txId, txHash }: ContentProps) => {
                   />
                 }
               >
-                Go to Nested Safe
+                {translateMessage('ui.goToNested_533e02f3')}
               </Button>
             </Track>
           ) : (
             <Button data-testid="finish-transaction-btn" variant="default" size="sm" onClick={onClose}>
-              Finish
+              {translateMessage('ui.finish_4b3e7db2')}
             </Button>
           ))}
       </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Button } from '@safe-global/views/components/ui/button'
 
@@ -43,7 +44,7 @@ const RejectTxButton = ({
             disabled={!isOk || isDisabled}
             size="action"
           >
-            Reject
+            {translateMessage('ui.reject_39589b77')}
           </Button>
         </Track>
       )}

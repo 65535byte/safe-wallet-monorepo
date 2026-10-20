@@ -1,7 +1,8 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { type GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useIsAdmin, useIsActiveMember, useIsLastActiveAdmin, useSpaceDeletionGuard } from '@/features/spaces'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS, SPACE_LABELS } from '@/services/analytics/events/spaces'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -21,21 +22,22 @@ const DangerZoneSection = ({ space }: { space: GetSpaceResponse | undefined }) =
   const { isDeletionBlocked, blockedReason } = useSpaceDeletionGuard(isAdmin ? (space?.uuid ?? null) : null)
 
   const deleteButton = (
-    <Track {...SPACE_EVENTS.DELETE_SPACE_MODAL} label={SPACE_LABELS.space_settings}>
-      <Button
-        variant="destructive"
-        data-testid="space-delete-button"
-        disabled={isDeletionBlocked}
-        onClick={() => setDeleteOpen(true)}
-      >
-        Delete Workspace
-      </Button>
-    </Track>
+    <Button
+      variant="destructive"
+      data-testid="space-delete-button"
+      disabled={isDeletionBlocked}
+      onClick={() => {
+        setDeleteOpen(true)
+        trackEvent({ ...SPACE_EVENTS.DELETE_SPACE_MODAL, label: SPACE_LABELS.space_settings })
+      }}
+    >
+      {translateMessage('ui.deleteWorkspace_ba8eed2c')}
+    </Button>
   )
 
   return (
     <SpaceSettingsSection>
-      <SpaceSettingsSectionTitle>Manage Workspace</SpaceSettingsSectionTitle>
+      <SpaceSettingsSectionTitle>{translateMessage('ui.manageWorkspace_42192bf0')}</SpaceSettingsSectionTitle>
 
       <div
         className={cn('flex items-center justify-start gap-6 py-4 first:pt-0', isAdmin && 'border-b border-border/60')}
@@ -46,24 +48,25 @@ const DangerZoneSection = ({ space }: { space: GetSpaceResponse | undefined }) =
               render={
                 <span tabIndex={0}>
                   <Button variant="destructive" data-testid="space-leave-button" disabled>
-                    Leave Workspace
+                    {translateMessage('ui.leaveWorkspace_ede3940a')}
                   </Button>
                 </span>
               }
             />
-            <TooltipContent side="top">You are the last active admin and cannot leave the Workspace.</TooltipContent>
+            <TooltipContent side="top">{translateMessage('ui.youAreTheLastActiveAdmin_b94deca9')}</TooltipContent>
           </Tooltip>
         ) : (
-          <Track {...SPACE_EVENTS.LEAVE_SPACE_MODAL} label={SPACE_LABELS.space_settings}>
-            <Button
-              variant="destructive"
-              data-testid="space-leave-button"
-              disabled={!isActiveMember}
-              onClick={() => setLeaveOpen(true)}
-            >
-              Leave Workspace
-            </Button>
-          </Track>
+          <Button
+            variant="destructive"
+            data-testid="space-leave-button"
+            disabled={!isActiveMember}
+            onClick={() => {
+              setLeaveOpen(true)
+              trackEvent({ ...SPACE_EVENTS.LEAVE_SPACE_MODAL, label: SPACE_LABELS.space_settings })
+            }}
+          >
+            {translateMessage('ui.leaveWorkspace_ede3940a')}
+          </Button>
         )}
       </div>
 

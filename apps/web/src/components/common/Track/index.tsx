@@ -9,7 +9,7 @@ type Props = {
   category: string
   action: string
   label?: EventLabel
-  mixpanelParams?: Record<string, unknown>
+  mixpanelParams?: Record<string, any>
 }
 
 const shouldTrack = (el: HTMLDivElement) => {
@@ -45,7 +45,7 @@ const Track = ({ children, as: Wrapper = 'span', className, mixpanelParams, ...t
   }
 
   return (
-    <Wrapper data-track={`${trackData.category}: ${trackData.action}`} ref={el} className={className ?? 'contents'}>
+    <Wrapper data-track={`${trackData.category}: ${trackData.action}`} ref={el} className={className}>
       {children}
     </Wrapper>
   )

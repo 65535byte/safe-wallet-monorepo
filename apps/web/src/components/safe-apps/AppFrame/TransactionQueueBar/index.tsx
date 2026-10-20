@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { QueuedItemPage } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { Dispatch, ReactElement, SetStateAction } from 'react'
 import { X } from 'lucide-react'
@@ -40,7 +41,7 @@ const TransactionQueueBar = ({
 
   // if you inline the expression, it will split put the `queuedTxCount` on a new line
   // and make it harder to find this text for matchers in tests
-  const barTitle = `(${queuedTxCount}) Transaction queue`
+  const barTitle = translateMessage('ui.transactionQueue_051833bd', { p0: queuedTxCount })
   return (
     <>
       <div className={styles.barWrapper}>
@@ -53,7 +54,7 @@ const TransactionQueueBar = ({
             {/* items-center: the trigger's base is items-start, which top-aligns the title and the
                 chevron inside this fixed-height bar instead of centring them on it. */}
             <AccordionTrigger
-              aria-label="expand transaction queue bar"
+              aria-label={translateMessage('ui.expandTransactionQueueBar_aedd4fb3')}
               className="items-center pl-4 pr-12 **:data-[slot=accordion-trigger-icon]:rotate-180"
               style={{ height: TRANSACTION_BAR_HEIGHT }}
             >
@@ -69,7 +70,7 @@ const TransactionQueueBar = ({
               variant="ghost"
               size="icon-sm"
               onClick={onDismiss}
-              aria-label="dismiss transaction queue bar"
+              aria-label={translateMessage('ui.dismissTransactionQueueBar_f2f4c9da')}
               className="absolute right-2 -translate-y-1/2"
               style={{ top: `calc(${TRANSACTION_BAR_HEIGHT} / 2)` }}
             >

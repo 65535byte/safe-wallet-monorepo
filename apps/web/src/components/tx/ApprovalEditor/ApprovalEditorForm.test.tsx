@@ -45,7 +45,7 @@ describe('ApprovalEditorForm', () => {
     expect(approvalItems).toHaveLength(2)
 
     // One edit button for each approval
-    const editButtons = getAllByTitle(result.container, 'Edit')
+    const editButtons = getAllByTitle(result.container, '编辑')
     expect(editButtons).toHaveLength(2)
 
     // First approval value is rendered
@@ -64,7 +64,7 @@ describe('ApprovalEditorForm', () => {
 
       fireEvent.change(amountInput1!, { target: { value: '123' } })
     })
-    let saveButton = result.getByTitle('Save')
+    let saveButton = result.getByTitle('保存')
     await waitFor(() => {
       expect(saveButton).toBeEnabled()
     })
@@ -89,7 +89,7 @@ describe('ApprovalEditorForm', () => {
       fireEvent.change(amountInput2!, { target: { value: '456' } })
     })
 
-    saveButton = result.getByTitle('Save')
+    saveButton = result.getByTitle('保存')
     await waitFor(() => {
       expect(saveButton).toBeEnabled()
     })
@@ -129,14 +129,14 @@ describe('ApprovalEditorForm', () => {
 
     // Change value and save
     const amountInput = result.container.querySelector('input[name="approvals.0"]') as HTMLInputElement
-    const editButton = result.getByTitle('Edit')
+    const editButton = result.getByTitle('编辑')
 
     act(() => {
       fireEvent.click(editButton)
       fireEvent.change(amountInput!, { target: { value: '100' } })
     })
 
-    const saveButton = result.getByTitle('Save')
+    const saveButton = result.getByTitle('保存')
     await waitFor(() => {
       expect(saveButton).toBeEnabled()
     })

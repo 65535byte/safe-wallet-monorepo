@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { LogOut } from 'lucide-react'
@@ -15,6 +16,8 @@ import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/c
 import { AppRoutes } from '@/config/routes'
 import { useAppDispatch } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
+import { trackEvent } from '@/services/analytics'
 
 const LeaveSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undefined; onClose: () => void }) => {
   const [error, setError] = useState<string>()
@@ -31,9 +34,10 @@ const LeaveSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undefi
       await leaveSpace({ spaceId: space.uuid }).unwrap()
       onClose()
 
+      trackEvent({ ...SPACE_EVENTS.LEAVE_SPACE })
       dispatch(
         showNotification({
-          message: `Left Workspace ${space.name}.`,
+          message: translateMessage('ui.leftWorkspace_9678afbc', { p0: space.name }),
           variant: 'success',
           groupKey: 'leave-space-success',
         }),
@@ -42,7 +46,7 @@ const LeaveSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undefi
       router.push({ pathname: AppRoutes.welcome.spaces })
     } catch (e) {
       console.error(e)
-      setError('Error leaving the Workspace. Please try again.')
+      setError(translateMessage('ui.errorLeavingTheWorkspacePleaseTry_0fe593c3'))
     }
   }
 
@@ -53,15 +57,16 @@ const LeaveSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undefi
           <div className="flex items-center justify-center size-10 rounded-full bg-destructive/10 text-destructive shrink-0">
             <LogOut className="size-5" />
           </div>
-          <AlertDialogTitle>Leave Workspace</AlertDialogTitle>
+          <AlertDialogTitle>{translateMessage('ui.leaveWorkspace_ede3940a')}</AlertDialogTitle>
           <AlertDialogDescription>
-            You&apos;ll lose access to <span className="font-semibold text-foreground">{space?.name}</span> immediately.
-            An admin can re-invite you later.
+            {translateMessage('ui.youLlLoseAccessTo_3807e0d1')}
+            <span className="font-semibold text-foreground">{space?.name}</span>{' '}
+            {translateMessage('ui.immediatelyAnAdminCanReInvite_30d2fa2b')}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <Typography variant="paragraph-small" color="muted">
-          Your wallet and any linked Safe accounts are not affected.
+          {translateMessage('ui.yourWalletAndAnyLinkedAccounts_0b97436b')}
         </Typography>
 
         {error && (
@@ -74,7 +79,7 @@ const LeaveSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undefi
         <DialogActions
           onCancel={onClose}
           cancelDisabled={isLoading}
-          confirmLabel="Leave Workspace"
+          confirmLabel={translateMessage('ui.leaveWorkspace_ede3940a')}
           onConfirm={onLeave}
           confirmDisabled={isLoading || !space}
           confirmLoading={isLoading}

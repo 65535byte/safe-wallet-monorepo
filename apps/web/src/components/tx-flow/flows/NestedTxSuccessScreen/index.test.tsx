@@ -48,7 +48,7 @@ describe('NestedTxSuccessScreen', () => {
 
     expect(getByText(/executed this transaction on-chain/i)).toBeInTheDocument()
 
-    const link = getByText('Open the transaction').closest('a')
+    const link = getByText('打开交易').closest('a')
     expect(link).toHaveAttribute('href', `https://etherscan.io/tx/${onChainTxHash}`)
   })
 
@@ -56,9 +56,9 @@ describe('NestedTxSuccessScreen', () => {
     const parentSafeTxHash = zeroPadValue('0x02', 32)
     const { getByText } = renderScreen(false, parentSafeTxHash)
 
-    expect(getByText(/still need to confirm and execute/i)).toBeInTheDocument()
+    expect(getByText(/still need to confirm 和 execute/i)).toBeInTheDocument()
 
-    const link = getByText('Open the transaction').closest('a')
+    const link = getByText('打开交易').closest('a')
     const href = link?.getAttribute('href') ?? ''
     expect(href).toContain('/transactions/tx')
     expect(href).toContain(`id=${encodeURIComponent(parentSafeTxHash)}`)
@@ -81,6 +81,6 @@ describe('NestedTxSuccessScreen', () => {
 
   it('shows an error when there is no nested pending tx', () => {
     const { getByText } = render(<NestedTxSuccessScreen txId="unknown" />, { initialReduxState: { pendingTxs: {} } })
-    expect(getByText('No transaction data found')).toBeInTheDocument()
+    expect(getByText('未找到交易数据')).toBeInTheDocument()
   })
 })

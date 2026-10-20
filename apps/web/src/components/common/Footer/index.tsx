@@ -1,16 +1,16 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
-import { Github } from 'lucide-react'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import css from './styles.module.css'
 import { AppRoutes } from '@/config/routes'
-import { APP_VERSION, APP_HOMEPAGE } from '@/config/version'
+import { APP_VERSION } from '@/config/version'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { Link } from '@safe-global/views/components/ui/link'
 import { useIsOfficialHost } from '@/hooks/useIsOfficialHost'
 import { HELP_CENTER_URL, PRIVACY_URL } from '@safe-global/utils/config/constants'
-import { IS_PRODUCTION, COMMIT_HASH, LEGAL_URL } from '@/config/constants'
+import { LEGAL_URL } from '@/config/constants'
 import type { FooterProps } from '@safe-global/views/components/common/Footer/footer.type'
 
 const footerPages = [
@@ -29,7 +29,6 @@ const FooterLink = ({ children, href }: { children: ReactNode; href: string }): 
 const Footer: React.FC<FooterProps> = ({
   forceShow,
   preferences = true,
-  versionIcon = true,
   helpCenter = true,
   className = css.container,
 }): ReactElement | null => {
@@ -57,26 +56,28 @@ const Footer: React.FC<FooterProps> = ({
             </li>
             <li>
               <ExternalLink href={LEGAL_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-                Legal
+                {translateMessage('ui.legal_d3dfabd4')}
               </ExternalLink>
             </li>
             <li>
               <ExternalLink href={PRIVACY_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-                Privacy
+                {translateMessage('ui.privacy_1014469e')}
               </ExternalLink>
             </li>
             <li>
-              <FooterLink href={getHref(AppRoutes.licenses)}>Licenses</FooterLink>
+              <FooterLink href={getHref(AppRoutes.licenses)}>{translateMessage('ui.licenses_9bd58638')}</FooterLink>
             </li>
             <li>
-              <FooterLink href={getHref(AppRoutes.imprint)}>Imprint</FooterLink>
+              <FooterLink href={getHref(AppRoutes.imprint)}>{translateMessage('ui.imprint_944f9bd5')}</FooterLink>
             </li>
             <li>
-              <FooterLink href={getHref(AppRoutes.cookie)}>Cookie policy</FooterLink>
+              <FooterLink href={getHref(AppRoutes.cookie)}>{translateMessage('ui.cookiePolicy_41bd3779')}</FooterLink>
             </li>
             {preferences && (
               <li>
-                <FooterLink href={getHref(AppRoutes.settings.index)}>Preferences</FooterLink>
+                <FooterLink href={getHref(AppRoutes.settings.index)}>
+                  {translateMessage('ui.preferences_5f1e8b64')}
+                </FooterLink>
               </li>
             )}
             {helpCenter && (
@@ -86,28 +87,18 @@ const Footer: React.FC<FooterProps> = ({
                   noIcon
                   className="[&_span]:underline [&_span]:decoration-primary/40"
                 >
-                  Help
+                  {translateMessage('ui.help_506fc9ad')}
                 </ExternalLink>
               </li>
             )}
           </>
         ) : (
-          <li>This is an unofficial distribution of the app</li>
+          <li>{translateMessage('ui.thisIsAnUnofficialDistributionOf_13934d21')}</li>
         )}
 
         <li>
-          <ExternalLink href={`${APP_HOMEPAGE}/releases/tag/web-v${APP_VERSION}`} noIcon>
-            {versionIcon && <Github className="mr-1 inline size-3" />}v{APP_VERSION}
-          </ExternalLink>
+          <Typography variant="paragraph-mini">v{APP_VERSION}</Typography>
         </li>
-
-        {!IS_PRODUCTION && COMMIT_HASH && (
-          <li>
-            <ExternalLink href={`${APP_HOMEPAGE}/commit/${COMMIT_HASH}`} noIcon>
-              {COMMIT_HASH.slice(0, 7)}
-            </ExternalLink>
-          </li>
-        )}
       </ul>
     </footer>
   )

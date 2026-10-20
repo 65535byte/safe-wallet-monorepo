@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import {
+  BRAND_NAME,
   SUPPORT_CHAT_APP_ID,
   SUPPORT_CHAT_URL,
   SUPPORT_CHAT_ALIAS_DOMAIN,
@@ -43,7 +44,7 @@ export const useSupportChat = () => {
 
     return {
       email,
-      name: 'Safe{Wallet}',
+      name: BRAND_NAME,
       accountId: safeAddress,
     }
   }, [safeAddress])

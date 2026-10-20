@@ -76,7 +76,7 @@ describe('AssetsTable', () => {
       renderAssetsTable({
         balances: balancesFixtures.empty,
       })
-      expect(screen.getByText(/Add funds to get started/i)).toBeInTheDocument()
+      expect(screen.getByText(/添加资金以开始使用/i)).toBeInTheDocument()
     })
 
     it('shows AddFundsCTA when only item has zero balance', () => {
@@ -99,7 +99,7 @@ describe('AssetsTable', () => {
         .build()
 
       renderAssetsTable({ balances: zeroBalance })
-      expect(screen.getByText(/Add funds to get started/i)).toBeInTheDocument()
+      expect(screen.getByText(/添加资金以开始使用/i)).toBeInTheDocument()
     })
   })
 
@@ -125,10 +125,10 @@ describe('AssetsTable', () => {
 
     it('renders table header columns', () => {
       renderAssetsTable({ balances: balancesFixtures.efSafe })
-      expect(screen.getByText('Asset')).toBeInTheDocument()
-      expect(screen.getByText('Price')).toBeInTheDocument()
-      expect(screen.getByText('Balance')).toBeInTheDocument()
-      expect(screen.getByText('Value')).toBeInTheDocument()
+      expect(screen.getByText('资产')).toBeInTheDocument()
+      expect(screen.getByText('价格')).toBeInTheDocument()
+      expect(screen.getByText('余额')).toBeInTheDocument()
+      expect(screen.getByText('价值')).toBeInTheDocument()
     })
 
     it('shows the price and value with two decimals in the list', async () => {

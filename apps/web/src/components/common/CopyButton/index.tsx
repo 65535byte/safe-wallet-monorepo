@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import React, { type ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { Check } from 'lucide-react'
@@ -21,7 +22,7 @@ const CopyButton = ({
   text,
   className,
   children,
-  initialToolTipText = 'Copy to clipboard',
+  initialToolTipText = translateMessage('ui.copyToClipboard_9d47fa1b'),
   onCopy,
   dialogContent,
 }: ButtonProps): ReactElement => {

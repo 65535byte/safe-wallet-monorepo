@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import NextLink from 'next/link'
 import type { LinkProps } from 'next/link'
@@ -13,7 +14,7 @@ const SafeProNoticeModal = ({
   open,
   title,
   body,
-  actionLabel = 'Go to My accounts',
+  actionLabel = translateMessage('ui.goToMyAccounts_c5906669'),
   onAction,
   secondaryActionLabel,
   secondaryActionHref,

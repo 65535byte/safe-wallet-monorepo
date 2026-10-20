@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 
@@ -16,11 +17,11 @@ const AddCustomSafeAppCard = ({ onSave, safeAppList }: Props) => {
       <Card size="none">
         <div className="flex flex-col items-center px-3 py-12">
           {/* Add Custom Safe App Icon */}
-          <AddCustomAppIcon alt="Add Custom Safe App card" />
+          <AddCustomAppIcon alt={translateMessage('ui.addCustomAppCard_f4a21ad9')} />
 
           {/*  Add Custom Safe App Button */}
           <Button size="sm" onClick={() => setAddCustomAppModalOpen(true)} className="mt-6">
-            Add custom Safe App
+            {translateMessage('ui.addCustomApp_89278ec2')}
           </Button>
         </div>
       </Card>

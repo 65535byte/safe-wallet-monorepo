@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import { TxListGrid } from '@/components/transactions/TxList'
 import { TransactionSkeleton } from '@/components/transactions/TxListItem/ExpandableTransactionItem'
@@ -20,7 +21,7 @@ const SingleMsg = () => {
   }
 
   if (messageError) {
-    return <ErrorMessage error={messageError}>Failed to load message</ErrorMessage>
+    return <ErrorMessage error={messageError}>{translateMessage('ui.failedToLoadMessage_73af3d10')}</ErrorMessage>
   }
 
   // Loading skeleton

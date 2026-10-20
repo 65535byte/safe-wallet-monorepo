@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Settings2 } from 'lucide-react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 import AddAccountsChooser from '@/components/common/AddAccountsChooser'
@@ -24,17 +25,16 @@ const AddTrustedSafesCard = ({ onAdd, onLinkClick }: { onAdd: () => void; onLink
         className="flex w-full max-w-[440px] flex-col items-center gap-8 rounded-3xl bg-card px-4 pt-6 pb-4"
       >
         <div className="flex flex-col items-center gap-3">
-          <Typography variant="h4">What are my accounts?</Typography>
+          <Typography variant="h4">{translateMessage('ui.whatAreMyAccounts_d71c19a9')}</Typography>
           <Typography variant="paragraph-small" color="muted" align="center" className="max-w-[336px]">
-            This list protects you from impersonation. Anyone can create a Safe account listing your address as a
-            signer, so only accounts you&apos;ve confirmed appear here.{' '}
+            {translateMessage('ui.thisListProtectsYouFromImpersonation_36134b7e')}{' '}
             <a
               href={HelpCenterArticle.ADDRESS_POISONING}
               target="_blank"
               rel="noreferrer noopener"
               className="text-inherit underline"
             >
-              Learn more
+              {translateMessage('ui.learnMore_0c11daba')}
             </a>
           </Typography>
         </div>
@@ -44,7 +44,7 @@ const AddTrustedSafesCard = ({ onAdd, onLinkClick }: { onAdd: () => void; onLink
 
           <Button onClick={onAdd} className="flex-1" data-testid="add-trusted-safes-button">
             <Settings2 className="size-4" />
-            Manage list
+            {translateMessage('ui.manageList_5be941e5')}
           </Button>
         </div>
       </div>

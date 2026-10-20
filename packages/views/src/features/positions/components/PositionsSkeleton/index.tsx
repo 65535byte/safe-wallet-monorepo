@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import React from 'react'
 import {
   Accordion,
@@ -63,9 +64,21 @@ const PositionsSkeleton = () => {
                 <EnhancedTable
                   rows={skeletonRows}
                   headCells={[
-                    { id: 'name', label: 'Loading...', width: '25%', disableSort: true },
-                    { id: 'balance', label: 'Balance', width: '35%', align: 'right', disableSort: true },
-                    { id: 'value', label: 'Value', width: '40%', align: 'right', disableSort: true },
+                    { id: 'name', label: translateMessage('ui.loading_db0a03bf'), width: '25%', disableSort: true },
+                    {
+                      id: 'balance',
+                      label: translateMessage('ui.balance_413e035a'),
+                      width: '35%',
+                      align: 'right',
+                      disableSort: true,
+                    },
+                    {
+                      id: 'value',
+                      label: translateMessage('ui.value_5f04a161'),
+                      width: '40%',
+                      align: 'right',
+                      disableSort: true,
+                    },
                   ]}
                   compact
                 />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import useSafeInfo from '@/hooks/useSafeInfo'
@@ -27,7 +28,7 @@ export const ContractVersion = () => {
   return (
     <>
       <Typography variant="h4" className="mb-2">
-        Contract version
+        {translateMessage('ui.contractVersion_861d78ca')}
       </Typography>
 
       {/* as="div": the Skeleton renders a div, which is invalid inside the default <p> */}
@@ -37,7 +38,8 @@ export const ContractVersion = () => {
             {safe.version ?? 'Unsupported contract'}
             {isLatestVersion && (
               <>
-                <CircleCheckIcon className="ml-2 mr-1 size-5 text-primary" /> Latest version
+                <CircleCheckIcon className="ml-2 mr-1 size-5 text-primary" />{' '}
+                {translateMessage('ui.latestVersion_83cf0b1b')}
               </>
             )}
           </>
@@ -48,7 +50,7 @@ export const ContractVersion = () => {
 
       {safeLoaded && releaseUrl && (
         <Typography variant="paragraph-small" className="block mt-1">
-          <ExternalLink href={releaseUrl}>View release</ExternalLink>
+          <ExternalLink href={releaseUrl}>{translateMessage('ui.viewRelease_06aa54e8')}</ExternalLink>
         </Typography>
       )}
 

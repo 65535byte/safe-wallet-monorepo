@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useRef, type ReactNode } from 'react'
 import { FormProvider, useForm, useWatch, type Validate } from 'react-hook-form'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
@@ -124,7 +125,7 @@ const ProposerRoleForm = ({
             <div className="flex flex-col gap-1">
               <AddressBookInput
                 name="proposer"
-                label="Proposer"
+                label={translateMessage('ui.proposer_7ebd3069')}
                 required
                 focused={false}
                 validate={validateProposer}
@@ -140,8 +141,8 @@ const ProposerRoleForm = ({
               <NameInput
                 className="gap-1"
                 name="name"
-                label="Proposer name"
-                placeholder="Type name here"
+                label={translateMessage('ui.proposerName_14963a1b')}
+                placeholder={translateMessage('ui.typeNameHere_6287fb9b')}
                 helperText={
                   <Typography variant="paragraph-mini" color="muted">
                     {isAdmin ? PROPOSER_NAME_WORKSPACE_HELPER : PROPOSER_NAME_HELPER}
@@ -161,7 +162,7 @@ const ProposerRoleForm = ({
 
           <TxCardActions>
             <DialogActions
-              confirmLabel="Submit"
+              confirmLabel={translateMessage('ui.submit_3c850bc4')}
               confirmType="submit"
               confirmTestId="submit-proposer-btn"
               confirmLoading={isSubmitting}

@@ -1,5 +1,7 @@
+import { translateMessage } from '@/i18n'
 import NextLink from 'next/link'
-import { HelpCircle, Github, Send, Twitter } from 'lucide-react'
+import { isGithubUrl } from '@safe-global/views/utils/isGithubUrl'
+import { HelpCircle, Send, Twitter } from 'lucide-react'
 import { SafeAppSocialPlatforms } from '@safe-global/store/gateway/types'
 import type { SafeApp as SafeAppData, SafeAppSocialProfile } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 
@@ -16,7 +18,11 @@ type SafeAppSocialLinksCardProps = {
 }
 
 const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
-  const { socialProfiles, developerWebsite } = safeApp
+  const socialProfiles = safeApp.socialProfiles.filter(
+    (profile) => profile.platform !== SafeAppSocialPlatforms.GITHUB && !isGithubUrl(profile.url),
+  )
+  const developerWebsite =
+    safeApp.developerWebsite && !isGithubUrl(safeApp.developerWebsite) ? safeApp.developerWebsite : undefined
 
   const hasSocialLinks = socialProfiles?.length > 0
 
@@ -26,7 +32,6 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
 
   const discordSocialLink = getSocialProfile(socialProfiles, SafeAppSocialPlatforms.DISCORD)
   const twitterSocialLink = getSocialProfile(socialProfiles, SafeAppSocialPlatforms.TWITTER)
-  const githubSocialLink = getSocialProfile(socialProfiles, SafeAppSocialPlatforms.GITHUB)
   const telegramSocialLink = getSocialProfile(socialProfiles, SafeAppSocialPlatforms.TELEGRAM)
 
   return (
@@ -40,9 +45,9 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
           <HelpCircle className="size-6 text-[var(--color-info-main)]" />
         </div>
         <div>
-          <Typography variant="paragraph-bold">Something wrong with the Safe App?</Typography>
+          <Typography variant="paragraph-bold">{translateMessage('ui.somethingWrongWithTheApp_8788855e')}</Typography>
           <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-            Get in touch with the team
+            {translateMessage('ui.getInTouchWithTheTeam_443ff043')}
           </Typography>
         </div>
       </div>
@@ -52,7 +57,7 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
         {hasSocialLinks && (
           <div>
             <Typography variant="paragraph-small" className="pl-2 text-[var(--color-border-main)]">
-              Social Media
+              {translateMessage('ui.socialMedia_39a93d4d')}
             </Typography>
 
             <div className="mt-0.5 flex min-h-[40px]">
@@ -60,7 +65,7 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Discord link"
+                  aria-label={translateMessage('ui.discordLink_51854112')}
                   render={<a target="_blank" rel="noopener noreferrer" href={discordSocialLink.url} />}
                 >
                   <DiscordIcon />
@@ -71,21 +76,10 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Twitter link"
+                  aria-label={translateMessage('ui.twitterLink_ab915a2f')}
                   render={<a target="_blank" rel="noopener noreferrer" href={twitterSocialLink.url} />}
                 >
                   <Twitter className="text-[var(--color-border-main)]" />
-                </Button>
-              )}
-
-              {githubSocialLink && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Github link"
-                  render={<a target="_blank" rel="noopener noreferrer" href={githubSocialLink.url} />}
-                >
-                  <Github className="text-[var(--color-border-main)]" />
                 </Button>
               )}
 
@@ -93,7 +87,7 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Telegram link"
+                  aria-label={translateMessage('ui.githubLink_0ce12d28')}
                   render={<a target="_blank" rel="noopener noreferrer" href={telegramSocialLink.url} />}
                 >
                   <Send className="text-[var(--color-border-main)]" />
@@ -109,7 +103,7 @@ const SafeAppSocialLinksCard = ({ safeApp }: SafeAppSocialLinksCardProps) => {
         {developerWebsite && (
           <div className="flex flex-col">
             <Typography variant="paragraph-small" className="text-[var(--color-border-main)]">
-              Website
+              {translateMessage('ui.website_297cf161')}
             </Typography>
 
             <Link

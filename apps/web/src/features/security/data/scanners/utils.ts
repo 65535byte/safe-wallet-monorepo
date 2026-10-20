@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SafeGrade, ScanResult } from './types'
 import type { SecurityGrade } from '../securityTypes'
 import { getGrade } from '../securityScoring'
@@ -13,16 +14,18 @@ export const scanKey = (address: string, chainId: string) => `${address.toLowerC
 export const withScannerTimeout = <T>(promise: Promise<T>): Promise<T> =>
   Promise.race([
     promise,
-    new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Scanner timed out')), SCANNER_TIMEOUT_MS)),
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error(translateMessage('ui.scannerTimedOut_c709d21e'))), SCANNER_TIMEOUT_MS),
+    ),
   ])
 
 export const formatTimestamp = (ts?: number): string => {
   if (!ts) return '—'
   const now = Date.now()
   const diff = now - ts
-  if (diff < 60_000) return 'Just now'
-  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`
-  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`
+  if (diff < 60_000) return translateMessage('ui.justNow_36e27752')
+  if (diff < 3_600_000) return translateMessage('ui.mAgo_a3eef9ab', { p0: Math.floor(diff / 60_000) })
+  if (diff < 86_400_000) return translateMessage('ui.hAgo_1b3057ca', { p0: Math.floor(diff / 3_600_000) })
   return new Date(ts).toLocaleDateString()
 }
 

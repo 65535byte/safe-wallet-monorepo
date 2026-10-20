@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { CSSProperties, ReactElement } from 'react'
 import {
   Accordion,
@@ -57,10 +58,12 @@ const HistoryFeesAccordion = ({
           <div className={css.summaryContent}>
             <div className={css.summaryLeftColumn}>
               <div className={css.summaryLeft}>
-                <Typography variant="paragraph-small-bold">Fees</Typography>
+                <Typography variant="paragraph-small-bold">{translateMessage('ui.fees_5ef20e69')}</Typography>
               </div>
               <Typography variant="paragraph-mini" color="muted">
-                {data.paidFrom === 'safe' ? 'Paid from the Safe' : 'Paid from the signer'}
+                {data.paidFrom === 'safe'
+                  ? translateMessage('ui.paidFromThe_9eeb3d7f')
+                  : translateMessage('ui.paidFromTheSigner_d1078bb7')}
               </Typography>
             </div>
 

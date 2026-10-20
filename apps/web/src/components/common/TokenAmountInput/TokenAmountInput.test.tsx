@@ -250,14 +250,14 @@ describe('TokenAmountInput', () => {
       await pickToken('USD Coin')
 
       expect(screen.getByTestId('token-amount-field')).toHaveValue('0.5')
-      expect(screen.getByText('Amount')).toBeInTheDocument()
+      expect(screen.getByText('金额')).toBeInTheDocument()
     })
 
     it('re-validates the kept amount against the new token', async () => {
       render(<TokenSwitchTestWrapper />)
 
       await userEvent.type(screen.getByTestId('token-amount-field'), '0.0000001')
-      expect(screen.getByText('Amount')).toBeInTheDocument()
+      expect(screen.getByText('金额')).toBeInTheDocument()
 
       await pickToken('USD Coin')
 
@@ -277,7 +277,7 @@ describe('TokenAmountInput', () => {
 
       await userEvent.type(amountField, '5')
       expect(screen.queryByText('The value must be greater than 0')).not.toBeInTheDocument()
-      expect(screen.getByText('Amount')).toBeInTheDocument()
+      expect(screen.getByText('金额')).toBeInTheDocument()
 
       // Breaking the value differently right away must not flash the previous message.
       await userEvent.clear(amountField)
@@ -298,7 +298,7 @@ describe('TokenAmountInput', () => {
       await userEvent.click(await screen.findByText('USD Coin'))
 
       await userEvent.type(screen.getByTestId('token-amount-field'), '1')
-      await userEvent.click(screen.getByRole('button', { name: 'Submit' }))
+      await userEvent.click(screen.getByRole('button', { name: '提交' }))
 
       await waitFor(() => expect(onSubmit).toHaveBeenCalled())
       expect(onSubmit.mock.calls[0][0]).toMatchObject({ [TokenAmountFields.tokenAddress]: USDC_ADDRESS })
@@ -514,7 +514,7 @@ describe('TokenAmountInput', () => {
       })
 
       React.useEffect(() => {
-        methods.setError(TokenAmountFields.amount, { type: 'validate', message: 'Insufficient funds' })
+        methods.setError(TokenAmountFields.amount, { type: 'validate', message: '资金不足' })
       }, [methods])
 
       const selectedToken = mockBalances.find((b) => b.tokenInfo.address === USDC_ADDRESS)
@@ -532,7 +532,7 @@ describe('TokenAmountInput', () => {
       const amountField = screen.getByTestId('token-amount-field')
 
       // The label swaps in the error message (after the display debounce) and turns destructive...
-      expect(await screen.findByText('Insufficient funds')).toHaveClass('text-destructive')
+      expect(await screen.findByText('资金不足')).toHaveClass('text-destructive')
       // ...but the typed value stays the normal foreground colour, not red.
       expect(amountField).toHaveDisplayValue('0.0159')
       expect(amountField).toHaveClass('text-foreground')

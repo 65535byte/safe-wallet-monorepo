@@ -36,12 +36,12 @@ describe('SecurityReportDrawer Hypernative signup', () => {
   it('closes the drawer as it opens the signup flow, so the dialog is not dimmed behind the sheet', () => {
     render(<Harness />)
 
-    expect(screen.getByLabelText('Security report')).toHaveAttribute('data-open')
+    expect(screen.getByLabelText('安全报告')).toHaveAttribute('data-open')
     expect(screen.queryByText('Hypernative signup')).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('button', { name: 'Get Hypernative' }))
 
     expect(screen.getByText('Hypernative signup')).toBeInTheDocument()
-    expect(screen.queryByLabelText('Security report')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('安全报告')).not.toBeInTheDocument()
   })
 })

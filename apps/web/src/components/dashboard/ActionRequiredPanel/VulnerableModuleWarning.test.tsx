@@ -10,11 +10,11 @@ describe('VulnerableModuleWarning', () => {
   it('renders a critical card with a Read more link when the Safe is affected', () => {
     render(<VulnerableModuleWarning isVulnerable />)
 
-    expect(screen.getByText('This Safe is affected by a vulnerable third-party module.')).toBeInTheDocument()
+    expect(screen.getByText('此 8379 受到存在漏洞的第三方模块影响。')).toBeInTheDocument()
     expect(screen.getByText(/known critical vulnerability/)).toBeInTheDocument()
 
     const link = screen.getByTestId('read-more-vulnerable-module-btn')
-    expect(link).toHaveTextContent('Read more')
+    expect(link).toHaveTextContent('阅读更多')
     expect(link).toHaveAttribute('href')
     expect(link).toHaveAttribute('target', '_blank')
   })

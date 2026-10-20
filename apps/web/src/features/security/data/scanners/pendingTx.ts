@@ -1,4 +1,4 @@
-import { maybePlural } from '@safe-global/utils/utils/formatters'
+import { translateMessage } from '@/i18n'
 import type { SecurityScanner } from './types'
 import { getSeverityFromScore } from './constants'
 
@@ -21,11 +21,11 @@ export const pendingTxScanner: SecurityScanner = {
         score,
         evidence: [
           {
-            label: 'Status',
+            label: translateMessage('ui.status_8042eaf1'),
             value:
               queuedTxCount === 0
-                ? 'No pending transactions'
-                : `${queuedTxCount} pending transaction${maybePlural(queuedTxCount)}`,
+                ? translateMessage('ui.noPendingTransactions_233bb81d')
+                : translateMessage('ui.pendingTransaction_70946ba6', { p0: queuedTxCount }),
           },
         ],
         remediation: '',
@@ -39,9 +39,13 @@ export const pendingTxScanner: SecurityScanner = {
         status: 'issue',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Queued', value: `${queuedTxCount} transactions` }],
-        remediation:
-          'A large queue increases the risk of executing outdated or malicious transactions. Stale transactions can be front-run or may interact with contracts that have changed state. Review and reject any that are no longer needed.',
+        evidence: [
+          {
+            label: translateMessage('ui.queued_784b9d63'),
+            value: translateMessage('ui.transactions_16ba87b0', { p0: queuedTxCount }),
+          },
+        ],
+        remediation: translateMessage('ui.aLargeQueueIncreasesTheRisk_8bce9b0e'),
         lastChecked: now,
       }
     }
@@ -51,9 +55,13 @@ export const pendingTxScanner: SecurityScanner = {
       status: 'partial',
       severity: getSeverityFromScore(score),
       score,
-      evidence: [{ label: 'Queued', value: `${queuedTxCount} transactions` }],
-      remediation:
-        'Pending transactions that sit unexecuted can become stale and may not reflect current intentions. Review your queue to ensure all transactions are still valid.',
+      evidence: [
+        {
+          label: translateMessage('ui.queued_784b9d63'),
+          value: translateMessage('ui.transactions_16ba87b0', { p0: queuedTxCount }),
+        },
+      ],
+      remediation: translateMessage('ui.pendingTransactionsThatSitUnexecutedCan_cef62232'),
       lastChecked: now,
     }
   },

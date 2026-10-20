@@ -23,7 +23,7 @@ describe('PolicyCatalogue', () => {
     const buttons = screen.getAllByRole('button')
 
     expect(buttons).toHaveLength(3)
-    expect(buttons[0]).toHaveAccessibleName('Set policy: Spending limit')
+    expect(buttons[0]).toHaveAccessibleName('Set policy: Spending 项限额')
     expect(buttons[1]).toHaveAccessibleName('Set policy: Proposer role')
     expect(buttons[2]).toHaveAccessibleName('Give feedback: Something missing?')
   })
@@ -39,9 +39,9 @@ describe('PolicyCatalogue', () => {
   it('describes what each policy does', () => {
     render(<PolicyCatalogue />)
 
-    expect(screen.getByText('Let spenders access assets without collecting signatures.')).toBeInTheDocument()
-    expect(screen.getByText('Let teammates without signing rights propose transactions.')).toBeInTheDocument()
-    expect(screen.getByText('Tell us which rules would help you manage your Safe accounts.')).toBeInTheDocument()
+    expect(screen.getByText('允许支出授权人无需收集签名即可使用资产。')).toBeInTheDocument()
+    expect(screen.getByText('允许没有签名权限的团队成员发起交易。')).toBeInTheDocument()
+    expect(screen.getByText('告诉我们哪些规则有助于您管理 8379 账户。')).toBeInTheDocument()
   })
 
   it('tracks a click on a tile', async () => {
@@ -77,7 +77,7 @@ describe('PolicyCatalogue', () => {
     render(<PolicyCatalogue locked={{ ...mockStarterPlan, onUpgrade: jest.fn() }} />)
 
     expect(screen.getAllByTestId('policy-account-count')).toHaveLength(2)
-    expect(screen.getByRole('button', { name: 'Set policy: Spending limit' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Set policy: Spending 项限额' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Set policy: Proposer role' })).toBeInTheDocument()
   })
 
@@ -85,7 +85,7 @@ describe('PolicyCatalogue', () => {
     render(<PolicyCatalogue locked={{ ...mockStarterPlan, onUpgrade: jest.fn() }} />)
 
     expect(screen.queryByTestId('policy-catalogue-tile-suggestion')).not.toBeInTheDocument()
-    expect(screen.queryByText('Something missing?')).not.toBeInTheDocument()
+    expect(screen.queryByText('缺少某项功能？')).not.toBeInTheDocument()
   })
 
   it('should, when a locked tile is clicked, call onUpgrade and not onSelect', async () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { useCurrentChain } from '@/hooks/useChains'
 import ChainSwitcher from '@/components/common/ChainSwitcher'
@@ -12,10 +13,12 @@ const NetworkWarning = ({ action }: { action?: string }) => {
   return (
     <Alert variant="warning" outlined={false}>
       <AlertSeverityIcon variant="warning" />
-      <AlertTitle className="font-bold">Change your wallet network</AlertTitle>
+      <AlertTitle className="font-bold">{translateMessage('ui.changeYourWalletNetwork_f0d80d7e')}</AlertTitle>
       <AlertDescription>
-        You are trying to {action || 'sign or execute a transaction'} on {chain.chainName}. Make sure that your wallet
-        is set to the same network.
+        {translateMessage('ui.youAreTryingTo_dd35c5b6')}
+        {action || 'sign or execute a transaction'} {translateMessage('ui.on_ba88d5c1')}
+        {chain.chainName}
+        {translateMessage('ui.makeSureThatYourWalletIs_b1421d69')}
         <div className="mt-4">
           <ChainSwitcher />
         </div>

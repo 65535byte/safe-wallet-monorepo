@@ -34,7 +34,7 @@ describe('getAuditEventDescription', () => {
     [
       'SPACE_UPDATED (no name change)',
       { eventType: 'SPACE_UPDATED' as const, payload: { old: {}, new: {} } },
-      'updated the Workspace',
+      '更新了工作空间',
     ],
     [
       'SPACE_DELETED',
@@ -59,8 +59,8 @@ describe('getAuditEventDescription', () => {
       },
       're-invited alice.eth as admin',
     ],
-    ['MEMBER_INVITE_ACCEPTED', { eventType: 'MEMBER_INVITE_ACCEPTED' as const }, 'accepted their invitation'],
-    ['MEMBER_INVITE_DECLINED', { eventType: 'MEMBER_INVITE_DECLINED' as const }, 'declined their invitation'],
+    ['MEMBER_INVITE_ACCEPTED', { eventType: 'MEMBER_INVITE_ACCEPTED' as const }, '接受了邀请'],
+    ['MEMBER_INVITE_DECLINED', { eventType: 'MEMBER_INVITE_DECLINED' as const }, '拒绝了邀请'],
     [
       'MEMBER_INVITE_RENEWED',
       { eventType: 'MEMBER_INVITE_RENEWED' as const, targetUser: 'bob' },
@@ -73,28 +73,28 @@ describe('getAuditEventDescription', () => {
         targetUser: 'bob',
         payload: { targetUserId: 2, oldRole: 'MEMBER', newRole: 'ADMIN' },
       },
-      'changed the role of bob from member to admin',
+      'changed the role / bob from member to admin',
     ],
-    ['MEMBER_ALIAS_UPDATED', { eventType: 'MEMBER_ALIAS_UPDATED' as const }, 'updated their alias'],
-    ['MEMBER_REMOVED', { eventType: 'MEMBER_REMOVED' as const, targetUser: 'bob' }, 'removed bob from the Workspace'],
-    ['MEMBER_LEFT', { eventType: 'MEMBER_LEFT' as const }, 'left the Workspace'],
+    ['MEMBER_ALIAS_UPDATED', { eventType: 'MEMBER_ALIAS_UPDATED' as const }, '更新了别名'],
+    ['MEMBER_REMOVED', { eventType: 'MEMBER_REMOVED' as const, targetUser: 'bob' }, '移除了 bob from the Workspace'],
+    ['MEMBER_LEFT', { eventType: 'MEMBER_LEFT' as const }, '退出了工作空间'],
     [
       'MEMBER_LEFT (account deleted)',
       { eventType: 'MEMBER_LEFT' as const, payload: { targetUserId: 2, accountDeleted: true } },
-      'left the Workspace (account deleted)',
+      '退出了工作空间（账户已删除）',
     ],
-    ['SAFE_ADDED', { eventType: 'SAFE_ADDED' as const, payload: { safes: [{}, {}] } }, 'added 2 Safe accounts'],
-    ['SAFE_ADDED (missing safes)', { eventType: 'SAFE_ADDED' as const, payload: {} }, 'added Safe accounts'],
-    ['SAFE_REMOVED', { eventType: 'SAFE_REMOVED' as const, payload: { safes: [{}] } }, 'removed 1 Safe account'],
+    ['SAFE_ADDED', { eventType: 'SAFE_ADDED' as const, payload: { safes: [{}, {}] } }, 'added 2 个 Safe 账户'],
+    ['SAFE_ADDED (missing safes)', { eventType: 'SAFE_ADDED' as const, payload: {} }, '添加了 8379 账户'],
+    ['SAFE_REMOVED', { eventType: 'SAFE_REMOVED' as const, payload: { safes: [{}] } }, 'removed 1 个 Safe 账户'],
     [
       'ADDRESS_BOOK_UPSERTED (created only)',
       { eventType: 'ADDRESS_BOOK_UPSERTED' as const, payload: { created: [{}], updated: [] } },
-      'added 1 contact',
+      '添加了 1 contact',
     ],
     [
       'ADDRESS_BOOK_UPSERTED (created + updated)',
       { eventType: 'ADDRESS_BOOK_UPSERTED' as const, payload: { created: [{}, {}], updated: [{}] } },
-      'added 2 contacts and updated 1 contact',
+      '添加了 2 contacts and updated 1 contact',
     ],
     [
       'ADDRESS_BOOK_UPSERTED (on behalf of)',
@@ -102,7 +102,7 @@ describe('getAuditEventDescription', () => {
         eventType: 'ADDRESS_BOOK_UPSERTED' as const,
         payload: { created: [{}], updated: [], onBehalfOfUserId: 7 },
       },
-      'added 1 contact (approved request)',
+      '添加了 1 contact (approved request)',
     ],
     [
       'ADDRESS_BOOK_UPSERTED (single created with details)',
@@ -113,7 +113,7 @@ describe('getAuditEventDescription', () => {
           updated: [],
         },
       },
-      'added the contact Vendor (0x1111111111111111111111111111111111111111)',
+      '添加了 the contact Vendor (0x1111111111111111111111111111111111111111)',
     ],
     [
       'ADDRESS_BOOK_UPSERTED (single updated with details)',
@@ -124,7 +124,7 @@ describe('getAuditEventDescription', () => {
           updated: [{ name: 'Vendor', address: '0x1111111111111111111111111111111111111111' }],
         },
       },
-      'updated the contact Vendor (0x1111111111111111111111111111111111111111)',
+      '更新了 the contact Vendor (0x1111111111111111111111111111111111111111)',
     ],
     [
       'ADDRESS_BOOK_DELETED (with address)',
@@ -132,12 +132,12 @@ describe('getAuditEventDescription', () => {
         eventType: 'ADDRESS_BOOK_DELETED' as const,
         payload: { address: '0x2222222222222222222222222222222222222222', name: 'Carol' },
       },
-      'removed the contact Carol (0x2222222222222222222222222222222222222222)',
+      '移除了 the contact Carol (0x2222222222222222222222222222222222222222)',
     ],
     [
       'ADDRESS_BOOK_DELETED',
       { eventType: 'ADDRESS_BOOK_DELETED' as const, payload: { address: '0xabc', name: 'Carol' } },
-      'removed the contact Carol (0xabc)',
+      '移除了 the contact Carol (0xabc)',
     ],
     [
       'ADDRESS_BOOK_REQUEST_CREATED',
@@ -150,7 +150,7 @@ describe('getAuditEventDescription', () => {
     [
       'ADDRESS_BOOK_REQUEST_CREATED (no contact details)',
       { eventType: 'ADDRESS_BOOK_REQUEST_CREATED' as const, payload: {} },
-      'requested to add a contact to Workspace',
+      '申请将联系人添加到工作空间',
     ],
     [
       'ADDRESS_BOOK_REQUEST_REJECTED',
@@ -163,14 +163,14 @@ describe('getAuditEventDescription', () => {
     [
       'ADDRESS_BOOK_REQUEST_REJECTED (no contact details)',
       { eventType: 'ADDRESS_BOOK_REQUEST_REJECTED' as const, payload: {} },
-      'rejected the request to add a contact to Workspace',
+      '拒绝了将联系人添加到工作空间的申请',
     ],
   ])('describes %s', (_label, overrides, expected) => {
     expect(describeEvent(overrides)).toBe(expected)
   })
 
   it('falls back to a generic description for unknown event types', () => {
-    expect(describeEvent({ eventType: 'SOMETHING_NEW' as SpaceAuditLogEntryDto['eventType'] })).toBe('made a change')
+    expect(describeEvent({ eventType: 'SOMETHING_NEW' as SpaceAuditLogEntryDto['eventType'] })).toBe('进行了变更')
   })
 
   it('tolerates missing payload fields on every known event type', () => {
@@ -205,7 +205,7 @@ describe('getAuditEventDescription', () => {
         targetUser: null,
         payload: { targetUserId: 2 },
       }),
-    ).toBe('removed a former member from the Workspace')
+    ).toBe('移除了 a former member from the Workspace')
   })
 
   it('prefers an explicitly passed target display (member name) over the server string', () => {
@@ -215,7 +215,7 @@ describe('getAuditEventDescription', () => {
       payload: { targetUserId: 2 },
     })
     const { container } = render(<div>{getAuditEventDescription(event, 'Alice Member')}</div>)
-    expect(container.textContent).toBe('removed Alice Member from the Workspace')
+    expect(container.textContent).toBe('移除了 Alice Member from the Workspace')
   })
 
   it('returns the server-resolved target verbatim (full address) in the default target display', () => {
@@ -240,6 +240,6 @@ describe('getAuditEventDescription', () => {
         targetUser: 'Former member',
         payload: { targetUserId: 2 },
       }),
-    ).toBe('removed Former member from the Workspace')
+    ).toBe('移除了 Former member from the Workspace')
   })
 })

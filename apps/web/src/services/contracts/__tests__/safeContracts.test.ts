@@ -41,13 +41,13 @@ describe('safeContracts', () => {
       })
     })
     it('should throw if the Safe version is invalid', () => {
-      expect(() => _getValidatedGetContractProps('1.3.1')).toThrow('1.3.1 is not a valid Safe account version')
+      expect(() => _getValidatedGetContractProps('1.3.1')).toThrow('1.3.1 is not a valid 个 Safe 账户 version')
 
-      expect(() => _getValidatedGetContractProps('1.4.0')).toThrow('1.4.0 is not a valid Safe account version')
+      expect(() => _getValidatedGetContractProps('1.4.0')).toThrow('1.4.0 is not a valid 个 Safe 账户 version')
 
-      expect(() => _getValidatedGetContractProps('0.0.1')).toThrow('0.0.1 is not a valid Safe account version')
+      expect(() => _getValidatedGetContractProps('0.0.1')).toThrow('0.0.1 is not a valid 个 Safe 账户 version')
 
-      expect(() => _getValidatedGetContractProps('')).toThrow(' is not a valid Safe account version')
+      expect(() => _getValidatedGetContractProps('')).toThrow(' is not a valid 个 Safe 账户 version')
     })
   })
 

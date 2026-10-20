@@ -20,12 +20,12 @@ jest.mock('@safe-global/store/gateway/AUTO_GENERATED/spaces', () => ({
 }))
 
 const mockSpace: GetSpaceResponse = {
+  experimentalFeatures: [],
   uuid: MOCK_SPACE_UUID,
   name: 'My Workspace',
   members: [],
   safeCount: 0,
   memberCount: 0,
-  experimentalFeatures: [],
 }
 
 const renderWithStore = (onSuccess?: () => void) => {
@@ -68,7 +68,7 @@ describe('useUpdateSpace', () => {
     const notifications = store.getState().notifications
     expect(notifications.length).toBeGreaterThan(0)
     const last = notifications[notifications.length - 1]
-    expect(last.message).toBe('Updated Workspace name')
+    expect(last.message).toBe('已更新工作空间名称')
     expect(last.variant).toBe('success')
     expect(last.groupKey).toBe('space-update-name')
   })
@@ -116,7 +116,7 @@ describe('useUpdateSpace', () => {
       await result.current.handleUpdate({ name: 'Renamed' })
     })
 
-    expect(result.current.error).toMatch(/Something went wrong \(500\)/)
+    expect(result.current.error).toMatch(/出现问题（500）/)
   })
 
   it('clears a previous error before a new attempt', async () => {

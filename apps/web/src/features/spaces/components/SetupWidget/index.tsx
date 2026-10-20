@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useState, type ReactElement } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { BookUser, Check, ChevronRight, Rocket, UsersRound, WalletCards } from 'lucide-react'
@@ -33,22 +34,22 @@ const SETUP_STEPS: SetupStep[] = [
   {
     key: 'address-book',
     activeFn: ({ addressBookCount }: StepsDependencies) => addressBookCount > 0,
-    label: 'Import your address book',
+    label: translateMessage('ui.importYourAddressBook_28e15866'),
     icon: BookUser,
   },
   {
     key: 'safe-accounts',
     activeFn: ({ safeAccountsCount }: StepsDependencies) => safeAccountsCount > 0,
-    label: 'Add your Safe accounts',
+    label: translateMessage('ui.addYourAccounts_de3ec855'),
     icon: WalletCards,
   },
   {
     key: 'team-members',
     activeFn: ({ teamMembersCount }: StepsDependencies) => teamMembersCount > 1,
-    label: 'Invite team members',
+    label: translateMessage('ui.inviteTeamMembers_252eee32'),
     icon: UsersRound,
   },
-  { key: 'explore', label: 'Explore Workspaces', icon: Rocket },
+  { key: 'explore', label: translateMessage('ui.exploreWorkspaces_7709b242'), icon: Rocket },
 ]
 
 const DISMISS_STORAGE_KEY = 'setupWidgetDismissed'
@@ -153,7 +154,7 @@ const SetupWidget = ({ onDismiss, horizontal, loading }: SetupWidgetProps): Reac
         {!dismissed && (
           <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }}>
             <SafeWidget
-              title="Set up your Workspace"
+              title={translateMessage('ui.setUpYourWorkspace_5062071c')}
               testId="space-dashboard-setup-widget"
               action={
                 <Typography
@@ -165,7 +166,7 @@ const SetupWidget = ({ onDismiss, horizontal, loading }: SetupWidgetProps): Reac
                   tabIndex={0}
                   onKeyDown={(e) => e.key === 'Enter' && handleDismiss()}
                 >
-                  Dismiss
+                  {translateMessage('ui.dismiss_900510da')}
                 </Typography>
               }
             >

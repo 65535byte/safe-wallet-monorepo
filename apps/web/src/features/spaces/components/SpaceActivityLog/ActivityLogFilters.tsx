@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import { format } from 'date-fns'
 import { Input } from '@safe-global/views/components/ui/input'
@@ -21,11 +22,11 @@ export type ActivityLogFilterState = {
 export const EMPTY_FILTERS: ActivityLogFilterState = {}
 
 const ALL_ACTORS = 'all'
-const ALL_ACTORS_LABEL = 'All members'
+const ALL_ACTORS_LABEL = translateMessage('ui.allMembers_28003f6f')
 
 const SORT_LABELS: Record<'asc' | 'desc', string> = {
-  desc: 'Newest first',
-  asc: 'Oldest first',
+  desc: translateMessage('ui.newestFirst_0abbcddf'),
+  asc: translateMessage('ui.oldestFirst_1317d2ad'),
 }
 
 /** A labelled filter column shared by every control in the row. */
@@ -104,7 +105,7 @@ function ActivityLogFilters({
 
   return (
     <div data-testid="activity-log-filters" className="mb-4 flex flex-wrap items-start gap-3">
-      <FilterField id="activity-actor-filter" label="Member">
+      <FilterField id="activity-actor-filter" label={translateMessage('ui.member_ddb02644')}>
         <Select
           value={filters.actorUserId !== undefined ? String(filters.actorUserId) : ALL_ACTORS}
           onValueChange={(value) =>
@@ -131,7 +132,7 @@ function ActivityLogFilters({
 
       <DateFilter
         id="activity-from-filter"
-        label="From"
+        label={translateMessage('ui.from_9ed312b5')}
         value={toDateInputValue(filters.createdAtGte)}
         max={fromDateMax}
         error={validation.fromError}
@@ -140,7 +141,7 @@ function ActivityLogFilters({
 
       <DateFilter
         id="activity-to-filter"
-        label="To"
+        label={translateMessage('ui.to_fa7ba004')}
         value={toDateInputValue(filters.createdAtLte)}
         min={toDateInputValue(filters.createdAtGte) || undefined}
         max={today}
@@ -148,7 +149,7 @@ function ActivityLogFilters({
         onValueChange={(value) => onFiltersChange({ ...filters, createdAtLte: toIsoBound(value, true) })}
       />
 
-      <FilterField id="activity-sort-filter" label="Sort">
+      <FilterField id="activity-sort-filter" label={translateMessage('ui.sort_c18f1965')}>
         <Select
           value={sortDirection}
           onValueChange={(value) => onFiltersChange({ ...filters, sortDirection: value === 'asc' ? 'asc' : undefined })}

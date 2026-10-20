@@ -34,7 +34,7 @@ describe('SafeAppsInfoModal', () => {
     render(<SafeAppsInfoModal {...defaultProps} onConfirm={onConfirm} />)
 
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: /continue/i }))
+      fireEvent.click(screen.getByRole('button', { name: /继续/i }))
     })
 
     expect(onConfirm).toHaveBeenCalledWith(false, [
@@ -51,7 +51,7 @@ describe('SafeAppsInfoModal', () => {
       fireEvent.click(screen.getByRole('checkbox', { name: /microphone/i }))
     })
     act(() => {
-      fireEvent.click(screen.getByRole('button', { name: /continue/i }))
+      fireEvent.click(screen.getByRole('button', { name: /继续/i }))
     })
 
     expect(onConfirm).toHaveBeenCalledWith(false, [

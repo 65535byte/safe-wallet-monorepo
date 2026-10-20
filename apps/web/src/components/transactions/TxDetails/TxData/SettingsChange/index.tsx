@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SettingsInfoType } from '@safe-global/store/gateway/types'
 import type { SettingsChangeTransaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ComponentProps, ReactElement } from 'react'
@@ -34,7 +35,7 @@ const SettingsChangeTxInfo = ({
     case SettingsInfoType.SET_FALLBACK_HANDLER: {
       return (
         <>
-          <InfoDetails title="Set fallback handler:">
+          <InfoDetails title={translateMessage('ui.setFallbackHandler_b0ac39bf')}>
             <EthHashInfo
               address={settingsInfo.handler.value}
               name={settingsInfo.handler?.name}
@@ -48,7 +49,10 @@ const SettingsChangeTxInfo = ({
     }
     case SettingsInfoType.ADD_OWNER:
     case SettingsInfoType.REMOVE_OWNER: {
-      const title = settingsInfo.type === SettingsInfoType.ADD_OWNER ? 'Add signer:' : 'Remove signer:'
+      const title =
+        settingsInfo.type === SettingsInfoType.ADD_OWNER
+          ? translateMessage('ui.addSigner_fa23982e')
+          : translateMessage('ui.removeSigner_a12b385b')
       return (
         <>
           <ThresholdWarning />
@@ -59,7 +63,10 @@ const SettingsChangeTxInfo = ({
               customAvatar={settingsInfo.owner?.logoUri}
               {...addressInfoProps}
             />
-            <InfoDetails datatestid="required-confirmations" title="Required confirmations for new transactions:">
+            <InfoDetails
+              datatestid="required-confirmations"
+              title={translateMessage('ui.requiredConfirmationsForNewTransactions_5c5fcf18')}
+            >
               {settingsInfo.threshold}
             </InfoDetails>
           </InfoDetails>
@@ -68,8 +75,8 @@ const SettingsChangeTxInfo = ({
     }
     case SettingsInfoType.SWAP_OWNER: {
       return (
-        <InfoDetails datatestid="swap-owner" title="Swap signer:">
-          <InfoDetails datatestid="old-owner" title="Old signer">
+        <InfoDetails datatestid="swap-owner" title={translateMessage('ui.swapSigner_d86cb33e')}>
+          <InfoDetails datatestid="old-owner" title={translateMessage('ui.oldSigner_754bb60e')}>
             <EthHashInfo
               address={settingsInfo.oldOwner.value}
               name={settingsInfo.oldOwner?.name}
@@ -77,7 +84,7 @@ const SettingsChangeTxInfo = ({
               {...addressInfoProps}
             />
           </InfoDetails>
-          <InfoDetails datatestid="new-owner" title="New signer">
+          <InfoDetails datatestid="new-owner" title={translateMessage('ui.newSigner_ea3ff983')}>
             <EthHashInfo
               address={settingsInfo.newOwner.value}
               name={settingsInfo.newOwner?.name}
@@ -92,7 +99,10 @@ const SettingsChangeTxInfo = ({
       return (
         <>
           <ThresholdWarning />
-          <InfoDetails datatestid="required-confirmations" title="Required confirmations for new transactions:">
+          <InfoDetails
+            datatestid="required-confirmations"
+            title={translateMessage('ui.requiredConfirmationsForNewTransactions_5c5fcf18')}
+          >
             {settingsInfo.threshold}
           </InfoDetails>
         </>
@@ -100,7 +110,7 @@ const SettingsChangeTxInfo = ({
     }
     case SettingsInfoType.CHANGE_IMPLEMENTATION: {
       return (
-        <InfoDetails title="Change implementation:">
+        <InfoDetails title={translateMessage('ui.changeImplementation_41b08668')}>
           <EthHashInfo
             address={settingsInfo.implementation.value}
             name={settingsInfo.implementation?.name}
@@ -112,7 +122,10 @@ const SettingsChangeTxInfo = ({
     }
     case SettingsInfoType.ENABLE_MODULE:
     case SettingsInfoType.DISABLE_MODULE: {
-      const title = settingsInfo.type === SettingsInfoType.ENABLE_MODULE ? 'Enable module:' : 'Disable module:'
+      const title =
+        settingsInfo.type === SettingsInfoType.ENABLE_MODULE
+          ? translateMessage('ui.enableModule_48c868ae')
+          : translateMessage('ui.disableModule_92a99b34')
       return (
         <InfoDetails datatestid="module-action" title={title}>
           <EthHashInfo
@@ -126,7 +139,7 @@ const SettingsChangeTxInfo = ({
     }
     case SettingsInfoType.SET_GUARD: {
       return (
-        <InfoDetails title="Set guard:">
+        <InfoDetails title={translateMessage('ui.setGuard_9981bdd6')}>
           <EthHashInfo
             address={settingsInfo.guard.value}
             name={settingsInfo.guard?.name}
@@ -137,7 +150,7 @@ const SettingsChangeTxInfo = ({
       )
     }
     case SettingsInfoType.DELETE_GUARD: {
-      return <InfoDetails title="Delete guard" />
+      return <InfoDetails title={translateMessage('ui.deleteGuard_79de9905')} />
     }
     default:
       return <></>

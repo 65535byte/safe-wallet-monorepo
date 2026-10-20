@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Eye } from 'lucide-react'
 import type { ReactNode } from 'react'
 import FiatValue from '@/components/common/FiatValue'
@@ -54,11 +55,11 @@ function ReadOnlyBadge() {
           producing invalid nested-button markup. */}
       <TooltipTrigger
         render={<span className="inline-flex shrink-0 items-center text-muted-foreground" />}
-        aria-label="Read-only safe"
+        aria-label={translateMessage('ui.readOnlySafe_f84c7961')}
       >
         <Eye className="size-4 shrink-0" />
       </TooltipTrigger>
-      <TooltipContent>Read-only safe</TooltipContent>
+      <TooltipContent>{translateMessage('ui.readOnlySafe_f84c7961')}</TooltipContent>
     </Tooltip>
   )
 }

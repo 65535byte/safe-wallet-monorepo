@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode, SyntheticEvent } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import groupBy from 'lodash/groupBy'
@@ -158,7 +159,12 @@ const Toast = ({
     >
       {icon ? (icon as ReactNode) : <AlertSeverityIcon variant={alertVariant[variant]} />}
       <AlertAction>
-        <Button variant="ghost" size="icon-xs" aria-label="Close" onClick={handleManualClose}>
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          aria-label={translateMessage('ui.close_fbd8cee0')}
+          onClick={handleManualClose}
+        >
           <X />
         </Button>
       </AlertAction>
@@ -170,7 +176,7 @@ const Toast = ({
 
           {detailedMessage && (
             <details>
-              <Link render={<summary />}>Details</Link>
+              <Link render={<summary />}>{translateMessage('ui.details_0ae44359')}</Link>
               <pre>{detailedMessage}</pre>
             </details>
           )}

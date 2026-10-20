@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails, TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useContext, useMemo, type ReactElement, type ReactNode } from 'react'
 import { Check } from 'lucide-react'
@@ -132,11 +133,11 @@ export const Receipt = ({
     <PaperViewToggle activeView={0} leftAlign={grid} outlined={outlined}>
       {[
         {
-          title: 'Data',
+          title: translateMessage('ui.data_e932c3b4'),
           content: (
             <ScrollWrapper padded={!outlined}>
               <DataStack>
-                <TxDetailsRow label="To" grid={grid}>
+                <TxDetailsRow label={translateMessage('ui.to_fa7ba004')} grid={grid}>
                   {grid ? (
                     <div>
                       <span className="inline-flex -ml-2.5">
@@ -164,17 +165,17 @@ export const Receipt = ({
                   )}
                 </TxDetailsRow>
 
-                <TxDetailsRow label="Value" grid={grid}>
+                <TxDetailsRow label={translateMessage('ui.value_5f04a161')} grid={grid}>
                   {safeTxData.value}
                 </TxDetailsRow>
 
-                <TxDetailsRow label="Data" grid={grid}>
+                <TxDetailsRow label={translateMessage('ui.data_e932c3b4')} grid={grid}>
                   <Typography variant="paragraph-small" className={grid ? 'w-[70%]' : undefined}>
                     <HexEncodedData hexData={safeTxData.data} limit={140} />
                   </Typography>
                 </TxDetailsRow>
 
-                <TxDetailsRow label="Operation" grid={grid}>
+                <TxDetailsRow label={translateMessage('ui.operation_f02643fa')} grid={grid}>
                   <Typography variant="paragraph-small" className="flex items-center gap-1">
                     {safeTxData.operation} ({operation === Operation.CALL ? 'call' : 'delegate call'})
                     {operation === Operation.CALL && <Check className="size-[1em] text-[var(--color-success-main)]" />}
@@ -209,7 +210,7 @@ export const Receipt = ({
                             <TokenIcon logoUri={gasTokenLogo} tokenSymbol={gasTokenSymbol} size={16} />
                           </TooltipTrigger>
                           <TooltipContent side="top">
-                            The GasToken address is the address of the token used to pay gas fees.
+                            {translateMessage('ui.theGasTokenAddressIsTheAddress_b93a7bc0')}
                           </TooltipContent>
                         </Tooltip>
                       )}
@@ -240,7 +241,7 @@ export const Receipt = ({
                       !!signature && (
                         <TxDetailsRow
                           data-testid="tx-signature"
-                          label={`Signature ${index + 1}`}
+                          label={translateMessage('ui.signature_03d05c77', { p0: index + 1 })}
                           key={`signature-${index}`}
                           grid={grid}
                         >
@@ -255,12 +256,12 @@ export const Receipt = ({
           ),
         },
         {
-          title: 'Hashes',
+          title: translateMessage('ui.hashes_2eecddca'),
           content: (
             <ScrollWrapper padded={!outlined}>
               <DataStack>
                 {domainHash && (
-                  <TxDetailsRow label="Domain hash" grid={grid}>
+                  <TxDetailsRow label={translateMessage('ui.domainHash_3bc1e9ef')} grid={grid}>
                     <Typography variant="paragraph-small" className="w-full break-words">
                       <HexEncodedData hexData={domainHash} limit={66} highlightFirstBytes={false} />
                     </Typography>
@@ -268,7 +269,7 @@ export const Receipt = ({
                 )}
 
                 {messageHash && (
-                  <TxDetailsRow label="Message hash" grid={grid}>
+                  <TxDetailsRow label={translateMessage('ui.messageHash_b8ce78e4')} grid={grid}>
                     <Typography variant="paragraph-small" className="w-full break-words">
                       <HexEncodedData hexData={messageHash} limit={66} highlightFirstBytes={false} />
                     </Typography>

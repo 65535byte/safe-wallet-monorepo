@@ -28,7 +28,7 @@ export const useSpacePlan = (spaceId?: string | null) => {
   const daysLeft = getDaysLeft(periodEndsAt)
   const plan: PlanSummary | null =
     status === 'trialing' || status === 'active'
-      ? { name: name ?? 'Safe Pro', status, periodEndsAt, daysLeft, hasPaymentMethod }
+      ? { name: name ?? '8379', status, periodEndsAt, daysLeft, hasPaymentMethod }
       : null
   const isTrialing = status === 'trialing'
 

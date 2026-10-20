@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWalletCanPay from '@/hooks/useWalletCanPay'
 import madProps from '@/utils/mad-props'
 import { type ReactElement, type ReactNode, type SyntheticEvent, useContext, useState, useEffect } from 'react'
@@ -231,13 +232,9 @@ export const ExecuteForm = ({
         {cannotPropose ? (
           <NonOwnerError />
         ) : isExecutionLoop ? (
-          <ErrorMessage>
-            Cannot execute a transaction from the Safe account itself, please connect a different account.
-          </ErrorMessage>
+          <ErrorMessage>{translateMessage('ui.cannotExecuteATransactionFromThe_181bf8cf')}</ErrorMessage>
         ) : !walletCanPay && !willRelay ? (
-          <ErrorMessage level="info">
-            Your connected wallet doesn&apos;t have enough funds to execute this transaction.
-          </ErrorMessage>
+          <ErrorMessage level="info">{translateMessage('ui.yourConnectedWalletDoesnTHave_496964dc')}</ErrorMessage>
         ) : checkError ? (
           <TxCheckError error={checkError} context="estimation" />
         ) : null}
@@ -246,30 +243,24 @@ export const ExecuteForm = ({
 
         {/* CGW pre-relay simulation verdict */}
         {relaySimError?.code === 'SIMULATION_FAILED' && (
-          <ErrorMessage>
-            This transaction is expected to fail on-chain, so it can&apos;t be relayed. Review the transaction or reject
-            it.
-          </ErrorMessage>
+          <ErrorMessage>{translateMessage('ui.thisTransactionIsExpectedToFail_98b5d19f')}</ErrorMessage>
         )}
 
         <ModalDialog
           open={relaySimError?.code === 'INDETERMINATE_SIMULATION'}
           onClose={() => setRelaySimError(undefined)}
-          dialogTitle="Confirm execution"
+          dialogTitle={translateMessage('ui.confirmExecution_ba41e8ac')}
           chainId={currentChain?.chainId}
           data-testid="relay-indeterminate-dialog"
         >
-          <div className="px-6 pt-2 pb-4">
-            We couldn&apos;t review this transaction. If you execute and it fails, you&apos;ll still pay the network
-            fee. You can run the simulation yourself from the Safe Shield panel before deciding.
-          </div>
+          <div className="px-6 pt-2 pb-4">{translateMessage('ui.weCouldnTReviewThisTransaction_f2c98c4a')}</div>
 
           <div className="flex justify-between gap-2 p-6 pt-2">
             <Button data-testid="relay-go-back-btn" variant="ghost" onClick={() => setRelaySimError(undefined)}>
-              Back
+              {translateMessage('ui.back_dae8bf43')}
             </Button>
             <Button data-testid="relay-accept-unverified-btn" disabled={isSubmitLoading} onClick={() => submitTx(true)}>
-              Execute anyway
+              {translateMessage('ui.executeAnyway_92a67968')}
             </Button>
           </div>
         </ModalDialog>

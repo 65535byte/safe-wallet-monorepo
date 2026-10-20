@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionQueuedItem } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import React, { type ReactElement } from 'react'
 import { useMemo } from 'react'
@@ -27,7 +28,7 @@ const MAX_TXS = 4
 const PendingTxsSkeleton = () => (
   <section className="h-full overflow-hidden rounded-xl bg-[var(--color-background-paper)] px-3 py-5">
     <div className="mb-2 flex flex-row px-3">
-      <Typography variant="paragraph-bold">Pending transactions</Typography>
+      <Typography variant="paragraph-bold">{translateMessage('ui.pendingTransactions_1f1c0333')}</Typography>
     </div>
 
     <Skeleton className="h-[66px] w-full rounded-lg" />
@@ -37,7 +38,7 @@ const PendingTxsSkeleton = () => (
 const EmptyState = () => {
   return (
     <div data-testid="no-tx-text" className="rounded-xl bg-[var(--color-background-paper)] p-10 text-center">
-      <Typography className="mb-1 mt-6">No transactions to sign</Typography>
+      <Typography className="mb-1 mt-6">{translateMessage('ui.noTransactionsToSign_ae897fe4')}</Typography>
     </div>
   )
 }
@@ -121,7 +122,8 @@ const PendingTxsList = (): ReactElement | null => {
     >
       <div className="mb-2 flex flex-row justify-between px-3">
         <Typography variant="paragraph-bold" className={css.pendingTxHeader}>
-          Pending transactions <PanelCounter count={queueSize} />
+          {translateMessage('ui.pendingTransactions_4abfc17a')}
+          <PanelCounter count={queueSize} />
         </Typography>
         {totalTxs > 0 && <ViewAllLink url={queueUrl} />}
       </div>

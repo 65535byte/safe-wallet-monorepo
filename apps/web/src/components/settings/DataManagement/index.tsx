@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -78,9 +79,13 @@ const DataManagement = () => {
 
   return (
     <>
-      <SettingsCard title="Data export" className="mb-4" contentClassName="sm:grid-cols-[1fr_2fr]">
+      <SettingsCard
+        title={translateMessage('ui.dataExport_7dd688f1')}
+        className="mb-4"
+        contentClassName="sm:grid-cols-[1fr_2fr]"
+      >
         <div data-testid="export-file-section">
-          <Typography>Download your local data with your added Safe accounts, address book and settings.</Typography>
+          <Typography>{translateMessage('ui.downloadYourLocalDataWithYour_bde3d4a6')}</Typography>
 
           <FileListCard
             avatar={
@@ -106,7 +111,11 @@ const DataManagement = () => {
         </div>
       </SettingsCard>
 
-      <SettingsCard title="Data import" className="mb-4" contentClassName="sm:grid-cols-[1fr_2fr]">
+      <SettingsCard
+        title={translateMessage('ui.dataImport_ab54d6d8')}
+        className="mb-4"
+        contentClassName="sm:grid-cols-[1fr_2fr]"
+      >
         <div>
           <ImportFileUpload setFileName={setImportFileName} setJsonData={setJsonData} />
         </div>
@@ -121,7 +130,10 @@ const DataManagement = () => {
         )}
       </SettingsCard>
 
-      <SettingsCard title="Pending transactions" contentClassName="sm:grid-cols-[1fr_2fr]">
+      <SettingsCard
+        title={translateMessage('ui.pendingTransactions_1f1c0333')}
+        contentClassName="sm:grid-cols-[1fr_2fr]"
+      >
         <div data-testid="clear-pending-tx-section">
           <ClearPendingTxs />
         </div>

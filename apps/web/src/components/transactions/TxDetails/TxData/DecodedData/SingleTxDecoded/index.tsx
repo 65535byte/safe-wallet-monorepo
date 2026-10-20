@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MultiSend, TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { SyntheticEvent } from 'react'
 import { isEmptyHexData } from '@/utils/hex'
@@ -48,7 +49,11 @@ const SingleTxDecoded = ({
 }: SingleTxDecodedProps) => {
   const chain = useCurrentChain()
   const isNativeTransfer = tx.value !== '0' && (!tx.data || isEmptyHexData(tx.data))
-  const method = tx.dataDecoded?.method || (isNativeTransfer ? 'native transfer' : 'contract interaction')
+  const method =
+    tx.dataDecoded?.method ||
+    (isNativeTransfer
+      ? translateMessage('ui.nativeTransfer_20c77786')
+      : translateMessage('ui.contractInteraction_0582e9c7'))
 
   const addressInfo = txData.addressInfoIndex?.[tx.to]
   const name = addressInfo?.name

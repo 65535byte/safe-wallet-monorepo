@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -29,7 +30,7 @@ const SurveyPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – How will you use Safe?`}</title>
+        <title>{translateMessage('ui.howWillYouUse_294b67af', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SurveyOnboarding />

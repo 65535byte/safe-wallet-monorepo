@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { FormEvent } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Input } from '@safe-global/views/components/ui/input'
@@ -26,25 +27,23 @@ const PkModulePopup = () => {
 
   return (
     <ModalDialog
-      dialogTitle="Connect with Private Key"
+      dialogTitle={translateMessage('ui.connectWithPrivateKey_8bb73454')}
       onClose={onClose}
       open={isOpen}
       className="z-[var(--z-above-onboard)]"
       overlayClassName="z-[var(--z-above-onboard)]"
     >
       <div className="p-4">
-        <Typography className="mb-6">
-          Enter your signer private key. The key will be saved for the duration of this browser session.
-        </Typography>
+        <Typography className="mb-6">{translateMessage('ui.enterYourSignerPrivateKeyThe_46f5477b')}</Typography>
 
         <form onSubmit={onSubmit} action="#" method="post">
           <Field className="mb-6">
-            <FieldLabel htmlFor="private-key">Private key</FieldLabel>
+            <FieldLabel htmlFor="private-key">{translateMessage('ui.privateKey_c790df19')}</FieldLabel>
             <Input type="password" required id="private-key" name="private-key" data-testid="private-key-input" />
           </Field>
 
           <Button data-testid="pk-connect-btn" type="submit" className="w-full">
-            Connect
+            {translateMessage('ui.connect_32941c64')}
           </Button>
         </form>
       </div>

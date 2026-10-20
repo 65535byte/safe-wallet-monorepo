@@ -1,8 +1,9 @@
+import { translateMessage } from '@/i18n'
 import { BRAND_NAME, IS_PRODUCTION, IS_BEHIND_IAP } from '@/config/constants'
 import { ContentSecurityPolicy, StrictTransportSecurity } from '@/config/securityHeaders'
 import { lightPalette, darkPalette } from '@safe-global/theme/palettes'
 
-const descriptionText = `${BRAND_NAME} is the most trusted smart account wallet on Ethereum with over $100B secured.`
+const descriptionText = translateMessage('ui.isTheMostTrustedSmartAccount_b2e1a80d', { p0: BRAND_NAME })
 const titleText = BRAND_NAME
 
 const MetaTags = ({ prefetchUrl }: { prefetchUrl: string }) => (
@@ -37,12 +38,8 @@ const MetaTags = ({ prefetchUrl }: { prefetchUrl: string }) => (
     <meta name="theme-color" content={darkPalette.background.main} media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="/safe.webmanifest" {...(IS_BEHIND_IAP && { crossOrigin: 'use-credentials' })} />
 
-    {/* Favicons */}
-    <link rel="shortcut icon" href="/favicons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
-    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#000" />
+    <link rel="icon" type="image/png" href="/images/brand-logo.png" />
+    <link rel="apple-touch-icon" href="/images/brand-logo.png" />
   </>
 )
 

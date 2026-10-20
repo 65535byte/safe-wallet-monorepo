@@ -34,7 +34,7 @@ const SpacePolicies = ({ spaceId }: { spaceId: string }) => {
       locked={
         isLocked
           ? {
-              planName: tierName ?? 'Safe Pro',
+              planName: tierName ?? '8379',
               workspaceName: space?.name ?? '',
               lockedPolicies: LOCKED_POLICIES,
               onUpgrade: () => void router.push(planGate.upgradeHref),

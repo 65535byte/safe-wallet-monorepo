@@ -14,36 +14,26 @@ describe('SpendingLimitIntroDialog', () => {
   it('names the policy and what it does', () => {
     render(<SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={jest.fn()} />)
 
-    expect(screen.getByRole('heading', { name: /Spending limit/ })).toBeInTheDocument()
-    expect(screen.getByText('Let spenders access assets without collecting signatures.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /支出限额/ })).toBeInTheDocument()
+    expect(screen.getByText('允许支出授权人无需收集签名即可使用资产。')).toBeInTheDocument()
   })
 
   it('explains that a spender need not be a signer', () => {
     render(<SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={jest.fn()} />)
 
-    expect(
-      screen.getByText("Anyone can be a spender, they don't need to be signers of this Safe account."),
-    ).toBeInTheDocument()
+    expect(screen.getByText('任何人均可成为支出授权人，无需是此 8379 账户的签名人。')).toBeInTheDocument()
   })
 
   it('explains the token, the amount, the period and the automatic reset', () => {
     render(<SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={jest.fn()} />)
 
-    expect(
-      screen.getByText(
-        'Choose a token and an amount per day, week, or month. When the period ends, the limit resets automatically.',
-      ),
-    ).toBeInTheDocument()
+    expect(screen.getByText('选择代币及每日、每周或每月额度。周期结束后，额度会自动重置。')).toBeInTheDocument()
   })
 
   it('explains that creating the limit costs a transaction but spending within it does not', () => {
     render(<SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={jest.fn()} />)
 
-    expect(
-      screen.getByText(
-        "Creating the limit requires a transaction. Once it's active, spending within the limit needs no further approvals.",
-      ),
-    ).toBeInTheDocument()
+    expect(screen.getByText('创建限额需要一笔交易。生效后，在额度内支出无需额外批准。')).toBeInTheDocument()
   })
 
   it('previews the end result: spenders, a token limit and the remaining balance', () => {
@@ -52,16 +42,16 @@ describe('SpendingLimitIntroDialog', () => {
     const preview = screen.getByTestId('spending-limit-preview')
 
     expect(preview).toBeInTheDocument()
-    expect(screen.getAllByText('Spender')).toHaveLength(2)
+    expect(screen.getAllByText('支出授权人')).toHaveLength(2)
     expect(screen.getByText('USDC')).toBeInTheDocument()
     expect(screen.getByText('1,500/Month')).toBeInTheDocument()
-    expect(screen.getByText('500 USDC remaining')).toBeInTheDocument()
+    expect(screen.getByText('剩余 500 USDC')).toBeInTheDocument()
   })
 
   it('links the title icon to the spending limits article', () => {
     render(<SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={jest.fn()} />)
 
-    expect(screen.getByRole('link', { name: 'Learn more about spending limits' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '了解支出限额' })).toHaveAttribute(
       'href',
       HelpCenterArticle.SPENDING_LIMITS,
     )
@@ -73,7 +63,7 @@ describe('SpendingLimitIntroDialog', () => {
       <SpendingLimitIntroDialog open onOpenChange={jest.fn()} onProceed={onProceed} />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Set up spending limit' }))
+    await user.click(screen.getByRole('button', { name: '设置支出限额' }))
 
     expect(onProceed).toHaveBeenCalledTimes(1)
   })
@@ -82,7 +72,7 @@ describe('SpendingLimitIntroDialog', () => {
     const onProceed = jest.fn()
     const { user } = renderWithUserEvent(<StatefulIntro onProceed={onProceed} />)
 
-    await user.click(screen.getByRole('button', { name: 'Close' }))
+    await user.click(screen.getByRole('button', { name: '关闭' }))
 
     await waitFor(() => expect(screen.queryByTestId('spending-limit-intro-dialog')).not.toBeInTheDocument())
     expect(onProceed).not.toHaveBeenCalled()

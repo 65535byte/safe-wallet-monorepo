@@ -109,7 +109,7 @@ describe('useTxNotifications', () => {
     })
 
     expect(lastNotification()).toMatchObject({
-      message: 'Unlock your Ledger and try again.',
+      message: '请解锁 Ledger 后重试。',
       variant: 'error',
     })
   })
@@ -124,7 +124,7 @@ describe('useTxNotifications', () => {
 
     const notification = lastNotification()
 
-    expect(notification.message).toBe('Your Ledger could not complete the request.')
+    expect(notification.message).toBe('Ledger 无法完成请求。')
     // `detailedMessage` is rendered verbatim in a <pre> — this is the surface
     // that leaked "code=UNKNOWN_ERROR ... Version: viem@2.52.2" (WA-3243).
     expect(notification.detailedMessage).toBeUndefined()
@@ -184,7 +184,7 @@ describe('useTxNotifications', () => {
     // A notification carrying a txId resolves the human description first.
     await waitFor(() =>
       expect(lastNotification()).toMatchObject({
-        message: 'Transaction reverted on Ethereum. Gas was spent.',
+        message: '交易在 Ethereum 上回退，已消耗 Gas。',
       }),
     )
   })
@@ -294,9 +294,7 @@ describe('useTxNotifications — a gas limit below the intrinsic minimum (WA-352
     await waitFor(() => expect(showNotification).toHaveBeenCalled())
 
     const notification = lastNotification()
-    expect(notification.message).toBe(
-      'Gas limit too low. Minimum needed: 25,484. Increase the gas limit and try again.',
-    )
+    expect(notification.message).toBe('Gas 上限过低，最低需要 25,484。请提高后重试。')
     expect(notification.detailedMessage).toBeUndefined()
     expect(JSON.stringify(notification)).not.toContain('execTransaction')
     expect(JSON.stringify(notification)).not.toContain('intrinsic gas')

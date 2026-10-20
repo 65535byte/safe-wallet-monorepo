@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Check } from 'lucide-react'
 import { DrawerFooter } from '@/components/common/Drawer'
@@ -15,7 +16,7 @@ const CopyTransactionLink = ({ transactionLink }: CopyTransactionLinkProps): Rea
     <DrawerFooter>
       <Button className="w-full" onClick={() => copy(transactionLink)}>
         {copied && <Check data-icon="inline-start" className="text-green-600" />}
-        {copied ? 'Copied!' : 'Copy transaction link'}
+        {copied ? 'Copied!' : translateMessage('ui.copyTransactionLink_ad3fc406')}
       </Button>
     </DrawerFooter>
   )

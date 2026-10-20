@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import EthHashInfo from '@/components/common/EthHashInfo'
@@ -14,15 +15,12 @@ const SimilarAddressAlert = ({ similarAddresses }: SimilarAddressAlertProps) => 
     <>
       <Alert variant="warning" outlined={false} className="mb-4">
         <AlertSeverityIcon variant="warning" />
-        <AlertTitle>Similar address detected</AlertTitle>
+        <AlertTitle>{translateMessage('ui.similarAddressDetected_fc23da03')}</AlertTitle>
         <AlertDescription>
-          <p>
-            This address is similar to another Safe in your account. This could indicate an address poisoning attack.
-            Compare the addresses carefully before proceeding.
-          </p>
+          <p>{translateMessage('ui.thisAddressIsSimilarToAnother_09f85c38')}</p>
           <p>
             <ExternalLink href={HelpCenterArticle.ADDRESS_POISONING} noIcon>
-              Learn more about address poisoning
+              {translateMessage('ui.learnMoreAboutAddressPoisoning_f31aab18')}
             </ExternalLink>
           </p>
         </AlertDescription>
@@ -31,14 +29,15 @@ const SimilarAddressAlert = ({ similarAddresses }: SimilarAddressAlertProps) => 
       {similarAddresses.length > 0 && (
         <div className="mb-4">
           <Typography variant="paragraph-small" color="muted" className="mb-2 block">
-            Similar {similarAddresses.length === 1 ? 'Safe' : 'Safes'} in your account
+            {translateMessage('ui.similar_abb7a473')}
           </Typography>
           {similarAddresses.map((similar) => (
             <div key={similar.address} className="bg-background border-border mb-2 rounded-md border p-4">
               <EthHashInfo address={similar.address} showCopyButton shortAddress={false} showAvatar avatarSize={32} />
               {similar.name && (
                 <Typography variant="paragraph-small" className="mt-2 block">
-                  Name: {similar.name}
+                  {translateMessage('ui.name_edc01aef')}
+                  {similar.name}
                 </Typography>
               )}
             </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -56,7 +57,10 @@ export const NftItems = ({ tokens }: { tokens: Collectible[] }) => {
           key={`${token.address}-${token.id}`}
           image={token.imageUri || token.logoUri}
           name={`${token.tokenName || token.tokenSymbol || ''} #${token.id}`}
-          description={`Token ID: ${token.id}${token.name ? ` - ${token.name}` : ''}`}
+          description={translateMessage('ui.tokenID_e40c000f', {
+            p0: token.id,
+            p1: token.name ? translateMessage('ui.text_54d24106', { p0: token.name }) : '',
+          })}
         />
       ))}
     </div>
@@ -104,7 +108,7 @@ const SendNftBatch = () => {
             variant="paragraph-small"
             className="text-muted-foreground mb-4 block"
           >
-            Selected NFTs
+            {translateMessage('ui.selectedNFTs_064c6c94')}
           </Typography>
 
           <NftItems tokens={tokens} />
@@ -114,7 +118,7 @@ const SendNftBatch = () => {
           </div>
 
           <TxCardActions>
-            <Button type="submit">Next</Button>
+            <Button type="submit">{translateMessage('ui.next_9cff86c8')}</Button>
           </TxCardActions>
         </form>
       </FormProvider>

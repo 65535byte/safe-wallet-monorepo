@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, type ReactElement } from 'react'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -29,7 +30,7 @@ const NotificationRenewal = (): ReactElement => {
     <>
       <Alert variant="warning" outlined={false}>
         <AlertSeverityIcon variant="warning" />
-        <AlertTitle className="mb-2">Signature needed</AlertTitle>
+        <AlertTitle className="mb-2">{translateMessage('ui.signatureNeeded_894a4e36')}</AlertTitle>
         <AlertDescription>{RENEWAL_MESSAGE}</AlertDescription>
       </Alert>
       <div>
@@ -45,7 +46,7 @@ const NotificationRenewal = (): ReactElement => {
               onClick={handeSignClick}
               disabled={!isOk || isRegistering || !safe.deployed}
             >
-              Sign now
+              {translateMessage('ui.signNow_6cb36113')}
             </Button>
           )}
         </CheckWalletWithPermission>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { memo, useEffect, useMemo } from 'react'
 import {
   type AllSafeItems,
@@ -11,7 +12,6 @@ import useSafeInfo from '@/hooks/useSafeInfo'
 import useAddressBook from '@/hooks/useAddressBook'
 import { useAppSelector } from '@/store'
 import { OrderByOption, selectOrderByPreference, TRUSTED_ORDER_SCOPE } from '@/store/orderByPreferenceSlice'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { trackEvent, OVERVIEW_EVENTS } from '@/services/analytics'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
@@ -70,7 +70,8 @@ const AccountsList = ({ searchQuery, safes, onLinkClick }: AccountsListProps) =>
     return (
       <>
         <Typography variant="paragraph-small" color="muted" className="block mb-2">
-          Found {filteredSafes.length} result{maybePlural(filteredSafes)}
+          {translateMessage('ui.found_9874f24d')}
+          {filteredSafes.length} {translateMessage('ui.result_21bddc08')}
         </Typography>
         <SafeAccountsTable
           items={filteredSafes}
@@ -88,7 +89,7 @@ const AccountsList = ({ searchQuery, safes, onLinkClick }: AccountsListProps) =>
       {showCurrentSafe && (
         <section data-testid="current-safe-section" className="mb-6">
           <Typography variant="paragraph-small-bold" className="block mb-2">
-            Current Safe account
+            {translateMessage('ui.currentAccount_44f85a09')}
           </Typography>
           <SafeAccountsTable items={currentSafeItem ? [currentSafeItem] : []} onLinkClick={onLinkClick} />
         </section>

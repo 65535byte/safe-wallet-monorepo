@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { TableCell, TableRow } from '@safe-global/views/components/ui/table'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -18,7 +19,7 @@ const PeerAddress = ({ address }: { address: string }) => {
       <span className="whitespace-nowrap font-mono text-xs">{address}</span>
       <button
         type="button"
-        aria-label="Copy address"
+        aria-label={translateMessage('ui.copyAddress_e5bff417')}
         className="inline-flex shrink-0 cursor-pointer rounded p-0.5 transition-colors hover:bg-background/15"
         onClick={() => copy(address)}
       >
@@ -32,8 +33,8 @@ const PeerAddress = ({ address }: { address: string }) => {
 export const SimilarityWarningIcon = ({ warning }: { warning: SimilarWarning }) => {
   const sections = (
     [
-      ['Similar accounts from trusted safes:', warning.trusted],
-      ['Similar accounts from owned safes:', warning.owned],
+      [translateMessage('ui.similarAccountsFromTrustedSafes_b9c4597c'), warning.trusted],
+      [translateMessage('ui.similarAccountsFromOwnedSafes_ce2f38b1'), warning.owned],
     ] as const
   ).filter(([, peers]) => peers.length > 0)
 
@@ -45,7 +46,7 @@ export const SimilarityWarningIcon = ({ warning }: { warning: SimilarWarning }) 
           <TriangleAlert
             size={14}
             className="shrink-0 text-yellow-800 dark:text-[var(--color-warning-main)]"
-            aria-label="Possible address poisoning"
+            aria-label={translateMessage('ui.possibleAddressPoisoning_2cb89561')}
           />
         </TooltipTrigger>
         <TooltipContent className="max-w-none">
@@ -76,14 +77,14 @@ const SimilarityBandHeader = ({ colSpan }: { colSpan: number }) => (
       {/* Warning accent flips with the theme: dark amber-yellow on the light band, coral on the dark band. */}
       <div className="flex items-center gap-1.5 text-yellow-800 dark:text-[var(--color-warning-main)]">
         <Typography variant="paragraph-mini" className="font-semibold text-inherit">
-          Address poisoning warning
+          {translateMessage('ui.addressPoisoningWarning_182c2491')}
         </Typography>
         <Tooltip>
           <TooltipTrigger render={<span className="inline-flex cursor-help" />}>
-            <Info size={14} aria-label="About address poisoning" />
+            <Info size={14} aria-label={translateMessage('ui.aboutAddressPoisoning_baa033bc')} />
           </TooltipTrigger>
           <TooltipContent className="max-w-xs">
-            These accounts have very similar addresses. Carefully verify the full address before selecting one.
+            {translateMessage('ui.theseAccountsHaveVerySimilarAddresses_1663cbb4')}
           </TooltipContent>
         </Tooltip>
       </div>

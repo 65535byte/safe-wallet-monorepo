@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -33,14 +34,16 @@ import type {
 const money = (minorUnits: number, currency: string) => formatCurrency(minorUnits / 100, currency.toUpperCase())
 
 const NOTES = {
-  upgrade: 'Your plan will be upgraded immediately',
-  downgrade: 'Your plan will be downgraded immediately',
-  change: 'Your plan will change immediately',
+  upgrade: translateMessage('ui.yourPlanWillBeUpgradedImmediately_7572c45f'),
+  downgrade: translateMessage('ui.yourPlanWillBeDowngradedImmediately_3dddfd19'),
+  change: translateMessage('ui.yourPlanWillChangeImmediately_e1ef21da'),
 } as const
 
 /** The change is titled by what the Workspace ends up with: its seats, whichever plan they come from. */
 export const changeTitle = (direction: PlanChangeDirection, seats: string): string =>
-  direction === 'upgrade' ? `Upgrade to ${seats}` : `Switch to ${seats}`
+  direction === 'upgrade'
+    ? translateMessage('ui.upgradeTo_12fad32d', { p0: seats })
+    : translateMessage('ui.switchTo_bf44dbf8', { p0: seats })
 
 const PlanColumn = ({ label, name, seats, price }: { label: string; name: string; seats?: string; price: string }) => (
   <div className="flex flex-col items-center gap-1">
@@ -127,14 +130,14 @@ export default function ChangePlanDialog({
 
           <div className="flex items-center justify-center gap-8 py-4" data-testid="change-plan-summary">
             <PlanColumn
-              label="Current plan"
+              label={translateMessage('ui.currentPlan_45e3ad53')}
               name={currentPlan.name}
               seats={currentPlan.seatsLabel}
               price={`${formatPlanPrice(currentPlan.price, currentPlan.currency)}${priceSuffix(currentPlan.billingCycle)}`}
             />
             <ArrowRight className="size-4 shrink-0 text-muted-foreground" />
             <PlanColumn
-              label="New plan"
+              label={translateMessage('ui.newPlan_7cb79f36')}
               name={pick.tier.name}
               seats={pick.option.label}
               price={`${pick.option.price === null ? 'Custom' : formatPlanPrice(pick.option.price, pick.tier.currency)}${priceSuffix(pick.tier.billingCycle)}`}
@@ -145,11 +148,16 @@ export default function ChangePlanDialog({
 
           {isTrialSwitch ? (
             <Typography color="muted" data-testid="change-plan-trial-note">
-              You&apos;re on free access
-              {currentPlan.periodEndsAt ? ` until ${formatDate(Date.parse(currentPlan.periodEndsAt))}` : ''}. Nothing is
-              charged now. From then on you&apos;ll pay{' '}
-              {pick.option.price === null ? 'a custom price' : formatPlanPrice(pick.option.price, pick.tier.currency)}
-              {priceSuffix(pick.tier.billingCycle)} for {pick.tier.name}.
+              {translateMessage('ui.youReOnFreeAccess_6896110f')}
+              {currentPlan.periodEndsAt
+                ? translateMessage('ui.until_045d6239', { p0: formatDate(Date.parse(currentPlan.periodEndsAt)) })
+                : ''}
+              {translateMessage('ui.nothingIsChargedNowFromThen_582c4878')}{' '}
+              {pick.option.price === null
+                ? translateMessage('ui.aCustomPrice_52a82d29')
+                : formatPlanPrice(pick.option.price, pick.tier.currency)}
+              {priceSuffix(pick.tier.billingCycle)} {translateMessage('ui.for_2b768308')}
+              {pick.tier.name}.
             </Typography>
           ) : isPreviewing || (!preview && !previewError) ? (
             <div className="flex flex-col gap-2" data-testid="change-plan-skeleton">
@@ -160,7 +168,9 @@ export default function ChangePlanDialog({
           ) : preview ? (
             <>
               <div className="flex flex-col gap-3">
-                <Typography variant="paragraph-large-medium">Proration details</Typography>
+                <Typography variant="paragraph-large-medium">
+                  {translateMessage('ui.prorationDetails_787fed91')}
+                </Typography>
                 <ul className="flex flex-col gap-2">
                   {preview.lineItems.map((item, index) => (
                     <li key={`${item.description}-${index}`} className="flex items-baseline justify-between gap-4">
@@ -177,7 +187,9 @@ export default function ChangePlanDialog({
 
               <div className="flex flex-col gap-2">
                 <div className="flex items-baseline justify-between gap-4">
-                  <Typography variant="paragraph-large-medium">Amount due on next invoice</Typography>
+                  <Typography variant="paragraph-large-medium">
+                    {translateMessage('ui.amountDueOnNextInvoice_4ad04dd3')}
+                  </Typography>
                   <Typography
                     variant="paragraph-large-medium"
                     className="tabular-nums"
@@ -186,7 +198,10 @@ export default function ChangePlanDialog({
                     {money(preview.amountDue, preview.currency)}
                   </Typography>
                 </div>
-                <Typography color="muted">Next billing date: {formatDate(preview.nextBillingDate * 1000)}</Typography>
+                <Typography color="muted">
+                  {translateMessage('ui.nextBillingDate_9feb1e76')}
+                  {formatDate(preview.nextBillingDate * 1000)}
+                </Typography>
                 <Typography>{note}</Typography>
               </div>
             </>
@@ -208,15 +223,13 @@ export default function ChangePlanDialog({
           {isVerifying && (
             <Alert variant="info">
               <AlertSeverityIcon variant="info" />
-              <AlertDescription>
-                Verify your identity to confirm the plan change. You will be redirected.
-              </AlertDescription>
+              <AlertDescription>{translateMessage('ui.verifyYourIdentityToConfirmThe_5fc93179')}</AlertDescription>
             </Alert>
           )}
 
           <div className="flex gap-4 pt-2">
             <Button variant="secondary" size="lg" className="flex-1" onClick={onClose} disabled={isBusy}>
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
             <Button
               size="lg"
@@ -230,7 +243,7 @@ export default function ChangePlanDialog({
                 <Spinner />
               ) : (
                 <>
-                  Confirm change
+                  {translateMessage('ui.confirmChange_fcab3ac2')}
                   <ArrowRight data-icon="inline-end" />
                 </>
               )}

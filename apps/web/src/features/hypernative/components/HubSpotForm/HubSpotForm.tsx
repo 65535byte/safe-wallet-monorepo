@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import { useEffect, useRef, useState } from 'react'
@@ -123,10 +124,10 @@ const HubSpotForm = ({ portalId, formId, region = 'eu1', onSubmit }: HubSpotForm
   return (
     <div className="min-h-full bg-[var(--color-static-primary)] py-2">
       <Typography variant="h3" className="mb-2 text-[var(--color-static-main)]">
-        Request demo
+        {translateMessage('ui.requestDemo_39b373fc')}
       </Typography>
       <Typography variant="paragraph" className="mb-8 text-[var(--color-static-light)]">
-        Share your details to book a demo call.
+        {translateMessage('ui.shareYourDetailsToBookA_2a82d1f3')}
       </Typography>
       {isLoading && (
         <div className="flex min-h-[400px] items-center justify-center">

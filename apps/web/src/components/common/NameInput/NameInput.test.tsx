@@ -14,11 +14,11 @@ describe('NameInput', () => {
     it('does not reject disallowed characters', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" />
+          <NameInput name="name" label="名称" />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       // A plain disallowed charset character (not script injection, which the shadcn Input sanitizes separately).
       fireEvent.change(input, { target: { value: 'Alice~' } })
 
@@ -31,11 +31,11 @@ describe('NameInput', () => {
     it('shows the "Maximum 50 symbols" label above 50 characters', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" />
+          <NameInput name="name" label="名称" />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: 'a'.repeat(51) } })
 
       await waitFor(() => {
@@ -46,11 +46,11 @@ describe('NameInput', () => {
     it('trims the value on blur', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" />
+          <NameInput name="name" label="名称" />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' }) as HTMLInputElement
+      const input = screen.getByRole('textbox', { name: '名称' }) as HTMLInputElement
       fireEvent.change(input, { target: { value: '  Alice  ' } })
       fireEvent.blur(input)
 
@@ -64,31 +64,31 @@ describe('NameInput', () => {
     it('defaults to an "Optional" placeholder when not required and none is provided', () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" />
+          <NameInput name="name" label="名称" />
         </Wrapper>,
       )
 
-      expect(screen.getByRole('textbox', { name: 'Name' })).toHaveAttribute('placeholder', 'Optional')
+      expect(screen.getByRole('textbox', { name: '名称' })).toHaveAttribute('placeholder', 'Optional')
     })
 
     it('keeps the provided placeholder when one is given', () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" placeholder="Luxury Sepolia Safe" />
+          <NameInput name="name" label="名称" placeholder="Luxury Sepolia Safe" />
         </Wrapper>,
       )
 
-      expect(screen.getByRole('textbox', { name: 'Name' })).toHaveAttribute('placeholder', 'Luxury Sepolia Safe')
+      expect(screen.getByRole('textbox', { name: '名称' })).toHaveAttribute('placeholder', 'Luxury Sepolia Safe')
     })
 
     it('does not add an "Optional" placeholder when the field is required', () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" required />
+          <NameInput name="name" label="名称" required />
         </Wrapper>,
       )
 
-      expect(screen.getByRole('textbox', { name: 'Name' })).not.toHaveAttribute('placeholder')
+      expect(screen.getByRole('textbox', { name: '名称' })).not.toHaveAttribute('placeholder')
     })
   })
 
@@ -96,18 +96,18 @@ describe('NameInput', () => {
     it('rejects disallowed characters with a short label and full tooltip', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset />
+          <NameInput name="name" label="名称" validateCharset />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       // A plain disallowed charset character (not script injection, which the shadcn Input sanitizes separately).
       fireEvent.change(input, { target: { value: 'Alice~' } })
 
       await waitFor(() => {
         expect(input).toHaveAttribute('aria-invalid', 'true')
       })
-      expect(input).toHaveAccessibleName('Name')
+      expect(input).toHaveAccessibleName('名称')
       expect(screen.getByTitle(DISALLOWED_CHARACTER_MESSAGE)).toBeInTheDocument()
       expect(screen.getByText(DISALLOWED_CHARACTER_SHORT_MESSAGE)).toBeInTheDocument()
     })
@@ -115,11 +115,11 @@ describe('NameInput', () => {
     it('announces the validation message and flags it as an error', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset />
+          <NameInput name="name" label="名称" validateCharset />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: 'Alice~' } })
 
       await waitFor(() => {
@@ -131,11 +131,11 @@ describe('NameInput', () => {
     it('announces a plain helper text without flagging an error', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset helperText="Visible to your space only" />
+          <NameInput name="name" label="名称" validateCharset helperText="Visible to your space only" />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       expect(input).toHaveAccessibleDescription('Visible to your space only')
       expect(screen.queryByRole('alert')).not.toBeInTheDocument()
     })
@@ -143,11 +143,11 @@ describe('NameInput', () => {
     it('accepts a valid UTF-8 name', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset />
+          <NameInput name="name" label="名称" validateCharset />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: 'José' } })
 
       await waitFor(() => {
@@ -159,41 +159,41 @@ describe('NameInput', () => {
     it('enforces minLength only when provided', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset minLength={3} />
+          <NameInput name="name" label="名称" validateCharset minLength={3} />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: 'Jo' } })
 
       await waitFor(() => {
-        expect(screen.getByText('Names must be at least 3 character(s) long')).toBeInTheDocument()
+        expect(screen.getByText('Names must be，时间 least 3 character(s) long')).toBeInTheDocument()
       })
     })
 
     it('enforces maxLength', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset maxLength={5} />
+          <NameInput name="name" label="名称" validateCharset maxLength={5} />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: 'abcdef' } })
 
       await waitFor(() => {
-        expect(screen.getByText('Names must be at most 5 characters long')).toBeInTheDocument()
+        expect(screen.getByText('Names must be，时间 most 5 characters long')).toBeInTheDocument()
       })
     })
 
     it('sanitizes the value on blur', async () => {
       render(
         <Wrapper>
-          <NameInput name="name" label="Name" validateCharset />
+          <NameInput name="name" label="名称" validateCharset />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' }) as HTMLInputElement
+      const input = screen.getByRole('textbox', { name: '名称' }) as HTMLInputElement
       fireEvent.change(input, { target: { value: '  O’Brien  ' } })
       fireEvent.blur(input)
 
@@ -205,17 +205,17 @@ describe('NameInput', () => {
     it('shows Required when a required field is cleared', async () => {
       render(
         <Wrapper defaultName="Alice">
-          <NameInput name="name" label="Name" validateCharset required />
+          <NameInput name="name" label="名称" validateCharset required />
         </Wrapper>,
       )
 
-      const input = screen.getByRole('textbox', { name: 'Name' })
+      const input = screen.getByRole('textbox', { name: '名称' })
       fireEvent.change(input, { target: { value: '' } })
 
       await waitFor(() => {
-        expect(screen.getByText('Required')).toBeInTheDocument()
+        expect(screen.getByText('必填')).toBeInTheDocument()
       })
-      expect(input).toHaveAccessibleName('Name')
+      expect(input).toHaveAccessibleName('名称')
     })
   })
 })

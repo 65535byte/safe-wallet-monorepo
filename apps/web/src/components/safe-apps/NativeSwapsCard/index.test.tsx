@@ -12,11 +12,11 @@ describe('NativeSwapsCard', () => {
   it('renders as a shadcn Card with promo content', () => {
     render(<NativeSwapsCard onDismiss={jest.fn()} />)
 
-    expect(screen.getByText('Native swaps are here!')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Try now' })).toBeInTheDocument()
+    expect(screen.getByText('原生兑换已上线！')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '立即体验' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: "Don't show" })).toBeInTheDocument()
 
-    const card = screen.getByText('Native swaps are here!').closest('[data-slot="card"]')
+    const card = screen.getByText('原生兑换已上线！').closest('[data-slot="card"]')
     expect(card).toHaveAttribute('data-size', 'none')
   })
 

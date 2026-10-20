@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Popover, PopoverContent } from '@safe-global/views/components/ui/popover'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -68,13 +69,13 @@ function PopoverHeaderAction({
             onClick={onManageClick}
             className="ml-2"
             data-testid="manage-nested-safes-button"
-            aria-label="Manage nested Safes"
+            aria-label={translateMessage('ui.manageNestedAccounts_49bf54eb')}
           >
             <SettingsIcon className="size-4" />
           </Button>
         }
       />
-      <TooltipContent>Manage safes</TooltipContent>
+      <TooltipContent>{translateMessage('ui.manageSafes_dfc63d53')}</TooltipContent>
     </Tooltip>
   )
 }
@@ -113,7 +114,7 @@ function NormalModeActions({
             {(ok) => (
               <Button data-testid="add-nested-safe-button" className="mt-6 w-full" onClick={onAdd} disabled={!ok}>
                 <AddIcon className="size-4" />
-                Add nested Safe
+                {translateMessage('ui.addNested_d3cce74b')}
               </Button>
             )}
           </CheckWallet>
@@ -181,7 +182,7 @@ function PopoverBody({
     <>
       {isManageMode && (
         <Typography variant="paragraph-small" color="muted" className="mb-4 block shrink-0">
-          Select which Nested Safes you want to see in your dashboard.
+          {translateMessage('ui.selectWhichNestedAccountsYouWant_f6e0bfa0')}
         </Typography>
       )}
       <div className={css.scrollContainer}>
@@ -226,7 +227,9 @@ function ManageModeFooter({
       className="shrink-0 border-t border-[var(--color-border-light)] px-6 py-4"
       onCancel={onCancel}
       cancelTestId="cancel-manage-nested-safes"
-      confirmLabel={isFirstTimeCuration ? 'Confirm selection' : 'Save'}
+      confirmLabel={
+        isFirstTimeCuration ? translateMessage('ui.confirmSelection_a98ff3c2') : translateMessage('ui.save_5fe30f30')
+      }
       onConfirm={onSave}
       confirmDisabled={isFirstTimeCuration ? selectedCount === 0 : !hasChanges}
       confirmTestId="save-manage-nested-safes"
@@ -332,7 +335,7 @@ export function NestedSafesPopover({
           className="-mt-1 border-b border-[var(--color-border-light)]"
         >
           <div className="flex w-full items-center justify-between">
-            <span>Nested Safes</span>
+            <span>{translateMessage('ui.nestedAccounts_7adf9ebb')}</span>
             <PopoverHeaderAction
               isManageMode={isManageMode}
               selectedCount={selectedCount}

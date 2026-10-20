@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Collectible } from '@safe-global/store/gateway/AUTO_GENERATED/collectibles'
 import NftIcon from '@/public/images/common/nft.svg'
 import SendNftBatch from './SendNftBatch'
@@ -25,11 +26,11 @@ const NftTransferFlow = (params: NftTransferFlowProps) => (
       ...params,
     }}
     icon={NftIcon}
-    subtitle="Send NFTs"
+    subtitle={translateMessage('ui.sendNFTs_2b159b67')}
     eventCategory={TxFlowType.NFT_TRANSFER}
     ReviewTransactionComponent={ReviewNftBatch}
   >
-    <TxFlowStep title="New transaction">
+    <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
       <SendNftBatch />
     </TxFlowStep>
   </TxFlow>

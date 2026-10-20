@@ -36,14 +36,12 @@ describe('AddLocalContact', () => {
   it('passes the local-contact trigger label, title, intro, and success copy', () => {
     render(<AddLocalContact />)
 
-    expect(lastProps?.triggerLabel).toBe('Add contact')
-    expect(lastProps?.dialogTitle).toBe('Add contact')
-    expect(lastProps?.intro).toBe(
-      'This contact is stored locally in this browser. You can propose adding it to the shared Workspace address book later.',
-    )
-    expect(lastProps?.successMessage).toBe('Contact added')
+    expect(lastProps?.triggerLabel).toBe('添加联系人')
+    expect(lastProps?.dialogTitle).toBe('添加联系人')
+    expect(lastProps?.intro).toBe('联系人保存在当前浏览器本地，之后可申请添加到工作空间共享通讯录。')
+    expect(lastProps?.successMessage).toBe('联系人已添加')
     expect(lastProps?.successGroupKey).toBe('add-local-contact-success')
-    expect(screen.getByTestId('dialog-stub')).toHaveTextContent('Add contact')
+    expect(screen.getByTestId('dialog-stub')).toHaveTextContent('添加联系人')
   })
 
   it('submit writes the contact to the local address book and never calls the server', async () => {

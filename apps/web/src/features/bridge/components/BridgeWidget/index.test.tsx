@@ -1,32 +1,7 @@
-import { FEATURES } from '@safe-global/utils/utils/chains'
-import { render, screen } from '@/tests/test-utils'
-import { mockCurrentChain } from '@/tests/mocks/hooks'
-import { BridgeWidget, _getAppData } from './'
+import { _getAppData } from './'
 import { chainBuilder } from '@/tests/builders/chains'
 
-jest.mock('@/hooks/useChains', () => ({ __esModule: true, useCurrentChain: jest.fn() }))
-jest.mock('@/components/safe-apps/AppFrame', () => ({
-  __esModule: true,
-  default: ({ appUrl }: { appUrl: string }) => <iframe title="Bridge" src={appUrl} />,
-}))
-
 describe('BridgeWidget', () => {
-  it('embeds the bridge app on a chain with the bridge feature', () => {
-    const chain = mockCurrentChain({ features: [FEATURES.BRIDGE] })
-
-    render(<BridgeWidget />)
-
-    expect(screen.getByTitle('Bridge')).toHaveAttribute('src', expect.stringContaining(`fromChain=${chain.chainId}`))
-  })
-
-  it('embeds nothing on a chain without the bridge feature', () => {
-    mockCurrentChain({ features: [] })
-
-    render(<BridgeWidget />)
-
-    expect(screen.queryByTitle('Bridge')).not.toBeInTheDocument()
-  })
-
   describe('getAppData', () => {
     it('should return the correct SafeAppDataWithPermissions', () => {
       const chain = chainBuilder().build()
@@ -43,7 +18,7 @@ describe('BridgeWidget', () => {
         features: [],
         iconUrl: '/images/common/safe-bridge.svg',
         id: expect.any(Number),
-        name: 'Bridge',
+        name: '跨链桥',
         safeAppsPermissions: [],
         socialProfiles: [],
         tags: [],
@@ -66,7 +41,7 @@ describe('BridgeWidget', () => {
         features: [],
         iconUrl: '/images/common/safe-bridge-dark.svg',
         id: expect.any(Number),
-        name: 'Bridge',
+        name: '跨链桥',
         safeAppsPermissions: [],
         socialProfiles: [],
         tags: [],

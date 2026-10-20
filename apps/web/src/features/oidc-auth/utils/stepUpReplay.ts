@@ -1,3 +1,5 @@
+import { translateMessage } from '@/i18n'
+import { SAFE_PRO_ENABLED } from '@/config/pro'
 import { cgwApi } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { cgwApi as billingApi } from '@safe-global/store/gateway/AUTO_GENERATED/billing'
 import type { SerializedError, ThunkAction, UnknownAction } from '@reduxjs/toolkit'
@@ -21,18 +23,18 @@ const STEP_UP_MAX_AGE_MS = 5 * 60 * 1_000
  * @see https://github.com/safe-global/safe-client-gateway/pull/3315
  */
 const REPLAYABLE_ENDPOINTS = {
-  spaceSafesCreateV1: 'Safe account added',
-  spaceSafesDeleteV1: 'Safe account removed',
-  spacesUpdateV1: 'Workspace updated',
-  spacesDeleteV1: 'Workspace deleted',
-  membersInviteUserV1: 'Invitation sent',
-  membersUpdateRoleV1: 'Role updated',
-  membersRemoveUserV1: 'Member removed',
-  addressBooksUpsertAddressBookItemsV1: 'Address book updated',
-  addressBooksDeleteByAddressV1: 'Address removed from the address book',
-  addressBookRequestsApproveRequestV1: 'Address book request approved',
-  billingUpdateSubscriptionV1: 'Plan updated',
-  billingGetCheckoutUrlV1: 'Opening the checkout',
+  spaceSafesCreateV1: translateMessage('ui.accountAdded_4eb2fe1f'),
+  spaceSafesDeleteV1: translateMessage('ui.accountRemoved_f64b09ff'),
+  spacesUpdateV1: translateMessage('ui.workspaceUpdated_06c87806'),
+  spacesDeleteV1: translateMessage('ui.workspaceDeleted_c65f5a9b'),
+  membersInviteUserV1: translateMessage('ui.invitationSent_6c41102e'),
+  membersUpdateRoleV1: translateMessage('ui.roleUpdated_51b93d9f'),
+  membersRemoveUserV1: translateMessage('ui.memberRemoved_8cef92fa'),
+  addressBooksUpsertAddressBookItemsV1: translateMessage('ui.addressBookUpdated_ed7995ca'),
+  addressBooksDeleteByAddressV1: translateMessage('ui.addressRemovedFromTheAddressBook_70a69e31'),
+  addressBookRequestsApproveRequestV1: translateMessage('ui.addressBookRequestApproved_c0c4f483'),
+  billingUpdateSubscriptionV1: translateMessage('ui.planUpdated_396dfc9b'),
+  billingGetCheckoutUrlV1: translateMessage('ui.openingTheCheckout_8ad4534d'),
 } as const
 
 type ReplayableEndpoint = keyof typeof REPLAYABLE_ENDPOINTS
@@ -45,7 +47,7 @@ export type PendingStepUpAction = {
   args: unknown
 }
 
-const REPLAY_FAILED_MESSAGE = 'Verification succeeded, but the action could not be completed. Please try again.'
+const REPLAY_FAILED_MESSAGE = translateMessage('ui.verificationSucceededButTheActionCould_0610fe5f')
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null
 
@@ -114,6 +116,7 @@ const asReplayInitiator = (endpoint: ReplayableEndpoint): ReplayInitiator =>
 
 /** Resolves to `true` when the replay sends the browser to another page, so the caller keeps the splash up. */
 export const replayStepUpAction = async (dispatch: AppDispatch, pending: PendingStepUpAction): Promise<boolean> => {
+  if (!SAFE_PRO_ENABLED && pending.endpoint.startsWith('billing')) return false
   const result = await dispatch(asReplayInitiator(pending.endpoint)(pending.args))
 
   if (result.error) {

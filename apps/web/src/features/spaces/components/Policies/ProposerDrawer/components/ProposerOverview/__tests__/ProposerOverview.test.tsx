@@ -20,14 +20,14 @@ describe('ProposerOverview', () => {
   it('lists every proposer fact against its label', () => {
     render(<ProposerOverview {...PROPS} />)
 
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
-    expect(screen.getByText('Proposer')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
+    expect(screen.getByText('提案人')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
-    expect(screen.getByText('Safe account')).toBeInTheDocument()
+    expect(screen.getByText('8379 账户')).toBeInTheDocument()
     expect(screen.getByText('Treasury')).toBeInTheDocument()
-    expect(screen.getByText('Network')).toBeInTheDocument()
+    expect(screen.getByText('网络')).toBeInTheDocument()
     expect(screen.getByAltText('chain-1')).toBeInTheDocument()
-    expect(screen.getByText('Initiated by')).toBeInTheDocument()
+    expect(screen.getByText('发起人')).toBeInTheDocument()
     expect(screen.getByText('Jacob')).toBeInTheDocument()
     expect(screen.getByText('06.24.26 03:35 AM UTC')).toBeInTheDocument()
     expect(screen.getByText('Safe module')).toBeInTheDocument()
@@ -36,7 +36,7 @@ describe('ProposerOverview', () => {
   it('keeps a Network placeholder in the skeleton so the list does not jump on load', () => {
     render(<ProposerOverviewSkeleton />)
 
-    expect(screen.getByText('Network')).toBeInTheDocument()
+    expect(screen.getByText('网络')).toBeInTheDocument()
     expect(screen.getAllByTestId('account-identity-skeleton')).toHaveLength(3)
   })
 })

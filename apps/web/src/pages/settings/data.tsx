@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import DataManagement from '@/components/settings/DataManagement'
 import SettingsHeader from '@/components/settings/SettingsHeader'
 import { BRAND_NAME } from '@/config/constants'
@@ -8,7 +9,7 @@ const Data: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Data`}</title>
+        <title>{translateMessage('ui.settingsData_be4ec48a', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />

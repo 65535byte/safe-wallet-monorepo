@@ -18,7 +18,7 @@ const mockSpaceId = '7a2f1c3e-5b4d-4e6f-8a9b-0c1d2e3f4a5b'
 
 const SAFE = '0xAAAAaaaaAAaaaaAAAaAAaaaAaAaaaaaAAAaaAAaA'
 const PARENT = '0x2222222222222222222222222222222222222222'
-const COPY = { title: 'Add this proposer on the Safe account level', action: 'grant this role' }
+const COPY = { title: '在 8379 账户设置中添加此提案人', action: 'grant this role' }
 
 const treasury: SafeAccountOption = {
   id: buildSafeAccountId('137', SAFE),

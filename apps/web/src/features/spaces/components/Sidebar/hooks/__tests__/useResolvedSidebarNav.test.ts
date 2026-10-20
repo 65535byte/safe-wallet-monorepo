@@ -12,15 +12,15 @@ describe('useResolvedSidebarNav', () => {
   const mockIcon = (() => null) as unknown as SidebarItemConfig['icon']
 
   const mockMainNav: SidebarItemConfig[] = [
-    { icon: mockIcon, label: 'Home', href: '/home' },
-    { icon: mockIcon, label: 'Transactions', href: '/transactions', badge: 5 },
+    { icon: mockIcon, label: '首页', href: '/home' },
+    { icon: mockIcon, label: '交易', href: '/transactions', badge: 5 },
   ]
 
   const mockSetupGroup: SidebarGroupConfig = {
-    label: 'Setup',
+    label: '账户配置',
     items: [
-      { icon: mockIcon, label: 'Settings', href: '/settings' },
-      { icon: mockIcon, label: 'Security', href: '/security', activeMemberOnly: true },
+      { icon: mockIcon, label: '设置', href: '/settings' },
+      { icon: mockIcon, label: '安全', href: '/security', activeMemberOnly: true },
     ],
   }
 
@@ -40,8 +40,8 @@ describe('useResolvedSidebarNav', () => {
       const { result } = renderHook(() => useResolvedSidebarNav(mockMainNav, mockSetupGroup, mockOptions))
 
       expect(result.current.mainNavItems).toHaveLength(2)
-      expect(result.current.mainNavItems[0]?.label).toBe('Home')
-      expect(result.current.mainNavItems[1]?.label).toBe('Transactions')
+      expect(result.current.mainNavItems[0]?.label).toBe('首页')
+      expect(result.current.mainNavItems[1]?.label).toBe('交易')
     })
 
     it('marks item as active when pathname matches href', () => {
@@ -101,15 +101,15 @@ describe('useResolvedSidebarNav', () => {
     it('resolves setup group with label', () => {
       const { result } = renderHook(() => useResolvedSidebarNav(mockMainNav, mockSetupGroup, mockOptions))
 
-      expect(result.current.setupGroup.label).toBe('Setup')
+      expect(result.current.setupGroup.label).toBe('账户配置')
     })
 
     it('resolves all setup group items', () => {
       const { result } = renderHook(() => useResolvedSidebarNav(mockMainNav, mockSetupGroup, mockOptions))
 
       expect(result.current.setupGroup.items).toHaveLength(2)
-      expect(result.current.setupGroup.items[0]?.label).toBe('Settings')
-      expect(result.current.setupGroup.items[1]?.label).toBe('Security')
+      expect(result.current.setupGroup.items[0]?.label).toBe('设置')
+      expect(result.current.setupGroup.items[1]?.label).toBe('安全')
     })
 
     it('applies isItemDisabled to setup group items', () => {

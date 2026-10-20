@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { useState } from 'react'
 import { TriangleAlert } from 'lucide-react'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -23,16 +24,14 @@ const UnknownAppWarning = ({ url, onHideWarning }: UnknownAppWarningProps): Reac
       <div className="mt-12 flex flex-col items-center">
         <TriangleAlert className="size-9 text-[var(--color-warning-main)]" />
         <Typography variant="h3" className="mt-4 text-[var(--color-warning-main)]">
-          Warning
+          {translateMessage('ui.warning_e4bf8e0a')}
         </Typography>
       </div>
       <Typography variant="paragraph-bold" className="my-4 text-[var(--color-warning-main)]">
-        The application you are trying to access is not in the default Safe Apps list
+        {translateMessage('ui.theApplicationYouAreTryingTo_13f630a3')}
       </Typography>
 
-      <Typography className="my-4 text-center">
-        Check the link you are using and ensure that it comes from a source you trust
-      </Typography>
+      <Typography className="my-4 text-center">{translateMessage('ui.checkTheLinkYouAreUsing_187fdd4f')}</Typography>
 
       {url && <Domain url={url} showInOneLine />}
 
@@ -46,7 +45,7 @@ const UnknownAppWarning = ({ url, onHideWarning }: UnknownAppWarningProps): Reac
               onCheckedChange={handleToggleWarningPreference}
             />
             <FieldLabel htmlFor="hide-warning" className="font-normal">
-              Don&apos;t show this warning again
+              {translateMessage('ui.donTShowThisWarningAgain_a5b45332')}
             </FieldLabel>
           </Field>
         </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactNode, type RefObject } from 'react'
 import Link from 'next/link'
 import type { UrlObject } from 'url'
@@ -48,7 +49,7 @@ function AccountItemLink({
         <Link
           onClick={onLinkClick}
           href={href}
-          aria-label="Open Safe"
+          aria-label={translateMessage('ui.open_4de8d7a3')}
           className="absolute inset-0 z-0 rounded-[inherit] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         />
       </Track>

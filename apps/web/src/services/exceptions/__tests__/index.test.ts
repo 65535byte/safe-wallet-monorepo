@@ -49,7 +49,7 @@ describe('CodedException', () => {
 
   it('creates an error with an extra message from an object', () => {
     const err = new CodedException(Errors._100, { secretKey: '0x123' })
-    expect(err.message).toBe('Code 100: Invalid input in the address field (Non-Error object of type: object)')
+    expect(err.message).toBe('Code 100: Invalid input in the address field (Non-Error object / type: object)')
     expect(err.code).toBe(100)
     expect(err.content).toBe(Errors._100)
 
@@ -435,7 +435,7 @@ describe('CodedException', () => {
 
       const { trackError, Errors } = await import('..')
 
-      trackError(Errors._805, new Error('CGW error - 422: Invalid transaction'))
+      trackError(Errors._805, new Error('CGW error - 422: Invalid 笔交易'))
       expect(mockCaptureError).toHaveBeenCalledWith(
         expect.objectContaining({
           tags: expect.objectContaining({ http_status: 422 }),
@@ -466,7 +466,7 @@ describe('CodedException', () => {
 
       const { trackError, Errors } = await import('..')
 
-      trackError(Errors._805, new Error('CGW error - 422: Invalid transaction'), { httpStatus: 400 })
+      trackError(Errors._805, new Error('CGW error - 422: Invalid 笔交易'), { httpStatus: 400 })
       expect(mockCaptureError).toHaveBeenCalledWith(
         expect.objectContaining({
           tags: expect.objectContaining({ http_status: 400 }),

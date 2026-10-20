@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { resolveHref } from 'next/dist/client/resolve-href'
@@ -89,18 +90,18 @@ const SafeAppCardGridView = ({
       onClickSafeApp={onClickSafeApp}
       height="100%"
       compact={compact}
-      ariaLabel={`Open ${safeApp.name}`}
+      ariaLabel={translateMessage('ui.open_fb128491', { p0: safeApp.name })}
     >
       {/* Safe App Header */}
       <div className={classNames('flex items-start justify-between', css.safeAppHeader)}>
         <div className={css.safeAppIconContainer}>
           {/* Batch transactions Icon */}
           {isOptimizedForBatchTransactions(safeApp) && (
-            <BatchIcon className={css.safeAppBatchIcon} alt="batch transactions icon" />
+            <BatchIcon className={css.safeAppBatchIcon} alt={translateMessage('ui.batchTransactionsIcon_95c81a88')} />
           )}
 
           {/* Safe App Icon */}
-          <SafeAppIconCard src={safeApp.iconUrl} alt={`${safeApp.name} logo`} />
+          <SafeAppIconCard src={safeApp.iconUrl} alt={translateMessage('ui.logo_efd72bef', { p0: safeApp.name })} />
         </div>
 
         {/* Safe App Action Buttons */}
@@ -154,7 +155,7 @@ export const SafeAppCardContainer = ({
   onClickSafeApp,
   height,
   className,
-  ariaLabel = 'Open Safe app',
+  ariaLabel = translateMessage('ui.openApp_00d5233a'),
 }: SafeAppCardContainerProps) => {
   const handleClickSafeApp = (event: SyntheticEvent) => {
     if (onClickSafeApp) {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { parsePrefixedAddress } from '@safe-global/utils/utils/addresses'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
@@ -142,12 +143,14 @@ function SafeSelectorDropdown({
   }
 
   if (!mounted || !triggerItem) {
-    if (isError && mounted) return <InlineRetryError message="Failed to load Safe data" onRetry={onRetry} />
+    if (isError && mounted)
+      return <InlineRetryError message={translateMessage('ui.failedToLoadData_c44c93fb')} onRetry={onRetry} />
     return <SafeSelectorDropdownSkeleton />
   }
 
   if (items.length === 0) {
-    if (isError) return <InlineRetryError message="Failed to load Safe data" onRetry={onRetry} />
+    if (isError)
+      return <InlineRetryError message={translateMessage('ui.failedToLoadData_c44c93fb')} onRetry={onRetry} />
     return <SafeSelectorDropdownSkeleton />
   }
 
@@ -192,7 +195,7 @@ function SafeSelectorDropdown({
           )}
           variant="ghost"
           iconWrapperClassName={variants.iconWrapperClass}
-          aria-label={`Select Safe ${triggerItem.address}`}
+          aria-label={translateMessage('ui.select_1029ea86', { p0: triggerItem.address })}
           aria-disabled={isDisabled || undefined}
           data-testid="open-safes-icon"
         >
@@ -247,7 +250,7 @@ function SafeSelectorDropdown({
         <TooltipTrigger render={<div data-testid="space-safes-navigation-block" className={wrapperClassName} />}>
           {innerContent}
         </TooltipTrigger>
-        <TooltipContent side="bottom">Changing the Safe is not allowed in this screen</TooltipContent>
+        <TooltipContent side="bottom">{translateMessage('ui.changingTheIsNotAllowedIn_19b3645a')}</TooltipContent>
       </Tooltip>
     )
   }

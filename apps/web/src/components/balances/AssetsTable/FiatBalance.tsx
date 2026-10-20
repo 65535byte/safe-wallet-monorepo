@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import FiatValue from '@/components/common/FiatValue'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
@@ -19,9 +20,7 @@ export const FiatBalance = ({ balanceItem }: { balanceItem: Balance }) => {
               </span>
             }
           />
-          <TooltipContent>
-            Provided values are indicative and we are unable to accommodate pricing requests for individual assets
-          </TooltipContent>
+          <TooltipContent>{translateMessage('ui.providedValuesAreIndicativeAndWe_3ad667ef')}</TooltipContent>
         </Tooltip>
       )}
     </div>

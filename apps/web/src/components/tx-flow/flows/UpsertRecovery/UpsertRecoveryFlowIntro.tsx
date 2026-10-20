@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 
 import TxCard, { TxCardActions } from '@safe-global/views/components/tx-flow/common/TxCard'
@@ -16,25 +17,23 @@ import { Separator } from '@safe-global/views/components/ui/separator'
 const RecoverySteps = [
   {
     Icon: RecoveryRecoverers,
-    title: 'Choose a Recoverer and set a review window',
-    subtitle:
-      'Only your chosen Recoverer can initiate the recovery process. The process can be cancelled at any time during the review window.',
+    title: translateMessage('ui.chooseARecovererAndSetA_aa769f59'),
+    subtitle: translateMessage('ui.onlyYourChosenRecovererCanInitiate_ba4a4074'),
   },
   {
     Icon: RecoveryRecoverer,
-    title: 'Lost access? Let the Recoverer connect',
-    subtitle: 'The recovery process can be initiated by a trusted Recoverer when connected to your Safe account.',
+    title: translateMessage('ui.lostAccessLetTheRecovererConnect_770032c2'),
+    subtitle: translateMessage('ui.theRecoveryProcessCanBeInitiated_f4d4d88b'),
   },
   {
     Icon: RecoveryDelay,
-    title: 'Start the recovery process',
-    subtitle: 'Your Recoverer initiates the recovery process by proposing a new Safe account setup on-chain.',
+    title: translateMessage('ui.startTheRecoveryProcess_b2535d98'),
+    subtitle: translateMessage('ui.yourRecovererInitiatesTheRecoveryProcess_23de34ee'),
   },
   {
     Icon: RecoveryExecution,
-    title: 'All done! The Account is yours again',
-    subtitle:
-      'Once the review window has passed, you can execute the recovery proposal and regain access to your Safe account.',
+    title: translateMessage('ui.allDoneTheAccountIsYours_5eec1dd0'),
+    subtitle: translateMessage('ui.onceTheReviewWindowHasPassed_dcc1a631'),
   },
 ]
 
@@ -64,7 +63,7 @@ export function UpsertRecoveryFlowIntro(): ReactElement {
       <Separator bleed="6" />
       <TxCardActions>
         <Button data-testid="next-btn" variant="default" onClick={() => onNext(data)}>
-          Next
+          {translateMessage('ui.next_9cff86c8')}
         </Button>
       </TxCardActions>
     </TxCard>

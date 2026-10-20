@@ -1,17 +1,21 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { NestedSafeWithStatus } from '@safe-global/views/components/nested-safes/NestedSafesPopover/types'
 
 /**
  * Returns the pluralized "X safe(s) selected" label for the manage mode header.
  */
 export function getSelectedCountLabel(selectedCount: number): string {
-  return `${selectedCount} ${selectedCount === 1 ? 'safe' : 'safes'} selected`
+  return translateMessage('ui.selected_505446f6', { p0: selectedCount, p1: selectedCount === 1 ? 'safe' : 'safes' })
 }
 
 /**
  * Returns the "+X more nested safe(s) found" indicator text.
  */
 export function getUncuratedCountLabel(uncuratedCount: number): string {
-  return `+${uncuratedCount} more nested ${uncuratedCount === 1 ? 'safe' : 'safes'} found`
+  return translateMessage('ui.moreNestedFound_1aeb331a', {
+    p0: uncuratedCount,
+    p1: uncuratedCount === 1 ? 'safe' : 'safes',
+  })
 }
 
 /**

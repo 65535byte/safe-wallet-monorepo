@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { type ReactElement, useContext, useMemo } from 'react'
@@ -12,7 +13,7 @@ import EthHashInfo from '@/components/common/EthHashInfo'
 import EnhancedTable from '@safe-global/views/components/common/EnhancedTable'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import CheckWallet from '@/components/common/CheckWallet'
-import { getDetailedPeriod } from '@safe-global/utils/utils/date'
+import { getDetailedPeriod } from '@safe-global/views/utils/formatPeriod'
 import { TOOLTIP_TITLES } from '@safe-global/views/components/tx-flow/common/constants'
 
 import tableCss from '@safe-global/views/components/common/EnhancedTable/styles.module.css'
@@ -29,12 +30,12 @@ enum HeadCells {
 }
 
 const headCells = [
-  { id: HeadCells.Recoverer, label: 'Recoverer' },
+  { id: HeadCells.Recoverer, label: translateMessage('ui.recoverer_4d82da71') },
   {
     id: HeadCells.Delay,
     label: (
       <>
-        Review window{' '}
+        {translateMessage('ui.reviewWindow_d007ef5d')}{' '}
         <Tooltip>
           <TooltipTrigger render={<span />}>
             <InfoIcon className="ml-1 inline size-4 fill-current align-middle text-[var(--color-border-main)]" />
@@ -48,7 +49,7 @@ const headCells = [
     id: HeadCells.Expiry,
     label: (
       <>
-        Proposal expiry{' '}
+        {translateMessage('ui.proposalExpiry_368c328d')}{' '}
         <Tooltip>
           <TooltipTrigger render={<span />}>
             <InfoIcon className="ml-1 inline size-4 fill-current align-middle text-[var(--color-border-main)]" />
@@ -82,11 +83,19 @@ function RecoverySettings(): ReactElement {
             },
             [HeadCells.Delay]: {
               rawValue: delaySeconds,
-              content: <Typography>{delaySeconds === 0 ? 'none' : getDetailedPeriod(delaySeconds)}</Typography>,
+              content: (
+                <Typography>
+                  {delaySeconds === 0 ? translateMessage('ui.none_48d72ef0') : getDetailedPeriod(delaySeconds)}
+                </Typography>
+              ),
             },
             [HeadCells.Expiry]: {
               rawValue: expirySeconds,
-              content: <Typography>{expirySeconds === 0 ? 'never' : getDetailedPeriod(expirySeconds)}</Typography>,
+              content: (
+                <Typography>
+                  {expirySeconds === 0 ? translateMessage('ui.never_e0a41e0b') : getDetailedPeriod(expirySeconds)}
+                </Typography>
+              ),
             },
             [HeadCells.Actions]: {
               rawValue: '',
@@ -103,18 +112,18 @@ function RecoverySettings(): ReactElement {
   }, [recovery])
 
   return (
-    <SettingsCard title="Account recovery" titleClassName="mb-2">
+    <SettingsCard title={translateMessage('ui.accountRecovery_a5ed5ee0')} titleClassName="mb-2">
       <Typography className="mb-4">
         {isRecoveryEnabled
-          ? 'The trusted Recoverer will be able to recover your Safe account if you ever lose access. You can change Recoverers or alter your recovery setup at any time.'
-          : 'Choose a trusted Recoverer to recover your Safe account if you ever lose access. Enabling the Account recovery module will require a transaction.'}{' '}
+          ? translateMessage('ui.theTrustedRecovererWillBeAble_b48a8538')
+          : translateMessage('ui.chooseATrustedRecovererToRecover_3afd17b9')}{' '}
         <Track {...RECOVERY_EVENTS.LEARN_MORE} label="settings">
           <ExternalLink
             className="font-bold hover:text-muted-foreground"
             href={HelpCenterArticle.RECOVERY}
             title={HelperCenterArticleTitles.RECOVERY}
           >
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </ExternalLink>
         </Track>
       </Typography>
@@ -142,7 +151,7 @@ const SetupRecoveryButton = ({ eventLabel }: { eventLabel: string }) => {
               onClick={() => setTxFlow(<UpsertRecoveryFlow />)}
               className="mt-4"
             >
-              Set up recovery
+              {translateMessage('ui.setUpRecovery_480572ee')}
             </Button>
           </Track>
         )}

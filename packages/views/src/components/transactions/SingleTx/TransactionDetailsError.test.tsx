@@ -8,7 +8,7 @@ describe('TransactionDetailsError', () => {
 
     expect(screen.getByText(TX_DETAILS_LOAD_ERROR)).toBeInTheDocument()
 
-    const reload = screen.getByRole('button', { name: 'Reload' })
+    const reload = screen.getByRole('button', { name: '刷新' })
     reload.click()
 
     expect(onReload).toHaveBeenCalledTimes(1)
@@ -24,6 +24,6 @@ describe('TransactionDetailsError', () => {
   it('omits the CTA when reloading cannot recover the state', () => {
     const screen = render(<TransactionDetailsError />)
 
-    expect(screen.queryByRole('button', { name: 'Reload' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '刷新' })).not.toBeInTheDocument()
   })
 })

@@ -24,7 +24,7 @@ jest.mock('@safe-global/store/gateway/AUTO_GENERATED/spaces', () => ({
 jest.mock('@/features/spaces', () => ({
   useCurrentSpaceId: () => '11111111-1111-1111-1111-111111111111',
   useGetSpaceAddressBook: () => [{ id: 1 }, { id: 2 }],
-  useWorkspaceAddressBookLabel: () => 'Acme address book',
+  useWorkspaceAddressBookLabel: () => 'Acme 通讯录',
 }))
 
 type CapturedProps = {
@@ -54,18 +54,18 @@ describe('AddContact', () => {
   })
 
   it('passes the trigger label, dialog title, and success copy', () => {
-    render(<AddContact label="Add shared contact" />)
+    render(<AddContact label="添加共享联系人" />)
 
-    expect(lastProps?.triggerLabel).toBe('Add shared contact')
-    expect(lastProps?.dialogTitle).toBe('Add contact')
-    expect(lastProps?.successMessage).toBe('Contact added to Acme address book')
+    expect(lastProps?.triggerLabel).toBe('添加共享联系人')
+    expect(lastProps?.dialogTitle).toBe('添加联系人')
+    expect(lastProps?.successMessage).toBe('联系人已添加到 Acme address book')
     expect(lastProps?.successGroupKey).toBe('add-contact-success')
-    expect(screen.getByTestId('dialog-stub')).toHaveTextContent('Add shared contact')
+    expect(screen.getByTestId('dialog-stub')).toHaveTextContent('添加共享联系人')
   })
 
   it('defaults the trigger label to "Add contact"', () => {
     render(<AddContact />)
-    expect(lastProps?.triggerLabel).toBe('Add contact')
+    expect(lastProps?.triggerLabel).toBe('添加联系人')
   })
 
   it('submit calls the shared-address-book mutation with the right payload', async () => {

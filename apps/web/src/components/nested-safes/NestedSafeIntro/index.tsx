@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactElement } from 'react'
@@ -16,20 +17,20 @@ export function NestedSafeIntro({ onReviewClick }: NestedSafeIntroProps): ReactE
       <NestedSafesIllustration />
 
       <Typography variant="h4" className="mt-4">
-        Select Nested Safes
+        {translateMessage('ui.selectNestedAccounts_0aa55eb2')}
       </Typography>
 
       <Typography variant="paragraph-small" color="muted" className="block mt-2">
-        Nested Safes can include lookalike addresses.
+        {translateMessage('ui.nestedAccountsCanIncludeLookalikeAddresses_53609866')}
       </Typography>
 
       <Typography variant="paragraph-small" color="muted" className="block mt-2">
-        Review and select the ones you recognize before adding them to your dashboard.
+        {translateMessage('ui.reviewAndSelectTheOnesYou_1bad1be0')}
       </Typography>
 
       <Track {...NESTED_SAFE_EVENTS.REVIEW_NESTED_SAFES} label={NESTED_SAFE_LABELS.first_time}>
         <Button className="mt-6 w-full" onClick={onReviewClick} data-testid="review-nested-safes-button">
-          Review Nested Safes
+          {translateMessage('ui.reviewNestedAccounts_9b3a1f19')}
         </Button>
       </Track>
     </div>

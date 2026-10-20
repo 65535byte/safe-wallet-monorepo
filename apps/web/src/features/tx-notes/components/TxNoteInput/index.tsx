@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { MODALS_EVENTS, trackEvent } from '@/services/analytics'
 import { Controller, useForm } from 'react-hook-form'
@@ -35,7 +36,7 @@ export default function TxNoteInput({ onChange }: { onChange: (note: string) => 
 
   return (
     <div className="flex flex-col gap-2">
-      <TxSectionTitle>Note</TxSectionTitle>
+      <TxSectionTitle>{translateMessage('ui.note_b1eff7f0')}</TxSectionTitle>
 
       <Controller
         name="note"
@@ -46,8 +47,8 @@ export default function TxNoteInput({ onChange }: { onChange: (note: string) => 
               <InputGroupInput
                 name={field.name}
                 id="tx-note-input"
-                aria-label="Note"
-                placeholder="Optional"
+                aria-label={translateMessage('ui.note_b1eff7f0')}
+                placeholder={translateMessage('ui.optional_00a972f2')}
                 value={field.value || ''}
                 maxLength={MAX_NOTE_LENGTH}
                 onChange={(e) => {
@@ -72,7 +73,7 @@ export default function TxNoteInput({ onChange }: { onChange: (note: string) => 
       />
 
       <Typography data-testid="tx-note-alert" variant="paragraph-small" color="muted">
-        Notes are publicly visible. Do not share any private or sensitive details.
+        {translateMessage('ui.notesArePubliclyVisibleDoNot_95b6fcea')}
       </Typography>
     </div>
   )

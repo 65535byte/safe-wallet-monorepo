@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { selectNotifications, showNotification } from '@/store/notificationsSlice'
 import { useEffect, useMemo } from 'react'
@@ -56,7 +57,7 @@ export const useShowNotificationsRenewalMessage = () => {
           groupKey: notificationGroupKey,
           link: {
             onClick: renewNotifications,
-            title: 'Sign',
+            title: translateMessage('ui.sign_1e67e9a4'),
           },
         }),
       )

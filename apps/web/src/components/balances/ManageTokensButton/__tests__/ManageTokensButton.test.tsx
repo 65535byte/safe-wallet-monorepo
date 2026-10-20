@@ -64,7 +64,7 @@ describe('ManageTokensButton', () => {
     render(<ManageTokensButton />)
 
     expect(screen.getByTestId('manage-tokens-button')).toBeInTheDocument()
-    expect(screen.getByText('Manage tokens')).toBeInTheDocument()
+    expect(screen.getByText('管理代币')).toBeInTheDocument()
   })
 
   it('should open menu on click', async () => {
@@ -74,7 +74,7 @@ describe('ManageTokensButton', () => {
     fireEvent.click(button)
 
     await waitFor(() => {
-      expect(screen.getByText('Show all tokens')).toBeInTheDocument()
+      expect(screen.getByText('显示所有代币')).toBeInTheDocument()
     })
   })
 
@@ -93,7 +93,7 @@ describe('ManageTokensButton', () => {
     fireEvent.click(screen.getByTestId('manage-tokens-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Hide tokens')).toBeInTheDocument()
+      expect(screen.getByText('隐藏代币')).toBeInTheDocument()
     })
   })
 
@@ -104,10 +104,10 @@ describe('ManageTokensButton', () => {
     fireEvent.click(screen.getByTestId('manage-tokens-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Hide tokens')).toBeInTheDocument()
+      expect(screen.getByText('隐藏代币')).toBeInTheDocument()
     })
 
-    fireEvent.click(screen.getByText('Hide tokens'))
+    fireEvent.click(screen.getByText('隐藏代币'))
 
     expect(onHideTokens).toHaveBeenCalled()
   })
@@ -144,7 +144,7 @@ describe('ManageTokensButton', () => {
     fireEvent.click(screen.getByTestId('manage-tokens-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Hide small balances')).toBeInTheDocument()
+      expect(screen.getByText('隐藏小额余额')).toBeInTheDocument()
     })
   })
 
@@ -153,10 +153,10 @@ describe('ManageTokensButton', () => {
     fireEvent.click(screen.getByTestId('manage-tokens-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Show all tokens')).toBeInTheDocument()
+      expect(screen.getByText('显示所有代币')).toBeInTheDocument()
     })
 
-    fireEvent.click(screen.getByText('Show all tokens'))
+    fireEvent.click(screen.getByText('显示所有代币'))
 
     expect(mockDispatch).toHaveBeenCalled()
   })

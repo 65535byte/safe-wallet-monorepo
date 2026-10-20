@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker'
 import { renderHook } from '@/tests/test-utils'
 import { FEATURES } from '@safe-global/utils/utils/chains'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
+import { SAFE_CREATION_NETWORKS } from '@/config/safeCreationNetworks'
 import useChains, { useChain, useHasFeature } from './useChains'
 import * as store from '@/store'
 import * as gateway from '@safe-global/store/gateway'
@@ -19,7 +20,7 @@ describe('useChains override wiring', () => {
   // The wiring is chain-agnostic; all these ids have to be is different from each other. Drawn from
   // disjoint ranges so that holds by construction rather than by luck — `OTHER_CHAIN_ID` is the
   // second entry in the configs array, and the id the config service was never told about.
-  const CHAIN_ID = faker.number.int({ min: 1, max: 999 }).toString()
+  const CHAIN_ID = faker.number.int({ min: 101, max: 999 }).toString()
   const OTHER_CHAIN_ID = faker.number.int({ min: 1000, max: 1999 }).toString()
 
   const mockChains = (chains: Chain[]) => {
@@ -49,8 +50,26 @@ describe('useChains override wiring', () => {
 
     const { result } = renderHook(() => useChains())
 
-    expect(result.current.configs).toHaveLength(2)
+    expect(result.current.configs).toHaveLength(2 + SAFE_CREATION_NETWORKS.length)
     expect(result.current.configs.every((chain) => chain.features.includes(overridden))).toBe(true)
+  })
+
+  it('provides the local creation chain when the gateway has no matching chain', () => {
+    const { result } = renderHook(() => useChain('97'))
+
+    expect(result.current).toMatchObject({
+      chainId: '97',
+      chainName: 'bnb-test',
+      rpcUri: { value: 'https://bsc-testnet-rpc.publicnode.com' },
+    })
+  })
+
+  it('keeps local network metadata when the gateway returns the same chain', () => {
+    mockChains([chainWith('97', [])])
+    const { result } = renderHook(() => useChains())
+
+    expect(result.current.configs.filter((chain) => chain.chainId === '97')).toHaveLength(1)
+    expect(result.current.configs.find((chain) => chain.chainId === '97')?.chainName).toBe('bnb-test')
   })
 
   it('reflects a forced-on override', () => {

@@ -23,7 +23,7 @@ describe('SafenetStakeButton', () => {
 
     const button = screen.getByTestId('safenet-stake-btn')
     expect(button).toBeEnabled()
-    expect(button).toHaveAccessibleName('Go to Safenet staking')
+    expect(button).toHaveAccessibleName('前往 Safenet 质押')
   })
 
   it('opens the Safenet staking app when clicked', async () => {
@@ -40,7 +40,7 @@ describe('SafenetStakeButton', () => {
 
     const button = screen.getByTestId('safenet-stake-btn')
     expect(button).toBeDisabled()
-    expect(screen.getByRole('status', { name: 'Loading' })).toBeInTheDocument()
+    expect(screen.getByRole('status', { name: '加载中' })).toBeInTheDocument()
 
     await userEvent.click(button)
 
@@ -53,7 +53,7 @@ describe('SafenetStakeButton', () => {
     await userEvent.hover(screen.getByTestId('safenet-stake-btn'))
 
     await waitFor(() => {
-      expect(screen.getByText('Go to Safenet staking')).toBeVisible()
+      expect(screen.getByText('前往 Safenet 质押')).toBeVisible()
     })
   })
 })

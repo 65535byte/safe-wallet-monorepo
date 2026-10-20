@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NameInput from '@/components/common/NameInput'
 import { MEMBER_NAME_MAX_LENGTH, NAME_MIN_LENGTH } from '@safe-global/utils/validation/names'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -25,7 +26,7 @@ const MemberInfoForm = ({
       <NameInput
         data-testid="member-name-input"
         name="name"
-        label="Name"
+        label={translateMessage('ui.name_84f28b85')}
         required
         disabled={disableName}
         validateCharset
@@ -38,7 +39,7 @@ const MemberInfoForm = ({
 
       <div className="flex flex-col gap-1.5">
         <FieldLabel aria-hidden className="invisible">
-          Role
+          {translateMessage('ui.role_9362a435')}
         </FieldLabel>
 
         <Controller
@@ -47,7 +48,7 @@ const MemberInfoForm = ({
           defaultValue={MemberRole.MEMBER}
           render={({ field: { value, onChange } }) => (
             <Select value={value} onValueChange={onChange} required disabled={disableRole}>
-              <SelectTrigger aria-label="Role" className="min-h-[66px]! min-w-[150px]">
+              <SelectTrigger aria-label={translateMessage('ui.role_9362a435')} className="min-h-[66px]! min-w-[150px]">
                 <SelectValue>{(role) => <RoleMenuItem role={role as MemberRole} />}</SelectValue>
               </SelectTrigger>
               {/* No `showBackdrop`: both consumers (Add member, Edit member) are ModalDialogs, so the

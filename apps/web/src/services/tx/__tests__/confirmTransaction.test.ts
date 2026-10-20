@@ -69,12 +69,12 @@ describe('confirmTx', () => {
   it('should throw an error with the gateway message and status code', async () => {
     server.use(
       http.post(CONFIRMATIONS_URL, () =>
-        HttpResponse.json({ code: 422, message: 'Signer is not an owner' }, { status: 422 }),
+        HttpResponse.json({ code: 422, message: '签名人 is not an owner' }, { status: 422 }),
       ),
     )
 
     await expect(confirmTx(CHAIN_ID, SAFE_TX_HASH, SIGNATURE)).rejects.toMatchObject({
-      message: 'Signer is not an owner',
+      message: '签名人 is not an owner',
       status: 422,
     })
   })

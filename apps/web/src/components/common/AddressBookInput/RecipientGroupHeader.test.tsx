@@ -6,7 +6,7 @@ describe('RecipientGroupHeader', () => {
   it('renders the local contacts group with the count', () => {
     render(<RecipientGroupHeader source={ContactSource.local} count={3} />)
 
-    expect(screen.getByTestId('contact-group-header')).toHaveTextContent('Local contacts')
+    expect(screen.getByTestId('contact-group-header')).toHaveTextContent('本地联系人')
     expect(screen.getByText('3')).toBeInTheDocument()
   })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
@@ -32,7 +33,7 @@ function CurrentSafe({ allSafes, onLinkClick }: { allSafes: AllSafeItems; onLink
   return (
     <div data-testid="current-safe-section" className="mb-6">
       <Typography variant="h4" className="mb-4">
-        Current Safe account
+        {translateMessage('ui.currentAccount_44f85a09')}
       </Typography>
       <SafeListItem safeItem={safeItem} onLinkClick={onLinkClick} />
     </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useSafeApps } from '@/hooks/safe-apps/useSafeApps'
 import {
   getBrowserPermissionDisplayValues,
@@ -97,9 +98,11 @@ const SafeAppsPermissions = (): ReactElement => {
   }
 
   return (
-    <SettingsCard title="Safe Apps permissions">
+    <SettingsCard title={translateMessage('ui.safeAppsPermissions_5f9642fd')}>
       {!domains.length && (
-        <Typography className="text-muted-foreground">There are no Safe Apps using permissions.</Typography>
+        <Typography className="text-muted-foreground">
+          {translateMessage('ui.thereAreNoSafeAppsUsing_5e45feca')}
+        </Typography>
       )}
       {domains.map((domain) => (
         <div
@@ -147,14 +150,14 @@ const SafeAppsPermissions = (): ReactElement => {
               className="no-underline hover:no-underline"
               onClick={(event) => handleAllowAll(event, domain)}
             >
-              Allow all
+              {translateMessage('ui.allowAll_a79bd87c')}
             </Link>
             <Link
               href="#"
               className="text-destructive no-underline hover:no-underline"
               onClick={(event) => handleClearAll(event, domain)}
             >
-              Clear all
+              {translateMessage('ui.clearAll_6e64c421')}
             </Link>
             <Link
               href="#"

@@ -99,29 +99,27 @@ describe('findPendingRemovals', () => {
 describe('describeRemovals', () => {
   it('names both counts when a whole spender goes', () => {
     expect(describeRemovals({ spenders: [ALICE, BOB], limits: 3 }, false).title).toBe(
-      '2 spenders and 3 limits will be removed',
+      '2 位支出授权人及 3 limits 将被移除',
     )
   })
 
   it('speaks of one spender and one limit in the singular', () => {
-    expect(describeRemovals({ spenders: [ALICE], limits: 1 }, false).title).toBe(
-      '1 spender and 1 limit will be removed',
-    )
+    expect(describeRemovals({ spenders: [ALICE], limits: 1 }, false).title).toBe('1 位支出授权人及 1 limit 将被移除')
   })
 
   it('leaves the spenders out when only a token is dropped', () => {
-    expect(describeRemovals({ spenders: [], limits: 1 }, false).title).toBe('1 limit will be removed')
+    expect(describeRemovals({ spenders: [], limits: 1 }, false).title).toBe('1 limit 将被移除')
   })
 
   it('says the policy goes away entirely once nothing is left', () => {
     const { description } = describeRemovals({ spenders: [ALICE], limits: 2 }, true)
 
-    expect(description).toContain('removes the spending limit')
+    expect(description).toContain('removes the spending 项限额')
   })
 
   it('does not threaten to remove the policy while limits remain', () => {
     const { description } = describeRemovals({ spenders: [ALICE], limits: 2 }, false)
 
-    expect(description).not.toContain('removes the spending limit')
+    expect(description).not.toContain('removes the spending 项限额')
   })
 })

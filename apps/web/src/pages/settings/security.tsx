@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -9,7 +10,7 @@ const SecurityPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Security`}</title>
+        <title>{translateMessage('ui.settingsSecurity_2fa5ee85', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />

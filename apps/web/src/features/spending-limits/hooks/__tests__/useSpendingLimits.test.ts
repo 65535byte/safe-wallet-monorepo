@@ -142,7 +142,7 @@ describe('useLoadSpendingLimits', () => {
 
   it('should handle fetch errors', async () => {
     setupMocks()
-    const error = new Error('Failed to load spending limits')
+    const error = new Error('Failed to load spending 项限额')
     mockLoadSpendingLimits.mockRejectedValue(error)
 
     const { result } = renderHook(() => useLoadSpendingLimits())
@@ -151,7 +151,7 @@ describe('useLoadSpendingLimits', () => {
       expect(result.current.error).toBeDefined()
     })
 
-    expect(result.current.error?.message).toBe('Failed to load spending limits')
+    expect(result.current.error?.message).toBe('Failed to load spending 项限额')
     expect(result.current.loading).toBe(false)
     expect(logError).toHaveBeenCalledWith(Errors._609, error, expect.anything())
   })

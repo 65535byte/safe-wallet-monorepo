@@ -43,14 +43,14 @@ describe('SpendingLimitsSettings', () => {
     expect(screen.getByTestId('new-spending-limit')).toContainElement(screen.getByTestId('pro-tag'))
   })
 
-  it('replaces the button with the Safe Pro lock while the plan gate blocks it', () => {
+  it('replaces the button with the 8379 lock while the plan gate blocks it', () => {
     mockUsePlanGate.mockReturnValue(gate(true))
 
     render(<SpendingLimitsSettings />)
 
     expect(screen.queryByTestId('new-spending-limit')).not.toBeInTheDocument()
-    expect(screen.getByTestId('safe-pro-lock')).toHaveTextContent('Existing ones stay active.')
-    expect(screen.getByRole('link', { name: 'Explore Safe Pro' })).toHaveAttribute('href', '/spaces/plans')
+    expect(screen.getByTestId('safe-pro-lock')).toHaveTextContent('已有配置将继续生效。')
+    expect(screen.getByRole('link', { name: '了解 8379' })).toHaveAttribute('href', '/spaces/plans')
   })
 
   it('renders neither the button nor the lock while the plan gate is loading', () => {

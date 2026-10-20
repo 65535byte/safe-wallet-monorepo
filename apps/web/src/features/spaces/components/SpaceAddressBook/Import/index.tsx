@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ImportIcon from '@/public/images/common/import.svg'
 import { useMemo, useState } from 'react'
 import ImportAddressBookDialog from './ImportAddressBookDialog'
@@ -17,10 +18,10 @@ const ImportAddressBook = () => {
         <TooltipTrigger render={<div className="inline-flex" />}>
           <Button variant="outline" size="action" disabled={!hasContacts} onClick={() => setOpen(true)}>
             <ImportIcon className="size-4" />
-            Import
+            {translateMessage('ui.import_f0101b10')}
           </Button>
         </TooltipTrigger>
-        {!hasContacts && <TooltipContent>You don&apos;t have any contacts in your local address book</TooltipContent>}
+        {!hasContacts && <TooltipContent>{translateMessage('ui.youDonTHaveAnyContacts_f858984e')}</TooltipContent>}
       </Tooltip>
       {open && <ImportAddressBookDialog handleClose={() => setOpen(false)} />}
     </>

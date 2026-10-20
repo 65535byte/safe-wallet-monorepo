@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -30,7 +31,7 @@ const SafenetStakingButton = () => {
               onClick={openSafenetStakingApp}
               disabled={isNavigating}
               className="m-1"
-              aria-label="Safenet staking"
+              aria-label={translateMessage('ui.safenetStaking_549a7c81')}
             />
           }
         >
@@ -42,7 +43,7 @@ const SafenetStakingButton = () => {
           )}
         </TooltipTrigger>
       </div>
-      <TooltipContent>Go to Safenet staking</TooltipContent>
+      <TooltipContent>{translateMessage('ui.goToSafenetStaking_8ca54127')}</TooltipContent>
     </Tooltip>
   )
 }

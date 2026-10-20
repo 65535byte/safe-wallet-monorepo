@@ -32,7 +32,7 @@ describe('DisclaimerWrapper', () => {
     expect(queryByText('Consent given')).toBeFalsy()
 
     act(() => {
-      getByText('Continue').click()
+      getByText('继续').click()
     })
 
     expect(queryByText('Consent given')).toBeTruthy()

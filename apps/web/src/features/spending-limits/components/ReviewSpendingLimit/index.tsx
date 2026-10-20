@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCurrentChain } from '@/hooks/useChains'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { useEffect, useMemo, useContext } from 'react'
@@ -56,7 +57,7 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
   const isOneTime = data?.resetTime === '0'
   const resetTime = useMemo(() => {
     return isOneTime
-      ? 'One-time spending limit'
+      ? translateMessage('ui.oneTimeSpendingLimit_e55c119a')
       : getResetTimeOptions(chainId).find((time) => time.value === data?.resetTime)?.label
   }, [isOneTime, data?.resetTime, chainId])
 
@@ -80,7 +81,11 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
   return (
     <ReviewTransaction onSubmit={onFormSubmit} withDecodedData={false}>
       {token && (
-        <SendAmountBlock amountInWei={amountInWei} tokenInfo={token.tokenInfo} title="Amount">
+        <SendAmountBlock
+          amountInWei={amountInWei}
+          tokenInfo={token.tokenInfo}
+          title={translateMessage('ui.amount_a72e74a9')}
+        >
           {existingAmount && existingAmount !== data?.amount && (
             <>
               <span data-testid="old-token-amount" className="text-destructive line-through">
@@ -92,7 +97,7 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
         </SendAmountBlock>
       )}
 
-      <TxDetailsRow label="Beneficiary" grid>
+      <TxDetailsRow label={translateMessage('ui.beneficiary_cb21d4c7')} grid>
         <div data-testid="beneficiary-address">
           <EthHashInfo
             address={data?.beneficiary || ''}
@@ -104,7 +109,7 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
         </div>
       </TxDetailsRow>
 
-      <TxDetailsRow label="Reset time" grid>
+      <TxDetailsRow label={translateMessage('ui.resetTime_84996791')} grid>
         {existingSpendingLimit ? (
           <>
             <SpendingLimitLabel
@@ -127,7 +132,7 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
         ) : (
           <SpendingLimitLabel
             data-testid="spending-limit-label"
-            label={resetTime || 'One-time spending limit'}
+            label={resetTime || translateMessage('ui.oneTimeSpendingLimit_e55c119a')}
             isOneTime={!!resetTime && isOneTime}
           />
         )}
@@ -137,7 +142,7 @@ const ReviewSpendingLimit = ({ onSubmit, children }: ReviewTransactionProps) => 
         <Alert variant="warning" outlined={false} className="border-none">
           <AlertSeverityIcon variant="warning" />
           <Typography data-testid="limit-replacement-warning" className="font-bold">
-            You are about to replace an existing spending limit
+            {translateMessage('ui.youAreAboutToReplaceAn_4968ddd1')}
           </Typography>
         </Alert>
       )}

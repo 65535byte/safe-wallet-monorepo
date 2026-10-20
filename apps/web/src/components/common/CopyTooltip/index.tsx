@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import React, { type ReactElement, type SyntheticEvent, useCallback, useState } from 'react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -6,7 +7,7 @@ import ConfirmCopyModal from './ConfirmCopyModal'
 const CopyTooltip = ({
   text,
   children,
-  initialToolTipText = 'Copy to clipboard',
+  initialToolTipText = translateMessage('ui.copyToClipboard_9d47fa1b'),
   onCopy,
   dialogContent,
 }: {
@@ -33,7 +34,7 @@ const CopyTooltip = ({
       let timeout: NodeJS.Timeout | undefined
 
       try {
-        navigator.clipboard.writeText(text).then(() => setTooltipText('Copied'))
+        navigator.clipboard.writeText(text).then(() => setTooltipText(translateMessage('ui.copied_6ec3e1e2')))
         setShowConfirmation(false)
         setShowTooltip(true)
         timeout = setTimeout(() => {
@@ -45,7 +46,7 @@ const CopyTooltip = ({
         onCopy?.()
       } catch (err) {
         setIsCopyEnabled(false)
-        setTooltipText('Copying is disabled in your browser')
+        setTooltipText(translateMessage('ui.copyingIsDisabledInYourBrowser_14395554'))
       }
 
       return () => clearTimeout(timeout)

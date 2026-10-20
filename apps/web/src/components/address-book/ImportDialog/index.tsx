@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useCSVReader, formatFileSize } from 'react-papaparse'
 import type { ParseResult } from 'papaparse'
@@ -71,7 +72,12 @@ const ImportDialog = ({ handleClose }: { handleClose: () => void }): ReactElemen
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Import address book" hideChainIndicator>
+    <ModalDialog
+      open
+      onClose={handleClose}
+      dialogTitle={translateMessage('ui.importAddressBook_38aa7534')}
+      hideChainIndicator
+    >
       <div className="px-6 py-5">
         <CSVReader
           accept="text/csv"
@@ -131,7 +137,11 @@ const ImportDialog = ({ handleClose }: { handleClose: () => void }): ReactElemen
                   additionalInfo: formatFileSize(acceptedFile.size),
                   summary: [
                     <Typography data-testid="summary-message" key="abSummary">
-                      {`Found ${entryCount} entries on ${chainCount} ${chainCount > 1 ? 'chains' : 'chain'}`}
+                      {translateMessage('ui.foundEntriesOn_6fb17903', {
+                        p0: entryCount,
+                        p1: chainCount,
+                        p2: chainCount > 1 ? 'chains' : 'chain',
+                      })}
                     </Typography>,
                   ],
                 }
@@ -154,13 +164,14 @@ const ImportDialog = ({ handleClose }: { handleClose: () => void }): ReactElemen
         {error && <ErrorMessage>{error}</ErrorMessage>}
 
         <Typography>
-          Only CSV files exported from a {BRAND_NAME} can be imported.
+          {translateMessage('ui.onlyCSVFilesExportedFromA_7c9646c7')}
+          {BRAND_NAME} {translateMessage('ui.canBeImported_756b46b6')}
           <br />
           <ExternalLink
             href={HelpCenterArticle.ADDRESS_BOOK_DATA}
-            title="Learn about the address book import and export"
+            title={translateMessage('ui.learnAboutTheAddressBookImport_9c121ed2')}
           >
-            Learn about the address book import and export
+            {translateMessage('ui.learnAboutTheAddressBookImport_9c121ed2')}
           </ExternalLink>
         </Typography>
       </div>
@@ -168,7 +179,7 @@ const ImportDialog = ({ handleClose }: { handleClose: () => void }): ReactElemen
         className="p-6 pt-2"
         onCancel={handleClose}
         cancelTestId="cancel-btn"
-        confirmLabel="Import"
+        confirmLabel={translateMessage('ui.import_f0101b10')}
         onConfirm={handleImport}
         confirmDisabled={!csvData || !!error}
         confirmTestId="import-btn"

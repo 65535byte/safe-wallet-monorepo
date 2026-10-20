@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import uniqWith from 'lodash/uniqWith'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import type { SpendingLimitState } from '@/features/spending-limits'
 import type {
   RemovalCopy,
@@ -48,8 +48,8 @@ export const findPendingRemovals = (
 /** The notice's two lines: what goes, and what that means before the transaction executes. */
 export type { RemovalCopy } from '@safe-global/views/features/spaces/components/Policies/SpendingLimitFlow/types'
 
-const STAYS_IN_FORCE = 'They can still be spent until this transaction is executed.'
-const POLICY_GOES = 'Executing it removes the spending limit from this Safe account entirely.'
+const STAYS_IN_FORCE = translateMessage('ui.theyCanStillBeSpentUntil_d7b0c251')
+const POLICY_GOES = translateMessage('ui.executingItRemovesTheSpendingLimit_e9e0369c')
 
 /**
  * Puts what would be removed into words.
@@ -61,11 +61,11 @@ const POLICY_GOES = 'Executing it removes the spending limit from this Safe acco
  */
 export const describeRemovals = (removals: PendingRemovals, isEmptyPolicy: boolean): RemovalCopy => {
   const { spenders, limits } = removals
-  const limitCopy = `${limits} limit${maybePlural(limits)}`
+  const limitCopy = translateMessage('ui.limit_db7b22d6', { p0: limits })
   const title =
     spenders.length > 0
-      ? `${spenders.length} spender${maybePlural(spenders)} and ${limitCopy} will be removed`
-      : `${limitCopy} will be removed`
+      ? translateMessage('ui.spenderAndWillBeRemoved_6a9d8fa7', { p0: spenders.length, p1: limitCopy })
+      : translateMessage('ui.willBeRemoved_169ac918', { p0: limitCopy })
 
   return { title, description: isEmptyPolicy ? `${STAYS_IN_FORCE} ${POLICY_GOES}` : STAYS_IN_FORCE }
 }

@@ -37,7 +37,7 @@ describe('contractVersionScanner', () => {
     const result = await contractVersionScanner.scan(createMockContext({ implementationVersionState: 'UNKNOWN' }))
     expect(result.status).toBe('issue')
     expect(result.remediation).toContain('migrate')
-    expect(result.ctaLabelOverride).toBe('Migrate')
+    expect(result.ctaLabelOverride).toBe('迁移')
   })
 
   it('returns issue for an outdated Gnosis-deployed mastercopy below 1.3.0', async () => {
@@ -71,8 +71,8 @@ describe('contractVersionScanner', () => {
     expect(result.score).toBe(100)
     expect(result.upgradeAvailable).toBe(true)
     expect(result.evidence).toEqual([
-      { label: 'Current version', value: '1.3.0' },
-      { label: 'Latest version', value: '1.4.1' },
+      { label: '当前版本', value: '1.3.0' },
+      { label: '最新版本', value: '1.4.1' },
     ])
   })
 
@@ -208,7 +208,7 @@ describe('contractVersionScanner', () => {
     expect(result.score).toBe(30)
     // Full address so EvidenceList shortens it and adds a copy button (WA-2371).
     expect(result.evidence).toContainEqual({
-      label: 'Implementation',
+      label: '实现合约',
       value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF',
     })
   })
@@ -267,7 +267,7 @@ describe('contractVersionScanner', () => {
     expect(result.severity).toBe('Medium')
     expect(result.score).toBe(60)
     expect(result.evidence).toContainEqual({
-      label: 'Original implementation',
+      label: '原始实现合约',
       value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF',
     })
     expect(result.upgradeAvailable).toBeUndefined()
@@ -294,10 +294,10 @@ describe('contractVersionScanner', () => {
     expect(result.score).toBe(60)
     expect(result.upgradeAvailable).toBe(true)
     expect(result.evidence).toEqual([
-      { label: 'Current version', value: '1.3.0' },
-      { label: 'Latest version', value: '1.4.1' },
-      { label: 'Original implementation', value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF' },
-      { label: 'Status', value: 'Deployed with unrecognized implementation' },
+      { label: '当前版本', value: '1.3.0' },
+      { label: '最新版本', value: '1.4.1' },
+      { label: '原始实现合约', value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF' },
+      { label: '状态', value: 'Deployed with unrecognized implementation' },
     ])
     expect(result.remediation).not.toContain('up to date')
   })

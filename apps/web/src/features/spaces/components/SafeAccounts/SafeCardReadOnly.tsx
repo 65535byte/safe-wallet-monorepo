@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { isMultiChainSafeItem, type SafeItem, type MultiChainSafeItem } from '@/hooks/safes'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
 import { AccountItem } from '@/features/myAccounts'
@@ -79,7 +80,11 @@ const SafeCardReadOnly = ({
   const hasQueuedItems = !isLoadingOverview && !isOverviewError && queuedCount > 0
 
   const isClickable = Boolean(singleSafe) && !disabled
-  const tooltipTitle = disabled ? (disabledTooltip ?? '') : !singleSafe ? 'Safe data is not available' : ''
+  const tooltipTitle = disabled
+    ? (disabledTooltip ?? '')
+    : !singleSafe
+      ? translateMessage('ui.dataIsNotAvailable_76fea533')
+      : ''
 
   const handleCardClick = () => {
     if (!singleSafe || !chain?.shortName) return
@@ -113,7 +118,7 @@ const SafeCardReadOnly = ({
           {isSimilar && (
             <Badge variant="warning" className="self-start -ml-px">
               <TriangleAlert data-icon="inline-start" />
-              High similarity
+              {translateMessage('ui.highSimilarity_d08a11f3')}
             </Badge>
           )}
           <div className="flex min-w-0 items-center gap-2">
@@ -160,19 +165,24 @@ const SafeCardReadOnly = ({
             >
               <TriangleAlert className="size-4" />
               <RotateCw className="size-3" />
-              <span className="text-xs">Retry</span>
+              <span className="text-xs">{translateMessage('ui.retry_2cd6945d')}</span>
             </TooltipTrigger>
             <TooltipContent>
-              {`Failed to load transaction data. ${
-                overviewError && 'status' in overviewError ? `Error: ${overviewError.status}` : 'Please try again.'
-              }`}
+              {translateMessage('ui.failedToLoadTransactionData_0d1d9b2c', {
+                p0:
+                  overviewError && 'status' in overviewError
+                    ? translateMessage('ui.error_06bda9c6', { p0: overviewError.status })
+                    : translateMessage('ui.pleaseTryAgain_6659ccde'),
+              })}
             </TooltipContent>
           </Tooltip>
         ) : (
           showPending &&
           hasQueuedItems && (
             <div className="flex shrink-0 items-center gap-1 mr-8">
-              <Badge variant="secondary">{queuedCount} pending</Badge>
+              <Badge variant="secondary">
+                {queuedCount} {translateMessage('ui.pending_81062d87')}
+              </Badge>
             </div>
           )
         )}

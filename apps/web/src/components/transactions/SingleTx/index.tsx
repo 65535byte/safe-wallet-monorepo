@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { LabelValue } from '@safe-global/store/gateway/types'
 import type {
   LabelQueuedItem,
@@ -78,7 +79,7 @@ const SingleTx = () => {
 
   // Reloading cannot pull a tx into a Safe it does not belong to, so that state gets no CTA.
   if (txDetails && !sameAddress(txDetails.safeAddress, safeAddress)) {
-    return <TransactionDetailsError message="This transaction was not found in this Safe account." />
+    return <TransactionDetailsError message={translateMessage('ui.thisTransactionWasNotFoundIn_fbbea2b0')} />
   }
 
   if (error) {

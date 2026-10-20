@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useRef, useState } from 'react'
 import { type MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
@@ -58,7 +59,12 @@ const IdentifierLabel = ({
         </Tooltip>
       )}
       <span ref={copyRef} className="inline-flex shrink-0">
-        <CopyButton text={value} initialToolTipText={isAddress ? 'Copy address' : 'Copy email'} />
+        <CopyButton
+          text={value}
+          initialToolTipText={
+            isAddress ? translateMessage('ui.copyAddress_e5bff417') : translateMessage('ui.copyEmail_25346843')
+          }
+        />
       </span>
       <span
         ref={measureRef}

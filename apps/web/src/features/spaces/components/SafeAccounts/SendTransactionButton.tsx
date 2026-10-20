@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useContext } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -67,14 +68,16 @@ const SendTransactionButton = ({ safe }: { safe: SafeOverview }) => {
           size="icon"
           onClick={onNewTxClick}
           disabled={!canSend}
-          aria-label="Send tokens"
+          aria-label={translateMessage('ui.sendTokens_6858aefd')}
           // eslint-disable-next-line no-restricted-syntax -- filled icon action on space-account row; pending a variant
           className="mx-1 rounded-sm bg-[var(--color-background-main)] [&_svg_path]:fill-foreground disabled:[&_svg_path]:fill-[var(--color-border-main)]"
         >
           <ArrowOutwardIcon />
         </Button>
       </TooltipTrigger>
-      <TooltipContent>{canSend ? 'Send tokens' : 'You are not a signer of this Safe account'}</TooltipContent>
+      <TooltipContent>
+        {canSend ? translateMessage('ui.sendTokens_6858aefd') : translateMessage('ui.youAreNotASignerOf_851b0e19')}
+      </TooltipContent>
     </Tooltip>
   )
 }

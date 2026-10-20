@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { TransactionStatus } from '@safe-global/store/gateway/types'
 import SettingsChangeTxInfo from '@/components/transactions/TxDetails/TxData/SettingsChange'
@@ -150,7 +151,7 @@ const TxData = ({
       <DecodedData txData={txData} toInfo={isCustomTxInfo(txInfo) ? txInfo.to : txData?.to} />
 
       {(isMultiSendTxInfo(txInfo) || isOrderTxInfo(txInfo)) && (
-        <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+        <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
           <Multisend
             txData={txData}
             isExecuted={!!txDetails?.executedAt}

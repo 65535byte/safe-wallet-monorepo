@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import SafeShieldLogo from '@/public/images/safe-shield/safe-shield-logo-no-text.svg'
@@ -20,10 +21,10 @@ export const HnInfoCard = ({ hypernativeAuth, showActiveStatus = true }: HnInfoC
       <div className="flex flex-row items-center gap-2">
         <SafeShieldLogo className="size-4 [&_.shield-img]:fill-[var(--color-border-light)]" />
         <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-          Hypernative Guardian is active
+          {translateMessage('ui.hypernativeGuardianIsActive_1415915e')}
         </Typography>
       </div>
-      <HypernativeTooltip title="Hypernative Guardian is actively monitoring this transaction.">
+      <HypernativeTooltip title={translateMessage('ui.hypernativeGuardianIsActivelyMonitoringThis_d17bbf49')}>
         <InfoIcon className="size-4 text-[var(--color-border-main)]" />
       </HypernativeTooltip>
     </div>

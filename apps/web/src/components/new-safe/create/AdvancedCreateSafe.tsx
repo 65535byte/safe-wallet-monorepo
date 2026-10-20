@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ECOSYSTEM_ID_ADDRESS } from '@/config/constants'
 import { checksumAddress } from '@safe-global/utils/utils/addresses'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -32,8 +33,8 @@ const AdvancedCreateSafe = () => {
 
   const CreateSafeSteps: TxStepperProps<NewSafeFormData>['steps'] = [
     {
-      title: 'Select network and name of your Safe account',
-      subtitle: 'Select the network on which to create your Safe account',
+      title: translateMessage('ui.selectNetworkAndNameOfYour_5e6f9ef1'),
+      subtitle: translateMessage('ui.selectTheNetworkOnWhichTo_4a39a521'),
       render: (data, onSubmit, onBack, setStep) => (
         <SetNameStep
           isAdvancedFlow
@@ -48,9 +49,8 @@ const AdvancedCreateSafe = () => {
       ),
     },
     {
-      title: 'Signers and confirmations',
-      subtitle:
-        'Set the signer wallets of your Safe account and how many need to confirm to execute a valid transaction.',
+      title: translateMessage('ui.signersAndConfirmations_434f9efb'),
+      subtitle: translateMessage('ui.setTheSignerWalletsOfYour_e8adcf16'),
       render: (data, onSubmit, onBack, setStep) => (
         <OwnerPolicyStep
           setDynamicHint={setDynamicHint}
@@ -62,16 +62,15 @@ const AdvancedCreateSafe = () => {
       ),
     },
     {
-      title: 'Advanced settings',
-      subtitle: 'Choose the Safe version and optionally a specific salt nonce',
+      title: translateMessage('ui.advancedSettings_c3d6032a'),
+      subtitle: translateMessage('ui.chooseTheVersionAndOptionallyA_9c6b0c27'),
       render: (data, onSubmit, onBack, setStep) => (
         <AdvancedOptionsStep data={data} onSubmit={onSubmit} onBack={onBack} setStep={setStep} />
       ),
     },
     {
-      title: 'Review',
-      subtitle:
-        "You're about to create a new Safe account and will have to confirm the transaction with your connected wallet.",
+      title: translateMessage('ui.review_ce84ccb0'),
+      subtitle: translateMessage('ui.youReAboutToCreateA_5a400c60'),
       render: (data, onSubmit, onBack, setStep) => (
         <ReviewStep data={data} onSubmit={onSubmit} onBack={onBack} setStep={setStep} />
       ),
@@ -115,7 +114,7 @@ const AdvancedCreateSafe = () => {
       <div className="mt-4 grid grid-cols-12 justify-center gap-x-6 md:mt-14">
         <div className="col-span-12">
           <Typography variant="h2" className="pb-4">
-            Create new Safe account
+            {translateMessage('ui.createNewAccount_cf67da11')}
           </Typography>
         </div>
         <div className="order-1 col-span-12 md:order-0 md:col-span-8">

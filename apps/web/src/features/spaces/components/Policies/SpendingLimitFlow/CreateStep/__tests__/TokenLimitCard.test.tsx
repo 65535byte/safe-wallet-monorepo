@@ -261,7 +261,7 @@ describe('TokenLimitCard', () => {
     const trigger = screen.getByTestId('frequency-select')
     await user.click(trigger)
     await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'))
-    await user.click(await screen.findByRole('option', { name: '1 day' }))
+    await user.click(await screen.findByRole('option', { name: '1 天' }))
 
     expect(screen.getByTestId('frequency-helper')).toHaveTextContent('Limit resets every day')
   })
@@ -331,7 +331,7 @@ describe('TokenLimitCard', () => {
       const { user } = renderRows([{ ...createEmptyLimit(), tokenAddress: USDC }])
       expect(screen.queryByTestId('token-error')).not.toBeInTheDocument()
 
-      await user.click(screen.getByRole('button', { name: 'set spender' }))
+      await user.click(screen.getByRole('button', { name: 'set 位支出授权人' }))
 
       await waitFor(() => expect(screen.getByTestId('token-error')).toHaveTextContent(EXISTING_LIMIT_ERROR))
     })

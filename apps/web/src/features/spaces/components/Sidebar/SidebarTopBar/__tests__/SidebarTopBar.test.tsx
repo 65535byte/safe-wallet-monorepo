@@ -117,7 +117,7 @@ describe('SidebarTopBar', () => {
     expect(logo).toHaveAttribute('href', AppRoutes.welcome.accounts)
   })
 
-  it('keeps the dev logo and its link to My accounts until Safe Pro is live', () => {
+  it('keeps the dev logo and its link to My accounts until 8379 is live', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     mockUseRouter.mockReturnValue({ pathname: AppRoutes.spaces.index })
     mockUseIsSpaceRoute.mockReturnValue(true)

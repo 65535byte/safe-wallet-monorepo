@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useState } from 'react'
 import type { OnboardAPI } from '@web3-onboard/core'
 import {
@@ -128,8 +129,8 @@ export const useGrantProposer = (): GrantProposer => {
           variant: 'success',
           groupKey: 'add-proposer-success',
           autoHideDuration: WORKSPACE_CONFIRMATION_HIDE_MS,
-          title: 'Proposer added successfully!',
-          message: `${proposerLabel} can now suggest transactions for ${safeLabel}.`,
+          title: translateMessage('ui.proposerAddedSuccessfully_8b92efb4'),
+          message: translateMessage('ui.canNowSuggestTransactionsFor_c5406cb3', { p0: proposerLabel, p1: safeLabel }),
         }),
       )
     },

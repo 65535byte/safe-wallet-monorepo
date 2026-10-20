@@ -31,7 +31,7 @@ const openFlow = async (user: ReturnType<typeof userEvent.setup>) => {
 }
 
 const clickClose = (user: ReturnType<typeof userEvent.setup>) =>
-  user.click(screen.getByRole('button', { name: 'close' }))
+  user.click(screen.getByRole('button', { name: '关闭' }))
 
 describe('TxModalProvider close gate', () => {
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('TxModalProvider close gate', () => {
     await clickClose(user)
 
     await waitFor(() => expect(screen.queryByText(FLOW_TEXT)).not.toBeInTheDocument())
-    expect(screen.queryByText('Discard this transaction?')).not.toBeInTheDocument()
+    expect(screen.queryByText('放弃此交易？')).not.toBeInTheDocument()
   })
 
   it('asks before discarding when the flow has unsaved progress', async () => {
@@ -58,7 +58,7 @@ describe('TxModalProvider close gate', () => {
 
     // The flow must survive until the user answers — the old native confirm bailed out silently
     // whenever the browser suppressed it.
-    expect(await screen.findByText('Discard this transaction?')).toBeInTheDocument()
+    expect(await screen.findByText('放弃此交易？')).toBeInTheDocument()
     expect(screen.getByText(FLOW_TEXT)).toBeInTheDocument()
   })
 
@@ -67,11 +67,11 @@ describe('TxModalProvider close gate', () => {
     renderProvider()
     await openFlow(user)
     await clickClose(user)
-    await screen.findByText('Discard this transaction?')
+    await screen.findByText('放弃此交易？')
 
-    await user.click(screen.getByRole('button', { name: 'Keep editing' }))
+    await user.click(screen.getByRole('button', { name: '继续编辑' }))
 
-    await waitFor(() => expect(screen.queryByText('Discard this transaction?')).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByText('放弃此交易？')).not.toBeInTheDocument())
     expect(screen.getByText(FLOW_TEXT)).toBeInTheDocument()
   })
 
@@ -80,9 +80,9 @@ describe('TxModalProvider close gate', () => {
     renderProvider()
     await openFlow(user)
     await clickClose(user)
-    await screen.findByText('Discard this transaction?')
+    await screen.findByText('放弃此交易？')
 
-    await user.click(screen.getByRole('button', { name: 'Discard' }))
+    await user.click(screen.getByRole('button', { name: '放弃' }))
 
     await waitFor(() => expect(screen.queryByText(FLOW_TEXT)).not.toBeInTheDocument())
   })
@@ -104,10 +104,10 @@ describe('TxModalProvider close gate', () => {
 
     await openFlow(user)
     await clickClose(user)
-    await screen.findByText('Discard this transaction?')
+    await screen.findByText('放弃此交易？')
     expect(onClose).not.toHaveBeenCalled()
 
-    await user.click(screen.getByRole('button', { name: 'Discard' }))
+    await user.click(screen.getByRole('button', { name: '放弃' }))
 
     await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1))
   })
@@ -162,7 +162,7 @@ describe('TxModalProvider navigation gate', () => {
     expect(push).toHaveBeenCalledTimes(1)
     expect(push).toHaveBeenCalledWith(LINK_HREF)
     await waitFor(() => expect(screen.queryByText(FLOW_TEXT)).not.toBeInTheDocument())
-    expect(screen.queryByText('Discard this transaction?')).not.toBeInTheDocument()
+    expect(screen.queryByText('放弃此交易？')).not.toBeInTheDocument()
   })
 
   it('holds the navigation until the discard is confirmed', async () => {
@@ -174,10 +174,10 @@ describe('TxModalProvider navigation gate', () => {
     clickLink()
 
     expect(push).not.toHaveBeenCalled()
-    expect(await screen.findByText('Discard this transaction?')).toBeInTheDocument()
+    expect(await screen.findByText('放弃此交易？')).toBeInTheDocument()
     expect(screen.getByText(FLOW_TEXT)).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Discard' }))
+    await user.click(screen.getByRole('button', { name: '放弃' }))
 
     await waitFor(() => expect(push).toHaveBeenCalledTimes(1))
     expect(push).toHaveBeenCalledWith(LINK_HREF)
@@ -190,11 +190,11 @@ describe('TxModalProvider navigation gate', () => {
     await openFlow(user)
 
     clickLink()
-    await screen.findByText('Discard this transaction?')
+    await screen.findByText('放弃此交易？')
 
-    await user.click(screen.getByRole('button', { name: 'Keep editing' }))
+    await user.click(screen.getByRole('button', { name: '继续编辑' }))
 
-    await waitFor(() => expect(screen.queryByText('Discard this transaction?')).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByText('放弃此交易？')).not.toBeInTheDocument())
     expect(screen.getByText(FLOW_TEXT)).toBeInTheDocument()
     expect(push).not.toHaveBeenCalled()
   })

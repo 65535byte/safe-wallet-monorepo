@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import useIsSafeOwner from '@/hooks/useIsSafeOwner'
 import useWallet from '@/hooks/wallets/useWallet'
@@ -12,10 +13,10 @@ type OnlyOwnerOrProposerProps = {
   placement?: TooltipSide
 }
 
-enum Message {
-  WalletNotConnected = 'Please connect your wallet',
-  NotSafeOwnerOrProposer = 'Your connected wallet is not a signer or proposer of this Safe account',
-}
+const Message = {
+  WalletNotConnected: translateMessage('ui.pleaseConnectYourWallet_16dc9354'),
+  NotSafeOwnerOrProposer: translateMessage('ui.yourConnectedWalletIsNotA_b3548707'),
+} as const
 
 const OnlyOwnerOrProposer = ({ children, placement = 'bottom' }: OnlyOwnerOrProposerProps): ReactElement => {
   const wallet = useWallet()

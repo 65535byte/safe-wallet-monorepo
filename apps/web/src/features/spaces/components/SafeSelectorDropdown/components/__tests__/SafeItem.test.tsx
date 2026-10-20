@@ -84,14 +84,14 @@ describe('SafeItem undeployed state', () => {
   it('renders the Not activated badge instead of the balance for an undeployed chain', () => {
     render(<SafeItem {...createItem(makeChain({ isUndeployed: true }))} />)
 
-    expect(screen.getByLabelText('Inactive')).toBeInTheDocument()
+    expect(screen.getByLabelText('未激活')).toBeInTheDocument()
     expect(screen.queryByTestId('balance-display')).not.toBeInTheDocument()
   })
 
   it('renders the Activating label for an activating chain', () => {
     render(<SafeItem {...createItem(makeChain({ isUndeployed: true, isActivating: true }))} />)
 
-    expect(screen.getByLabelText('Activating')).toBeInTheDocument()
+    expect(screen.getByLabelText('正在激活')).toBeInTheDocument()
   })
 
   it('renders the balance for a deployed chain', () => {

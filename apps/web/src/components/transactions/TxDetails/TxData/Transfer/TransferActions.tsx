@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransferTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { type ReactElement, useContext, useState } from 'react'
 import { Ellipsis } from 'lucide-react'
@@ -88,7 +89,7 @@ const TransferActions = ({
                   }}
                   disabled={!isOk}
                 >
-                  Send again
+                  {translateMessage('ui.sendAgain_244a6ca2')}
                 </DropdownMenuItem>
               )}
             </CheckWallet>
@@ -98,7 +99,7 @@ const TransferActions = ({
             data-testid="add-to-address-book-btn"
             onClick={handleOpenModal(ModalType.ADD_TO_AB, TX_LIST_EVENTS.ADDRESS_BOOK)}
           >
-            Add to address book
+            {translateMessage('ui.addToAddressBook_204a9913')}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -1,5 +1,5 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { Card } from '@safe-global/views/components/ui/card'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -50,7 +50,7 @@ const SecurityDrawerChecks = ({
 
   const summary = security.computeSummary(results)
   const issueCount = summary ? summary.applicableCount - summary.passing : 0
-  const title = issueCount === 0 ? 'Healthy' : `${issueCount} issue${maybePlural(issueCount)} found`
+  const title = issueCount === 0 ? 'Healthy' : translateMessage('ui.issueFound_665af496', { p0: issueCount })
   const versionResult = results['contract_version']
   const updateCta = versionResult?.upgradeAvailable
     ? makeBuildCta(security.checkDefs, spaceId)('contract_version', versionResult, safeQueryParam)
@@ -66,7 +66,8 @@ const SecurityDrawerChecks = ({
           <div className="flex min-w-0 flex-col gap-1">
             <Typography variant="paragraph-bold">{title}</Typography>
             <Typography variant="paragraph-mini" color="muted">
-              Scanned {security.formatTimestamp(lastScannedAt ?? undefined)}
+              {translateMessage('ui.scanned_a3dbda2b')}
+              {security.formatTimestamp(lastScannedAt ?? undefined)}
             </Typography>
           </div>
 

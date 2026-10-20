@@ -22,17 +22,17 @@ describe('WidgetEmptyState', () => {
   })
 
   it('renders the subtitle when provided', () => {
-    render(<WidgetEmptyState icon={<span />} text="Error occurred" subtitle="Please try again." />)
+    render(<WidgetEmptyState icon={<span />} text="错误 occurred" subtitle="Please try again." />)
 
-    expect(screen.getByText('Error occurred')).toBeInTheDocument()
-    expect(screen.getByText('Please try again.')).toBeInTheDocument()
+    expect(screen.getByText('错误 occurred')).toBeInTheDocument()
+    expect(screen.getByText('请重试。')).toBeInTheDocument()
   })
 
   it('does not render the subtitle when not provided', () => {
     render(<WidgetEmptyState icon={<span />} text="No items found" />)
 
     expect(screen.getByText('No items found')).toBeInTheDocument()
-    expect(screen.queryByText('Please try again.')).not.toBeInTheDocument()
+    expect(screen.queryByText('请重试。')).not.toBeInTheDocument()
   })
 
   it('applies custom icon container className', () => {

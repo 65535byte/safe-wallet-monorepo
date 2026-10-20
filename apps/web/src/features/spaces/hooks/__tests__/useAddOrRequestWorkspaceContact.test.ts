@@ -82,7 +82,7 @@ describe('useAddOrRequestWorkspaceContact', () => {
     expect(notifications()).toEqual([
       expect.objectContaining({
         variant: 'success',
-        message: 'Contact added to Workspace address book',
+        message: '联系人已添加到工作空间通讯录',
         autoHideDuration: 7000,
       }),
     ])
@@ -101,7 +101,7 @@ describe('useAddOrRequestWorkspaceContact', () => {
     expect(notifications()).toEqual([
       expect.objectContaining({
         variant: 'info',
-        message: 'This contact will be added to the Workspace address book on admin approval',
+        message: '管理员批准后，此联系人将添加到工作空间通讯录',
         autoHideDuration: 7000,
       }),
     ])
@@ -165,7 +165,7 @@ describe('useAddOrRequestWorkspaceContact', () => {
     expect(notifications()).toEqual([
       expect.objectContaining({
         variant: 'info',
-        message: 'A request to add this contact to the Workspace address book is already pending admin approval',
+        message: '添加此联系人的请求已在等待管理员批准',
         autoHideDuration: 7000,
       }),
     ])

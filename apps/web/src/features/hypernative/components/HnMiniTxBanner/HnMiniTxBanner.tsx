@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { X as CloseIcon } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -39,21 +40,26 @@ export const HnMiniTxBanner = ({ onHnSignupClick, onDismiss }: HnMiniTxBannerPro
           <Image
             className={css.bannerImage}
             src="/images/hypernative/guardian-badge.svg"
-            alt="Guardian badge"
+            alt={translateMessage('ui.guardianBadge_ddb92c27')}
             width={32}
             height={32}
           />
           <div className={css.bannerContent}>
             <Typography variant="paragraph-small" className={css.bannerTitle}>
-              Enforce enterprise-grade security
+              {translateMessage('ui.enforceEnterpriseGradeSecurity_47eda011')}
             </Typography>
             <Typography variant="paragraph-mini" className={css.bannerDescription}>
-              Learn more
+              {translateMessage('ui.learnMore_0c11daba')}
             </Typography>
           </div>
         </div>
 
-        <Button variant="ghost" className={css.closeButton} aria-label="close" onClick={handleDismissClick}>
+        <Button
+          variant="ghost"
+          className={css.closeButton}
+          aria-label={translateMessage('ui.close_aaaeeafe')}
+          onClick={handleDismissClick}
+        >
           <CloseIcon className={`${css.closeIcon} text-[var(--color-text-secondary)]`} />
         </Button>
       </div>

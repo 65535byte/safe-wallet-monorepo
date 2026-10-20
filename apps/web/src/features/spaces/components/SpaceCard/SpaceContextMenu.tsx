@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MouseEvent, useState } from 'react'
 import { Download, EllipsisVertical } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -45,7 +46,7 @@ const SpaceContextMenu = ({ space }: { space: GetSpaceResponse }) => {
     } catch {
       dispatch(
         showNotification({
-          message: 'Failed to download the shared address book. Please try again.',
+          message: translateMessage('ui.failedToDownloadTheSharedAddress_01fdfd81'),
           variant: 'error',
           groupKey: 'download-address-book-error',
         }),
@@ -73,7 +74,7 @@ const SpaceContextMenu = ({ space }: { space: GetSpaceResponse }) => {
               size="icon-sm"
               className="text-muted-foreground"
               onClick={(e) => e.stopPropagation()}
-              aria-label="Open space actions"
+              aria-label={translateMessage('ui.openSpaceActions_59e8d32e')}
               data-testid="space-card-context-menu-button"
             />
           }
@@ -84,7 +85,7 @@ const SpaceContextMenu = ({ space }: { space: GetSpaceResponse }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={(e) => handleOpenModal(e, ModalType.RENAME)}>
             <EditIcon className="text-[var(--color-success-main)]" />
-            <span>Rename</span>
+            <span>{translateMessage('ui.rename_f5101245')}</span>
           </DropdownMenuItem>
 
           <Tooltip>
@@ -96,7 +97,7 @@ const SpaceContextMenu = ({ space }: { space: GetSpaceResponse }) => {
                   onClick={isDeletionBlocked ? undefined : (e) => handleOpenModal(e, ModalType.REMOVE)}
                 >
                   <DeleteIcon className="text-[var(--color-error-main)]" />
-                  <span>Remove</span>
+                  <span>{translateMessage('ui.remove_1498adee')}</span>
                 </DropdownMenuItem>
               </Track>
             </TooltipTrigger>
@@ -110,7 +111,7 @@ const SpaceContextMenu = ({ space }: { space: GetSpaceResponse }) => {
               onClick={handleDownload}
             >
               <Download className="text-muted-foreground" />
-              <span>Download shared address book</span>
+              <span>{translateMessage('ui.downloadSharedAddressBook_afc8762a')}</span>
             </DropdownMenuItem>
           </Track>
         </DropdownMenuContent>

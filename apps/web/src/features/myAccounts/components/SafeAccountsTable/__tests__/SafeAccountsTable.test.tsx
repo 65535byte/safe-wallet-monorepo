@@ -186,7 +186,7 @@ describe('SafeAccountsTable', () => {
     render(<SafeAccountsTable items={items} sortableColumns={false} />)
 
     // The header label still shows, but it is not a clickable sort control.
-    expect(screen.getByText('Name')).toBeInTheDocument()
+    expect(screen.getByText('名称')).toBeInTheDocument()
     expect(screen.queryByTestId('account-sort-name')).not.toBeInTheDocument()
     expect(screen.queryByTestId('account-sort-threshold')).not.toBeInTheDocument()
 
@@ -395,7 +395,7 @@ describe('SafeAccountsTable — selection mode', () => {
           selectedKeys: new Set(),
           onToggle: jest.fn(),
           disabledKeys: new Set(['0xB']),
-          disabledReason: 'Already in Workspace',
+          disabledReason: '已在工作空间中',
         }}
       />,
     )
@@ -412,7 +412,7 @@ describe('SafeAccountsTable — selection mode', () => {
           selectedKeys: new Set(['1:0xG', '2:0xG']),
           onToggle: jest.fn(),
           disabledKeys: new Set(['1:0xG', '2:0xG']),
-          disabledReason: 'Already in Workspace',
+          disabledReason: '已在工作空间中',
         }}
       />,
     )
@@ -484,7 +484,7 @@ describe('SafeAccountsTable — reorder mode with pinned similarity clusters', (
     render(<SafeAccountsTable items={items} reorder={{ onReorder: jest.fn() }} similarityGroups={similarityGroups} />)
 
     expect(rowNames()).toEqual(['Alpha', 'Bravo', 'Golf'])
-    expect(screen.getAllByText('Address poisoning warning')).toHaveLength(1)
+    expect(screen.getAllByText('地址投毒警告')).toHaveLength(1)
     expect(screen.queryByTestId('drag-0xA')).not.toBeInTheDocument()
     expect(screen.getByTestId('drag-0xB')).toBeInTheDocument()
     expect(screen.getByTestId('drag-0xG')).toBeInTheDocument()

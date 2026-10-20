@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -32,7 +33,11 @@ const GasLimitInput = ({ recommendedGasLimit }: { recommendedGasLimit?: string }
       }
     | undefined
 
-  const errorMessage = error ? (error.type === 'min' ? 'Gas limit must be at least 21000' : error.message) : undefined
+  const errorMessage = error
+    ? error.type === 'min'
+      ? translateMessage('ui.gasLimitMustBeAtLeast_429d252a')
+      : error.message
+    : undefined
 
   const showReset = !!recommendedGasLimit && recommendedGasLimit !== currentGasLimit?.toString()
 
@@ -55,13 +60,13 @@ const GasLimitInput = ({ recommendedGasLimit }: { recommendedGasLimit?: string }
                       size="icon-sm"
                       onClick={onResetGasLimit}
                       className="text-primary"
-                      aria-label="Reset to recommended gas limit"
+                      aria-label={translateMessage('ui.resetToRecommendedGasLimit_4a44ad36')}
                     >
                       <RotateCcw className="size-4" />
                     </Button>
                   }
                 />
-                <TooltipContent>Reset to recommended gas limit</TooltipContent>
+                <TooltipContent>{translateMessage('ui.resetToRecommendedGasLimit_4a44ad36')}</TooltipContent>
               </Tooltip>
             )}
           </>

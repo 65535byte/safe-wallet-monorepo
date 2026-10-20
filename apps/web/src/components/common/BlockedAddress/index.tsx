@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useIsBelowSm } from '@/hooks/useMediaQuery'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
@@ -24,9 +25,9 @@ const BlockedAddress = ({
 
   return (
     <Disclaimer
-      title="Blocked address"
+      title={translateMessage('ui.blockedAddress_da783021')}
       subtitle={displayAddress}
-      content={`The above address is part of the OFAC SDN list and the ${featureTitle} is unavailable for sanctioned addresses.`}
+      content={translateMessage('ui.theAboveAddressIsPartOf_d3215785', { p0: featureTitle })}
       onAccept={onClose ?? handleAccept}
     />
   )

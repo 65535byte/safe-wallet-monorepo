@@ -86,7 +86,7 @@ describe('useSpacesSafeEligibility', () => {
     expect(result.current.hasPlan(faker.string.uuid())).toBeUndefined()
   })
 
-  it('treats every Workspace as having a plan while Safe Pro is off', () => {
+  it('treats every Workspace as having a plan while 8379 is off', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     const { result } = renderHook(() => useSpacesSafeEligibility(true))
 
@@ -99,7 +99,7 @@ describe('useSpacesSafeEligibility', () => {
     expect(result.current.getLimit(faker.string.uuid())).toBeUndefined()
   })
 
-  it('uses the static cap and skips the entitlements request while Safe Pro is off', () => {
+  it('uses the static cap and skips the entitlements request while 8379 is off', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     const { result } = renderHook(() => useSpacesSafeEligibility(true))
 

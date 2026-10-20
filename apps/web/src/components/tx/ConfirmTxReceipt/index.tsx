@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import TxCard from '@safe-global/views/components/tx-flow/common/TxCard'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -16,13 +17,13 @@ import { Sign } from '@/components/tx-flow/actions/Sign'
 
 const InfoSteps = [
   {
-    label: 'Review what you will sign',
+    label: translateMessage('ui.reviewWhatYouWillSign_a6942fba'),
     description: (
       <Typography>
-        Signing is an irreversible action so make sure you know what you are signing.{' '}
+        {translateMessage('ui.signingIsAnIrreversibleActionSo_b086ae0d')}{' '}
         <Track {...MODALS_EVENTS.SIGNING_ARTICLE}>
           <ExternalLink href="https://help.safe.global/articles/2485383995-How-to-perform-basic-transactions-checks-on-Safe{Wallet}">
-            Read more
+            {translateMessage('ui.readMore_531b9432')}
           </ExternalLink>
         </Track>
         .
@@ -30,19 +31,20 @@ const InfoSteps = [
     ),
   },
   {
-    label: 'Compare with your wallet',
+    label: translateMessage('ui.compareWithYourWallet_ee5a84b1'),
     description: (
       <Typography>
-        Once you click <b>Sign</b>, the transaction will appear in your signing wallet. Make sure that all the details
-        match.
+        {translateMessage('ui.onceYouClick_fed2a5aa')}
+        <b>{translateMessage('ui.sign_1e67e9a4')}</b>
+        {translateMessage('ui.theTransactionWillAppearInYour_998a1a81')}
       </Typography>
     ),
   },
   {
-    label: 'Verify with external tools',
+    label: translateMessage('ui.verifyWithExternalTools_f07a4137'),
     description: (
       <Typography>
-        You can additionally cross-verify your transaction data in a third-party tool like{' '}
+        {translateMessage('ui.youCanAdditionallyCrossVerifyYour_e31dd21b')}{' '}
         <Track {...MODALS_EVENTS.OPEN_SAFE_UTILS}>
           <ExternalLink href="https://safeutils.openzeppelin.com/">Safe Utils</ExternalLink>
         </Track>
@@ -55,13 +57,8 @@ const InfoSteps = [
 const HardwareWalletStep = [
   InfoSteps[1],
   {
-    label: 'Compare with your device',
-    description: (
-      <Typography>
-        If you&apos;re using a hardware wallet with &ldquo;blind signing&rdquo;, please compare what you see on your
-        device with the hashes on the right.
-      </Typography>
-    ),
+    label: translateMessage('ui.compareWithYourDevice_77e86dee'),
+    description: <Typography>{translateMessage('ui.ifYouReUsingAHardware_3f59b6b2')}</Typography>,
   },
   InfoSteps[2],
 ]
@@ -77,7 +74,7 @@ export const ConfirmTxReceipt = ({ children, onSubmit }: PropsWithChildren<{ onS
   // the user sees a loading state instead of an empty card with the previous step's stale title.
   if (!safeTx) {
     return (
-      <TxFlowStep title="Review details" fixedNonce>
+      <TxFlowStep title={translateMessage('ui.reviewDetails_e1ca8d36')} fixedNonce>
         <TxCard>
           <div className="flex items-center justify-center py-10">
             <Spinner className="size-6" />
@@ -88,7 +85,7 @@ export const ConfirmTxReceipt = ({ children, onSubmit }: PropsWithChildren<{ onS
   }
 
   return (
-    <TxFlowStep title="Review details" fixedNonce>
+    <TxFlowStep title={translateMessage('ui.reviewDetails_e1ca8d36')} fixedNonce>
       <TxCard>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
@@ -116,7 +113,7 @@ export const ConfirmTxReceipt = ({ children, onSubmit }: PropsWithChildren<{ onS
         <Slot name={SlotName.Submit} onSubmitSuccess={onSubmit} txPreview={txPreview}>
           <Sign
             onSubmitSuccess={onSubmit}
-            options={[{ id: 'sign', label: 'Sign' }]}
+            options={[{ id: 'sign', label: translateMessage('ui.sign_1e67e9a4') }]}
             onChange={() => {}}
             slotId="sign"
           />

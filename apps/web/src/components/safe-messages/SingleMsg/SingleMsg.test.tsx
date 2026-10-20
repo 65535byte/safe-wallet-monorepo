@@ -56,11 +56,11 @@ describe('SingleMsg', () => {
     const screen = render(<SingleMsg />)
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to load message')).toBeInTheDocument()
+      expect(screen.getByText('无法加载消息')).toBeInTheDocument()
     })
 
     // The raw error is never offered to the user — there is no Details toggle to open.
-    expect(screen.queryByText('Details')).not.toBeInTheDocument()
+    expect(screen.queryByText('详情')).not.toBeInTheDocument()
     expect(screen.queryByText('Server error')).not.toBeInTheDocument()
   })
 })

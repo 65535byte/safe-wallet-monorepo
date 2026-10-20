@@ -7,36 +7,11 @@ export const SPACE_ID = 'uuid-1'
 export const DAY = 24 * 60 * 60
 export const now = () => Math.floor(Date.now() / 1000)
 
-const PLAN_METADATA = {
-  Starter: {
-    FEATURE_SPONSORED_TRANSACTIONS: '10',
-    planSubtitle: 'Coordinate your team with a shared home for your Safes and transactions.',
-    planSupportLevel: 'Standard',
-    planSupportDetail: 'In-app and email',
-    planDescriptions:
-      '["10 sponsored transactions per month", "Unlimited Workspace members", "Advanced threat analysis", "Transaction simulation", "Shared address book", "MFA Authentication"]',
-  },
-  Business: {
-    FEATURE_SPONSORED_TRANSACTIONS: '50',
-    planSubtitle: 'Scale with control. Delegate daily operations with hands-on help.',
-    planSupportLevel: 'Priority',
-    planSupportDetail: '+ Guided onboarding',
-    planDescriptions:
-      '["50 sponsored transactions per month", "Unlimited Workspace members", "Advanced threat analysis", "Transaction simulation", "Policy engine", "Shared address book", "MFA Authentication"]',
-  },
-}
-
-const link = (
-  planName: keyof typeof PLAN_METADATA,
-  seats: number,
-  cents: number,
-  interval: 'month' | 'year',
-  trialPeriodDays?: number,
-) =>
+const link = (planName: string, seats: number, cents: number, interval: 'month' | 'year', trialPeriodDays?: number) =>
   ({
     id: `pl_${planName}_${seats}_${interval}${trialPeriodDays ? '_trial' : ''}`,
     active: true,
-    metadata: { planName, FEATURE_SAFE_SEATS: String(seats), ...PLAN_METADATA[planName] },
+    metadata: { planName, FEATURE_SAFE_SEATS: String(seats) },
     lineItems: [
       {
         price: {
@@ -52,13 +27,11 @@ const link = (
 
 export const PAID_LINKS = [
   link('Starter', 2, 18_900, 'month'),
-  link('Starter', 2, 199_000, 'year'),
+  link('Starter', 2, 197_300, 'year'),
   link('Business', 5, 66_900, 'month'),
-  link('Business', 5, 719_000, 'year'),
-  link('Business', 10, 99_900, 'month'),
-  link('Business', 10, 1_079_000, 'year'),
+  link('Business', 10, 109_900, 'month'),
   link('Business', 20, 166_900, 'month'),
-  link('Business', 20, 1_799_000, 'year'),
+  link('Business', 20, 1_742_400, 'year'),
 ]
 export const TRIAL_LINKS = [link('Starter', 2, 18_900, 'month', 30), link('Business', 20, 166_900, 'month', 30)]
 
@@ -77,7 +50,7 @@ export const subscription = (overrides: Partial<Subscription> = {}): Subscriptio
   cancelledAt: null,
   cancelAt: null,
   hasPaymentMethod: false,
-  metadata: { planName: 'Business', FEATURE_SAFE_SEATS: '20', ...PLAN_METADATA.Business },
+  metadata: { planName: 'Business', FEATURE_SAFE_SEATS: '20' },
   plan: {
     id: 'price_Business_20_month',
     name: 'Business',

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import css from './styles.module.css'
 import { XCircle } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -117,12 +118,13 @@ const FileUpload = ({
       <div className="flex items-center gap-2">
         <FileIcon className="size-5 fill-none text-[var(--color-primary-light)]" />
         <Typography>
-          Drag and drop a {fileType} file or{' '}
+          {translateMessage('ui.dragAndDropA_d40700d6')}
+          {fileType} {translateMessage('ui.fileOr_50a57e56')}{' '}
           <Link
             variant="default"
             className="font-bold text-[var(--color-secondary-dark)] decoration-current hover:text-muted-foreground dark:text-primary dark:hover:text-muted-foreground"
           >
-            choose a file
+            {translateMessage('ui.chooseAFile_ec113ec1')}
           </Link>
         </Typography>
       </div>

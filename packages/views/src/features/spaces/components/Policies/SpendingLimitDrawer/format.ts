@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { PolicyAllowance } from '../types'
 import { formatTokenAmount, getResetPeriodLabel } from '../utils/policyLabel'
 import { formatVisualAmount } from '@safe-global/utils/utils/formatters'
@@ -61,14 +62,15 @@ export const formatAllowanceAmount = (allowance: PolicyAllowance): string => {
   const amount = formatVisualAmount(allowance.amount, allowance.token.decimals)
 
   return allowance.resetPeriodMinutes === 0
-    ? `${amount} one time`
+    ? translateMessage('ui.oneTime_df54e49f', { p0: amount })
     : `${amount}/${getResetPeriodLabel(allowance.resetPeriodMinutes)}`
 }
 
 export const formatRemaining = (allowance: PolicyAllowance): string =>
-  `${formatTokenAmount(allowance.remaining, allowance.token)} remaining`
+  translateMessage('ui.remaining_18876f7e', { p0: formatTokenAmount(allowance.remaining, allowance.token) })
 
-export const formatSignedCount = (signed: number, required: number): string => `${signed} of ${required} signed`
+export const formatSignedCount = (signed: number, required: number): string =>
+  translateMessage('ui.ofSigned_342d6ca8', { p0: signed, p1: required })
 
 export const formatAwaitingSignatures = (missing: number): string =>
-  `Waiting for ${missing} more signature${missing === 1 ? '' : 's'}`
+  translateMessage('ui.waitingForMoreSignature_cb5ed187', { p0: missing })

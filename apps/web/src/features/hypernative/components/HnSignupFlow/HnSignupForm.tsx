@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import HubSpotForm from '../HubSpotForm/HubSpotForm'
 import HnSignupLayout from '@safe-global/views/features/hypernative/components/HnSignupFlow/HnSignupLayout'
@@ -19,7 +20,7 @@ const HnSignupForm = ({ portalId, formId, region = 'eu1', onCancel, onSubmit }: 
         {onCancel && (
           <div className={css.cancelButtonWrapper}>
             <Button variant="ghost" onClick={onCancel} className={css.cancelButton}>
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
           </div>
         )}

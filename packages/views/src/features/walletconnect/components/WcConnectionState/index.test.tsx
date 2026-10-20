@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react'
 import WcConnectionState from '.'
 
 describe('WcConnectionState component tests', () => {
-  const SAFE_LOGO_ALT = 'Safe logo'
+  const SAFE_LOGO_ALT = '品牌标志'
   const DAPP_NAME = 'Test dApp'
   const DAPP_LOGO_ALT = `${DAPP_NAME} logo`
   const ICON_URL = 'test-icon-url'
   const SUCCESS_MESSAGE = `${DAPP_NAME} successfully connected!`
   const DISCONNECT_MESSAGE = `${DAPP_NAME} disconnected`
-  const FALLBACK_SUCCESS_MESSAGE = 'dApp successfully connected!'
+  const FALLBACK_SUCCESS_MESSAGE = 'dApp 连接成功！'
   const DAPP_URL = `https://${Math.random().toString(36).substring(7)}.com`
 
   const mockMetadata = {

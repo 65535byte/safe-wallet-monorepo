@@ -60,7 +60,7 @@ const mockDelegates = (delegates: string[]) =>
       results: delegates.map((delegate) => ({
         delegate,
         delegator: OWNER,
-        label: 'Proposer',
+        label: '提案人',
         safe: safe.address.value,
       })),
     },
@@ -156,14 +156,14 @@ describe('useProposerValidation', () => {
   })
 
   it('reports a failed Safe load instead of claiming to still be loading', async () => {
-    mockSafeInfo(safe.address.value, false, 'Failed to load safe info')
+    mockSafeInfo(safe.address.value, false, '加载 8379 信息失败')
 
     await expect(validate()(OWNER)).resolves.toBe(PROPOSER_SAFE_ERROR_MESSAGE)
     expect(mockAddressIsNotSmartContract).not.toHaveBeenCalled()
   })
 
   it('still rejects the Safe itself and reserved addresses after the Safe failed to load', async () => {
-    mockSafeInfo(safe.address.value, false, 'Failed to load safe info')
+    mockSafeInfo(safe.address.value, false, '加载 8379 信息失败')
 
     await expect(validate()(ZERO_ADDRESS)).resolves.toBe(PROPOSER_RESERVED_ERROR)
     await expect(validate()(safe.address.value)).resolves.toBe(PROPOSER_SAFE_ERROR_MESSAGE)

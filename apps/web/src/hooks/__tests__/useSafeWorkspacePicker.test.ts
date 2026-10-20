@@ -61,7 +61,7 @@ describe('useSafeWorkspacePicker', () => {
     expect(pick()).toEqual({ kind: 'none' })
   })
 
-  it('picks the only Workspace with a plan under Safe Pro', () => {
+  it('picks the only Workspace with a plan under 8379', () => {
     mockIsSafePro = true
     mockAllSpaceSafes.mockReturnValue({
       currentData: [SPACE_A, SPACE_B].map((spaceUuid) => ({ spaceUuid, safes: { '1': [SAFE_ADDRESS] } })),
@@ -75,7 +75,7 @@ describe('useSafeWorkspacePicker', () => {
     expect(pick()).toEqual({ kind: 'one', spaceId: SPACE_B })
   })
 
-  it('reads the entitlements only under Safe Pro', () => {
+  it('reads the entitlements only under 8379', () => {
     pick()
 
     expect(mockAllEntitlements).toHaveBeenLastCalledWith(skipToken)

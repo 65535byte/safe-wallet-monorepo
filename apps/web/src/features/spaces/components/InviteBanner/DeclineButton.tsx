@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import type { GetSpaceResponse } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -22,8 +23,13 @@ const DeclineButton = ({ space }: DeclineButtonProps) => {
 
   return (
     <>
-      <Button variant="secondary" size="sm" onClick={handleDeclineInvite} aria-label="Decline invitation">
-        Decline
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={handleDeclineInvite}
+        aria-label={translateMessage('ui.declineInvitation_d24392db')}
+      >
+        {translateMessage('ui.decline_c2bad7cb')}
       </Button>
       {declineOpen && <DeclineInviteDialog space={space} onClose={handleCloseDeclineDialog} />}
     </>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -9,8 +10,8 @@ import type { RecoveryQueueItem } from '../../services/recovery-state'
 import TxStatusChip from '@safe-global/views/components/transactions/TxStatusChip'
 
 const STATUS_LABELS: Partial<Record<RecoveryEvent, string>> = {
-  [RecoveryEvent.PROCESSING]: 'Processing',
-  [RecoveryEvent.PROCESSED]: 'Loading',
+  [RecoveryEvent.PROCESSING]: translateMessage('ui.processing_cf0ea9ec'),
+  [RecoveryEvent.PROCESSED]: translateMessage('ui.loading_e61bb78c'),
 }
 
 const RecoveryStatus = ({ recovery }: { recovery: RecoveryQueueItem }): ReactElement => {
@@ -25,13 +26,13 @@ const RecoveryStatus = ({ recovery }: { recovery: RecoveryQueueItem }): ReactEle
       {STATUS_LABELS[pendingTxStatus]}
     </>
   ) : isExecutable ? (
-    'Awaiting execution'
+    translateMessage('ui.awaitingExecution_028707aa')
   ) : isExpired ? (
-    'Expired'
+    translateMessage('ui.expired_b75ba2e1')
   ) : (
     <>
       <ClockIcon className="size-[1em] fill-current" />
-      Pending
+      {translateMessage('ui.pending_c096ae70')}
     </>
   )
 

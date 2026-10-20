@@ -43,7 +43,7 @@ describe('SwitchAuthenticatorSection', () => {
   it('marks 2FA as active when an authenticator is enrolled', () => {
     render(<SwitchAuthenticatorSection />)
 
-    expect(screen.getByText('Active')).toBeInTheDocument()
+    expect(screen.getByText('已启用')).toBeInTheDocument()
     expect(screen.getByTestId('authenticator-row')).toBeInTheDocument()
   })
 
@@ -57,7 +57,7 @@ describe('SwitchAuthenticatorSection', () => {
 
     render(<SwitchAuthenticatorSection />)
 
-    expect(screen.queryByText('Active')).not.toBeInTheDocument()
+    expect(screen.queryByText('已启用')).not.toBeInTheDocument()
     expect(screen.getByTestId('add-authenticator-btn')).toBeInTheDocument()
   })
 })

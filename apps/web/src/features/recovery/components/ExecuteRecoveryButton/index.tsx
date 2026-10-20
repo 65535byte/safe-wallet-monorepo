@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import type { SyntheticEvent, ReactElement } from 'react'
 
@@ -33,14 +34,14 @@ export default function ExecuteRecoveryButton({
 
   const getRecoveryBlockedReason = (): string | null => {
     if (isWrongChain) {
-      return `Switch your wallet network to ${chain?.chainName} to execute this transaction`
+      return translateMessage('ui.switchYourWalletNetworkToTo_af2306c4', { p0: chain?.chainName })
     }
     if (!isDisabled) {
       return null
     }
     return isNext
-      ? 'You can execute the recovery after the specified review window'
-      : 'Previous recovery proposals must be executed or cancelled first'
+      ? translateMessage('ui.youCanExecuteTheRecoveryAfter_d097e99d')
+      : translateMessage('ui.previousRecoveryProposalsMustBeExecuted_3d3a865f')
   }
 
   const blockedReason = getRecoveryBlockedReason()
@@ -56,7 +57,7 @@ export default function ExecuteRecoveryButton({
             disabled={!isOk || isDisabled}
             size={compact ? 'default' : 'action'}
           >
-            Execute
+            {translateMessage('ui.execute_eea2eb83')}
           </Button>
         )
 

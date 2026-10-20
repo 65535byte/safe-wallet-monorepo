@@ -3,29 +3,27 @@ import { DrawerSection } from '../DrawerSection'
 
 describe('DrawerSection', () => {
   it('renders its title and content', () => {
-    render(<DrawerSection title="Pending signatures">Section content</DrawerSection>)
+    render(<DrawerSection title="待签名">Section content</DrawerSection>)
 
-    expect(screen.getByText('Pending signatures')).toBeInTheDocument()
+    expect(screen.getByText('待签名')).toBeInTheDocument()
     expect(screen.getByText('Section content')).toBeInTheDocument()
   })
 
   it('renders the trailing node next to the title', () => {
     render(
-      <DrawerSection title="Pending signatures" rightNode="Expires in 1h 33 min">
+      <DrawerSection title="待签名" rightNode="Expires in 1h 33 min">
         Section content
       </DrawerSection>,
     )
 
     expect(screen.getByText('Expires in 1h 33 min')).toBeInTheDocument()
-    expect(screen.getByText('Pending signatures').parentElement).toContainElement(
-      screen.getByText('Expires in 1h 33 min'),
-    )
+    expect(screen.getByText('待签名').parentElement).toContainElement(screen.getByText('Expires in 1h 33 min'))
   })
 
   it('omits the trailing node when none is given', () => {
-    render(<DrawerSection title="Details">Section content</DrawerSection>)
+    render(<DrawerSection title="详情">Section content</DrawerSection>)
 
-    expect(screen.getByText('Details').parentElement?.childElementCount).toBe(1)
+    expect(screen.getByText('详情').parentElement?.childElementCount).toBe(1)
   })
 
   it('renders a falsy trailing node rather than treating it as absent', () => {

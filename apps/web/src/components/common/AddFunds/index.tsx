@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import QRCode from '@/components/common/QRCode'
 import { Switch } from '@safe-global/views/components/ui/switch'
@@ -32,16 +33,16 @@ const AddFundsCTA = () => {
               checked={settings.shortName.qr}
               onCheckedChange={(checked) => dispatch(setQrShortName(checked))}
             />
-            QR code with chain prefix
+            {translateMessage('ui.qRCodeWithChainPrefix_a83a7857')}
           </Label>
         </div>
 
         <div className="flex flex-col gap-4">
           <Typography variant="h3" className="font-bold">
-            Add funds to get started
+            {translateMessage('ui.addFundsToGetStarted_8cd6708f')}
           </Typography>
 
-          <Typography>Copy your address to send tokens from a different account.</Typography>
+          <Typography>{translateMessage('ui.copyYourAddressToSendTokens_fdffa9a5')}</Typography>
 
           <div className="self-start rounded-md bg-[var(--color-background-main)] p-4 text-sm">
             <EthHashInfo address={safeAddress} shortAddress={false} showCopyButton hasExplorer avatarSize={24} />

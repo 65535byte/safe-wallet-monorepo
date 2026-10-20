@@ -2,6 +2,7 @@ import type { ReactElement, ComponentProps } from 'react'
 import { ExternalLinkIcon } from '@safe-global/views/components/common/ExternalLink/ExternalLinkIcon'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Link } from '@safe-global/views/components/ui/link'
+import { isGithubUrl } from '@safe-global/views/utils/isGithubUrl'
 
 /**
  * Renders an external Link which always sets the noopener and noreferrer rel attribute and the target to _blank.
@@ -14,7 +15,11 @@ const ExternalLink = ({
   mode = 'link',
   className,
   ...props
-}: Omit<ComponentProps<'a'>, 'target' | 'rel'> & { noIcon?: boolean; mode?: 'button' | 'link' }): ReactElement => {
+}: Omit<ComponentProps<'a'>, 'target' | 'rel'> & {
+  noIcon?: boolean
+  mode?: 'button' | 'link'
+}): ReactElement | null => {
+  if (href && isGithubUrl(href)) return null
   if (!href) return <>{children}</>
 
   const linkContent = (

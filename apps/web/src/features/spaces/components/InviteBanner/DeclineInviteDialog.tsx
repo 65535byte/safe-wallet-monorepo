@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import ModalDialog from '@/components/common/ModalDialog'
 import DialogActions from '@/components/common/DialogActions'
@@ -37,22 +38,28 @@ const DeclineInviteDialog = ({ space, onClose }: DeclineInviteDialogProps) => {
 
       dispatch(
         showNotification({
-          message: `Declined invite to ${space.name}`,
+          message: translateMessage('ui.declinedInviteTo_2bcab57b', { p0: space.name }),
           variant: 'success',
           groupKey: 'decline-invite-success',
         }),
       )
     } catch (e) {
-      setErrorMessage('An unexpected error occurred while declining the invitation.')
+      setErrorMessage(translateMessage('ui.anUnexpectedErrorOccurredWhileDeclining_2bed43fa'))
     }
   }
 
   return (
-    <ModalDialog open onClose={onClose} dialogTitle="Decline invitation" hideChainIndicator>
+    <ModalDialog
+      open
+      onClose={onClose}
+      dialogTitle={translateMessage('ui.declineInvitation_d24392db')}
+      hideChainIndicator
+    >
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="p-6">
           <Typography variant="paragraph">
-            Are you sure you want to decline the invitation to <b>{space.name}</b>?
+            {translateMessage('ui.areYouSureYouWantTo_c8e7e069')}
+            <b>{space.name}</b>?
           </Typography>
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         </div>
@@ -61,7 +68,7 @@ const DeclineInviteDialog = ({ space, onClose }: DeclineInviteDialogProps) => {
           className="px-6 pb-6"
           onCancel={onClose}
           cancelTestId="cancel-btn"
-          confirmLabel="Decline"
+          confirmLabel={translateMessage('ui.decline_c2bad7cb')}
           onConfirm={handleConfirm}
           confirmDestructive
           confirmTestId="decline-btn"

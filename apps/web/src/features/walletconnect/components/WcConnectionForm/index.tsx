@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect } from 'react'
 import type { ReactElement } from 'react'
 import type { SessionTypes } from '@walletconnect/types'
@@ -47,15 +48,19 @@ const WcConnectionForm = ({ sessions, uri }: { sessions: SessionTypes.Struct[]; 
               </span>
             }
           />
-          <TooltipContent>{showHints ? 'Hide how WalletConnect works' : 'How does WalletConnect work?'}</TooltipContent>
+          <TooltipContent>
+            {showHints
+              ? translateMessage('ui.hideHowWalletConnectWorks_bb8ca5cc')
+              : translateMessage('ui.howDoesWalletConnectWork_6cbe76bf')}
+          </TooltipContent>
         </Tooltip>
 
         <WcLogoHeader />
 
         <Typography variant="paragraph-small" className="text-muted-foreground">
           {safeLoaded
-            ? `Paste the pairing code below to connect to your ${BRAND_NAME} via WalletConnect`
-            : `Please open one of your Safe accounts to connect to via WalletConnect`}
+            ? translateMessage('ui.pasteThePairingCodeBelowTo_c8739341', { p0: BRAND_NAME })
+            : translateMessage('ui.pleaseOpenOneOfYourAccounts_75fda0e1')}
         </Typography>
 
         {safeLoaded ? (

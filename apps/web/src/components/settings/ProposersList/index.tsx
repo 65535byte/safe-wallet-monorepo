@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EnhancedTable from '@safe-global/views/components/common/EnhancedTable'
 import tableCss from '@safe-global/views/components/common/EnhancedTable/styles.module.css'
 import CheckWallet from '@/components/common/CheckWallet'
@@ -17,7 +18,6 @@ import useProposers from '@/hooks/useProposers'
 import { useIsNestedSafeOwner } from '@/hooks/useIsNestedSafeOwner'
 import { useNestedSafeOwners } from '@/hooks/useNestedSafeOwners'
 import AddIcon from '@/public/images/common/add.svg'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
 import { SETTINGS_EVENTS, UpgradeFeature } from '@/services/analytics'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -33,18 +33,18 @@ import NamedAddressInfo from '@/components/common/NamedAddressInfo'
 const headCells = [
   {
     id: 'proposer',
-    label: 'Proposer',
+    label: translateMessage('ui.proposer_7ebd3069'),
   },
   {
     id: 'creator',
-    label: 'Creator',
+    label: translateMessage('ui.creator_afb328f8'),
   },
   {
     id: 'Actions',
     label: '',
   },
 ]
-const SafeNotActivated = 'You need to activate the Safe before transacting'
+const SafeNotActivated = translateMessage('ui.youNeedToActivateTheBefore_7b9ac818')
 
 const AddProposerButton = ({
   onAdd,
@@ -71,10 +71,10 @@ const AddProposerButton = ({
                     disabled={!isOk || isUndeployedSafe}
                   >
                     <AddIcon className="size-4" />
-                    Add proposer
+                    {translateMessage('ui.addProposer_3464147e')}
                     {showProTag && (
-                      <span className="block h-5 w-8" role="img" aria-label="Safe Pro" data-testid="pro-tag">
-                        <ProChip className="size-full" />
+                      <span className="block h-5 w-8" role="img" aria-label="8379" data-testid="pro-tag">
+                        <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
                       </span>
                     )}
                   </Button>
@@ -145,13 +145,12 @@ const ProposersList = () => {
   return (
     <div data-testid="proposer-section">
       <Typography variant="paragraph-bold" className="mb-4">
-        Proposers
+        {translateMessage('ui.proposers_8aaa6a22')}
       </Typography>
       <Typography className="mb-4">
-        Proposers can suggest transactions but cannot approve or execute them. Signers should review and approve
-        transactions first.{' '}
+        {translateMessage('ui.proposersCanSuggestTransactionsButCannot_dc702dd7')}{' '}
         <ExternalLink className="font-bold hover:text-muted-foreground" href={HelpCenterArticle.PROPOSERS}>
-          Learn more
+          {translateMessage('ui.learnMore_0c11daba')}
         </ExternalLink>
       </Typography>
 
@@ -161,7 +160,7 @@ const ProposersList = () => {
         (mustUpgradeToSafePro ? (
           <div className="mb-4">
             <SafeProLock
-              title="Adding proposers requires Safe Pro"
+              title={translateMessage('ui.addingProposersRequires_74ef2c78')}
               href={upgradeHref}
               feature={UpgradeFeature.PROPOSERS}
             />

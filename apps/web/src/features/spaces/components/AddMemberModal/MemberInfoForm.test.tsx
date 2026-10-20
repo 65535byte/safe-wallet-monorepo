@@ -17,7 +17,7 @@ describe('MemberInfoForm', () => {
     render(<Wrapper />)
 
     expect(screen.getByTestId('member-name-input')).toBeInTheDocument()
-    expect(screen.getByLabelText('Role')).toBeInTheDocument()
+    expect(screen.getByLabelText('角色')).toBeInTheDocument()
   })
 
   // Both consumers (Add member, Edit member) are ModalDialogs. A select backdrop paints above the

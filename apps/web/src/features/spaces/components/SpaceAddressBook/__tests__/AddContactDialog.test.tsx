@@ -61,17 +61,17 @@ jest.mock('@/components/common/NetworkSelector/NetworkMultiSelectorInput', () =>
 }))
 
 const baseProps = {
-  triggerLabel: 'Add shared contact',
-  dialogTitle: 'Add contact',
+  triggerLabel: '添加共享联系人',
+  dialogTitle: '添加联系人',
   successMessage: 'Added contact',
   successGroupKey: 'add-contact-success',
 }
 
-const openDialog = () => fireEvent.click(screen.getByRole('button', { name: /add shared contact/i }))
+const openDialog = () => fireEvent.click(screen.getByRole('button', { name: /添加共享联系人/i }))
 
 const fillRequiredFields = () => {
-  fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Alice' } })
-  fireEvent.change(screen.getByLabelText('Address or ENS'), { target: { value: '0xabc' } })
+  fireEvent.change(screen.getByLabelText('名称'), { target: { value: 'Alice' } })
+  fireEvent.change(screen.getByLabelText('地址或 ENS'), { target: { value: '0xabc' } })
 }
 
 describe('AddContactDialog', () => {
@@ -86,7 +86,7 @@ describe('AddContactDialog', () => {
 
     openDialog()
 
-    expect(screen.getByRole('dialog', { name: 'Add contact' })).toBeInTheDocument()
+    expect(screen.getByRole('dialog', { name: '添加联系人' })).toBeInTheDocument()
   })
 
   it('renders intro text when provided', () => {
@@ -109,7 +109,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -125,7 +125,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -156,7 +156,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -171,7 +171,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -194,7 +194,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -218,7 +218,7 @@ describe('AddContactDialog', () => {
     openDialog()
     fillRequiredFields()
 
-    const submitButton = screen.getByRole('button', { name: 'Add contact' })
+    const submitButton = screen.getByRole('button', { name: '添加联系人' })
     await waitFor(() => expect(submitButton).not.toBeDisabled())
     fireEvent.click(submitButton)
 
@@ -237,13 +237,13 @@ describe('AddContactDialog', () => {
     render(<AddContactDialog {...baseProps} submitLabel="Save" submit={jest.fn()} />)
     openDialog()
 
-    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '保存' })).toBeInTheDocument()
   })
 
   it('resolves ENS on mainnet by passing the mainnet chain to the address input', () => {
     render(<AddContactDialog {...baseProps} submit={jest.fn()} />)
     openDialog()
 
-    expect(screen.getByLabelText('Address or ENS')).toHaveAttribute('data-ens-chain', '1')
+    expect(screen.getByLabelText('地址或 ENS')).toHaveAttribute('data-ens-chain', '1')
   })
 })

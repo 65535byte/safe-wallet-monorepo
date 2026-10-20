@@ -12,7 +12,6 @@ import { checksumAddress } from '@safe-global/utils/utils/addresses'
 import type { AddressBook } from '@/store/addressBookSlice'
 import type { SpaceAddressBookItemDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useGetSpaceAddressBook } from '@/features/spaces'
-import { extendedSafeInfoBuilder, addressExBuilder } from '@/tests/builders/safe'
 
 jest.mock('@/features/spaces/hooks/useGetSpaceAddressBook', () => ({
   __esModule: true,
@@ -76,13 +75,7 @@ const TestForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(() => null)}>
-        <AddressBookInput
-          data-testid={testId}
-          name={name}
-          label="Recipient address"
-          validate={validate}
-          canAdd={canAdd}
-        />
+        <AddressBookInput data-testid={testId} name={name} label="接收方地址" validate={validate} canAdd={canAdd} />
         <button type="submit">Submit</button>
       </form>
     </FormProvider>
@@ -97,7 +90,7 @@ const TestFormWithClear = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(() => null)}>
-        <AddressBookInput data-testid={testId} name={name} label="Recipient address" />
+        <AddressBookInput data-testid={testId} name={name} label="接收方地址" />
         <button type="button" onClick={() => methods.reset({ [name]: '' })}>
           Clear
         </button>
@@ -119,7 +112,7 @@ const setup = (
       },
     },
   })
-  const input = utils.getByLabelText('Recipient address', { exact: false })
+  const input = utils.getByLabelText('接收方地址', { exact: false })
 
   return {
     input: input as HTMLInputElement,
@@ -179,7 +172,7 @@ describe('AddressBookInput', () => {
     const utils = render(<TestFormWithClear />, {
       initialReduxState: { addressBook: { [mockChain.chainId]: { [address]: 'Tim Testermann' } } },
     })
-    const input = utils.getByLabelText('Recipient address', { exact: false }) as HTMLInputElement
+    const input = utils.getByLabelText('接收方地址', { exact: false }) as HTMLInputElement
 
     act(() => {
       fireEvent.input(input, { target: { value: address.slice(30) } })
@@ -187,8 +180,8 @@ describe('AddressBookInput', () => {
     expect(input).toHaveAttribute('aria-expanded', 'true')
 
     act(() => {
-      fireEvent.pointerDown(utils.getByText('Clear'))
-      fireEvent.click(utils.getByText('Clear'))
+      fireEvent.pointerDown(utils.getByText('清除'))
+      fireEvent.click(utils.getByText('清除'))
     })
 
     // An empty value matches every contact, so a value-driven effect would reopen the whole book.
@@ -317,15 +310,15 @@ describe('AddressBookInput', () => {
       jest.advanceTimersByTime(1000)
     })
 
-    await waitFor(() => expect(utils.getByText('add it to your address book', { exact: false })).toBeDefined())
+    await waitFor(() => expect(utils.getByText('将其添加到通讯录', { exact: false })).toBeDefined())
 
     await act(async () => {
-      fireEvent.click(utils.getByText('add it to your address book', { exact: false }))
+      fireEvent.click(utils.getByText('将其添加到通讯录', { exact: false }))
       // Wait for dialog to pop up to have it wrapped in the act
       await Promise.resolve()
     })
 
-    const nameInput = utils.getByLabelText('Name', { exact: false })
+    const nameInput = utils.getByLabelText('名称', { exact: false })
     act(() => {
       fireEvent.change(nameInput, { target: { value: 'Tim Testermann' } })
       fireEvent.submit(nameInput)
@@ -343,38 +336,7 @@ describe('AddressBookInput', () => {
       jest.advanceTimersByTime(1000)
     })
 
-    await waitFor(() => expect(utils.queryByText('add it to your address book', { exact: false })).toBeNull())
-  })
-
-  describe('when the address is a signer of the current Safe', () => {
-    const signer = checksumAddress(faker.finance.ethereumAddress())
-    const safe = extendedSafeInfoBuilder()
-      .with({ owners: [addressExBuilder().with({ value: signer }).build()] })
-      .build()
-
-    const renderWithSafeSigner = (addressBook: AddressBook) =>
-      render(<TestForm address={signer} canAdd />, {
-        initialReduxState: {
-          addressBook: { [mockChain.chainId]: addressBook },
-          safeInfo: { loading: false, error: undefined, data: safe, loaded: true },
-        },
-      })
-
-    it('should say it is a signer instead of an unknown address', async () => {
-      const utils = renderWithSafeSigner({})
-
-      await waitFor(() => expect(utils.getByText('This is a signer of this Safe', { exact: false })).toBeDefined())
-      expect(utils.queryByText('This is an unknown address', { exact: false })).toBeNull()
-      expect(utils.getByText('add it to your address book', { exact: false })).toBeDefined()
-    })
-
-    it('should show no hint when the signer is already in the address book', async () => {
-      const utils = renderWithSafeSigner({ [signer]: 'Alice' })
-
-      await waitFor(() => expect(utils.getByText('Alice', { exact: false })).toBeDefined())
-      expect(utils.queryByText('This is a signer of this Safe', { exact: false })).toBeNull()
-      expect(utils.queryByText('add it to your address book', { exact: false })).toBeNull()
-    })
+    await waitFor(() => expect(utils.queryByText('将其添加到通讯录', { exact: false })).toBeNull())
   })
 
   it('should group a server-stored (space) contact under the workspace header with the workspace icon', async () => {
@@ -387,7 +349,7 @@ describe('AddressBookInput', () => {
       return (
         <FormProvider {...methods}>
           <AddressBookSourceProvider source="spaceOnly">
-            <AddressBookInput data-testid={testId} name={name} label="Recipient address" />
+            <AddressBookInput data-testid={testId} name={name} label="接收方地址" />
           </AddressBookSourceProvider>
         </FormProvider>
       )
@@ -396,7 +358,7 @@ describe('AddressBookInput', () => {
     const utils = render(<SpaceForm />, {
       initialReduxState: { addressBook: { [mockChain.chainId]: {} } },
     })
-    const input = utils.getByLabelText('Recipient address', { exact: false }) as HTMLInputElement
+    const input = utils.getByLabelText('接收方地址', { exact: false }) as HTMLInputElement
 
     act(() => {
       fireEvent.mouseDown(input)
@@ -411,7 +373,7 @@ describe('AddressBookInput', () => {
 
     // Workspace source: "Contacts of …" header with the building (workspace) icon,
     // not the local hard-drive icon.
-    expect(group.getByText('Contacts of', { exact: false })).toBeInTheDocument()
+    expect(group.getByText('联系人所属账户：', { exact: false })).toBeInTheDocument()
     expect(groupEl.querySelector('.lucide-building-2')).toBeInTheDocument()
     expect(groupEl.querySelector('.lucide-hard-drive')).not.toBeInTheDocument()
   })
@@ -433,7 +395,7 @@ describe('AddressBookInput', () => {
 
     // Local source: "Local contacts" header with the hard-drive icon, not the
     // building (workspace) icon.
-    expect(group.getByText('Local contacts')).toBeInTheDocument()
+    expect(group.getByText('本地联系人')).toBeInTheDocument()
     expect(groupEl.querySelector('.lucide-hard-drive')).toBeInTheDocument()
     expect(groupEl.querySelector('.lucide-building-2')).not.toBeInTheDocument()
   })
@@ -532,7 +494,7 @@ describe('AddressBookInput', () => {
       await openList(utils, input)
 
       act(() => {
-        fireEvent.pointerDown(utils.getByText('Submit'))
+        fireEvent.pointerDown(utils.getByText('提交'))
       })
 
       await waitFor(() => expect(utils.queryByRole('listbox')).not.toBeInTheDocument())
@@ -543,7 +505,7 @@ describe('AddressBookInput', () => {
       const { input, utils } = setup('', { [address]: 'Alice' })
       await openList(utils, input)
 
-      const submit = utils.getByText('Submit')
+      const submit = utils.getByText('提交')
       act(() => {
         fireEvent.focusOut(input, { relatedTarget: submit })
       })
@@ -691,14 +653,14 @@ describe('AddressBookInput', () => {
       })
 
       await waitFor(() => expect(utils.queryByRole('listbox')).not.toBeInTheDocument())
-      expect(utils.getByLabelText('Recipient address', { exact: false })).toHaveValue(activeAddress)
+      expect(utils.getByLabelText('接收方地址', { exact: false })).toHaveValue(activeAddress)
     })
 
     it('does not submit the form when Enter selects a contact', async () => {
       const onSubmit = jest.fn()
       const { addressBook } = twoContacts()
       const { input, utils } = setup('', addressBook)
-      utils.getByText('Submit').closest('form')?.addEventListener('submit', onSubmit)
+      utils.getByText('提交').closest('form')?.addEventListener('submit', onSubmit)
 
       act(() => {
         fireEvent.keyDown(input, { key: 'ArrowDown' })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { X } from 'lucide-react'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 
@@ -38,12 +39,12 @@ const SafeAppsFilters = ({
     <div className={`grid grid-cols-12 items-end gap-4 ${css.filterContainer}`}>
       <div className="col-span-12 md:col-span-6">
         <Label htmlFor="search-by-name" className="mb-1.5">
-          Search
+          {translateMessage('ui.search_b3c8cd38')}
         </Label>
         <SearchField
           id="search-by-name"
-          placeholder="Search by name or category"
-          aria-label="Search Safe App by name"
+          placeholder={translateMessage('ui.searchByNameOrCategory_dd9deee2')}
+          aria-label={translateMessage('ui.searchAppByName_a164c169')}
           autoComplete="off"
           inputSize="lg"
           onChange={(e) => {
@@ -55,7 +56,7 @@ const SafeAppsFilters = ({
       {/* Select Category */}
       <div className="relative col-span-12 sm:col-span-6 md:col-span-3">
         <Label htmlFor="safe-app-category-selector" className="mb-1.5">
-          Category
+          {translateMessage('ui.category_fe9ce74e')}
         </Label>
         <Select
           multiple
@@ -72,7 +73,9 @@ const SafeAppsFilters = ({
             className="w-full pr-[18px] shadow-none focus-visible:border-[var(--ring)] focus-visible:ring-1 focus-visible:ring-ring"
           >
             <SelectValue className={selectedCategories.length === 0 ? css.selectPlaceholder : undefined}>
-              {selectedCategories.length === 0 ? 'Select category' : `${selectedCategories.length} categories selected`}
+              {selectedCategories.length === 0
+                ? translateMessage('ui.selectCategory_34a4a89a')
+                : translateMessage('ui.categoriesSelected_2eb7703e', { p0: selectedCategories.length })}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -85,7 +88,7 @@ const SafeAppsFilters = ({
               ))
             ) : (
               <SelectItem value="" disabled className="text-sm">
-                No categories defined
+                {translateMessage('ui.noCategoriesDefined_e44a7ef2')}
               </SelectItem>
             )}
           </SelectContent>
@@ -99,7 +102,7 @@ const SafeAppsFilters = ({
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  aria-label="clear selected categories"
+                  aria-label={translateMessage('ui.clearSelectedCategories_6dfcb1a8')}
                   onClick={() => {
                     onChangeFilterCategory([])
                   }}
@@ -109,7 +112,7 @@ const SafeAppsFilters = ({
             >
               <X className="size-4" />
             </TooltipTrigger>
-            <TooltipContent>clear selected categories</TooltipContent>
+            <TooltipContent>{translateMessage('ui.clearSelectedCategories_6dfcb1a8')}</TooltipContent>
           </Tooltip>
         )}
       </div>
@@ -118,16 +121,18 @@ const SafeAppsFilters = ({
       <div className="col-span-12 sm:col-span-6 md:col-span-3">
         <Tooltip>
           <TooltipTrigger render={<div className="inline-block" />}>
-            <Label className={`${css.optimizedWithBatchLabel} mb-1.5`}>Optimized with</Label>
+            <Label className={`${css.optimizedWithBatchLabel} mb-1.5`}>
+              {translateMessage('ui.optimizedWith_eab36cef')}
+            </Label>
             <Field orientation="horizontal">
               <Checkbox id="optimized-with-batch" onCheckedChange={(value) => onChangeOptimizedWithBatch(value)} />
               <FieldLabel htmlFor="optimized-with-batch" className="flex items-center gap-2 font-normal">
-                <span>Batch transactions</span> <BatchIcon />
+                <span>{translateMessage('ui.batchTransactions_0c3744a1')}</span> <BatchIcon />
               </FieldLabel>
             </Field>
           </TooltipTrigger>
           <TooltipContent className="text-center">
-            Merge multiple transactions into one to save time and gas fees inside apps offering this feature
+            {translateMessage('ui.mergeMultipleTransactionsIntoOneTo_45757038')}
           </TooltipContent>
         </Tooltip>
       </div>

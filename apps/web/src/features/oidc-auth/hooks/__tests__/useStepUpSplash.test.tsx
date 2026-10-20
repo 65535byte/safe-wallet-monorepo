@@ -42,7 +42,7 @@ describe('useStepUpSplash', () => {
     })
 
     expect(startStepUp).toHaveBeenCalledWith(returnUrl)
-    expect(result.current).toBe('Verifying your identity…')
+    expect(result.current).toBe('正在验证身份…')
   })
 
   it('should, when the return URL changes while leaving, not start a second redirect', () => {

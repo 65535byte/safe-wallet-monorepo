@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { WalletCards } from 'lucide-react'
 import { SafeWidget } from '@/features/spaces'
@@ -39,7 +40,7 @@ const AccountsWidget = ({
 
   if (hasError) {
     return (
-      <SafeWidget title="Accounts" testId="space-dashboard-accounts-widget">
+      <SafeWidget title={translateMessage('ui.accounts_91c225a3')} testId="space-dashboard-accounts-widget">
         <SafeWidget.ErrorState message={error} onRefresh={onRefresh} />
       </SafeWidget>
     )
@@ -47,12 +48,12 @@ const AccountsWidget = ({
 
   if (isEmpty) {
     return (
-      <SafeWidget title="Accounts" testId="space-dashboard-accounts-widget">
+      <SafeWidget title={translateMessage('ui.accounts_91c225a3')} testId="space-dashboard-accounts-widget">
         <SafeWidget.EmptyState
           className="max-w-[229px] mx-auto"
           icon={<WalletCards className="size-6 text-green-500" />}
-          text="No accounts yet"
-          subtitle="Add your Safe accounts to view balances and manage transactions."
+          text={translateMessage('ui.noAccountsYet_1e5e49d1')}
+          subtitle={translateMessage('ui.addYourAccountsToViewBalances_317f7b8f')}
           action={emptyStateAction}
         />
       </SafeWidget>
@@ -61,7 +62,7 @@ const AccountsWidget = ({
 
   return (
     <SafeWidget
-      title="Accounts"
+      title={translateMessage('ui.accounts_91c225a3')}
       action={onViewAll && <SafeWidget.ViewAll count={overflowCount} onClick={onViewAll} />}
       testId="space-dashboard-accounts-widget"
     >

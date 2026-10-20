@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useGasPrice from '@/hooks/useGasPrice'
 import ModalDialog from '@/components/common/ModalDialog'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -132,7 +133,7 @@ const SpeedUpModal = ({ open, handleClose, pendingTx, txId, txHash, signerAddres
         trackError(ErrorCodes._814, error, { txHash })
         dispatch(
           showNotification({
-            message: 'Speed up failed',
+            message: translateMessage('ui.speedUpFailed_b7a8cf97'),
             variant: 'error',
             detailedMessage: error.message,
             groupKey: txHash,
@@ -164,18 +165,23 @@ const SpeedUpModal = ({ open, handleClose, pendingTx, txId, txHash, signerAddres
 
   if (safeTxHasSignatures) {
     return (
-      <ModalDialog open={open} onClose={onCancel} dialogTitle="Speed up transaction" forceBackdrop>
+      <ModalDialog
+        open={open}
+        onClose={onCancel}
+        dialogTitle={translateMessage('ui.speedUpTransaction_b0820c7b')}
+        forceBackdrop
+      >
         <div className="p-6">
           <div className="mb-4 flex items-center justify-center">
             <RocketSpeedup className="size-[90px]" />
           </div>
 
           <Typography data-testid="speedup-summary">
-            This will speed up the pending transaction by{' '}
+            {translateMessage('ui.thisWillSpeedUpThePending_8e234913')}{' '}
             <Typography as="span" variant="paragraph-bold" className="inline">
-              replacing
+              {translateMessage('ui.replacing_09b7aef0')}
             </Typography>{' '}
-            the original gas parameters with new ones.
+            {translateMessage('ui.theOriginalGasParametersWithNew_285f191e')}
           </Typography>
 
           <div className="mt-4">
@@ -201,11 +207,11 @@ const SpeedUpModal = ({ open, handleClose, pendingTx, txId, txHash, signerAddres
 
         <div className="flex items-center justify-between gap-2 p-4 pb-6">
           <Button variant="ghost" onClick={onCancel}>
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
 
           <Button disabled={isDisabled || isWrongChain} onClick={onSubmit}>
-            {isDisabled ? <Spinner className="size-5" /> : 'Confirm'}
+            {isDisabled ? <Spinner className="size-5" /> : translateMessage('ui.confirm_6ed20c1c')}
           </Button>
         </div>
       </ModalDialog>
@@ -213,15 +219,19 @@ const SpeedUpModal = ({ open, handleClose, pendingTx, txId, txHash, signerAddres
   }
 
   return (
-    <ModalDialog open={open} onClose={handleClose} dialogTitle="Speed up transaction" forceBackdrop>
+    <ModalDialog
+      open={open}
+      onClose={handleClose}
+      dialogTitle={translateMessage('ui.speedUpTransaction_b0820c7b')}
+      forceBackdrop
+    >
       <div className="p-6">
         <div className="mb-4 flex items-center justify-center">
           <RocketSpeedup className="size-[90px]" />
         </div>
 
         <Typography data-testid="speedup-summary">
-          Is this transaction taking too long? Speed it up by using the &quot;speed up&quot; option in your connected
-          wallet.
+          {translateMessage('ui.isThisTransactionTakingTooLong_5b085655')}
         </Typography>
       </div>
     </ModalDialog>

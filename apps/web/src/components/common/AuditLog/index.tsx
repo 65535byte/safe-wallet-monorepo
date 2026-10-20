@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ComponentProps, type ReactElement, type ReactNode, useState, useCallback, useRef, useEffect } from 'react'
 import { type LucideIcon, Plus, Check, PenLine, Clock, CircleAlert } from 'lucide-react'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -67,7 +68,7 @@ export const AuditLogHeader = ({ chip, actions }: { chip?: ReactNode; actions?: 
   <>
     <div className="mb-2 flex items-center gap-2">
       <Typography variant="paragraph-small" className="font-bold tracking-[0.05em] uppercase">
-        Audit log
+        {translateMessage('ui.auditLog_6e5ddd9b')}
       </Typography>
       {chip}
       {actions && <div className="ml-auto flex items-center gap-1">{actions}</div>}
@@ -147,19 +148,22 @@ export const AuditRow = ({
                     onKeyDown={handleKeyDown}
                     role="button"
                     tabIndex={0}
-                    aria-label={`Copy address ${address}`}
                   >
                     <Typography variant="paragraph-mini" className={`${css.actorText} text-muted-foreground`}>
-                      By {displayText}
+                      {translateMessage('ui.by_2940cb18')}
+                      {displayText}
                     </Typography>
                   </div>
                 }
               />
-              <TooltipContent side="top">{copied ? 'Copied' : 'Click to copy address'}</TooltipContent>
+              <TooltipContent side="top">
+                {copied ? translateMessage('ui.copied_6ec3e1e2') : translateMessage('ui.clickToCopyAddress_ea4be4bc')}
+              </TooltipContent>
             </Tooltip>
           ) : actor ? (
             <Typography variant="paragraph-mini" className="text-muted-foreground">
-              By {actor}
+              {translateMessage('ui.by_2940cb18')}
+              {actor}
             </Typography>
           ) : (
             <Typography variant="paragraph-mini" className="text-muted-foreground">

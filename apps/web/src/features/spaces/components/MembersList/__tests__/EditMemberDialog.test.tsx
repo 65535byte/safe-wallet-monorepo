@@ -6,6 +6,7 @@ import type { MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces
 const mockDispatch = jest.fn()
 const mockUpdateAlias = jest.fn()
 const mockUpdateRole = jest.fn()
+const mockTrackEvent = jest.fn()
 const mockAdminCount = jest.fn(() => 2)
 const mockIsAdmin = jest.fn(() => true)
 const mockCurrentUser = jest.fn<{ id: number } | undefined, []>(() => ({ id: 1 }))
@@ -37,6 +38,17 @@ jest.mock('@/features/spaces', () => ({
   MEMBER_ALIAS_MAX_LENGTH: 30,
 }))
 
+jest.mock('@/services/analytics', () => ({
+  trackEvent: (...args: unknown[]) => mockTrackEvent(...args),
+}))
+
+jest.mock('@/services/analytics/events/spaces', () => ({
+  SPACE_EVENTS: {
+    WORKSPACE_MEMBER_ROLE_CHANGED: { action: 'Member role changed', category: 'spaces' },
+    WORKSPACE_MEMBER_NAME_CHANGED: { action: 'Member name changed', category: 'spaces' },
+  },
+}))
+
 jest.mock('@safe-global/store/gateway/AUTO_GENERATED/spaces', () => ({
   useMembersUpdateAliasV1Mutation: () => [mockUpdateAlias],
   useMembersUpdateRoleV1Mutation: () => [mockUpdateRole],
@@ -63,8 +75,8 @@ jest.mock('../../AddMemberModal/MemberInfoForm', () => ({
     const { register } = (jest.requireActual('react-hook-form') as typeof ReactHookForm).useFormContext()
     return (
       <>
-        <input aria-label="Name" disabled={disableName} {...register('name')} />
-        <select aria-label="Role" disabled={disableRole} {...register('role')}>
+        <input aria-label="名称" disabled={disableName} {...register('name')} />
+        <select aria-label="角色" disabled={disableRole} {...register('role')}>
           <option value="ADMIN">Admin</option>
           <option value="MEMBER">Member</option>
         </select>
@@ -85,18 +97,18 @@ const member: MemberDto = {
 }
 
 const submit = async () => {
-  const submitButton = screen.getByRole('button', { name: 'Update' })
+  const submitButton = screen.getByRole('button', { name: '更新' })
   await waitFor(() => expect(submitButton).not.toBeDisabled())
   fireEvent.click(submitButton)
 }
 
 const changeRoleAndSubmit = async () => {
-  fireEvent.change(screen.getByLabelText('Role'), { target: { value: 'ADMIN' } })
+  fireEvent.change(screen.getByLabelText('角色'), { target: { value: 'ADMIN' } })
   await submit()
 }
 
 const changeNameAndSubmit = async (name: string) => {
-  fireEvent.change(screen.getByLabelText('Name'), { target: { value: name } })
+  fireEvent.change(screen.getByLabelText('名称'), { target: { value: name } })
   await submit()
 }
 
@@ -122,14 +134,14 @@ describe('EditMemberDialog', () => {
     )
     expect(mockUpdateRole).not.toHaveBeenCalled()
     expect(mockDispatch).toHaveBeenCalledWith(
-      expect.objectContaining({ payload: expect.objectContaining({ message: 'Your name was updated' }) }),
+      expect.objectContaining({ payload: expect.objectContaining({ message: '您的名称已更新' }) }),
     )
   })
 
   it('prefills the alias over the member name', () => {
     render(<EditMemberDialog member={{ ...member, alias: 'Ali' }} handleClose={jest.fn()} />)
 
-    expect(screen.getByLabelText('Name')).toHaveValue('Ali')
+    expect(screen.getByLabelText('名称')).toHaveValue('Ali')
   })
 
   it('disables the name field for members other than the current user', () => {
@@ -137,7 +149,7 @@ describe('EditMemberDialog', () => {
 
     render(<EditMemberDialog member={member} handleClose={jest.fn()} />)
 
-    expect(screen.getByLabelText('Name')).toBeDisabled()
+    expect(screen.getByLabelText('名称')).toBeDisabled()
   })
 
   it('locks the role for the last active admin but still allows renaming', async () => {
@@ -145,7 +157,7 @@ describe('EditMemberDialog', () => {
 
     render(<EditMemberDialog member={{ ...member, role: 'ADMIN' }} handleClose={jest.fn()} />)
 
-    expect(screen.getByLabelText('Role')).toBeDisabled()
+    expect(screen.getByLabelText('角色')).toBeDisabled()
 
     await changeNameAndSubmit('Solo Admin')
     await waitFor(() => expect(mockUpdateAlias).toHaveBeenCalled())
@@ -157,7 +169,7 @@ describe('EditMemberDialog', () => {
 
     render(<EditMemberDialog member={member} handleClose={jest.fn()} />)
 
-    expect(screen.getByLabelText('Role')).toBeDisabled()
+    expect(screen.getByLabelText('角色')).toBeDisabled()
 
     await changeNameAndSubmit('Alice Renamed')
     await waitFor(() => expect(mockUpdateAlias).toHaveBeenCalled())
@@ -180,7 +192,7 @@ describe('EditMemberDialog', () => {
 
     await waitFor(() =>
       expect(mockDispatch).toHaveBeenCalledWith(
-        expect.objectContaining({ payload: expect.objectContaining({ message: 'Updated role of Alice to Admin' }) }),
+        expect.objectContaining({ payload: expect.objectContaining({ message: '已将 Alice 的角色更新为 Admin' }) }),
       ),
     )
   })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useMemo } from 'react'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { useVisibleBalances } from '@/hooks/useVisibleBalances'
@@ -30,7 +31,11 @@ const Overview = (): ReactElement => {
           which keeps the hint from overlapping them when they wrap onto a second row. */}
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-stretch">
         <div className="flex items-end">
-          <TotalAssetValue fiatTotal={balances.fiatTotal} size="lg" title="Total balance" />
+          <TotalAssetValue
+            fiatTotal={balances.fiatTotal}
+            size="lg"
+            title={translateMessage('ui.totalBalance_a9526be5')}
+          />
         </div>
 
         <div className="flex flex-col items-start gap-4 md:items-end">

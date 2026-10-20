@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import css from '@/components/tx/ApprovalEditor/styles.module.css'
 import type { ApprovalInfo } from './hooks/useApprovalInfos'
@@ -51,12 +52,23 @@ const EditableApprovalItem = ({
       <div className={css.approvalAction}>
         <Track {...MODALS_EVENTS.EDIT_APPROVALS} label={readOnly ? 'edit' : 'save'}>
           {readOnly ? (
-            <Button variant="ghost" size="icon-sm" onClick={handleEditMode} title="Edit">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={handleEditMode}
+              title={translateMessage('ui.edit_ed035142')}
+            >
               <SquarePen className="size-4" />
             </Button>
           ) : (
-            <Button variant="ghost" size="sm" onClick={handleSave} title="Save" disabled={!!fieldErrors || !isDirty}>
-              Save
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSave}
+              title={translateMessage('ui.save_5fe30f30')}
+              disabled={!!fieldErrors || !isDirty}
+            >
+              {translateMessage('ui.save_5fe30f30')}
             </Button>
           )}
         </Track>

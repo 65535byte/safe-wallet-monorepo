@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 
 import { formatError } from '@safe-global/utils/utils/formatters'
@@ -16,18 +17,18 @@ const SUCCESS_EVENTS = [
 ]
 
 const RecoveryTxNotifications = {
-  [RecoveryEvent.PROCESSING_BY_SMART_CONTRACT_WALLET]: 'Confirm the execution in your wallet.',
+  [RecoveryEvent.PROCESSING_BY_SMART_CONTRACT_WALLET]: translateMessage('ui.confirmTheExecutionInYourWallet_86537327'),
   [RecoveryEvent.PROCESSING]: 'Validating...',
-  [RecoveryEvent.PROCESSED]: 'Successfully validated. Loading...',
-  [RecoveryEvent.REVERTED]: 'Reverted. Please check your gas settings.',
+  [RecoveryEvent.PROCESSED]: translateMessage('ui.successfullyValidatedLoading_813d2d2d'),
+  [RecoveryEvent.REVERTED]: translateMessage('ui.revertedPleaseCheckYourGasSettings_fc355aa1'),
   [RecoveryEvent.FAILED]: 'Failed.',
-  [RecoveryEvent.SUCCESS]: 'Successfully executed.',
+  [RecoveryEvent.SUCCESS]: translateMessage('ui.successfullyExecuted_97c6fbbc'),
 }
 
 const RecoveryTxNotificationTitles = {
-  [RecoveryTxType.PROPOSAL]: 'Account recovery proposal',
-  [RecoveryTxType.EXECUTION]: 'Account recovery',
-  [RecoveryTxType.SKIP_EXPIRED]: 'Account recovery cancellation',
+  [RecoveryTxType.PROPOSAL]: translateMessage('ui.accountRecoveryProposal_57f6dc99'),
+  [RecoveryTxType.EXECUTION]: translateMessage('ui.accountRecovery_a5ed5ee0'),
+  [RecoveryTxType.SKIP_EXPIRED]: translateMessage('ui.accountRecoveryCancellation_17afce88'),
 }
 
 export function useRecoveryTxNotifications(): void {

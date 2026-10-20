@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { endOfDay, format, isValid, startOfDay } from 'date-fns'
 
 /** A `YYYY-MM-DD` date input value → an inclusive ISO bound for the audit-log query. */
@@ -21,8 +22,8 @@ export function isInvalidDateRange(createdAtGte: string | undefined, createdAtLt
   return new Date(createdAtGte) > new Date(createdAtLte)
 }
 
-export const DATE_RANGE_ERROR = "'From' date can't be after the 'To' date"
-export const FUTURE_DATE_ERROR = "Date can't be in the future"
+export const DATE_RANGE_ERROR = translateMessage('ui.fromDateCanTBeAfter_7c03f0cb')
+export const FUTURE_DATE_ERROR = translateMessage('ui.dateCanTBeInThe_238904ad')
 
 /** Inline messages to render under each field; absent when the field is valid. */
 export type DateFilterValidation = {

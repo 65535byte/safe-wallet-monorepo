@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { PropsWithChildren, ReactElement, ReactNode } from 'react'
 import { LockKeyhole } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -24,7 +25,11 @@ export const LockedCheckRow = ({
       <Tooltip>
         <TooltipTrigger
           render={<span className="inline-flex" tabIndex={0} />}
-          aria-label={typeof children === 'string' ? `About ${children}` : 'More information'}
+          aria-label={
+            typeof children === 'string'
+              ? translateMessage('ui.about_59223101', { p0: children })
+              : translateMessage('ui.moreInformation_3824a4fd')
+          }
         >
           <InfoIcon className="size-4 text-[var(--color-border-main)]" />
         </TooltipTrigger>

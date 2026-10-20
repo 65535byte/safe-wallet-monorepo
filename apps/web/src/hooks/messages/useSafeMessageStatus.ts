@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import type { SafeMessageStatus } from '@safe-global/store/gateway/types'
 
@@ -17,9 +18,9 @@ type SafeMessageLocalStatus =
 
 const STATUS_LABELS: { [_key in SafeMessageLocalStatus]: string } = {
   [ConfirmingStatus]: 'Confirming',
-  [AwaitingConfirmationsStatus]: 'Awaiting confirmations',
-  [ConfirmedStatus]: 'Confirmed',
-  [NeedsConfirmationStatus]: 'Needs confirmation',
+  [AwaitingConfirmationsStatus]: translateMessage('ui.awaitingConfirmations_8f51482e'),
+  [ConfirmedStatus]: translateMessage('ui.confirmed_2a0ef702'),
+  [NeedsConfirmationStatus]: translateMessage('ui.needsConfirmation_12376229'),
 }
 
 const useSafeMessageStatus = (msg: MessageItem) => {

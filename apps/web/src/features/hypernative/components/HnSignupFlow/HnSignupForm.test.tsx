@@ -51,14 +51,14 @@ describe('HnSignupForm', () => {
 
     render(<HnSignupForm {...defaultProps} onCancel={onCancelMock} />)
 
-    const cancelButton = screen.getByRole('button', { name: /cancel/i })
+    const cancelButton = screen.getByRole('button', { name: /取消/i })
     expect(cancelButton).toBeInTheDocument()
   })
 
   it('should not render Cancel button when onCancel is not provided', () => {
     render(<HnSignupForm {...defaultProps} />)
 
-    const cancelButton = screen.queryByRole('button', { name: /cancel/i })
+    const cancelButton = screen.queryByRole('button', { name: /取消/i })
     expect(cancelButton).not.toBeInTheDocument()
   })
 
@@ -67,7 +67,7 @@ describe('HnSignupForm', () => {
 
     render(<HnSignupForm {...defaultProps} onCancel={onCancelMock} />)
 
-    const cancelButton = screen.getByRole('button', { name: /cancel/i })
+    const cancelButton = screen.getByRole('button', { name: /取消/i })
     cancelButton.click()
 
     expect(onCancelMock).toHaveBeenCalledTimes(1)

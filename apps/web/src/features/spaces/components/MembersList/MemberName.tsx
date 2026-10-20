@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import InitialsAvatar from '@/components/common/InitialsAvatar'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -34,7 +35,7 @@ const MemberName = ({ member, isCompact = false }: { member: MemberDto; isCompac
       </Tooltip>
       {isCurrentUser && (
         <Typography variant="paragraph-small" color="muted" className="shrink-0">
-          You
+          {translateMessage('ui.you_094e195d')}
         </Typography>
       )}
     </div>

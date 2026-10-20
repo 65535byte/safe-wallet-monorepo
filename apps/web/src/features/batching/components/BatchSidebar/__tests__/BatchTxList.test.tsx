@@ -85,6 +85,6 @@ describe('BatchTxList', () => {
     const { getByTitle } = render(<BatchTxList txItems={txItems} onDelete={jest.fn()} />)
 
     // The delete control only exists on a decoded row, so this rules out the skeleton state.
-    await waitFor(() => expect(getByTitle('Delete transaction')).toBeInTheDocument())
+    await waitFor(() => expect(getByTitle('删除交易')).toBeInTheDocument())
   })
 })

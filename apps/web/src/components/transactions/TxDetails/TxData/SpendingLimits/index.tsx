@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 import React, { useMemo } from 'react'
@@ -46,10 +47,14 @@ export const SpendingLimits = ({ txData, type, resetsSpent = false }: SpendingLi
   return (
     <div className="flex flex-col gap-2">
       <Typography>
-        <b>{`${isSetAllowanceMethod ? 'Modify' : 'Delete'} spending limit:`}</b>
+        <b>
+          {translateMessage('ui.spendingLimit_1a0d7a91', {
+            p0: isSetAllowanceMethod ? 'Modify' : translateMessage('ui.delete_6cba6a2c'),
+          })}
+        </b>
       </Typography>
 
-      <TxDetailsRow label="Beneficiary" grid>
+      <TxDetailsRow label={translateMessage('ui.beneficiary_cb21d4c7')} grid>
         <EthHashInfo
           address={(beneficiary as string) || ZERO_ADDRESS}
           shortAddress={false}
@@ -58,7 +63,16 @@ export const SpendingLimits = ({ txData, type, resetsSpent = false }: SpendingLi
         />
       </TxDetailsRow>
 
-      <TxDetailsRow label={isSetAllowanceMethod ? (tokenInfo ? 'Amount' : 'Raw Amount (in decimals)') : 'Token'} grid>
+      <TxDetailsRow
+        label={
+          isSetAllowanceMethod
+            ? tokenInfo
+              ? translateMessage('ui.amount_a72e74a9')
+              : translateMessage('ui.rawAmountInDecimals_07abd51d')
+            : translateMessage('ui.token_72f26614')
+        }
+        grid
+      >
         {tokenInfo && (
           <>
             <TokenIcon logoUri={tokenInfo.logoUri} size={32} tokenSymbol={tokenInfo.symbol} />
@@ -80,14 +94,17 @@ export const SpendingLimits = ({ txData, type, resetsSpent = false }: SpendingLi
       </TxDetailsRow>
 
       {isSetAllowanceMethod && (
-        <TxDetailsRow label="Reset time" grid>
-          <SpendingLimitLabel label={resetTimeLabel || 'One-time spending limit'} isOneTime={!resetTimeLabel} />
+        <TxDetailsRow label={translateMessage('ui.resetTime_84996791')} grid>
+          <SpendingLimitLabel
+            label={resetTimeLabel || translateMessage('ui.oneTimeSpendingLimit_e55c119a')}
+            isOneTime={!resetTimeLabel}
+          />
         </TxDetailsRow>
       )}
 
       {isSetAllowanceMethod && resetsSpent && (
-        <TxDetailsRow label="Spent amount" grid>
-          <Typography>Reset to 0</Typography>
+        <TxDetailsRow label={translateMessage('ui.spentAmount_79197bda')} grid>
+          <Typography>{translateMessage('ui.resetTo_333712c0')}</Typography>
         </TxDetailsRow>
       )}
     </div>

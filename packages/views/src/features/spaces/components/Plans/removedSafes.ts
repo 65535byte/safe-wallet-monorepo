@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { SafeRef } from './types'
 
 /**
@@ -44,27 +45,49 @@ export const summarizeRemovedSafes = (leaves: SafeRef[], removed: SafeRef[]): Re
 const count = (n: number, noun: string): string => `${n} ${noun}${n === 1 ? '' : 's'}`
 
 const partialPhrase = (partialAccounts: number, partialNetworks: number): string =>
-  partialAccounts === 1 ? `${partialNetworks} of its networks only` : 'some of their networks only'
+  partialAccounts === 1
+    ? translateMessage('ui.ofItsNetworksOnly_ed387e29', { p0: partialNetworks })
+    : translateMessage('ui.someOfTheirNetworksOnly_f972e2ee')
 
 /** The note under a plan's accounts step and its change summary; empty when nothing is removed. */
 export const removedSafesNote = ({ accounts, partialAccounts, partialNetworks }: RemovedSafesSummary): string => {
   const partial = partialPhrase(partialAccounts, partialNetworks)
 
   if (accounts > 0 && partialAccounts > 0) {
-    const removed = accounts === 1 ? 'The removed account remains' : 'The removed accounts remain'
-    const kept = partialAccounts === 1 ? 'the other keeps its seat' : 'the others keep their seats'
-    return `${count(accounts, 'Safe account')} will be removed from the Workspace, and ${partialAccounts} more from ${partial}. ${removed} available in My accounts, ${kept}.`
+    const removed =
+      accounts === 1
+        ? translateMessage('ui.theRemovedAccountRemains_fcc1be02')
+        : translateMessage('ui.theRemovedAccountsRemain_27e30744')
+    const kept =
+      partialAccounts === 1
+        ? translateMessage('ui.theOtherKeepsItsSeat_81178c24')
+        : translateMessage('ui.theOthersKeepTheirSeats_84be469d')
+    return translateMessage('ui.willBeRemovedFromTheWorkspace_1f44c195', {
+      p0: count(accounts, translateMessage('ui.account_7e251525')),
+      p1: partialAccounts,
+      p2: partial,
+      p3: removed,
+      p4: kept,
+    })
   }
   if (partialAccounts > 0) {
     const kept =
       partialAccounts === 1
-        ? 'It stays in the Workspace and keeps its seat.'
-        : 'They stay in the Workspace and keep their seats.'
-    return `${count(partialAccounts, 'Safe account')} will be removed from ${partial}. ${kept}`
+        ? translateMessage('ui.itStaysInTheWorkspaceAnd_117b39d5')
+        : translateMessage('ui.theyStayInTheWorkspaceAnd_290f7100')
+    return translateMessage('ui.willBeRemovedFrom_9b175a47', {
+      p0: count(partialAccounts, translateMessage('ui.account_7e251525')),
+      p1: partial,
+      p2: kept,
+    })
   }
   if (accounts > 0) {
-    const removed = accounts === 1 ? 'It remains' : 'They remain'
-    return `${count(accounts, 'Safe account')} will be removed from the Workspace. ${removed} available in My accounts.`
+    const removed =
+      accounts === 1 ? translateMessage('ui.itRemains_a5bd60b5') : translateMessage('ui.theyRemain_d5c95007')
+    return translateMessage('ui.willBeRemovedFromTheWorkspace_d57aa010', {
+      p0: count(accounts, translateMessage('ui.account_7e251525')),
+      p1: removed,
+    })
   }
   return ''
 }

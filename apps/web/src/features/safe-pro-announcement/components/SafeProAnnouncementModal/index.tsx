@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Dialog, DialogContent, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import SafeProAnnouncement from '../SafeProAnnouncement'
 
@@ -17,7 +18,7 @@ const SafeProAnnouncementModal = ({
       className="rounded-[2rem]"
     >
       <DialogTitle className="sr-only" render={<div />}>
-        Your Workspace moves to Pro on Oct 6, 2026
+        {translateMessage('ui.yourWorkspaceMovesToProOn_799227ac')}
       </DialogTitle>
       <SafeProAnnouncement location="announcement_modal" onDismiss={() => onOpenChange?.(false)} />
     </DialogContent>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -247,7 +248,7 @@ const useOnboardingSubmit = (
   const onSubmit = handleSubmit(
     async (data) => {
       if (!spaceId) {
-        setError('No Workspace is selected. Reload the page and try again.')
+        setError(translateMessage('ui.noWorkspaceIsSelectedReloadThe_43417f88'))
         return
       }
 
@@ -299,7 +300,9 @@ const useOnboardingSubmit = (
           isStepUpPending = true
           return
         }
-        setError(e instanceof Error ? e.message : 'Something went wrong updating Safe accounts. Please try again.')
+        setError(
+          e instanceof Error ? e.message : translateMessage('ui.somethingWentWrongUpdatingAccountsPlease_01e3f3f7'),
+        )
       } finally {
         if (stepUpReturnUrl && !isStepUpPending) dispatch(stepUpReturnUrlCleared(stepUpReturnUrl))
         setIsSubmitting(false)

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type {
@@ -13,6 +14,13 @@ import type { ChecksCount } from '../utils/countChecks'
 import { useDelayedLoading } from '../hooks/useDelayedLoading'
 
 const headerVisibilityDelay = 500
+const localizedTitles: Record<string, string> = {
+  'Risk detected': translateMessage('ui.riskDetected_7f12b903'),
+  'Issues found': translateMessage('ui.issuesFound_15f27d29'),
+  'Review details': translateMessage('ui.viewDetails_b34027e8'),
+  'Checks passed': translateMessage('ui.checksPassed_a6bb3236'),
+  'Checks unavailable': translateMessage('ui.checksUnavailable_3d482602'),
+}
 
 export const SafeShieldHeader = ({
   recipient = [{}, undefined, false],
@@ -51,9 +59,13 @@ export const SafeShieldHeader = ({
 
   const okTitle =
     overallStatus?.severity === Severity.OK && checks && checks.total > 0
-      ? `${checks.passed} of ${checks.total} checks passed`
+      ? translateMessage('ui.ofChecksPassed_80a4b1b9', { p0: checks.passed, p1: checks.total })
       : overallStatus?.title
-  const label = error ? 'Checks unavailable' : isLoadingVisible ? 'Analyzing...' : (okTitle ?? 'Copilot')
+  const label = error
+    ? translateMessage('ui.checksUnavailable_3d482602')
+    : isLoadingVisible
+      ? translateMessage('ui.analyzing_af25c80d')
+      : (okTitle ?? translateMessage('ui.copilot_f3a6bca9'))
 
   return (
     <div className="px-1 pt-1">
@@ -63,7 +75,7 @@ export const SafeShieldHeader = ({
         style={{ backgroundColor: headerBgColor }}
       >
         <Typography variant="paragraph-mini-bold" className="uppercase" style={{ color: headerTextColor }}>
-          {label}
+          {localizedTitles[label] ?? label}
         </Typography>
       </div>
     </div>

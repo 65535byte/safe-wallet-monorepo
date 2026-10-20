@@ -53,7 +53,7 @@ const allClearResults: Record<string, ScanResult> = {
   fallback_handler: mkResult({
     status: 'clear',
     severity: 'Low',
-    evidence: [{ label: 'Status', value: 'Official Safe fallback handler' }],
+    evidence: [{ label: '状态', value: 'Official Safe fallback handler' }],
   }),
   modules: mkResult({ status: 'clear', severity: 'Low' }),
   transaction_scanning: mkResult({ status: 'clear', severity: 'Low' }),
@@ -91,7 +91,7 @@ describe('SecurityChecksSection', () => {
         },
       })
       // Failing check visible by its non-OK title
-      expect(screen.getByText('Contract version is outdated')).toBeInTheDocument()
+      expect(screen.getByText('合约版本已过时')).toBeInTheDocument()
       // Accordion summary for the remaining passing checks
       expect(getChecksAccordion()).toBeInTheDocument()
     })
@@ -101,9 +101,9 @@ describe('SecurityChecksSection', () => {
       // Everything passes — accordion holds all rows. Open it.
       fireEvent.click(getChecksAccordion())
       // Declarative titles for passing checks should now be in the DOM
-      expect(screen.getByText('Signing threshold is strong')).toBeInTheDocument()
-      expect(screen.getByText('Contract version is up to date')).toBeInTheDocument()
-      expect(screen.getByText('Deployed via official Safe factory')).toBeInTheDocument()
+      expect(screen.getByText('签名阈值较强')).toBeInTheDocument()
+      expect(screen.getByText('合约版本已是最新')).toBeInTheDocument()
+      expect(screen.getByText('通过官方 8379 工厂部署')).toBeInTheDocument()
     })
 
     it('sorts failing rows by severity (Critical → High → Medium)', () => {
@@ -116,9 +116,9 @@ describe('SecurityChecksSection', () => {
           account_setup: mkResult({ status: 'issue', severity: 'Critical', remediation: 'x' }),
         },
       })
-      const criticalEl = screen.getByText('Single signer controls this Safe')
-      const highEl = screen.getByText('Contract version is outdated')
-      const mediumEl = screen.getByText('Pending transactions are stale')
+      const criticalEl = screen.getByText('单个签名人控制此 8379')
+      const highEl = screen.getByText('合约版本已过时')
+      const mediumEl = screen.getByText('待处理交易已过时')
 
       // Critical before High in DOM order
       expect(criticalEl.compareDocumentPosition(highEl) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
@@ -136,8 +136,8 @@ describe('SecurityChecksSection', () => {
         },
       })
       // Expand the failing row
-      fireEvent.click(screen.getByText('Contract version is outdated'))
-      const link = screen.getByRole('link', { name: /update/i })
+      fireEvent.click(screen.getByText('合约版本已过时'))
+      const link = screen.getByRole('link', { name: /更新/i })
       expect(link).toHaveAttribute('href', expect.stringContaining(AppRoutes.settings.setup))
       expect(link).toHaveAttribute('href', expect.stringContaining('safe='))
     })
@@ -150,12 +150,12 @@ describe('SecurityChecksSection', () => {
             status: 'partial',
             severity: 'Medium',
             remediation: 'Guard recommended.',
-            ctaLabelOverride: 'Review modules',
+            ctaLabelOverride: '检查模块',
           }),
         },
       })
-      fireEvent.click(screen.getByText('Transaction guard is recommended'))
-      expect(screen.getByRole('link', { name: /review modules/i })).toBeInTheDocument()
+      fireEvent.click(screen.getByText('建议使用交易守卫'))
+      expect(screen.getByRole('link', { name: /检查模块/i })).toBeInTheDocument()
     })
 
     it('opens the Hypernative signup flow for a partner-tagged guard nudge', () => {
@@ -167,14 +167,14 @@ describe('SecurityChecksSection', () => {
             status: 'partial',
             severity: 'Medium',
             remediation: 'Guard recommended.',
-            ctaLabelOverride: 'Set up protection',
+            ctaLabelOverride: '设置保护',
             partner: 'hypernative',
           }),
         },
         onHnSignupClick,
       })
-      fireEvent.click(screen.getByText('Transaction guard is recommended'))
-      fireEvent.click(screen.getByRole('button', { name: /set up protection/i }))
+      fireEvent.click(screen.getByText('建议使用交易守卫'))
+      fireEvent.click(screen.getByRole('button', { name: /设置保护/i }))
       expect(onHnSignupClick).toHaveBeenCalled()
     })
 
@@ -186,13 +186,13 @@ describe('SecurityChecksSection', () => {
             status: 'partial',
             severity: 'Medium',
             remediation: 'Guard recommended.',
-            ctaLabelOverride: 'Set up protection',
+            ctaLabelOverride: '设置保护',
             partner: 'hypernative',
           }),
         },
       })
-      fireEvent.click(screen.getByText('Transaction guard is recommended'))
-      expect(screen.getByRole('link', { name: /set up protection/i })).toBeInTheDocument()
+      fireEvent.click(screen.getByText('建议使用交易守卫'))
+      expect(screen.getByRole('link', { name: /设置保护/i })).toBeInTheDocument()
     })
 
     it('does not render a CTA when safeQueryParam is missing', () => {
@@ -203,8 +203,8 @@ describe('SecurityChecksSection', () => {
           contract_version: mkResult({ status: 'issue', severity: 'High', remediation: 'Update.' }),
         },
       })
-      fireEvent.click(screen.getByText('Contract version is outdated'))
-      expect(screen.queryByRole('link', { name: /update/i })).not.toBeInTheDocument()
+      fireEvent.click(screen.getByText('合约版本已过时'))
+      expect(screen.queryByRole('link', { name: /更新/i })).not.toBeInTheDocument()
     })
   })
 
@@ -216,16 +216,16 @@ describe('SecurityChecksSection', () => {
         severity: 'Low',
         upgradeAvailable: true,
         evidence: [
-          { label: 'Current version', value: '1.3.0' },
-          { label: 'Latest version', value: '1.4.1' },
+          { label: '当前版本', value: '1.3.0' },
+          { label: '最新版本', value: '1.4.1' },
         ],
       }),
     }
 
     it('reads "New contract version available" with the current and latest versions', () => {
       renderPanel({ results: upgradeResults })
-      expect(screen.queryByText('Contract version is outdated')).not.toBeInTheDocument()
-      fireEvent.click(screen.getByText('New contract version available'))
+      expect(screen.queryByText('合约版本已过时')).not.toBeInTheDocument()
+      fireEvent.click(screen.getByText('有新合约版本可用'))
       expect(screen.getByText('1.3.0')).toBeInTheDocument()
       expect(screen.getByText('1.4.1')).toBeInTheDocument()
     })
@@ -237,9 +237,9 @@ describe('SecurityChecksSection', () => {
           contract_version: mkResult({ status: 'partial', severity: 'Medium', upgradeAvailable: true }),
         },
       })
-      expect(screen.queryByText('New contract version available')).not.toBeInTheDocument()
-      fireEvent.click(screen.getByText('Contract version is outdated'))
-      expect(screen.getByRole('link', { name: /update/i })).toHaveAttribute(
+      expect(screen.queryByText('有新合约版本可用')).not.toBeInTheDocument()
+      fireEvent.click(screen.getByText('合约版本已过时'))
+      expect(screen.getByRole('link', { name: /更新/i })).toHaveAttribute(
         'href',
         expect.stringContaining(AppRoutes.settings.setup),
       )
@@ -247,8 +247,8 @@ describe('SecurityChecksSection', () => {
 
     it('offers an Update CTA to Settings → Setup on the passing row', () => {
       renderPanel({ results: upgradeResults })
-      fireEvent.click(screen.getByText('New contract version available'))
-      const link = screen.getByRole('link', { name: /update/i })
+      fireEvent.click(screen.getByText('有新合约版本可用'))
+      const link = screen.getByRole('link', { name: /更新/i })
       expect(link).toHaveAttribute('href', expect.stringContaining(AppRoutes.settings.setup))
       expect(link).toHaveAttribute('href', expect.stringContaining('safe='))
     })
@@ -262,7 +262,7 @@ describe('SecurityChecksSection', () => {
           multichain_setup: mkResult({ status: 'partial', severity: 'Medium', remediation: 'Align signers.' }),
         },
       })
-      expect(screen.getByText('Signers differ across networks')).toBeInTheDocument()
+      expect(screen.getByText('各网络的签名人不同')).toBeInTheDocument()
     })
 
     it('shows a passing multichain row inside the passing-checks accordion', () => {
@@ -270,14 +270,14 @@ describe('SecurityChecksSection', () => {
         results: { ...allClearResults, multichain_setup: mkResult({ status: 'clear', severity: 'Low' }) },
       })
       fireEvent.click(getChecksAccordion())
-      expect(screen.getByText('Signers are consistent across networks')).toBeInTheDocument()
+      expect(screen.getByText('各网络的签名人一致')).toBeInTheDocument()
     })
 
     it('hides the multichain row entirely when not applicable (single-chain Safe)', () => {
       renderPanel()
       fireEvent.click(getChecksAccordion())
-      expect(screen.queryByText('Signers are consistent across networks')).not.toBeInTheDocument()
-      expect(screen.queryByText('Signers differ across networks')).not.toBeInTheDocument()
+      expect(screen.queryByText('各网络的签名人一致')).not.toBeInTheDocument()
+      expect(screen.queryByText('各网络的签名人不同')).not.toBeInTheDocument()
     })
   })
 
@@ -286,7 +286,7 @@ describe('SecurityChecksSection', () => {
       renderPanel()
       fireEvent.click(getChecksAccordion())
       // Title + evidence both contain this label; assert at least one match exists.
-      expect(screen.getAllByText('Official Safe fallback handler').length).toBeGreaterThanOrEqual(1)
+      expect(screen.getAllByText('官方 8379 回退处理器').length).toBeGreaterThanOrEqual(1)
     })
   })
 
@@ -302,8 +302,8 @@ describe('SecurityChecksSection', () => {
         }),
       })
       fireEvent.click(getChecksAccordion())
-      expect(screen.getByText(/Modules & Extensions · 3 installed/)).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /view all/i })).toBeInTheDocument()
+      expect(screen.getByText(/模块与扩展 · 已安装 3 个/)).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /查看全部/i })).toBeInTheDocument()
     })
 
     it('shows unrecognized modules as failing rows (visible without expanding accordion)', () => {
@@ -314,7 +314,7 @@ describe('SecurityChecksSection', () => {
       })
       // Unrecognized module → failing → visible at top under its grade group, without expanding
       // the passing accordion. The row title flags it; the module name lives in the expanded evidence.
-      expect(screen.getByText('Unrecognized module detected')).toBeInTheDocument()
+      expect(screen.getByText('检测到无法识别的模块')).toBeInTheDocument()
     })
 
     it('labels a recognized module by name and routes it to the passing rows', () => {
@@ -325,8 +325,8 @@ describe('SecurityChecksSection', () => {
       })
       // Recognized module → passing → hidden until the "Healthy" accordion is expanded.
       fireEvent.click(getChecksAccordion())
-      expect(screen.getByText('Recognized module · Delay Modifier')).toBeInTheDocument()
-      expect(screen.queryByText('Unrecognized module detected')).not.toBeInTheDocument()
+      expect(screen.getByText('已识别模块 · Delay Modifier')).toBeInTheDocument()
+      expect(screen.queryByText('检测到无法识别的模块')).not.toBeInTheDocument()
     })
 
     describe('vulnerable Zodiac modules', () => {
@@ -340,17 +340,17 @@ describe('SecurityChecksSection', () => {
             modules: mkResult({
               status: 'issue',
               severity: 'Critical',
-              remediation: 'Remove it.',
+              remediation: '移除 it.',
               vulnerableModules: [DELAY],
-              ctaLabelOverride: 'Remove unsupported module',
+              ctaLabelOverride: '移除不受支持的模块',
             }),
           },
         })
 
-        fireEvent.click(screen.getByText('Vulnerable module · Delay Modifier'))
+        fireEvent.click(screen.getByText('存在漏洞的模块 · Delay Modifier'))
         // Deep-links to the target Safe's Modules settings (so the removal runs in the correct
         // Safe context) rather than launching an in-place flow.
-        const link = screen.getByRole('link', { name: /remove unsupported module/i })
+        const link = screen.getByRole('link', { name: /移除不受支持的模块/i })
         expect(link).toHaveAttribute(
           'href',
           `${AppRoutes.settings.modules}?safe=${encodeURIComponent(SAFE_QUERY_PARAM)}`,
@@ -366,15 +366,15 @@ describe('SecurityChecksSection', () => {
               status: 'issue',
               severity: 'Critical',
               vulnerableModules: [DELAY],
-              ctaLabelOverride: 'Remove unsupported module',
+              ctaLabelOverride: '移除不受支持的模块',
             }),
           },
           // No safeQueryParam → no deep-link → external checker fallback.
           safeQueryParam: undefined,
         })
 
-        fireEvent.click(screen.getByText('Vulnerable module · Delay Modifier'))
-        expect(screen.getByRole('link', { name: /check affected safes/i })).toBeInTheDocument()
+        fireEvent.click(screen.getByText('存在漏洞的模块 · Delay Modifier'))
+        expect(screen.getByRole('link', { name: /检查受影响的 8379/i })).toBeInTheDocument()
       })
 
       it('renders a Critical warning without a remove button for the nested (no removable module) case', () => {
@@ -387,8 +387,8 @@ describe('SecurityChecksSection', () => {
         })
 
         // Affected, but no module matched as removable → a single warning row, no remove button.
-        expect(screen.getByText('Vulnerable module detected')).toBeInTheDocument()
-        expect(screen.queryByRole('button', { name: /remove unsupported module/i })).not.toBeInTheDocument()
+        expect(screen.getByText('检测到存在漏洞的模块')).toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: /移除不受支持的模块/i })).not.toBeInTheDocument()
       })
     })
   })
@@ -404,17 +404,17 @@ describe('SecurityChecksSection', () => {
             severity: 'Critical',
             remediation: 'Raise the threshold.',
             evidence: [
-              { label: 'Signers', value: '3' },
-              { label: 'Threshold', value: '1 of 3' },
+              { label: '签名人', value: '3' },
+              { label: '签名阈值', value: '1 of 3' },
             ],
           }),
         },
       })
-      const row = screen.getByText('Single signer controls this Safe')
+      const row = screen.getByText('单个签名人控制此 8379')
       fireEvent.click(row)
       const panel = row.closest('.rounded-lg')!
       expect(within(panel as HTMLElement).getByText('Raise the threshold.')).toBeInTheDocument()
-      expect(within(panel as HTMLElement).getByText('1 of 3')).toBeInTheDocument()
+      expect(within(panel as HTMLElement).getByText('1 / 3')).toBeInTheDocument()
     })
   })
 })

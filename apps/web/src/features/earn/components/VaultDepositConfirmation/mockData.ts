@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { faker } from '@faker-js/faker'
 import type { VaultDepositTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { TransactionInfoType } from '@safe-global/store/gateway/types'
@@ -21,8 +22,7 @@ export const mockVaultDepositTxInfo: VaultDepositTransactionInfo = {
   vaultInfo: {
     address: faker.finance.ethereumAddress(),
     name: 'Morpho USDC Vault',
-    description:
-      'A high-yield USDC vault powered by Morpho protocol, optimizing lending rates across multiple markets.',
+    description: translateMessage('ui.aHighYieldUSDCVaultPowered_d9fd0830'),
     logoUri: 'https://example.com/morpho-logo.png',
   },
   baseNrr: 450,

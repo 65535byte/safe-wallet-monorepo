@@ -9,7 +9,7 @@ jest.mock('@/hooks/useSafeInfo', () => ({
 }))
 
 const RECOMMENDED_GAS_LIMIT = '21000'
-const RESET_LABEL = 'Reset to recommended gas limit'
+const RESET_LABEL = '恢复建议的 Gas 上限'
 
 const TestForm = ({ recommendedGasLimit }: { recommendedGasLimit?: string }) => {
   const formMethods = useForm({
@@ -29,7 +29,7 @@ describe('GasLimitInput', () => {
 
     expect(screen.queryByLabelText(RESET_LABEL)).not.toBeInTheDocument()
 
-    const input = screen.getByLabelText<HTMLInputElement>('Gas limit')
+    const input = screen.getByLabelText<HTMLInputElement>('Gas 上限')
     await userEvent.type(input, '9')
 
     expect(input).toHaveValue('210009')
@@ -44,19 +44,19 @@ describe('GasLimitInput', () => {
   it('keeps the same input element (and focus) when the reset button appears', async () => {
     render(<TestForm recommendedGasLimit={RECOMMENDED_GAS_LIMIT} />)
 
-    const input = screen.getByLabelText<HTMLInputElement>('Gas limit')
+    const input = screen.getByLabelText<HTMLInputElement>('Gas 上限')
     await userEvent.type(input, '9')
 
     // Diverging from the recommended value mounts the reset adornment; the input itself
     // must not be remounted, otherwise the user loses focus mid-typing.
-    expect(screen.getByLabelText('Gas limit')).toBe(input)
+    expect(screen.getByLabelText('Gas 上限')).toBe(input)
     expect(input).toHaveFocus()
   })
 
   it('never shows the reset button without a recommended gas limit', async () => {
     render(<TestForm />)
 
-    const input = screen.getByLabelText<HTMLInputElement>('Gas limit')
+    const input = screen.getByLabelText<HTMLInputElement>('Gas 上限')
     await userEvent.type(input, '9')
 
     expect(screen.queryByLabelText(RESET_LABEL)).not.toBeInTheDocument()

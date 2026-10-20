@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import chains from '@safe-global/utils/config/chains'
 import { useCurrentChain } from '@/hooks/useChains'
 
@@ -7,45 +8,45 @@ type Periods = Array<{ label: string; value: string | number }>
 
 const ExpirationPeriods: Periods = [
   {
-    label: '2 days',
+    label: translateMessage('ui.days_0a14084f'),
     value: `${DAY_IN_SECONDS * 2}`,
   },
   {
-    label: '7 days',
+    label: translateMessage('ui.days_1145812e'),
     value: `${DAY_IN_SECONDS * 7}`,
   },
   {
-    label: '14 days',
+    label: translateMessage('ui.days_2a762434'),
     value: `${DAY_IN_SECONDS * 14}`,
   },
   {
-    label: '28 days',
+    label: translateMessage('ui.days_c951e63a'),
     value: `${DAY_IN_SECONDS * 28}`,
   },
   {
-    label: '56 days',
+    label: translateMessage('ui.days_eb47ed14'),
     value: `${DAY_IN_SECONDS * 56}`,
   },
 ]
 
 const TestPeriods: Periods = [
   {
-    label: '1 minute',
+    label: translateMessage('ui.minute_d2a768f3'),
     value: '60',
   },
   {
-    label: '5 minutes',
+    label: translateMessage('ui.minutes_05a438cb'),
     value: `${60 * 5}`,
   },
   {
-    label: '1 hour',
+    label: translateMessage('ui.hour_659c1c2d'),
     value: `${60 * 60}`,
   },
 ]
 
 const DefaultRecoveryDelayPeriods: Periods = [
   {
-    label: 'Custom period',
+    label: translateMessage('ui.customPeriod_9fa06344'),
     value: '0',
   },
   ...ExpirationPeriods,
@@ -53,7 +54,7 @@ const DefaultRecoveryDelayPeriods: Periods = [
 
 const DefaultRecoveryExpirationPeriods: Periods = [
   {
-    label: 'Never',
+    label: translateMessage('ui.never_3de5fa57'),
     value: '0',
   },
   ...ExpirationPeriods,
@@ -61,7 +62,7 @@ const DefaultRecoveryExpirationPeriods: Periods = [
 
 const TestRecoveryDelayPeriods: Periods = [
   {
-    label: 'Custom period',
+    label: translateMessage('ui.customPeriod_9fa06344'),
     value: '0',
   },
   ...TestPeriods,
@@ -70,7 +71,7 @@ const TestRecoveryDelayPeriods: Periods = [
 
 const TestRecoveryExpirationPeriods: Periods = [
   {
-    label: 'Never',
+    label: translateMessage('ui.never_3de5fa57'),
     value: '0',
   },
   ...TestPeriods,

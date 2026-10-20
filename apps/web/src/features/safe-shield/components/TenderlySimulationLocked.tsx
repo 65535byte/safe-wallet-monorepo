@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import NextLink from 'next/link'
 import { AppRoutes } from '@/config/routes'
@@ -16,7 +17,7 @@ export const TenderlySimulationLocked = (): ReactElement | null => {
   return (
     <LockedCheckRow
       data-testid="tenderly-simulation-locked"
-      tooltip="Built-in simulation is part of Safe Pro. To simulate on your own Tenderly project, add its URL and access token in Settings › Environment variables."
+      tooltip={translateMessage('ui.builtInSimulationIsPartOf_5526ede8')}
       action={
         <NextLink
           href={{
@@ -27,12 +28,12 @@ export const TenderlySimulationLocked = (): ReactElement | null => {
           className="inline-flex items-center rounded-2xs bg-[var(--color-border-light)] px-2 py-0.5 no-underline hover:bg-[var(--color-border-main)]"
         >
           <Typography variant="paragraph-mini" className="text-[var(--color-text-primary)] [letter-spacing:0.4px]">
-            Set
+            {translateMessage('ui.set_e052743b')}
           </Typography>
         </NextLink>
       }
     >
-      Transaction simulation
+      {translateMessage('ui.transactionSimulation_1e0bcc02')}
     </LockedCheckRow>
   )
 }

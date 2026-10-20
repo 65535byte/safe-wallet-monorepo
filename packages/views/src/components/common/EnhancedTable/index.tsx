@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import React, { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -115,7 +116,11 @@ function EnhancedTableHead(props: EnhancedTableHeadProps) {
                   {headCell.label}
                   <TableSortIcon direction={isActive ? order : undefined} />
                   {isActive ? (
-                    <span className="sr-only">{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</span>
+                    <span className="sr-only">
+                      {order === 'desc'
+                        ? translateMessage('ui.sortedDescending_6313c593')
+                        : translateMessage('ui.sortedAscending_52d63f9b')}
+                    </span>
                   ) : null}
                 </span>
               )}
@@ -241,10 +246,10 @@ function EnhancedTable({ rows, headCells, compact, footer, panel }: EnhancedTabl
           {footer && <div className="flex h-[52px] items-center px-4">{footer}</div>}
           <div data-testid="table-pagination" className="flex h-[52px] flex-1 items-center justify-end gap-4 px-4">
             <Typography variant="paragraph-small" color="muted">
-              Rows per page:
+              {translateMessage('ui.rowsPerPage_0f2f945b')}
             </Typography>
             <Select value={String(rowsPerPage)} onValueChange={handleChangeRowsPerPage} items={pageSizeItems}>
-              <SelectTrigger aria-label="Rows per page" data-testid="rows-per-page">
+              <SelectTrigger aria-label={translateMessage('ui.rowsPerPage_b68208eb')} data-testid="rows-per-page">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -256,13 +261,13 @@ function EnhancedTable({ rows, headCells, compact, footer, panel }: EnhancedTabl
               </SelectContent>
             </Select>
             <Typography variant="paragraph-small">
-              {from}–{to} of {rows.length}
+              {from}–{to} / {rows.length}
             </Typography>
             <div className="flex items-center">
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="Go to previous page"
+                aria-label={translateMessage('ui.goToPreviousPage_1fb2acbd')}
                 data-testid="prev-page-btn"
                 disabled={isFirstPage}
                 onClick={() => handleChangePage(page - 1)}
@@ -272,7 +277,7 @@ function EnhancedTable({ rows, headCells, compact, footer, panel }: EnhancedTabl
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="Go to next page"
+                aria-label={translateMessage('ui.goToNextPage_6e5a5f75')}
                 data-testid="next-page-btn"
                 disabled={isLastPage}
                 onClick={() => handleChangePage(page + 1)}

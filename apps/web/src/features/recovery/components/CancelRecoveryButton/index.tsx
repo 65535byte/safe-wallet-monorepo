@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWallet from '@/hooks/wallets/useWallet'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
@@ -69,7 +70,7 @@ export default function CancelRecoveryButton({
             disabled={isDisabled}
             size={compact ? 'sm' : 'action'}
           >
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
         )
       }}

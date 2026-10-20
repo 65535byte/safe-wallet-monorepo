@@ -72,7 +72,7 @@ describe('PolicyIntroDialog', () => {
     const onProceed = jest.fn()
     const { user } = renderWithUserEvent(<StatefulIntro onProceed={onProceed} />)
 
-    await user.click(screen.getByRole('button', { name: 'Close' }))
+    await user.click(screen.getByRole('button', { name: '关闭' }))
 
     await waitFor(() => expect(screen.queryByTestId('a-policy-intro-dialog')).not.toBeInTheDocument())
     expect(onProceed).not.toHaveBeenCalled()

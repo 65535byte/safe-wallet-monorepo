@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { useCurrentChain } from '@/hooks/useChains'
@@ -10,7 +11,7 @@ import useDebounce from '@safe-global/utils/hooks/useDebounce'
 // was looked up for — either because that chain has no domain lookup hub, or the name isn't set.
 // Names the chain (e.g. "Ethereum" in the chain-agnostic Spaces address book) so it isn't ambiguous.
 export const getEnsNotAvailableError = (chain?: Chain): string =>
-  `ENS name not available on ${chain?.chainName || 'this network'}`
+  translateMessage('ui.eNSNameNotAvailableOn_c6a7bc7f', { p0: chain?.chainName || 'this network' })
 
 const useNameResolver = (
   value?: string,

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { createContext, type ReactElement, type ReactNode, useState, useCallback, useRef } from 'react'
 import { PlainExternalLinkIcons } from '@safe-global/views/components/common/ExternalLink/ExternalLinkIcon'
 import TxModalDialog from '@safe-global/views/components/common/TxModalDialog'
@@ -132,12 +133,14 @@ export const TxModalProvider = ({ children }: { children: ReactNode }): ReactEle
             own z-50 — this is exactly the nested-overlay case that token exists for. */}
         <AlertDialogContent size="sm" className="z-[var(--z-nested-overlay)]">
           <AlertDialogHeader>
-            <AlertDialogTitle>Discard this transaction?</AlertDialogTitle>
-            <AlertDialogDescription>Closing this window will discard your current progress.</AlertDialogDescription>
+            <AlertDialogTitle>{translateMessage('ui.discardThisTransaction_eb181178')}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {translateMessage('ui.closingThisWindowWillDiscardYour_10913b5b')}
+            </AlertDialogDescription>
           </AlertDialogHeader>
 
           <AlertDialogFooter>
-            <AlertDialogCancel>Keep editing</AlertDialogCancel>
+            <AlertDialogCancel>{translateMessage('ui.keepEditing_7a12ae8e')}</AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"
               onClick={() => {
@@ -146,7 +149,7 @@ export const TxModalProvider = ({ children }: { children: ReactNode }): ReactEle
                 discard?.()
               }}
             >
-              Discard
+              {translateMessage('ui.discard_b15fa9b3')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

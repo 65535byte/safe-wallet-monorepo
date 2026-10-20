@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useMemo } from 'react'
 import classnames from 'classnames'
@@ -23,7 +24,7 @@ type ChainIndicatorProps = {
 }
 
 const fallbackChainConfig = {
-  chainName: 'Unknown network',
+  chainName: translateMessage('ui.unknownNetwork_bf8c7dbd'),
   chainId: '-1',
   theme: {
     backgroundColor: '#ddd',
@@ -63,7 +64,7 @@ const ChainIndicator = ({
     <img
       data-testid="chain-indicator-network-logo-img"
       src={chainConfig.chainLogoUri ?? undefined}
-      alt={`${chainConfig.chainName} Logo`}
+      alt={translateMessage('ui.logo_307b8133', { p0: chainConfig.chainName })}
       width={imageSize}
       height={imageSize}
       loading="lazy"

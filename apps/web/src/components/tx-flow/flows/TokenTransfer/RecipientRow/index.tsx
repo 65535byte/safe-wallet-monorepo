@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddressBookInput from '@/components/common/AddressBookInput'
 import TokenAmountInput from '@/components/common/TokenAmountInput'
 import DeleteIcon from '@/public/images/common/delete.svg'
@@ -138,13 +139,14 @@ const RecipientRow = ({ fieldArray, removable = true, remove, disableSpendingLim
             <AlertSeverityIcon variant="info" />
             <AlertDescription className="flex w-full items-center justify-between gap-2">
               <span>
-                Your max send amount accounts for fees paid in {selectedToken?.tokenInfo.symbol}. This updates if fees
-                change.
+                {translateMessage('ui.yourMaxSendAmountAccountsFor_eef3029e')}
+                {selectedToken?.tokenInfo.symbol}
+                {translateMessage('ui.thisUpdatesIfFeesChange_9d0408de')}
               </span>
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label="Dismiss fee banner"
+                aria-label={translateMessage('ui.dismissFeeBanner_4300df12')}
                 onClick={() => setMaxPressed(false)}
               >
                 <X className="size-4" />
@@ -166,12 +168,12 @@ const RecipientRow = ({ fieldArray, removable = true, remove, disableSpendingLim
             <Button
               data-testid="remove-recipient-btn"
               onClick={onRemove}
-              aria-label="Remove recipient"
+              aria-label={translateMessage('ui.removeRecipient_1efca637')}
               variant="ghost"
               size="lg"
             >
               <DeleteIcon className="size-4" />
-              Remove recipient
+              {translateMessage('ui.removeRecipient_1efca637')}
             </Button>
           </Track>
         </div>

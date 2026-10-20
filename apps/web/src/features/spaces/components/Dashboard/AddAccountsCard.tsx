@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddAccountsChooser from '../AddAccountsChooser'
 import Image from 'next/image'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -17,16 +18,15 @@ const AddAccountsCard = () => {
       <div className="flex flex-col-reverse items-center gap-6 md:flex-row">
         <div className="flex-[2]">
           <Typography variant="h4" className="mb-4">
-            Add your Safe accounts
+            {translateMessage('ui.addYourAccounts_de3ec855')}
           </Typography>
 
           <Typography variant="paragraph" color="muted" className="mb-4">
-            Start by adding Safe accounts to your Workspace. Any accounts that are linked to your connected wallet can
-            be added to the Workspace.
+            {translateMessage('ui.startByAddingAccountsToYour_cd1bce12')}
           </Typography>
 
           <Track {...SPACE_EVENTS.ADD_ACCOUNTS_MODAL} label={SPACE_LABELS.space_dashboard_card}>
-            <AddAccountsChooser buttonLabel="Manage accounts" entryPoint="dashboard" />
+            <AddAccountsChooser buttonLabel={translateMessage('ui.manageAccounts_44bc5685')} entryPoint="dashboard" />
           </Track>
         </div>
 
@@ -34,7 +34,7 @@ const AddAccountsCard = () => {
           <Image
             className={css.image}
             src={isDarkMode ? EmptyDashboardDark : EmptyDashboard}
-            alt="Illustration of two safes with their thresholds"
+            alt={translateMessage('ui.illustrationOfTwoSafesWithTheir_fe7b2de9')}
             width={375}
             height={200}
           />

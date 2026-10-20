@@ -155,7 +155,7 @@ const unsignedFlowCases: FlowCase[] = [
   { name: 'a queued unsigned tx on a 1/n Safe', threshold: 1, signatureCount: 0, isQueued: true, isExecutable: true },
   { name: 'a new tx on an m/n Safe', threshold: 2, signatureCount: 0, isQueued: false, isExecutable: false },
   {
-    name: 'the last missing signature of an m/n Safe',
+    name: 'the last missing signature / an m/n Safe',
     threshold: 2,
     signatureCount: 1,
     isQueued: true,
@@ -207,17 +207,17 @@ describe.each(signerCases)('Sign before execute with $name', ({ signer, isSmartC
     renderSubmit(flow)
     await settleSignerCheck()
 
-    expect(screen.getByTestId('combo-submit-sign')).toHaveTextContent('Sign')
+    expect(screen.getByTestId('combo-submit-sign')).toHaveTextContent('签名')
     expect(screen.queryByTestId('combo-submit-execute')).not.toBeInTheDocument()
     expect(screen.queryByTestId('combo-submit-dropdown')).not.toBeInTheDocument()
-    expect(screen.queryByText('Execute')).not.toBeInTheDocument()
+    expect(screen.queryByText('执行')).not.toBeInTheDocument()
   })
 
   it('offers only Execute for a fully signed tx', async () => {
     renderSubmit({ name: 'fully signed', threshold: 2, signatureCount: 2, isQueued: true, isExecutable: true })
     await settleSignerCheck()
 
-    expect(await screen.findByTestId('combo-submit-execute')).toHaveTextContent('Execute')
+    expect(await screen.findByTestId('combo-submit-execute')).toHaveTextContent('执行')
     expect(screen.queryByTestId('combo-submit-sign')).not.toBeInTheDocument()
   })
 })

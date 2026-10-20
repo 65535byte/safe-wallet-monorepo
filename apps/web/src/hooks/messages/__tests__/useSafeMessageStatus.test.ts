@@ -32,7 +32,7 @@ describe('useSafeMessageStatus', () => {
     } as MessageItem
 
     const { result } = renderHook(() => useSafeMessageStatus(message))
-    expect(result.current).toBe('Awaiting confirmations')
+    expect(result.current).toBe('等待确认')
   })
 
   it('should return the message status if the message is not pending and the wallet has not signed the message', () => {
@@ -50,7 +50,7 @@ describe('useSafeMessageStatus', () => {
     } as MessageItem
 
     const { result } = renderHook(() => useSafeMessageStatus(message))
-    expect(result.current).toBe('Needs confirmation')
+    expect(result.current).toBe('需要确认')
   })
 
   it('should return the message status if the message is not pending and it is fully signed', () => {
@@ -68,6 +68,6 @@ describe('useSafeMessageStatus', () => {
     } as MessageItem
 
     const { result } = renderHook(() => useSafeMessageStatus(message))
-    expect(result.current).toBe('Confirmed')
+    expect(result.current).toBe('已确认')
   })
 })

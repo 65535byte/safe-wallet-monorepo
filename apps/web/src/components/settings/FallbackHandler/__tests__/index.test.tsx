@@ -173,11 +173,9 @@ describe('FallbackHandler', () => {
 
       await waitFor(() => {
         expect(
-          fbHandler.queryByText(
-            createAppNameRegex(`The {APP_NAME} may not work correctly as no fallback handler is currently set.`),
-          ),
+          fbHandler.queryByText(createAppNameRegex('尚未设置回退处理器，{APP_NAME} 可能无法正常工作。')),
         ).toBeInTheDocument()
-        expect(fbHandler.queryByText('Transaction Builder')).toBeInTheDocument()
+        expect(fbHandler.queryByText('交易构建器')).toBeInTheDocument()
       })
     })
   })
@@ -200,11 +198,7 @@ describe('FallbackHandler', () => {
       const fbHandler = render(<FallbackHandler />)
 
       await waitFor(() => {
-        expect(
-          fbHandler.queryByText(
-            'The fallback handler adds fallback logic for funtionality that may not be present in the Safe account contract. Learn more about the fallback handler',
-          ),
-        ).toBeDefined()
+        expect(fbHandler.queryByText('回退处理器可为 Safe 账户合约补充原本不具备的功能。了解回退处理器')).toBeDefined()
 
         expect(fbHandler.getByText('0x123')).toBeDefined()
 
@@ -214,7 +208,7 @@ describe('FallbackHandler', () => {
 
       await waitFor(() => {
         expect(fbHandler.queryByText(new RegExp('An unofficial fallback handler is currently set.')))
-        expect(fbHandler.queryByText('Transaction Builder')).toBeInTheDocument()
+        expect(fbHandler.queryByText('交易构建器')).toBeInTheDocument()
       })
     })
   })

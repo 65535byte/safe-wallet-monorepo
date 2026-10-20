@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { splitError } from '../../services/utils'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -20,7 +21,7 @@ const WcErrorMessage = ({ error, onClose }: { error: Error; onClose: () => void 
         // eslint-disable-next-line no-restricted-syntax -- faithful css-module port, pixel-identical; bespoke values have no variant
         className="py-[var(--space-1)] px-[var(--space-4)] mt-[var(--space-3)]"
       >
-        OK
+        {translateMessage('ui.oK_6259d30d')}
       </Button>
     </div>
   )

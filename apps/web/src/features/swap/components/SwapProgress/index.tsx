@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { OrderTransactionInfo } from '@safe-global/store/gateway/types'
 import { getFilledAmount, getFilledPercentage } from '@/features/swap/helpers/utils'
 import { formatAmount } from '@safe-global/utils/utils/formatNumber'
@@ -32,7 +33,7 @@ const SwapProgress = ({ order }: { order: OrderTransactionInfo }) => {
         <span className="font-bold">
           {filledAmount} {tokenSymbol}
         </span>{' '}
-        sold
+        {translateMessage('ui.sold_3d336757')}
       </Typography>
     </div>
   )

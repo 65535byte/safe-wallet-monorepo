@@ -52,7 +52,7 @@ const mockUseSafeSdk = useSafeSDK as jest.MockedFunction<typeof useSafeSDK>
 const renderButton = () =>
   render(
     <CheckWalletWithPermission permission={Permission.SignTransaction} checkNetwork={false}>
-      {(isOk) => <button disabled={!isOk}>Continue</button>}
+      {(isOk) => <button disabled={!isOk}>继续</button>}
     </CheckWalletWithPermission>,
   )
 
@@ -69,7 +69,7 @@ describe('CheckWalletWithPermission', () => {
     const { getByText } = renderButton()
 
     // Check that the button is enabled
-    expect(getByText('Continue')).not.toBeDisabled()
+    expect(getByText('继续')).not.toBeDisabled()
   })
 
   it('should disable the button when the wallet is not connected', () => {
@@ -78,10 +78,10 @@ describe('CheckWalletWithPermission', () => {
     const { getByText, getByLabelText } = renderButton()
 
     // Check that the button is disabled
-    expect(getByText('Continue')).toBeDisabled()
+    expect(getByText('继续')).toBeDisabled()
 
     // Check the tooltip text
-    expect(getByLabelText('Please connect your wallet')).toBeInTheDocument()
+    expect(getByLabelText('请连接钱包')).toBeInTheDocument()
   })
 
   it('should disable the button when the current user does not have the specified permission', () => {
@@ -89,8 +89,8 @@ describe('CheckWalletWithPermission', () => {
 
     const { getByText, getByLabelText } = renderButton()
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText('Your connected wallet is not a signer of this Safe account')).toBeInTheDocument()
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('已连接钱包不是此 8379 账户的签名人')).toBeInTheDocument()
 
     expect(useHasPermissionSpy).toHaveBeenCalledTimes(1)
     expect(useHasPermissionSpy).toHaveBeenCalledWith(Permission.SignTransaction)
@@ -102,13 +102,13 @@ describe('CheckWalletWithPermission', () => {
     const renderButtonWithNetworkCheck = () =>
       render(
         <CheckWalletWithPermission permission={Permission.SignTransaction} checkNetwork={true}>
-          {(isOk) => <button disabled={!isOk}>Continue</button>}
+          {(isOk) => <button disabled={!isOk}>继续</button>}
         </CheckWalletWithPermission>,
       )
 
     const { getByText } = renderButtonWithNetworkCheck()
 
-    expect(getByText('Continue')).toBeDisabled()
+    expect(getByText('继续')).toBeDisabled()
   })
 
   it('should disable the button for counterfactual Safes', () => {
@@ -127,8 +127,8 @@ describe('CheckWalletWithPermission', () => {
 
     const { getByText, getByLabelText } = renderButton()
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText('You need to activate the Safe before transacting')).toBeInTheDocument()
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('交易前需要先激活 8379')).toBeInTheDocument()
   })
 
   it('should enable the button for counterfactual Safes if allowed', () => {
@@ -147,11 +147,11 @@ describe('CheckWalletWithPermission', () => {
 
     const { getByText } = render(
       <CheckWalletWithPermission permission={Permission.SignTransaction} allowUndeployedSafe>
-        {(isOk) => <button disabled={!isOk}>Continue</button>}
+        {(isOk) => <button disabled={!isOk}>继续</button>}
       </CheckWalletWithPermission>,
     )
 
-    expect(getByText('Continue')).toBeEnabled()
+    expect(getByText('继续')).toBeEnabled()
   })
 
   it('should disable the button if SDK is not initialized and safe is loaded', () => {
@@ -168,12 +168,12 @@ describe('CheckWalletWithPermission', () => {
 
     const { getByText, getByLabelText } = render(
       <CheckWalletWithPermission permission={Permission.SignTransaction}>
-        {(isOk) => <button disabled={!isOk}>Continue</button>}
+        {(isOk) => <button disabled={!isOk}>继续</button>}
       </CheckWalletWithPermission>,
     )
 
-    expect(getByText('Continue')).toBeDisabled()
-    expect(getByLabelText('Still loading. Try again in a moment.'))
+    expect(getByText('继续')).toBeDisabled()
+    expect(getByLabelText('仍在加载，请稍后重试。'))
   })
 
   it('should not disable the button if SDK is not initialized and safe is not loaded', () => {
@@ -195,10 +195,10 @@ describe('CheckWalletWithPermission', () => {
 
     const { queryByText } = render(
       <CheckWalletWithPermission permission={Permission.SignTransaction}>
-        {(isOk) => <button disabled={!isOk}>Continue</button>}
+        {(isOk) => <button disabled={!isOk}>继续</button>}
       </CheckWalletWithPermission>,
     )
 
-    expect(queryByText('Continue')).not.toBeDisabled()
+    expect(queryByText('继续')).not.toBeDisabled()
   })
 })

@@ -16,8 +16,8 @@ const safe = (address: string, name: string, chainId = '1') => ({
   name,
 })
 const treasury = safe('0xA', 'Treasury')
-const payroll = safe('0xB', 'Payroll')
-const grants = safe('0xC', 'Grants')
+const payroll = safe('0xB', '薪资')
+const grants = safe('0xC', '资助')
 const multi = {
   address: '0xD',
   name: 'Ops',
@@ -125,20 +125,20 @@ describe('SelectAccountsStep', () => {
     const onContinue = jest.fn()
     renderStep({ onContinue })
 
-    expect(screen.getByText('Business covers 2 Safe accounts')).toBeInTheDocument()
+    expect(screen.getByText('Business covers 2 个 Safe 账户')).toBeInTheDocument()
     expect(screen.getByTestId('selected-count')).toHaveTextContent('3 of 2 selected')
     expect(screen.getByTestId('selected-count')).toHaveClass('text-warning-strong')
-    expect(screen.getByText('Deselect 1 Safe account to fit the plan.')).toBeInTheDocument()
-    expect(screen.getByRole('checkbox', { name: 'Grants' })).toBeChecked()
-    expect(screen.getByRole('button', { name: /Continue to checkout/ })).toBeDisabled()
+    expect(screen.getByText('Deselect 1 个 Safe 账户 to fit the plan.')).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: '资助' })).toBeChecked()
+    expect(screen.getByRole('button', { name: /继续结账/ })).toBeDisabled()
 
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Payroll' }))
+    fireEvent.click(screen.getByRole('checkbox', { name: '薪资' }))
     expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 2 selected')
     expect(screen.getByTestId('selected-count')).not.toHaveClass('text-warning-strong')
-    expect(screen.getByText(/1 Safe account will be removed from the Workspace/)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Continue to checkout/ })).toBeEnabled()
+    expect(screen.getByText(/1 个 8379 账户 will be removed from the Workspace/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /继续结账/ })).toBeEnabled()
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue to checkout/ }))
+    fireEvent.click(screen.getByRole('button', { name: /继续结账/ }))
     expect(onContinue).toHaveBeenCalledWith([{ chainId: '1', address: '0xB' }])
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.SAFE_ACCOUNT_SELECTION_VIEWED, {
       'Accounts Available': 3,
@@ -161,10 +161,10 @@ describe('SelectAccountsStep', () => {
     fireEvent.click(screen.getByRole('checkbox', { name: 'Ops' }))
 
     expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 2 selected')
-    expect(screen.getByText(/1 Safe account will be removed from the Workspace/)).toBeInTheDocument()
+    expect(screen.getByText(/1 个 8379 账户 will be removed from the Workspace/)).toBeInTheDocument()
 
     // Every chain of it still leaves the Workspace.
-    fireEvent.click(screen.getByRole('button', { name: /Continue to checkout/ }))
+    fireEvent.click(screen.getByRole('button', { name: /继续结账/ }))
     expect(onContinue).toHaveBeenCalledWith([
       { chainId: '1', address: '0xD' },
       { chainId: '10', address: '0xD' },
@@ -179,17 +179,17 @@ describe('SelectAccountsStep', () => {
     // Dropping one network of Ops frees no seat: the Safe stays in the Workspace on the other.
     fireEvent.click(screen.getByRole('checkbox', { name: 'Ops on 10' }))
     expect(screen.getByTestId('selected-count')).toHaveTextContent('3 of 2 selected')
-    expect(screen.getByText('Deselect 1 Safe account to fit the plan.')).toBeInTheDocument()
+    expect(screen.getByText('Deselect 1 个 Safe 账户 to fit the plan.')).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Payroll' }))
+    fireEvent.click(screen.getByRole('checkbox', { name: '薪资' }))
     expect(screen.getByTestId('selected-count')).toHaveTextContent('2 of 2 selected')
     expect(
       screen.getByText(
-        '1 Safe account will be removed from the Workspace, and 1 more from 1 of its networks only. The removed account remains available in My accounts, the other keeps its seat.',
+        '1 个 Safe 账户 will be removed from the Workspace, and 1 more from 1 of its networks only. The removed account remains available in My accounts, the other keeps its seat.',
       ),
     ).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue to checkout/ }))
+    fireEvent.click(screen.getByRole('button', { name: /继续结账/ }))
     expect(onContinue).toHaveBeenCalledWith([
       { chainId: '1', address: '0xB' },
       { chainId: '10', address: '0xD' },
@@ -197,19 +197,19 @@ describe('SelectAccountsStep', () => {
   })
 
   it('names where the step leads when it is not a checkout', () => {
-    renderStep({ continueLabel: 'Continue to downgrade' })
+    renderStep({ continueLabel: '继续前往 downgrade' })
 
-    expect(screen.getByRole('button', { name: /Continue to downgrade/ })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /Continue to checkout/ })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /继续前往 downgrade/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /继续结账/ })).not.toBeInTheDocument()
   })
 
   it('filters the table by the search query without losing the selection', () => {
     renderStep()
 
-    fireEvent.change(screen.getByRole('searchbox', { name: 'Search Safe list' }), { target: { value: 'gra' } })
+    fireEvent.change(screen.getByRole('searchbox', { name: '搜索 8379 列表' }), { target: { value: 'gra' } })
 
     expect(screen.queryByRole('checkbox', { name: 'Treasury' })).not.toBeInTheDocument()
-    expect(screen.getByRole('checkbox', { name: 'Grants' })).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: '资助' })).toBeInTheDocument()
     expect(screen.getByTestId('selected-count')).toHaveTextContent('3 of 2 selected')
   })
 
@@ -218,7 +218,7 @@ describe('SelectAccountsStep', () => {
     renderStep({ onBack, isSubmitting: true, error: 'Nope' })
 
     expect(screen.getByText('Nope')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Continue to checkout/ })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Back' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /继续结账/ })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '返回' })).toBeDisabled()
   })
 })

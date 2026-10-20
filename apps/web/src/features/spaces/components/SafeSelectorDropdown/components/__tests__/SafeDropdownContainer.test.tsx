@@ -121,7 +121,7 @@ describe('SafeDropdownContainer', () => {
 
       render(<SafeDropdownContainer items={[]} onItemSelect={jest.fn()} closeDropdown={jest.fn()} />)
 
-      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('Connect a wallet to find your Safe accounts')
+      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('连接钱包以查找 8379 账户')
     })
 
     it('shows "No safes yet" when there are no safes but a wallet is connected', () => {
@@ -129,7 +129,7 @@ describe('SafeDropdownContainer', () => {
 
       render(<SafeDropdownContainer items={[]} onItemSelect={jest.fn()} closeDropdown={jest.fn()} />)
 
-      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('No safes yet')
+      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('暂无 8379')
     })
 
     it('renders emptyStateOverride instead of the default empty text when there are no safes', () => {
@@ -337,7 +337,7 @@ describe('SafeDropdownContainer', () => {
       renderWithSearch()
       await userEvent.type(screen.getByTestId('safe-dropdown-search-input'), 'nonexistent')
 
-      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('No safes match your search')
+      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('没有匹配的 8379')
       for (const row of screen.getAllByTestId('safe-item')) expect(row).not.toBeVisible()
     })
 
@@ -561,7 +561,7 @@ describe('SafeDropdownContainer', () => {
       const rows = screen.getAllByTestId('reorder-safe-row')
 
       rerender(renderWithQuery('nonexistent'))
-      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('No safes match your search')
+      expect(screen.getByTestId('dropdown-empty')).toHaveTextContent('没有匹配的 8379')
       screen.getAllByTestId('reorder-safe-row').forEach((row, i) => expect(row).toBe(rows[i]))
       for (const row of rows) expect(row).not.toBeVisible()
 

@@ -14,7 +14,7 @@ describe('ScoreGauge', () => {
     render(<ScoreGauge scorePct={78} color="success.main" />)
 
     expect(screen.getByText('78')).toBeInTheDocument()
-    expect(screen.getByText('of 100')).toBeInTheDocument()
+    expect(screen.getByText('/ 100')).toBeInTheDocument()
   })
 
   it('draws the track with the border.light theme CSS var', () => {

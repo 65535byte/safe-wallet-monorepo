@@ -10,9 +10,9 @@ describe('TenderlySimulationLocked', () => {
   it('shows the locked row with a Set link to the environment variables of this Safe instead of a Run button', () => {
     render(<TenderlySimulationLocked />, { routerProps: { query: { safe: 'eth:0x1234' } } })
 
-    expect(screen.getByTestId('tenderly-simulation-locked')).toHaveTextContent('Transaction simulation')
+    expect(screen.getByTestId('tenderly-simulation-locked')).toHaveTextContent('交易模拟')
     expect(screen.queryByTestId('run-simulation-btn')).not.toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Set' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '设置' })).toHaveAttribute(
       'href',
       '/settings/environment-variables?safe=eth%3A0x1234',
     )

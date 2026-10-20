@@ -5,7 +5,7 @@ describe('CopyTooltip', () => {
   it('labels the copy trigger with the default tooltip text', () => {
     const { getByLabelText } = render(<CopyTooltip text="0x123">0x123</CopyTooltip>)
 
-    expect(getByLabelText('Copy to clipboard')).toBeInTheDocument()
+    expect(getByLabelText('复制到剪贴板')).toBeInTheDocument()
   })
 
   it('labels the copy trigger with a custom initial tooltip text', () => {
@@ -15,6 +15,6 @@ describe('CopyTooltip', () => {
       </CopyTooltip>,
     )
 
-    expect(getByLabelText('Copy address')).toBeInTheDocument()
+    expect(getByLabelText('复制地址')).toBeInTheDocument()
   })
 })

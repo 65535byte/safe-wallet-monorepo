@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useSafeSDK } from '@/hooks/coreSDK/safeCoreSDK'
 import { useMemo, type ReactElement } from 'react'
 import useWallet from '@/hooks/wallets/useWallet'
@@ -19,12 +20,12 @@ type CheckWalletWithPermissionProps<
   allowUndeployedSafe?: boolean
 } & PProps
 
-enum Message {
-  WalletNotConnected = 'Please connect your wallet',
-  SDKNotInitialized = 'Still loading. Try again in a moment.',
-  NotSafeOwner = 'Your connected wallet is not a signer of this Safe account',
-  SafeNotActivated = 'You need to activate the Safe before transacting',
-}
+const Message = {
+  WalletNotConnected: translateMessage('ui.pleaseConnectYourWallet_16dc9354'),
+  SDKNotInitialized: translateMessage('ui.stillLoadingTryAgainInA_e639dfb9'),
+  NotSafeOwner: translateMessage('ui.yourConnectedWalletIsNotA_ce533277'),
+  SafeNotActivated: translateMessage('ui.youNeedToActivateTheBefore_7b9ac818'),
+} as const
 
 const CheckWalletWithPermission = <P extends Permission>({
   children,

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
 import { useSafeApps } from '@/hooks/safe-apps/useSafeApps'
@@ -53,14 +54,14 @@ const SafeAppsDashboardSection = () => {
   return (
     <section className="overflow-hidden rounded-xl bg-[var(--color-background-paper)] px-6 pb-6 pt-5">
       <div className="mb-4 flex flex-row justify-between">
-        <Typography variant="paragraph-bold">Featured Apps</Typography>
+        <Typography variant="paragraph-bold">{translateMessage('ui.featuredApps_1a0c4dd6')}</Typography>
         {showNav && (
           <>
             <div className={css.carouselNav}>
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="previous apps"
+                aria-label={translateMessage('ui.previousApps_989e5b9c')}
                 onClick={() => scrollList('left')}
                 disabled={!canScrollLeft}
               >
@@ -69,7 +70,7 @@ const SafeAppsDashboardSection = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="next apps"
+                aria-label={translateMessage('ui.nextApps_3c779e00')}
                 onClick={() => scrollList('right')}
                 disabled={!canScrollRight}
               >

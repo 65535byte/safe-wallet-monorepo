@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AllOwnedSafes } from '@safe-global/store/gateway/types'
 import { selectUndeployedSafes } from '@/features/counterfactual/store'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -31,7 +32,6 @@ import css from './styles.module.css'
 import { useAllOwnedSafes } from '@/hooks/safes'
 import useWallet from '@/hooks/wallets/useWallet'
 import { selectAllAddedSafes, type AddedSafesState } from '@/store/addedSafesSlice'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { useNotificationsRenewal } from './hooks/useNotificationsRenewal'
 import type { UndeployedSafesState } from '@safe-global/utils/features/counterfactual/store/types'
 
@@ -373,7 +373,9 @@ export const GlobalPushNotifications = (): ReactElement | null => {
 
   if (totalNotifiableSafes === 0) {
     return (
-      <Typography className="text-muted-foreground">{address ? 'No owned Safes' : 'No wallet connected'}</Typography>
+      <Typography className="text-muted-foreground">
+        {address ? translateMessage('ui.noOwnedAccounts_a3e231e8') : translateMessage('ui.noWalletConnected_c948712d')}
+      </Typography>
     )
   }
 
@@ -381,21 +383,22 @@ export const GlobalPushNotifications = (): ReactElement | null => {
     <div>
       <div className="mb-2 flex items-center justify-between">
         <Typography variant="h4" className="inline">
-          My Safes Accounts ({totalNotifiableSafes})
+          {translateMessage('ui.myAccountsAccounts_006b32ca')}
+          {totalNotifiableSafes})
         </Typography>
 
         <div className="flex items-center">
           {totalSignaturesRequired > 0 && (
             <Typography className="mr-4 inline text-right">
-              We&apos;ll ask you to verify ownership of each Safe account with your signature per chain{' '}
-              {totalSignaturesRequired} time{maybePlural(totalSignaturesRequired)}
+              {translateMessage('ui.weLlAskYouToVerify_0e4f5850')}
+              {totalSignaturesRequired} {translateMessage('ui.time_1870527b')}
             </Typography>
           )}
 
           <CheckWalletWithPermission permission={Permission.EnablePushNotifications}>
             {(isOk) => (
               <Button disabled={!canSave || !isOk || isLoading} onClick={onSave}>
-                {isLoading ? <Spinner className="size-5" /> : 'Save'}
+                {isLoading ? <Spinner className="size-5" /> : translateMessage('ui.save_5fe30f30')}
               </Button>
             )}
           </CheckWalletWithPermission>
@@ -414,7 +417,7 @@ export const GlobalPushNotifications = (): ReactElement | null => {
             <span className={css.icon}>
               <Checkbox checked={isAllSelected} aria-hidden tabIndex={-1} className="pointer-events-none" />
             </span>
-            <Typography variant="paragraph-bold">Select all</Typography>
+            <Typography variant="paragraph-bold">{translateMessage('ui.selectAll_0f52c380')}</Typography>
           </div>
         </ListItem>
 
@@ -452,7 +455,9 @@ export const GlobalPushNotifications = (): ReactElement | null => {
                   <span className={css.icon}>
                     <Checkbox checked={isChainSelected} aria-hidden tabIndex={-1} className="pointer-events-none" />
                   </span>
-                  <Typography variant="paragraph-bold">{`${chain?.chainName} Safe accounts`}</Typography>
+                  <Typography variant="paragraph-bold">
+                    {translateMessage('ui.accounts_823b9dbc', { p0: chain?.chainName })}
+                  </Typography>
                 </div>
 
                 <List className={css.item}>

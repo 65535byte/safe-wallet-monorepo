@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Image from 'next/image'
 import { Card, CardContent } from '@safe-global/views/components/ui/card'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -37,7 +38,7 @@ export const EarnPoweredBy = () => {
   return (
     <div className="flex flex-row gap-2">
       <Typography variant="paragraph-mini-bold" color="muted">
-        Powered by
+        {translateMessage('ui.poweredBy_9a7de8cb')}
       </Typography>
       <Morpho className={classNames(css.morphoIcon, { [css.kilnIconDarkMode]: isDarkMode })} />
       <Cross width={12} height={12} className={classNames({ [css.kilnIconDarkMode]: isDarkMode })} />
@@ -52,15 +53,17 @@ export const EarnBannerCopy = () => {
   return (
     <>
       <Typography variant="h2" className={classNames(css.header, { [css.gradientText]: isDarkMode })}>
-        Earn up to{' '}
-        <span className={classNames({ [css.gradientText]: isDarkMode })}>{formatPercentage(ApproximateAPY)} APY*</span>{' '}
-        and get MORPHO rewards
+        {translateMessage('ui.earnUpTo_6bb1ca27')}{' '}
+        <span className={classNames({ [css.gradientText]: isDarkMode })}>
+          {formatPercentage(ApproximateAPY)} {translateMessage('ui.aPY_ac2cfe97')}
+        </span>{' '}
+        {translateMessage('ui.andGetMORPHORewards_9f52ec59')}
       </Typography>
 
       <Typography variant="paragraph" className={classNames(css.content, 'mt-4')}>
-        Deposit stablecoins, wstETH, ETH, and WBTC straight from your account and let your assets compound in minutes.{' '}
+        {translateMessage('ui.depositStablecoinsWstETHETHAndWBTC_e62a7436')}{' '}
         <Track {...EARN_EVENTS.OPEN_EARN_LEARN_MORE} label={EARN_LABELS.safe_dashboard_banner}>
-          <ExternalLink href={EARN_HELP_ARTICLE}>Learn more</ExternalLink>
+          <ExternalLink href={EARN_HELP_ARTICLE}>{translateMessage('ui.learnMore_0c11daba')}</ExternalLink>
         </Track>
       </Typography>
     </>
@@ -91,14 +94,19 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
               <div className="text-center">
                 <Track {...EARN_EVENTS.GET_STARTED_WITH_EARN}>
                   <Button className="w-full md:w-auto" onClick={onGetStarted}>
-                    Get started
+                    {translateMessage('ui.getStarted_5801751d')}
                   </Button>
                 </Track>
               </div>
             </div>
 
             <div className="relative hidden items-center justify-center bg-[var(--color-background-main)] sm:flex md:w-5/12">
-              <Image src={EarnIllustrationLight} alt="Earn illustration" width={239} height={239} />
+              <Image
+                src={EarnIllustrationLight}
+                alt={translateMessage('ui.earnIllustration_9b68da07')}
+                width={239}
+                height={239}
+              />
             </div>
           </div>
         </CardContent>
@@ -107,7 +115,7 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
       <div className="flex flex-col gap-6 md:flex-row">
         <div className="flex-1">
           <Typography variant="h3" className="mb-4 mt-6 font-bold">
-            Your benefits
+            {translateMessage('ui.yourBenefits_321b02d8')}
           </Typography>
           <Card size="lg">
             <CardContent>
@@ -117,8 +125,10 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
                     <CheckIcon className="size-5 text-[var(--color-success-main)]" />
                   </div>
                   <div>
-                    <Typography className="mb-1 font-bold">Never leave the app</Typography>
-                    <Typography>Interact with your assets right in Safe Wallet UI.</Typography>
+                    <Typography className="mb-1 font-bold">
+                      {translateMessage('ui.neverLeaveTheApp_7c0e1a50')}
+                    </Typography>
+                    <Typography>{translateMessage('ui.interactWithYourAssetsRightIn_ec5e61e5')}</Typography>
                   </div>
                 </div>
 
@@ -127,8 +137,10 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
                     <StarIcon className="size-5 text-[var(--color-success-main)]" />
                   </div>
                   <div>
-                    <Typography className="mb-1 font-bold">Collect earnings every day</Typography>
-                    <Typography>Your balance keeps working for you.</Typography>
+                    <Typography className="mb-1 font-bold">
+                      {translateMessage('ui.collectEarningsEveryDay_0d7da5ce')}
+                    </Typography>
+                    <Typography>{translateMessage('ui.yourBalanceKeepsWorkingForYou_f09afa84')}</Typography>
                   </div>
                 </div>
 
@@ -137,8 +149,10 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
                     <EyeIcon className="size-5 text-[var(--color-success-main)]" />
                   </div>
                   <div>
-                    <Typography className="mb-1 font-bold">Understand every transaction</Typography>
-                    <Typography>User-friendly transactions that are easy to understand for all signers.</Typography>
+                    <Typography className="mb-1 font-bold">
+                      {translateMessage('ui.understandEveryTransaction_c0862056')}
+                    </Typography>
+                    <Typography>{translateMessage('ui.userFriendlyTransactionsThatAreEasy_92c15895')}</Typography>
                   </div>
                 </div>
 
@@ -147,8 +161,10 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
                     <FiatIcon className="size-5 text-[var(--color-success-main)]" />
                   </div>
                   <div>
-                    <Typography className="mb-1 font-bold">Cash out whenever you want</Typography>
-                    <Typography>Zero lock-ups, zero penalties.</Typography>
+                    <Typography className="mb-1 font-bold">
+                      {translateMessage('ui.cashOutWheneverYouWant_6bab475a')}
+                    </Typography>
+                    <Typography>{translateMessage('ui.zeroLockUpsZeroPenalties_ae750225')}</Typography>
                   </div>
                 </div>
               </div>
@@ -159,7 +175,7 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
         {eligibleAssets.length > 0 && (
           <div className="flex-1">
             <Typography variant="h3" className="mb-4 mt-6 font-bold">
-              Eligible assets
+              {translateMessage('ui.eligibleAssets_6a5375dd')}
             </Typography>
 
             <div className="flex flex-col gap-4">
@@ -204,14 +220,17 @@ const EarnInfo = ({ onGetStarted }: { onGetStarted: () => void }) => {
                           <Tooltip>
                             <TooltipTrigger
                               render={
-                                <span className={classNames('text-xs leading-4', css.apy)}>Up to {vaultAPY}*</span>
+                                <span className={classNames('text-xs leading-4', css.apy)}>
+                                  {translateMessage('ui.upTo_638e131c')}
+                                  {vaultAPY}*
+                                </span>
                               }
                             />
-                            <TooltipContent>as of 03.06.2025</TooltipContent>
+                            <TooltipContent>{translateMessage('ui.asOf_baa2f591')}</TooltipContent>
                           </Tooltip>
 
                           <Button variant="outline" size="sm" onClick={onEarnClick}>
-                            Earn
+                            {translateMessage('ui.earn_2e740029')}
                           </Button>
                         </div>
                       </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useIsExpiredSwap } from '@/features/swap'
 import useIsSafeOwner from '@/hooks/useIsSafeOwner'
@@ -47,7 +48,7 @@ const SignTxButton = ({ txSummary, compact = false }: { txSummary: Transaction; 
                 // here would make Confirm and Execute rows inconsistent.
                 size={compact ? 'default' : 'action'}
               >
-                Confirm
+                {translateMessage('ui.confirm_6ed20c1c')}
               </Button>
             </Track>
           </span>
@@ -56,7 +57,7 @@ const SignTxButton = ({ txSummary, compact = false }: { txSummary: Transaction; 
         return isOk && !isSignable && isSafeOwner ? (
           <Tooltip>
             <TooltipTrigger render={button} />
-            <TooltipContent>You&apos;ve already signed this transaction</TooltipContent>
+            <TooltipContent>{translateMessage('ui.youVeAlreadySignedThisTransaction_85e91063')}</TooltipContent>
           </Tooltip>
         ) : (
           button

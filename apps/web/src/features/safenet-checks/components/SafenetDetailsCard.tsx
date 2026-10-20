@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { CSSProperties, ReactElement, ReactNode } from 'react'
 import {
   Accordion,
@@ -119,7 +120,8 @@ const StatusCopy = ({
       {copy}
       {' · '}
       <span className={META_TEXT_CLASS}>
-        Verified <DateTime value={verifiedAt} />
+        {translateMessage('ui.verified_d3f974d9')}
+        <DateTime value={verifiedAt} />
       </span>
     </Typography>
   )
@@ -147,7 +149,7 @@ const ResultBlock = ({
       <FailureReason publicStatus={publicStatus} snapshot={snapshot} />
       {isCheckInFlight(publicStatus) && isQueued && (
         <Typography variant="paragraph-small" className={META_TEXT_CLASS}>
-          You can sign now and come back to execute once the check is done.
+          {translateMessage('ui.youCanSignNowAndCome_e114def7')}
         </Typography>
       )}
     </div>
@@ -166,7 +168,8 @@ const FlaggedRuleBlocks = ({ summary }: { summary: RejectionSummary }): ReactEle
             <BodyText>{rule.label}</BodyText>
             <BodyText>{rule.description}</BodyText>
             <Typography variant="paragraph-small" className={META_SOFT_TEXT_CLASS}>
-              Flagged by {rule.citedBy} {rule.citedBy === 1 ? 'sentinel' : 'sentinels'}
+              {translateMessage('ui.flaggedBy_9a5eaa61')}
+              {rule.citedBy} {rule.citedBy === 1 ? 'sentinel' : 'sentinels'}
             </Typography>
           </div>
         ))}
@@ -200,7 +203,11 @@ export const SafenetDetailsCardView = ({
         <AccordionItem value="safenet" className="border-0">
           <AccordionTrigger className={cn(accordionCss.trigger, 'items-center px-4')}>
             <div className="flex w-full flex-row items-center justify-between gap-2">
-              <SafenetLogo role="img" aria-label="Safenet check" className="h-3 w-auto text-foreground" />
+              <SafenetLogo
+                role="img"
+                aria-label={translateMessage('ui.safenetCheck_00a41bc6')}
+                className="h-3 w-auto text-foreground"
+              />
               <Chip variant={CHIP_VARIANT[publicStatus]}>
                 {isInFlight ? (
                   <SafenetPulse size={12} />

@@ -1,5 +1,7 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { formatDistanceToNow } from 'date-fns'
+import { getDateLocale } from '@/i18n/date'
 import { useChainsGetIndexingStatusV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import useChainId from '@/hooks/useChainId'
 import { STATUS_PAGE_URL } from '@/config/constants'
@@ -14,8 +16,8 @@ type Status = 'synced' | 'slow' | 'outOfSync'
 
 const STATUS_LABEL: Record<Status, string> = {
   synced: 'Synced',
-  slow: 'Network delays',
-  outOfSync: 'Out of sync',
+  slow: translateMessage('ui.networkDelays_78171c7d'),
+  outOfSync: translateMessage('ui.outOfSync_e2feef76'),
 }
 
 const getStatus = (synced: boolean, lastSync: number): Status => {
@@ -36,10 +38,10 @@ export const SidebarIndexingStatus = ({ isSafeSidebar = true }: { isSafeSidebar?
   }
 
   const status = getStatus(data.synced, data.lastSync)
-  const time = formatDistanceToNow(data.lastSync, { addSuffix: true })
+  const time = formatDistanceToNow(data.lastSync, { addSuffix: true, locale: getDateLocale() })
   const tooltipText = isSafeSidebar
-    ? `Last synced with the blockchain ${time}`
-    : 'Blockchain sync status across networks'
+    ? translateMessage('ui.lastSyncedWithTheBlockchain_f5f369fe', { p0: time })
+    : translateMessage('ui.blockchainSyncStatusAcrossNetworks_24307a1c')
 
   return (
     <Tooltip>
@@ -52,7 +54,7 @@ export const SidebarIndexingStatus = ({ isSafeSidebar = true }: { isSafeSidebar?
             className={css.indexingStatusButton}
             data-testid="index-status"
             data-status={status}
-            aria-label={`Indexing status: ${STATUS_LABEL[status]}`}
+            aria-label={translateMessage('ui.indexingStatus_3ab657c9', { p0: STATUS_LABEL[status] })}
           />
         }
       >

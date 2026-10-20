@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import ModalDialog from '@/components/common/ModalDialog'
@@ -62,7 +63,7 @@ const AddTrustedSafeDialog = ({
       maxWidth="sm"
       fullWidth
       data-testid="add-trusted-safe-dialog"
-      dialogTitle="Add to my accounts"
+      dialogTitle={translateMessage('ui.addToMyAccounts_35ee2ac1')}
       hideChainIndicator
     >
       <FormProvider {...methods}>
@@ -72,7 +73,7 @@ const AddTrustedSafeDialog = ({
 
             <div className="mb-4">
               <Typography variant="paragraph-small" color="muted" className="mb-2 block">
-                Safe to add
+                {translateMessage('ui.toAdd_71f9347a')}
               </Typography>
               <div
                 className={cn(
@@ -86,8 +87,7 @@ const AddTrustedSafeDialog = ({
 
             {!hasSimilarAddress && (
               <Typography variant="paragraph-small" color="muted" className="mb-4 block">
-                Review the full address above. Continue only if you recognize this Safe and want to add it to your
-                accounts.
+                {translateMessage('ui.reviewTheFullAddressAboveContinue_31d6e534')}
               </Typography>
             )}
 
@@ -95,8 +95,8 @@ const AddTrustedSafeDialog = ({
               <NameInput
                 data-testid="safe-name-input"
                 name="name"
-                label="Safe name"
-                placeholder="Enter a name for this Safe"
+                label={translateMessage('ui.name_89425b40')}
+                placeholder={translateMessage('ui.enterANameForThis_f62892b7')}
                 autoFocus
               />
             </div>
@@ -104,11 +104,13 @@ const AddTrustedSafeDialog = ({
 
           <div className="flex justify-between gap-2 p-6 pt-0">
             <Button onClick={onCancel} variant="outline">
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
             <Button type="submit" data-testid="confirm-add-trusted-safe-button" disabled={!formState.isValid}>
               {hasSimilarAddress && <TriangleAlertIcon className="size-4" />}
-              {hasSimilarAddress ? 'I understand, add anyway' : 'Confirm'}
+              {hasSimilarAddress
+                ? translateMessage('ui.iUnderstandAddAnyway_7d8b2a48')
+                : translateMessage('ui.confirm_6ed20c1c')}
             </Button>
           </div>
         </form>

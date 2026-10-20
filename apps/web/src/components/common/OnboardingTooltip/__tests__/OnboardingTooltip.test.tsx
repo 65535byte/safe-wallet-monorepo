@@ -14,7 +14,7 @@ describe('<OnboardingWidget>', () => {
     )
 
     expect(result.getByText(new RegExp(text))).toBeInTheDocument()
-    act(() => result.getByText(/Got it/).click())
+    act(() => result.getByText(/知道了/).click())
 
     expect(result.queryByText(new RegExp(text))).not.toBeInTheDocument()
     expect(result.getByText(/Testbutton/)).toBeInTheDocument()
@@ -39,12 +39,12 @@ describe('<OnboardingWidget>', () => {
     expect(result.getByText(new RegExp(text1))).toBeInTheDocument()
     expect(result.getByText(new RegExp(text2))).toBeInTheDocument()
 
-    act(() => result.getAllByText(/Got it/)[0].click())
+    act(() => result.getAllByText(/知道了/)[0].click())
 
     expect(result.queryByText(new RegExp(text1))).not.toBeInTheDocument()
     expect(result.getByText(new RegExp(text2))).toBeInTheDocument()
 
-    act(() => result.getByText(/Got it/).click())
+    act(() => result.getByText(/知道了/).click())
     expect(result.queryByText(new RegExp(text1))).not.toBeInTheDocument()
     expect(result.queryByText(new RegExp(text2))).not.toBeInTheDocument()
 

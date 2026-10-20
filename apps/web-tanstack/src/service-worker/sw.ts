@@ -30,7 +30,7 @@ declare const self: ServiceWorkerGlobalScope & {
 declare const __APP_VERSION__: string
 
 const OFFLINE_URL = 'offline.html'
-const SAFE_LOGO_ICON = '/images/safe-logo-green.png'
+const SAFE_LOGO_ICON = '/images/brand-logo.png'
 
 // self.__WB_MANIFEST is the injection point vite-plugin-pwa requires.
 precacheAndRoute(self.__WB_MANIFEST)

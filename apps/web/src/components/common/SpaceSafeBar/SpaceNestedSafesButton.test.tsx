@@ -237,8 +237,8 @@ describe('SpaceNestedSafesButton', () => {
     it('shows the explanatory tooltip text when a tx flow is open', () => {
       renderWithTxFlow(<div data-testid="active-tx-flow" />)
 
-      expect(screen.getByText('Nested Safes are not allowed in this screen')).toBeInTheDocument()
-      expect(screen.queryByText('Nested Safes')).not.toBeInTheDocument()
+      expect(screen.getByText('此页面不允许使用嵌套 8379')).toBeInTheDocument()
+      expect(screen.queryByText('嵌套 8379')).not.toBeInTheDocument()
     })
 
     it('does not open the popover or call startFiltering when clicked while disabled', () => {
@@ -257,8 +257,8 @@ describe('SpaceNestedSafesButton', () => {
       expect(button).not.toBeDisabled()
       expect(button.className).not.toMatch(/cursor-not-allowed/)
       expect(button.className).not.toMatch(/opacity-50/)
-      expect(screen.getByText('Nested Safes')).toBeInTheDocument()
-      expect(screen.queryByText('Nested Safes are not allowed in this screen')).not.toBeInTheDocument()
+      expect(screen.getByText('嵌套 8379')).toBeInTheDocument()
+      expect(screen.queryByText('此页面不允许使用嵌套 8379')).not.toBeInTheDocument()
     })
   })
 
@@ -274,7 +274,7 @@ describe('SpaceNestedSafesButton', () => {
 
       const button = screen.getByTestId('nested-safes-button')
       expect(button).toBeDisabled()
-      expect(screen.getByText('Nested Safes are not allowed in this screen')).toBeInTheDocument()
+      expect(screen.getByText('此页面不允许使用嵌套 8379')).toBeInTheDocument()
     })
 
     it('does not disable the button on /apps/open without an appUrl', () => {
@@ -286,7 +286,7 @@ describe('SpaceNestedSafesButton', () => {
 
       const button = screen.getByTestId('nested-safes-button')
       expect(button).not.toBeDisabled()
-      expect(screen.getByText('Nested Safes')).toBeInTheDocument()
+      expect(screen.getByText('嵌套 8379')).toBeInTheDocument()
     })
 
     it('does not disable the button on /apps/custom', () => {
@@ -299,7 +299,7 @@ describe('SpaceNestedSafesButton', () => {
 
       const button = screen.getByTestId('nested-safes-button')
       expect(button).not.toBeDisabled()
-      expect(screen.getByText('Nested Safes')).toBeInTheDocument()
+      expect(screen.getByText('嵌套 8379')).toBeInTheDocument()
     })
   })
 })

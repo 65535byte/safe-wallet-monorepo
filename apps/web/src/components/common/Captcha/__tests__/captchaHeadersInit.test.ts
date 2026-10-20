@@ -372,7 +372,7 @@ describe('captchaHeadersInit', () => {
       initializeCaptchaHeaders()
 
       const hook = mockSetHandleResponseHook.mock.calls[0][0]
-      await hook(makeResponse(401, { message: 'Invalid CAPTCHA token' }), PROTECTED_URL)
+      await hook(makeResponse(401, { message: '人机验证令牌无效' }), PROTECTED_URL)
 
       expect(sharedTokenRef.current).toBeNull()
       // Lazy rotation: don't refresh the widget on 401 — the retry or next
@@ -387,7 +387,7 @@ describe('captchaHeadersInit', () => {
       initializeCaptchaHeaders()
 
       const hook = mockSetHandleResponseHook.mock.calls[0][0]
-      await hook(makeResponse(401, { message: 'Invalid CAPTCHA token' }), NON_PROTECTED_URL)
+      await hook(makeResponse(401, { message: '人机验证令牌无效' }), NON_PROTECTED_URL)
 
       expect(sharedTokenRef.current).toBe('old-token')
       expect(mockRefresh).not.toHaveBeenCalled()
@@ -400,7 +400,7 @@ describe('captchaHeadersInit', () => {
       initializeCaptchaHeaders()
 
       const hook = mockSetHandleResponseHook.mock.calls[0][0]
-      await hook(makeResponse(200, { message: 'Invalid CAPTCHA token' }), PROTECTED_URL)
+      await hook(makeResponse(200, { message: '人机验证令牌无效' }), PROTECTED_URL)
 
       expect(sharedTokenRef.current).toBe('token')
       expect(mockRefresh).not.toHaveBeenCalled()

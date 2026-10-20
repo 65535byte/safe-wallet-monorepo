@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { TxFlow } from '../../TxFlow'
 import { TxFlowContext } from '../../TxFlowProvider'
@@ -18,7 +19,7 @@ const RemoveGuardFlow = ({ address }: RemoveGuardFlowProps) => {
   return (
     <TxFlow
       initialData={{ address }}
-      subtitle="Remove guard"
+      subtitle={translateMessage('ui.removeGuard_1c2b4f21')}
       eventCategory={TxFlowType.REMOVE_GUARD}
       ReviewTransactionComponent={ReviewRemoveGuardStep}
     />

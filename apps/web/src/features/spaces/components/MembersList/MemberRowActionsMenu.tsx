@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { type MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { EllipsisVertical } from 'lucide-react'
@@ -39,7 +40,7 @@ const MemberRowActionsMenu = ({ member, disabled, editDisabled, isInvite, canRen
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
-            <Button variant="ghost" size="icon-sm" aria-label="Member actions">
+            <Button variant="ghost" size="icon-sm" aria-label={translateMessage('ui.memberActions_04c790de')}>
               <EllipsisVertical className="text-muted-foreground size-4" />
             </Button>
           }
@@ -47,7 +48,7 @@ const MemberRowActionsMenu = ({ member, disabled, editDisabled, isInvite, canRen
         <DropdownMenuContent align="end">
           {!isInvite && (
             <DropdownMenuItem disabled={editDisabled} onClick={() => setEditOpen(true)}>
-              Edit member
+              {translateMessage('ui.editMember_f2c4fa4b')}
             </DropdownMenuItem>
           )}
           {canRenew && (
@@ -57,7 +58,7 @@ const MemberRowActionsMenu = ({ member, disabled, editDisabled, isInvite, canRen
               mixpanelParams={{ [MixpanelEventParams.MEMBER_ROLE]: member.role }}
             >
               <DropdownMenuItem disabled={isLoading} onClick={() => renewInvite()}>
-                Renew invitation
+                {translateMessage('ui.renewInvitation_8c0c0f9f')}
               </DropdownMenuItem>
             </Track>
           )}
@@ -66,7 +67,9 @@ const MemberRowActionsMenu = ({ member, disabled, editDisabled, isInvite, canRen
             label={isInvite ? SPACE_LABELS.invite_list : SPACE_LABELS.member_list}
           >
             <DropdownMenuItem variant="destructive" disabled={disabled} onClick={() => setRemoveOpen(true)}>
-              {isInvite ? 'Remove invitation' : 'Remove member'}
+              {isInvite
+                ? translateMessage('ui.removeInvitation_5b3d492b')
+                : translateMessage('ui.removeMember_3f76a158')}
             </DropdownMenuItem>
           </Track>
         </DropdownMenuContent>

@@ -1,10 +1,11 @@
+import { translateMessage } from '@/i18n'
+import { useEffect } from 'react'
 import { ArrowRight } from 'lucide-react'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import PromoBanner from '@/components/common/PromoBanner/PromoBanner'
 import { useOpenSafenetStakingApp } from '@/hooks/useOpenSafenetStakingApp'
 import { OVERVIEW_EVENTS, trackEvent } from '@/services/analytics'
-import { useTrackOnce } from '@/services/analytics/useTrackOnce'
 import css from './styles.module.css'
 
 const LEARN_MORE_LINK =
@@ -13,7 +14,9 @@ const LEARN_MORE_LINK =
 const StakingPromoBanner = ({ onDismiss }: { onDismiss: () => void }) => {
   const { openSafenetStakingApp, isNavigating } = useOpenSafenetStakingApp()
 
-  useTrackOnce(OVERVIEW_EVENTS.SHOW_STAKING_BANNER)
+  useEffect(() => {
+    trackEvent(OVERVIEW_EVENTS.SHOW_STAKING_BANNER)
+  }, [])
 
   const onStake = () => {
     openSafenetStakingApp()
@@ -26,26 +29,26 @@ const StakingPromoBanner = ({ onDismiss }: { onDismiss: () => void }) => {
   return (
     <div className={css.stakingPromoBanner}>
       <PromoBanner
-        title="Stake SAFE tokens and earn up to ~15% APR"
+        title={translateMessage('ui.stakeSAFETokensAndEarnUp_5774156b')}
         description={
           <>
-            Earn by staking your SAFE tokens, currently rewarded up to 15%.{' '}
+            {translateMessage('ui.earnByStakingYourSAFETokens_9b453202')}{' '}
             <ExternalLink
               href={LEARN_MORE_LINK}
               noIcon
               onClick={onLearnMore}
               className="font-bold text-inherit [&>span]:underline"
             >
-              Learn more
+              {translateMessage('ui.learnMore_0c11daba')}
             </ExternalLink>
           </>
         }
-        ctaLabel="Stake now"
+        ctaLabel={translateMessage('ui.stakeNow_5cc7ed7b')}
         onCtaClick={onStake}
         ctaVariant="text"
         endIcon={isNavigating ? <Spinner className="size-4" /> : <ArrowRight className="size-4" />}
         imageSrc="/images/common/staking-promo/safe-coin.svg"
-        imageAlt="Safe token"
+        imageAlt={translateMessage('ui.safeToken_27c72d43')}
         trackingEvents={OVERVIEW_EVENTS.OPEN_STAKING_WIDGET}
         trackHideProps={OVERVIEW_EVENTS.HIDE_STAKING_BANNER}
         onDismiss={onDismiss}

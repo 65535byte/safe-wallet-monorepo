@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import { Alert } from '@safe-global/views/components/ui/alert'
 
@@ -16,7 +17,8 @@ export const ImitationTransactionWarning = (): ReactElement => {
     >
       <InfoOutlinedIcon className="size-4 text-[var(--color-error-main)]" />
       <span>
-        <b>This may be a malicious transaction.</b> Check and confirm the address before interacting with it.{' '}
+        <b>{translateMessage('ui.thisMayBeAMaliciousTransaction_be9bae94')}</b>{' '}
+        {translateMessage('ui.checkAndConfirmTheAddressBefore_52a33836')}{' '}
       </span>
     </Alert>
   )

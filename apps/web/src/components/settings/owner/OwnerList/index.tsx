@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { jsonToCSV } from 'react-papaparse'
 import { type SafeState } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
 // import EthHashInfo from '@/components/common/EthHashInfo'
@@ -64,7 +65,7 @@ export const OwnerList = () => {
                             </span>
                           }
                         />
-                        {isOk && <TooltipContent>Replace signer</TooltipContent>}
+                        {isOk && <TooltipContent>{translateMessage('ui.replaceSigner_058d0dc3')}</TooltipContent>}
                       </Tooltip>
                     </Track>
                   )}
@@ -91,7 +92,7 @@ export const OwnerList = () => {
                               </span>
                             }
                           />
-                          {isOk && <TooltipContent>Remove signer</TooltipContent>}
+                          {isOk && <TooltipContent>{translateMessage('ui.removeSigner_c915f5e6')}</TooltipContent>}
                         </Tooltip>
                       </Track>
                     )}
@@ -109,12 +110,9 @@ export const OwnerList = () => {
     <div className="flex flex-col gap-4">
       <div data-testid="signer-list">
         <Typography variant="paragraph-bold" className="mb-4">
-          Signers
+          {translateMessage('ui.signers_e1137966')}
         </Typography>
-        <Typography className="mb-4">
-          Signers have full control over the account, they can propose, sign and execute transactions, as well as reject
-          them.
-        </Typography>
+        <Typography className="mb-4">{translateMessage('ui.signersHaveFullControlOverThe_cb6c97c2')}</Typography>
 
         <div className="flex flex-wrap justify-between gap-3 py-4">
           <CheckWallet>
@@ -127,7 +125,7 @@ export const OwnerList = () => {
                   disabled={!isOk}
                 >
                   <EditOwnerIcon className="size-4" />
-                  Manage signers
+                  {translateMessage('ui.manageSigners_984a7e8e')}
                 </Button>
               </Track>
             )}
@@ -135,7 +133,7 @@ export const OwnerList = () => {
 
           <Button variant="outline" onClick={() => exportOwners(safe, addressBook)}>
             <ExportIcon className="size-4" />
-            Export as CSV
+            {translateMessage('ui.exportAsCSV_c560a3f7')}
           </Button>
         </div>
 

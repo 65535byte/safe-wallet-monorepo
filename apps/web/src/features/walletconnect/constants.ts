@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { BRAND_NAME } from '@/config/constants'
 
 export const SAFE_COMPATIBLE_METHODS = [
@@ -35,8 +36,8 @@ export const SAFE_COMPATIBLE_EVENTS = ['chainChanged', 'accountsChanged']
 export const SAFE_WALLET_METADATA = {
   name: BRAND_NAME,
   url: 'https://app.safe.global',
-  description: 'Smart contract wallet for Ethereum',
-  icons: ['https://app.safe.global/images/logo-round.svg'],
+  description: translateMessage('ui.smartContractWalletForEthereum_29a731d9'),
+  icons: [`${typeof window === 'undefined' ? '' : window.location.origin}/images/brand-logo.png`],
 }
 
 export const EIP155 = 'eip155' as const

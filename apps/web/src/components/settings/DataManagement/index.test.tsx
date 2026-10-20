@@ -17,9 +17,9 @@ describe('DataManagement', () => {
   it('renders each data management section inside a shadcn settings card', () => {
     render(<DataManagement />)
 
-    expect(screen.getByText('Data export').closest('[data-slot="card"]')).toBeInTheDocument()
-    expect(screen.getByText('Data import').closest('[data-slot="card"]')).toBeInTheDocument()
-    expect(screen.getByText('Pending transactions').closest('[data-slot="card"]')).toBeInTheDocument()
+    expect(screen.getByText('导出数据').closest('[data-slot="card"]')).toBeInTheDocument()
+    expect(screen.getByText('导入数据').closest('[data-slot="card"]')).toBeInTheDocument()
+    expect(screen.getByText('待处理交易').closest('[data-slot="card"]')).toBeInTheDocument()
     expect(screen.getByTestId('file-list-card')).toBeInTheDocument()
     expect(screen.getByTestId('import-file-upload')).toBeInTheDocument()
     expect(screen.getByTestId('clear-pending-txs')).toBeInTheDocument()

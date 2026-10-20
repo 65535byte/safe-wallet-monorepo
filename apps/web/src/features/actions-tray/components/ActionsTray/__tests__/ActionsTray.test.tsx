@@ -79,14 +79,14 @@ describe('ActionsTray geoblocking', () => {
     it('is enabled when the user is not geoblocked', () => {
       renderTray({ isBlockedCountry: false })
 
-      const sendButton = screen.getByRole('button', { name: /send/i })
+      const sendButton = screen.getByRole('button', { name: /发送/i })
       expect(sendButton).toBeEnabled()
     })
 
     it('is disabled and shows not-allowed cursor wrapper when the user is geoblocked', () => {
       const { container } = renderTray({ isBlockedCountry: true })
 
-      const sendButton = screen.getByRole('button', { name: /send/i })
+      const sendButton = screen.getByRole('button', { name: /发送/i })
       expect(sendButton).toBeDisabled()
 
       const wrapper = container.querySelector('span.cursor-not-allowed')
@@ -98,18 +98,18 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       renderTray({ isBlockedCountry: true })
 
-      const sendButton = screen.getByRole('button', { name: /send/i })
+      const sendButton = screen.getByRole('button', { name: /发送/i })
       // Hover the wrapping trigger span (the button itself has pointer-events: none while disabled)
       await user.hover(sendButton.parentElement as HTMLElement)
 
-      expect(await screen.findByText(/Send is not allowed for your country/)).toBeInTheDocument()
+      expect(await screen.findByText(/发送 is not allowed for your country/)).toBeInTheDocument()
     })
 
     it('is disabled and shows the no-assets tooltip when noAssets is true', async () => {
       const user = userEvent.setup()
       const { container } = renderTray({ isBlockedCountry: false, noAssets: true })
 
-      const sendButton = screen.getByRole('button', { name: /send/i })
+      const sendButton = screen.getByRole('button', { name: /发送/i })
       expect(sendButton).toBeDisabled()
 
       const wrapper = container.querySelector('span.cursor-not-allowed')
@@ -124,29 +124,29 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       renderTray({ isBlockedCountry: true, noAssets: true })
 
-      const sendButton = screen.getByRole('button', { name: /send/i })
+      const sendButton = screen.getByRole('button', { name: /发送/i })
       await user.hover(sendButton.parentElement as HTMLElement)
-      expect(await screen.findByText(/Send is not allowed for your country/)).toBeInTheDocument()
+      expect(await screen.findByText(/发送 is not allowed for your country/)).toBeInTheDocument()
     })
   })
 
   describe('Swap button', () => {
     it('is not rendered when the chain does not support NATIVE_SWAPS', () => {
       renderTray({ isBlockedCountry: false, hasNativeSwap: false })
-      expect(screen.queryByRole('button', { name: /swap/i })).toBeNull()
+      expect(screen.queryByRole('button', { name: /兑换/i })).toBeNull()
     })
 
     it('is enabled when the chain supports NATIVE_SWAPS and the user is not geoblocked', () => {
       renderTray({ isBlockedCountry: false })
 
-      const swapButton = screen.getByRole('button', { name: /swap/i })
+      const swapButton = screen.getByRole('button', { name: /兑换/i })
       expect(swapButton).toBeEnabled()
     })
 
     it('is disabled and shows not-allowed cursor wrapper when the user is geoblocked', () => {
       const { container } = renderTray({ isBlockedCountry: true })
 
-      const swapButton = screen.getByRole('button', { name: /swap/i })
+      const swapButton = screen.getByRole('button', { name: /兑换/i })
       expect(swapButton).toBeDisabled()
 
       const wrapperForSwap = Array.from(container.querySelectorAll('span.cursor-not-allowed')).find((el) =>
@@ -159,7 +159,7 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       renderTray({ isBlockedCountry: true })
 
-      const swapButton = screen.getByRole('button', { name: /swap/i })
+      const swapButton = screen.getByRole('button', { name: /兑换/i })
       await user.hover(swapButton.parentElement as HTMLElement)
 
       expect(await screen.findByText(/Swap is not allowed for your country/)).toBeInTheDocument()
@@ -169,7 +169,7 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       const { container } = renderTray({ isBlockedCountry: false, noAssets: true })
 
-      const swapButton = screen.getByRole('button', { name: /swap/i })
+      const swapButton = screen.getByRole('button', { name: /兑换/i })
       expect(swapButton).toBeDisabled()
 
       const wrapperForSwap = Array.from(container.querySelectorAll('span.cursor-not-allowed')).find((el) =>
@@ -185,7 +185,7 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       renderTray({ isBlockedCountry: true, noAssets: true })
 
-      const swapButton = screen.getByRole('button', { name: /swap/i })
+      const swapButton = screen.getByRole('button', { name: /兑换/i })
       await user.hover(swapButton.parentElement as HTMLElement)
       expect(await screen.findByText(/Swap is not allowed for your country/)).toBeInTheDocument()
     })
@@ -195,21 +195,21 @@ describe('ActionsTray geoblocking', () => {
     it('is enabled when the space has assets and the user is not geoblocked', () => {
       renderTray({ isBlockedCountry: false })
 
-      const receiveButton = screen.getByRole('button', { name: /receive/i })
+      const receiveButton = screen.getByRole('button', { name: /接收/i })
       expect(receiveButton).toBeEnabled()
     })
 
     it('is disabled when the space has no assets', () => {
       renderTray({ isBlockedCountry: false, noAssets: true })
 
-      const receiveButton = screen.getByRole('button', { name: /receive/i })
+      const receiveButton = screen.getByRole('button', { name: /接收/i })
       expect(receiveButton).toBeDisabled()
     })
 
     it('remains enabled when the user is geoblocked (Receive should stay available)', () => {
       renderTray({ isBlockedCountry: true })
 
-      const receiveButton = screen.getByRole('button', { name: /receive/i })
+      const receiveButton = screen.getByRole('button', { name: /接收/i })
       expect(receiveButton).toBeEnabled()
     })
   })
@@ -219,7 +219,7 @@ describe('ActionsTray geoblocking', () => {
       const user = userEvent.setup()
       renderTray({ isBlockedCountry: false, variant: 'safe' })
 
-      const buildTxControl = screen.getByRole('link', { name: /transaction builder/i })
+      const buildTxControl = screen.getByRole('link', { name: /交易构建器/i })
       expect(buildTxControl).toHaveAttribute('href')
 
       const tooltipTrigger = buildTxControl.parentElement
@@ -234,21 +234,21 @@ describe('ActionsTray geoblocking', () => {
     it('is enabled when the space has assets and the user is not geoblocked', () => {
       renderTray({ isBlockedCountry: false })
 
-      const buildTxButton = screen.getByRole('button', { name: /transaction builder/i })
+      const buildTxButton = screen.getByRole('button', { name: /交易构建器/i })
       expect(buildTxButton).toBeEnabled()
     })
 
     it('is disabled when the space has no assets', () => {
       renderTray({ isBlockedCountry: false, noAssets: true })
 
-      const buildTxButton = screen.getByRole('button', { name: /transaction builder/i })
+      const buildTxButton = screen.getByRole('button', { name: /交易构建器/i })
       expect(buildTxButton).toBeDisabled()
     })
 
     it('remains enabled when the user is geoblocked (Build transaction should stay available)', () => {
       renderTray({ isBlockedCountry: true })
 
-      const buildTxButton = screen.getByRole('button', { name: /transaction builder/i })
+      const buildTxButton = screen.getByRole('button', { name: /交易构建器/i })
       expect(buildTxButton).toBeEnabled()
     })
   })

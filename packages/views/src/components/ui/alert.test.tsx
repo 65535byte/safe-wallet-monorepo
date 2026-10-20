@@ -13,7 +13,7 @@ describe('Alert', () => {
 
     const alert = screen.getByRole('alert')
     expect(alert).toHaveTextContent('Item added successfully')
-    expect(alert).toHaveTextContent('This is an alert with icon, title and description.')
+    expect(alert).toHaveTextContent('This is an alert with icon, title 和 description.')
   })
 
   it('uses a medium (500) title and normal (400) description weight', () => {
@@ -153,7 +153,7 @@ describe('Alert', () => {
       </Alert>,
     )
 
-    expect(screen.getByRole('button', { name: 'Retry' }).parentElement).toHaveClass('text-foreground')
+    expect(screen.getByRole('button', { name: '重试' }).parentElement).toHaveClass('text-foreground')
   })
 })
 

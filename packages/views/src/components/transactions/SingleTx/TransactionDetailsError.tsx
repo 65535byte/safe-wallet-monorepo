@@ -1,9 +1,10 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import SafeLogoHalo from '@safe-global/views/components/common/SafeLogoHalo'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Empty, EmptyContent, EmptyDescription, EmptyMedia } from '@safe-global/views/components/ui/empty'
 
-export const TX_DETAILS_LOAD_ERROR = 'The website failed to load data. Please try again.'
+export const TX_DETAILS_LOAD_ERROR = translateMessage('ui.theWebsiteFailedToLoadData_9a9dff2f')
 
 const TransactionDetailsError = ({
   message = TX_DETAILS_LOAD_ERROR,
@@ -23,7 +24,7 @@ const TransactionDetailsError = ({
     {onReload && (
       <EmptyContent>
         <Button variant="outline" onClick={onReload}>
-          Reload
+          {translateMessage('ui.reload_00a35ede')}
         </Button>
       </EmptyContent>
     )}

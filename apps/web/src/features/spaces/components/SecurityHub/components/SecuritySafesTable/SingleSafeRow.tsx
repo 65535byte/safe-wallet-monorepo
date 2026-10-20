@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
@@ -132,9 +133,9 @@ const SingleSafeRow = ({
               tabIndex={0}
               className="inline-block text-right leading-tight whitespace-normal text-xs text-muted-foreground"
             >
-              Not deployed
+              {translateMessage('ui.notDeployed_2c79f1a3')}
             </TooltipTrigger>
-            <TooltipContent>Safe not yet deployed on this network</TooltipContent>
+            <TooltipContent>{translateMessage('ui.notYetDeployedOnThisNetwork_90dd6f11')}</TooltipContent>
           </Tooltip>
         )}
       </div>

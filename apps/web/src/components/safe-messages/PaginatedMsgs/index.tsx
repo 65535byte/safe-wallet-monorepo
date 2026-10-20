@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Link } from '@safe-global/views/components/ui/link'
 import { useEffect, useState } from 'react'
@@ -20,13 +21,13 @@ const NoMessages = (): ReactElement => {
       img={<NoMessagesIcon />}
       text={
         <Typography variant="paragraph" className="m-4 max-w-[600px] text-[var(--color-primary-light)]">
-          Some applications allow you to interact with them via off-chain contract signatures (&ldquo;messages&ldquo;)
-          that you can generate with your Safe account.
+          {translateMessage('ui.someApplicationsAllowYouToInteract_b850559e')}
         </Typography>
       }
     >
       <Link rel="noopener noreferrer" target="_blank" href={HelpCenterArticle.SIGNED_MESSAGES} className="font-bold">
-        Learn more about off-chain messages <LinkIcon className="ml-1 inline size-5 align-middle" />
+        {translateMessage('ui.learnMoreAboutOffChainMessages_7b01262a')}
+        <LinkIcon className="ml-1 inline size-5 align-middle" />
       </Link>
     </PagePlaceholder>
   )
@@ -45,7 +46,7 @@ const MsgPage = ({
     <>
       {page && page.results.length > 0 && <MsgList items={page.results} />}
       {page?.results.length === 0 && <NoMessages />}
-      {error && <ErrorMessage>Error loading messages</ErrorMessage>}
+      {error && <ErrorMessage>{translateMessage('ui.errorLoadingMessages_cc6d840b')}</ErrorMessage>}
       {loading && <SkeletonTxList />}
       {page?.next && onNextPage && (
         <div className="my-8 text-center">

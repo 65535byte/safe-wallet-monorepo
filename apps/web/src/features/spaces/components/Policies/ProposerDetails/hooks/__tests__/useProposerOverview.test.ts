@@ -41,8 +41,8 @@ describe('useProposerOverview', () => {
       },
       initiatedBy: { address: MOCK_ADDRESSES.alice, name: 'Alice' },
       chainId: MOCK_SAFES.treasury.chainId,
-      lastUpdated: 'Not available',
-      enforcedBy: 'Safe{Wallet}',
+      lastUpdated: '不可用',
+      enforcedBy: '8379',
     })
   })
 

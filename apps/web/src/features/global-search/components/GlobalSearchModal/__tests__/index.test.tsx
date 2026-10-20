@@ -34,29 +34,29 @@ describe('GlobalSearchModal', () => {
   it('does not render content when closed', () => {
     render(<GlobalSearchModal />)
 
-    expect(screen.queryByRole('searchbox', { name: 'Search' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('searchbox', { name: '搜索' })).not.toBeInTheDocument()
   })
 
   it('renders the search input when open', () => {
     renderWithOpenSearch()
 
-    expect(screen.getByRole('searchbox', { name: 'Search' })).toBeInTheDocument()
+    expect(screen.getByRole('searchbox', { name: '搜索' })).toBeInTheDocument()
   })
 
   it('renders the navigate to section with page links', () => {
     renderWithOpenSearch()
 
-    expect(screen.getByText('Navigate to')).toBeInTheDocument()
-    expect(screen.getByText('Send')).toBeInTheDocument()
-    expect(screen.getByText('Swap')).toBeInTheDocument()
-    expect(screen.getByText('Transaction builder')).toBeInTheDocument()
+    expect(screen.getByText('前往')).toBeInTheDocument()
+    expect(screen.getByText('发送')).toBeInTheDocument()
+    expect(screen.getByText('兑换')).toBeInTheDocument()
+    expect(screen.getByText('交易构建器')).toBeInTheDocument()
   })
 
   it('allows typing in the search input', async () => {
     const user = userEvent.setup()
     renderWithOpenSearch()
 
-    const input = screen.getByRole('searchbox', { name: 'Search' })
+    const input = screen.getByRole('searchbox', { name: '搜索' })
     await user.type(input, 'test query')
 
     expect(input).toHaveValue('test query')
@@ -66,29 +66,29 @@ describe('GlobalSearchModal', () => {
     mockWallet(null)
     renderWithOpenSearch()
 
-    expect(screen.getByText('Send').closest('button')).toBeDisabled()
-    expect(screen.getByText('Swap').closest('button')).not.toBeDisabled()
-    expect(screen.getByText('Transaction builder').closest('button')).not.toBeDisabled()
+    expect(screen.getByText('发送').closest('button')).toBeDisabled()
+    expect(screen.getByText('兑换').closest('button')).not.toBeDisabled()
+    expect(screen.getByText('交易构建器').closest('button')).not.toBeDisabled()
   })
 
   it('enables Send button when wallet is connected', () => {
     mockWallet()
     renderWithOpenSearch()
 
-    expect(screen.getByText('Send').closest('button')).not.toBeDisabled()
+    expect(screen.getByText('发送').closest('button')).not.toBeDisabled()
   })
 
   it('disables Swap button when swap feature is not enabled on the current chain', () => {
     mockUseIsSwapFeatureEnabled.mockReturnValue(false)
     renderWithOpenSearch()
 
-    expect(screen.getByText('Swap').closest('button')).toBeDisabled()
+    expect(screen.getByText('兑换').closest('button')).toBeDisabled()
   })
 
   it('enables Swap button when swap feature is enabled on the current chain', () => {
     mockUseIsSwapFeatureEnabled.mockReturnValue(true)
     renderWithOpenSearch()
 
-    expect(screen.getByText('Swap').closest('button')).not.toBeDisabled()
+    expect(screen.getByText('兑换').closest('button')).not.toBeDisabled()
   })
 })

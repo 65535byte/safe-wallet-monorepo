@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { _formatNumber } from '@/components/common/NumberField'
 import { validateAmount, validateDecimalLength } from '@safe-global/utils/utils/validation'
 import { useController, useFormContext } from 'react-hook-form'
@@ -39,7 +40,8 @@ export const ApprovalValueField = ({ name, tx, readOnly }: { name: string; tx: A
     },
   })
 
-  const helperText = fieldState.error?.message ?? (fieldState.isDirty ? 'Save to apply changes' : '')
+  const helperText =
+    fieldState.error?.message ?? (fieldState.isDirty ? translateMessage('ui.saveToApplyChanges_bd0639df') : '')
   const hasError = !!fieldState.error
 
   const symbol = tx.tokenInfo?.symbol ?? ''
@@ -74,7 +76,7 @@ export const ApprovalValueField = ({ name, tx, readOnly }: { name: string; tx: A
                 <TooltipTrigger render={<span className="inline-flex" />}>
                   <InfoIcon className="size-4 text-[var(--color-border-main)]" />
                 </TooltipTrigger>
-                <TooltipContent>Enter a decimal amount (e.g. 1.5), not a raw wei value.</TooltipContent>
+                <TooltipContent>{translateMessage('ui.enterADecimalAmountEG_6b3aa955')}</TooltipContent>
               </Tooltip>
             </span>
           ) : (

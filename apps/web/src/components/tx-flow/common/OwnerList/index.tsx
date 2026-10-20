@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 
@@ -6,7 +7,6 @@ import EthHashInfo from '@/components/common/EthHashInfo'
 import { cn } from '@safe-global/views/utils/cn'
 
 import css from './styles.module.css'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 export function OwnerList({
   title,
@@ -28,7 +28,7 @@ export function OwnerList({
     <div className={cn(css.container, className)}>
       <p className="flex items-center text-[length:inherit] text-muted-foreground">
         <Icon className="mr-2 size-4" />
-        {title ?? `Add owner${maybePlural(owners)}`}
+        {title ?? translateMessage('ui.addOwner_8b434f8d', { count: owners.length })}
       </p>
       {owners.map((newOwner) => (
         <EthHashInfo

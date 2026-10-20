@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWallet from '@/hooks/wallets/useWallet'
 import type { ReactElement, SyntheticEvent } from 'react'
 import { useContext, useMemo, useState } from 'react'
@@ -127,9 +128,7 @@ const ReviewSpendingLimitTx = ({
     <form onSubmit={handleSubmit}>
       <TxCard>
         <Typography variant="paragraph-small">
-          Spending limit transactions only appear in the interface once they are successfully processed and indexed.
-          Pending transactions can only be viewed in your signer wallet application or under your wallet address on a
-          Blockchain Explorer.
+          {translateMessage('ui.spendingLimitTransactionsOnlyAppearIn_1b3049e2')}
         </Typography>
 
         {token && <SendAmountBlock amountInWei={amountInWei} tokenInfo={token.tokenInfo} />}
@@ -145,14 +144,14 @@ const ReviewSpendingLimitTx = ({
         {isRejectedByUser && <WalletRejectionError />}
 
         <Typography variant="paragraph-small" align="center" className="text-muted-foreground">
-          You&apos;re about to create a transaction and will need to confirm it with your currently connected wallet.
+          {translateMessage('ui.youReAboutToCreateA_f32026b4')}
         </Typography>
 
         <TxCardActions>
           <CheckWallet allowNonOwner checkNetwork={!submitDisabled}>
             {(isOk) => (
               <Button type="submit" disabled={!isOk || submitDisabled}>
-                Execute
+                {translateMessage('ui.execute_eea2eb83')}
               </Button>
             )}
           </CheckWallet>

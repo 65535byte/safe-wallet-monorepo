@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { ATTENTION_PANEL_EVENTS } from '@/services/analytics/events/attention-panel'
@@ -44,15 +45,15 @@ export function RecoveryInProgressCard({ orientation = 'vertical', onClose, reco
 
   const icon = <RecoveryPending />
   const title = isExecutable
-    ? 'Account can be recovered. '
+    ? translateMessage('ui.accountCanBeRecovered_9e4fa245')
     : isExpired
-      ? 'Account recovery expired. '
-      : 'Account recovery in progress. '
+      ? translateMessage('ui.accountRecoveryExpired_9dc62e40')
+      : translateMessage('ui.accountRecoveryInProgress_6184aaf2')
   const desc = isExecutable
-    ? 'The review window has passed and it is now possible to execute the recovery proposal.'
+    ? translateMessage('ui.theReviewWindowHasPassedAnd_82dcfa51')
     : isExpired
-      ? 'The pending recovery proposal has expired and needs to be cancelled before a new one can be created.'
-      : 'The recovery process has started. This Account will be ready to recover in:'
+      ? translateMessage('ui.thePendingRecoveryProposalHasExpired_bb81663b')
+      : translateMessage('ui.theRecoveryProcessHasStartedThis_8ce97cd1')
 
   if (orientation === 'horizontal') {
     return (
@@ -75,7 +76,7 @@ export function RecoveryInProgressCard({ orientation = 'vertical', onClose, reco
           trackingEvent: RECOVERY_EVENTS.LEARN_MORE,
           label: 'in-progress-card',
         }}
-        action={{ label: 'Go to queue', onClick }}
+        action={{ label: translateMessage('ui.goToQueue_08d730af'), onClick }}
         trackingEvent={ATTENTION_PANEL_EVENTS.CHECK_RECOVERY_PROPOSAL}
         testId="recovery-in-progress-card"
       />
@@ -90,7 +91,7 @@ export function RecoveryInProgressCard({ orientation = 'vertical', onClose, reco
 
         <Track {...RECOVERY_EVENTS.LEARN_MORE} label="in-progress-card">
           <ExternalLink href={HelpCenterArticle.RECOVERY} title={HelperCenterArticleTitles.RECOVERY}>
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </ExternalLink>
         </Track>
       </div>
@@ -109,7 +110,7 @@ export function RecoveryInProgressCard({ orientation = 'vertical', onClose, reco
 
       <Track {...RECOVERY_EVENTS.CHECK_RECOVERY_PROPOSAL}>
         <Button data-testid="queue-btn" variant="default" onClick={onClick} className="self-end">
-          Go to queue
+          {translateMessage('ui.goToQueue_08d730af')}
         </Button>
       </Track>
     </Card>

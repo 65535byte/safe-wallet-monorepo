@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { TERMS_URL } from '@safe-global/utils/config/constants'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -9,27 +10,27 @@ const linkClassName = 'no-underline hover:no-underline'
 const WidgetDisclaimer = ({ widgetName }: { widgetName: string }) => (
   <div className={css.disclaimerContainer}>
     <div className={css.disclaimerInner}>
-      <Typography className="mb-8 mt-8">You are now accessing a third party widget.</Typography>
+      <Typography className="mb-8 mt-8">{translateMessage('ui.youAreNowAccessingAThird_b2435ec6')}</Typography>
 
       <Typography className="mb-8">
-        Please note that we do not own, control, maintain or audit the {widgetName}. Use of the widget is subject to
-        third party terms & conditions. We are not liable for any loss you may suffer in connection with interacting
-        with the widget, which is at your own risk.
+        {translateMessage('ui.pleaseNoteThatWeDoNot_b995cadc')}
+        {widgetName}
+        {translateMessage('ui.useOfTheWidgetIsSubject_4e554638')}
       </Typography>
 
       <Typography className="mb-8">
-        Our{' '}
+        {translateMessage('ui.our_075d7cb2')}{' '}
         <ExternalLink href={TERMS_URL} className={linkClassName}>
-          terms
+          {translateMessage('ui.terms_0af7f334')}
         </ExternalLink>{' '}
-        contain more detailed provisions binding on you relating to such third party content.
+        {translateMessage('ui.containMoreDetailedProvisionsBindingOn_6e91b9ac')}
       </Typography>
       <Typography>
-        By clicking &quot;continue&quot; you re-confirm to have read and understood our{' '}
+        {translateMessage('ui.byClickingContinueYouReConfirm_ff3f011f')}{' '}
         <ExternalLink href={TERMS_URL} className={linkClassName}>
-          terms
+          {translateMessage('ui.terms_0af7f334')}
         </ExternalLink>{' '}
-        and this message, and agree to them.
+        {translateMessage('ui.andThisMessageAndAgreeTo_ac41e82e')}
       </Typography>
     </div>
   </div>

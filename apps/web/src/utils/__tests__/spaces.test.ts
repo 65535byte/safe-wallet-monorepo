@@ -43,11 +43,11 @@ describe('countSeats', () => {
 describe('hasSpacePlan', () => {
   const entitlements = (plan: EntitlementsResponse['plan']): EntitlementsResponse => ({ plan, entitlements: [] })
 
-  it('counts every Workspace as having a plan while Safe Pro is off', () => {
+  it('counts every Workspace as having a plan while 8379 is off', () => {
     expect(hasSpacePlan(false, undefined)).toBe(true)
   })
 
-  it('reads the plan of the Workspace under Safe Pro', () => {
+  it('reads the plan of the Workspace under 8379', () => {
     expect(
       hasSpacePlan(true, entitlements({ id: 'starter', name: 'Starter', cycleEndsAt: null, status: 'active' })),
     ).toBe(true)
@@ -87,7 +87,7 @@ describe('pickSafeWorkspace', () => {
       { kind: 'choose', spaceIds: [A, B] },
     ],
     [
-      'a Safe in two Workspaces with a plan and one without',
+      'a Safe in two Workspaces with a plan 和 one without',
       [A, B, C],
       { [A]: true, [B]: true, [C]: false },
       { kind: 'choose', spaceIds: [A, B, C] },

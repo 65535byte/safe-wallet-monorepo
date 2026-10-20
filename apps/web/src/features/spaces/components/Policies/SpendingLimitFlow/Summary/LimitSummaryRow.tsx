@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { CalendarClock } from 'lucide-react'
 import { safeFormatUnits, safeParseUnits } from '@safe-global/utils/utils/formatters'
@@ -34,7 +35,12 @@ export const describeSpendReset = (limit: LimitSummary): string | undefined => {
   if (limit.change !== 'changed' || !limit.spent) return undefined
 
   const spent = safeFormatUnits(limit.spent, limit.token.decimals)
-  return `The ${spent} ${limit.token.symbol} already spent this period is reset: the full ${limit.amount} ${limit.token.symbol} becomes available as soon as this executes.`
+  return translateMessage('ui.theAlreadySpentThisPeriodIs_0ea16b91', {
+    p0: spent,
+    p1: limit.token.symbol,
+    p2: limit.amount,
+    p3: limit.token.symbol,
+  })
 }
 
 type LimitSummaryRowProps = {

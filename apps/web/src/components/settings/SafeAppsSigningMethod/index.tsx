@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { SETTINGS_EVENTS, trackEvent } from '@/services/analytics'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -20,12 +21,12 @@ export const SafeAppsSigningMethod = () => {
   }
 
   return (
-    <SettingsCard title="Signing method" titleClassName="mb-2" className="mt-4">
+    <SettingsCard title={translateMessage('ui.signingMethod_41a10d72')} titleClassName="mb-2" className="mt-4">
       <Typography className="mb-4">
-        This setting determines how the {BRAND_NAME} will sign message requests from Safe Apps. Gasless, off-chain
-        signing is used by default. Learn more about message signing{' '}
+        {translateMessage('ui.thisSettingDeterminesHowThe_72f0cc84')}
+        {BRAND_NAME} {translateMessage('ui.willSignMessageRequestsFromSafe_d49f6d54')}{' '}
         <ExternalLink className="font-bold hover:text-muted-foreground" href={HelpCenterArticle.SIGNED_MESSAGES}>
-          here
+          {translateMessage('ui.here_134b2f0e')}
         </ExternalLink>
         .
       </Typography>
@@ -36,7 +37,9 @@ export const SafeAppsSigningMethod = () => {
           checked={onChainSigning}
           onCheckedChange={onChange}
         />
-        <FieldLabel htmlFor="use-on-chain-signing">Always use on-chain signatures</FieldLabel>
+        <FieldLabel htmlFor="use-on-chain-signing">
+          {translateMessage('ui.alwaysUseOnChainSignatures_13c873e5')}
+        </FieldLabel>
       </Field>
     </SettingsCard>
   )

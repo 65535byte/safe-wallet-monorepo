@@ -8,7 +8,7 @@ const renderTrigger = (props: Omit<TriggerProps, 'children'> = {}) => {
   const { container } = render(
     <Select>
       <SelectTrigger {...props}>
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder="主题" />
       </SelectTrigger>
     </Select>,
   )

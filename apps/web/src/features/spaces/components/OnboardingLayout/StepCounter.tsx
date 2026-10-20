@@ -1,6 +1,7 @@
+import { translateMessage } from '@/i18n'
+import { useEffect, useRef } from 'react'
 import { cn } from '@safe-global/views/utils/cn'
-import { MixpanelEventParams, WorkspaceCreateStep } from '@/services/analytics'
-import { useTrackOnce } from '@/services/analytics/useTrackOnce'
+import { MixpanelEventParams, WorkspaceCreateStep, trackEvent } from '@/services/analytics'
 import { SAFE_PRO_EVENTS } from '@/services/analytics/events/safe-pro'
 
 const STEP_NAMES: Record<number, WorkspaceCreateStep> = {
@@ -17,18 +18,24 @@ interface StepCounterProps {
 }
 
 const StepCounter = ({ currentStep, totalSteps, className }: StepCounterProps) => {
-  useTrackOnce(SAFE_PRO_EVENTS.WORKSPACE_CREATE_STEP_VIEWED, {
-    [MixpanelEventParams.STEP_NUMBER]: currentStep,
-    [MixpanelEventParams.STEP_NAME]: STEP_NAMES[currentStep],
-  })
+  const hasTrackedView = useRef(false)
+  useEffect(() => {
+    if (hasTrackedView.current) return
+    hasTrackedView.current = true
+    trackEvent(SAFE_PRO_EVENTS.WORKSPACE_CREATE_STEP_VIEWED, {
+      [MixpanelEventParams.STEP_NUMBER]: currentStep,
+      [MixpanelEventParams.STEP_NAME]: STEP_NAMES[currentStep],
+    })
+  }, [currentStep])
 
   return (
     <div
       role="group"
-      aria-label={`Step ${currentStep} of ${totalSteps}`}
+      aria-label={translateMessage('ui.stepOf_07e7ec18', { p0: currentStep, p1: totalSteps })}
       className={cn('text-xs font-medium uppercase tracking-wider text-muted-foreground', className)}
     >
-      STEP {currentStep} / {totalSteps}
+      {translateMessage('ui.sTEP_16a6b78f')}
+      {currentStep} / {totalSteps}
     </div>
   )
 }

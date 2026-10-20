@@ -290,7 +290,6 @@ exports[`./TransactionQueueBar.stories Collapsed 1`] = `
                                         id="base-ui-_r_9_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -474,7 +473,6 @@ exports[`./TransactionQueueBar.stories Collapsed 1`] = `
                                         id="base-ui-_r_e_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -658,7 +656,6 @@ exports[`./TransactionQueueBar.stories Collapsed 1`] = `
                                         id="base-ui-_r_j_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -1021,7 +1018,6 @@ exports[`./TransactionQueueBar.stories Expanded 1`] = `
                                         id="base-ui-_r_t_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -1205,7 +1201,6 @@ exports[`./TransactionQueueBar.stories Expanded 1`] = `
                                         id="base-ui-_r_12_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -1389,7 +1384,6 @@ exports[`./TransactionQueueBar.stories Expanded 1`] = `
                                         id="base-ui-_r_17_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -1756,7 +1750,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_1h_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -1940,7 +1933,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_1m_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -2124,7 +2116,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_1r_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -2308,7 +2299,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_20_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -2492,7 +2482,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_25_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -2676,7 +2665,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_2a_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -2860,7 +2848,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_2f_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3044,7 +3031,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_2k_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3228,7 +3214,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_2p_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3412,7 +3397,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_2u_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3596,7 +3580,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_33_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3780,7 +3763,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_38_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -3964,7 +3946,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_3d_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -4148,7 +4129,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_3i_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -4332,7 +4312,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_3n_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -4516,7 +4495,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_3s_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -4700,7 +4678,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_41_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -4884,7 +4861,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_46_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5068,7 +5044,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_4b_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5252,7 +5227,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_4g_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5436,7 +5410,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_4l_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5620,7 +5593,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_4q_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5804,7 +5776,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_4v_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -5988,7 +5959,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_54_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -6172,7 +6142,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_59_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -6356,7 +6325,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_5e_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -6540,7 +6508,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_5j_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -6724,7 +6691,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_5o_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -6908,7 +6874,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_5t_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button
@@ -7092,7 +7057,6 @@ exports[`./TransactionQueueBar.stories LongQueue 1`] = `
                                         id="base-ui-_r_62_"
                                       >
                                         <span
-                                          class="contents"
                                           data-track="tx-list: Confirm transaction"
                                         >
                                           <button

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
 import useConnectWallet from '@/components/common/ConnectWallet/useConnectWallet'
@@ -9,7 +10,7 @@ import type { ActiveDrawerPolicy } from '../../SpendingLimitDrawer'
 import { formatLastUpdated } from '@safe-global/views/features/spaces/components/Policies/SpendingLimitDrawer/format'
 import type { PendingSpendingLimitPolicy } from '@safe-global/views/features/spaces/components/Policies/types'
 
-const ENFORCED_BY = 'Safe allowance module'
+const ENFORCED_BY = translateMessage('ui.allowanceModule_f760829f')
 
 export type SpendingLimitDetailsContent = {
   viewer: { address?: string; isSigner: boolean }

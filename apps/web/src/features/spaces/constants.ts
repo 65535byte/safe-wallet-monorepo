@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 const safeAccountsLimitRaw = Number.parseInt(process.env.NEXT_PUBLIC_SPACES_SAFE_ACCOUNTS_LIMIT ?? '', 10)
 
 /**
@@ -17,13 +18,12 @@ export { SPACE_NAME_MAX_LENGTH } from '@safe-global/utils/validation/names'
 
 /** Friendly notice shown when a workspace is already at the Safe accounts cap. */
 export const safeAccountsLimitReachedText = (limit: number = SAFE_ACCOUNTS_LIMIT) =>
-  `You've reached the maximum of ${limit} Safe accounts per Workspace`
+  translateMessage('ui.youVeReachedTheMaximumOf_cc53c022', { p0: limit })
 
-export const TRIAL_DISCLAIMER =
-  "Your paid subscription only starts once you add a payment method. If you don't add it or choose another plan before your free access ends, your Workspace will be locked. Its data is kept for 90 days. Your Safe accounts remain available in My accounts."
+export const TRIAL_DISCLAIMER = translateMessage('ui.yourPaidSubscriptionOnlyStartsOnce_07c89d36')
 
 /** Zoho Bookings page the "Talk to sales" CTAs open in a new tab, to schedule a call with sales. */
-export const CONTACT_SALES_URL = 'https://zbooking.eu/3H4cf'
+export const CONTACT_SALES_URL = 'http://zbooking.eu/3H4cf'
 
 /** Proposer and contact confirmations carry more than a status, so they stay a little longer than the 5s default. */
 export const WORKSPACE_CONFIRMATION_HIDE_MS = 7000

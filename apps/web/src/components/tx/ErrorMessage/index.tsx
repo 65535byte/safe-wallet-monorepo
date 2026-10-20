@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, type ReactNode } from 'react'
 import { getGsCodeFromError } from '@safe-global/utils/services/exceptions/contractErrors'
 import { getGuardErrorInfo, isRevertError } from '@/utils/transaction-errors'
@@ -76,11 +77,15 @@ const ErrorMessage = ({
               <strong>
                 {guardExplorerLink ? (
                   <>
-                    <ExternalLink href={guardExplorerLink.href}>Guard</ExternalLink> reverted the transaction (
+                    <ExternalLink href={guardExplorerLink.href}>{translateMessage('ui.guard_4c67c700')}</ExternalLink>{' '}
+                    {translateMessage('ui.revertedTheTransaction_bc7c0854')}
                     {guardErrorName})
                   </>
                 ) : (
-                  <>Guard reverted the transaction ({guardErrorName})</>
+                  <>
+                    {translateMessage('ui.guardRevertedTheTransaction_f3b4eb2f')}
+                    {guardErrorName})
+                  </>
                 )}
               </strong>
             </span>

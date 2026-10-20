@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { UserRoundPen } from 'lucide-react'
 import { Drawer, DrawerBody } from '@/components/common/Drawer'
@@ -40,10 +41,10 @@ const ProposerDrawer = (props: ProposerDrawerProps): ReactElement => {
   const { open, onClose } = props
 
   return (
-    <Drawer open={open} onClose={onClose} ariaLabel="Proposer role">
+    <Drawer open={open} onClose={onClose} ariaLabel={translateMessage('ui.proposerRole_1d90df3b')}>
       <PolicyDrawerHeader
         icon={UserRoundPen}
-        title="Proposer role"
+        title={translateMessage('ui.proposerRole_1d90df3b')}
         status={props.isLoading ? undefined : toPolicyStatus(props.status)}
       />
       <DrawerBody>

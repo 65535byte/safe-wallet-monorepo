@@ -85,7 +85,7 @@ export const getConnectedWallet = (wallets: WalletState[]): ConnectedWallet | nu
 }
 
 export const getWalletConnectLabel = (wallet: ConnectedWallet): string | undefined => {
-  const UNKNOWN_PEER = 'Unknown'
+  const UNKNOWN_PEER = 'unknown'
   if (!isWalletConnect(wallet)) return
   const { connector } = wallet.provider as unknown as any
   const peerWalletV2 = connector.session?.peer?.metadata?.name

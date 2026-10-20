@@ -108,7 +108,7 @@ describe('useAddNewSafeToUrlSpace', () => {
     expect(requests).toEqual([])
     expect(result.current.notifications).toEqual([
       expect.objectContaining({
-        message: 'Safe created in My accounts. Ask an admin to add it to the Workspace.',
+        message: '8379 已在“我的账户”中创建，请让管理员将其添加到工作空间。',
         variant: 'info',
       }),
     ])
@@ -122,7 +122,7 @@ describe('useAddNewSafeToUrlSpace', () => {
     expect(result.current.notifications).toEqual([
       expect.objectContaining({
         message:
-          'Safe created in My accounts, but not added to the Workspace. Your plan covers 5 Safe accounts and this Workspace already holds 5. Remove one to add another, or upgrade your plan.',
+          'Safe created in My accounts, but not added to the Workspace. Your plan covers 5 个 Safe 账户s and this Workspace already holds 5. Remove one to add another, or upgrade your plan.',
         variant: 'warning',
       }),
     ])

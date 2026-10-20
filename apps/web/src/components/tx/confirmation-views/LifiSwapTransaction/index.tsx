@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { DataTable } from '@safe-global/views/components/common/Table/DataTable'
 import { type SwapTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { formatUnits } from 'ethers'
@@ -18,12 +19,12 @@ const PreviewSwapAmount = ({ txInfo }: { txInfo: SwapTransactionInfo }) => {
       <SwapTokens
         first={{
           value: txInfo.fromAmount,
-          label: 'Sell',
+          label: translateMessage('ui.sell_aa061cbb'),
           tokenInfo: txInfo.fromToken,
         }}
         second={{
           value: txInfo.toAmount,
-          label: 'For at least',
+          label: translateMessage('ui.forAtLeast_3747e14a'),
           tokenInfo: txInfo.toToken,
         }}
       />
@@ -32,10 +33,10 @@ const PreviewSwapAmount = ({ txInfo }: { txInfo: SwapTransactionInfo }) => {
 }
 
 const ListSwapAmount = ({ txInfo }: { txInfo: SwapTransactionInfo }) => (
-  <DataRow datatestid="amount" key="amount" title="Amount">
+  <DataRow datatestid="amount" key="amount" title={translateMessage('ui.amount_a72e74a9')}>
     <div className="flex flex-col gap-1">
       <div className="flex flex-row items-center gap-2">
-        Sell{' '}
+        {translateMessage('ui.sell_aa061cbb')}{' '}
         <TokenAmount
           value={txInfo.fromAmount}
           decimals={txInfo.fromToken.decimals}
@@ -44,7 +45,7 @@ const ListSwapAmount = ({ txInfo }: { txInfo: SwapTransactionInfo }) => (
         />
       </div>
       <div className="flex flex-row items-center gap-2">
-        For{' '}
+        {translateMessage('ui.for_9837dd1e')}{' '}
         <TokenAmount
           value={txInfo.toAmount}
           decimals={txInfo.toToken.decimals}
@@ -68,10 +69,10 @@ export const LifiSwapTransaction = ({ txInfo, isPreview }: { txInfo: SwapTransac
 
   const rows = [
     isPreview ? <PreviewSwapAmount key="amount" txInfo={txInfo} /> : <ListSwapAmount key="amount" txInfo={txInfo} />,
-    <DataRow datatestid="price" key="price" title="Price">
+    <DataRow datatestid="price" key="price" title={translateMessage('ui.price_ef94daec')}>
       1 {txInfo.fromToken.symbol} = {formatAmount(exchangeRate)} {txInfo.toToken!.symbol}
     </DataRow>,
-    <DataRow datatestid="receiver" key="Receiver" title="Receiver">
+    <DataRow datatestid="receiver" key="Receiver" title={translateMessage('ui.receiver_d42a1fbc')}>
       <NamedAddressInfo
         address={txInfo.recipient.value}
         name={txInfo.recipient.name}
@@ -81,16 +82,20 @@ export const LifiSwapTransaction = ({ txInfo, isPreview }: { txInfo: SwapTransac
         showCopyButton
       />
     </DataRow>,
-    <DataRow datatestid="total-fee" key="fees" title="Fees">
+    <DataRow datatestid="total-fee" key="fees" title={translateMessage('ui.fees_5ef20e69')}>
       {formatAmount(totalFee)} {txInfo.fromToken.symbol}
     </DataRow>,
   ]
 
   if (txInfo.lifiExplorerUrl) {
     rows.push(
-      <DataRow datatestid="lifi-explorer-url" key="lifi-explorer-url" title="Lifi Explorer">
+      <DataRow
+        datatestid="lifi-explorer-url"
+        key="lifi-explorer-url"
+        title={translateMessage('ui.lifiExplorer_f696d3f7')}
+      >
         <ExternalLink className={css.externalLink} href={txInfo.lifiExplorerUrl}>
-          View in LiFi explorer
+          {translateMessage('ui.viewInLiFiExplorer_bf104f7b')}
         </ExternalLink>
       </DataRow>,
     )

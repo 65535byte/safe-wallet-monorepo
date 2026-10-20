@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { type ComponentType, type ReactElement, type ReactNode, useContext } from 'react'
 import classnames from 'classnames'
@@ -168,7 +169,7 @@ const TxLayoutBase = ({
                     narrowest card cannot spare beside a long action label. */}
                 {onBack && step > 0 && (
                   <Button data-testid="modal-back-btn" variant="outline" onClick={onBack} className={css.backButton}>
-                    Back
+                    {translateMessage('ui.back_dae8bf43')}
                   </Button>
                 )}
               </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -93,8 +94,8 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
           showNotification({
             variant: 'success',
             groupKey: 'delegation-threshold-met',
-            title: 'Threshold met!',
-            message: 'All required signatures have been collected. You can now submit the delegation.',
+            title: translateMessage('ui.thresholdMet_b41249c8'),
+            message: translateMessage('ui.allRequiredSignaturesHaveBeenCollected_dbe2e629'),
           }),
         )
       } else {
@@ -102,8 +103,11 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
           showNotification({
             variant: 'success',
             groupKey: 'delegation-signed',
-            title: 'Signature added',
-            message: `${newConfirmationsCount} of ${delegation.confirmationsRequired} signatures collected.`,
+            title: translateMessage('ui.signatureAdded_ea7e8ae7'),
+            message: translateMessage('ui.ofSignaturesCollected_4491a11f', {
+              p0: newConfirmationsCount,
+              p1: delegation.confirmationsRequired,
+            }),
           }),
         )
         onRefetch()
@@ -125,7 +129,12 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
         showNotification({
           variant: 'success',
           groupKey: 'delegation-submitted',
-          title: `Proposer ${delegation.action === 'add' ? 'added' : 'removed'} successfully!`,
+          title: translateMessage('ui.proposerSuccessfully_3b048eb9', {
+            p0:
+              delegation.action === 'add'
+                ? translateMessage('ui.added_a5b5d6cd')
+                : translateMessage('ui.removed_8ed1f0dd'),
+          }),
           message: '',
         }),
       )
@@ -152,9 +161,9 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
 
     if (hasAlreadySigned) {
       return (
-        <CopyTooltip text={shareUrl} initialToolTipText="Copy link to share">
+        <CopyTooltip text={shareUrl} initialToolTipText={translateMessage('ui.copyLinkToShare_e43a7ff4')}>
           <Button size="sm" variant="outline" className="min-w-[100px]" disabled={!shareUrl}>
-            Copy link
+            {translateMessage('ui.copyLink_30a49b26')}
           </Button>
         </CopyTooltip>
       )
@@ -162,7 +171,7 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
 
     return (
       <Button size="sm" onClick={handleSign} disabled={isSignLoading} className="min-w-[80px]">
-        {isSignLoading ? <Spinner className="size-4" /> : 'Sign'}
+        {isSignLoading ? <Spinner className="size-4" /> : translateMessage('ui.sign_1e67e9a4')}
       </Button>
     )
   }
@@ -172,7 +181,9 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
       <div className="rounded-lg bg-[var(--color-border-background)] p-4">
         <div className="flex items-center gap-6">
           <Typography variant="paragraph-small" className="whitespace-nowrap">
-            {delegation.action === 'remove' ? 'Remove proposer:' : 'New proposer:'}
+            {delegation.action === 'remove'
+              ? translateMessage('ui.removeProposer_06f095b9')
+              : translateMessage('ui.newProposer_c842ae13')}
           </Typography>
           <div className="[&_.ethHashInfo-name]:font-bold">
             <EthHashInfo address={delegation.delegateAddress} showCopyButton shortAddress={false} hasExplorer />
@@ -183,11 +194,12 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
       <Typography variant="paragraph-mini" color="muted" className="mt-2 block">
         {remainingSeconds > 0 ? (
           <>
-            Expires in <Countdown seconds={remainingSeconds} />
+            {translateMessage('ui.expiresIn_b5280d95')}
+            <Countdown seconds={remainingSeconds} />
           </>
         ) : (
           <Typography variant="paragraph-mini" className="text-destructive">
-            Expired
+            {translateMessage('ui.expired_b75ba2e1')}
           </Typography>
         )}
       </Typography>
@@ -197,7 +209,7 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
           <span className="font-bold">
             {delegation.confirmationsSubmitted}/{delegation.confirmationsRequired}
           </span>{' '}
-          signatures collected
+          {translateMessage('ui.signaturesCollected_fee202c8')}
         </Typography>
 
         {renderActionButton()}
@@ -208,7 +220,9 @@ function PendingDelegation({ delegation, onRefetch }: PendingDelegationProps): R
           <ErrorMessage error={error}>
             {getProposerErrorText(
               error,
-              delegation.status === 'ready' ? 'Error submitting delegation' : 'Error signing delegation',
+              delegation.status === 'ready'
+                ? translateMessage('ui.errorSubmittingDelegation_f29e4ce7')
+                : translateMessage('ui.errorSigningDelegation_305b9016'),
             )}
           </ErrorMessage>
         </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useMemo } from 'react'
 import {
   useAuthGetMeV1Query,
@@ -46,7 +47,7 @@ export const useAuthenticators = () => {
   return {
     isOidcSession,
     authenticators,
-    error: error ? 'Loading authenticators failed' : undefined,
+    error: error ? translateMessage('ui.loadingAuthenticatorsFailed_0804988f') : undefined,
     enrollNewAuthenticator,
   }
 }

@@ -103,8 +103,8 @@ describe('SpacesSidebarContent Developer action (real NavItem)', () => {
   it('renders the Developer group with the Feature flags entry', () => {
     renderContent()
 
-    expect(screen.getByText('Developer')).toBeInTheDocument()
-    expect(screen.getByTestId('sidebar-feature-flags-item')).toHaveTextContent('Feature flags')
+    expect(screen.getByText('开发者')).toBeInTheDocument()
+    expect(screen.getByTestId('sidebar-feature-flags-item')).toHaveTextContent('功能开关')
   })
 
   it('renders the Feature flags entry as a button, not a navigation link', () => {
@@ -125,7 +125,7 @@ describe('SpacesSidebarContent Developer action (real NavItem)', () => {
     expect(screen.getByTestId('feature-flag-editor-dialog')).toBeInTheDocument()
     expect(mockPush).not.toHaveBeenCalled()
     // Proves the click ran through the real NavItem handler rather than a bare onSelect prop.
-    expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: 'Feature flags' })
+    expect(mockTrackEvent).toHaveBeenCalledWith({ action: 'Sidebar clicked' }, { sidebarElement: '功能开关' })
   })
 
   it('keeps the space nav items as links so the action item is genuinely the odd one out', () => {
@@ -141,7 +141,7 @@ describe('SpacesSidebarContent Developer action (real NavItem)', () => {
     try {
       renderContent()
 
-      expect(screen.queryByText('Developer')).not.toBeInTheDocument()
+      expect(screen.queryByText('开发者')).not.toBeInTheDocument()
       expect(screen.queryByTestId('sidebar-feature-flags-item')).not.toBeInTheDocument()
       expect(screen.queryByTestId('feature-flag-editor-dialog')).not.toBeInTheDocument()
     } finally {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, type ReactElement, type BaseSyntheticEvent } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
@@ -80,7 +81,7 @@ function EntryDialog({
     // `submitCallback` is async, so a rejection here would escape as an unhandled rejection.
     submitCallback(e).catch(() => {
       setIsSubmitting(false)
-      setError('Something went wrong. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongPleaseTryAgain_ee89925b'))
     })
   }
 
@@ -89,7 +90,9 @@ function EntryDialog({
       data-testid="entry-dialog"
       open
       onClose={handleClose}
-      dialogTitle={defaultValues.name ? 'Edit entry' : 'Create entry'}
+      dialogTitle={
+        defaultValues.name ? translateMessage('ui.editEntry_956e3e6d') : translateMessage('ui.createEntry_96b231b9')
+      }
       hideChainIndicator={chainIds && chainIds.length > 1}
       chainId={chainIds?.[0]}
       className={className}
@@ -100,7 +103,8 @@ function EntryDialog({
           <div className="p-6">
             {scope === 'workspace' && (
               <p data-testid="entry-scope-notice" className="text-muted-foreground mb-4 text-sm">
-                This name is saved to {workspaceLabel} and is visible to everyone in the Workspace.
+                {translateMessage('ui.thisNameIsSavedTo_1b627805')}
+                {workspaceLabel} {translateMessage('ui.andIsVisibleToEveryoneIn_1cca5b61')}
               </p>
             )}
 
@@ -108,13 +112,20 @@ function EntryDialog({
               {/* `hero` (66px) to match the AddressInput below, whose wrapper is min-height 66px —
                   the same pairing SetAddressStep already uses. The default h-9 left this field
                   noticeably shorter than the address box it sits above. */}
-              <NameInput data-testid="name-input" label="Name" autoFocus name="name" required inputSize="hero" />
+              <NameInput
+                data-testid="name-input"
+                label={translateMessage('ui.name_84f28b85')}
+                autoFocus
+                name="name"
+                required
+                inputSize="hero"
+              />
             </div>
 
             <div>
               <AddressInput
                 name="address"
-                label="Address"
+                label={translateMessage('ui.address_ad6c5986')}
                 variant="outlined"
                 fullWidth
                 required
@@ -135,7 +146,7 @@ function EntryDialog({
           <DialogActions
             onCancel={handleClose}
             cancelTestId="cancel-btn"
-            confirmLabel="Save"
+            confirmLabel={translateMessage('ui.save_5fe30f30')}
             confirmType="submit"
             confirmTestId="save-btn"
             confirmDisabled={!formState.isValid}

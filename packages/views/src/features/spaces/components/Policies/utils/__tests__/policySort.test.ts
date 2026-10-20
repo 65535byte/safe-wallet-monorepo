@@ -75,7 +75,7 @@ describe('sortPolicies', () => {
     const grants = asActivePolicy(mockSpendingLimitPolicy({ id: 'grants', safe: MOCK_SAFES.grants }))
     const names: Record<string, string> = {
       [MOCK_SAFES.treasury.address]: 'Treasury',
-      [MOCK_SAFES.grants.address]: 'Grants',
+      [MOCK_SAFES.grants.address]: '资助',
     }
 
     const sorted = sortPolicies([treasury, payroll, grants], 'appliesTo', {

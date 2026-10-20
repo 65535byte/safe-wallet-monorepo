@@ -49,11 +49,9 @@ describe('TxCheckError', () => {
 
     const { getByText, queryByText } = render(<TxCheckError error={error} context="estimation" />)
 
-    expect(
-      getByText('Gas limit too low. Minimum needed: 25,484. Increase the gas limit and try again.'),
-    ).toBeInTheDocument()
+    expect(getByText('Gas 上限过低，最低需要 25,484。请提高后重试。')).toBeInTheDocument()
     expect(queryByText(/most likely fail/)).not.toBeInTheDocument()
-    expect(queryByText(/reject this transaction/)).not.toBeInTheDocument()
+    expect(queryByText(/reject this 笔交易/)).not.toBeInTheDocument()
   })
 
   it('shows the Hypernative approval message when the HN guard blocks execution', () => {
@@ -65,9 +63,9 @@ describe('TxCheckError', () => {
 
     expect(getByText(HYPERNATIVE_APPROVAL_REQUIRED_MESSAGE)).toBeInTheDocument()
     expect(queryByText(/most likely fail/)).not.toBeInTheDocument()
-    expect(queryByText(/Guard reverted the transaction/)).not.toBeInTheDocument()
+    expect(queryByText(/Guard reverted the 笔交易/)).not.toBeInTheDocument()
     expect(queryByText(/GS013/)).not.toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
     expect(queryByTestId('error-details')).not.toBeInTheDocument()
   })
 
@@ -76,7 +74,7 @@ describe('TxCheckError', () => {
 
     const { getByRole } = render(<TxCheckError error={hypernativeRevert()} context="estimation" />)
 
-    expect(getByRole('link', { name: /Approve in Hypernative/ })).toHaveAttribute('href', DEEP_LINK)
+    expect(getByRole('link', { name: /在 Hypernative 中批准/ })).toHaveAttribute('href', DEEP_LINK)
   })
 
   it('shows the sentence without a CTA when the deep link cannot be built', () => {
@@ -100,7 +98,7 @@ describe('TxCheckError', () => {
     const infra = new Error('HTTP request failed. Status: 500')
     const { getByText, queryByText } = render(<TxCheckError error={infra} />)
 
-    expect(getByText(/Could not check this transaction/)).toBeInTheDocument()
+    expect(getByText(/Could not check this 笔交易/)).toBeInTheDocument()
     expect(getByText(/Nothing was signed/)).toBeInTheDocument()
     // Must NOT claim the transaction will fail when we simply could not reach the node.
     expect(queryByText(/most likely fail/)).not.toBeInTheDocument()

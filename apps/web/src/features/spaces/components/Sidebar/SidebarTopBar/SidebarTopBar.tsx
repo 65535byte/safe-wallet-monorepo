@@ -3,7 +3,6 @@ import { SidebarTrigger, useSidebar } from '@safe-global/views/components/ui/sid
 import { cn } from '@safe-global/views/utils/cn'
 import { AppRoutes } from '@/config/routes'
 import SafeLogo from '@/components/common/SafeLogo'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
 import { useSafeAddressFromUrl } from '@/hooks/useSafeAddressFromUrl'
 import { useIsSpaceRoute } from '@/hooks/useIsSpaceRoute'
 import { useIsHydrated } from '@/hooks/useIsHydrated'
@@ -61,10 +60,10 @@ export const SidebarTopBar = (): ReactElement => {
         <span
           className="absolute top-[42px] left-1/2 block h-5 w-8 -translate-x-1/2"
           role="img"
-          aria-label="Safe Pro"
+          aria-label="8379"
           data-testid="collapsed-pro-chip"
         >
-          <ProChip className="size-full" />
+          <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
         </span>
       )}
       <SidebarTrigger

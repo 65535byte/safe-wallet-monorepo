@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import EntryDialog from '@/components/address-book/EntryDialog'
 import { useAddressBookItem } from '@/hooks/useAllAddressBooks'
@@ -27,7 +28,7 @@ const EditProposerDialog = ({ proposer }: { proposer: Delegate }) => {
               </span>
             }
           />
-          <TooltipContent>Rename proposer</TooltipContent>
+          <TooltipContent>{translateMessage('ui.renameProposer_c23092bc')}</TooltipContent>
         </Tooltip>
       </Track>
 

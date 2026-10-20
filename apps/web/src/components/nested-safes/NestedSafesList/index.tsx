@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ChevronRight } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -66,7 +67,7 @@ function NestedSafeItem({
           </span>
         }
       />
-      <TooltipContent>This Safe was not created by the parent Safe or its signers</TooltipContent>
+      <TooltipContent>{translateMessage('ui.thisWasNotCreatedByThe_14eea5c8')}</TooltipContent>
     </Tooltip>
   ) : null
 
@@ -244,7 +245,7 @@ export function NestedSafesList({
             className="flex cursor-pointer items-center justify-center py-2 uppercase"
             onClick={onShowAll}
           >
-            Show all nested Safes
+            {translateMessage('ui.showAllNestedAccounts_11bbbc2f')}
             <ChevronRight className="ml-2 size-3 rotate-90 text-[var(--color-border-main)]" />
           </Typography>
         </Track>

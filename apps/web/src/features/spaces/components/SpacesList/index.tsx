@@ -1,15 +1,12 @@
+import { translateMessage } from '@/i18n'
 import { useLoadFeature } from '@/features/__core__'
 import { MyAccountsFeature } from '@/features/myAccounts'
 import { SafeProFeature, useIsSafeProAnnouncementEnabled } from '@/features/safe-pro-announcement'
 import SpaceRow from './SpaceRow'
 import SignInOptions from '../SignInOptions'
-import WorkspaceBanner from '../WorkspaceBanner'
 import Image from 'next/image'
 import WorkspacesEmptyIllustration from '@/public/images/spaces/workspaces_empty.png'
 import WorkspacesEmptyIllustrationDark from '@/public/images/spaces/workspaces_empty_dark.webp'
-import SafeMarkIcon from '@safe-global/views/assets/images/logo-no-text.svg'
-import SafeProLockup from '@/public/images/safe-pro/safe-pro-lockup.svg'
-import SafeProLockupDark from '@/public/images/safe-pro/safe-pro-lockup-dark.svg'
 import { useAppSelector } from '@/store'
 import { isAuthenticated, selectIsStoreHydrated } from '@/store/authSlice'
 import { ArrowRight, Check, ExternalLink as ExternalLinkIcon } from 'lucide-react'
@@ -27,7 +24,7 @@ import { useDarkMode } from '@/hooks/useDarkMode'
 import { cn } from '@safe-global/views/utils/cn'
 import { MemberStatus } from '@/features/spaces'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { WorkspaceCreateEntryPoint } from '@/services/analytics/mixpanel-events'
 import SpaceInfoModal from '../SpaceInfoModal'
 import { filterSpacesByStatus, getInvitedByName } from '@/features/spaces/utils'
@@ -48,7 +45,7 @@ const AddSpaceButton = ({
   disabled,
   size = 'lg',
   variant = 'default',
-  label = 'Create Workspace',
+  label = translateMessage('ui.createWorkspace_34bf60be'),
   icon = 'add',
   link = true,
 }: {
@@ -92,7 +89,10 @@ const AddSpaceButton = ({
   return (
     <Tooltip>
       <TooltipTrigger render={<div className="inline-flex" />}>{button}</TooltipTrigger>
-      <TooltipContent>Limit of {SPACES_LIMIT} Workspaces reached</TooltipContent>
+      <TooltipContent>
+        {translateMessage('ui.limitOf_6bb0cfcf')}
+        {SPACES_LIMIT} {translateMessage('ui.workspacesReached_4ea37bd5')}
+      </TooltipContent>
     </Tooltip>
   )
 }
@@ -117,48 +117,45 @@ const SignedOutState = ({ afterSignIn, redirectLoading }: { afterSignIn: () => v
         )}
       >
         <div className={cn('flex w-full flex-col items-center', isSafePro ? 'max-w-116' : 'max-w-110')}>
-          {isSafeProAnnouncementEnabled ? <SafeProBanner className="mb-4" /> : <WorkspaceBanner className="mb-3" />}
+          {isSafeProAnnouncementEnabled && <SafeProBanner className="mb-4" />}
 
           <div className="relative w-full">
             <div className="relative w-full rounded-lg bg-card p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
               <div className="mx-auto mb-6 flex h-10 items-center justify-center text-foreground">
                 {/* The Pro brand stays once Safe Pro exists, banner or not. */}
-                {isSafeProAnnouncementEnabled || isSafePro ? (
-                  isDarkMode ? (
-                    <SafeProLockupDark className="h-10 w-auto" />
-                  ) : (
-                    <SafeProLockup className="h-10 w-auto" />
-                  )
-                ) : (
-                  <SafeMarkIcon className="size-10" />
-                )}
+                <img
+                  src="/images/brand-logo.png"
+                  alt={translateMessage('ui.safeLogo_9a51e835')}
+                  className="size-10 rounded-lg object-contain"
+                />
               </div>
 
               <Typography variant="h3" className={cn('text-center', isSafePro ? 'mb-4' : 'mb-6')}>
-                Sign in to your Workspace
+                {translateMessage('ui.signInToYourWorkspace_f96cee32')}
               </Typography>
 
               {isSafePro && (
                 <p className="mb-6 text-center text-xs leading-[18px] text-muted-foreground">
-                  By continuing you accept the{' '}
+                  {translateMessage('ui.byContinuingYouAcceptThe_dd11de9b')}{' '}
                   <Link
                     variant="muted"
-                    href={SAFE_PRO_USER_TERMS_URL}
+                    href={SAFE_PRO_USER_TERMS_URL || undefined}
                     target="_blank"
                     rel="noreferrer noopener"
                     className={termsLinkClassName}
                   >
-                    Safe Pro User Terms
+                    {translateMessage('ui.userTerms_3b6585e5')}
                   </Link>{' '}
-                  and{' '}
+                  {translateMessage('ui.and_ee3cc19b')}{' '}
                   <Link
                     variant="muted"
-                    href={PRIVACY_URL}
+                    href={PRIVACY_URL || undefined}
                     target="_blank"
                     rel="noreferrer noopener"
                     className={cn(termsLinkClassName, 'whitespace-nowrap')}
                   >
-                    Privacy Policy. <ExternalLinkIcon className="ml-0.5 inline size-4 align-text-bottom" />
+                    {translateMessage('ui.privacyPolicy_fa189aa0')}
+                    <ExternalLinkIcon className="ml-0.5 inline size-4 align-text-bottom" />
                   </Link>
                 </p>
               )}
@@ -169,25 +166,25 @@ const SignedOutState = ({ afterSignIn, redirectLoading }: { afterSignIn: () => v
 
           {!isSafePro && (
             <p className="mt-4 text-center text-xs leading-[18px] text-muted-foreground">
-              By continuing, you agree to the{' '}
+              {translateMessage('ui.byContinuingYouAgreeToThe_b84f6cac')}{' '}
               <Link
                 variant="muted"
-                href={TERMS_URL}
+                href={TERMS_URL || undefined}
                 target="_blank"
                 rel="noreferrer noopener"
                 className={termsLinkClassName}
               >
-                Terms
+                {translateMessage('ui.terms_3c2528e1')}
               </Link>{' '}
-              and{' '}
+              {translateMessage('ui.and_ee3cc19b')}{' '}
               <Link
                 variant="muted"
-                href={PRIVACY_URL}
+                href={PRIVACY_URL || undefined}
                 target="_blank"
                 rel="noreferrer noopener"
                 className={termsLinkClassName}
               >
-                Privacy Policy
+                {translateMessage('ui.privacyPolicy_0d01cf2f')}
               </Link>
               .
             </p>
@@ -199,9 +196,9 @@ const SignedOutState = ({ afterSignIn, redirectLoading }: { afterSignIn: () => v
 }
 
 const WORKSPACE_BENEFITS = [
-  'Organize multiple Safe accounts in one place',
-  'Invite members and manage their roles',
-  'Share an address book across your team',
+  translateMessage('ui.organizeMultipleAccountsInOnePlace_67266e29'),
+  translateMessage('ui.inviteMembersAndManageTheirRoles_b3074cfe'),
+  translateMessage('ui.shareAnAddressBookAcrossYour_8a39a6c7'),
 ]
 
 const NoSpacesState = ({ isAtLimit }: { isAtLimit: boolean }) => {
@@ -232,31 +229,35 @@ const NoSpacesState = ({ isAtLimit }: { isAtLimit: boolean }) => {
 
           <Image
             src={isDarkMode ? WorkspacesEmptyIllustrationDark : WorkspacesEmptyIllustration}
-            alt="Workspace dashboard showing accounts grouped by Workspace"
+            alt={translateMessage('ui.workspaceDashboardShowingAccountsGroupedBy_fccda1ef')}
             className="relative -my-8 h-auto w-full min-w-0 md:-mr-8 md:w-[60%]"
           />
         </div>
 
         <div className="flex flex-col items-center gap-6 p-8">
-          <Typography variant="h3">Collaborate on your Safe accounts with your team.</Typography>
+          <Typography variant="h3">{translateMessage('ui.collaborateOnYourAccountsWithYour_5a0a8caf')}</Typography>
 
           <div className="flex flex-col items-center gap-4">
             <div className="h-12">
-              <Track
-                {...SPACE_EVENTS.WORKSPACE_CREATE_STARTED}
-                mixpanelParams={{ entry_point: WorkspaceCreateEntryPoint.EMPTY_STATE }}
-              >
-                <AddSpaceButton
-                  label={isSafePro ? 'Get Safe Pro' : 'Create your first Workspace'}
-                  icon="arrow"
-                  disabled={isAtLimit}
-                  link
-                />
-              </Track>
+              <AddSpaceButton
+                label={
+                  isSafePro
+                    ? translateMessage('ui.get_f386bf84')
+                    : translateMessage('ui.createYourFirstWorkspace_d6bdc22d')
+                }
+                icon="arrow"
+                disabled={isAtLimit}
+                link
+                onClick={() =>
+                  trackEvent(SPACE_EVENTS.WORKSPACE_CREATE_STARTED, {
+                    entry_point: WorkspaceCreateEntryPoint.EMPTY_STATE,
+                  })
+                }
+              />
             </div>
 
             <Link variant="muted" className="text-sm underline" onClick={() => setIsInfoOpen(true)} href="#">
-              What are Workspaces?
+              {translateMessage('ui.whatAreWorkspaces_92ed18b7')}
             </Link>
           </div>
         </div>
@@ -309,6 +310,9 @@ const SpacesList = () => {
     setHasSignedIn(true)
   }, [setHasSignedIn])
 
+  const onAddSpaceBtnClick = () =>
+    trackEvent(SPACE_EVENTS.WORKSPACE_CREATE_STARTED, { entry_point: WorkspaceCreateEntryPoint.WELCOME })
+
   const pendingInviteBanners =
     isUserSignedIn && pendingInvites.length > 0
       ? pendingInvites.map((invitingSpace: GetSpaceResponse) => (
@@ -335,9 +339,9 @@ const SpacesList = () => {
           <SignedOutState afterSignIn={afterSignIn} redirectLoading={redirectLoading} />
         ) : error && !spaces?.length ? (
           <div className="flex flex-col items-center gap-3 py-10 text-center">
-            <Typography color="muted">Couldn&apos;t load your Workspaces. Try again, or contact support.</Typography>
+            <Typography color="muted">{translateMessage('ui.couldnTLoadYourWorkspacesTry_a45adde5')}</Typography>
             <Button variant="outline" onClick={() => refetch()}>
-              Try again
+              {translateMessage('ui.tryAgain_27537f8f')}
             </Button>
           </div>
         ) : activeSpaces.length > 0 ? (
@@ -345,12 +349,13 @@ const SpacesList = () => {
             {isSafeProAnnouncementEnabled && <SafeProWorkspacesBanner className="mb-4" />}
             <WelcomeContentCard className="flex flex-col gap-4">
               <div className="flex justify-end">
-                <Track
-                  {...SPACE_EVENTS.WORKSPACE_CREATE_STARTED}
-                  mixpanelParams={{ entry_point: WorkspaceCreateEntryPoint.WELCOME }}
-                >
-                  <AddSpaceButton size="default" variant="outline" label="Create" disabled={isAtSpacesLimit} />
-                </Track>
+                <AddSpaceButton
+                  size="default"
+                  variant="outline"
+                  label={translateMessage('ui.create_2e386efa')}
+                  disabled={isAtSpacesLimit}
+                  onClick={onAddSpaceBtnClick}
+                />
               </div>
 
               {pendingInviteBanners}

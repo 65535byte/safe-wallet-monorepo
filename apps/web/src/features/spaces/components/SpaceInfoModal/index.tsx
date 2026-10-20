@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import type { LucideIcon } from 'lucide-react'
 import { Layers, UsersRound, ShieldAlert, ChevronDown, TrendingUp, ArrowUpRight, X } from 'lucide-react'
@@ -21,12 +22,20 @@ const SPACE_HELP_ARTICLE_LINK = 'https://help.safe.global/collections/1628654831
 const TOTAL_TREASURY = 47829104
 
 const BENEFITS: { icon: LucideIcon; title: string; desc: string }[] = [
-  { icon: Layers, title: 'Every Safe in one view', desc: 'One balance, one activity feed, across chains.' },
-  { icon: UsersRound, title: 'Access by role', desc: 'Admin, Member, Viewer — with a shared address book.' },
+  {
+    icon: Layers,
+    title: translateMessage('ui.everyInOneView_e4e458fd'),
+    desc: translateMessage('ui.oneBalanceOneActivityFeedAcross_cd4d1b66'),
+  },
+  {
+    icon: UsersRound,
+    title: translateMessage('ui.accessByRole_caf7a603'),
+    desc: translateMessage('ui.adminMemberViewerWithAShared_e69f86a8'),
+  },
   {
     icon: ShieldAlert,
-    title: 'Security & audit in one view',
-    desc: 'Monitor risk across every Safe. Export every action.',
+    title: translateMessage('ui.securityAuditInOneView_512225c3'),
+    desc: translateMessage('ui.monitorRiskAcrossEveryExportEvery_02074e02'),
   },
 ]
 
@@ -122,7 +131,7 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
       >
         {/* Mobile close — the dark panel (with its own close) is hidden on small screens */}
         <DialogClose
-          aria-label="Close"
+          aria-label={translateMessage('ui.close_fbd8cee0')}
           render={<Button variant="ghost" size="icon-sm" className="absolute top-4 right-4 z-[3] md:hidden" />}
         >
           <X className="size-4" />
@@ -133,11 +142,11 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
           <div className="flex flex-col justify-center gap-10 p-9 md:p-12">
             <div>
               <DialogTitle className="text-[40px] font-bold leading-[44px] tracking-[-0.04em] text-balance">
-                One Workspace for your team.
+                {translateMessage('ui.oneWorkspaceForYourTeam_e14fd6fd')}
               </DialogTitle>
 
               <DialogDescription className="mt-3 max-w-[420px] text-base leading-6">
-                Every Safe, every signer, every transaction — in one place.
+                {translateMessage('ui.everyEverySignerEveryTransactionIn_5e471e7c')}
               </DialogDescription>
             </div>
 
@@ -158,14 +167,14 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
             </div>
 
             <Typography variant="paragraph-small" color="muted">
-              New to Workspaces?{' '}
+              {translateMessage('ui.newToWorkspaces_a49297a7')}{' '}
               <a
                 href={SPACE_HELP_ARTICLE_LINK}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1 font-semibold text-foreground underline underline-offset-2"
               >
-                Learn more
+                {translateMessage('ui.learnMore_0c11daba')}
                 <ArrowUpRight className="size-3.5" />
               </a>
             </Typography>
@@ -177,7 +186,7 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
             <div className={css.glowSecondary} aria-hidden />
 
             <DialogClose
-              aria-label="Close"
+              aria-label={translateMessage('ui.close_fbd8cee0')}
               render={
                 <Button
                   variant="ghost"
@@ -194,11 +203,15 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
                 <span className="flex size-6 items-center justify-center rounded-sm bg-[var(--color-static-text-brand)] text-[13px] font-bold text-[#0a0a0a]">
                   A
                 </span>
-                <span className="text-sm font-semibold text-[#0a0a0a]">Acme Treasury</span>
+                <span className="text-sm font-semibold text-[#0a0a0a]">
+                  {translateMessage('ui.acmeTreasury_68643bea')}
+                </span>
                 <ChevronDown className="size-3.5 text-[#737373]" />
               </div>
 
-              <div className="text-[11px] font-medium uppercase tracking-[1.2px] text-white/50">Total treasury</div>
+              <div className="text-[11px] font-medium uppercase tracking-[1.2px] text-white/50">
+                {translateMessage('ui.totalTreasury_ee43a793')}
+              </div>
               <div className="mt-3 flex items-baseline gap-3.5">
                 <span className="text-[40px] font-bold leading-[44px] tracking-[-1.4px] tabular-nums text-white">
                   ${total.toLocaleString()}
@@ -237,7 +250,7 @@ const SpaceInfoModal = ({ onClose }: { onClose: () => void }) => {
                   </div>
                   <img
                     src={account.chainLogo}
-                    alt={`${account.chainName} logo`}
+                    alt={translateMessage('ui.logo_efd72bef', { p0: account.chainName })}
                     width={22}
                     height={22}
                     loading="lazy"

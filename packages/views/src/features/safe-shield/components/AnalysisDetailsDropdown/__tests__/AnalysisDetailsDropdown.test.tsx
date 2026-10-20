@@ -15,7 +15,7 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      expect(screen.getByText('Show all')).toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
     })
 
     it('should render with custom labels', () => {
@@ -25,7 +25,7 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
     })
 
     it('should render with correct initial structure', () => {
@@ -58,7 +58,7 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
       const content = screen.getByText('Test content')
       expect(content).toBeVisible()
     })
@@ -72,11 +72,11 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
-      expect(screen.queryByText('Show all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
+      expect(screen.queryByText('全部显示')).not.toBeInTheDocument()
     })
 
     it('should display content when expanded', async () => {
@@ -86,7 +86,7 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
       // Content should now be visible
@@ -101,16 +101,16 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      const showAllButton = screen.getByText('Show all')
+      const showAllButton = screen.getByText('全部显示')
       await user.click(showAllButton)
 
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
-      const hideAllButton = screen.getByText('Hide all')
+      const hideAllButton = screen.getByText('全部隐藏')
       await user.click(hideAllButton)
 
-      expect(screen.getByText('Show all')).toBeInTheDocument()
-      expect(screen.queryByText('Hide all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
+      expect(screen.queryByText('全部隐藏')).not.toBeInTheDocument()
     })
 
     it('should hide content when collapsed again', async () => {
@@ -123,16 +123,16 @@ describe('AnalysisDetailsDropdown', () => {
       const content = screen.getByText('Test content')
       expect(content).toBeInTheDocument()
 
-      await user.click(screen.getByText('Show all'))
+      await user.click(screen.getByText('全部显示'))
 
       expect(content).toBeVisible()
-      expect(screen.getByText('Hide all')).toBeInTheDocument()
+      expect(screen.getByText('全部隐藏')).toBeInTheDocument()
 
-      await user.click(screen.getByText('Hide all'))
+      await user.click(screen.getByText('全部隐藏'))
 
       // After collapsing, verify "Show all" is back
-      expect(screen.getByText('Show all')).toBeInTheDocument()
-      expect(screen.queryByText('Hide all')).not.toBeInTheDocument()
+      expect(screen.getByText('全部显示')).toBeInTheDocument()
+      expect(screen.queryByText('全部隐藏')).not.toBeInTheDocument()
     })
 
     it('should work with custom labels', async () => {
@@ -142,12 +142,12 @@ describe('AnalysisDetailsDropdown', () => {
         </AnalysisDetailsDropdown>,
       )
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
 
-      await user.click(screen.getByText('Show details'))
+      await user.click(screen.getByText('显示详情'))
 
-      expect(screen.getByText('Hide details')).toBeInTheDocument()
-      expect(screen.queryByText('Show details')).not.toBeInTheDocument()
+      expect(screen.getByText('隐藏详情')).toBeInTheDocument()
+      expect(screen.queryByText('显示详情')).not.toBeInTheDocument()
     })
   })
 

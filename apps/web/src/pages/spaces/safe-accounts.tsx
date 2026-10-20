@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -15,7 +16,7 @@ export default function SpaceAccountsPage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Workspace Safe accounts`}</title>
+        <title>{translateMessage('ui.workspaceAccounts_cf70b891', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

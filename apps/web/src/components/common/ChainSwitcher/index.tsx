@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useCallback, useState } from 'react'
 import { cn } from '@safe-global/views/utils/cn'
@@ -41,10 +42,10 @@ const ChainSwitcher = ({
         <Spinner className="size-5" />
       ) : (
         <>
-          <span className="whitespace-nowrap">Switch to&nbsp;</span>
+          <span className="whitespace-nowrap">{translateMessage('ui.switchTo_456f5f0b')}</span>
           <img
             src={chain?.chainLogoUri ?? undefined}
-            alt={`${chain?.chainName} Logo`}
+            alt={translateMessage('ui.logo_307b8133', { p0: chain?.chainName })}
             width={24}
             height={24}
             loading="lazy"

@@ -49,7 +49,7 @@ describe('usePolicySearch', () => {
   })
 
   it('should, when the query is a rule name, return nothing: the type filter selects on the rule', () => {
-    const { result } = renderHook(() => usePolicySearch(mockPolicies(), 'Proposer'))
+    const { result } = renderHook(() => usePolicySearch(mockPolicies(), '提案人'))
 
     expect(result.current.policies).toHaveLength(0)
   })

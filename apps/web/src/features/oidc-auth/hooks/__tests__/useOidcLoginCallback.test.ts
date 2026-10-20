@@ -114,7 +114,7 @@ describe('useOidcLoginCallback', () => {
         type: 'notifications/showNotification',
         payload: expect.objectContaining({
           variant: 'error',
-          message: 'Something went wrong while signing in with email',
+          message: '使用邮箱登录时出错',
         }),
       })
     })
@@ -136,7 +136,7 @@ describe('useOidcLoginCallback', () => {
         type: 'notifications/showNotification',
         payload: expect.objectContaining({
           variant: 'error',
-          message: 'You have signed in with this email before. Please continue with email option.',
+          message: '您之前已使用此邮箱登录，请继续使用邮箱登录。',
         }),
       })
     })
@@ -153,7 +153,7 @@ describe('useOidcLoginCallback', () => {
         type: 'notifications/showNotification',
         payload: expect.objectContaining({
           variant: 'error',
-          message: 'Something went wrong while signing in with email',
+          message: '使用邮箱登录时出错',
         }),
       })
     })
@@ -200,7 +200,7 @@ describe('useOidcLoginCallback', () => {
         type: 'notifications/showNotification',
         payload: expect.objectContaining({
           variant: 'error',
-          message: 'Something went wrong while signing in with email',
+          message: '使用邮箱登录时出错',
         }),
       })
     })

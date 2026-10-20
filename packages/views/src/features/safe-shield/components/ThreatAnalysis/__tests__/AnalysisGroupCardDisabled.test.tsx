@@ -12,13 +12,13 @@ describe('AnalysisGroupCardDisabled', () => {
     it('should render children text', () => {
       render(<AnalysisGroupCardDisabled>Custom checks</AnalysisGroupCardDisabled>)
 
-      expect(screen.getByText('Custom checks')).toBeInTheDocument()
+      expect(screen.getByText('自定义检查')).toBeInTheDocument()
     })
 
     it('should render with different text content', () => {
       render(<AnalysisGroupCardDisabled>Threat analysis</AnalysisGroupCardDisabled>)
 
-      expect(screen.getByText('Threat analysis')).toBeInTheDocument()
+      expect(screen.getByText('威胁分析')).toBeInTheDocument()
     })
 
     it('should render multiple children', () => {

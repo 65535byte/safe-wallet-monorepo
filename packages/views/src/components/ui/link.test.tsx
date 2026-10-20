@@ -10,7 +10,7 @@ describe('Link', () => {
 
   it('applies bold weight and hover color on the default variant', () => {
     render(<Link href="#">Default</Link>)
-    const { className } = screen.getByRole('link', { name: 'Default' })
+    const { className } = screen.getByRole('link', { name: '默认' })
     expect(className).toContain('font-bold')
     expect(className).toContain('hover:text-[var(--color-primary-light)]')
   })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Info } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -27,7 +28,7 @@ const SelectedCounter = ({
     <span>
       {/* Fixed-width, right-aligned digit cell so the row doesn't shift when the count changes width. */}
       <span className="inline-block min-w-[2ch] text-right tabular-nums">{count}</span>
-      {typeof limit === 'number' ? ` of ${limit}` : ''}
+      {typeof limit === 'number' ? translateMessage('ui.of_02c0c989', { p0: limit }) : ''}
       {showSelected && ' selected'}
     </span>
     <Tooltip>
@@ -40,9 +41,9 @@ const SelectedCounter = ({
 )
 
 export const safeLimitTooltip = (limit: SafeLimit): string => {
-  if (limit === undefined) return "Your plan's Safe account limit isn't available yet"
-  if (limit === null) return 'Your plan has no limit on Safe accounts per Workspace'
-  return `You can add up to ${limit} Safe accounts per Workspace`
+  if (limit === undefined) return translateMessage('ui.yourPlanSAccountLimitIsn_4c196015')
+  if (limit === null) return translateMessage('ui.yourPlanHasNoLimitOn_945cc94f')
+  return translateMessage('ui.youCanAddUpToAccounts_6dfd2d97', { p0: limit })
 }
 
 export default SelectedCounter

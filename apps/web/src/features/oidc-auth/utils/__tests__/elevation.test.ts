@@ -15,7 +15,7 @@ describe('isElevationRequiredError', () => {
   })
 
   it('should, when a 403 carries an unrelated message such as a plain authorization failure, return false', () => {
-    expect(isElevationRequiredError({ status: 403, data: { message: 'Signer address not authorized' } })).toBe(false)
+    expect(isElevationRequiredError({ status: 403, data: { message: '签名人 address not authorized' } })).toBe(false)
   })
 
   it('should, when the elevation_required message arrives on a 401, return false', () => {

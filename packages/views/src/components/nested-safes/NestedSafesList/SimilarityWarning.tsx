@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import type { ReactElement } from 'react'
 import WarningIcon from '@safe-global/views/assets/images/notifications/warning.svg'
@@ -16,7 +17,7 @@ export function SimilarityWarning(): ReactElement {
           </span>
         }
       />
-      <TooltipContent>This address looks similar to another address. Double-check before selecting.</TooltipContent>
+      <TooltipContent>{translateMessage('ui.thisAddressLooksSimilarToAnother_5f87f310')}</TooltipContent>
     </Tooltip>
   )
 }

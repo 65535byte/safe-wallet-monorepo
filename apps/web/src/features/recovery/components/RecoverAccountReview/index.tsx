@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -25,7 +26,7 @@ import useOnboard from '@/hooks/wallets/useOnboard'
 import { TxModalContext } from '@/components/tx-flow'
 import { asError } from '@safe-global/utils/services/exceptions/utils'
 import { trackError, Errors } from '@/services/exceptions'
-import { getDetailedPeriod } from '@safe-global/utils/utils/date'
+import { getDetailedPeriod } from '@safe-global/views/utils/formatPeriod'
 import useRecovery from '../../hooks/useRecovery'
 import { useIsValidRecoveryExecTransactionFromModule } from '../../hooks/useIsValidRecoveryExecution'
 import { isWalletRejection } from '@/utils/wallets'
@@ -130,8 +131,8 @@ function RecoverAccountReview({ threshold, owners }: RecoverAccountReviewProps):
     <>
       <TxCard>
         <Typography className="mb-2">
-          This transaction will reset the Account setup, changing the signers
-          {newThreshold !== safe.threshold ? ' and threshold' : ''}.
+          {translateMessage('ui.thisTransactionWillResetTheAccount_a1ce7180')}
+          {newThreshold !== safe.threshold ? translateMessage('ui.andThreshold_01b3131e') : ''}.
         </Typography>
 
         <OwnerList owners={newOwners} />
@@ -140,10 +141,13 @@ function RecoverAccountReview({ threshold, owners }: RecoverAccountReviewProps):
 
         <div className="my-2">
           <Typography variant="paragraph-small" color="muted" className="block mb-2">
-            After recovery, Safe account transactions will require:
+            {translateMessage('ui.afterRecoveryAccountTransactionsWillRequire_83a280f4')}
           </Typography>
           <Typography>
-            <b>{threshold}</b> out of <b>{owners.length} signers.</b>
+            <b>{threshold}</b> {translateMessage('ui.outOf_d22acd25')}
+            <b>
+              {owners.length} {translateMessage('ui.signers_50fc1e0c')}
+            </b>
           </Typography>
         </div>
 
@@ -167,11 +171,11 @@ function RecoverAccountReview({ threshold, owners }: RecoverAccountReviewProps):
 
         {recovery?.delay !== undefined && (
           <ErrorMessage level="info">
-            Recovery will be{' '}
+            {translateMessage('ui.recoveryWillBe_faeb5184')}
             {recovery.delay === 0n
-              ? 'immediately possible'
-              : `possible in ${getDetailedPeriod(Number(recovery.delay))}`}{' '}
-            after this transaction is executed.
+              ? translateMessage('ui.immediatelyPossible_ade78c50')
+              : translateMessage('ui.possibleIn_bff97c80', { p0: getDetailedPeriod(Number(recovery.delay)) })}{' '}
+            {translateMessage('ui.afterThisTransactionIsExecuted_46e58dae')}
           </ErrorMessage>
         )}
 
@@ -183,7 +187,7 @@ function RecoverAccountReview({ threshold, owners }: RecoverAccountReviewProps):
           <CheckWallet allowNonOwner checkNetwork>
             {(isOk) => (
               <Button data-testid="execute-btn" variant="default" disabled={!isOk || submitDisabled} onClick={onSubmit}>
-                {!isSubmittable ? <Spinner className="size-5" /> : 'Execute'}
+                {!isSubmittable ? <Spinner className="size-5" /> : translateMessage('ui.execute_eea2eb83')}
               </Button>
             )}
           </CheckWallet>

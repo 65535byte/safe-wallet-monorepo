@@ -5,14 +5,14 @@ describe('WorkspaceBanner', () => {
   it('renders the headline and the New tag', () => {
     render(<WorkspaceBanner />)
 
-    expect(screen.getByText('Introducing Workspace')).toBeInTheDocument()
-    expect(screen.getByText('New')).toBeInTheDocument()
+    expect(screen.getByText('工作空间介绍')).toBeInTheDocument()
+    expect(screen.getByText('新建')).toBeInTheDocument()
   })
 
   it('links the CTA to the announcement blog post in a safe new tab', () => {
     render(<WorkspaceBanner />)
 
-    const cta = screen.getByRole('link', { name: 'Read the Workspace announcement' })
+    const cta = screen.getByRole('link', { name: '阅读工作空间公告' })
     expect(cta).toHaveAttribute(
       'href',
       'https://safe.global/blog/introducing-workspace-the-onchain-operating-environment-for-treasury-teams',

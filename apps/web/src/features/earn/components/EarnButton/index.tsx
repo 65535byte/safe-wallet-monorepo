@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CheckWallet from '@/components/common/CheckWallet'
 import Track from '@/components/common/Track'
 import { AppRoutes } from '@/config/routes'
@@ -50,7 +51,7 @@ const EarnButton = (props: EarnButtonProps): ReactElement => {
                       variant="ghost"
                       size="icon-sm"
                       data-testid="earn-btn"
-                      aria-label="Earn"
+                      aria-label={translateMessage('ui.earn_2e740029')}
                       onClick={onEarnClick}
                       disabled={!isOk}
                       className={assetActionCss.assetActionIconButton}
@@ -60,7 +61,7 @@ const EarnButton = (props: EarnButtonProps): ReactElement => {
                   </span>
                 }
               />
-              {isOk && <TooltipContent>Earn</TooltipContent>}
+              {isOk && <TooltipContent>{translateMessage('ui.earn_2e740029')}</TooltipContent>}
             </Tooltip>
           ) : (
             <Button
@@ -69,14 +70,14 @@ const EarnButton = (props: EarnButtonProps): ReactElement => {
                 [css.buttonDisabled]: !isOk,
               })}
               data-testid="earn-btn"
-              aria-label="Earn"
+              aria-label={translateMessage('ui.earn_2e740029')}
               variant={compact ? 'ghost' : 'surface'}
               size="sm"
               onClick={onEarnClick}
               disabled={!isOk}
             >
               <EarnIcon />
-              Earn
+              {translateMessage('ui.earn_2e740029')}
             </Button>
           )}
         </Track>

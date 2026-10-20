@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { getProxyFactoryDeployments } from '@safe-global/safe-deployments'
 import { hasMatchingDeployment } from '@safe-global/utils/services/contracts/deployments'
 import type { SecurityScanner } from './types'
@@ -22,8 +23,13 @@ export const factoryValidationScanner: SecurityScanner = {
         status: 'inconclusive',
         severity: getSeverityFromScore(score, { excluded: true }),
         score,
-        evidence: [{ label: 'Status', value: 'Creation data not yet available' }],
-        remediation: 'Deployment origin will be verified once creation data loads.',
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.creationDataNotYetAvailable_5727efc5'),
+          },
+        ],
+        remediation: translateMessage('ui.deploymentOriginWillBeVerifiedOnce_aecc550e'),
         lastChecked: now,
       }
     }
@@ -34,9 +40,13 @@ export const factoryValidationScanner: SecurityScanner = {
         status: 'partial',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'No factory address recorded' }],
-        remediation:
-          'The deployment factory could not be determined. This may indicate a non-standard deployment method.',
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.noFactoryAddressRecorded_1d5b7c0a'),
+          },
+        ],
+        remediation: translateMessage('ui.theDeploymentFactoryCouldNotBe_2a99a4cb'),
         lastChecked: now,
       }
     }
@@ -48,8 +58,8 @@ export const factoryValidationScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [
-          { label: 'Factory', value: creationInfo.factoryAddress },
-          { label: 'Status', value: 'Official Safe factory' },
+          { label: translateMessage('ui.factory_53054f6c'), value: creationInfo.factoryAddress },
+          { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.officialFactory_251c6ae2') },
         ],
         remediation: '',
         lastChecked: now,
@@ -62,11 +72,10 @@ export const factoryValidationScanner: SecurityScanner = {
       severity: getSeverityFromScore(score),
       score,
       evidence: [
-        { label: 'Factory', value: creationInfo.factoryAddress },
-        { label: 'Status', value: 'Unrecognized factory' },
+        { label: translateMessage('ui.factory_53054f6c'), value: creationInfo.factoryAddress },
+        { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.unrecognizedFactory_10c7b10f') },
       ],
-      remediation:
-        'This Safe was not deployed via a recognized Safe proxy factory. It may have been created through an unofficial or modified deployment process.',
+      remediation: translateMessage('ui.thisWasNotDeployedViaA_413ab2b2'),
       lastChecked: now,
     }
   },

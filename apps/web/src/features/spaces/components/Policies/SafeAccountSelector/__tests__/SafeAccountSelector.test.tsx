@@ -227,7 +227,7 @@ describe('SafeAccountSelector', () => {
 
     await openSelector(user)
     expect(await screen.findByText(LOAD_ERROR_TEXT)).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Retry' }))
+    await user.click(screen.getByRole('button', { name: '重试' }))
 
     expect(onRetry).toHaveBeenCalledTimes(1)
     expect(screen.queryByText(NO_ELIGIBLE_ACCOUNTS_TEXT)).not.toBeInTheDocument()
@@ -433,7 +433,7 @@ describe('SafeAccountSelector', () => {
         />,
       )
 
-      expect(screen.getByRole('alert')).toHaveTextContent('Required')
+      expect(screen.getByRole('alert')).toHaveTextContent('必填')
     })
 
     it('does not call onChange when a not-activated row is clicked', async () => {
@@ -487,7 +487,7 @@ describe('SafeAccountSelector', () => {
       await user.hover(within(rows[1]).getByTestId('safe-account-not-activated-icon'))
 
       expect(await screen.findByText(INELIGIBILITY_TEXT['not-activated'])).toBeInTheDocument()
-      expect(screen.queryByText('Inactive')).not.toBeInTheDocument()
+      expect(screen.queryByText('未激活')).not.toBeInTheDocument()
     })
 
     it('explains why the row cannot be picked on hover', async () => {
@@ -542,7 +542,7 @@ describe('SafeAccountSelector', () => {
   })
 
   describe('accounts on networks without spending limits', () => {
-    const unavailable = option('137', SAFE_B, { name: 'Grants', ineligibleReason: 'no-spending-limits' })
+    const unavailable = option('137', SAFE_B, { name: '资助', ineligibleReason: 'no-spending-limits' })
 
     it('lists the account as a disabled row and explains the network on hover', async () => {
       const { user } = renderWithUserEvent(
@@ -560,7 +560,7 @@ describe('SafeAccountSelector', () => {
   })
 
   describe('unsupported-network accounts', () => {
-    const unsupported = option('137', SAFE_B, { name: 'Grants', ineligibleReason: 'unsupported-chain' })
+    const unsupported = option('137', SAFE_B, { name: '资助', ineligibleReason: 'unsupported-chain' })
 
     it('lists an unsupported-network account as a disabled row', async () => {
       const { user } = renderWithUserEvent(
@@ -571,7 +571,7 @@ describe('SafeAccountSelector', () => {
 
       const rows = await screen.findAllByRole('option')
       expect(rows).toHaveLength(2)
-      expect(rows[1]).toHaveTextContent('Grants')
+      expect(rows[1]).toHaveTextContent('资助')
       expect(rows[1]).toHaveAttribute('aria-disabled', 'true')
     })
 
@@ -706,8 +706,8 @@ describe('SafeAccountSelector', () => {
     })
 
     it('names the policy the flow manages', () => {
-      expect(getNestedSafesNoticeText('proposers')).toContain('proposers')
-      expect(getNestedSafesNoticeText('spending limits')).toContain('spending limits')
+      expect(getNestedSafesNoticeText('proposers')).toContain('提案人')
+      expect(getNestedSafesNoticeText('spending limits')).toContain('支出限额')
     })
 
     it('stays out of the trigger while the popup is closed', () => {

@@ -8,10 +8,9 @@ import type { GasPayer } from '@/utils/gasPayment'
 import { getGasPaymentRefusal } from '../gasPaymentRefusal'
 import { sponsoredQuotaMessage } from '@/utils/quotaMessage'
 
-const UNAVAILABLE =
-  "This gas payment option isn't available for this Safe account right now. Choose another gas payment method and execute again."
-const WALLET_ONLY = 'This transaction can only be executed with your connected wallet. Execute again to continue.'
-const LIMIT_REACHED = 'No sponsored transactions left. Choose another gas payment method and execute again.'
+const UNAVAILABLE = '此 8379 账户目前无法使用该 Gas 支付方式，请选择其他方式后重新执行。'
+const WALLET_ONLY = '此交易仅可通过已连接钱包执行，请重新执行以继续。'
+const LIMIT_REACHED = '赞助交易次数已用完，请选择其他 Gas 支付方式后重新执行。'
 
 const quotaError = new QuotaExceededError('sponsored_transactions', 50, 50, '2026-11-01T00:00:00.000Z', 'x')
 
@@ -24,7 +23,7 @@ describe('getGasPaymentRefusal', () => {
       { excluded: ['SUBSCRIPTION'], message: sponsoredQuotaMessage(quotaError) },
     ],
     [
-      'a 429 on the daily limit',
+      'a 429 on the daily 项限额',
       new RelayLimitReachedError('x'),
       'FREE_DAILY_LIMIT',
       { excluded: ['FREE_DAILY_LIMIT'], message: LIMIT_REACHED },

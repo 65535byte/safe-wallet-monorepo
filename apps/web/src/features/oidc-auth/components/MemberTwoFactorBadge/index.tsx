@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Wallet, type LucideIcon } from 'lucide-react'
 import type { MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { Badge, BadgeDot } from '@safe-global/views/components/ui/badge'
@@ -7,9 +8,16 @@ const BADGE_BY_STATUS: Record<
   MemberTwoFactorStatus,
   { label: string; variant: 'success' | 'secondary'; icon?: LucideIcon; dot?: boolean }
 > = {
-  [MemberTwoFactorStatus.ACTIVE]: { label: 'Active', variant: 'success', dot: true },
-  [MemberTwoFactorStatus.WALLET_SIGN_IN]: { label: 'Wallet sign-in', variant: 'secondary', icon: Wallet },
-  [MemberTwoFactorStatus.INVITE_PENDING]: { label: 'Invite pending', variant: 'secondary' },
+  [MemberTwoFactorStatus.ACTIVE]: { label: translateMessage('ui.active_889c3246'), variant: 'success', dot: true },
+  [MemberTwoFactorStatus.WALLET_SIGN_IN]: {
+    label: translateMessage('ui.walletSignIn_776d9edd'),
+    variant: 'secondary',
+    icon: Wallet,
+  },
+  [MemberTwoFactorStatus.INVITE_PENDING]: {
+    label: translateMessage('ui.invitePending_efed0358'),
+    variant: 'secondary',
+  },
 }
 
 /**

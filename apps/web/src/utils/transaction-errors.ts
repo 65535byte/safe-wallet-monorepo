@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * Utilities for detecting and handling specific transaction errors
  */
@@ -75,11 +76,10 @@ export const isHypernativeGuardRevert = (error: Error): boolean => {
  * Kept as a single constant so the same condition reads consistently
  * regardless of which catch handler reached the UI first.
  */
-export const RATE_LIMIT_USER_MESSAGE = 'Network is busy. Please try again in a moment.'
+export const RATE_LIMIT_USER_MESSAGE = translateMessage('ui.networkIsBusyPleaseTryAgain_9174c432')
 
 /** Shown wherever the Hypernative guard blocks execution: inline in the tx flow and in the toast. */
-export const HYPERNATIVE_APPROVAL_REQUIRED_MESSAGE =
-  'This transaction is awaiting approval in your Hypernative account.'
+export const HYPERNATIVE_APPROVAL_REQUIRED_MESSAGE = translateMessage('ui.thisTransactionIsAwaitingApprovalIn_8ba30af5')
 
 /** JSON-RPC LimitExceeded. -32603 (Internal) is deliberately excluded: a real eth_call failure surfaces as -32603. */
 const RPC_LIMIT_EXCEEDED = -32005
@@ -173,8 +173,8 @@ export const getGasLimitTooLowMessage = (error: unknown): string | undefined => 
   const minimumGas = Number(MINIMUM_GAS.exec(message)?.[1])
 
   return Number.isSafeInteger(minimumGas) && minimumGas > 0
-    ? `Gas limit too low. Minimum needed: ${minimumGas.toLocaleString()}. Increase the gas limit and try again.`
-    : 'Gas limit too low. Increase the gas limit and try again.'
+    ? translateMessage('ui.gasLimitTooLowMinimumNeeded_726572f9', { p0: minimumGas.toLocaleString() })
+    : translateMessage('ui.gasLimitTooLowIncreaseThe_ee559c1f')
 }
 
 export { isRevertError }

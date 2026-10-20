@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -24,7 +25,7 @@ const AddOwner: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Add Signer`}</title>
+        <title>{translateMessage('ui.addSigner_95a3f65f', { p0: BRAND_NAME })}</title>
       </Head>
     </>
   )

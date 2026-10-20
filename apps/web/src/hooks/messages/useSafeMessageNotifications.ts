@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SafeMessageListItem } from '@safe-global/store/gateway/types'
 import { useEffect, useMemo, useRef } from 'react'
 
@@ -18,9 +19,9 @@ import { withSpaceIdInUrl, useUrlSpaceId } from '@/hooks/useUrlSpaceId'
 // Signing failures are absent by design: `SignMessage` is the only surface that
 // can produce them, and it renders them inline next to its CTA (WA-3502).
 const SafeMessageNotifications: Partial<Record<SafeMsgEvent, string>> = {
-  [SafeMsgEvent.PROPOSE]: 'You successfully signed the message.',
-  [SafeMsgEvent.CONFIRM_PROPOSE]: 'You successfully confirmed the message.',
-  [SafeMsgEvent.SIGNATURE_PREPARED]: 'The message was successfully confirmed.',
+  [SafeMsgEvent.PROPOSE]: translateMessage('ui.youSuccessfullySignedTheMessage_cfacbe81'),
+  [SafeMsgEvent.CONFIRM_PROPOSE]: translateMessage('ui.youSuccessfullyConfirmedTheMessage_6097ee1e'),
+  [SafeMsgEvent.SIGNATURE_PREPARED]: translateMessage('ui.theMessageWasSuccessfullyConfirmed_feec56f9'),
 }
 
 export const _getSafeMessagesAwaitingConfirmations = (
@@ -102,10 +103,10 @@ const useSafeMessageNotifications = () => {
     dispatch(
       showNotification({
         variant: 'info',
-        message: 'A message requires your confirmation.',
+        message: translateMessage('ui.aMessageRequiresYourConfirmation_ff2885dd'),
         link: {
           href: withSpaceIdInUrl(`${AppRoutes.transactions.messages}?safe=${chain?.shortName}:${safeAddress}`, spaceId),
-          title: 'View messages',
+          title: translateMessage('ui.viewMessages_d82a45d6'),
         },
         groupKey: messageHash,
       }),

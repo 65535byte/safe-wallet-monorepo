@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 import TxLayout from '@/components/tx-flow/common/TxLayout'
@@ -34,8 +35,12 @@ function RecoverAccountFlow(): ReactElement {
 
   return (
     <TxLayout
-      title={step === 0 ? 'Start Account recovery' : 'Confirm transaction'}
-      subtitle="Change Account settings"
+      title={
+        step === 0
+          ? translateMessage('ui.startAccountRecovery_31323ec6')
+          : translateMessage('ui.confirmTransaction_bfd300c6')
+      }
+      subtitle={translateMessage('ui.changeAccountSettings_8899346d')}
       icon={SaveAddressIcon}
       step={step}
       onBack={prevStep}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { ArrowRight } from 'lucide-react'
@@ -49,13 +50,13 @@ export const _initialSelection = (items: AllSafeItems): Record<string, boolean> 
 }
 
 export const seatsTooltip = (planName: string, limit: number): string =>
-  `${planName} covers ${limit} Safe accounts. Safe accounts you leave out remain available in My accounts. You can swap them in any time.`
+  translateMessage('ui.coversAccountsAccountsYouLeaveOut_e087a006', { p0: planName, p1: limit })
 
 /** Trims the Workspace to the plan's seats before the plan is taken; the Safes deselected are removed from it. */
 export default function SelectAccountsStep({
   limit,
   planName,
-  continueLabel = 'Continue to checkout',
+  continueLabel = translateMessage('ui.continueToCheckout_15a42e7c'),
   onBack,
   onContinue,
   isSubmitting,
@@ -96,16 +97,19 @@ export default function SelectAccountsStep({
   return (
     <>
       <Typography variant="h3" as={DialogTitle}>
-        {highlightSafePro('Select Safe accounts for your Safe Pro plan')}
+        {highlightSafePro(translateMessage('ui.selectAccountsForYourPlan_f4444531'))}
       </Typography>
 
       <Alert variant="info">
         <AlertSeverityIcon variant="info" />
         <AlertTitle className="font-semibold">
-          {planName} covers {limit} Safe accounts
+          {planName} {translateMessage('ui.covers_ed37bc23')}
+          {limit} {translateMessage('ui.accounts_99ed98fd')}
         </AlertTitle>
         <AlertDescription>
-          At {limit}, deselect one to add another. Safe accounts you leave out remain available in My accounts.
+          {translateMessage('ui.at_0cae37db')}
+          {limit}
+          {translateMessage('ui.deselectOneToAddAnotherSafe_c6bfd600')}
         </AlertDescription>
       </Alert>
 
@@ -120,8 +124,8 @@ export default function SelectAccountsStep({
           />
           <SearchInput
             className="flex-1"
-            placeholder="by name, address or network"
-            aria-label="Search Safe list"
+            placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+            aria-label={translateMessage('ui.searchList_41181693')}
             autoComplete="off"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -131,7 +135,7 @@ export default function SelectAccountsStep({
         <ScrollArea className="h-91">
           {!isLoading && items.length === 0 ? (
             <Typography align="center" color="muted" className="py-8">
-              No Safe accounts match your search
+              {translateMessage('ui.noAccountsMatchYourSearch_aefae7ae')}
             </Typography>
           ) : (
             <SafeAccountsTable
@@ -149,8 +153,11 @@ export default function SelectAccountsStep({
         <Alert variant="warning">
           <AlertSeverityIcon variant="warning" />
           <AlertDescription>
-            Deselect {seatCount - limit === 1 ? '1 Safe account' : `${seatCount - limit} Safe accounts`} to fit the
-            plan.
+            {translateMessage('ui.deselect_81c565f2')}
+            {seatCount - limit === 1
+              ? translateMessage('ui.account_d7ff14c1')
+              : translateMessage('ui.accounts_823b9dbc', { p0: seatCount - limit })}{' '}
+            {translateMessage('ui.toFitThePlan_792bec40')}
           </AlertDescription>
         </Alert>
       ) : (
@@ -171,7 +178,7 @@ export default function SelectAccountsStep({
 
       <div className="flex gap-5">
         <Button variant="secondary" size="lg" className="flex-1" onClick={onBack} disabled={isSubmitting}>
-          Back
+          {translateMessage('ui.back_dae8bf43')}
         </Button>
         <Track
           {...SAFE_PRO_EVENTS.SAFE_ACCOUNT_SELECTION_SUBMITTED}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import Track from '@/components/common/Track'
@@ -6,7 +7,6 @@ import { ChangeThresholdFlow } from '@/components/tx-flow/flows'
 import CheckWallet from '@/components/common/CheckWallet'
 import { useContext } from 'react'
 import { TxModalContext } from '@/components/tx-flow'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 export const RequiredConfirmation = ({ threshold, owners }: { threshold: number; owners: number }) => {
   const { setTxFlow } = useContext(TxModalContext)
@@ -16,15 +16,18 @@ export const RequiredConfirmation = ({ threshold, owners }: { threshold: number;
       <div className="flex flex-col justify-between gap-6 lg:flex-row">
         <div className="lg:w-1/5 lg:shrink-0">
           <Typography variant="h4" className="font-bold">
-            Required confirmations
+            {translateMessage('ui.requiredConfirmations_dbe4a283')}
           </Typography>
         </div>
 
         <div className="lg:min-w-0 lg:flex-1">
-          <Typography className="pb-4">Any transaction requires the confirmation of:</Typography>
+          <Typography className="pb-4">
+            {translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}
+          </Typography>
 
           <Typography className="inline pr-4">
-            <b>{threshold}</b> out of <b>{owners}</b> signer{maybePlural(owners)}.
+            <b>{threshold}</b> {translateMessage('ui.outOf_d22acd25')}
+            <b>{owners}</b> {translateMessage('ui.signer_73621bf3')}
           </Typography>
 
           {owners > 1 && (
@@ -32,7 +35,7 @@ export const RequiredConfirmation = ({ threshold, owners }: { threshold: number;
               {(isOk) => (
                 <Track {...SETTINGS_EVENTS.SETUP.CHANGE_THRESHOLD} as="span">
                   <Button onClick={() => setTxFlow(<ChangeThresholdFlow />)} disabled={!isOk} size="sm">
-                    Change
+                    {translateMessage('ui.change_16056c3a')}
                   </Button>
                 </Track>
               )}

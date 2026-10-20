@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
 import BeneficiaryIcon from '@safe-global/views/assets/images/settings/spending-limit/beneficiary.svg'
@@ -12,32 +13,27 @@ export const NoSpendingLimits = () => {
       </div>
       <div className="col-span-10">
         <Typography>
-          <b>Select beneficiary</b>
+          <b>{translateMessage('ui.selectBeneficiary_ff3052c6')}</b>
         </Typography>
-        <Typography>
-          Choose an account that will benefit from this allowance. The beneficiary does not have to be a signer of this
-          Safe account
-        </Typography>
+        <Typography>{translateMessage('ui.chooseAnAccountThatWillBenefit_f20fffab')}</Typography>
       </div>
       <div className="col-span-2">
         <AssetAmountIcon data-testid="asset-icon" />
       </div>
       <div className="col-span-10">
         <Typography>
-          <b>Select asset and amount</b>
+          <b>{translateMessage('ui.selectAssetAndAmount_073d1cfe')}</b>
         </Typography>
-        <Typography>You can set allowances for any asset stored in your Safe account</Typography>
+        <Typography>{translateMessage('ui.youCanSetAllowancesForAny_eb664ecb')}</Typography>
       </div>
       <div className="col-span-2">
         <TimeIcon data-testid="time-icon" />
       </div>
       <div className="col-span-10">
         <Typography>
-          <b>Select time</b>
+          <b>{translateMessage('ui.selectTime_985e414d')}</b>
         </Typography>
-        <Typography>
-          You can choose to set a one-time allowance or to have it automatically refill after a defined time-period
-        </Typography>
+        <Typography>{translateMessage('ui.youCanChooseToSetA_7b4638f3')}</Typography>
       </div>
     </div>
   )

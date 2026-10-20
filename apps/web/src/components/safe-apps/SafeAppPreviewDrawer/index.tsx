@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
@@ -48,7 +49,9 @@ const SafeAppPreviewDrawer = ({ isOpen, safeApp, isBookmarked, onClose, onBookma
     <Drawer direction="right" open={isOpen} onOpenChange={(open) => !open && onClose()}>
       {/* eslint-disable-next-line no-restricted-syntax -- rounded-l-xl/rounded-tr-none: bespoke preview drawer radius, no drawer radius token; 450px: legacy preview drawer width, wider than the drawer's max-w-sm default */}
       <DrawerContent className="rounded-l-xl rounded-tr-none data-[vaul-drawer-direction=right]:w-full data-[vaul-drawer-direction=right]:sm:max-w-[450px]">
-        <DrawerTitle className="sr-only">{safeApp?.name} preview</DrawerTitle>
+        <DrawerTitle className="sr-only">
+          {safeApp?.name} {translateMessage('ui.preview_e6bafc72')}
+        </DrawerTitle>
         <div className={`${css.drawerContainer} !pt-5`}>
           {/* Toolbar */}
 
@@ -62,21 +65,26 @@ const SafeAppPreviewDrawer = ({ isOpen, safeApp, isBookmarked, onClose, onBookma
                       variant="ghost"
                       size="icon-sm"
                       onClick={onClose}
-                      aria-label={`Close ${safeApp.name} preview`}
+                      aria-label={translateMessage('ui.closePreview_172effc9', { p0: safeApp.name })}
                       className="ml-2 text-[var(--color-border-main)]"
                     />
                   }
                 >
                   <CloseIcon className="size-4 text-[var(--color-border-main)]" />
                 </TooltipTrigger>
-                <TooltipContent>{`Close ${safeApp.name} preview`}</TooltipContent>
+                <TooltipContent>{translateMessage('ui.closePreview_172effc9', { p0: safeApp.name })}</TooltipContent>
               </Tooltip>
             </div>
           )}
 
           {/* Safe App Info */}
           <div className="px-2">
-            <SafeAppIconCard src={safeApp?.iconUrl} alt={`${safeApp?.name} logo`} width={90} height={90} />
+            <SafeAppIconCard
+              src={safeApp?.iconUrl}
+              alt={translateMessage('ui.logo_efd72bef', { p0: safeApp?.name })}
+              width={90}
+              height={90}
+            />
           </div>
 
           <Typography variant="h4" className="mt-4">
@@ -92,7 +100,7 @@ const SafeAppPreviewDrawer = ({ isOpen, safeApp, isBookmarked, onClose, onBookma
 
           {/* Networks */}
           <Typography variant="paragraph-small" className="block mt-4 text-[var(--color-text-secondary)]">
-            Available networks
+            {translateMessage('ui.availableNetworks_44a0c0ae')}
           </Typography>
 
           <div className="mt-4 flex">
@@ -106,7 +114,7 @@ const SafeAppPreviewDrawer = ({ isOpen, safeApp, isBookmarked, onClose, onBookma
             onClick={onOpenSafe}
             render={<Link href={safeAppUrl} />}
           >
-            Open Safe App
+            {translateMessage('ui.openApp_3859d086')}
           </Button>
 
           {/* Safe App Social Links */}

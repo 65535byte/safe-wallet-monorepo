@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NextLink, { type LinkProps } from 'next/link'
 import { Lock } from 'lucide-react'
 import { highlightSafePro } from '@safe-global/views/components/common/ProHighlight'
@@ -29,7 +30,7 @@ const SafeProLock = ({ title, href, feature }: { title: string; href: LinkProps[
         <Typography variant="paragraph-bold">{highlightSafePro(title)}</Typography>
       </AlertTitle>
       <AlertDescription>
-        <Typography>Existing ones stay active.</Typography>
+        <Typography>{translateMessage('ui.existingOnesStayActive_79acd322')}</Typography>
         <Button
           size="action"
           render={<NextLink href={href} />}
@@ -40,7 +41,7 @@ const SafeProLock = ({ title, href, feature }: { title: string; href: LinkProps[
             })
           }
         >
-          Explore Safe Pro
+          {translateMessage('ui.explore_90597457')}
         </Button>
       </AlertDescription>
     </Alert>

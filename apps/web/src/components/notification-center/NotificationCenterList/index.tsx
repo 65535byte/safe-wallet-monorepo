@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -17,8 +18,8 @@ const NotificationCenterList = ({ notifications, handleClose }: NotificationCent
   if (!notifications.length) {
     return (
       <div className={css.wrapper}>
-        <NoNotificationsIcon data-testid="notifications-icon" alt="No notifications" />
-        <Typography className="pt-2">No notifications</Typography>
+        <NoNotificationsIcon data-testid="notifications-icon" alt={translateMessage('ui.noNotifications_2e1acc9e')} />
+        <Typography className="pt-2">{translateMessage('ui.noNotifications_2e1acc9e')}</Typography>
       </div>
     )
   }

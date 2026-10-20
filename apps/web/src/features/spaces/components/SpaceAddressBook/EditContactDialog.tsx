@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
@@ -127,12 +128,17 @@ const EditContactDialog = ({ entry, onClose }: EditContactDialogProps) => {
   })
 
   return (
-    <ModalDialog open={true} onClose={handleClose} dialogTitle="Edit contact" hideChainIndicator>
+    <ModalDialog
+      open={true}
+      onClose={handleClose}
+      dialogTitle={translateMessage('ui.editContact_f59645be')}
+      hideChainIndicator
+    >
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             <div className="px-6 py-4">
-              <Typography className="mb-4">Edit contact details. Anyone in the Workspace can see it.</Typography>
+              <Typography className="mb-4">{translateMessage('ui.editContactDetailsAnyoneInThe_f50926f0')}</Typography>
               <div className="flex flex-col gap-6">
                 <div className="pt-2">
                   <AddressInputReadOnly address={entry.address} chainId={entry.chainIds[0]} />
@@ -142,7 +148,7 @@ const EditContactDialog = ({ entry, onClose }: EditContactDialogProps) => {
                     min-height 66px — the default h-9 left the two fields visibly uneven. */}
                 <NameInput
                   name="name"
-                  label="Name"
+                  label={translateMessage('ui.name_84f28b85')}
                   required
                   validateCharset
                   minLength={NAME_MIN_LENGTH}
@@ -151,9 +157,11 @@ const EditContactDialog = ({ entry, onClose }: EditContactDialogProps) => {
                 />
 
                 <div>
-                  <p className="mb-1 inline-flex items-center gap-1 text-sm font-bold">Select networks</p>
+                  <p className="mb-1 inline-flex items-center gap-1 text-sm font-bold">
+                    {translateMessage('ui.selectNetworks_e0c1529e')}
+                  </p>
                   <p className="text-muted-foreground mb-2 text-sm">
-                    Add contact on all networks or only on specific ones of your choice.
+                    {translateMessage('ui.addContactOnAllNetworksOr_c1ca9eb6')}
                   </p>
                   <Controller
                     name="networks"
@@ -164,7 +172,7 @@ const EditContactDialog = ({ entry, onClose }: EditContactDialogProps) => {
                         showSelectAll
                         value={field.value || []}
                         error={!!errors.networks}
-                        helperText={errors.networks ? 'Select at least one network' : ''}
+                        helperText={errors.networks ? translateMessage('ui.selectAtLeastOneNetwork_ea392c05') : ''}
                       />
                     )}
                     rules={{ required: true }}
@@ -184,7 +192,7 @@ const EditContactDialog = ({ entry, onClose }: EditContactDialogProps) => {
               className="p-4 pt-0"
               onCancel={handleClose}
               cancelTestId="cancel-btn"
-              confirmLabel="Save"
+              confirmLabel={translateMessage('ui.save_5fe30f30')}
               confirmType="submit"
               confirmDisabled={!formState.isValid || !hasChanges}
               confirmLoading={isSubmitting}

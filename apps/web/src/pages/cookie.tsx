@@ -1,9 +1,11 @@
+import { getLanguage, translateMessage } from '@/i18n'
 import type { ComponentProps } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useIsOfficialHost } from '@/hooks/useIsOfficialHost'
 import { BRAND_NAME } from '@/config/constants'
-import SafeCookiePolicy from '@/markdown/cookie/cookie.md'
+import ChineseCookiePolicy from '@/markdown/cookie/cookie.md'
+import EnglishCookiePolicy from '@/markdown/cookie/cookie.en.md'
 import type { MDXComponents } from 'mdx/types'
 import CustomLink from '@safe-global/views/components/common/CustomLink'
 import MarkdownContent from '@safe-global/views/components/common/MarkdownContent'
@@ -37,11 +39,12 @@ const overrideComponents: MDXComponents = {
 
 const CookiePolicy: NextPage = () => {
   const isOfficialHost = useIsOfficialHost()
+  const SafeCookiePolicy = getLanguage() === 'en' ? EnglishCookiePolicy : ChineseCookiePolicy
 
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Cookie policy`}</title>
+        <title>{translateMessage('ui.cookiePolicy_8faa608a', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main style={{ lineHeight: '1.5' }}>

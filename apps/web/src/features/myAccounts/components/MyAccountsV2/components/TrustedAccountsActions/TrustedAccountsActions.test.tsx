@@ -8,8 +8,8 @@ describe('TrustedAccountsActions', () => {
       routerProps: { pathname: '/welcome/accounts', query: {} },
     })
 
-    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('Add accounts')
-    expect(screen.getByTestId('add-more-safes-button')).toHaveTextContent('Manage list')
+    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('添加账户')
+    expect(screen.getByTestId('add-more-safes-button')).toHaveTextContent('管理列表')
   })
 
   it('calls onManage when the manage button is clicked', async () => {
@@ -29,8 +29,8 @@ describe('TrustedAccountsActions', () => {
 
     await userEvent.click(screen.getByTestId('open-add-accounts-chooser-button'))
 
-    expect(screen.getByRole('heading', { name: 'Add Safe accounts' })).toBeInTheDocument()
-    expect(screen.getByTestId('add-accounts-select-existing')).toHaveTextContent('Select existing')
-    expect(screen.getByTestId('add-accounts-create-new')).toHaveTextContent('Create new')
+    expect(screen.getByRole('heading', { name: '添加 8379 账户' })).toBeInTheDocument()
+    expect(screen.getByTestId('add-accounts-select-existing')).toHaveTextContent('选择已有账户')
+    expect(screen.getByTestId('add-accounts-create-new')).toHaveTextContent('创建新账户')
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -50,13 +51,15 @@ const RequestToAddButton = ({ address, name, chainIds, alreadyRequested, isCompa
   if (isDone) {
     return isCompact ? (
       <Tooltip>
-        <TooltipTrigger render={<span className="inline-flex" aria-label="Requested" />}>
+        <TooltipTrigger
+          render={<span className="inline-flex" aria-label={translateMessage('ui.requested_391ebaff')} />}
+        >
           <Clock className="text-muted-foreground size-4" />
         </TooltipTrigger>
-        <TooltipContent>Requested</TooltipContent>
+        <TooltipContent>{translateMessage('ui.requested_391ebaff')}</TooltipContent>
       </Tooltip>
     ) : (
-      <Badge variant="secondary">Requested</Badge>
+      <Badge variant="secondary">{translateMessage('ui.requested_391ebaff')}</Badge>
     )
   }
 
@@ -65,18 +68,18 @@ const RequestToAddButton = ({ address, name, chainIds, alreadyRequested, isCompa
     <Button
       variant="outline"
       size={isCompact ? 'icon-sm' : 'sm'}
-      aria-label={isCompact ? 'Request to add' : undefined}
+      aria-label={isCompact ? translateMessage('ui.requestToAdd_a5a8e23e') : undefined}
       onClick={() => setOpen(true)}
       disabled={!!nameError}
     >
-      {isCompact ? <Plus className="size-4" /> : 'Request to add'}
+      {isCompact ? <Plus className="size-4" /> : translateMessage('ui.requestToAdd_a5a8e23e')}
     </Button>
   )
 
   const trigger = isCompact ? (
     <Tooltip>
       <TooltipTrigger render={<span className="inline-flex" />}>{button}</TooltipTrigger>
-      <TooltipContent>Request to add</TooltipContent>
+      <TooltipContent>{translateMessage('ui.requestToAdd_a5a8e23e')}</TooltipContent>
     </Tooltip>
   ) : (
     button
@@ -86,33 +89,38 @@ const RequestToAddButton = ({ address, name, chainIds, alreadyRequested, isCompa
     <>
       {nameError ? <InvalidContactNameTooltip nameError={nameError}>{button}</InvalidContactNameTooltip> : trigger}
 
-      <ModalDialog open={open} onClose={() => setOpen(false)} dialogTitle="Request to add contact" hideChainIndicator>
+      <ModalDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        dialogTitle={translateMessage('ui.requestToAddContact_03e1beb5')}
+        hideChainIndicator
+      >
         <div className="px-6 py-4">
           <div className="flex flex-col gap-4">
             <Typography variant="paragraph-small" color="muted">
-              An admin has to approve the request before the contact appears in the Workspace address book.
+              {translateMessage('ui.anAdminHasToApproveThe_0a08cf05')}
             </Typography>
 
             <div className="flex flex-col gap-1">
               <Typography variant="paragraph-small" color="muted">
-                Name
+                {translateMessage('ui.name_84f28b85')}
               </Typography>
               <Typography>{name}</Typography>
             </div>
 
             <div className="flex flex-col gap-1">
               <Typography variant="paragraph-small" color="muted">
-                Address
+                {translateMessage('ui.address_ad6c5986')}
               </Typography>
               <EthHashInfo address={address} shortAddress={false} showPrefix={false} showName={false} avatarSize={24} />
             </div>
 
             <div className="flex flex-col gap-2">
               <Typography variant="paragraph-small" color="muted">
-                Networks
+                {translateMessage('ui.networks_e4d25fbc')}
               </Typography>
               {chains.configs.length === chainIds.length ? (
-                <Typography>All networks</Typography>
+                <Typography>{translateMessage('ui.allNetworks_ec5f6f6c')}</Typography>
               ) : (
                 <NetworkLogosTooltip
                   networks={chainIds.map((chainId) => ({ chainId }))}
@@ -125,7 +133,10 @@ const RequestToAddButton = ({ address, name, chainIds, alreadyRequested, isCompa
             {nameError && (
               <Alert variant="warning" outlined={false}>
                 <AlertSeverityIcon variant="warning" />
-                <AlertDescription>Rename this contact to share it with the Workspace. {nameError}.</AlertDescription>
+                <AlertDescription>
+                  {translateMessage('ui.renameThisContactToShareIt_0df21022')}
+                  {nameError}.
+                </AlertDescription>
               </Alert>
             )}
           </div>
@@ -135,7 +146,7 @@ const RequestToAddButton = ({ address, name, chainIds, alreadyRequested, isCompa
           className="px-6 pt-0 pb-6"
           onCancel={() => setOpen(false)}
           cancelTestId="cancel-btn"
-          confirmLabel="Request to add"
+          confirmLabel={translateMessage('ui.requestToAdd_a5a8e23e')}
           onConfirm={handleConfirm}
           confirmTestId="confirm-request-btn"
           confirmDisabled={!!nameError || isSubmitting}

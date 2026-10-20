@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
@@ -42,7 +43,7 @@ const DeleteContactDialog = ({ name, address, networks, onClose }: DeleteContact
 
       if (isElevationRequiredError(response.error)) return
       if (response.error) {
-        setError('Something went wrong deleting the contact. Please try again.')
+        setError(translateMessage('ui.somethingWentWrongDeletingTheContact_b6e79074'))
         return
       }
 
@@ -56,7 +57,7 @@ const DeleteContactDialog = ({ name, address, networks, onClose }: DeleteContact
 
       onClose()
     } catch (error) {
-      setError('Something went wrong deleting the contact. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongDeletingTheContact_b6e79074'))
     } finally {
       setIsSubmitting(false)
     }
@@ -66,7 +67,7 @@ const DeleteContactDialog = ({ name, address, networks, onClose }: DeleteContact
     <ModalDialog
       open
       onClose={onClose}
-      dialogTitle="Remove address book entry"
+      dialogTitle={translateMessage('ui.removeAddressBookEntry_41638636')}
       maxWidth="sm"
       fullWidth
       hideChainIndicator
@@ -74,8 +75,8 @@ const DeleteContactDialog = ({ name, address, networks, onClose }: DeleteContact
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="p-6">
           <Typography className="mb-2">
-            Are you sure you want to remove <strong>{name}</strong> from the address book? This change will apply to the
-            following networks:
+            {translateMessage('ui.areYouSureYouWantTo_e3a808ce')}
+            <strong>{name}</strong> {translateMessage('ui.fromTheAddressBookThisChange_9ef91a82')}
           </Typography>
 
           <ChainIndicatorList chainIds={networks} />
@@ -90,10 +91,10 @@ const DeleteContactDialog = ({ name, address, networks, onClose }: DeleteContact
 
         <div className="flex justify-between gap-2 p-4 pt-0 pb-6">
           <Button variant="ghost" onClick={onClose}>
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
           <Button data-testid="delete-btn" onClick={handleConfirm} variant="destructive" disabled={isSubmitting}>
-            {isSubmitting ? <Spinner className="size-5" /> : 'Remove'}
+            {isSubmitting ? <Spinner className="size-5" /> : translateMessage('ui.remove_1498adee')}
           </Button>
         </div>
       </div>

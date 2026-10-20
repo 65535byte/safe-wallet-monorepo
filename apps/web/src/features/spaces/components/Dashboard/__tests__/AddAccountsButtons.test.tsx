@@ -175,7 +175,7 @@ describe('SpaceDashboard – accounts widget header actions', () => {
     render(<SpaceDashboard />)
 
     const emptyStateSlot = screen.getByTestId('empty-state-action-slot')
-    expect(emptyStateSlot).toHaveTextContent('Manage accounts')
+    expect(emptyStateSlot).toHaveTextContent('管理账户')
     expect(emptyStateSlot.querySelector('[data-entry-point="dashboard"]')).not.toBeNull()
   })
 })

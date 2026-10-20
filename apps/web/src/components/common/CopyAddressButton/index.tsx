@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { checksumAddress } from '@safe-global/utils/utils/addresses'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactNode, ReactElement } from 'react'
@@ -26,10 +27,7 @@ const CopyAddressButton = ({
         showCopyButton={false}
         hasExplorer
       />
-      <Typography>
-        The copied address is linked to a transaction with an untrusted token. Make sure you are interacting with the
-        right address.
-      </Typography>
+      <Typography>{translateMessage('ui.theCopiedAddressIsLinkedTo_7ab80465')}</Typography>
     </div>
   )
 

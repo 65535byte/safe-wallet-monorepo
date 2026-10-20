@@ -40,7 +40,7 @@ describe('RecoveryDescription', () => {
 
     render(<RecoveryDescription item={item} />)
 
-    expect(screen.getByText('1 out of 1 owner(s)')).toBeInTheDocument()
+    expect(screen.getByText('1 / 共 1 owner(s)')).toBeInTheDocument()
   })
 
   it('warns that the proposal will fail when the recovered setup cannot be derived', () => {

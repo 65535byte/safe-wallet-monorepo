@@ -1,15 +1,14 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Alert, AlertAction, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
 
 const SafeLimitError = ({ onRetry }: { onRetry: () => void }) => (
   <Alert variant="destructive" className="shrink-0" data-testid="safe-limit-error">
     <AlertSeverityIcon variant="destructive" />
-    <AlertDescription>
-      We couldn&apos;t load how many Safe accounts your plan allows. You can add more once it loads.
-    </AlertDescription>
+    <AlertDescription>{translateMessage('ui.weCouldnTLoadHowMany_7712790a')}</AlertDescription>
     <AlertAction>
       <Button type="button" variant="outline" size="sm" onClick={onRetry}>
-        Retry
+        {translateMessage('ui.retry_2cd6945d')}
       </Button>
     </AlertAction>
   </Alert>

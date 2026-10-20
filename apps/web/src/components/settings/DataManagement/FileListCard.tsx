@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import FileIcon from '@safe-global/views/assets/images/settings/data/file.svg'
 
@@ -87,10 +88,18 @@ const getItems = ({
     const addedSafesPreview: ItemText = {
       primary: (
         <>
-          <b>Added Safe accounts</b> on {addedSafeChainAmount} {addedSafeChainAmount === 1 ? 'chain' : 'chains'}
+          <b>{translateMessage('ui.addedAccounts_b14da430')}</b> {translateMessage('ui.on_ba88d5c1')}
+          {addedSafeChainAmount} {addedSafeChainAmount === 1 ? 'chain' : 'chains'}
         </>
       ),
-      secondary: showPreview ? getItemSecondaryText(chains, addedSafes, 'Safe', 'Safes') : undefined,
+      secondary: showPreview
+        ? getItemSecondaryText(
+            chains,
+            addedSafes,
+            translateMessage('ui.text_1252aec6'),
+            translateMessage('ui.accounts_0ecf161b'),
+          )
+        : undefined,
     }
 
     items.push(addedSafesPreview)
@@ -100,7 +109,8 @@ const getItems = ({
     const addressBookPreview: ItemText = {
       primary: (
         <>
-          <b>Address book</b> for {addressBookChainAmount} {addressBookChainAmount === 1 ? 'chain' : 'chains'}
+          <b>{translateMessage('ui.addressBook_84131c25')}</b> {translateMessage('ui.for_2b768308')}
+          {addressBookChainAmount} {addressBookChainAmount === 1 ? 'chain' : 'chains'}
         </>
       ),
       secondary: showPreview ? getItemSecondaryText(chains, addressBook, 'contact', 'contacts') : undefined,
@@ -113,7 +123,8 @@ const getItems = ({
     const settingsPreview: ItemText = {
       primary: (
         <>
-          <b>Settings</b> (appearance, currency, hidden tokens and custom environment variables)
+          <b>{translateMessage('ui.settings_36b502ac')}</b>{' '}
+          {translateMessage('ui.appearanceCurrencyHiddenTokensAndCustom_3eef80bf')}
         </>
       ),
     }
@@ -125,7 +136,7 @@ const getItems = ({
     const visitedSafesPreview: ItemText = {
       primary: (
         <>
-          <b>Visited Safe accounts history</b>
+          <b>{translateMessage('ui.visitedAccountsHistory_23221aa1')}</b>
         </>
       ),
     }
@@ -138,7 +149,8 @@ const getItems = ({
     const safeAppsPreview: ItemText = {
       primary: (
         <>
-          Bookmarked <b>Safe Apps</b>
+          {translateMessage('ui.bookmarked_210df3bc')}
+          <b>{translateMessage('ui.safeApps_234a7c1c')}</b>
         </>
       ),
     }
@@ -150,7 +162,7 @@ const getItems = ({
     const undeployedSafesPreview: ItemText = {
       primary: (
         <>
-          <b>Not activated Safe accounts</b> {undeployedSafesCount}
+          <b>{translateMessage('ui.notActivatedAccounts_3bd62443')}</b> {undeployedSafesCount}
         </>
       ),
     }

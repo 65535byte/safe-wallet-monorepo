@@ -40,7 +40,7 @@ describe('SafenetDetailsCardView', () => {
     renderView({ publicStatus: CheckStatus.MALICIOUS, snapshot }, false)
 
     expect(screen.getByTestId('safenet-details-card')).toHaveAttribute('data-status', CheckStatus.MALICIOUS)
-    expect(screen.getByText('Risk detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到风险')).toBeInTheDocument()
   })
 
   it('lists the cited rules on a risk, most-cited first', () => {
@@ -52,7 +52,7 @@ describe('SafenetDetailsCardView', () => {
     })
 
     const body = screen.getByTestId('safenet-details-card').textContent ?? ''
-    expect(body.indexOf('Unlimited approval')).toBeLessThan(body.indexOf('Unknown spender'))
+    expect(body.indexOf('无限授权')).toBeLessThan(body.indexOf('未知支出授权人'))
     expect(screen.getByText('Flagged by 2 sentinels')).toBeInTheDocument()
     expect(screen.getByText('Flagged by 1 sentinel')).toBeInTheDocument()
   })
@@ -84,7 +84,7 @@ describe('SafenetDetailsCardView', () => {
       snapshot: buildSnapshot({ safeTxHash, status: CheckStatus.IN_PROGRESS }),
     })
 
-    expect(screen.getByText('Safenet is simulating this transaction.')).toBeInTheDocument()
+    expect(screen.getByText('Safenet 正在模拟此交易。')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-details-explorer')).not.toBeInTheDocument()
     expect(screen.queryByTestId('safenet-details-attestation')).not.toBeInTheDocument()
   })
@@ -95,9 +95,7 @@ describe('SafenetDetailsCardView', () => {
       snapshot: buildSnapshot({ safeTxHash, status: CheckStatus.TIMED_OUT, events: [oracleResultEvent()] }),
     })
 
-    expect(screen.getByTestId('safenet-failure-reason')).toHaveTextContent(
-      'Sentinels voted, but the validators did not sign the result in time.',
-    )
+    expect(screen.getByTestId('safenet-failure-reason')).toHaveTextContent('哨兵已投票，但验证者未及时签署结果。')
   })
 })
 

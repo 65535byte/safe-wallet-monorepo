@@ -4,7 +4,7 @@ import css from './ProHighlight.module.css'
 /** The brand-green underline the Safe Pro copy wears behind "Safe Pro" (and other highlighted words). */
 export const ProHighlight = ({ children }: { children: ReactNode }) => <span className={css.highlight}>{children}</span>
 
-const SAFE_PRO = 'Safe Pro'
+const SAFE_PRO = '8379'
 
 export const highlightSafePro = (text: string): ReactNode => {
   const parts = text.split(SAFE_PRO)

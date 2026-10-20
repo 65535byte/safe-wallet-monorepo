@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import type { WalletKitTypes } from '@reown/walletkit'
 import useChains from '@/hooks/useChains'
@@ -6,7 +7,7 @@ import { capitalize } from '@safe-global/utils/utils/formatters'
 import { getPeerName, isBlockedBridge, isWarnedBridge } from '../../services/utils'
 import { BRAND_NAME } from '@/config/constants'
 
-const NAME_FALLBACK = 'this dApp'
+const NAME_FALLBACK = translateMessage('ui.thisDApp_af63ff28')
 const NAME_PLACEHOLDER = '%%name%%'
 const CHAIN_PLACEHOLDER = '%%chain%%'
 
@@ -15,19 +16,22 @@ export type CompatibilityWarningSeverity = 'error' | 'warning' | 'info'
 const Warnings: Record<string, { severity: CompatibilityWarningSeverity; message: string }> = {
   BLOCKED_BRIDGE: {
     severity: 'error',
-    message: `${NAME_PLACEHOLDER} is a bridge that is incompatible with ${BRAND_NAME} — the bridged funds will be lost. Consider using a different bridge.`,
+    message: translateMessage('ui.isABridgeThatIsIncompatible_865d56d7', { p0: NAME_PLACEHOLDER, p1: BRAND_NAME }),
   },
   WARNED_BRIDGE: {
     severity: 'warning',
-    message: `While bridging via ${NAME_PLACEHOLDER}, please make sure that the desination address you send funds to matches the Safe address you have on the respective chain. Otherwise, the funds will be lost.`,
+    message: translateMessage('ui.whileBridgingViaPleaseMakeSure_e4dc0346', { p0: NAME_PLACEHOLDER }),
   },
   UNSUPPORTED_CHAIN: {
     severity: 'error',
-    message: `${NAME_PLACEHOLDER} does not support this Safe account's network (${CHAIN_PLACEHOLDER}). Please switch to a Safe account on one of the supported networks below.`,
+    message: translateMessage('ui.doesNotSupportThisAccountS_6db7ab52', {
+      p0: NAME_PLACEHOLDER,
+      p1: CHAIN_PLACEHOLDER,
+    }),
   },
   WRONG_CHAIN: {
     severity: 'info',
-    message: `Please make sure that the dApp is connected to ${CHAIN_PLACEHOLDER}.`,
+    message: translateMessage('ui.pleaseMakeSureThatTheDApp_1de26b21', { p0: CHAIN_PLACEHOLDER }),
   },
 }
 

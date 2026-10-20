@@ -94,8 +94,8 @@ describe('GlobalPushNotifications', () => {
   it('renders the selectable Safe accounts inside shadcn list primitives', () => {
     render(createElement(GlobalPushNotifications))
 
-    expect(screen.getByText('Select all').closest('[data-slot="list"]')).toBeInTheDocument()
-    expect(screen.getByText('Ethereum Safe accounts').closest('[data-slot="list-item"]')).toBeInTheDocument()
+    expect(screen.getByText('全选').closest('[data-slot="list"]')).toBeInTheDocument()
+    expect(screen.getByText('Ethereum 个 Safe 账户').closest('[data-slot="list-item"]')).toBeInTheDocument()
     expect(screen.getByText(safeAddress).closest('[data-slot="list-item"]')).toBeInTheDocument()
   })
 
@@ -149,7 +149,7 @@ describe('GlobalPushNotifications', () => {
 
       fireEvent.click(screen.getByText(otherSafeAddress))
       fireEvent.click(screen.getByText(safeAddress))
-      fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+      fireEvent.click(screen.getByRole('button', { name: '保存' }))
     }
 
     it('does not unregister existing subscriptions if registration fails', async () => {
@@ -161,7 +161,7 @@ describe('GlobalPushNotifications', () => {
         expect(registerNotificationsMock).toHaveBeenCalledWith({ '1': [otherSafeAddress] })
       })
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: 'Save' })).toBeEnabled()
+        expect(screen.getByRole('button', { name: '保存' })).toBeEnabled()
       })
 
       expect(unregisterSafeNotificationsMock).not.toHaveBeenCalled()
@@ -185,7 +185,7 @@ describe('GlobalPushNotifications', () => {
       render(createElement(GlobalPushNotifications))
 
       fireEvent.click(screen.getByText(safeAddress))
-      fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+      fireEvent.click(screen.getByRole('button', { name: '保存' }))
 
       await waitFor(() => {
         expect(unregisterDeviceNotificationsMock).toHaveBeenCalledWith('1')
@@ -205,7 +205,7 @@ describe('GlobalPushNotifications', () => {
       render(createElement(GlobalPushNotifications))
 
       fireEvent.click(screen.getByText(safeAddress))
-      fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+      fireEvent.click(screen.getByRole('button', { name: '保存' }))
 
       await waitFor(() => {
         expect(unregisterDeviceNotificationsMock).toHaveBeenCalledWith('1')

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressInfo, TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 import { HexEncodedData } from '@/components/transactions/HexEncodedData'
@@ -31,7 +32,7 @@ const DecodedData = ({
 
     return (
       <SendToBlock
-        title="Interact with"
+        title={translateMessage('ui.interactWith_9eefaee7')}
         address={toInfo.value}
         name={toInfo.name}
         customAvatar={toInfo.logoUri}
@@ -55,16 +56,28 @@ const DecodedData = ({
       {method ? (
         <MethodCall contractAddress={toAddress} contractName={name} contractLogo={avatar} method={method} />
       ) : (
-        <SendToBlock address={toAddress} name={name} title="Interacted with" avatarSize={20} customAvatar={avatar} />
+        <SendToBlock
+          address={toAddress}
+          name={name}
+          title={translateMessage('ui.interactedWith_a5c1e766')}
+          avatarSize={20}
+          customAvatar={avatar}
+        />
       )}
 
-      {amountInWei !== '0' && <SendAmountBlock title="Value" amountInWei={amountInWei} tokenInfo={nativeTokenInfo} />}
+      {amountInWei !== '0' && (
+        <SendAmountBlock
+          title={translateMessage('ui.value_5f04a161')}
+          amountInWei={amountInWei}
+          tokenInfo={nativeTokenInfo}
+        />
+      )}
 
       {txData.dataDecoded ? (
         <MethodDetails data={txData.dataDecoded} hexData={txData.hexData} addressInfoIndex={txData.addressInfoIndex} />
       ) : txData.hexData ? (
         <div data-testid="hexData" className="text-sm">
-          <HexEncodedData title="Data" hexData={txData.hexData} />
+          <HexEncodedData title={translateMessage('ui.data_e932c3b4')} hexData={txData.hexData} />
         </div>
       ) : null}
     </div>

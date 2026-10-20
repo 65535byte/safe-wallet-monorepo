@@ -142,7 +142,7 @@ describe('SelectSafesOnboarding — Stripe return', () => {
   it('confirms the trial on landing with a Get started CTA', () => {
     render(<SelectSafesOnboarding />)
 
-    expect(screen.getByTestId('checkout-return-modals')).toHaveTextContent('Get started')
+    expect(screen.getByTestId('checkout-return-modals')).toHaveTextContent('开始使用')
   })
 })
 
@@ -228,7 +228,7 @@ describe('SelectSafesOnboarding — selection wiring', () => {
     mockSafeLimit = { limit: undefined, isError: true }
     render(<SelectSafesOnboarding />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Retry' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(mockRetryLimit).toHaveBeenCalled()
   })
 })
@@ -284,13 +284,13 @@ describe('SelectSafesOnboarding — step counter reflects the survey flag', () =
   it('shows 3 total steps when the survey is disabled', () => {
     mockedUseIsSurveyEnabled.mockReturnValue(false)
     render(<SelectSafesOnboarding />)
-    expect(screen.getByRole('group', { name: 'Step 2 of 3' })).toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'Step 2 / 3' })).toBeInTheDocument()
   })
 
   it('shows 4 total steps when the survey is enabled', () => {
     mockedUseIsSurveyEnabled.mockReturnValue(true)
     render(<SelectSafesOnboarding />)
-    expect(screen.getByRole('group', { name: 'Step 2 of 4' })).toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'Step 2 / 4' })).toBeInTheDocument()
   })
 })
 
@@ -312,7 +312,7 @@ describe('SelectSafesOnboarding — naming step', () => {
   it('replaces the list with the name fields and keeps the step counter on step 2', () => {
     render(<SelectSafesOnboarding />)
 
-    expect(screen.getByText('Name your Safe accounts')).toBeInTheDocument()
+    expect(screen.getByText('为 8379 账户命名')).toBeInTheDocument()
     expect(screen.getByTestId('name-accounts-fields')).toHaveAttribute('data-count', '1')
     expect(screen.queryByTestId('onboarding-safes-list')).not.toBeInTheDocument()
     expect(screen.getByRole('group', { name: /Step 2 of/ })).toBeInTheDocument()
@@ -321,14 +321,14 @@ describe('SelectSafesOnboarding — naming step', () => {
   it('submits with an "Add accounts" label and hides the skip link', () => {
     render(<SelectSafesOnboarding />)
 
-    expect(screen.getByTestId('select-safes-continue-button')).toHaveTextContent('Add accounts')
+    expect(screen.getByTestId('select-safes-continue-button')).toHaveTextContent('添加账户')
     expect(screen.queryByTestId('select-safes-skip-link')).not.toBeInTheDocument()
   })
 
   it('goes back to the selection step instead of the previous onboarding page', () => {
     render(<SelectSafesOnboarding />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+    fireEvent.click(screen.getByRole('button', { name: '返回' }))
 
     expect(mockShowSelectStep).toHaveBeenCalled()
     expect(mockHandleBack).not.toHaveBeenCalled()

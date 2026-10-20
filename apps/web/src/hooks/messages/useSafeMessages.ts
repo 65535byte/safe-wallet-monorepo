@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import type { MessagePage } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import {
@@ -54,7 +55,7 @@ const useSafeMessages = (
         if ('data' in result && result.data) {
           return result.data
         }
-        throw new Error(String('error' in result ? result.error : 'Unknown error'))
+        throw new Error(String('error' in result ? result.error : translateMessage('ui.unknownError_c955cb50')))
       })
     },
     [safe.chainId, safeAddress, safeLoaded, cursor, trigger],

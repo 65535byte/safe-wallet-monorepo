@@ -174,7 +174,7 @@ jest.mock('@/features/__core__', () => ({
             onDismiss: () => void
           }) => (
             <div data-testid="workspace-2fa-awareness-card" data-space-id={spaceId} className={className}>
-              <button onClick={onDismiss}>Dismiss</button>
+              <button onClick={onDismiss}>关闭</button>
             </div>
           ),
         }
@@ -183,7 +183,7 @@ jest.mock('@/features/__core__', () => ({
           $error: mockSafeProError,
           SafeProSidebarBanner: ({ className, onDismiss }: { className?: string; onDismiss?: () => void }) => (
             <div data-testid="safe-pro-sidebar-banner" className={className}>
-              <button onClick={onDismiss}>Dismiss Safe Pro</button>
+              <button onClick={onDismiss}>Dismiss 8379</button>
             </div>
           ),
         },
@@ -271,7 +271,7 @@ describe('SidebarCommonFooter', () => {
       mockIsTwoFactorBannerEnabled = true
       render(<SidebarCommonFooter />)
 
-      fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
+      fireEvent.click(screen.getByRole('button', { name: '关闭' }))
 
       expect(mockDismissTwoFactorCard).toHaveBeenCalledTimes(1)
     })
@@ -287,7 +287,7 @@ describe('SidebarCommonFooter', () => {
   })
 
   describe('banner slot', () => {
-    it('shows the Safe Pro banner and keeps the 2FA card invisible behind it while both are on', () => {
+    it('shows the 8379 banner and keeps the 2FA card invisible behind it while both are on', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       render(<SidebarCommonFooter />)
@@ -296,16 +296,16 @@ describe('SidebarCommonFooter', () => {
       expect(screen.getByTestId('workspace-2fa-awareness-card')).toHaveClass('invisible')
     })
 
-    it('dismisses the Safe Pro banner through its persisted dismissal state', () => {
+    it('dismisses the 8379 banner through its persisted dismissal state', () => {
       mockIsSafeProAnnouncementEnabled = true
       render(<SidebarCommonFooter />)
 
-      fireEvent.click(screen.getByRole('button', { name: 'Dismiss Safe Pro' }))
+      fireEvent.click(screen.getByRole('button', { name: 'Dismiss 8379' }))
 
       expect(mockDismissSafeProBanner).toHaveBeenCalledTimes(1)
     })
 
-    it('shows the 2FA card once the Safe Pro banner was dismissed', () => {
+    it('shows the 2FA card once the 8379 banner was dismissed', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProBannerDismissed = true
@@ -315,7 +315,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.getByTestId('workspace-2fa-awareness-card')).not.toHaveClass('invisible')
     })
 
-    it('leaves the slot out of the layout while the Safe Pro banner is still loading', () => {
+    it('leaves the slot out of the layout while the 8379 banner is still loading', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProLoaded = false
@@ -325,7 +325,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.queryByTestId('workspace-2fa-awareness-card')).not.toBeInTheDocument()
     })
 
-    it('gives the slot to the 2FA card when the Safe Pro banner fails to load', () => {
+    it('gives the slot to the 2FA card when the 8379 banner fails to load', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProLoaded = false
@@ -335,7 +335,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.getByTestId('workspace-2fa-awareness-card')).not.toHaveClass('invisible')
     })
 
-    it('keeps showing the 2FA card while Safe Pro loads, when Safe Pro was already dismissed', () => {
+    it('keeps showing the 2FA card while 8379 loads, when 8379 was already dismissed', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProBannerDismissed = true
@@ -361,7 +361,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.queryByTestId('workspace-2fa-awareness-card')).not.toBeInTheDocument()
     })
 
-    it('gives the slot to the 2FA card once Safe Pro is live', () => {
+    it('gives the slot to the 2FA card once 8379 is live', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProEnabled = true
@@ -371,7 +371,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.getByTestId('workspace-2fa-awareness-card')).not.toHaveClass('invisible')
     })
 
-    it('shows the 2FA card where the Safe Pro banner hides itself', () => {
+    it('shows the 2FA card where the 8379 banner hides itself', () => {
       mockIsTwoFactorBannerEnabled = true
       mockIsSafeProAnnouncementEnabled = true
       mockPathname = '/spaces/plans'
@@ -382,7 +382,7 @@ describe('SidebarCommonFooter', () => {
     })
   })
 
-  describe('Safe Pro banner', () => {
+  describe('8379 banner', () => {
     it('shows the banner on the Workspaces sidebar when the flag is on', () => {
       mockIsSafeProAnnouncementEnabled = true
       render(<SidebarCommonFooter />)
@@ -405,7 +405,7 @@ describe('SidebarCommonFooter', () => {
       expect(screen.queryByTestId('safe-pro-sidebar-banner')).not.toBeInTheDocument()
     })
 
-    it('retires the banner once Safe Pro is live, even with the announcement flag on', () => {
+    it('retires the banner once 8379 is live, even with the announcement flag on', () => {
       mockIsSafeProAnnouncementEnabled = true
       mockIsSafeProEnabled = true
       render(<SidebarCommonFooter />)
@@ -480,7 +480,7 @@ describe('SidebarCommonFooter', () => {
     expect(screen.getByTestId('list-item-need-help')).toBeInTheDocument()
     expect(screen.getByTestId('list-item-whats-new')).toBeInTheDocument()
     expect(screen.getByTestId('help-icon')).toBeInTheDocument()
-    expect(screen.getByText('Help')).toBeInTheDocument()
+    expect(screen.getByText('帮助')).toBeInTheDocument()
   })
 
   it('renders the indexing status next to Help', () => {
@@ -490,7 +490,7 @@ describe('SidebarCommonFooter', () => {
 
   it('renders the Help center tooltip', () => {
     render(<SidebarCommonFooter />)
-    expect(screen.getByRole('tooltip', { name: /Help center/i })).toBeInTheDocument()
+    expect(screen.getByRole('tooltip', { name: /帮助中心/i })).toBeInTheDocument()
   })
 
   it('opens help menu when Help button is clicked', () => {
@@ -514,7 +514,7 @@ describe('SidebarCommonFooter', () => {
   it('does not render dev toggles in production', () => {
     render(<SidebarCommonFooter />)
 
-    expect(screen.queryByText('Dark mode')).not.toBeInTheDocument()
+    expect(screen.queryByText('深色模式')).not.toBeInTheDocument()
   })
 
   describe('dev mode (IS_PRODUCTION = false)', () => {
@@ -525,7 +525,7 @@ describe('SidebarCommonFooter', () => {
     it('renders the Dark mode toggle', () => {
       render(<SidebarCommonFooter />)
 
-      expect(screen.getByRole('checkbox', { name: /Dark mode/i })).toBeInTheDocument()
+      expect(screen.getByRole('checkbox', { name: /深色模式/i })).toBeInTheDocument()
     })
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import { safeCreationPendingStatuses } from '../../hooks/safeCreationPendingStatuses'
 import { SafeCreationEvent, safeCreationSubscribe } from '../../services/safeCreationEvents'
@@ -70,19 +71,23 @@ const CounterfactualSuccessScreen = () => {
 
         <div data-testid="safe-activation-message" className="text-center">
           <Typography data-testid="account-success-message" variant="h3" className="mb-2 font-bold">
-            {isCFCreation ? 'Your account is almost set!' : 'Your account is all set!'}
+            {isCFCreation
+              ? translateMessage('ui.yourAccountIsAlmostSet_efcca6e6')
+              : translateMessage('ui.yourAccountIsAllSet_ed1e1b6e')}
           </Typography>
           <Typography variant="paragraph-small" as="p">
             {isCFCreation
-              ? `Activate the account ${isMultiChain ? 'per network' : ''} to unlock all features of your smart wallet.`
-              : 'Start your journey to the smart account security now.'}
+              ? translateMessage('ui.activateTheAccountToUnlockAll_120b3e91', {
+                  p0: isMultiChain ? translateMessage('ui.perNetwork_0e5f570c') : '',
+                })
+              : translateMessage('ui.startYourJourneyToTheSmart_3d5e8b1e')}
           </Typography>
           <Typography variant="paragraph-small" as="p">
             {isCFCreation && isMultiChain
-              ? `You can use the address below to receive funds on the selected ${
-                  isMultiChain ? 'networks' : 'network'
-                }.`
-              : `Use your address to receive funds${chainName ? ` on ${chainName}` : ''}.`}
+              ? translateMessage('ui.youCanUseTheAddressBelow_79fab6a2', { p0: isMultiChain ? 'networks' : 'network' })
+              : translateMessage('ui.useYourAddressToReceiveFunds_31712c4a', {
+                  p0: chainName ? translateMessage('ui.on_5c5ee09a', { p0: chainName }) : '',
+                })}
           </Typography>
         </div>
 
@@ -104,7 +109,7 @@ const CounterfactualSuccessScreen = () => {
         )}
 
         <Button onClick={onClose} data-testid="cf-creation-lets-go-btn">
-          Let&apos;s go
+          {translateMessage('ui.letSGo_aa4b5f78')}
         </Button>
       </DialogContent>
     </Dialog>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SearchField from '@/components/common/SearchField'
 
 interface GlobalSearchProps {
@@ -8,10 +9,10 @@ interface GlobalSearchProps {
 const GlobalSearch = ({ value, onChange }: GlobalSearchProps) => {
   return (
     <SearchField
-      placeholder="Search"
+      placeholder={translateMessage('ui.search_b3c8cd38')}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      aria-label="Search"
+      aria-label={translateMessage('ui.search_b3c8cd38')}
       autoFocus
     />
   )

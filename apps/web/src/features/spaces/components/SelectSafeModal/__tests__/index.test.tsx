@@ -4,8 +4,8 @@ import { ESafeAction } from '@/features/spaces/store'
 import { FEATURES } from '@safe-global/utils/utils/chains'
 import type { SafeItem } from '@/hooks/safes'
 
-const SWAP_DISABLED_TOOLTIP = 'Swap is not supported on this chain. Try another chain.'
-const SWAP_DISABLED_CF_TOOLTIP = 'This account is not activated yet and cannot swap.'
+const SWAP_DISABLED_TOOLTIP = '此链不支持兑换，请尝试其他链。'
+const SWAP_DISABLED_CF_TOOLTIP = '此账户尚未激活，无法兑换。'
 
 const deployedSafe: SafeItem = {
   chainId: '1',

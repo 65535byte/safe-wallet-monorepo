@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { AlertCircle } from 'lucide-react'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@safe-global/views/components/ui/tooltip'
 import { cn } from '@safe-global/views/utils/cn'
@@ -18,7 +19,7 @@ function NotActivatedBadge({
   onClick,
   showTooltip = true,
 }: NotActivatedBadgeProps) {
-  const label = isActivating ? 'Activating' : 'Inactive'
+  const label = isActivating ? translateMessage('ui.activating_a907caf8') : translateMessage('ui.inactive_402ad6c0')
 
   const icon = (
     <AlertCircle

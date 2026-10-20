@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Wallet } from 'lucide-react'
 import { Alert, AlertDescription } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -18,7 +19,7 @@ const ConnectWalletHint = ({ testId, onConnect }: { testId?: string; onConnect?:
     <Alert variant="default" className="shrink-0 items-center rounded-md py-3">
       <Wallet className="!translate-y-0" />
       <AlertDescription className="flex w-full items-center gap-3 text-foreground">
-        <span className="min-w-0 flex-1">Connect a wallet to discover accounts you own</span>
+        <span className="min-w-0 flex-1">{translateMessage('ui.connectAWalletToDiscoverAccounts_216169ff')}</span>
         <Button
           type="button"
           size="sm"
@@ -27,7 +28,7 @@ const ConnectWalletHint = ({ testId, onConnect }: { testId?: string; onConnect?:
           data-testid={testId}
           className="shrink-0 hover:bg-muted"
         >
-          Connect
+          {translateMessage('ui.connect_32941c64')}
         </Button>
       </AlertDescription>
     </Alert>

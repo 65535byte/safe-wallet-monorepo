@@ -8,7 +8,7 @@ jest.mock('@/features/spaces/hooks/useUpsertWorkspaceSafeName', () => ({
 }))
 
 jest.mock('@/features/spaces/hooks/useWorkspaceAddressBookLabel', () => ({
-  useWorkspaceAddressBookLabel: () => 'Acme address book',
+  useWorkspaceAddressBookLabel: () => 'Acme 通讯录',
 }))
 
 jest.mock('@safe-global/views/hooks/use-mobile', () => ({
@@ -20,7 +20,7 @@ describe('EntryDialog', () => {
     render(<EntryDialog handleClose={jest.fn()} />)
 
     expect(screen.getByTestId('entry-dialog')).toBeInTheDocument()
-    expect(screen.getByTestId('modal-title')).toHaveTextContent('Create entry')
+    expect(screen.getByTestId('modal-title')).toHaveTextContent('创建联系人')
   })
 
   /**
@@ -106,7 +106,7 @@ describe('EntryDialog scope', () => {
     renderDialog('workspace')
     await save()
 
-    await waitFor(() => expect(screen.getByText('Something went wrong. Please try again.')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('出现问题，请重试。')).toBeInTheDocument())
     expect(screen.getByTestId('entry-dialog')).toBeInTheDocument()
     expect(screen.getByTestId('save-btn')).not.toBeDisabled()
   })

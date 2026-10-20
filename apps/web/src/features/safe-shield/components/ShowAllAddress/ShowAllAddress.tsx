@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { AddressImage } from '@safe-global/views/features/safe-shield/components/AddressImage'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -63,7 +64,11 @@ export const ShowAllAddress = ({ addresses, showImage }: ShowAllAddressProps) =>
                         {item.address}
                       </Typography>
                     </TooltipTrigger>
-                    <TooltipContent>{copiedIndex === index ? 'Copied to clipboard' : 'Copy address'}</TooltipContent>
+                    <TooltipContent>
+                      {copiedIndex === index
+                        ? translateMessage('ui.copiedToClipboard_f1ab9263')
+                        : translateMessage('ui.copyAddress_e5bff417')}
+                    </TooltipContent>
                   </Tooltip>
                   <span className="text-[var(--color-text-secondary)]">
                     {explorerLink && <ExplorerButton href={explorerLink.href} />}

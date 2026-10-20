@@ -118,6 +118,6 @@ describe('ReviewSignMessageOnChain', () => {
       )
     })
 
-    expect(screen.getByText('Interact with SignMessageLib')).toBeInTheDocument()
+    expect(screen.getByText('与 SignMessageLib 交互')).toBeInTheDocument()
   })
 })

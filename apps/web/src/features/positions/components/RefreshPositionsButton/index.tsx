@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import { RefreshCwIcon, type LucideProps } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -29,7 +30,7 @@ type RefreshPositionsButtonProps = {
 }
 
 const RefreshPositionsButton = ({
-  entryPoint = 'Positions',
+  entryPoint = translateMessage('ui.positions_9f380dbc'),
   tooltip,
   size = 'small',
   label = '',
@@ -60,9 +61,11 @@ const RefreshPositionsButton = ({
 
   const defaultTooltip = useMemo(() => {
     if (isOnCooldown) {
-      return 'Refreshed. Please wait 30 seconds'
+      return translateMessage('ui.refreshedPleaseWaitSeconds_4add2db1')
     }
-    return shouldUsePortfolioEndpoint ? 'Refresh portfolio data' : 'Refresh positions data'
+    return shouldUsePortfolioEndpoint
+      ? translateMessage('ui.refreshPortfolioData_3106e7d9')
+      : translateMessage('ui.refreshPositionsData_c2dd0b23')
   }, [shouldUsePortfolioEndpoint, isOnCooldown])
 
   const displayTooltip = isOnCooldown ? defaultTooltip : (tooltip ?? defaultTooltip)

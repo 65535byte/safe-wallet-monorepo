@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactNode, useMemo, useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
@@ -123,10 +124,10 @@ export const useSecurityChecks = (
     if (accountSetupResult) {
       const ok = isPassingStatus(accountSetupResult.status)
       const title = ok
-        ? 'Signing threshold is strong'
+        ? translateMessage('ui.signingThresholdIsStrong_7ae456c7')
         : scanContext.threshold === 1
-          ? 'Single signer controls this Safe'
-          : 'Signing threshold is low'
+          ? translateMessage('ui.singleSignerControlsThis_23b723f2')
+          : translateMessage('ui.signingThresholdIsLow_d153ec7a')
       items.push({
         key: 'threshold',
         severity: accountSetupResult.severity,
@@ -149,7 +150,9 @@ export const useSecurityChecks = (
     const multichainResult = results['multichain_setup']
     if (multichainResult && multichainResult.status !== 'not_applicable') {
       const ok = isPassingStatus(multichainResult.status)
-      const title = ok ? 'Signers are consistent across networks' : 'Signers differ across networks'
+      const title = ok
+        ? translateMessage('ui.signersAreConsistentAcrossNetworks_c6902b23')
+        : translateMessage('ui.signersDifferAcrossNetworks_eaf5bba6')
       items.push({
         key: 'multichain',
         severity: multichainResult.severity,
@@ -174,10 +177,10 @@ export const useSecurityChecks = (
       const ok = isPassingStatus(recoveryResult.status)
       const title =
         recoveryResult.status === 'clear'
-          ? 'Recovery is configured'
+          ? translateMessage('ui.recoveryIsConfigured_21d6eeba')
           : recoveryResult.status === 'not_applicable'
-            ? 'Recovery not available on this network'
-            : 'Recovery is not configured'
+            ? translateMessage('ui.recoveryNotAvailableOnThisNetwork_2f182569')
+            : translateMessage('ui.recoveryIsNotConfigured_99734089')
       items.push({
         key: 'recovery',
         severity: recoveryResult.severity,
@@ -198,10 +201,10 @@ export const useSecurityChecks = (
     if (versionResult) {
       const ok = isPassingStatus(versionResult.status)
       const title = !ok
-        ? 'Contract version is outdated'
+        ? translateMessage('ui.contractVersionIsOutdated_49a1c75f')
         : versionResult.upgradeAvailable
-          ? 'New contract version available'
-          : 'Contract version is up to date'
+          ? translateMessage('ui.newContractVersionAvailable_ce108188')
+          : translateMessage('ui.contractVersionIsUpToDate_c190c7bf')
       items.push({
         key: 'version',
         severity: versionResult.severity,
@@ -223,10 +226,10 @@ export const useSecurityChecks = (
       const ok = isPassingStatus(factoryResult.status)
       const title =
         factoryResult.status === 'clear'
-          ? 'Deployed via official Safe factory'
+          ? translateMessage('ui.deployedViaOfficialFactory_1a07468a')
           : factoryResult.status === 'inconclusive'
-            ? 'Deployment origin not yet verified'
-            : 'Deployed from an unrecognized source'
+            ? translateMessage('ui.deploymentOriginNotYetVerified_d208fad0')
+            : translateMessage('ui.deployedFromAnUnrecognizedSource_f67e2051')
       items.push({
         key: 'factory',
         severity: factoryResult.severity,
@@ -251,11 +254,11 @@ export const useSecurityChecks = (
       const ok = isPassingStatus(guardResult.status)
       const title = ok
         ? hasGuard
-          ? 'Transaction guard is active'
-          : 'No unsupported guard installed'
+          ? translateMessage('ui.transactionGuardIsActive_9708f80e')
+          : translateMessage('ui.noUnsupportedGuardInstalled_60b14566')
         : hasGuard
-          ? 'Transaction guard is unverified'
-          : 'Transaction guard is recommended'
+          ? translateMessage('ui.transactionGuardIsUnverified_eba40ff1')
+          : translateMessage('ui.transactionGuardIsRecommended_02b36d54')
       // A partner-tagged, actionable guard result opens the Hypernative signup flow in place of a
       // deep-link. Passing results already get no CTA (buildCta returns null), so this only fires
       // for the Tier-3 nudge (no guard, high-value, Hypernative chain).
@@ -290,8 +293,8 @@ export const useSecurityChecks = (
       const title = ok
         ? hasFallback
           ? handlerLabel || 'Fallback handler is active'
-          : 'No fallback handler in use'
-        : 'Fallback handler is unverified'
+          : translateMessage('ui.noFallbackHandlerInUse_1115e732')
+        : translateMessage('ui.fallbackHandlerIsUnverified_c3978f3c')
       items.push({
         key: 'fallback',
         severity: fallbackResult.severity,
@@ -323,7 +326,7 @@ export const useSecurityChecks = (
               leadIcon={iconFor(modulesResult)}
               accentTone={toneFor(modulesResult)}
               subtitle={subtitleFor(modulesResult)}
-              title="No unsupported module installed"
+              title={translateMessage('ui.noUnsupportedModuleInstalled_0fd5e8db')}
               expandedContent={buildExpanded(modulesResult, buildCta('modules', modulesResult, safeQueryParam))}
             />
           ),
@@ -338,7 +341,7 @@ export const useSecurityChecks = (
             <Row
               leadIcon={iconFor(modulesResult)}
               accentTone={toneFor(modulesResult)}
-              title={`Modules & Extensions · ${activeModules.length} installed`}
+              title={translateMessage('ui.modulesExtensionsInstalled_a6cae4e6', { p0: activeModules.length })}
               trailing={
                 <Button
                   size="sm"
@@ -350,7 +353,7 @@ export const useSecurityChecks = (
                   // eslint-disable-next-line no-restricted-syntax -- inline text toggle: auto-height, no padding
                   className="h-auto min-w-0 p-0 text-[0.7rem] font-semibold normal-case"
                 >
-                  View all
+                  {translateMessage('ui.viewAll_51f8dcd8')}
                 </Button>
               }
             />
@@ -370,7 +373,7 @@ export const useSecurityChecks = (
               <Row
                 leadIcon={<SeverityIcon tone={rowTone('issue', severity)} />}
                 accentTone={rowTone('issue', severity)}
-                title="Vulnerable module detected"
+                title={translateMessage('ui.vulnerableModuleDetected_8e0f15db')}
                 expandedContent={<EvidenceList intro={VULNERABLE_MODULE_INTRO} cta={ZODIAC_VULNERABILITY_CTA} />}
               />
             ),
@@ -383,13 +386,13 @@ export const useSecurityChecks = (
           const status: ScanResult['status'] = trusted ? 'clear' : 'issue'
           // Identify which module each row is so multiple flagged modules aren't indistinguishable.
           const title = vulnerable
-            ? `Vulnerable module · ${mod.name || shortenAddress(mod.value)}`
+            ? translateMessage('ui.vulnerableModule_286b0278', { p0: mod.name || shortenAddress(mod.value) })
             : trusted
-              ? `Recognized module · ${mod.name || shortenAddress(mod.value)}`
-              : 'Unrecognized module detected'
+              ? translateMessage('ui.recognizedModule_28738ef3', { p0: mod.name || shortenAddress(mod.value) })
+              : translateMessage('ui.unrecognizedModuleDetected_51df9740')
           const perModuleEvidence: EvidenceItem[] = [
-            { label: 'Address', value: mod.value },
-            ...(mod.name ? [{ label: 'Name', value: mod.name }] : []),
+            { label: translateMessage('ui.address_ad6c5986'), value: mod.value },
+            ...(mod.name ? [{ label: translateMessage('ui.name_84f28b85'), value: mod.name }] : []),
           ]
           const { intro, cta } = getModuleRowContent({ vulnerable, trusted }, modulesCta)
           items.push({
@@ -412,7 +415,9 @@ export const useSecurityChecks = (
     const scanningResult = results['transaction_scanning']
     if (scanningResult) {
       const ok = isPassingStatus(scanningResult.status)
-      const title = ok ? 'Transaction scanning is enabled' : 'Transaction scanning is disabled'
+      const title = ok
+        ? translateMessage('ui.transactionScanningIsEnabled_86affebe')
+        : translateMessage('ui.transactionScanningIsDisabled_1dc25b7b')
       items.push({
         key: 'scanning',
         severity: scanningResult.severity,
@@ -438,9 +443,9 @@ export const useSecurityChecks = (
       const queued = scanContext.queuedTxCount
       const title = ok
         ? queued > 0
-          ? 'Queue is up to date'
-          : 'No pending transactions'
-        : 'Pending transactions are stale'
+          ? translateMessage('ui.queueIsUpToDate_1ebd59e7')
+          : translateMessage('ui.noPendingTransactions_233bb81d')
+        : translateMessage('ui.pendingTransactionsAreStale_fd8edd11')
       items.push({
         key: 'pending',
         severity: pendingResult.severity,

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -9,7 +10,7 @@ const CreateSpacePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Create Workspace`}</title>
+        <title>{translateMessage('ui.createWorkspace_ac34db95', { p0: BRAND_NAME })}</title>
       </Head>
       <CreateSpaceOnboarding />
     </>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactElement, ReactNode } from 'react'
 
@@ -7,7 +8,7 @@ export function SimilarityGroupContainer({ children }: { children: ReactNode }):
       {/* Warning header */}
       <div className="bg-[var(--color-warning-background)] px-3 py-1.5">
         <Typography variant="paragraph-mini-medium" className="text-[var(--color-warning-main)]">
-          Similar addresses - verify carefully
+          {translateMessage('ui.similarAddressesVerifyCarefully_c7de5bb9')}
         </Typography>
       </div>
 

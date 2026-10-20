@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Eye } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -8,7 +9,6 @@ import useBalances from '@/hooks/useBalances'
 import Track from '@/components/common/Track'
 
 import css from './styles.module.css'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 const HiddenTokenButton = ({
   toggleShowHiddenAssets,
@@ -36,8 +36,8 @@ const HiddenTokenButton = ({
           <Eye className="size-5" />
           <Typography variant="paragraph-small">
             {hiddenAssetCount === 0
-              ? 'Hide tokens'
-              : `${hiddenAssetCount} hidden token${maybePlural(hiddenAssetCount)}`}{' '}
+              ? translateMessage('ui.hideTokens_0f041e72')
+              : translateMessage('ui.hiddenToken_88815854', { p0: hiddenAssetCount })}{' '}
           </Typography>
         </Button>
       </Track>

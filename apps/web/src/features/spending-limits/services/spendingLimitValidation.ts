@@ -1,6 +1,7 @@
+import { translateMessage } from '@/i18n'
 import { AbiCoder, parseUnits } from 'ethers'
 
-export const NO_TOKEN_SELECTED_ERROR = 'Select a token'
+export const NO_TOKEN_SELECTED_ERROR = translateMessage('ui.selectAToken_13973247')
 
 /**
  * The AllowanceModule stores amounts as uint96
@@ -14,6 +15,8 @@ export const validateSpendingLimitAmount = (value: string, decimals?: number | n
     const amount = parseUnits(value, decimals)
     AbiCoder.defaultAbiCoder().encode(['int96'], [amount])
   } catch {
-    return Number(value) > 1 ? 'Amount is too big' : 'Amount is too small'
+    return Number(value) > 1
+      ? translateMessage('ui.amountIsTooBig_129bb5a1')
+      : translateMessage('ui.amountIsTooSmall_97faf384')
   }
 }

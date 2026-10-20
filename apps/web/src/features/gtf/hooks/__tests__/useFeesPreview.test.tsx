@@ -228,7 +228,7 @@ describe('useFeesPreview', () => {
 
     const { result } = renderHook(() => useFeesPreview(), { wrapper: withSafeTx(nativeSafeTx) })
 
-    expect(result.current.executionFee).toEqual({ label: 'Execution fee', isFree: true })
+    expect(result.current.executionFee).toEqual({ label: '执行费用', isFree: true })
     expect(result.current.executionFee.amount).toBeUndefined()
     expect(result.current.executionFee.currency).toBeUndefined()
   })
@@ -244,8 +244,8 @@ describe('useFeesPreview', () => {
     const { result } = renderHook(() => useFeesPreview(), { wrapper: withSafeTx(nativeSafeTx) })
 
     // Multi-sig signer mode (threshold 2): execution fee stays free, gas is not quoted.
-    expect(result.current.executionFee).toEqual({ label: 'Execution fee', isFree: true })
-    expect(result.current.gasFee).toEqual({ label: 'Max gas fee', note: 'Calculated at execution' })
+    expect(result.current.executionFee).toEqual({ label: '执行费用', isFree: true })
+    expect(result.current.gasFee).toEqual({ label: '最高 Gas 费用', note: '执行时计算' })
     expect(result.current.loading).toBe(false)
     // No candidates and no change handler → the UI takes the locked signer-pays notice
     // (PLA-1435) instead of offering a "Pay fees from: Safe" choice that can never work.
@@ -436,7 +436,7 @@ describe('useFeesPreview', () => {
     const { result } = renderHook(() => useFeesPreview(), { wrapper: withSafeTx(nativeSafeTx) })
 
     expect(result.current.canCoverFees).toBe(false)
-    expect(result.current.gasFee.note).toBe('Calculated at execution')
+    expect(result.current.gasFee.note).toBe('执行时计算')
     expect(result.current.gasFee.amount).toBeUndefined()
     expect(result.current.gasFee.currency).toBeUndefined()
     expect(result.current.error).toBe(false)
@@ -472,7 +472,7 @@ describe('useFeesPreview', () => {
     expect(previewSpy.mock.calls.at(-1)?.[0]).toBe(skipToken)
     expect(result.current.canCoverFees).toBe(true)
     expect(result.current.availableGasTokens).toEqual([])
-    expect(result.current.gasFee.note).toBe('Calculated at execution')
+    expect(result.current.gasFee.note).toBe('执行时计算')
   })
 
   describe('signer-pays mode (Safe→Signer toggle)', () => {
@@ -489,7 +489,7 @@ describe('useFeesPreview', () => {
 
       const { result } = renderHook(() => useFeesPreview(), { wrapper: withSafeTx(nativeSafeTx, 'signer') })
 
-      expect(result.current.gasFee.note).toBe('Calculated at execution')
+      expect(result.current.gasFee.note).toBe('执行时计算')
       expect(result.current.gasFee.amount).toBeUndefined()
       expect(result.current.gasFee.currency).toBeUndefined()
       expect(result.current.canCoverFees).toBe(true)
@@ -646,7 +646,7 @@ describe('useFeesPreview', () => {
 
       expect(result.current.isLegacySigned).toBe(true)
       expect(result.current.isConfirmation).toBe(true)
-      expect(result.current.gasFee.note).toBe('Calculated at execution')
+      expect(result.current.gasFee.note).toBe('执行时计算')
       expect(result.current.gasFee.amount).toBeUndefined()
     })
 
@@ -690,7 +690,7 @@ describe('useFeesPreview', () => {
 
       expect(spy.mock.calls.length).toBeGreaterThan(0)
       spy.mock.calls.forEach(([arg]) => expect(arg).toBe(skipToken))
-      expect(result.current.gasFee).toEqual({ label: 'Max gas fee', note: 'Calculated at execution' })
+      expect(result.current.gasFee).toEqual({ label: '最高 Gas 费用', note: '执行时计算' })
       expect(result.current.previewedSafeTx).toBeUndefined()
     })
 

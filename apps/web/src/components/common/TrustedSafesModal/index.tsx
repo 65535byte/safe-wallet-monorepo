@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import ManageTrustedSafesContent from './ManageTrustedSafesContent'
 import type { UseTrustedSafesModalReturn } from './useTrustedSafesModal'
@@ -19,7 +20,7 @@ const TrustedSafesModal = ({ modal }: TrustedSafesModalProps) => {
           // eslint-disable-next-line no-restricted-syntax -- bespoke header padding px-6 pb-4 pt-6, no token
           className="shrink-0 px-6 pb-4 pt-6"
         >
-          <DialogTitle className="font-bold">Manage my account list</DialogTitle>
+          <DialogTitle className="font-bold">{translateMessage('ui.manageMyAccountList_8c4bafc8')}</DialogTitle>
         </DialogHeader>
 
         <div className="flex min-h-0 flex-1 flex-col px-6 pb-6 pt-4">

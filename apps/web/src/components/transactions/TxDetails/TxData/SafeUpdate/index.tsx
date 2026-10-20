@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import DecodedData from '../DecodedData'
 
@@ -5,7 +6,7 @@ function SafeUpdate({ txData }: { txData?: TransactionData | null }) {
   return (
     <div className="mr-10 flex flex-col gap-4">
       <div className="bg-[var(--color-border-background)] w-full rounded-lg p-3 text-center text-lg font-bold">
-        Safe version update
+        {translateMessage('ui.versionUpdate_032b3665')}
       </div>
 
       <DecodedData txData={txData} toInfo={txData?.to} />

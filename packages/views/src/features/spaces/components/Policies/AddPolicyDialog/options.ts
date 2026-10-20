@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { LockKeyholeOpen, MessageSquarePlus, UserRoundPen, WalletCards, type LucideIcon } from 'lucide-react'
 
 export type AddPolicyId = 'spending-limit' | 'proposer' | 'suggestion' | 'recovery'
@@ -14,27 +15,27 @@ export interface AddPolicyOption {
 export const ADD_POLICY_OPTIONS: AddPolicyOption[] = [
   {
     id: 'spending-limit',
-    title: 'Spending limit',
-    description: 'Let spenders access assets without collecting signatures.',
+    title: translateMessage('ui.spendingLimit_26abdb30'),
+    description: translateMessage('ui.letSpendersAccessAssetsWithoutCollecting_4450464f'),
     Icon: WalletCards,
   },
   {
     id: 'proposer',
-    title: 'Proposer role',
-    description: 'Let teammates without signing rights propose transactions.',
+    title: translateMessage('ui.proposerRole_1d90df3b'),
+    description: translateMessage('ui.letTeammatesWithoutSigningRightsPropose_65ac3715'),
     Icon: UserRoundPen,
   },
   {
     id: 'suggestion',
-    title: 'Suggest the next policy',
-    description: 'Tell us which rules would help you manage your Safe Accounts.',
+    title: translateMessage('ui.suggestTheNextPolicy_d5805219'),
+    description: translateMessage('ui.tellUsWhichRulesWouldHelp_d9d757d7'),
     Icon: MessageSquarePlus,
   },
 ]
 
 export const RECOVERY_POLICY_OPTION: AddPolicyOption = {
   id: 'recovery',
-  title: 'Account recovery',
-  description: 'Let recoverers restore access to your Safe Account.',
+  title: translateMessage('ui.accountRecovery_a5ed5ee0'),
+  description: translateMessage('ui.letRecoverersRestoreAccessToYour_8ffef710'),
   Icon: LockKeyholeOpen,
 }

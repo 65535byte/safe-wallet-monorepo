@@ -2,8 +2,8 @@ import { render } from '@/tests/test-utils'
 import EnhancedTable from './index'
 
 const headCells = [
-  { id: 'name', label: 'Name' },
-  { id: 'value', label: 'Value', disableSort: true },
+  { id: 'name', label: '名称' },
+  { id: 'value', label: '价值', disableSort: true },
 ]
 
 const rows = ['a', 'b', 'c'].map((value) => ({
@@ -18,7 +18,7 @@ describe('EnhancedTable', () => {
   it('renders the head cells and one row per entry', () => {
     const { getAllByTestId, getByText } = render(<EnhancedTable headCells={headCells} rows={rows} />)
 
-    expect(getByText('Name')).toBeInTheDocument()
+    expect(getByText('名称')).toBeInTheDocument()
     expect(getAllByTestId('table-row')).toHaveLength(3)
   })
 

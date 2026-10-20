@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SafeAppIconCard from '@safe-global/views/components/safe-apps/SafeAppIconCard'
 import { WCLoadingState } from '../../types'
 import { getPeerName, getSupportedChainIds, isBlockedBridge, isWarnedBridge } from '../../services/utils'
@@ -101,12 +102,17 @@ const WcProposalForm = ({ proposal, onApprove, onReject }: ProposalFormProps): R
 
       {proposer.metadata.icons[0] && (
         <div className={css.icon}>
-          <SafeAppIconCard src={proposer.metadata.icons[0]} width={32} height={32} alt={`${name || 'dApp'} logo`} />
+          <SafeAppIconCard
+            src={proposer.metadata.icons[0]}
+            width={32}
+            height={32}
+            alt={translateMessage('ui.logo_efd72bef', { p0: name || 'dApp' })}
+          />
         </div>
       )}
 
       <Typography className="mb-2">
-        <b>{name}</b> wants to connect
+        <b>{name}</b> {translateMessage('ui.wantsToConnect_721ea5e0')}
       </Typography>
 
       <Typography className={`mb-6 ${css.origin}`}>{proposal.verifyContext.verified.origin}</Typography>
@@ -121,7 +127,7 @@ const WcProposalForm = ({ proposal, onApprove, onReject }: ProposalFormProps): R
         <Field orientation="horizontal" className={css.checkbox}>
           <Checkbox id={riskCheckboxId} checked={understandsRisk} onCheckedChange={onCheckboxClick} />
           <FieldLabel htmlFor={riskCheckboxId}>
-            I understand the risks associated with interacting with this dApp and would like to continue.
+            {translateMessage('ui.iUnderstandTheRisksAssociatedWith_ce9178a6')}
           </FieldLabel>
         </Field>
       )}
@@ -152,7 +158,13 @@ const WcProposalForm = ({ proposal, onApprove, onReject }: ProposalFormProps): R
           className="py-[var(--space-1)] px-[var(--space-4)] min-w-[130px]"
           disabled={!!loading}
         >
-          {loading === WCLoadingState.REJECT ? <Spinner className="size-5" /> : isUnsupportedChain ? 'Close' : 'Reject'}
+          {loading === WCLoadingState.REJECT ? (
+            <Spinner className="size-5" />
+          ) : isUnsupportedChain ? (
+            translateMessage('ui.close_fbd8cee0')
+          ) : (
+            translateMessage('ui.reject_39589b77')
+          )}
         </Button>
       </div>
     </div>

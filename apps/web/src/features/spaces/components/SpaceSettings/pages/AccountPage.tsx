@@ -1,9 +1,10 @@
+import { translateMessage } from '@/i18n'
 import { LogOut, Pencil } from 'lucide-react'
 import { useState } from 'react'
 import { useCurrentMemberProfile, MemberStatus, getMemberDisplayName } from '@/features/spaces'
 import { SwitchAuthenticatorSection, WalletTwoFactorSection } from '@/features/oidc-auth'
 import useLogout from '@/hooks/useLogout'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -21,10 +22,15 @@ const AccountPage = () => {
   const { logout } = useLogout()
   const [isEditOpen, setIsEditOpen] = useState(false)
 
+  const handleSignOut = () => {
+    trackEvent(SPACE_EVENTS.AUTH_LOGGED_OUT)
+    logout()
+  }
+
   if (isLoading && !membership) {
     return (
       <SpaceSettingsSection>
-        <SpaceSettingsSectionTitle>Signed in</SpaceSettingsSectionTitle>
+        <SpaceSettingsSectionTitle>{translateMessage('ui.signedIn_0ea6d5a9')}</SpaceSettingsSectionTitle>
         <div className="flex items-center gap-4">
           <Skeleton className="size-12 rounded-md" />
           <div className="flex flex-col gap-1.5">
@@ -39,9 +45,11 @@ const AccountPage = () => {
   if (!membership || membership.status !== MemberStatus.ACTIVE) {
     return (
       <SpaceSettingsSection data-testid="settings-account-page">
-        <SpaceSettingsSectionTitle className="mb-2">Signed in</SpaceSettingsSectionTitle>
+        <SpaceSettingsSectionTitle className="mb-2">
+          {translateMessage('ui.signedIn_0ea6d5a9')}
+        </SpaceSettingsSectionTitle>
         <Typography variant="paragraph-small" color="muted">
-          You&apos;re not signed in to this Workspace.
+          {translateMessage('ui.youReNotSignedInTo_8030c47e')}
         </Typography>
       </SpaceSettingsSection>
     )
@@ -53,7 +61,7 @@ const AccountPage = () => {
   return (
     <>
       <SpaceSettingsSection data-testid="settings-account-page">
-        <SpaceSettingsSectionTitle>Signed in</SpaceSettingsSectionTitle>
+        <SpaceSettingsSectionTitle>{translateMessage('ui.signedIn_0ea6d5a9')}</SpaceSettingsSectionTitle>
 
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-4 min-w-0">
@@ -67,7 +75,7 @@ const AccountPage = () => {
                   variant="ghost"
                   size="icon-sm"
                   onClick={() => setIsEditOpen(true)}
-                  aria-label="Edit your name"
+                  aria-label={translateMessage('ui.editYourName_1a456846')}
                   data-testid="settings-edit-name"
                 >
                   <Pencil className="size-3.5 text-muted-foreground" />
@@ -100,12 +108,10 @@ const AccountPage = () => {
               </Typography>
             </div>
           </div>
-          <Track {...SPACE_EVENTS.AUTH_LOGGED_OUT}>
-            <Button variant="outline" size="sm" onClick={logout} data-testid="settings-account-sign-out">
-              <LogOut className="h-3.5 w-3.5" />
-              Sign out
-            </Button>
-          </Track>
+          <Button variant="outline" size="sm" onClick={handleSignOut} data-testid="settings-account-sign-out">
+            <LogOut className="h-3.5 w-3.5" />
+            {translateMessage('ui.signOut_7392794f')}
+          </Button>
         </div>
 
         {isEditOpen && <EditMemberDialog member={membership} handleClose={() => setIsEditOpen(false)} />}

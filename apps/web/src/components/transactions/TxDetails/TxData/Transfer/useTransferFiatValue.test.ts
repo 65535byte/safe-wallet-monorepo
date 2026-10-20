@@ -110,7 +110,7 @@ describe('useTransferFiatValue', () => {
       type: TransactionTokenType.ERC20,
       tokenAddress: '0x0000000000000000000000000000000000000001',
       value: parseUnits('100', 18).toString(),
-      tokenName: 'Unknown',
+      tokenName: '未知',
       tokenSymbol: 'UNK',
       decimals: 18,
       trusted: true,

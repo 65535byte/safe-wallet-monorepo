@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { cn } from '@safe-global/views/utils/cn'
@@ -12,7 +13,7 @@ export default function SpaceActivityLogPage({ spaceId }: { spaceId: string }) {
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="mb-6 flex flex-col gap-6">
           <Typography variant="h2" className="font-bold leading-[1] tracking-tight">
-            Activity
+            {translateMessage('ui.activity_95633d2c')}
           </Typography>
         </div>
         <SpaceActivityLog />

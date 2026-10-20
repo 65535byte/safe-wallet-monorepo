@@ -393,7 +393,7 @@ describe('TokenSelector — states', () => {
     expect(screen.getByText(BALANCES_LOAD_ERROR_TEXT)).toBeInTheDocument()
     expect(screen.getByRole('option', { name: /DAI/ })).toBeInTheDocument()
 
-    await user.click(within(screen.getByTestId('held-tokens-error')).getByRole('button', { name: /retry/i }))
+    await user.click(within(screen.getByTestId('held-tokens-error')).getByRole('button', { name: /重试/i }))
     expect(refetch).toHaveBeenCalledTimes(1)
   })
 
@@ -416,7 +416,7 @@ describe('TokenSelector — states', () => {
     expect(screen.getByText(POPULAR_LOAD_ERROR_TEXT)).toBeInTheDocument()
     expect(screen.getByRole('option', { name: /ETH/ })).toBeInTheDocument()
 
-    await user.click(within(screen.getByTestId('popular-tokens-error')).getByRole('button', { name: /retry/i }))
+    await user.click(within(screen.getByTestId('popular-tokens-error')).getByRole('button', { name: /重试/i }))
     expect(refetchPopular).toHaveBeenCalledTimes(1)
   })
 

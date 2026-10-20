@@ -20,7 +20,7 @@ jest.mock('@safe-global/views/features/hypernative/components/HnSignupFlow/HnMod
   default: ({ children, open, onClose }: { children: React.ReactNode; open: boolean; onClose: () => void }) =>
     open ? (
       <div data-testid="hn-modal">
-        <button aria-label="close" onClick={onClose}>
+        <button aria-label="关闭" onClick={onClose}>
           Close
         </button>
         {children}
@@ -52,7 +52,7 @@ jest.mock('@/features/hypernative/components/HnSignupFlow/HnSignupForm', () => (
   }) => (
     <div data-testid="hn-signup-form">
       <button onClick={onCancel}>Cancel</button>
-      <button onClick={() => onSubmit('EMEA')}>Submit</button>
+      <button onClick={() => onSubmit('EMEA')}>提交</button>
     </div>
   ),
 }))
@@ -147,7 +147,7 @@ describe('HnSignupFlow', () => {
       render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
       await user.click(screen.getByText('Get Started'))
-      await user.click(screen.getByText('Submit'))
+      await user.click(screen.getByText('提交'))
 
       expect(screen.queryByTestId('hn-signup-form')).not.toBeInTheDocument()
       expect(screen.getByTestId('hn-calendly-step')).toBeInTheDocument()
@@ -158,7 +158,7 @@ describe('HnSignupFlow', () => {
       render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
       await user.click(screen.getByText('Get Started'))
-      await user.click(screen.getByText('Submit')) // submits with 'EMEA'
+      await user.click(screen.getByText('提交')) // submits with 'EMEA'
 
       expect(screen.getByText('Calendly: https://calendly.com/emea')).toBeInTheDocument()
     })
@@ -169,8 +169,8 @@ describe('HnSignupFlow', () => {
         render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
         await user.click(screen.getByText('Get Started'))
-        await user.click(screen.getByText('Submit'))
-        await user.click(screen.getByLabelText('close'))
+        await user.click(screen.getByText('提交'))
+        await user.click(screen.getByLabelText('关闭'))
 
         expect(mockDispatch).toHaveBeenCalledWith(
           setFormCompleted({ chainId: '1', safeAddress: '0x123', completed: true }),
@@ -183,7 +183,7 @@ describe('HnSignupFlow', () => {
         render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
         await user.click(screen.getByText('Get Started'))
-        await user.click(screen.getByLabelText('close'))
+        await user.click(screen.getByLabelText('关闭'))
 
         expect(mockDispatch).not.toHaveBeenCalled()
         expect(mockOnClose).toHaveBeenCalled()
@@ -203,9 +203,9 @@ describe('HnSignupFlow', () => {
         render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
         await user.click(screen.getByText('Get Started'))
-        await user.click(screen.getByText('Submit'))
+        await user.click(screen.getByText('提交'))
 
-        const closeButton = screen.getByLabelText('close')
+        const closeButton = screen.getByLabelText('关闭')
         await user.click(closeButton)
 
         expect(mockDispatch).toHaveBeenCalledWith(
@@ -231,7 +231,7 @@ describe('HnSignupFlow', () => {
         render(<HnSignupFlow open={true} onClose={mockOnClose} />)
 
         await user.click(screen.getByText('Get Started'))
-        await user.click(screen.getByLabelText('close'))
+        await user.click(screen.getByLabelText('关闭'))
 
         expect(mockTrackEvent).not.toHaveBeenCalled()
       })
@@ -248,7 +248,7 @@ describe('HnSignupFlow', () => {
         const getStartedButton = screen.getByText('Get Started')
         await user.click(getStartedButton)
 
-        expect(screen.getByText('HubSpot configuration is missing or invalid.')).toBeInTheDocument()
+        expect(screen.getByText('HubSpot 配置缺失或无效。')).toBeInTheDocument()
         expect(screen.queryByTestId('hn-signup-form')).not.toBeInTheDocument()
       })
 
@@ -262,7 +262,7 @@ describe('HnSignupFlow', () => {
         const getStartedButton = screen.getByText('Get Started')
         await user.click(getStartedButton)
 
-        expect(screen.getByText('HubSpot configuration is missing or invalid.')).toBeInTheDocument()
+        expect(screen.getByText('HubSpot 配置缺失或无效。')).toBeInTheDocument()
         expect(screen.queryByTestId('hn-signup-form')).not.toBeInTheDocument()
       })
 

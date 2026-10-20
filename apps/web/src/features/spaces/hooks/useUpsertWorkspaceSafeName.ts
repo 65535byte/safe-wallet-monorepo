@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import {
   type AddressBookItem,
@@ -17,7 +18,7 @@ export type WorkspaceSafeName = { address: string; name: string; chainIds: strin
 
 type UpsertResult = Promise<{ error?: string }>
 
-export const ADDRESS_BOOK_UNAVAILABLE = 'The Workspace address book is unavailable. Try again in a moment.'
+export const ADDRESS_BOOK_UNAVAILABLE = translateMessage('ui.theWorkspaceAddressBookIsUnavailable_2df70b01')
 
 type PreparedNames = { items: AddressBookItem[]; error?: undefined } | { items?: undefined; error: string }
 
@@ -29,7 +30,7 @@ export const usePrepareWorkspaceSafeNames = (): ((items: WorkspaceSafeName[]) =>
   return useCallback(
     (items) => {
       if (items.length === 0) return { items: [] }
-      if (!spaceId) return { error: 'No Workspace is selected. Switch to a Workspace and try again.' }
+      if (!spaceId) return { error: translateMessage('ui.noWorkspaceIsSelectedSwitchTo_fba46f65') }
       if (isLoading || isError) return { error: ADDRESS_BOOK_UNAVAILABLE }
 
       // The upsert overwrites `chainIds` wholesale, so an entry that already spans more networks

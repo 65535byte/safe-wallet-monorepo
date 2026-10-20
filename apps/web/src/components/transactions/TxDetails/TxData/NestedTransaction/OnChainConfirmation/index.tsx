@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import useChainId from '@/hooks/useChainId'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -105,7 +106,7 @@ export const OnChainConfirmation = ({
           imitation={false}
         />
       ) : txDetailsError ? (
-        <ErrorMessage>Could not load details on hash to approve.</ErrorMessage>
+        <ErrorMessage>{translateMessage('ui.couldNotLoadDetailsOnHash_3ba6ec23')}</ErrorMessage>
       ) : (
         <Skeleton className="h-5 w-full" />
       )}

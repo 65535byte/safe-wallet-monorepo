@@ -136,7 +136,7 @@ describe('CreateSpendingLimitPolicy', () => {
   it('registers the typed spender addresses for the address-poisoning check', () => {
     renderStep()
 
-    fireEvent.click(screen.getByRole('button', { name: 'type spender' }))
+    fireEvent.click(screen.getByRole('button', { name: 'type 位支出授权人' }))
 
     expect(mockPoisoning).toHaveBeenLastCalledWith([SPENDER])
   })
@@ -144,7 +144,7 @@ describe('CreateSpendingLimitPolicy', () => {
   it('tracks the set policy with its chain, spender count and limit count on Next', () => {
     const { onNext } = renderStep()
 
-    fireEvent.click(screen.getByRole('button', { name: 'submit two spenders' }))
+    fireEvent.click(screen.getByRole('button', { name: 'submit two 位支出授权人' }))
 
     expect(trackEvent).toHaveBeenCalledWith(POLICY_EVENTS.SPENDING_LIMIT_SET, {
       [MixpanelEventParams.CHAIN_ID]: '137',

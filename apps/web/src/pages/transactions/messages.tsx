@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -26,7 +27,7 @@ const Messages: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Messages`}</title>
+        <title>{translateMessage('ui.messages_10f78ec0', { p0: BRAND_NAME })}</title>
       </Head>
 
       <TxHeader>

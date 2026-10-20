@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useCallback, useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import ModalDialog from '@/components/common/ModalDialog'
@@ -13,6 +14,8 @@ import { useMembersInviteUserV1Mutation } from '@safe-global/store/gateway/AUTO_
 import { useCurrentSpaceId, MemberRole } from '@/features/spaces'
 import { useRouter } from 'next/router'
 import { AppRoutes } from '@/config/routes'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
 import MemberInfoForm from './MemberInfoForm'
@@ -47,14 +50,14 @@ export const RoleMenuItem = ({
         <Icon className="size-4" />
       </div>
       <Typography variant={hasDescription ? 'paragraph-bold' : 'paragraph'} style={{ gridArea: 'title' }}>
-        {isAdmin ? 'Admin' : 'Member'}
+        {isAdmin ? translateMessage('ui.admin_f22d5ee6') : translateMessage('ui.member_ddb02644')}
       </Typography>
       {hasDescription && (
         <div style={{ gridArea: 'description' }}>
           <Typography variant="paragraph-small" className="max-w-[300px] break-words whitespace-normal">
             {isAdmin
-              ? 'Admins can create and delete Workspaces, invite members, and more.'
-              : 'Can view the Workspace data.'}
+              ? translateMessage('ui.adminsCanCreateAndDeleteWorkspaces_e96275c6')
+              : translateMessage('ui.canViewTheWorkspaceData_ddef94ea')}
           </Typography>
         </div>
       )}
@@ -126,7 +129,7 @@ const AddMemberModal = ({ onClose }: { onClose: () => void }): ReactElement => {
     const inviteeIdentifier = normalizeInviteeIdentifier(data.inviteeIdentifier)
 
     if (!spaceId) {
-      setError('Something went wrong. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongPleaseTryAgain_ee89925b'))
       return
     }
 
@@ -140,13 +143,20 @@ const AddMemberModal = ({ onClose }: { onClose: () => void }): ReactElement => {
       })
 
       if (response.data) {
+        response.data.forEach((invitation) => {
+          trackEvent(
+            { ...SPACE_EVENTS.WORKSPACE_MEMBER_INVITE_SENT, label: spaceId },
+            { workspace_id: spaceId, user_id: invitation.userId, role: invitation.role.toLowerCase() },
+          )
+        })
+
         if (router.pathname !== AppRoutes.spaces.members) {
           router.push({ pathname: AppRoutes.spaces.members, query: { spaceId } })
         }
 
         dispatch(
           showNotification({
-            message: `Invited ${data.name || inviteeIdentifier} to space`,
+            message: translateMessage('ui.invitedToSpace_7437df39', { p0: data.name || inviteeIdentifier }),
             variant: 'success',
             groupKey: 'invite-member-success',
           }),
@@ -160,20 +170,20 @@ const AddMemberModal = ({ onClose }: { onClose: () => void }): ReactElement => {
       }
     } catch (e) {
       console.error(e)
-      setError('Something went wrong. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongPleaseTryAgain_ee89925b'))
     } finally {
       setIsSubmitting(false)
     }
   })
 
   return (
-    <ModalDialog open onClose={onClose} dialogTitle="Add member" hideChainIndicator>
+    <ModalDialog open onClose={onClose} dialogTitle={translateMessage('ui.addMember_6817361a')} hideChainIndicator>
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
             <div className="overflow-visible px-6 py-4">
               <Typography variant="paragraph" className="mb-4">
-                Invite a member by email or wallet address.
+                {translateMessage('ui.inviteAMemberByEmailOr_0791f19a')}
               </Typography>
 
               <div className="flex flex-col gap-8">
@@ -200,7 +210,7 @@ const AddMemberModal = ({ onClose }: { onClose: () => void }): ReactElement => {
               onCancel={onClose}
               cancelTestId="cancel-btn"
               confirmType="submit"
-              confirmLabel="Add member"
+              confirmLabel={translateMessage('ui.addMember_6817361a')}
               confirmTestId="add-member-modal-button"
               confirmDisabled={!formState.isValid}
               confirmLoading={isSubmitting}

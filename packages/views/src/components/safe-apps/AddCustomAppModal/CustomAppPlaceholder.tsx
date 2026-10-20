@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import classNames from 'classnames'
 
 import SafeAppIcon from '@safe-global/views/assets/images/apps/apps-icon.svg'
@@ -22,7 +23,7 @@ const CustomAppPlaceholder = ({ error = '' }: CustomAppPlaceholderProps) => {
       <Typography
         className={cn('ml-4', error ? 'text-[var(--color-error-main)]' : 'text-[var(--color-text-secondary)]')}
       >
-        {error || 'Safe App card'}
+        {error || translateMessage('ui.appCard_ceecd4dd')}
       </Typography>
     </div>
   )

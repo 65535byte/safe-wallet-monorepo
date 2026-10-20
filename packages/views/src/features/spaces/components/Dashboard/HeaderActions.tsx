@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { QrCode, Repeat, ArrowUpRight, SquareDashedBottomCode } from 'lucide-react'
 
 import { ActionBar, ActionButton } from '@safe-global/views/components/common/ActionBar'
@@ -25,19 +26,19 @@ const HeaderActions = ({ onSend, onReceive, onSwap, onBuildTransaction, otherAct
       <ActionBar>
         <ActionButton variant="default" onClick={onSend}>
           <ArrowUpRight className="size-5 text-green-400" />
-          Send
+          {translateMessage('ui.send_f1004bfb')}
         </ActionButton>
         <ActionButton variant="outline" onClick={onReceive}>
           <QrCode className="size-5" />
-          Receive
+          {translateMessage('ui.receive_ae91e583')}
         </ActionButton>
         <ActionButton variant="outline" onClick={onSwap}>
           <Repeat className="size-5" />
-          Swap
+          {translateMessage('ui.swap_cd9c7167')}
         </ActionButton>
         <ActionButton variant="outline" onClick={onBuildTransaction}>
           <SquareDashedBottomCode className="size-5" />
-          Build transaction
+          {translateMessage('ui.buildTransaction_abe527c4')}
         </ActionButton>
       </ActionBar>
       {otherActions}

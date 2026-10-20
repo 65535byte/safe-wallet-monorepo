@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
 import TxCard from '@safe-global/views/components/tx-flow/common/TxCard'
@@ -13,11 +14,15 @@ const SpendingLimitNotSupported = () => {
   return (
     <TxCard>
       <ErrorMessage>
-        <Typography variant="paragraph-bold">Spending limits aren&apos;t available on {chainName} yet</Typography>
+        <Typography variant="paragraph-bold">
+          {translateMessage('ui.spendingLimitsArenTAvailableOn_97bb2f71')}
+          {chainName} {translateMessage('ui.yet_1ce04b95')}
+        </Typography>
         <Typography className="mt-1">
-          The spending limit module hasn&apos;t been deployed on this network. Once it&apos;s available you&apos;ll be
-          able to set up spending limits here. <ExternalLink href={HELP_CENTER_URL}>Contact us</ExternalLink> to request
-          support for {chainName}.
+          {translateMessage('ui.theSpendingLimitModuleHasnT_3f892810')}{' '}
+          <ExternalLink href={HELP_CENTER_URL}>{translateMessage('ui.contactUs_63ab8f3e')}</ExternalLink>{' '}
+          {translateMessage('ui.toRequestSupportFor_cf3fac26')}
+          {chainName}.
         </Typography>
       </ErrorMessage>
     </TxCard>

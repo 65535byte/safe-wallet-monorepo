@@ -36,6 +36,6 @@ describe('Inviter', () => {
 
   it('renders the leading " by" prefix when an inviter is present', () => {
     render(<Inviter invitedByName={EMAIL} variant="paragraph" avatarSize={20} />)
-    expect(screen.getByText(/by/)).toBeInTheDocument()
+    expect(screen.getByText(/由/)).toBeInTheDocument()
   })
 })

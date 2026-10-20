@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { generateDataRowValue, TxDataRow } from '@/components/transactions/TxDetails/Summary/TxDataRow'
 import { Value } from '@/components/transactions/TxDetails/TxData/DecodedData/ValueArray'
@@ -32,7 +33,10 @@ const DecodedTypedObject = ({ displayedType, eip712Msg }: { displayedType: strin
         const inlineType = isAddress(paramValue as string) ? 'address' : isByte(type) ? 'bytes' : undefined
         const paramValueAsString = typeof paramValue === 'string' ? paramValue : JSON.stringify(paramValue, null, 2)
         return (
-          <TxDataRow key={`${displayedType}_param-${index}`} title={`${param[0]}(${type})`}>
+          <TxDataRow
+            key={`${displayedType}_param-${index}`}
+            title={translateMessage('ui.text_67ef2aab', { p0: param[0], p1: type })}
+          >
             {isNested ? (
               <div className={classNames(css.nestedMsg, 'rounded')}>{paramValueAsString}</div>
             ) : isArrayValueParam ? (
@@ -74,7 +78,7 @@ export const DecodedMsg = ({
 
   return (
     <div className={classNames(css.container, 'rounded', { [css.scrollable]: isInModal })}>
-      <ObservabilityErrorBoundary fallback={<div>Error decoding message</div>}>
+      <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorDecodingMessage_b649e32c')}</div>}>
         <DecodedTypedObject eip712Msg={normalizedMsg} displayedType={EIP712_DOMAIN_TYPE} />
         <DecodedTypedObject eip712Msg={normalizedMsg} displayedType={normalizedMsg.primaryType} />
       </ObservabilityErrorBoundary>

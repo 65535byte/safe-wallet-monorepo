@@ -1,12 +1,18 @@
+import { translateMessage } from '@/i18n'
 import { ArrowRight, Lock } from 'lucide-react'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Card, CardContent } from '@safe-global/views/components/ui/card'
 import { Typography } from '@safe-global/views/components/ui/typography'
-import { MixpanelEventParams, PlanSelectionEntryPoint, UpgradeFeature, UpgradeLocation } from '@/services/analytics'
+import {
+  trackEvent,
+  MixpanelEventParams,
+  PlanSelectionEntryPoint,
+  UpgradeFeature,
+  UpgradeLocation,
+} from '@/services/analytics'
 import { useTrackOnce } from '@/services/analytics/useTrackOnce'
-import Track from '@/components/common/Track'
 import { POLICY_EVENTS } from '@/services/analytics/events/policies'
 import { SAFE_PRO_EVENTS } from '@/services/analytics/events/safe-pro'
 import { trackPlanSelectionStarted } from '../../Plans/planSelection'
@@ -34,36 +40,37 @@ const PolicyUpsellBanner = ({ planName, workspaceName, onUpgrade }: PolicyUpsell
             </Badge>
 
             <Typography variant="h4" className="font-bold">
-              Set the rules once. They run on every Safe account.
+              {translateMessage('ui.setTheRulesOnceTheyRun_7a02fbba')}
             </Typography>
 
             <Typography variant="paragraph-small" className="text-muted-foreground">
-              {workspaceName} is on {planName}. Upgrade to Business to set up policies.{' '}
+              {workspaceName} {translateMessage('ui.isOn_c49fdaa2')}
+              {planName}
+              {translateMessage('ui.upgradeToBusinessToSetUp_a677c5fc')}{' '}
               <ExternalLink
                 noIcon
                 className="font-normal text-muted-foreground underline"
                 href={HelpCenterArticle.POLICIES}
               >
-                Learn more
+                {translateMessage('ui.learnMore_0c11daba')}
               </ExternalLink>
             </Typography>
           </div>
 
-          <Track {...POLICY_EVENTS.POLICY_UPSELL_UPGRADE_CLICKED}>
-            <Button
-              onClick={() => {
-                trackPlanSelectionStarted({
-                  [MixpanelEventParams.ENTRY_POINT]: PlanSelectionEntryPoint.UPGRADE_PROMPT,
-                  ...PROMPT,
-                })
-                onUpgrade()
-              }}
-              className="shrink-0 font-semibold"
-            >
-              Upgrade to Business
-              <ArrowRight aria-hidden className="text-[var(--color-static-text-brand)]" />
-            </Button>
-          </Track>
+          <Button
+            onClick={() => {
+              trackEvent(POLICY_EVENTS.POLICY_UPSELL_UPGRADE_CLICKED)
+              trackPlanSelectionStarted({
+                [MixpanelEventParams.ENTRY_POINT]: PlanSelectionEntryPoint.UPGRADE_PROMPT,
+                ...PROMPT,
+              })
+              onUpgrade()
+            }}
+            className="shrink-0 font-semibold"
+          >
+            {translateMessage('ui.upgradeToBusiness_d47f9296')}
+            <ArrowRight aria-hidden className="text-[var(--color-static-text-brand)]" />
+          </Button>
         </div>
       </CardContent>
     </Card>

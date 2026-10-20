@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MouseEvent, useState } from 'react'
 import { ADMIN_ONLY_DELETE_CONTACT_MESSAGE, ADMIN_ONLY_EDIT_CONTACT_MESSAGE } from '@/utils/addressBookNotifications'
 import Track from '@/components/common/Track'
@@ -65,7 +66,7 @@ const SpaceAddressBookActions = ({
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Button variant="ghost" size="icon-sm" aria-label="Contact actions">
+              <Button variant="ghost" size="icon-sm" aria-label={translateMessage('ui.contactActions_42816473')}>
                 <EllipsisVertical className="text-muted-foreground size-4" />
               </Button>
             }
@@ -76,7 +77,7 @@ const SpaceAddressBookActions = ({
                 disabled={!isAdmin}
                 onClick={isAdmin ? (e) => handleOpenModal(e, ModalType.EDIT) : undefined}
               >
-                Edit entry
+                {translateMessage('ui.editEntry_956e3e6d')}
               </DropdownMenuItem>
             </Track>
             <Track {...SPACE_EVENTS.REMOVE_ADDRESS}>
@@ -85,7 +86,7 @@ const SpaceAddressBookActions = ({
                 disabled={!isAdmin}
                 onClick={isAdmin ? (e) => handleOpenModal(e, ModalType.REMOVE) : undefined}
               >
-                Delete entry
+                {translateMessage('ui.deleteEntry_15803e49')}
               </DropdownMenuItem>
             </Track>
           </DropdownMenuContent>
@@ -105,7 +106,7 @@ const SpaceAddressBookActions = ({
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  aria-label="Edit entry"
+                  aria-label={translateMessage('ui.editEntry_956e3e6d')}
                   disabled={!isAdmin}
                   onClick={isAdmin ? (e) => handleOpenModal(e, ModalType.EDIT) : undefined}
                 >
@@ -114,7 +115,9 @@ const SpaceAddressBookActions = ({
               </span>
             }
           />
-          <TooltipContent>{isAdmin ? 'Edit entry' : ADMIN_ONLY_EDIT_CONTACT_MESSAGE}</TooltipContent>
+          <TooltipContent>
+            {isAdmin ? translateMessage('ui.editEntry_956e3e6d') : ADMIN_ONLY_EDIT_CONTACT_MESSAGE}
+          </TooltipContent>
         </Tooltip>
       </Track>
 
@@ -126,7 +129,7 @@ const SpaceAddressBookActions = ({
                 <Button
                   variant="ghost"
                   size="icon-sm"
-                  aria-label="Delete entry"
+                  aria-label={translateMessage('ui.deleteEntry_15803e49')}
                   disabled={!isAdmin}
                   onClick={isAdmin ? (e) => handleOpenModal(e, ModalType.REMOVE) : undefined}
                 >
@@ -135,7 +138,9 @@ const SpaceAddressBookActions = ({
               </span>
             }
           />
-          <TooltipContent>{isAdmin ? 'Delete entry' : ADMIN_ONLY_DELETE_CONTACT_MESSAGE}</TooltipContent>
+          <TooltipContent>
+            {isAdmin ? translateMessage('ui.deleteEntry_15803e49') : ADMIN_ONLY_DELETE_CONTACT_MESSAGE}
+          </TooltipContent>
         </Tooltip>
       </Track>
 

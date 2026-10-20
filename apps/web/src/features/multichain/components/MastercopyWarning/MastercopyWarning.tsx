@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext } from 'react'
 import { Alert, AlertDescription, AlertTitle, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -8,11 +9,9 @@ import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import CheckWallet from '@/components/common/CheckWallet'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import useIsSafeOwner from '@/hooks/useIsSafeOwner'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { ATTENTION_PANEL_EVENTS } from '@/services/analytics/events/attention-panel'
 import { useMastercopyMigration } from '../../hooks/useMastercopyMigration'
-
-const CLI_LINK = 'https://github.com/5afe/safe-cli'
 
 type MastercopyWarningProps = {
   /**
@@ -38,21 +37,24 @@ export const MastercopyWarning = ({ variant = 'dashboard' }: MastercopyWarningPr
     return (
       <Alert variant="warning" outlined={false} data-testid="action-card">
         <AlertSeverityIcon variant="warning" />
-        <AlertTitle className="font-bold">This Safe is running an unsupported version</AlertTitle>
+        <AlertTitle className="font-bold">
+          {translateMessage('ui.thisIsRunningAnUnsupportedVersion_5dc6d5a3')}
+        </AlertTitle>
         <AlertDescription>
-          It may miss security fixes and improvements. You should migrate it to a compatible version.
+          {translateMessage('ui.itMayMissSecurityFixesAnd_d38dd7cc')}
           <div className="mt-4">
-            <Track {...ATTENTION_PANEL_EVENTS.MIGRATE_MASTERCOPY}>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-foreground"
-                data-testid="migrate-mastercopy-btn"
-                onClick={openMigrateModal}
-              >
-                Migrate
-              </Button>
-            </Track>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-foreground"
+              data-testid="migrate-mastercopy-btn"
+              onClick={() => {
+                trackEvent(ATTENTION_PANEL_EVENTS.MIGRATE_MASTERCOPY)
+                openMigrateModal()
+              }}
+            >
+              {translateMessage('ui.migrate_77220f4b')}
+            </Button>
           </div>
         </AlertDescription>
       </Alert>
@@ -64,12 +66,10 @@ export const MastercopyWarning = ({ variant = 'dashboard' }: MastercopyWarningPr
       <Alert variant="warning" outlined={false} data-testid="redeploy-mastercopy-warning">
         <AlertSeverityIcon variant="warning" />
         <AlertTitle className="font-bold">
-          This Safe can&apos;t be upgraded to {latestVersion} on this network.
+          {translateMessage('ui.thisCanTBeUpgradedTo_0edab8f9')}
+          {latestVersion} {translateMessage('ui.onThisNetwork_1d97ae0a')}
         </AlertTitle>
-        <AlertDescription>
-          zkSync Safes created before the EVM upgrade can&apos;t move to the new contracts in place. To use the latest
-          version, create a new Safe and transfer your assets to it.
-        </AlertDescription>
+        <AlertDescription>{translateMessage('ui.zkSyncAccountsCreatedBeforeTheEVM_06c34e56')}</AlertDescription>
       </Alert>
     )
   }
@@ -78,23 +78,10 @@ export const MastercopyWarning = ({ variant = 'dashboard' }: MastercopyWarningPr
     return (
       <Alert variant="warning" outlined={false} data-testid="action-card">
         <AlertSeverityIcon variant="warning" />
-        <AlertTitle className="font-bold">This Safe is running an unsupported version</AlertTitle>
-        <AlertDescription>
-          It may miss security fixes and improvements. You must use our CLI tool to migrate.
-          <div className="mt-4">
-            <Track {...ATTENTION_PANEL_EVENTS.GET_CLI_MASTERCOPY}>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-foreground"
-                data-testid="get-cli-link"
-                render={<a href={CLI_LINK} target="_blank" rel="noopener noreferrer" />}
-              >
-                Get CLI
-              </Button>
-            </Track>
-          </div>
-        </AlertDescription>
+        <AlertTitle className="font-bold">
+          {translateMessage('ui.thisIsRunningAnUnsupportedVersion_5dc6d5a3')}
+        </AlertTitle>
+        <AlertDescription>{translateMessage('ui.itMayMissSecurityFixesAnd_81e27450')}</AlertDescription>
       </Alert>
     )
   }
@@ -106,23 +93,21 @@ export const MastercopyWarning = ({ variant = 'dashboard' }: MastercopyWarningPr
         <Alert variant="success">
           <InfoIcon className="size-4" />
           <AlertTitle>
-            New version is available: {latestVersion} (
+            {translateMessage('ui.newVersionIsAvailable_98001001')}
+            {latestVersion} (
             <ExternalLink href={changelogUrl} className="font-bold hover:!text-[var(--color-primary-light)]">
-              changelog
+              {translateMessage('ui.changelog_69967bd7')}
             </ExternalLink>
             )
           </AlertTitle>
 
           <AlertDescription>
-            <p>
-              Update now to take advantage of new features and the highest security standards available. You will need
-              to confirm this update just like any other transaction.
-            </p>
+            <p>{translateMessage('ui.updateNowToTakeAdvantageOf_92999d07')}</p>
 
             <CheckWallet>
               {(isOk) => (
                 <Button onClick={openUpdateModal} disabled={!isOk}>
-                  Update
+                  {translateMessage('ui.update_5cb0e4fd')}
                 </Button>
               )}
             </CheckWallet>
@@ -136,9 +121,9 @@ export const MastercopyWarning = ({ variant = 'dashboard' }: MastercopyWarningPr
       return (
         <ActionCard
           severity="info"
-          title={`New Safe version is available - ${latestVersion}. `}
-          content="Update now to take advantage of new features and the highest security standards available. You will need to confirm this update just like any other transaction."
-          action={isOwner ? { label: 'Update', onClick: openUpdateModal } : undefined}
+          title={translateMessage('ui.newVersionIsAvailable_90fbe802', { p0: latestVersion })}
+          content={translateMessage('ui.updateNowToTakeAdvantageOf_92999d07')}
+          action={isOwner ? { label: translateMessage('ui.update_5cb0e4fd'), onClick: openUpdateModal } : undefined}
           trackingEvent={ATTENTION_PANEL_EVENTS.UPDATE_OUTDATED_MASTERCOPY}
           actionTestId="update-mastercopy-btn"
         />

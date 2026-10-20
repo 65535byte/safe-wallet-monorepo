@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { BRAND_NAME } from '@/config/constants'
@@ -24,7 +25,7 @@ export default function SpacePlansPage() {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Plans`}</title>
+        <title>{translateMessage('ui.plans_c0e376a1', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>

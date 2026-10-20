@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { VaultDepositTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import TokenIcon from '@/components/common/TokenIcon'
@@ -16,23 +17,30 @@ const AdditionalRewards = ({ txInfo }: { txInfo: VaultDepositTransactionInfo }) 
   return (
     <div className="mt-2 flex flex-col rounded-md border border-[var(--color-border-light)] p-3">
       <DataTable
-        header="Additional reward"
+        header={translateMessage('ui.additionalReward_6e6d161a')}
         rows={[
-          <DataRow key="Token" title="Token">
+          <DataRow key="Token" title={translateMessage('ui.token_72f26614')}>
             {txInfo.additionalRewards[0].tokenInfo.name}{' '}
             <span className="text-[var(--color-primary-light)]">{txInfo.additionalRewards[0].tokenInfo.symbol}</span>
           </DataRow>,
 
-          <DataRow key="Earn" title="Earn">
+          <DataRow key="Earn" title={translateMessage('ui.earn_2e740029')}>
             {formatPercentage(txInfo.additionalRewardsNrr / 100)}
           </DataRow>,
 
-          <DataRow key="Fee" title="Fee">
+          <DataRow key="Fee" title={translateMessage('ui.fee_26159a09')}>
             0%
           </DataRow>,
 
           <Typography key="Powered by" variant="paragraph-mini" color="muted" className="mt-2 flex items-center gap-1">
-            Powered by <IframeIcon src={txInfo.vaultInfo.logoUri} alt="Morpho logo" width={16} height={16} /> Morpho
+            {translateMessage('ui.poweredBy_b0b13a76')}
+            <IframeIcon
+              src={txInfo.vaultInfo.logoUri}
+              alt={translateMessage('ui.morphoLogo_c81816d7')}
+              width={16}
+              height={16}
+            />{' '}
+            Morpho
           </Typography>,
         ]}
       />
@@ -74,7 +82,7 @@ const ConfirmationHeader = ({ txInfo }: { txInfo: VaultDepositTransactionInfo })
       <div className="relative flex w-1/2 flex-row flex-wrap items-center rounded bg-[var(--color-border-background)] px-6 py-4">
         <div className="flex-1">
           <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-            Earn (after fees)
+            {translateMessage('ui.earnAfterFees_fb6f3996')}
           </Typography>
 
           <Typography variant="h4">{formatPercentage(totalNrr)}</Typography>
@@ -102,14 +110,19 @@ const VaultDepositConfirmation = ({
         rows={[
           <>{!isTxDetails && <ConfirmationHeader txInfo={txInfo} />}</>,
 
-          <DataRow key="Deposit via" title="Deposit via">
+          <DataRow key="Deposit via" title={translateMessage('ui.depositVia_4b6e0a23')}>
             <div className="flex flex-row items-center">
-              <IframeIcon src={txInfo.vaultInfo.logoUri} alt="Morpho logo" width={24} height={24} />
+              <IframeIcon
+                src={txInfo.vaultInfo.logoUri}
+                alt={translateMessage('ui.morphoLogo_c81816d7')}
+                width={24}
+                height={24}
+              />
               <span className="ml-2 font-bold">{txInfo.vaultInfo.name}</span>
             </div>
           </DataRow>,
 
-          <DataRow key="Expected annual reward" title="Exp. annual reward">
+          <DataRow key="Expected annual reward" title={translateMessage('ui.expAnnualReward_40b548a4')}>
             <TokenAmount
               tokenSymbol={txInfo.tokenInfo.symbol}
               value={annualReward}
@@ -117,7 +130,7 @@ const VaultDepositConfirmation = ({
             />
           </DataRow>,
 
-          <DataRow key="Expected monthly reward" title="Exp. monthly reward">
+          <DataRow key="Expected monthly reward" title={translateMessage('ui.expMonthlyReward_4017a788')}>
             <TokenAmount
               tokenSymbol={txInfo.tokenInfo.symbol}
               value={monthlyReward}
@@ -129,9 +142,9 @@ const VaultDepositConfirmation = ({
             key="Performance fee"
             title={
               <>
-                Performance fee
+                {translateMessage('ui.performanceFee_4c16e304')}
                 <InfoTooltip
-                  title={`The performance fee incurred here is charged by Kiln for the operation of this widget. The fee is calculated automatically. Part of the fee will contribute to a license fee that supports the Safe Community. Neither the Safe Ecosystem Foundation nor ${BRAND_NAME} operates the Kiln Widget and/or Kiln.`}
+                  title={translateMessage('ui.thePerformanceFeeIncurredHereIs_de4ceadc', { p0: BRAND_NAME })}
                 />
               </>
             }

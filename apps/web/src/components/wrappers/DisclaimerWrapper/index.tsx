@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 
 import Disclaimer from '@safe-global/views/components/common/Disclaimer'
@@ -27,10 +28,10 @@ export function _DisclaimerWrapper({
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
         <Disclaimer
-          title="Note"
+          title={translateMessage('ui.note_b1eff7f0')}
           content={<WidgetDisclaimer widgetName={widgetName} />}
           onAccept={onAccept}
-          buttonText="Continue"
+          buttonText={translateMessage('ui.continue_a4bd8255')}
         />
       </div>
     )

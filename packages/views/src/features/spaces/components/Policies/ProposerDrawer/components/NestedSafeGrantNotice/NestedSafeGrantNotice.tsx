@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement } from 'react'
 import type { UrlObject } from 'url'
 import NextLink from 'next/link'
@@ -18,13 +19,20 @@ const NestedSafeGrantNotice = ({
 }: NestedSafeGrantNoticeProps): ReactElement => (
   <Alert variant="warning" outlined={false} data-testid="nested-safe-grant-notice">
     <AlertSeverityIcon variant="warning" />
-    <AlertTitle>Remove this proposer on the Safe account level</AlertTitle>
+    <AlertTitle>{translateMessage('ui.removeThisProposerOnTheAccount_e2c7c2c9')}</AlertTitle>
     <AlertDescription>
       <p>
-        The parent Safe account, {parentSafeName}, granted this proposer role on {safeName}. To remove it, open the
-        settings of {safeName} with a signer of {parentSafeName}.
+        {translateMessage('ui.theParentAccount_e5db2455')}
+        {parentSafeName}
+        {translateMessage('ui.grantedThisProposerRoleOn_6f16ed49')}
+        {safeName}
+        {translateMessage('ui.toRemoveItOpenTheSettings_7a7a0a22')} {safeName}{' '}
+        {translateMessage('ui.withASignerOf_54c213bf')}
+        {parentSafeName}.
       </p>
-      {settingsHref && <Link render={<NextLink href={settingsHref} />}>Go to Safe settings</Link>}
+      {settingsHref && (
+        <Link render={<NextLink href={settingsHref} />}>{translateMessage('ui.goToSettings_782b4422')}</Link>
+      )}
     </AlertDescription>
   </Alert>
 )

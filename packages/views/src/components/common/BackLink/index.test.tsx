@@ -10,7 +10,7 @@ describe('BackLink', () => {
     )
 
     expect(screen.getByTestId('child')).toBeInTheDocument()
-    expect(screen.getByLabelText('Go back')).toBeInTheDocument()
+    expect(screen.getByLabelText('返回')).toBeInTheDocument()
   })
 
   it('calls onClick when clicked', () => {
@@ -21,7 +21,7 @@ describe('BackLink', () => {
       </BackLink>,
     )
 
-    fireEvent.click(screen.getByLabelText('Go back'))
+    fireEvent.click(screen.getByLabelText('返回'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
@@ -32,7 +32,7 @@ describe('BackLink', () => {
       </BackLink>,
     )
 
-    const button = screen.getByRole('button', { name: 'Go back' })
+    const button = screen.getByRole('button', { name: '返回' })
     expect(button).toBeInTheDocument()
     expect(button.tagName).toBe('BUTTON')
   })

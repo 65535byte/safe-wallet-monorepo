@@ -178,7 +178,7 @@ describe('useSpacePendingTransactions', () => {
     const { result } = renderHook(() => useSpacePendingTransactions())
 
     await waitFor(() => {
-      expect(result.current.error).toBe('Failed to load pending transactions')
+      expect(result.current.error).toBe('加载待处理交易失败')
       expect(result.current.isLoading).toBe(false)
       expect(result.current.transactions).toEqual([])
     })

@@ -1,10 +1,10 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { TransactionInfo } from '@safe-global/store/gateway/types'
 import { useMemo, useContext } from 'react'
 import type { ReactElement } from 'react'
 import MinusIcon from '@/public/images/common/minus.svg'
 import useSafeInfo from '@/hooks/useSafeInfo'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 import { getNewSafeSetup } from './get-new-safe-setup'
 import { ChangeSignerSetupWarning } from '@/features/multichain'
@@ -91,11 +91,11 @@ function Actions({ newOwners }: { newOwners: Array<AddressInfo> }): ReactElement
   }
 
   return (
-    <FieldsGrid title="Actions">
+    <FieldsGrid title={translateMessage('ui.actions_d4eb333d')}>
       {removedOwners.length > 0 && (
         <OwnerList
           owners={removedOwners}
-          title={`Remove owner${maybePlural(removedOwners)}`}
+          title={translateMessage('ui.actions_8a38dd39')}
           icon={MinusIcon}
           className="mb-4 bg-[var(--color-warning-background)]"
         />
@@ -108,7 +108,7 @@ function Actions({ newOwners }: { newOwners: Array<AddressInfo> }): ReactElement
 
 function Signers({ owners }: { owners: Array<AddressInfo> }): ReactElement {
   return (
-    <FieldsGrid title="Signers">
+    <FieldsGrid title={translateMessage('ui.signers_e1137966')}>
       <div className="flex flex-col gap-4 p-[var(--space-2)] text-sm">
         {owners.map(({ value, name }) => (
           <NamedAddressInfo
@@ -128,11 +128,11 @@ function Signers({ owners }: { owners: Array<AddressInfo> }): ReactElement {
 
 function Threshold({ owners, threshold }: { owners: Array<AddressInfo>; threshold: number }): ReactElement {
   return (
-    <FieldsGrid title="Threshold">
+    <FieldsGrid title={translateMessage('ui.threshold_60fbd8eb')}>
       <span className="rounded-md bg-[var(--color-background-main)] px-2 py-1 font-bold">
-        {threshold} of {owners.length} signer{maybePlural(owners)}
+        {threshold} / {owners.length} {translateMessage('ui.signer_efab2dcb')}
       </span>{' '}
-      required to confirm new transactions
+      {translateMessage('ui.requiredToConfirmNewTransactions_aa9bdc4b')}
     </FieldsGrid>
   )
 }

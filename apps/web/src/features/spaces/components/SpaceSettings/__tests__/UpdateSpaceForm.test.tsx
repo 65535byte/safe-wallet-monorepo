@@ -39,7 +39,7 @@ describe('UpdateSpaceForm', () => {
   }
 
   const getFormElements = () => ({
-    input: screen.getByRole('textbox', { name: /workspace name/i }) as HTMLInputElement,
+    input: screen.getByRole('textbox', { name: /工作空间名称/i }) as HTMLInputElement,
     saveButton: screen.getByTestId('space-save-button'),
   })
 
@@ -155,7 +155,7 @@ describe('UpdateSpaceForm', () => {
       const notifications = state.notifications
       expect(notifications.length).toBeGreaterThan(0)
       const lastNotification = notifications[notifications.length - 1]
-      expect(lastNotification.message).toBe('Updated Workspace name')
+      expect(lastNotification.message).toBe('已更新工作空间名称')
       expect(lastNotification.variant).toBe('success')
       expect(lastNotification.groupKey).toBe('space-update-name')
     })

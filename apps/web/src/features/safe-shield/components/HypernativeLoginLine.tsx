@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { ExternalLinkIcon } from '@safe-global/views/components/common/ExternalLink/ExternalLinkIcon'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -31,9 +32,9 @@ export const HypernativeLoginLine = ({
       className="flex items-center justify-center gap-1 py-2 text-[var(--color-primary-light)]"
       data-testid="hypernative-login-line"
     >
-      Already using Hypernative?{' '}
+      {translateMessage('ui.alreadyUsingHypernative_4cc167a2')}{' '}
       <button type="button" onClick={login} className="cursor-pointer font-semibold underline">
-        Log in
+        {translateMessage('ui.logIn_e4fc3500')}
       </button>
       <ExternalLinkIcon className="size-3.5" aria-hidden />
     </Typography>

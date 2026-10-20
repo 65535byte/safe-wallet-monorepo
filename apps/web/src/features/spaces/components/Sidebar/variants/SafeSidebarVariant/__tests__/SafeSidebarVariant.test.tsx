@@ -210,9 +210,9 @@ const createMockNavItem = (overrides: Partial<ResolvedSidebarNavItem> = {}): Res
 
 describe('SafeSidebarVariant', () => {
   const mockMainNavItems: ResolvedSidebarNavItem[] = [
-    createMockNavItem({ label: 'Overview', href: '/home', link: { pathname: '/home', query: { spaceId: null } } }),
+    createMockNavItem({ label: '概览', href: '/home', link: { pathname: '/home', query: { spaceId: null } } }),
     createMockNavItem({
-      label: 'Transactions',
+      label: '交易',
       href: '/transactions',
       link: { pathname: '/transactions', query: { spaceId: null } },
       badge: 2,
@@ -220,8 +220,8 @@ describe('SafeSidebarVariant', () => {
   ]
 
   const mockDefiGroup: ResolvedSidebarGroup = {
-    label: 'Defi',
-    items: [createMockNavItem({ label: 'Swap', href: '/swap', link: { pathname: '/swap', query: {} } })],
+    label: 'DeFi',
+    items: [createMockNavItem({ label: '兑换', href: '/swap', link: { pathname: '/swap', query: {} } })],
   }
 
   beforeEach(() => {
@@ -250,11 +250,11 @@ describe('SafeSidebarVariant', () => {
       />,
     )
 
-    expect(screen.getByText('Overview')).toBeInTheDocument()
+    expect(screen.getByText('概览')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-item-transactions')).toBeInTheDocument()
     expect(screen.getByLabelText('2 Transactions notifications')).toBeInTheDocument()
-    expect(screen.getByText('Defi')).toBeInTheDocument()
-    expect(screen.getAllByText('Swap').length).toBeGreaterThan(0)
+    expect(screen.getByText('DeFi')).toBeInTheDocument()
+    expect(screen.getAllByText('兑换').length).toBeGreaterThan(0)
   })
 
   it('hides workspace header group for counterfactual addToWorkspace (undeployed) Safes', () => {
@@ -269,7 +269,7 @@ describe('SafeSidebarVariant', () => {
     )
 
     expect(screen.queryByTestId('add-safe-to-workspace-button')).not.toBeInTheDocument()
-    expect(screen.queryByText('Add Safe to Workspace')).not.toBeInTheDocument()
+    expect(screen.queryByText('将 8379 添加到工作空间')).not.toBeInTheDocument()
   })
 
   it('still renders backToSpace workspace header when Safe is counterfactual', () => {
@@ -289,19 +289,19 @@ describe('SafeSidebarVariant', () => {
 
   it('renders all main navigation items', () => {
     const allNavItems: ResolvedSidebarNavItem[] = [
-      createMockNavItem({ label: 'Overview', href: AppRoutes.home, link: { pathname: AppRoutes.home, query: {} } }),
+      createMockNavItem({ label: '概览', href: AppRoutes.home, link: { pathname: AppRoutes.home, query: {} } }),
       createMockNavItem({
-        label: 'Assets',
+        label: '资产',
         href: AppRoutes.balances.index,
         link: { pathname: AppRoutes.balances.index, query: {} },
       }),
       createMockNavItem({
-        label: 'Transactions',
+        label: '交易',
         href: AppRoutes.transactions.history,
         link: { pathname: AppRoutes.transactions.history, query: {} },
       }),
       createMockNavItem({
-        label: 'Apps',
+        label: '应用',
         href: AppRoutes.apps.index,
         link: { pathname: AppRoutes.apps.index, query: {} },
       }),
@@ -311,7 +311,7 @@ describe('SafeSidebarVariant', () => {
       <SafeSidebarVariant
         workspaceHeader={createBackHeader({ spaceName: 'Test Safe' })}
         mainNavItems={allNavItems}
-        defiGroup={{ label: 'Defi', items: [] }}
+        defiGroup={{ label: 'DeFi', items: [] }}
       />,
     )
 
@@ -331,7 +331,7 @@ describe('SafeSidebarVariant', () => {
         />,
       )
 
-      expect(screen.getByText('Settings')).toBeInTheDocument()
+      expect(screen.getByText('设置')).toBeInTheDocument()
     })
 
     it('shows outdated warning dot when Safe has a critical outdated version', () => {
@@ -423,7 +423,7 @@ describe('SafeSidebarVariant', () => {
 
     it('passes spaces array to addToWorkspace variant', () => {
       const spaces = [
-        { id: 1, uuid: 'uuid-1', name: 'Team', safeCount: 5, members: adminMembersForCurrentUser },
+        { id: 1, uuid: 'uuid-1', name: '团队', safeCount: 5, members: adminMembersForCurrentUser },
         { id: 2, uuid: 'uuid-2', name: 'Personal', safeCount: 2, members: adminMembersForCurrentUser },
       ]
       render(
@@ -449,12 +449,12 @@ describe('SafeSidebarVariant', () => {
       )
 
       expect(screen.queryByTestId('add-safe-to-workspace-button')).not.toBeInTheDocument()
-      expect(screen.queryByText('Add Safe to Workspace')).not.toBeInTheDocument()
+      expect(screen.queryByText('将 8379 添加到工作空间')).not.toBeInTheDocument()
     })
 
     it('hides the addToWorkspace section entirely when Safe is counterfactual (undeployed)', () => {
       mockUseIsCounterfactualSafe.mockReturnValue(true)
-      const spaces = [{ id: 1, uuid: 'uuid-1', name: 'Team', safeCount: 0 }]
+      const spaces = [{ id: 1, uuid: 'uuid-1', name: '团队', safeCount: 0 }]
 
       render(
         <SafeSidebarVariant
@@ -507,8 +507,8 @@ describe('SafeSidebarVariant', () => {
     it('renders correctly with empty main navigation items', () => {
       render(<SafeSidebarVariant workspaceHeader={createBackHeader()} mainNavItems={[]} defiGroup={mockDefiGroup} />)
 
-      expect(screen.getByText('Defi')).toBeInTheDocument()
-      expect(screen.getByText('Settings')).toBeInTheDocument()
+      expect(screen.getByText('DeFi')).toBeInTheDocument()
+      expect(screen.getByText('设置')).toBeInTheDocument()
     })
 
     it('hides DeFi group when it has no items', () => {
@@ -516,17 +516,17 @@ describe('SafeSidebarVariant', () => {
         <SafeSidebarVariant
           workspaceHeader={createBackHeader()}
           mainNavItems={mockMainNavItems}
-          defiGroup={{ label: 'Defi', items: [] }}
+          defiGroup={{ label: 'DeFi', items: [] }}
         />,
       )
 
-      expect(screen.queryByText('Defi')).not.toBeInTheDocument()
+      expect(screen.queryByText('DeFi')).not.toBeInTheDocument()
     })
 
     it('renders DeFi group with single item', () => {
       const singleDefiGroup: ResolvedSidebarGroup = {
-        label: 'Defi',
-        items: [createMockNavItem({ label: 'Stake', href: '/stake', link: { pathname: '/stake', query: {} } })],
+        label: 'DeFi',
+        items: [createMockNavItem({ label: '质押', href: '/stake', link: { pathname: '/stake', query: {} } })],
       }
 
       render(
@@ -537,17 +537,17 @@ describe('SafeSidebarVariant', () => {
         />,
       )
 
-      expect(screen.getByText('Defi')).toBeInTheDocument()
-      expect(screen.getByText('Stake')).toBeInTheDocument()
+      expect(screen.getByText('DeFi')).toBeInTheDocument()
+      expect(screen.getByText('质押')).toBeInTheDocument()
     })
 
     it('renders DeFi group with multiple items', () => {
       const multiDefiGroup: ResolvedSidebarGroup = {
-        label: 'Defi',
+        label: 'DeFi',
         items: [
-          createMockNavItem({ label: 'Swap', href: '/swap', link: { pathname: '/swap', query: {} } }),
-          createMockNavItem({ label: 'Stake', href: '/stake', link: { pathname: '/stake', query: {} } }),
-          createMockNavItem({ label: 'Earn', href: '/earn', link: { pathname: '/earn', query: {} } }),
+          createMockNavItem({ label: '兑换', href: '/swap', link: { pathname: '/swap', query: {} } }),
+          createMockNavItem({ label: '质押', href: '/stake', link: { pathname: '/stake', query: {} } }),
+          createMockNavItem({ label: '收益', href: '/earn', link: { pathname: '/earn', query: {} } }),
         ],
       }
 
@@ -559,10 +559,10 @@ describe('SafeSidebarVariant', () => {
         />,
       )
 
-      expect(screen.getByText('Defi')).toBeInTheDocument()
-      expect(screen.getByText('Swap')).toBeInTheDocument()
-      expect(screen.getByText('Stake')).toBeInTheDocument()
-      expect(screen.getByText('Earn')).toBeInTheDocument()
+      expect(screen.getByText('DeFi')).toBeInTheDocument()
+      expect(screen.getByText('兑换')).toBeInTheDocument()
+      expect(screen.getByText('质押')).toBeInTheDocument()
+      expect(screen.getByText('收益')).toBeInTheDocument()
     })
 
     it('renders without workspace header when not hydrated', () => {
@@ -576,8 +576,8 @@ describe('SafeSidebarVariant', () => {
         />,
       )
 
-      expect(screen.getByText('Overview')).toBeInTheDocument()
-      expect(screen.getByText('Settings')).toBeInTheDocument()
+      expect(screen.getByText('概览')).toBeInTheDocument()
+      expect(screen.getByText('设置')).toBeInTheDocument()
     })
 
     it('marks Settings as active when on settings page', () => {
@@ -658,12 +658,12 @@ describe('SafeSidebarVariant', () => {
         <SafeSidebarVariant
           workspaceHeader={createBackHeader({ spaceName: '' })}
           mainNavItems={[]}
-          defiGroup={{ label: 'Defi', items: [] }}
+          defiGroup={{ label: 'DeFi', items: [] }}
         />,
       )
 
-      expect(screen.getByText('Settings')).toBeInTheDocument()
-      expect(screen.queryByText('Defi')).not.toBeInTheDocument()
+      expect(screen.getByText('设置')).toBeInTheDocument()
+      expect(screen.queryByText('DeFi')).not.toBeInTheDocument()
     })
 
     it('handles backToSpace variant when isHydrated is true', () => {
@@ -716,7 +716,7 @@ describe('SafeSidebarVariant', () => {
       expect(screen.getByTestId('developer-group')).toBeInTheDocument()
 
       const text = container.textContent ?? ''
-      expect(text.indexOf('Developer group')).toBeGreaterThan(text.indexOf('Defi'))
+      expect(text.indexOf('Developer group')).toBeGreaterThan(text.indexOf('DeFi'))
     })
 
     it('forwards the loading state to the group', () => {

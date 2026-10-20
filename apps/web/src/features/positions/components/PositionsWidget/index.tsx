@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import usePositionsFiatTotal from '../../hooks/usePositionsFiatTotal'
 import React, { useMemo, type ReactElement } from 'react'
 import { AppRoutes } from '@/config/routes'
@@ -45,7 +46,7 @@ const PositionsWidget = () => {
       {...POSITIONS_EVENTS.POSITIONS_VIEW_ALL_CLICKED}
       mixpanelParams={{
         [MixpanelEventParams.TOTAL_VALUE_OF_PORTFOLIO]: positionsFiatTotal || 0,
-        [MixpanelEventParams.ENTRY_POINT]: 'Dashboard',
+        [MixpanelEventParams.ENTRY_POINT]: translateMessage('ui.dashboard_23212ed7'),
       }}
     >
       {children}
@@ -54,7 +55,7 @@ const PositionsWidget = () => {
 
   if (isLoading) {
     return (
-      <WidgetCard title="Top positions" testId="positions-widget">
+      <WidgetCard title={translateMessage('ui.topPositions_00357288')} testId="positions-widget">
         <div>
           {Array(2)
             .fill(0)
@@ -108,7 +109,7 @@ const PositionsWidget = () => {
 
   return (
     <WidgetCard
-      title="Top positions"
+      title={translateMessage('ui.topPositions_00357288')}
       viewAllUrl={protocols.length > 0 ? viewAllUrl : undefined}
       viewAllWrapper={viewAllWrapper}
       testId="positions-widget"
@@ -116,7 +117,7 @@ const PositionsWidget = () => {
       {!isPortfolioEndpointEnabled && (
         <div className="mb-2 px-3">
           <Typography variant="paragraph-mini" className="text-[var(--color-text-secondary)]">
-            Position balances are not included in the total asset value.
+            {translateMessage('ui.positionBalancesAreNotIncludedIn_30df7260')}
           </Typography>
         </div>
       )}

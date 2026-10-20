@@ -6,23 +6,23 @@ describe('DrawerList', () => {
     render(
       <DrawerList
         items={[
-          { label: 'Proposer', content: 'Marc' },
-          { label: 'Applies to', content: <span>Marketing</span> },
+          { label: '提案人', content: 'Marc' },
+          { label: '适用于', content: <span>Marketing</span> },
         ]}
       />,
     )
 
-    expect(screen.getByText('Proposer')).toBeInTheDocument()
+    expect(screen.getByText('提案人')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
-    expect(screen.getByText('Applies to')).toBeInTheDocument()
+    expect(screen.getByText('适用于')).toBeInTheDocument()
     expect(screen.getByText('Marketing')).toBeInTheDocument()
   })
 
   it('pairs each label and value as a dt and dd inside a dl', () => {
-    const { container } = render(<DrawerList items={[{ label: 'Proposer', content: 'Marc' }]} />)
+    const { container } = render(<DrawerList items={[{ label: '提案人', content: 'Marc' }]} />)
 
     expect(container.querySelector('dl')).toBeInTheDocument()
-    expect(screen.getByText('Proposer').closest('dt')).toBeInTheDocument()
+    expect(screen.getByText('提案人').closest('dt')).toBeInTheDocument()
     expect(screen.getByText('Marc').closest('dd')).toBeInTheDocument()
   })
 
@@ -30,9 +30,9 @@ describe('DrawerList', () => {
     render(
       <DrawerList
         items={[
-          { label: 'Proposer', content: 'Marc' },
-          { label: 'Applies to', content: 'Marketing' },
-          { label: 'Initiated by', content: 'Jacob' },
+          { label: '提案人', content: 'Marc' },
+          { label: '适用于', content: 'Marketing' },
+          { label: '发起人', content: 'Jacob' },
         ]}
       />,
     )
@@ -41,7 +41,7 @@ describe('DrawerList', () => {
   })
 
   it('renders no rule for a single item', () => {
-    render(<DrawerList items={[{ label: 'Proposer', content: 'Marc' }]} />)
+    render(<DrawerList items={[{ label: '提案人', content: 'Marc' }]} />)
 
     expect(screen.queryByRole('separator', { hidden: true })).not.toBeInTheDocument()
   })

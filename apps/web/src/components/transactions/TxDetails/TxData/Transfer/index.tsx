@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransferTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { TransferDirection } from '@safe-global/store/gateway/types'
@@ -30,7 +31,11 @@ const TransferTxInfoMain = ({ txInfo, txStatus, trusted, imitation }: TransferTx
   return (
     <div className="flex flex-row items-center gap-2 [&_b]:font-normal">
       <Typography variant="paragraph-small-bold" className="min-w-10">
-        {direction === TransferDirection.INCOMING ? 'Received' : isQueued ? 'Send' : 'Sent'}
+        {direction === TransferDirection.INCOMING
+          ? translateMessage('ui.received_c5666664')
+          : isQueued
+            ? translateMessage('ui.send_f1004bfb')
+            : translateMessage('ui.sent_0fe51d4a')}
       </Typography>
       <TransferTx info={txInfo} omitSign preciseAmount iconSize={32} />
       {fiatValue != null && (
@@ -46,7 +51,8 @@ const TransferTxInfoMain = ({ txInfo, txStatus, trusted, imitation }: TransferTx
 const TransferTxInfo = ({ txInfo, txStatus, trusted, imitation }: TransferTxInfoProps) => {
   const { direction } = txInfo
   const address = direction.toUpperCase() === TransferDirection.INCOMING ? txInfo.sender : txInfo.recipient
-  const directionLabel = direction === TransferDirection.INCOMING ? 'From' : 'To'
+  const directionLabel =
+    direction === TransferDirection.INCOMING ? translateMessage('ui.from_9ed312b5') : translateMessage('ui.to_fa7ba004')
 
   return (
     <div className="flex flex-col gap-2">
@@ -91,7 +97,7 @@ export const InlineTransferTxInfo = ({
 }) => {
   return (
     <div className="flex flex-row items-center gap-2">
-      <Typography>Send</Typography>
+      <Typography>{translateMessage('ui.send_f1004bfb')}</Typography>
       <TokenAmount
         value={value}
         decimals={tokenInfo.decimals}
@@ -99,7 +105,7 @@ export const InlineTransferTxInfo = ({
         tokenSymbol={tokenInfo.symbol}
         iconSize={16}
       />
-      <Typography>to</Typography>
+      <Typography>{translateMessage('ui.to_69b77834')}</Typography>
       <NamedAddressInfo address={recipient} copyAddress={false} shortAddress={true} onlyName avatarSize={16} />
     </div>
   )

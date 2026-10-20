@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { type ReactNode } from 'react'
 import EmptyBatchIcon from '@safe-global/views/assets/images/common/empty-batch.svg'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
@@ -16,12 +17,11 @@ const EmptyBatch = ({ children }: { children: ReactNode }) => (
     <EmptyBatchIcon className="size-[110px] fill-current text-[var(--color-border-main)]" />
 
     <Typography variant="h4" className="mt-4 font-bold">
-      Add an initial transaction to the batch
+      {translateMessage('ui.addAnInitialTransactionToThe_7fcb5a49')}
     </Typography>
 
     <Typography variant="paragraph-small" className="block mt-4 mb-8 max-w-md px-2 [text-wrap:balance] sm:px-4">
-      Save gas and signatures by adding multiple Safe transactions to a single batch transaction. You can reorder and
-      delete individual transactions in a batch.
+      {translateMessage('ui.saveGasAndSignaturesByAdding_0a692833')}
     </Typography>
 
     {children}
@@ -31,22 +31,22 @@ const EmptyBatch = ({ children }: { children: ReactNode }) => (
         <InfoIcon className="mx-auto size-6" />
       </span>
 
-      <b>What type of transactions can you add to the batch?</b>
+      <b>{translateMessage('ui.whatTypeOfTransactionsCanYou_b13c93df')}</b>
 
       <span className="mt-6 flex flex-wrap justify-center gap-6 sm:gap-12">
         <span className="min-w-[120px]">
           <AssetsIcon className="mx-auto size-6" />
-          <span className="mt-1 block">Token and NFT transfers</span>
+          <span className="mt-1 block">{translateMessage('ui.tokenAndNFTTransfers_6c02b5b2')}</span>
         </span>
 
         <span className="min-w-[120px]">
           <AppsIcon className="mx-auto size-6" />
-          <span className="mt-1 block">Safe App transactions</span>
+          <span className="mt-1 block">{translateMessage('ui.appTransactions_cc8987ca')}</span>
         </span>
 
         <span className="min-w-[120px]">
           <SettingsIcon className="mx-auto size-6" />
-          <span className="mt-1 block">Safe account settings</span>
+          <span className="mt-1 block">{translateMessage('ui.accountSettings_32b79ce7')}</span>
         </span>
       </span>
     </Typography>

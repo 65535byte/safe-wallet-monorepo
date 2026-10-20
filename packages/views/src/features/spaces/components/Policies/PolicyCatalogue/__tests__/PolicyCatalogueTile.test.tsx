@@ -4,8 +4,8 @@ import PolicyCatalogueTile from '../PolicyCatalogueTile'
 
 const defaultProps = {
   id: 'spending-limit' as const,
-  title: 'Spending limit',
-  description: 'Let spenders access assets without collecting signatures.',
+  title: '支出限额',
+  description: '允许支出授权人无需收集签名即可使用资产。',
   Icon: WalletCards,
   action: 'Set policy',
   onClick: jest.fn(),
@@ -25,20 +25,20 @@ describe('PolicyCatalogueTile', () => {
   it('states the policy name and what it does', () => {
     render(<PolicyCatalogueTile {...defaultProps} />)
 
-    expect(screen.getByText('Spending limit')).toBeInTheDocument()
-    expect(screen.getByText('Let spenders access assets without collecting signatures.')).toBeInTheDocument()
+    expect(screen.getByText('支出限额')).toBeInTheDocument()
+    expect(screen.getByText('允许支出授权人无需收集签名即可使用资产。')).toBeInTheDocument()
   })
 
   it('should, when rendered, name the button after its action and the policy', () => {
     render(<PolicyCatalogueTile {...defaultProps} />)
 
-    expect(screen.getByRole('button', { name: 'Set policy: Spending limit' })).toHaveTextContent('Set policy')
+    expect(screen.getByRole('button', { name: 'Set policy: Spending 项限额' })).toHaveTextContent('设置策略')
   })
 
   it('should, when the button is clicked, call onClick once', async () => {
     const { user } = renderWithUserEvent(<PolicyCatalogueTile {...defaultProps} />)
 
-    await user.click(screen.getByRole('button', { name: 'Set policy: Spending limit' }))
+    await user.click(screen.getByRole('button', { name: 'Set policy: Spending 项限额' }))
 
     expect(defaultProps.onClick).toHaveBeenCalledTimes(1)
   })
@@ -54,7 +54,7 @@ describe('PolicyCatalogueTile', () => {
       <PolicyCatalogueTile {...defaultProps} locked accountCount={{ applied: 0, total: 6 }} />,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Set policy: Spending limit' }))
+    await user.click(screen.getByRole('button', { name: 'Set policy: Spending 项限额' }))
 
     expect(defaultProps.onClick).toHaveBeenCalledTimes(1)
   })
@@ -75,7 +75,7 @@ describe('PolicyCatalogueTile', () => {
   it('should, when locked, show a lock on the Set policy button and keep its accessible name', () => {
     render(<PolicyCatalogueTile {...defaultProps} locked accountCount={{ applied: 0, total: 6 }} />)
 
-    const button = screen.getByRole('button', { name: 'Set policy: Spending limit' })
+    const button = screen.getByRole('button', { name: 'Set policy: Spending 项限额' })
 
     expect(button).toContainElement(screen.getByTestId('policy-locked-icon'))
   })

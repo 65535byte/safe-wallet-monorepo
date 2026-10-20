@@ -88,16 +88,14 @@ describe('ApiCtaSidebar', () => {
       render(<ApiCtaSidebar />)
 
       expect(
-        screen.getByText(
-          'Authenticated access, predictable quotas, and webhooks for teams that rely on Safe as critical infrastructure.',
-        ),
+        screen.getByText('提供身份验证访问、可预测的配额和 Webhook，适用于将 Safe 作为关键基础设施的团队。'),
       ).toBeInTheDocument()
     })
 
     it('renders the CTA link with correct attributes', () => {
       render(<ApiCtaSidebar />)
 
-      const link = screen.getByRole('link', { name: /Get API key/i })
+      const link = screen.getByRole('link', { name: /获取 API 密钥/i })
       expect(link).toHaveAttribute('href', 'https://developer.safe.global/login')
       expect(link).toHaveAttribute('target', '_blank')
       expect(link).toHaveAttribute('rel', 'noopener noreferrer')

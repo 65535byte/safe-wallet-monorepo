@@ -111,7 +111,7 @@ describe('useSafeMessageNotifications', () => {
     safeMsgDispatch(SafeMsgEvent.PROPOSE, { messageHash: '0x123' })
 
     expect(showNotification).toHaveBeenCalledWith({
-      message: 'You successfully signed the message.',
+      message: '消息签名成功。',
       groupKey: '0x123',
       variant: 'success',
     })
@@ -123,7 +123,7 @@ describe('useSafeMessageNotifications', () => {
     safeMsgDispatch(SafeMsgEvent.CONFIRM_PROPOSE, { messageHash: '0x456' })
 
     expect(showNotification).toHaveBeenCalledWith({
-      message: 'You successfully confirmed the message.',
+      message: '消息确认成功。',
       groupKey: '0x456',
       variant: 'info',
     })
@@ -146,7 +146,7 @@ describe('useSafeMessageNotifications', () => {
     safeMsgDispatch(SafeMsgEvent.SIGNATURE_PREPARED, { messageHash: '0x012', requestId: 'test-id', signature: '0x456' })
 
     expect(showNotification).toHaveBeenCalledWith({
-      message: 'The message was successfully confirmed.',
+      message: '消息已成功确认。',
       groupKey: '0x012',
       variant: 'success',
     })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type SyntheticEvent, useEffect } from 'react'
 import { useCallback, useContext } from 'react'
 import { X as CloseIcon } from 'lucide-react'
@@ -29,6 +30,15 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
   const clearBatch = useCallback(() => {
     batchTxs.forEach((item) => deleteTx(item.id))
   }, [deleteTx, batchTxs])
+
+  // Close confirmation flow when batch is empty
+  const isConfirmationFlow = txFlow?.type === ConfirmBatchFlow
+  const shouldExitFlow = isConfirmationFlow && batchTxs.length === 0
+  useEffect(() => {
+    if (shouldExitFlow) {
+      setTxFlow(undefined)
+    }
+  }, [setTxFlow, shouldExitFlow])
 
   const onAddClick = useCallback(
     (e: SyntheticEvent) => {
@@ -71,7 +81,7 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
       >
         <aside className={css.aside}>
           <Typography variant="h4" className="pr-10 font-bold">
-            Batched transactions
+            {translateMessage('ui.batchedTransactions_588d30b9')}
           </Typography>
 
           <Separator className="my-[var(--space-3)] w-full" />
@@ -87,7 +97,7 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
                   <Track {...BATCH_EVENTS.BATCH_NEW_TX}>
                     <Button variant="ghost" onClick={onAddClick} disabled={!isOk}>
                       <PlusIcon className="mr-2 size-4" />
-                      Add new transaction
+                      {translateMessage('ui.addNewTransaction_f1df9260')}
                     </Button>
                   </Track>
                 )}
@@ -103,7 +113,7 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
                       disabled={!batchTxs.length || !isOk}
                       className="mt-[var(--space-1)]"
                     >
-                      Confirm batch
+                      {translateMessage('ui.confirmBatch_eda0c215')}
                     </Button>
                   </Track>
                 )}
@@ -115,7 +125,7 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
                 {(isOk) => (
                   <Track {...BATCH_EVENTS.BATCH_NEW_TX}>
                     <Button onClick={onAddClick} disabled={!isOk}>
-                      New transaction
+                      {translateMessage('ui.newTransaction_7f00cf16')}
                     </Button>
                   </Track>
                 )}
@@ -127,7 +137,7 @@ const BatchSidebar = ({ isOpen, onToggle }: { isOpen: boolean; onToggle: (open: 
             variant="ghost"
             size="icon-sm"
             className="absolute right-[var(--space-2)] top-[var(--space-2)] z-[1] p-[var(--space-1)] text-[var(--color-border-main)]"
-            aria-label="close"
+            aria-label={translateMessage('ui.close_aaaeeafe')}
             onClick={closeSidebar}
           >
             <CloseIcon className="size-5" />

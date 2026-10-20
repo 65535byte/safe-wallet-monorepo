@@ -106,14 +106,14 @@ describe('queued simulation display', () => {
     const status = finishedStatus({ isSuccess: true, isCallTraceError: true })
     const isSuccessful = _isSimulationSuccessful(status)
 
-    expect(_getSimulationStatusText(isSuccessful)).toBe('Simulation failed')
+    expect(_getSimulationStatusText(isSuccessful)).toBe('模拟失败')
     expect(_getSimulationIcon(isSuccessful).color).toBe('var(--color-error-main)')
   })
 
   it('shows a successful simulation for a clean run', () => {
     const isSuccessful = _isSimulationSuccessful(finishedStatus({ isSuccess: true }))
 
-    expect(_getSimulationStatusText(isSuccessful)).toBe('Simulation successful')
+    expect(_getSimulationStatusText(isSuccessful)).toBe('模拟成功')
     expect(_getSimulationIcon(isSuccessful).color).toBe('var(--color-success-main)')
   })
 })
@@ -135,22 +135,22 @@ describe('QueuedTxSimulation gating', () => {
     mockSimulationRequestStatus = FETCH_STATUS.NOT_ASKED
   })
 
-  it('leads to Tenderly settings instead of simulating without Safe Pro nor an own Tenderly project', async () => {
+  it('leads to Tenderly settings instead of simulating without 8379 nor an own Tenderly project', async () => {
     mockUseSafeProAccess.mockReturnValue({ hasProFeatures: false, isLoading: false })
     render(<QueuedTxSimulation transaction={transaction} />)
 
     const link = await screen.findByTestId('queued-tx-simulation-setup')
     expect(link.getAttribute('href')).toContain('/settings/environment-variables')
-    expect(link).toHaveTextContent('Set up simulation')
-    expect(screen.queryByRole('button', { name: /Simulate/ })).not.toBeInTheDocument()
+    expect(link).toHaveTextContent('配置交易模拟')
+    expect(screen.queryByRole('button', { name: /模拟/ })).not.toBeInTheDocument()
     expect(mockSimulateTransaction).not.toHaveBeenCalled()
   })
 
-  it('simulates on the own Tenderly project without Safe Pro', async () => {
+  it('simulates on the own Tenderly project without 8379', async () => {
     mockUseSafeProAccess.mockReturnValue({ hasProFeatures: false, isLoading: false })
     render(<QueuedTxSimulation transaction={transaction} />, { initialReduxState: ownTenderlyState })
 
-    expect(await screen.findByRole('button', { name: /Simulate/ })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /模拟/ })).toBeInTheDocument()
     expect(screen.queryByTestId('queued-tx-simulation-setup')).not.toBeInTheDocument()
   })
 
@@ -159,15 +159,15 @@ describe('QueuedTxSimulation gating', () => {
     const { container } = render(<QueuedTxSimulation transaction={transaction} />)
 
     expect(screen.queryByTestId('queued-tx-simulation-setup')).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /Simulate/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /模拟/ })).not.toBeInTheDocument()
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('keeps the in-app simulation button with Safe Pro', async () => {
+  it('keeps the in-app simulation button with 8379', async () => {
     mockUseSafeProAccess.mockReturnValue({ hasProFeatures: true, isLoading: false })
     render(<QueuedTxSimulation transaction={transaction} />)
 
-    expect(await screen.findByRole('button', { name: /Simulate/ })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: /模拟/ })).toBeInTheDocument()
     expect(screen.queryByTestId('queued-tx-simulation-setup')).not.toBeInTheDocument()
   })
 
@@ -176,9 +176,7 @@ describe('QueuedTxSimulation gating', () => {
     mockSimulationRequestStatus = FETCH_STATUS.ERROR
     render(<QueuedTxSimulation transaction={transaction} />, { initialReduxState: ownTenderlyState })
 
-    expect(
-      await screen.findByText('Simulation failed. Check your Tenderly API URL and access token.'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('模拟失败，请检查 Tenderly API 网址和访问令牌。')).toBeInTheDocument()
   })
 
   it('keeps the generic error when the built-in simulation request fails', async () => {
@@ -186,6 +184,6 @@ describe('QueuedTxSimulation gating', () => {
     mockSimulationRequestStatus = FETCH_STATUS.ERROR
     render(<QueuedTxSimulation transaction={transaction} />)
 
-    expect(await screen.findByText('Error while simulating')).toBeInTheDocument()
+    expect(await screen.findByText('模拟时出错')).toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import NextLink from 'next/link'
 import { ArrowRight } from 'lucide-react'
@@ -7,7 +8,6 @@ import { trackPlanSelectionStarted, useSafeProAccess } from '@/features/spaces'
 import { MixpanelEventParams, PlanSelectionEntryPoint, UpgradeFeature, UpgradeLocation } from '@/services/analytics'
 import { useTrackOnce } from '@/services/analytics/useTrackOnce'
 import { SAFE_PRO_EVENTS } from '@/services/analytics/events/safe-pro'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
 
 const PROMPT = {
   [MixpanelEventParams.FEATURE]: UpgradeFeature.SAFE_SHIELD_CHECKS,
@@ -21,8 +21,8 @@ export const ProChecksRow = ({ hasProFeatures }: { hasProFeatures: boolean }): R
 
   return (
     <div className="flex min-h-11 items-center justify-between rounded-t-md bg-muted p-2" data-testid="pro-checks-row">
-      <span className="block h-5 w-8" aria-label="Safe Pro">
-        <ProChip className="size-full" />
+      <span className="block h-5 w-8" aria-label="8379">
+        <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
       </span>
       {!hasProFeatures && (
         <Button
@@ -37,7 +37,7 @@ export const ProChecksRow = ({ hasProFeatures }: { hasProFeatures: boolean }): R
             })
           }
         >
-          Upgrade
+          {translateMessage('ui.upgrade_3147f082')}
           <ArrowRight data-icon="inline-end" className="text-badge-dot-success" />
         </Button>
       )}

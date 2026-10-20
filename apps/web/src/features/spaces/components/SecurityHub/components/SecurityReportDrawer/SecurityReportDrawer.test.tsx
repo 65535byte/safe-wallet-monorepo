@@ -10,7 +10,7 @@ describe('SecurityReportDrawer surface', () => {
   it('renders the drawer on a recessed surface, not bg-card, so inner cards stay visible in both themes', () => {
     render(<OpenWithContext />)
 
-    const content = screen.getByLabelText('Security report')
+    const content = screen.getByLabelText('安全报告')
 
     expect(content).toHaveClass('bg-zinc-50')
     expect(content).toHaveClass('dark:bg-[var(--color-background-main)]')
@@ -22,6 +22,6 @@ describe('SecurityReportDrawer surface', () => {
 
     expect(screen.getByText('Operations Vault')).toBeInTheDocument()
     expect(screen.getByText('0xA77D...98b6')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '关闭' })).toBeInTheDocument()
   })
 })

@@ -21,6 +21,6 @@ describe('StepCounter', () => {
 
   it('exposes accessible step label', () => {
     render(<StepCounter currentStep={3} totalSteps={4} />)
-    expect(screen.getByRole('group', { name: 'Step 3 of 4' })).toBeInTheDocument()
+    expect(screen.getByRole('group', { name: 'Step 3 / 4' })).toBeInTheDocument()
   })
 })

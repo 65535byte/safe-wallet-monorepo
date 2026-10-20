@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import type { ReactElement } from 'react'
 import {
@@ -29,7 +30,9 @@ const ExpandableMsgItem = ({ msg, expanded = false }: { msg: MessageItem; expand
         </AccordionTrigger>
 
         <AccordionContent className="p-0">
-          <ObservabilityErrorBoundary fallback={<div className="p-4">Failed to render message details</div>}>
+          <ObservabilityErrorBoundary
+            fallback={<div className="p-4">{translateMessage('ui.failedToRenderMessageDetails_3b1e7f98')}</div>}
+          >
             <MsgDetails msg={msg} />
           </ObservabilityErrorBoundary>
         </AccordionContent>

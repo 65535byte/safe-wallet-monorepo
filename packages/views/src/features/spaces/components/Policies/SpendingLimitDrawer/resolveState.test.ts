@@ -29,7 +29,7 @@ describe('active states', () => {
       kind: 'active',
       action: 'connect',
       disabled: false,
-      helper: 'Connect a signer wallet to edit.',
+      helper: '请连接签名人钱包以编辑。',
     })
   })
 
@@ -38,7 +38,7 @@ describe('active states', () => {
       kind: 'active',
       action: 'manage',
       disabled: true,
-      helper: 'Only signers of this Safe account can edit this spending limit.',
+      helper: '仅此 8379 账户的签名人可以编辑此支出限额。',
     })
   })
 })
@@ -46,8 +46,8 @@ describe('active states', () => {
 describe('unenforced state', () => {
   const unenforced = () => asActivePolicy(mockUnenforcedPolicy())
   const BANNER = {
-    bannerTitle: 'Spending limit module deleted',
-    bannerLine2: 'Spending limit not applied as module is deleted.',
+    bannerTitle: '支出限额模块已删除',
+    bannerLine2: '模块已删除，支出限额未应用。',
   }
 
   it('offers a signer to add the module again', () => {
@@ -65,7 +65,7 @@ describe('unenforced state', () => {
       action: 'connect',
       disabled: false,
       ...BANNER,
-      helper: 'Connect a signer wallet to add the module.',
+      helper: '请连接签名人钱包以添加模块。',
     })
   })
 
@@ -75,13 +75,13 @@ describe('unenforced state', () => {
       action: 'enable',
       disabled: true,
       ...BANNER,
-      helper: 'Only signers of this Safe account can add the module.',
+      helper: '仅此 8379 账户的签名人可以添加模块。',
     })
   })
 })
 
 describe('pending states', () => {
-  const PENDING_CREATE_BANNER_TITLE = 'The spending limit is not active as the transaction is not yet executed.'
+  const PENDING_CREATE_BANNER_TITLE = '交易尚未执行，支出限额尚未生效。'
 
   it('state 4: a signer who has not signed reviews the transaction', () => {
     const state = resolve(mockPendingPolicy(), MOCK_VIEWERS.signer)
@@ -91,7 +91,7 @@ describe('pending states', () => {
       operation: 'create',
       bannerTitle: PENDING_CREATE_BANNER_TITLE,
       action: 'review',
-      bannerLine2: 'Sign and execute the transaction to activate.',
+      bannerLine2: '签名并执行交易 to activate。',
       signed: 1,
       required: 2,
     })
@@ -105,8 +105,8 @@ describe('pending states', () => {
       operation: 'create',
       bannerTitle: PENDING_CREATE_BANNER_TITLE,
       action: 'connect',
-      bannerLine2: 'Connect a signer wallet to sign this transaction.',
-      helper: 'Connect a signer wallet of Treasury to sign.',
+      bannerLine2: '请连接签名人钱包以签署此交易。',
+      helper: '请连接 Treasury 的签名人钱包以签名。',
       signed: 1,
       required: 2,
     })
@@ -120,7 +120,7 @@ describe('pending states', () => {
       operation: 'create',
       bannerTitle: PENDING_CREATE_BANNER_TITLE,
       action: 'copy-link',
-      bannerLine2: "You've signed. Waiting for 1 more signature.",
+      bannerLine2: '您已签名。Waiting for 1 more signature。',
       signed: 1,
       required: 2,
     })
@@ -160,7 +160,7 @@ describe('pending states', () => {
       operation: 'create',
       bannerTitle: PENDING_CREATE_BANNER_TITLE,
       action: 'review',
-      bannerLine2: 'Execute the transaction to activate.',
+      bannerLine2: '执行交易 to activate。',
       signed: 2,
       required: 2,
     })
@@ -183,7 +183,7 @@ describe('precedence', () => {
   it('offers a signer who already signed the review action once the transaction is fully signed', () => {
     expect(resolve(mockFullySignedPending(), MOCK_VIEWERS.signerWhoSigned)).toMatchObject({
       action: 'review',
-      bannerLine2: 'Execute the transaction to activate.',
+      bannerLine2: '执行交易 to activate。',
     })
   })
 })
@@ -194,8 +194,8 @@ describe('operation', () => {
 
     expect(state).toMatchObject({
       operation: 'remove',
-      bannerTitle: 'This spending limit is still active until the removal is executed.',
-      bannerLine2: 'Sign and execute the transaction to remove it.',
+      bannerTitle: '移除交易执行前，此支出限额仍然有效。',
+      bannerLine2: '签名并执行交易 to remove it。',
     })
   })
 })
@@ -209,10 +209,10 @@ describe('activating rows', () => {
 
 describe('a transaction that is no longer pending', () => {
   it.each([
-    ['executed', 'The transaction was executed.'],
-    ['failed', 'The transaction failed and can no longer be executed.'],
-    ['replaced', 'Another transaction used this nonce, so this one can no longer be executed.'],
-    ['deleted', 'The transaction was deleted.'],
+    ['executed', '交易已执行。'],
+    ['failed', '交易失败，无法再执行。'],
+    ['replaced', '其他交易已使用此 nonce，因此此交易无法再执行。'],
+    ['deleted', '交易已删除。'],
   ] as const)('reports a %s transaction with nothing left to do', (outcome, title) => {
     const state = resolveSpendingLimitDrawerState(mockPendingPolicy(), MOCK_VIEWERS.signer, MOCK_SAFE_NAME, outcome)
 
@@ -238,7 +238,7 @@ describe('a transaction that is no longer pending', () => {
       'executed',
     )
 
-    expect(state).toEqual(expect.objectContaining({ bannerLine2: 'The spending limit will show as active shortly.' }))
+    expect(state).toEqual(expect.objectContaining({ bannerLine2: '支出限额即将显示为已启用。' }))
   })
 
   it('tells an executed removal that the limit is about to go', () => {
@@ -249,6 +249,6 @@ describe('a transaction that is no longer pending', () => {
       'executed',
     )
 
-    expect(state).toEqual(expect.objectContaining({ bannerLine2: 'The spending limit will disappear shortly.' }))
+    expect(state).toEqual(expect.objectContaining({ bannerLine2: '支出限额即将移除。' }))
   })
 })

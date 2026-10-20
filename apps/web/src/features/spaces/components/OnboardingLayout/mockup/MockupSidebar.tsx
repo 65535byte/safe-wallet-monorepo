@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import { motion } from 'motion/react'
 import { ChevronDown, House, WalletCards, BookUser, UsersRound, Settings } from 'lucide-react'
-import SafeLogo from '@safe-global/views/assets/images/logo-no-text.svg'
 import SpaceAvatar from '@safe-global/views/features/spaces/components/OnboardingLayout/mockup/SpaceAvatar'
 
 interface MockupSidebarProps {
@@ -19,7 +19,11 @@ const navItems = [
 
 const MockupSidebar = ({ displayName, initial, highlight }: MockupSidebarProps) => (
   <div className="flex w-[220px] shrink-0 flex-col gap-2 border-r p-4">
-    <SafeLogo alt="Safe" width={24} height={24} className="mb-3 shrink-0" />
+    <img
+      src="/images/brand-logo.png"
+      alt={translateMessage('ui.safe_32142578')}
+      className="mb-3 size-6 shrink-0 rounded-sm object-contain"
+    />
 
     <motion.div
       animate={{
@@ -42,7 +46,7 @@ const MockupSidebar = ({ displayName, initial, highlight }: MockupSidebarProps) 
       <SpaceAvatar initial={initial} />
       <div className="min-w-0 flex-1 flex flex-col gap-0.5">
         <div className="truncate text-sm font-semibold leading-tight text-foreground">{displayName}</div>
-        <div className="text-xs leading-none text-muted-foreground">Workspace</div>
+        <div className="text-xs leading-none text-muted-foreground">{translateMessage('ui.workspace_c8c48e9f')}</div>
       </div>
       <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
     </motion.div>

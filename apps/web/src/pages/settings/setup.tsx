@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -26,7 +27,7 @@ const Setup: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Setup`}</title>
+        <title>{translateMessage('ui.settingsSetup_8f43b415', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />
@@ -40,22 +41,21 @@ const Setup: NextPage = () => {
                   <TooltipTrigger
                     render={
                       <span>
-                        Safe account nonce
+                        {translateMessage('ui.accountNonce_6a29c45d')}
                         <InfoIcon className="ml-1 inline size-5 align-middle text-[var(--color-border-main)]" />
                       </span>
                     }
                   />
                   <TooltipContent>
-                    For security reasons, transactions made with a Safe account need to be executed in order. The nonce
-                    shows you which transaction will be executed next. You can find the nonce for a transaction in the
-                    transaction details.
+                    {translateMessage('ui.forSecurityReasonsTransactionsMadeWith_daa0afee')}
                   </TooltipContent>
                 </Tooltip>
               </Typography>
 
               {/* as="div": the Skeleton renders a div, which is invalid inside the default <p> */}
               <Typography as="div" className="pt-2">
-                Current nonce: {safeLoaded ? <b>{nonce}</b> : <Skeleton className="inline-block h-4 w-[30px]" />}
+                {translateMessage('ui.currentNonce_03e86cde')}
+                {safeLoaded ? <b>{nonce}</b> : <Skeleton className="inline-block h-4 w-[30px]" />}
               </Typography>
             </div>
 
@@ -69,7 +69,7 @@ const Setup: NextPage = () => {
           <div className="flex flex-col justify-between gap-6 lg:flex-row">
             <div className="lg:w-1/5 lg:shrink-0">
               <Typography variant="h4" className="font-bold">
-                Members
+                {translateMessage('ui.members_a4462f09')}
               </Typography>
             </div>
 

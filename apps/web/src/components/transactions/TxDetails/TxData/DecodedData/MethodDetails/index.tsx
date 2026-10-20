@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressInfo, DataDecoded } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactElement } from 'react'
 import { generateDataRowValue, TxDataRow } from '@/components/transactions/TxDetails/Summary/TxDataRow'
@@ -20,9 +21,9 @@ export const MethodDetails = ({ data, addressInfoIndex, hexData }: MethodDetails
     return (
       <>
         <Typography variant="paragraph-small" className="text-muted-foreground">
-          No parameters
+          {translateMessage('ui.noParameters_2ad52d64')}
         </Typography>
-        {showHexData && <HexEncodedData title="Data" hexData={hexData} />}
+        {showHexData && <HexEncodedData title={translateMessage('ui.data_e932c3b4')} hexData={hexData} />}
       </>
     )
   }

@@ -36,27 +36,27 @@ describe('ReportFalseResultModal', () => {
     it('should render the modal when open', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      expect(screen.getByText('Report false result')).toBeInTheDocument()
+      expect(screen.getByText('报告误判')).toBeInTheDocument()
       expect(screen.getByText(/Help us improve our security analysis/)).toBeInTheDocument()
     })
 
     it('should not render when closed', () => {
       render(<ReportFalseResultModal {...defaultProps} open={false} />)
 
-      expect(screen.queryByText('Report false result')).not.toBeInTheDocument()
+      expect(screen.queryByText('报告误判')).not.toBeInTheDocument()
     })
 
     it('should render details text field', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      expect(screen.getByLabelText(/Details/)).toBeInTheDocument()
-      expect(screen.getByText('0/1000 characters')).toBeInTheDocument()
+      expect(screen.getByLabelText(/详情/)).toBeInTheDocument()
+      expect(screen.getByText('0/1000 个字符')).toBeInTheDocument()
     })
 
     it('should render action buttons', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '取消' })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: 'Submit report' })).toBeInTheDocument()
     })
   })
@@ -72,7 +72,7 @@ describe('ReportFalseResultModal', () => {
     it('should enable submit button when details is filled', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      const detailsInput = screen.getByLabelText(/Details/)
+      const detailsInput = screen.getByLabelText(/详情/)
       fireEvent.change(detailsInput, { target: { value: 'Test details' } })
 
       const submitButton = screen.getByRole('button', { name: 'Submit report' })
@@ -86,7 +86,7 @@ describe('ReportFalseResultModal', () => {
 
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      const detailsInput = screen.getByLabelText(/Details/)
+      const detailsInput = screen.getByLabelText(/详情/)
       fireEvent.change(detailsInput, { target: { value: 'Test details for submission' } })
 
       const submitButton = screen.getByRole('button', { name: 'Submit report' })
@@ -105,7 +105,7 @@ describe('ReportFalseResultModal', () => {
 
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      fireEvent.change(screen.getByLabelText(/Details/), { target: { value: 'Details' } })
+      fireEvent.change(screen.getByLabelText(/详情/), { target: { value: 'Details' } })
       fireEvent.click(screen.getByRole('button', { name: 'Submit report' }))
 
       await waitFor(() => {
@@ -118,7 +118,7 @@ describe('ReportFalseResultModal', () => {
 
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      fireEvent.change(screen.getByLabelText(/Details/), { target: { value: 'Details' } })
+      fireEvent.change(screen.getByLabelText(/详情/), { target: { value: 'Details' } })
       fireEvent.click(screen.getByRole('button', { name: 'Submit report' }))
 
       await waitFor(() => {
@@ -135,7 +135,7 @@ describe('ReportFalseResultModal', () => {
 
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      fireEvent.change(screen.getByLabelText(/Details/), { target: { value: 'Details' } })
+      fireEvent.change(screen.getByLabelText(/详情/), { target: { value: 'Details' } })
       fireEvent.click(screen.getByRole('button', { name: 'Submit report' }))
 
       await waitFor(() => {
@@ -148,7 +148,7 @@ describe('ReportFalseResultModal', () => {
 
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      fireEvent.change(screen.getByLabelText(/Details/), { target: { value: 'Details' } })
+      fireEvent.change(screen.getByLabelText(/详情/), { target: { value: 'Details' } })
       fireEvent.click(screen.getByRole('button', { name: 'Submit report' }))
 
       await waitFor(() => {
@@ -171,7 +171,7 @@ describe('ReportFalseResultModal', () => {
     it('should call onClose when cancel is clicked', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      const cancelButton = screen.getByRole('button', { name: 'Cancel' })
+      const cancelButton = screen.getByRole('button', { name: '取消' })
       fireEvent.click(cancelButton)
 
       expect(mockOnClose).toHaveBeenCalled()
@@ -182,10 +182,10 @@ describe('ReportFalseResultModal', () => {
     it('should update character count as user types', () => {
       render(<ReportFalseResultModal {...defaultProps} />)
 
-      const detailsInput = screen.getByLabelText(/Details/)
+      const detailsInput = screen.getByLabelText(/详情/)
       fireEvent.change(detailsInput, { target: { value: '12345' } })
 
-      expect(screen.getByText('5/1000 characters')).toBeInTheDocument()
+      expect(screen.getByText('5/1000 个字符')).toBeInTheDocument()
     })
   })
 })

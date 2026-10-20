@@ -3,7 +3,7 @@ import { getResetTimeOptions } from '../constants'
 
 describe('getResetTimeOptions', () => {
   it('offers only the production periods on a production chain', () => {
-    expect(getResetTimeOptions('1').map((option) => option.label)).toEqual(['One time', '1 day', '1 week', '1 month'])
+    expect(getResetTimeOptions('1').map((option) => option.label)).toEqual(['一次性', '1 天', '1 周', '1 个月'])
   })
 
   it('offers the production periods and the short test periods on Sepolia, shortest first', () => {
@@ -21,7 +21,7 @@ describe('getResetTimeOptions', () => {
   it('keeps the same labels for the test periods the e2e suite already relies on', () => {
     const labels = getResetTimeOptions(chains.sep).map((option) => option.label)
 
-    expect(labels).toEqual(['One time', '5 minutes', '30 minutes', '1 hour', '1 day', '1 week', '1 month'])
+    expect(labels).toEqual(['一次性', '5 分钟', '30 分钟', '1 小时', '1 天', '1 周', '1 个月'])
   })
 
   it('falls back to the production periods without a chain id', () => {

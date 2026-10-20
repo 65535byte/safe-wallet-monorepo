@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Safe__factory } from '@safe-global/utils/types/contracts'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -95,13 +96,13 @@ export const ExecTransaction = ({
                 passHref
                 legacyBehavior
               >
-                <ExternalLink>Open Safe</ExternalLink>
+                <ExternalLink>{translateMessage('ui.open_4de8d7a3')}</ExternalLink>
               </Link>
             </div>
           )}
         </>
       ) : error ? (
-        <ErrorMessage>Could not load details on executed transaction.</ErrorMessage>
+        <ErrorMessage>{translateMessage('ui.couldNotLoadDetailsOnExecuted_66e1f4ae')}</ErrorMessage>
       ) : (
         <Skeleton className="h-5 w-full" />
       )}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { AnalysisGroupCard, type AnalysisGroupCardProps } from '@/features/safe-shield'
@@ -11,7 +12,7 @@ const ByHypernativeFooter = () => {
   return (
     <div className="flex flex-row items-center gap-1 self-end">
       <Typography variant="paragraph-mini" className="text-[var(--color-text-secondary)]">
-        by
+        {translateMessage('ui.by_7d9ab38f')}
       </Typography>
       <HypernativeLogo fill="var(--color-text-secondary)" className="h-[17px] w-[70px]" />
     </div>

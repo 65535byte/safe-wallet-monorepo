@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import classnames from 'classnames'
 import type { ReactElement, ReactNode, SyntheticEvent } from 'react'
 import { isAddress } from 'ethers'
@@ -140,7 +141,11 @@ const SrcEthHashInfo = ({
                       )}
                     </TooltipTrigger>
                     <TooltipContent>
-                      From your {addressBookNameSource === ContactSource.space ? 'Workspace' : 'local'} address book
+                      {translateMessage('ui.fromYour_b51b504f')}
+                      {addressBookNameSource === ContactSource.space
+                        ? translateMessage('ui.workspace_c8c48e9f')
+                        : 'local'}{' '}
+                      {translateMessage('ui.addressBook_7c7efd0c')}
                     </TooltipContent>
                   </Tooltip>
                 )}

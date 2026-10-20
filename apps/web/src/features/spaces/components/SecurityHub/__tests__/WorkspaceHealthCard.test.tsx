@@ -32,7 +32,7 @@ const SAFE_B = '0xB000000000000000000000000000000000000000'
 const safe = (address: string): SpaceSafeEntry => ({
   address,
   chainId: '1',
-  name: `Safe ${address.slice(0, 6)}`,
+  name: `8379 ${address.slice(0, 6)}`,
   isMultichain: false,
   chainEntries: [{ chainId: '1', isDeployed: true }],
 })
@@ -118,7 +118,7 @@ describe('WorkspaceHealthCard', () => {
         isScanning={false}
       />,
     )
-    expect(screen.getByText('At risk · 1 account')).toBeInTheDocument()
+    expect(screen.getByText('At risk · 1 个账户')).toBeInTheDocument()
   })
 
   it('shows a Healthy filter chip with the all-clear safe count when every account passes', () => {
@@ -133,7 +133,7 @@ describe('WorkspaceHealthCard', () => {
         isScanning={false}
       />,
     )
-    expect(screen.getByText('Healthy · 2 accounts')).toBeInTheDocument()
+    expect(screen.getByText('Healthy · 2 个账户')).toBeInTheDocument()
   })
 
   it('renders a Critical filter chip when a Safe has a Critical-severity finding', () => {
@@ -146,7 +146,7 @@ describe('WorkspaceHealthCard', () => {
         isScanning={false}
       />,
     )
-    expect(screen.getByText('Critical · 1 account')).toBeInTheDocument()
+    expect(screen.getByText('Critical · 1 个账户')).toBeInTheDocument()
   })
 
   it('renders a Needs review filter chip when a Safe has only partial / Medium findings', () => {
@@ -159,7 +159,7 @@ describe('WorkspaceHealthCard', () => {
         isScanning={false}
       />,
     )
-    expect(screen.getByText('Needs review · 1 account')).toBeInTheDocument()
+    expect(screen.getByText('Needs review · 1 个账户')).toBeInTheDocument()
   })
 
   it('shows an incomplete-scan note when the last scan was partial and not running', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useCurrentChain } from '@/hooks/useChains'
 import {
@@ -12,12 +13,14 @@ import { getSpecificContractErrorMessage } from '@safe-global/utils/services/exc
 import ErrorMessage from '@/components/tx/ErrorMessage'
 import { ExternalLink as ExternalLinkIcon } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
-import { HYPERNATIVE_EVENTS } from '@/services/analytics'
-import Track from '@/components/common/Track'
+import { HYPERNATIVE_EVENTS, trackEvent } from '@/services/analytics'
 import { useSafeShieldAssessmentUrl } from '@/features/hypernative'
 
-export const TX_WILL_FAIL_MESSAGE =
-  'This transaction will most likely fail. To save gas costs, reject this transaction.'
+export const TX_WILL_FAIL_MESSAGE = translateMessage('ui.thisTransactionWillMostLikelyFail_f953a718')
+
+const onHypernativeCtaClick = () => {
+  trackEvent(HYPERNATIVE_EVENTS.EXECUTION_BLOCKED_APPROVAL_CLICKED)
+}
 
 /**
  * The transaction is awaiting approval, not failing — an action to take rather than
@@ -34,17 +37,16 @@ const HypernativeApprovalRequired = (): ReactElement => {
 
       {assessmentUrl && (
         <span className="mt-3 block">
-          <Track {...HYPERNATIVE_EVENTS.EXECUTION_BLOCKED_APPROVAL_CLICKED}>
-            <Button
-              variant="surface"
-              size="sm"
-              className="gap-2"
-              render={<a href={assessmentUrl} target="_blank" rel="noreferrer noopener" />}
-            >
-              Approve in Hypernative
-              <ExternalLinkIcon />
-            </Button>
-          </Track>
+          <Button
+            variant="surface"
+            size="sm"
+            className="gap-2"
+            onClick={onHypernativeCtaClick}
+            render={<a href={assessmentUrl} target="_blank" rel="noreferrer noopener" />}
+          >
+            {translateMessage('ui.approveInHypernative_3ef443cf')}
+            <ExternalLinkIcon />
+          </Button>
         </span>
       )}
     </ErrorMessage>
@@ -52,7 +54,7 @@ const HypernativeApprovalRequired = (): ReactElement => {
 }
 
 export const getCouldNotCheckMessage = (network?: string): string =>
-  `Could not check this transaction. ${network ?? 'The network'} is not responding. Nothing was signed.`
+  translateMessage('ui.couldNotCheckThisTransactionIs_71370bce', { p0: network ?? 'The network' })
 
 /**
  * Renders the pre-execution validity/estimation error, keeping two separate

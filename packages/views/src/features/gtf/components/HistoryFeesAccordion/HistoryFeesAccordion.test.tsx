@@ -7,7 +7,7 @@ import type { HistoryFeesData } from '@/features/gtf/hooks/useHistoryFeesBreakdo
 const defaultData: HistoryFeesData = {
   totalFee: { amount: '0.005', currency: 'ETH', fiatAmount: '$15.12' },
   executionFee: { label: 'Execution fee (0.5%)', amount: '0.002730', currency: 'ETH', isFree: true },
-  gasFee: { label: 'Max gas fee', amount: '0.005', currency: 'ETH', fiatAmount: '$15.12' },
+  gasFee: { label: '最高 Gas 费用', amount: '0.005', currency: 'ETH', fiatAmount: '$15.12' },
   paidFrom: 'signer',
 }
 
@@ -25,7 +25,7 @@ describe('HistoryFeesAccordion', () => {
   it('renders collapsed state with total fee', () => {
     render(<HistoryFeesAccordion data={defaultData} />)
 
-    expect(screen.getByText('Fees')).toBeInTheDocument()
+    expect(screen.getByText('费用')).toBeInTheDocument()
     // MUI Accordion renders details in the DOM even when collapsed
     // so amounts that match both summary and breakdown appear twice
     expect(screen.getAllByText('0.005 ETH').length).toBeGreaterThanOrEqual(1)
@@ -36,7 +36,7 @@ describe('HistoryFeesAccordion', () => {
     const data: HistoryFeesData = {
       totalFee: { amount: '0.010', currency: 'ETH', fiatAmount: '$30.00' },
       executionFee: { label: 'Execution fee (0.5%)', amount: '0.002730', currency: 'ETH', isFree: true },
-      gasFee: { label: 'Max gas fee', amount: '0.005', currency: 'ETH', fiatAmount: '$15.12' },
+      gasFee: { label: '最高 Gas 费用', amount: '0.005', currency: 'ETH', fiatAmount: '$15.12' },
       paidFrom: 'signer',
     }
 
@@ -52,16 +52,16 @@ describe('HistoryFeesAccordion', () => {
     fireEvent.click(screen.getByTestId('history-fees-summary'))
 
     expect(screen.getByText('Execution fee (0.5%)')).toBeInTheDocument()
-    expect(screen.getByText('FREE')).toBeInTheDocument()
+    expect(screen.getByText('免费')).toBeInTheDocument()
     expect(screen.getByText('0.002730 ETH')).toBeInTheDocument()
-    expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+    expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
   })
 
   it('renders execution fee with FREE badge and strikethrough using del element', () => {
     render(<HistoryFeesAccordion data={defaultData} />)
     fireEvent.click(screen.getByTestId('history-fees-summary'))
 
-    const freeText = screen.getByText('FREE')
+    const freeText = screen.getByText('免费')
     expect(freeText).toBeInTheDocument()
 
     const strikethroughEl = screen.getByText('0.002730 ETH')
@@ -72,7 +72,7 @@ describe('HistoryFeesAccordion', () => {
     render(<HistoryFeesAccordion data={defaultData} />)
     fireEvent.click(screen.getByTestId('history-fees-summary'))
 
-    expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+    expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
     // "0.005 ETH" appears both in the summary and the gas fee row
     expect(screen.getAllByText('0.005 ETH')).toHaveLength(2)
   })
@@ -81,7 +81,7 @@ describe('HistoryFeesAccordion', () => {
     const data: HistoryFeesData = {
       ...defaultData,
       totalFee: { amount: '0.005', currency: 'ETH' },
-      gasFee: { label: 'Max gas fee', amount: '0.008', currency: 'ETH' },
+      gasFee: { label: '最高 Gas 费用', amount: '0.008', currency: 'ETH' },
       paidFrom: 'signer',
     }
 
@@ -92,12 +92,12 @@ describe('HistoryFeesAccordion', () => {
 
   it('shows "Paid from the signer" subtitle when paidFrom is signer', () => {
     render(<HistoryFeesAccordion data={{ ...defaultData, paidFrom: 'signer' }} />)
-    expect(screen.getByText('Paid from the signer')).toBeInTheDocument()
+    expect(screen.getByText('由签名人支付')).toBeInTheDocument()
   })
 
   it('shows "Paid from the Safe" subtitle when paidFrom is safe', () => {
     render(<HistoryFeesAccordion data={{ ...defaultData, paidFrom: 'safe' }} />)
-    expect(screen.getByText('Paid from the Safe')).toBeInTheDocument()
+    expect(screen.getByText('由 8379 支付')).toBeInTheDocument()
   })
 
   it('renders non-free execution fee without FREE badge', () => {
@@ -109,7 +109,7 @@ describe('HistoryFeesAccordion', () => {
     render(<HistoryFeesAccordion data={data} />)
     fireEvent.click(screen.getByTestId('history-fees-summary'))
 
-    expect(screen.queryByText('FREE')).not.toBeInTheDocument()
+    expect(screen.queryByText('免费')).not.toBeInTheDocument()
     expect(screen.getByText('0.002730 ETH')).toBeInTheDocument()
     expect(screen.getByText('0.002730 ETH').tagName).not.toBe('DEL')
   })

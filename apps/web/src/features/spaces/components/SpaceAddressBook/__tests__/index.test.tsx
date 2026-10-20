@@ -130,8 +130,8 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.queryByText('Import')).not.toBeInTheDocument()
-    expect(screen.queryByText('Add contact')).not.toBeInTheDocument()
+    expect(screen.queryByText('导入')).not.toBeInTheDocument()
+    expect(screen.queryByText('添加联系人')).not.toBeInTheDocument()
   })
 
   it('shows action buttons for admin users', () => {
@@ -144,8 +144,8 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.getByText('Import')).toBeInTheDocument()
-    expect(screen.getByText('Add contact')).toBeInTheDocument()
+    expect(screen.getByText('导入')).toBeInTheDocument()
+    expect(screen.getByText('添加联系人')).toBeInTheDocument()
   })
 
   it('shows a reload state instead of an empty address book when the request fails', async () => {
@@ -156,10 +156,10 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.queryByText('No contacts in this Workspace yet.')).not.toBeInTheDocument()
+    expect(screen.queryByText('此工作空间暂无联系人。')).not.toBeInTheDocument()
     expect(screen.getByTestId('address-book-error')).toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: 'Reload' }))
+    await userEvent.click(screen.getByRole('button', { name: '刷新' }))
     expect(refetch).toHaveBeenCalled()
   })
 
@@ -170,7 +170,7 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.getByRole('tab', { name: /Workspace contacts/ })).not.toHaveTextContent('(0)')
+    expect(screen.getByRole('tab', { name: /工作空间联系人/ })).not.toHaveTextContent('(0)')
   })
 
   it('shows a loading state while the address book request is in flight', () => {
@@ -181,7 +181,7 @@ describe('SpaceAddressBook', () => {
     render(<SpaceAddressBook />)
 
     expect(screen.getByTestId('address-book-loading')).toBeInTheDocument()
-    expect(screen.queryByText('No contacts in this Workspace yet.')).not.toBeInTheDocument()
+    expect(screen.queryByText('此工作空间暂无联系人。')).not.toBeInTheDocument()
   })
 
   it('keeps the local contacts tab usable while the workspace request fails', async () => {
@@ -190,7 +190,7 @@ describe('SpaceAddressBook', () => {
     mockUserQuery(userBuilder().build())
 
     render(<SpaceAddressBook />)
-    await userEvent.click(screen.getByRole('tab', { name: /Local contacts/ }))
+    await userEvent.click(screen.getByRole('tab', { name: /本地联系人/ }))
 
     expect(screen.getByText("You haven't added any contacts yet.")).toBeInTheDocument()
   })
@@ -202,12 +202,12 @@ describe('SpaceAddressBook', () => {
     mockUserQuery(userBuilder().build())
 
     render(<SpaceAddressBook />)
-    await userEvent.click(screen.getByRole('tab', { name: /Pending/ }))
+    await userEvent.click(screen.getByRole('tab', { name: /待处理/ }))
 
     expect(screen.queryByTestId('pending-table')).not.toBeInTheDocument()
     expect(screen.getByTestId('pending-requests-error')).toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: 'Reload' }))
+    await userEvent.click(screen.getByRole('button', { name: '刷新' }))
     expect(refetch).toHaveBeenCalled()
   })
 
@@ -218,7 +218,7 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.getByRole('tab', { name: /Pending/ })).not.toHaveTextContent('(0)')
+    expect(screen.getByRole('tab', { name: /待处理/ })).not.toHaveTextContent('(0)')
   })
 
   it('offers no workspace action on a local contact while the Workspace book is unread', async () => {
@@ -229,7 +229,7 @@ describe('SpaceAddressBook', () => {
     mockUserQuery(userBuilder().build())
 
     render(<SpaceAddressBook />)
-    await userEvent.click(screen.getByRole('tab', { name: /Local contacts/ }))
+    await userEvent.click(screen.getByRole('tab', { name: /本地联系人/ }))
 
     expect(screen.getByTestId('row-0xAAA')).toBeEmptyDOMElement()
   })
@@ -242,9 +242,9 @@ describe('SpaceAddressBook', () => {
     mockUserQuery(userBuilder().build())
 
     render(<SpaceAddressBook />)
-    await userEvent.click(screen.getByRole('tab', { name: /Local contacts/ }))
+    await userEvent.click(screen.getByRole('tab', { name: /本地联系人/ }))
 
-    expect(screen.getByText('Already shared')).toBeInTheDocument()
+    expect(screen.getByText('已共享')).toBeInTheDocument()
   })
 
   it('offers no request action while the pending requests are unread', async () => {
@@ -255,7 +255,7 @@ describe('SpaceAddressBook', () => {
     mockUserQuery(userBuilder().build())
 
     render(<SpaceAddressBook />)
-    await userEvent.click(screen.getByRole('tab', { name: /Local contacts/ }))
+    await userEvent.click(screen.getByRole('tab', { name: /本地联系人/ }))
 
     expect(screen.getByTestId('row-0xAAA')).toBeEmptyDOMElement()
   })
@@ -270,6 +270,6 @@ describe('SpaceAddressBook', () => {
 
     render(<SpaceAddressBook />)
 
-    expect(screen.queryByRole('tab', { name: 'Activity log' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('tab', { name: '活动日志' })).not.toBeInTheDocument()
   })
 })

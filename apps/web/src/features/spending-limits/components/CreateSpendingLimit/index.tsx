@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useEffect, useMemo } from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -73,20 +74,18 @@ const CreateSpendingLimit = () => {
             <AddressBookInput
               data-testid="beneficiary-section"
               name={SpendingLimitFields.beneficiary}
-              label="Beneficiary"
+              label={translateMessage('ui.beneficiary_cb21d4c7')}
             />
           </div>
 
           <TokenAmountInput balances={balances.items} selectedToken={selectedToken} validate={validateSpendingLimit} />
 
           <Typography variant="h4" className="mt-6 font-bold">
-            Reset Timer
+            {translateMessage('ui.resetTimer_8d4cf440')}
           </Typography>
-          <Typography>
-            Set a reset time so the allowance automatically refills after the defined time period.
-          </Typography>
+          <Typography>{translateMessage('ui.setAResetTimeSoThe_b04a3631')}</Typography>
           <div className="mt-2 flex items-center justify-start gap-2">
-            <Label>Time Period</Label>
+            <Label>{translateMessage('ui.timePeriod_7d883096')}</Label>
             <Controller
               rules={{ required: true }}
               control={control}
@@ -110,7 +109,7 @@ const CreateSpendingLimit = () => {
 
           <TxCardActions>
             <Button data-testid="next-btn" type="submit" disabled={!formState.isValid}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </form>

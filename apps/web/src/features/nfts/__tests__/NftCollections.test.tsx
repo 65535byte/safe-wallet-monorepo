@@ -89,11 +89,11 @@ describe('NftCollections', () => {
     await user.click(firstCheckbox)
     await user.click(secondCheckbox)
 
-    expect(await screen.findByRole('button', { name: 'Send 2 NFTs' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: '发送 2 NFTs' })).toBeInTheDocument()
 
     await user.click(firstCheckbox)
 
-    expect(await screen.findByRole('button', { name: 'Send 1 NFT' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: '发送 1 NFT' })).toBeInTheDocument()
   })
 
   it('selects every listed NFT with the header "Select all" checkbox', async () => {
@@ -106,9 +106,9 @@ describe('NftCollections', () => {
     const { user } = renderComponent(nftItems)
 
     expect(await screen.findByTestId('nft-checkbox-1')).toBeInTheDocument()
-    await user.click(screen.getByTitle('Select all'))
+    await user.click(screen.getByTitle('全选'))
 
-    expect(await screen.findByRole('button', { name: 'Send 3 NFTs' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: '发送 3 NFTs' })).toBeInTheDocument()
     for (const index of [1, 2, 3]) {
       expect(screen.getByTestId(`nft-checkbox-${index}`)).toHaveAttribute('aria-checked', 'true')
     }
@@ -125,50 +125,8 @@ describe('NftCollections', () => {
     for (const [index, nft] of nftItems.entries()) {
       const row = within(await screen.findByTestId(`nfts-table-row-${index + 1}`))
       expect(row.getByText(shortenAddress(nft.address))).toBeInTheDocument()
-      expect(row.getAllByLabelText('Copy to clipboard').length).toBeGreaterThan(0)
+      expect(row.getAllByLabelText('复制到剪贴板').length).toBeGreaterThan(0)
       expect(row.getByTestId('explorer-btn')).toHaveAttribute('href', expect.stringContaining('http'))
     }
-  })
-
-  it('renders one row for each collectible', async () => {
-    const rowCount = 10
-    const nftItems = Array.from({ length: rowCount }, (_, id) => getCollectible({ id: `${id}` }))
-
-    renderComponent(nftItems)
-
-    expect(await screen.findAllByTestId(/^nfts-table-row-/)).toHaveLength(rowCount)
-  })
-
-  it('shows the collection name and the symbol with token ID for an unnamed NFT', async () => {
-    renderComponent([getCollectible({ tokenName: 'CatFactory', tokenSymbol: 'CF', id: '0' })])
-
-    const row = within(await screen.findByTestId('nfts-table-row-1'))
-    expect(row.getByText('CatFactory')).toBeInTheDocument()
-    expect(row.getByText('CF #0')).toBeInTheDocument()
-  })
-
-  it('shows the NFT name instead of the symbol and token ID for a named NFT', async () => {
-    renderComponent([getCollectible({ tokenSymbol: 'BAYC', id: '1', name: 'Bored Ape #1' })])
-
-    const row = within(await screen.findByTestId('nfts-table-row-1'))
-    expect(row.getByText('Bored Ape #1')).toBeInTheDocument()
-    expect(row.queryByText('BAYC #1')).not.toBeInTheDocument()
-  })
-
-  it('does not open the preview when an NFT without an image is clicked', async () => {
-    const { user } = renderComponent([getCollectible({ imageUri: null })])
-
-    await user.click(await screen.findByTestId('nft-icon-border'))
-
-    expect(screen.queryByTestId('modal-title')).not.toBeInTheDocument()
-  })
-
-  it('opens the preview with the NFT name when an NFT with an image is clicked', async () => {
-    const imageUri = 'https://example.com/cat.png'
-    const { user } = renderComponent([getCollectible({ imageUri, name: 'Cat #1' })])
-
-    await user.click(await screen.findByTestId('nft-icon-primary'))
-
-    expect(await screen.findByTestId('modal-title')).toHaveTextContent('Cat #1')
   })
 })

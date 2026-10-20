@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
@@ -10,12 +11,12 @@ const TxProposalChip = () => {
           <span tabIndex={0}>
             <Badge variant="subtle">
               <InfoIcon className="size-3" />
-              <span data-testid="proposal-status">Proposal</span>
+              <span data-testid="proposal-status">{translateMessage('ui.proposal_5082b127')}</span>
             </Badge>
           </span>
         }
       />
-      <TooltipContent>This transaction was created by a Proposer. Reject or confirm it to proceed.</TooltipContent>
+      <TooltipContent>{translateMessage('ui.thisTransactionWasCreatedByA_af33fad6')}</TooltipContent>
     </Tooltip>
   )
 }

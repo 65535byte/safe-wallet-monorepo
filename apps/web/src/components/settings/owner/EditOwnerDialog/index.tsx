@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import ModalDialog from '@/components/common/ModalDialog'
 import NameInput from '@/components/common/NameInput'
@@ -61,16 +62,16 @@ export const EditOwnerDialog = ({ chainId, address, name }: { chainId: string; a
               </span>
             }
           />
-          <TooltipContent>Edit signer</TooltipContent>
+          <TooltipContent>{translateMessage('ui.editSigner_3d66ed5c')}</TooltipContent>
         </Tooltip>
       </Track>
 
-      <ModalDialog open={open} onClose={handleClose} dialogTitle="Edit signer name">
+      <ModalDialog open={open} onClose={handleClose} dialogTitle={translateMessage('ui.editSignerName_4c615c29')}>
         <FormProvider {...formMethods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="p-6">
               <div className="py-4">
-                <NameInput label="Signer name" name="name" required />
+                <NameInput label={translateMessage('ui.signerName_8893c373')} name="name" required />
               </div>
 
               <div className="py-4">
@@ -80,10 +81,10 @@ export const EditOwnerDialog = ({ chainId, address, name }: { chainId: string; a
 
             <div className="flex justify-between gap-2 p-6 pt-0">
               <Button variant="outline" onClick={handleClose}>
-                Cancel
+                {translateMessage('ui.cancel_d94a8eaf')}
               </Button>
               <Button type="submit" disabled={buttonDisabled}>
-                Save
+                {translateMessage('ui.save_5fe30f30')}
               </Button>
             </div>
           </form>

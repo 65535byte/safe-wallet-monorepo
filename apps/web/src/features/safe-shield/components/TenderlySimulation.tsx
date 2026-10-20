@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useContext, useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { ExternalLinkIcon as LaunchIcon } from '@safe-global/views/components/common/ExternalLink/ExternalLinkIcon'
@@ -120,15 +121,15 @@ export const TenderlySimulation = ({
 
   const mainSimulationResult = isSimulationFinished
     ? mainIsSuccess
-      ? 'Simulation successful.'
-      : 'Simulation failed.'
+      ? translateMessage('ui.simulationSuccessful_e8bc3009')
+      : translateMessage('ui.simulationFailed_714f5a37')
     : undefined
 
   const nestedSimulationResult =
     isNested && isSimulationFinished
       ? nestedIsSuccess
-        ? 'Nested transaction simulation successful.'
-        : 'Nested transaction simulation failed.'
+        ? translateMessage('ui.nestedTransactionSimulationSuccessful_ab6eeec0')
+        : translateMessage('ui.nestedTransactionSimulationFailed_0d00bd71')
       : undefined
 
   // Track simulation result when it finishes
@@ -161,9 +162,11 @@ export const TenderlySimulation = ({
   const showExpandable = isNested && isSimulationFinished
 
   const getSimulationHeaderText = () => {
-    if (!isSimulationFinished) return 'Transaction simulation'
-    if (isNested) return 'Transaction simulations'
-    return isSimulationSuccess ? 'Simulation successful' : 'Simulation failed'
+    if (!isSimulationFinished) return translateMessage('ui.transactionSimulation_1e0bcc02')
+    if (isNested) return translateMessage('ui.transactionSimulations_c5f648cb')
+    return isSimulationSuccess
+      ? translateMessage('ui.simulationSuccessful_497d6a17')
+      : translateMessage('ui.simulationFailed_fbdba66d')
   }
 
   const isHighlihtedSeverityOK = isSimulationSuccess && highlightedSeverity === Severity.OK
@@ -176,7 +179,7 @@ export const TenderlySimulation = ({
       variant="paragraph-mini"
       className="leading-4 text-[var(--color-text-secondary)] underline [letter-spacing:1px]"
     >
-      View
+      {translateMessage('ui.view_b481c5fe')}
     </Typography>
   )
 
@@ -202,7 +205,7 @@ export const TenderlySimulation = ({
               <InfoIcon className="size-4 text-[var(--color-border-main)]" />
             </TooltipTrigger>
             <TooltipContent className="text-center">
-              Run a simulation to see if the transaction will succeed and get a full report.
+              {translateMessage('ui.runASimulationToSeeIf_8f583d0e')}
             </TooltipContent>
           </Tooltip>
         )}

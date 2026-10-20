@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useMemo, type ReactElement, type MouseEvent } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -100,7 +101,12 @@ const NotificationCenter = (): ReactElement => {
 
   return (
     <>
-      <Button variant="ghost" className={css.bell} onClick={handleClick} aria-label="Notifications">
+      <Button
+        variant="ghost"
+        className={css.bell}
+        onClick={handleClick}
+        aria-label={translateMessage('ui.notifications_e0d1fbb4')}
+      >
         <UnreadBadge
           invisible={!hasUnread}
           count={unreadCount}
@@ -137,7 +143,7 @@ const NotificationCenter = (): ReactElement => {
                 shared text baseline, which put the small badge low against a 20px/24px heading. */}
             <div className="flex items-center">
               <Typography data-testid="notifications-title" variant="h4" className="inline font-bold">
-                Notifications
+                {translateMessage('ui.notifications_e0d1fbb4')}
               </Typography>
               {hasUnread && (
                 <Typography variant="paragraph-mini" className={css.unreadCount}>
@@ -147,7 +153,7 @@ const NotificationCenter = (): ReactElement => {
             </div>
             {notifications.length > 0 && (
               <Link variant="default" render={<button onClick={handleClear} />} className="no-underline">
-                Clear all
+                {translateMessage('ui.clearAll_6e64c421')}
               </Link>
             )}
           </div>
@@ -176,7 +182,11 @@ const NotificationCenter = (): ReactElement => {
                   </UnreadBadge>
                 </Button>
                 <Typography className="text-[var(--color-border-main)]">
-                  {showAll ? 'Hide' : `${notifications.length - NOTIFICATION_CENTER_LIMIT} other notifications`}
+                  {showAll
+                    ? translateMessage('ui.hide_f514f3dd')
+                    : translateMessage('ui.otherNotifications_26375997', {
+                        p0: notifications.length - NOTIFICATION_CENTER_LIMIT,
+                      })}
                 </Typography>
               </>
             )}
@@ -196,7 +206,7 @@ const NotificationCenter = (): ReactElement => {
                   className={css.settingsLink}
                   onClick={onSettingsClick}
                 >
-                  <SettingsIcon className="size-5" /> Push notifications settings
+                  <SettingsIcon className="size-5" /> {translateMessage('ui.pushNotificationsSettings_9ea402f0')}
                 </Link>
               </NextLink>
             )}

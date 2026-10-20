@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SettingsChangeTransaction as SettingsChangeType } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { SettingsInfoType } from '@safe-global/store/gateway/types'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -10,7 +11,6 @@ import useSafeInfo from '@/hooks/useSafeInfo'
 import { ChangeSignerSetupWarning } from '@/features/multichain'
 import { useContext } from 'react'
 import { SettingsChangeContext } from '@safe-global/views/components/tx-flow/flows/AddOwner/context'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 export interface SettingsChangeProps extends NarrowConfirmationViewProps {
   txInfo: SettingsChangeType
@@ -32,7 +32,7 @@ const SettingsChange: React.FC<SettingsChangeProps> = ({ txInfo: { settingsInfo 
         <div className="rounded-lg bg-[var(--color-warning-background)] p-4">
           <div className="text-muted-foreground mb-4 flex items-center">
             <MinusIcon className="mr-2 size-4" />
-            Previous signer
+            {translateMessage('ui.previousSigner_340f5cc1')}
           </div>
           <EthHashInfo
             name={settingsInfo.oldOwner.name}
@@ -54,11 +54,13 @@ const SettingsChange: React.FC<SettingsChangeProps> = ({ txInfo: { settingsInfo 
           <Separator bleed="6" />
 
           <div>
-            <Typography variant="paragraph-small">Any transaction requires the confirmation of:</Typography>
+            <Typography variant="paragraph-small">
+              {translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}
+            </Typography>
             <Typography>
-              <b>{settingsInfo.threshold}</b> out of{' '}
+              <b>{settingsInfo.threshold}</b> {translateMessage('ui.outOf_c83e560c')}
               <b>
-                {newSignersLength} signer{maybePlural(newSignersLength)}
+                {newSignersLength} {translateMessage('ui.signer_efab2dcb')}
               </b>
             </Typography>
           </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionItemPage, QueuedItemPage } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { type ReactElement, useEffect, useState, useCallback, useRef } from 'react'
 import TxList from '@/components/transactions/TxList'
@@ -16,13 +17,22 @@ import { useRecoveryQueue } from '@/features/recovery'
 import { isSamePage } from '@/utils/tx-list'
 
 const NoQueuedTxns = () => {
-  return <PagePlaceholder img={<NoTransactionsIcon />} text="Queued transactions will appear here" />
+  return (
+    <PagePlaceholder
+      img={<NoTransactionsIcon />}
+      text={translateMessage('ui.queuedTransactionsWillAppearHere_1b917711')}
+    />
+  )
 }
 
 const getFilterResultCount = (filter: TxFilter, page: TransactionItemPage | QueuedItemPage) => {
   const count = page.results.filter(isTransactionListItem).length
 
-  return `${page.next ? '> ' : ''}${count} ${filter.type} transactions found`.toLowerCase()
+  return translateMessage('ui.transactionsFound_7e72d6a4', {
+    p0: page.next ? '> ' : '',
+    p1: count,
+    p2: filter.type,
+  }).toLowerCase()
 }
 
 const TxPage = ({
@@ -63,7 +73,7 @@ const TxPage = ({
 
       {isQueue && page?.results.length === 0 && recoveryQueue.length === 0 && !hasPending && <NoQueuedTxns />}
 
-      {error && <ErrorMessage>Error loading transactions</ErrorMessage>}
+      {error && <ErrorMessage>{translateMessage('ui.errorLoadingTransactions_5822063e')}</ErrorMessage>}
 
       {/* No skeletons for pending as they are shown above the queue which has them */}
       {loading && !hasPending && (!page || page.results.length === 0) && <SkeletonTxList />}

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { TriangleAlert } from 'lucide-react'
 import { DrawerSection } from '@/components/common/Drawer'
@@ -19,11 +20,11 @@ export const NotActivatedProposer = ({
     {/* Figma pairs the error alert with triangle-alert, not the destructive default (circle-alert) */}
     <Alert variant="destructive" outlined={false}>
       <TriangleAlert />
-      <AlertTitle>The proposer role was not activated</AlertTitle>
+      <AlertTitle>{translateMessage('ui.theProposerRoleWasNotActivated_6eceff48')}</AlertTitle>
       <AlertDescription>{description}</AlertDescription>
     </Alert>
 
-    <DrawerSection title="Pending signatures" rightNode={expiresLabel}>
+    <DrawerSection title={translateMessage('ui.pendingSignatures_934af063')} rightNode={expiresLabel}>
       <SafeSignatureInfo safe={safe} signatures={signatures} badgeVariant="destructive" />
     </DrawerSection>
 

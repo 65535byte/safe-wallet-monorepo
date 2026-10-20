@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { useSpacesGetOneV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -23,17 +24,17 @@ export const _memberCopy = (
   if (reason === 'trial-offered') {
     return {
       title: claimCopy(trialPeriodDays).title,
-      body: `${spaceName} is locked until an admin claims free access. Your Safe accounts remain available in My accounts.`,
+      body: translateMessage('ui.isLockedUntilAnAdminClaims_7cbc8b67', { p0: spaceName }),
     }
   }
   return {
     title:
       reason === 'payment-failed'
-        ? 'Your Workspace’s last payment failed'
+        ? translateMessage('ui.yourWorkspaceSLastPaymentFailed_19171e22')
         : reason === 'lapsed' && endedAt !== null
-          ? `Your free access ended on ${formatDate(endedAt)}`
+          ? translateMessage('ui.yourFreeAccessEndedOn_438b40a7', { p0: formatDate(endedAt) })
           : chooserCopy(reason, endedAt).title,
-    body: 'An admin needs to choose a plan to unlock your Workspace.\nYour Safe accounts remain available in My accounts.',
+    body: translateMessage('ui.anAdminNeedsToChooseA_eab0ce30'),
   }
 }
 
@@ -41,8 +42,8 @@ export const _memberCopy = (
 const CHECKOUT_RELEASED_STATUSES: CheckoutReturnStatus[] = ['error', 'timeout', 'canceled']
 
 export const _PLAN_ERROR_COPY = {
-  title: 'Your plan could not be checked',
-  body: 'We could not load the plan of this Workspace. Try again, or come back later, your Safe accounts remain available in My accounts.',
+  title: translateMessage('ui.yourPlanCouldNotBeChecked_8c55d6ef'),
+  body: translateMessage('ui.weCouldNotLoadThePlan_36844f75'),
 }
 
 /** A member cannot act on a lapsed or failed plan; the notice is the whole of the locked flow for them. */
@@ -66,7 +67,7 @@ const MemberLockedNotice = ({
       title={title}
       body={body}
       onAction={onBack}
-      secondaryActionLabel={reason === 'lapsed' ? 'Create new Workspace' : undefined}
+      secondaryActionLabel={reason === 'lapsed' ? translateMessage('ui.createNewWorkspace_cb2e6739') : undefined}
       secondaryActionHref={reason === 'lapsed' ? AppRoutes.welcome.spaces : undefined}
     />
   )
@@ -95,9 +96,9 @@ export default function WorkspaceLockModal({ spaceId }: { spaceId: string }) {
         open
         title={_PLAN_ERROR_COPY.title}
         body={_PLAN_ERROR_COPY.body}
-        actionLabel="Back to My accounts"
+        actionLabel={translateMessage('ui.backToMyAccounts_c38a5872')}
         onAction={goBack}
-        secondaryActionLabel="Try again"
+        secondaryActionLabel={translateMessage('ui.tryAgain_27537f8f')}
         onSecondaryAction={retry}
       />
     )

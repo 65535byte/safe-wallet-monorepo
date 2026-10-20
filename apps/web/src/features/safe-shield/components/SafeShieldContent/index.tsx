@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import type {
   ContractAnalysisResults,
@@ -184,12 +185,16 @@ export const SafeShieldContent = ({
                   analyticsEvent={SAFE_SHIELD_EVENTS.RECIPIENT_DECODED}
                 />
               ) : (
-                <LockedCheckRow data-testid="recipient-analysis-locked">Known recipient</LockedCheckRow>
+                <LockedCheckRow data-testid="recipient-analysis-locked">
+                  {translateMessage('ui.knownRecipient_ee289ef4')}
+                </LockedCheckRow>
               )}
 
               {hasProFeatures && contractCard}
               {!hasProFeatures && isContractCall(safeTx) && (
-                <LockedCheckRow data-testid="contract-analysis-locked">Known contract</LockedCheckRow>
+                <LockedCheckRow data-testid="contract-analysis-locked">
+                  {translateMessage('ui.knownContract_3314c559')}
+                </LockedCheckRow>
               )}
 
               {hasProFeatures && deadlockCard}

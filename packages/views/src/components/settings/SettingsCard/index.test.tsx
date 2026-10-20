@@ -4,12 +4,12 @@ import SettingsCard from '.'
 describe('SettingsCard', () => {
   it('renders a shadcn Card shell with a Typography title and content area', () => {
     render(
-      <SettingsCard title="Signing method" className="mt-4">
+      <SettingsCard title="签名方式" className="mt-4">
         Panel content
       </SettingsCard>,
     )
 
-    const title = screen.getByText('Signing method')
+    const title = screen.getByText('签名方式')
     const card = title.closest('[data-slot="card"]')
 
     expect(card).toBeInTheDocument()
@@ -20,7 +20,7 @@ describe('SettingsCard', () => {
 
   it('applies content classes to the shared two-column wrapper', () => {
     render(
-      <SettingsCard title="Environment variables" contentClassName="mb-4">
+      <SettingsCard title="环境变量" contentClassName="mb-4">
         Panel content
       </SettingsCard>,
     )

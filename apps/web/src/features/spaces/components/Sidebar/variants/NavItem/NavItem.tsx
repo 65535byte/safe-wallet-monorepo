@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import Link from 'next/link'
 import { SidebarMenuItem, SidebarMenuButton, useSidebar } from '@safe-global/views/components/ui/sidebar'
@@ -126,7 +127,7 @@ export const NavItem = ({ item, isSpacesVariant = false, isLoading = false, chil
   // Disabled Safe nav items always explain why they're inactive; for every other item the
   // label tooltip is redundant while the sidebar is expanded, so it only shows when collapsed.
   const showsDisabledReason = item.disabled && !isSpacesVariant
-  const tooltipContent = showsDisabledReason ? 'You need to activate your Safe first.' : item.label
+  const tooltipContent = showsDisabledReason ? translateMessage('ui.youNeedToActivateYourFirst_7dcdb63b') : item.label
   const isTooltipHidden = showsDisabledReason ? false : state !== 'collapsed' || isMobile
 
   const interactive = (

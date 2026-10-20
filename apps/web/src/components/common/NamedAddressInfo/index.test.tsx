@@ -75,7 +75,7 @@ describe('NamedAddressInfo', () => {
 
     const result = render(<NamedAddressInfo address={safeAddress} />)
 
-    expect(result.getByText('This Safe account')).toBeVisible()
+    expect(result.getByText('此 8379 账户')).toBeVisible()
     expect(useGetContractQueryMock.mock.calls.every(([, opts]: any) => opts.skip)).toBe(true)
   })
 
@@ -85,7 +85,7 @@ describe('NamedAddressInfo', () => {
 
     const result = render(<NamedAddressInfo address={differentAddress} />)
 
-    expect(result.queryByText('This Safe account')).not.toBeInTheDocument()
+    expect(result.queryByText('此 8379 账户')).not.toBeInTheDocument()
   })
 
   it('should skip contract lookup when noContractName is true', () => {
@@ -266,7 +266,7 @@ describe('useAddressName', () => {
     const { result } = renderHook(() => useAddressName(safeAddress))
 
     expect(result.current).toEqual({
-      name: 'This Safe account',
+      name: '此 8379 账户',
       logoUri: undefined,
       isUnverifiedContract: false,
     })
@@ -303,7 +303,7 @@ describe('useAddressName', () => {
       const { result } = renderHook(() => useAddressName(safeAddress, undefined, undefined, true))
 
       expect(result.current).toEqual({
-        name: 'This Safe account',
+        name: '此 8379 账户',
         logoUri: undefined,
         isUnverifiedContract: false,
       })

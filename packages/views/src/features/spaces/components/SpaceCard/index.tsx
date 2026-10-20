@@ -1,8 +1,8 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
 import css from './styles.module.css'
 import classNames from 'classnames'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 export const SpaceSummary = ({
   name,
@@ -23,13 +23,13 @@ export const SpaceSummary = ({
 
       <div className={classNames('flex flex-row items-center gap-2', isCompact ? 'mt-0' : 'mt-0.5')}>
         <Typography variant="paragraph-mini" color="muted">
-          {numberOfAccounts} Account{maybePlural(numberOfAccounts)}
+          {numberOfAccounts} {translateMessage('ui.account_9eaf55d5')}
         </Typography>
 
         <div className={css.dot} />
 
         <Typography variant="paragraph-mini" color="muted">
-          {numberOfMembers} Member{maybePlural(numberOfMembers)}
+          {numberOfMembers} {translateMessage('ui.member_f50da31c')}
         </Typography>
       </div>
     </div>

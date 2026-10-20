@@ -24,8 +24,8 @@ describe('getRtkQueryErrorMessage', () => {
     const error: FetchBaseQueryError = {
       status: 'PARSING_ERROR',
       originalStatus: 429,
-      data: 'Rate limit reached',
-      error: 'SyntaxError: Unexpected token \'R\', "Rate limit reached" is not valid JSON',
+      data: 'Rate 项限额 reached',
+      error: 'SyntaxError: Unexpected token \'R\', "Rate 项限额 reached" is not valid JSON',
     }
     expect(getRtkQueryErrorMessage(error)).toBe(RTK_QUERY_ERROR_MESSAGES.rateLimit)
   })
@@ -46,8 +46,8 @@ describe('getRtkQueryErrorMessage', () => {
   })
 
   it('surfaces the backend message for an HTTP error response', () => {
-    const error: FetchBaseQueryError = { status: 400, data: { message: 'Names must be at least 3 characters long' } }
-    expect(getRtkQueryErrorMessage(error)).toBe('Names must be at least 3 characters long')
+    const error: FetchBaseQueryError = { status: 400, data: { message: 'Names must be，时间 least 3 characters long' } }
+    expect(getRtkQueryErrorMessage(error)).toBe('Names must be，时间 least 3 characters long')
   })
 
   it("replaces CGW's elevation_required marker with copy written for users", () => {
@@ -56,8 +56,8 @@ describe('getRtkQueryErrorMessage', () => {
   })
 
   it('still surfaces the backend message for an unrelated 403', () => {
-    const error: FetchBaseQueryError = { status: 403, data: { message: 'Signer address not authorized' } }
-    expect(getRtkQueryErrorMessage(error)).toBe('Signer address not authorized')
+    const error: FetchBaseQueryError = { status: 403, data: { message: '签名人 address not authorized' } }
+    expect(getRtkQueryErrorMessage(error)).toBe('签名人 address not authorized')
   })
 
   it("replaces CGW's seat quota refusal with copy written for users", () => {
@@ -69,11 +69,11 @@ describe('getRtkQueryErrorMessage', () => {
         quota: 20,
         used: 20,
         resetsAt: null,
-        message: 'Quota exceeded for safe_seats: 20 of 20 used.',
+        message: 'Quota exceeded for safe_seats: 20 / 20 used.',
       },
     }
     expect(getRtkQueryErrorMessage(error)).toBe(
-      'Your plan covers 20 Safe accounts and this Workspace already holds 20. Remove one to add another, or upgrade your plan.',
+      'Your plan covers 20 个 Safe 账户s and this Workspace already holds 20. Remove one to add another, or upgrade your plan.',
     )
   })
 
@@ -86,11 +86,11 @@ describe('getRtkQueryErrorMessage', () => {
         quota: 50,
         used: 50,
         resetsAt: '2026-11-01T00:00:00.000Z',
-        message: 'Quota exceeded for sponsored_transactions: 50 of 50 used.',
+        message: 'Quota exceeded for sponsored_transactions: 50 / 50 used.',
       },
     }
     expect(getRtkQueryErrorMessage(error)).toBe(
-      'Your Workspace has used all 50 sponsored transactions of this cycle until Nov 1, 2026. Pay the gas with your connected wallet instead.',
+      '工作空间已用完本周期的 50 笔赞助交易 until Nov 1, 2026，请改用已连接钱包支付 Gas。',
     )
   })
 
@@ -103,10 +103,10 @@ describe('getRtkQueryErrorMessage', () => {
         quota: 100,
         used: 100,
         resetsAt: null,
-        message: 'Quota exceeded for address_book_entries: 100 of 100 used.',
+        message: 'Quota exceeded for address_book_entries: 100 / 100 used.',
       },
     }
-    expect(getRtkQueryErrorMessage(error)).toBe('Quota exceeded for address_book_entries: 100 of 100 used.')
+    expect(getRtkQueryErrorMessage(error)).toBe('Quota exceeded for address_book_entries: 100 / 100 used.')
   })
 
   it('surfaces the backend message for a 402 that is not a quota refusal', () => {
@@ -132,7 +132,7 @@ describe('getRtkQueryErrorMessage', () => {
   })
 
   it('returns the message of a SerializedError', () => {
-    const error: SerializedError = { name: 'Error', message: 'Something serialized' }
+    const error: SerializedError = { name: '错误', message: 'Something serialized' }
     expect(getRtkQueryErrorMessage(error)).toBe('Something serialized')
   })
 
@@ -163,7 +163,7 @@ describe('getSafeUnavailableMessage', () => {
 
   it('returns undefined for transport-level and serialized errors', () => {
     expect(getSafeUnavailableMessage({ status: 'FETCH_ERROR', error: 'Failed to fetch' })).toBeUndefined()
-    expect(getSafeUnavailableMessage({ name: 'Error', message: 'Something serialized' })).toBeUndefined()
+    expect(getSafeUnavailableMessage({ name: '错误', message: 'Something serialized' })).toBeUndefined()
   })
 
   it('returns undefined when there is no error', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import type { MouseEvent } from 'react'
 import { useAppDispatch } from '@/store'
@@ -36,7 +37,7 @@ export function useSingleChainPinActions({
         dispatch(unpinSafe({ chainId, address }))
         dispatch(
           showNotification({
-            title: 'Safe removed',
+            title: translateMessage('ui.removed_5427f83b'),
             message: name ?? shortenAddress(address),
             groupKey: `unpin-safe-success-${address}`,
             variant: 'success',
@@ -57,7 +58,7 @@ export function useSingleChainPinActions({
         )
         dispatch(
           showNotification({
-            title: 'Added to my accounts',
+            title: translateMessage('ui.addedToMyAccounts_88341473'),
             message: name ?? shortenAddress(address),
             groupKey: `pin-safe-success-${address}`,
             variant: 'success',

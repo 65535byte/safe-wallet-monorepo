@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import SafeModules from '@/components/settings/SafeModules'
@@ -10,7 +11,7 @@ const Modules: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Modules`}</title>
+        <title>{translateMessage('ui.settingsModules_8bb3a541', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -95,11 +96,15 @@ const DialogHeader = ({ threshold }: { threshold: number }) => (
       <RequiredIcon className="inline-block size-9" />
     </div>
     <Typography variant="h4" align="center" className="mb-2">
-      Confirm message
+      {translateMessage('ui.confirmMessage_88910180')}
     </Typography>
     {threshold > 1 && (
       <Typography align="center" className="mb-4">
-        To sign this message, collect signatures from <b>{threshold} signers</b> of your Safe account.
+        {translateMessage('ui.toSignThisMessageCollectSignatures_e26197e6')}
+        <b>
+          {threshold} {translateMessage('ui.signers_10e182d9')}
+        </b>{' '}
+        {translateMessage('ui.ofYourAccount_90eb75c9')}
       </Typography>
     )}
   </>
@@ -112,15 +117,11 @@ const MessageDialogError = ({ isOwner, submitError }: { isOwner: boolean; submit
   const onboard = useOnboard()
 
   if (!wallet || !onboard) {
-    return <ErrorMessage>No wallet is connected.</ErrorMessage>
+    return <ErrorMessage>{translateMessage('ui.noWalletIsConnected_07cdf9f7')}</ErrorMessage>
   }
 
   if (!isOwner) {
-    return (
-      <ErrorMessage>
-        You are currently not a signer of this Safe account and won&apos;t be able to confirm this message.
-      </ErrorMessage>
-    )
+    return <ErrorMessage>{translateMessage('ui.youAreCurrentlyNotASigner_364be4d5')}</ErrorMessage>
   }
 
   if (!submitError) {
@@ -128,7 +129,7 @@ const MessageDialogError = ({ isOwner, submitError }: { isOwner: boolean; submit
   }
 
   if (isWalletRejection(submitError)) {
-    return <ErrorMessage>User rejected signing.</ErrorMessage>
+    return <ErrorMessage>{translateMessage('ui.userRejectedSigning_d1a98a28')}</ErrorMessage>
   }
 
   // A Ledger device failure states its own reason; its raw error is a dump of
@@ -144,7 +145,7 @@ const MessageDialogError = ({ isOwner, submitError }: { isOwner: boolean; submit
 
   return (
     <ErrorMessage error={submitError}>
-      {cgwError ? cgwError.message : 'Error confirming the message. Try again.'}
+      {cgwError ? cgwError.message : translateMessage('ui.errorConfirmingTheMessageTryAgain_2b93a8fd')}
     </ErrorMessage>
   )
 }
@@ -163,10 +164,10 @@ const AlreadySignedByOwnerMessage = ({ hasSigned }: { hasSigned: boolean }) => {
   return (
     <SuccessMessage>
       <div className="flex flex-row justify-between gap-4">
-        <div className="basis-7/12">Your connected wallet has already signed this message.</div>
+        <div className="basis-7/12">{translateMessage('ui.yourConnectedWalletHasAlreadySigned_a3694c0e')}</div>
         <div className="basis-4/12">
           <Button size="sm" onClick={handleSwitchWallet} className="w-full">
-            Switch wallet
+            {translateMessage('ui.switchWallet_b2cf4f66')}
           </Button>
         </div>
       </div>
@@ -190,17 +191,19 @@ const BlindSigningWarning = ({
 
   return (
     <ErrorMessage level={isBlindSigningEnabled ? 'warning' : 'error'}>
-      This request involves{' '}
-      <Link render={<NextLink href={{ pathname: AppRoutes.settings.security, query }} />}>blind signing</Link>, which
-      can lead to unpredictable outcomes.
+      {translateMessage('ui.thisRequestInvolves_00ed553a')}
+      <Link render={<NextLink href={{ pathname: AppRoutes.settings.security, query }} />}>
+        {translateMessage('ui.blindSigning_60af8648')}
+      </Link>
+      {translateMessage('ui.whichCanLeadToUnpredictableOutcomes_f3a7fa3a')}
       <br />
       {isBlindSigningEnabled ? (
-        'Proceed with caution.'
+        translateMessage('ui.proceedWithCaution_639fd7d0')
       ) : (
         <>
-          If you wish to proceed, you must first{' '}
+          {translateMessage('ui.ifYouWishToProceedYou_4a2ac4f5')}{' '}
           <Link render={<NextLink href={{ pathname: AppRoutes.settings.security, query }} />}>
-            enable blind signing
+            {translateMessage('ui.enableBlindSigning_70321bea')}
           </Link>
           .
         </>
@@ -213,12 +216,12 @@ const SuccessCard = ({ safeMessage, onContinue }: { safeMessage: MessageItem; on
   return (
     <TxCard>
       <Typography variant="h4" align="center" className="mb-2">
-        Message successfully signed
+        {translateMessage('ui.messageSuccessfullySigned_30df7551')}
       </Typography>
       <MsgSigners msg={safeMessage} showOnlyConfirmations showMissingSignatures />
       <TxCardActions>
         <Button onClick={onContinue} disabled={!safeMessage.preparedSignature}>
-          Continue
+          {translateMessage('ui.continue_a4bd8255')}
         </Button>
       </TxCardActions>
     </TxCard>
@@ -313,7 +316,7 @@ const SignMessage = ({ message, origin, requestId }: SignMessageProps): ReactEle
           <DialogHeader threshold={safe.threshold} />
 
           {isEip712 && (
-            <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+            <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
               <ApprovalEditor safeMessage={decodedMessage} />
             </ObservabilityErrorBoundary>
           )}
@@ -324,24 +327,27 @@ const SignMessage = ({ message, origin, requestId }: SignMessageProps): ReactEle
           />
 
           <Typography className="mt-4 mb-2 font-bold">
-            Message: <CopyButton text={decodedMessageAsString} />
+            {translateMessage('ui.message_3fd06741')}
+            <CopyButton text={decodedMessageAsString} />
           </Typography>
           <DecodedMsg message={decodedMessage} isInModal />
 
           <Accordion className="mt-4">
             <AccordionItem value="message-details">
-              <AccordionTrigger data-testid="message-details">SafeMessage details</AccordionTrigger>
+              <AccordionTrigger data-testid="message-details">
+                {translateMessage('ui.safeMessageDetails_f1fdc5a7')}
+              </AccordionTrigger>
               <AccordionContent>
                 <MessageHashField label="SafeMessage" hashValue={safeMessageMessage} />
-                <MessageHashField label="SafeMessage hash" hashValue={safeMessageHash} />
-                <MessageHashField label="Domain hash" hashValue={domainHash} />
-                <MessageHashField label="Message hash" hashValue={messageHash} />
+                <MessageHashField label={translateMessage('ui.safeMessageHash_eed47d92')} hashValue={safeMessageHash} />
+                <MessageHashField label={translateMessage('ui.domainHash_3bc1e9ef')} hashValue={domainHash} />
+                <MessageHashField label={translateMessage('ui.messageHash_b8ce78e4')} hashValue={messageHash} />
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
           <div className="[&:not(:empty)]:mt-4">
-            <RiskConfirmation subject="message" />
+            <RiskConfirmation />
           </div>
         </div>
       </TxCard>
@@ -353,11 +359,11 @@ const SignMessage = ({ message, origin, requestId }: SignMessageProps): ReactEle
             <AlreadySignedByOwnerMessage hasSigned={signedByCurrentSafe} />
 
             <InfoBox
-              title="Collect all the confirmations"
+              title={translateMessage('ui.collectAllTheConfirmations_3c483da1')}
               message={
                 requestId && !hasSignature
-                  ? 'Keep this modal open until all signers confirm this message. Closing the modal will abort the signing request.'
-                  : 'The signature will be submitted to the requesting app when the message is fully signed.'
+                  ? translateMessage('ui.keepThisModalOpenUntilAll_779dece4')
+                  : translateMessage('ui.theSignatureWillBeSubmittedTo_e2d7ec67')
               }
             >
               <MsgSigners
@@ -370,12 +376,11 @@ const SignMessage = ({ message, origin, requestId }: SignMessageProps): ReactEle
 
             {hasSignature && (
               <InfoBox
-                title="Share the link with other owners"
+                title={translateMessage('ui.shareTheLinkWithOtherOwners_b720843f')}
                 message={
                   <>
                     <Typography className="mb-4">
-                      The owners will receive a notification about signing the message. You can also share the link with
-                      them to speed up the process.
+                      {translateMessage('ui.theOwnersWillReceiveANotification_923678c8')}
                     </Typography>
                     <MsgShareLink safeMessageHash={safeMessageHash} button />
                   </>
@@ -390,14 +395,16 @@ const SignMessage = ({ message, origin, requestId }: SignMessageProps): ReactEle
 
             <RiskConfirmationError />
 
-            {!safe.deployed && <ErrorMessage>Your Safe account is not activated yet.</ErrorMessage>}
+            {!safe.deployed && (
+              <ErrorMessage>{translateMessage('ui.yourAccountIsNotActivatedYet_07ab6f15')}</ErrorMessage>
+            )}
           </TxCard>
           <TxCard>
             <TxCardActions>
               <CheckWallet checkNetwork={!isDisabled}>
                 {(isOk) => (
                   <Button onClick={handleSign} disabled={!isOk || isDisabled}>
-                    Sign
+                    {translateMessage('ui.sign_1e67e9a4')}
                   </Button>
                 )}
               </CheckWallet>

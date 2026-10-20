@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * Shared transaction hooks for the tx-flow system
  *
@@ -222,7 +223,7 @@ export const useTxActions = (): TxActions => {
 
       if (isRelayed) {
         if (safeTx.signatures.size < safe.threshold) {
-          throw new Error('Cannot relay a transaction that is not fully signed')
+          throw new Error(translateMessage('ui.cannotRelayATransactionThatIs_9b05088f'))
         }
 
         // Relayed txs must be known to the service

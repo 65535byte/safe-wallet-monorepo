@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EnhancedTable from '@safe-global/views/components/common/EnhancedTable'
 import FiatValue from '@/components/common/FiatValue'
 import { formatVisualAmount } from '@safe-global/utils/utils/formatters'
@@ -32,8 +33,8 @@ export const PositionGroup = ({ group, isLast = false, protocolIconUrl }: Positi
       width: '25%',
       disableSort: true,
     },
-    { id: 'balance', label: 'Balance', width: '35%', align: 'right', disableSort: true },
-    { id: 'value', label: 'Value', width: '40%', align: 'right', disableSort: true },
+    { id: 'balance', label: translateMessage('ui.balance_413e035a'), width: '35%', align: 'right', disableSort: true },
+    { id: 'value', label: translateMessage('ui.value_5f04a161'), width: '40%', align: 'right', disableSort: true },
   ]
 
   const rows = group.items.map((position) => ({

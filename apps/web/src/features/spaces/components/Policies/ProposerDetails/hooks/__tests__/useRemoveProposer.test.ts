@@ -113,9 +113,9 @@ describe.each([
     expect(mockDispatch).toHaveBeenCalledTimes(1)
     expect(mockShowNotification).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: 'Proposer deleted successfully!',
+        title: '提案人删除成功！',
         autoHideDuration: 7000,
-        message: '0x0000...0B0b cannot suggest transactions for 0x8675...a19b anymore.',
+        message: '0x0000...0B0b 无法再为 0x8675...a19b 发起交易。',
       }),
     )
     expect(onRemoved).toHaveBeenCalledTimes(1)
@@ -134,7 +134,7 @@ describe.each([
     expect(mockUseAddressBookItem).toHaveBeenCalledWith(MOCK_SAFES.treasury.address, MOCK_SAFES.treasury.chainId)
     expect(mockShowNotification).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: 'Bob (0x0000...0B0b) cannot suggest transactions for Treasury (0x8675...a19b) anymore.',
+        message: 'Bob (0x0000...0B0b) 无法再为 Treasury (0x8675...a19b) 发起交易。',
       }),
     )
   })
@@ -198,7 +198,7 @@ describe.each([
 
     await act(() => result.current.removeProposer())
 
-    expect(result.current.error?.message).toBe('Please connect your wallet first')
+    expect(result.current.error?.message).toBe('请先连接钱包')
     expect(mockAssertWalletChain).not.toHaveBeenCalled()
   })
 
@@ -208,7 +208,7 @@ describe.each([
 
     await act(() => result.current.removeProposer())
 
-    expect(result.current.error?.message).toBe('Please connect your wallet first')
+    expect(result.current.error?.message).toBe('请先连接钱包')
     expect(mockAssertWalletChain).not.toHaveBeenCalled()
     expect(mockSignDelegation).not.toHaveBeenCalled()
     expect(mockDelete).not.toHaveBeenCalled()
@@ -224,9 +224,7 @@ describe.each([
 
     await act(() => result.current.removeProposer())
 
-    expect(result.current.error?.message).toBe(
-      'Only the signer who granted this proposer role, or the proposer themselves, can remove it',
-    )
+    expect(result.current.error?.message).toBe('仅授予此角色的签名人或提案人本人可以移除')
     expect(mockSignDelegation).not.toHaveBeenCalled()
     expect(mockDelete).not.toHaveBeenCalled()
   })

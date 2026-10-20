@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import { formatUnits } from 'ethers'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
@@ -21,7 +22,7 @@ import { isGtfSafePaid } from '@safe-global/utils/utils/isGtfSafePaid'
 
 export type { HistoryFeesData } from '@safe-global/views/features/gtf/types'
 
-const EXECUTION_FEE: FeeRow = { label: 'Execution fee', isFree: true }
+const EXECUTION_FEE: FeeRow = { label: translateMessage('ui.executionFee_4eb85f17'), isFree: true }
 
 const formatFiat = (gasWei: bigint, decimals: number, fiatConversion: string | undefined, currency: string) =>
   fiatConversion === undefined
@@ -36,7 +37,7 @@ const buildFees = (
 ): HistoryFeesData => ({
   totalFee: { amount, currency, fiatAmount },
   executionFee: EXECUTION_FEE,
-  gasFee: { label: 'Max gas fee', amount, currency, fiatAmount },
+  gasFee: { label: translateMessage('ui.maxGasFee_ef546e83'), amount, currency, fiatAmount },
   paidFrom,
 })
 

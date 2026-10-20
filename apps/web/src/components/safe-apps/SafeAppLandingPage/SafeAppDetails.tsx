@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 import ChainIndicator from '@/components/common/ChainIndicator'
 import WarningIcon from '@safe-global/views/assets/images/notifications/warning.svg'
@@ -24,7 +25,7 @@ const SafeAppDetails = ({ app, showDefaultListWarning }: DetailsProps) => (
     </div>
     <Separator />
     <div className="mt-8">
-      <Typography>Safe App URL</Typography>
+      <Typography>{translateMessage('ui.appURL_ec4b69b5')}</Typography>
       <Typography
         variant="paragraph-small"
         className="mt-2 inline-block rounded-md bg-[var(--color-background-light)] p-2 font-bold"
@@ -33,7 +34,7 @@ const SafeAppDetails = ({ app, showDefaultListWarning }: DetailsProps) => (
       </Typography>
     </div>
     <div className="mt-4">
-      <Typography>Available networks</Typography>
+      <Typography>{translateMessage('ui.availableNetworks_44a0c0ae')}</Typography>
       <div className="mt-2 flex flex-wrap gap-4">
         {app.chainIds.map((chainId) => (
           <ChainIndicator key={chainId} chainId={chainId} inline showUnknown={false} />
@@ -47,14 +48,14 @@ const SafeAppDetails = ({ app, showDefaultListWarning }: DetailsProps) => (
           <div className="flex">
             <WarningIcon className="size-6 text-[var(--color-warning-dark)]" />
             <Typography variant="h4" className="text-[var(--color-warning-dark)]">
-              Warning
+              {translateMessage('ui.warning_e4bf8e0a')}
             </Typography>
           </div>
           <Typography className="mt-2 text-[var(--color-warning-dark)]">
-            The application is not in the default Safe App list
+            {translateMessage('ui.theApplicationIsNotInThe_dd5c1d81')}
           </Typography>
           <Typography variant="paragraph-small" className="block mt-4">
-            Check the app link and ensure it comes from a trusted source
+            {translateMessage('ui.checkTheAppLinkAndEnsure_d61db689')}
           </Typography>
         </div>
         <Separator />

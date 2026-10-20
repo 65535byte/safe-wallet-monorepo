@@ -12,7 +12,7 @@ describe('Countdown', () => {
   it('should return < 1 min if seconds is <= 60', () => {
     const result = render(<Countdown seconds={faker.number.int({ min: 1, max: 60 })} />)
 
-    expect(result.getByText('< 1 min')).toBeInTheDocument()
+    expect(result.getByText('不足 1 分钟')).toBeInTheDocument()
   })
 
   describe('getCountdown', () => {

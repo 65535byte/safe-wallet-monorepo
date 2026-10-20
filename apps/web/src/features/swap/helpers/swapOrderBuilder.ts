@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionInfoType, OrderTransactionInfo } from '@safe-global/store/gateway/types'
 import type { TokenInfo, SwapOrderTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Builder, type IBuilder } from '@/tests/Builder'
@@ -10,7 +11,7 @@ export function appDataBuilder(
   orderClass: 'limit' | 'market' | 'twap' | 'liquidity' = 'limit',
 ): IBuilder<Record<string, unknown>> {
   return Builder.new<Record<string, unknown>>().with({
-    appCode: 'Safe Wallet Swaps',
+    appCode: translateMessage('ui.safeWalletSwaps_fad28dde'),
     metadata: {
       orderClass: {
         orderClass,

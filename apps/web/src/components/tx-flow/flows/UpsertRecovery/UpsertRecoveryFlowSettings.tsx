@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { ChevronUp as ExpandLessIcon, ChevronDown as ExpandMoreIcon } from 'lucide-react'
@@ -23,14 +24,7 @@ import type { RecoveryStateItem } from '@/features/recovery'
 
 import css from './styles.module.css'
 import NumberField from '@/components/common/NumberField'
-import {
-  getDelay,
-  isCustomDelaySelected,
-  MAX_CUSTOM_DELAY_DAYS,
-  MAX_CUSTOM_DELAY_DIGITS,
-  validateCustomDelay,
-} from './utils'
-import { cn } from '@safe-global/views/utils/cn'
+import { getDelay, isCustomDelaySelected } from './utils'
 import { HelpCenterArticle, HelperCenterArticleTitles } from '@safe-global/utils/config/constants'
 import { TxFlowContext, type TxFlowContextType } from '../../TxFlowProvider'
 import { isSmartContractWallet } from '@/utils/wallets'
@@ -57,13 +51,13 @@ enum AddressType {
 export function _validateRecoverer(recoverer: string, safeAddress: string): string | undefined {
   // Reserved (zero/sentinel) addresses would break the module on-chain. The
   // shared GS203 copy names a signer, which a Recoverer is not.
-  const reservedError = addressIsNotReserved('This Recoverer address is not valid')(recoverer)
+  const reservedError = addressIsNotReserved(translateMessage('ui.thisRecovererAddressIsNotValid_f453ea0a'))(recoverer)
   if (reservedError) {
     return reservedError
   }
 
   if (sameAddress(recoverer, safeAddress)) {
-    return 'The Safe account cannot be a Recoverer of itself'
+    return translateMessage('ui.theAccountCannotBeARecoverer_80669c00')
   }
 }
 
@@ -119,6 +113,13 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
 
   const validateRecoverer = (recoverer: string) => _validateRecoverer(recoverer, safeAddress)
 
+  const validateCustomDelay = (delay: string) => {
+    if (!delay) return ''
+    if (delay === '0' || !Number.isInteger(Number(delay))) {
+      return translateMessage('ui.invalidNumber_3db14273')
+    }
+  }
+
   const onShowAdvanced = () => {
     setShowAdvanced((prev) => !prev)
     trackEvent(RECOVERY_EVENTS.SHOW_ADVANCED)
@@ -146,10 +147,10 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
           <Alert variant="warning" outlined={false}>
             <AlertSeverityIcon variant="warning" />
             <AlertDescription>
-              Your Recoverer will be able to reset your Account setup. Only select an address that you trust.{' '}
+              {translateMessage('ui.yourRecovererWillBeAbleTo_ba0629ef')}{' '}
               <Track {...RECOVERY_EVENTS.LEARN_MORE} label="recover-setup-flow">
                 <ExternalLink href={HelpCenterArticle.RECOVERY} title={HelperCenterArticleTitles.RECOVERY}>
-                  Learn more
+                  {translateMessage('ui.learnMore_0c11daba')}
                 </ExternalLink>
               </Track>
             </AlertDescription>
@@ -157,18 +158,17 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
 
           <div className="my-4">
             <Typography variant="h4" className="mb-2">
-              Trusted Recoverer
+              {translateMessage('ui.trustedRecoverer_bc55a11e')}
             </Typography>
 
             <Typography variant="paragraph-small" className="block">
-              Choose a Recoverer, such as a hardware wallet or a Safe account controlled by family or friends, that can
-              initiate the recovery process in the future.
+              {translateMessage('ui.chooseARecovererSuchAsA_fcc2fe56')}
             </Typography>
           </div>
 
           <div className="mb-4 w-full">
             <AddressBookInput
-              label="Recoverer address or ENS"
+              label={translateMessage('ui.recovererAddressOrENS_2c8b0cd1')}
               name={UpsertRecoveryFlowFields.recoverer}
               required
               fullWidth
@@ -179,7 +179,7 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
 
           <div className="mb-4">
             <Typography variant="h4" className="mb-2">
-              Review window
+              {translateMessage('ui.reviewWindow_d007ef5d')}
               <Tooltip>
                 <TooltipTrigger render={<span />}>
                   <InfoIcon className="ml-1 inline size-4 align-middle text-[var(--color-border-main)]" />
@@ -189,8 +189,7 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
             </Typography>
 
             <Typography variant="paragraph-small" className="block">
-              The recovery proposal will be available for execution after this period of time. You can cancel any
-              recovery proposal when it is not needed or wanted during this period.
+              {translateMessage('ui.theRecoveryProposalWillBeAvailable_1dd6fde4')}
             </Typography>
           </div>
 
@@ -214,33 +213,27 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
               )}
             />
 
-            {isCustomDelaySelected(selectedDelay) && (
-              <Controller
-                control={formMethods.control}
-                name={UpsertRecoveryFlowFields.customDelay}
-                rules={{ validate: validateCustomDelay }}
-                render={({ field, fieldState }) => (
-                  <div className="mt-3">
-                    <div className="w-[180px]">
+            <div className="flex max-w-[180px] min-w-[140px] flex-1 gap-4">
+              {isCustomDelaySelected(selectedDelay) && (
+                <>
+                  <Controller
+                    control={formMethods.control}
+                    name={UpsertRecoveryFlowFields.customDelay}
+                    rules={{ validate: validateCustomDelay }}
+                    render={({ field, fieldState }) => (
                       <NumberField
+                        label={fieldState.error?.message}
                         error={!!fieldState.error}
                         {...field}
                         required
                         placeholder="E.g. 100"
-                        maxLength={MAX_CUSTOM_DELAY_DIGITS}
-                        endAdornment="days"
                       />
-                    </div>
-                    <Typography
-                      variant="paragraph-small"
-                      className={cn('mt-1', fieldState.error ? 'text-destructive' : 'text-muted-foreground')}
-                    >
-                      {fieldState.error?.message || `Up to ${MAX_CUSTOM_DELAY_DAYS} days`}
-                    </Typography>
-                  </div>
-                )}
-              />
-            )}
+                    )}
+                  />
+                  <Typography className="my-auto">{translateMessage('ui.days_d3e1c87d')}</Typography>
+                </>
+              )}
+            </div>
           </div>
 
           <div className="mb-6">
@@ -254,14 +247,15 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
               aria-expanded={showAdvanced}
               className={css.advanced}
             >
-              Advanced {showAdvanced ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              {translateMessage('ui.advanced_dc9cb289')}
+              {showAdvanced ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </Typography>
 
             <Collapsible open={showAdvanced}>
               <CollapsibleContent keepMounted>
                 <div>
                   <Typography variant="h4" className="mb-2">
-                    Proposal expiry
+                    {translateMessage('ui.proposalExpiry_368c328d')}
                     <Tooltip>
                       <TooltipTrigger render={<span />}>
                         <InfoIcon className="ml-1 inline size-4 align-middle text-[var(--color-border-main)]" />
@@ -271,7 +265,7 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
                   </Typography>
 
                   <Typography variant="paragraph-small" className="mb-4 block">
-                    Set a period of time after which the recovery proposal will expire and can no longer be executed.
+                    {translateMessage('ui.setAPeriodOfTimeAfter_ede68fa7')}
                   </Typography>
                 </div>
 
@@ -310,14 +304,14 @@ export function UpsertRecoveryFlowSettings({ delayModifier }: { delayModifier?: 
                 className="bg-[var(--color-background-paper)]"
               />
               <Typography variant="paragraph-small">
-                {`I understand that the Recoverer will be able to initiate recovery of this Safe account and that I will only be informed within the ${BRAND_NAME}.`}
+                {translateMessage('ui.iUnderstandThatTheRecovererWill_878a80f6', { p0: BRAND_NAME })}
               </Typography>
             </Label>
           </Card>
 
           <TxCardActions>
             <Button data-testid="next-btn" variant="default" type="submit" disabled={isDisabled}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </form>

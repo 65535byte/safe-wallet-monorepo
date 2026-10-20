@@ -193,7 +193,7 @@ describe('ReviewSpendingLimitPolicy', () => {
   })
 
   it('titles the step "Confirm policy"', () => {
-    expect(REVIEW_STEP_TITLE).toBe('Confirm policy')
+    expect(REVIEW_STEP_TITLE).toBe('确认策略')
   })
 
   it('shows the skeleton under the Confirm policy title with the nonce hidden until the transaction exists', () => {

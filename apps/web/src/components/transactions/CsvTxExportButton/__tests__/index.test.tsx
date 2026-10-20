@@ -33,37 +33,35 @@ describe('CsvTxExportButton', () => {
   it('should track CSV_EXPORT_CLICKED event when export button is clicked', () => {
     const { getByText } = render(<CsvTxExportButton hasActiveFilter={false} />)
 
-    const exportButton = getByText('Export')
+    const exportButton = getByText('导出')
     fireEvent.click(exportButton)
 
-    expect(mockTrackEvent).toHaveBeenCalledWith(TX_LIST_EVENTS.CSV_EXPORT_CLICKED, undefined)
+    expect(mockTrackEvent).toHaveBeenCalledWith(TX_LIST_EVENTS.CSV_EXPORT_CLICKED)
   })
 
   it('should render export button correctly', () => {
     const { getByText } = render(<CsvTxExportButton hasActiveFilter={false} />)
 
-    expect(getByText('Export')).toBeInTheDocument()
+    expect(getByText('导出')).toBeInTheDocument()
   })
 
   it('should open CSV export modal when export button is clicked', () => {
     const { getByText } = render(<CsvTxExportButton hasActiveFilter={false} />)
 
-    const exportButton = getByText('Export')
+    const exportButton = getByText('导出')
     fireEvent.click(exportButton)
 
-    expect(screen.getByLabelText('Date range')).toBeInTheDocument()
-    expect(
-      screen.getByText('The CSV includes transactions from the selected period, suitable for reporting.'),
-    ).toBeInTheDocument()
+    expect(screen.getByLabelText('日期范围')).toBeInTheDocument()
+    expect(screen.getByText('CSV 包含所选时间段内的交易，可用于报告。')).toBeInTheDocument()
   })
 
   it('should pass hasActiveFilter prop to modal correctly', () => {
     const { getByText } = render(<CsvTxExportButton hasActiveFilter={true} />)
 
-    const exportButton = getByText('Export')
+    const exportButton = getByText('导出')
     fireEvent.click(exportButton)
 
-    expect(screen.getByText("Transaction history filters won't apply here.")).toBeInTheDocument()
+    expect(screen.getByText("交易 history filters won't apply here.")).toBeInTheDocument()
   })
 
   it('should disable export button when user is not owner or proposer', () => {
@@ -71,6 +69,6 @@ describe('CsvTxExportButton', () => {
 
     const { getByText } = render(<CsvTxExportButton hasActiveFilter={false} />)
 
-    expect(getByText('Export')).toBeDisabled()
+    expect(getByText('导出')).toBeDisabled()
   })
 })

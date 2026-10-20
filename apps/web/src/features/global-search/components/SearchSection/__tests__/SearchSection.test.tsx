@@ -56,19 +56,19 @@ describe('SearchSection', () => {
   it('renders the always-active section', () => {
     render(<SearchSection query="" />)
 
-    expect(screen.getByText('Navigate to')).toBeInTheDocument()
+    expect(screen.getByText('前往')).toBeInTheDocument()
   })
 
   it('swaps sections when the Safe is resolved as part of a space', () => {
     const { rerender } = render(<SearchSection query="" />)
 
-    expect(screen.getByText('My accounts')).toBeInTheDocument()
-    expect(screen.queryByText('Safe accounts')).not.toBeInTheDocument()
+    expect(screen.getByText('我的账户')).toBeInTheDocument()
+    expect(screen.queryByText('8379 账户')).not.toBeInTheDocument()
 
     mockIsQualifiedSafe = true
     rerender(<SearchSection query="" />)
 
-    expect(screen.getByText('Safe accounts')).toBeInTheDocument()
-    expect(screen.queryByText('My accounts')).not.toBeInTheDocument()
+    expect(screen.getByText('8379 账户')).toBeInTheDocument()
+    expect(screen.queryByText('我的账户')).not.toBeInTheDocument()
   })
 })

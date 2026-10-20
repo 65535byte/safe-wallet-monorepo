@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 
+import { BRAND_NAME } from '@/config/constants'
 import { useAppDispatch } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
 
@@ -21,14 +22,14 @@ const PwaReloadPrompt = (): null => {
 
     dispatch(
       showNotification({
-        message: 'A new version of Safe is available.',
+        message: `${BRAND_NAME} 有新版本可用。`,
         variant: 'info',
         groupKey: 'pwa-update',
         // Must not vanish on the default 5s auto-hide — the user has to act on it.
         autoHideDuration: null,
         link: {
           onClick: () => updateServiceWorker(true),
-          title: 'Reload',
+          title: '重新加载',
         },
       }),
     )

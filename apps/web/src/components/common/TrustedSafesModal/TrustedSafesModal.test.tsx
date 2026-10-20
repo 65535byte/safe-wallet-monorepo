@@ -131,8 +131,8 @@ describe('TrustedSafesModal', () => {
 
   it('should render modal when open', () => {
     render(<TrustedSafesModal modal={mockModal} />)
-    expect(screen.getByText('Manage my account list')).toBeInTheDocument()
-    expect(screen.getByText('Verify before you trust')).toBeInTheDocument()
+    expect(screen.getByText('管理我的账户列表')).toBeInTheDocument()
+    expect(screen.getByText('信任前请先核实')).toBeInTheDocument()
   })
 
   it('renders the connect-wallet hint when no wallet is connected', () => {
@@ -162,7 +162,7 @@ describe('TrustedSafesModal', () => {
 
   it('should render the search bar', () => {
     render(<TrustedSafesModal modal={mockModal} />)
-    expect(screen.getByPlaceholderText('by name, address or network')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('按名称、地址或网络搜索')).toBeInTheDocument()
   })
 
   it('renders the dialog shell before the accounts table (deferred mount)', () => {
@@ -171,14 +171,14 @@ describe('TrustedSafesModal', () => {
     ;(useRouter as jest.Mock).mockReturnValue(mockRouter)
     render(<TrustedSafesModal modal={mockModal} />)
     // Shell is present immediately…
-    expect(screen.getByText('Manage my account list')).toBeInTheDocument()
+    expect(screen.getByText('管理我的账户列表')).toBeInTheDocument()
     // …but the heavy table is not mounted yet.
     expect(screen.queryByTestId('safe-accounts-table')).not.toBeInTheDocument()
   })
 
   it('should call close when cancel clicked', () => {
     render(<TrustedSafesModal modal={mockModal} />)
-    fireEvent.click(screen.getByText('Cancel'))
+    fireEvent.click(screen.getByText('取消'))
     expect(mockModal.close).toHaveBeenCalled()
   })
 
@@ -216,12 +216,12 @@ describe('TrustedSafesModal', () => {
       pendingConfirmation: '0x1234567890abcdef1234567890abcdef12345678',
     }
     render(<TrustedSafesModal modal={modalWithPending} />)
-    expect(screen.getByText('Similar address detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到相似地址')).toBeInTheDocument()
   })
 
   it('shows the select-all control with the selection count', () => {
     render(<TrustedSafesModal modal={mockModal} />)
-    expect(screen.getByText('Select all · 1 of 2 selected')).toBeInTheDocument()
+    expect(screen.getByText('Select all · 1 / 2 selected')).toBeInTheDocument()
   })
 
   it('should call selectAll when the select-all control is clicked with a partial selection', () => {
@@ -255,9 +255,9 @@ describe('TrustedSafesModal', () => {
       ],
     }
     render(<TrustedSafesModal modal={modalWithSelectAllConfirmation} />)
-    expect(screen.getByText('Similar addresses detected')).toBeInTheDocument()
-    expect(screen.getByText('No, skip similar addresses')).toBeInTheDocument()
-    expect(screen.getByText('Yes, include them anyway')).toBeInTheDocument()
+    expect(screen.getByText('检测到相似地址')).toBeInTheDocument()
+    expect(screen.getByText('否，跳过相似地址')).toBeInTheDocument()
+    expect(screen.getByText('是，仍然包含')).toBeInTheDocument()
   })
 
   it('should call confirmSelectAll when confirm clicked in select all dialog', () => {
@@ -278,7 +278,7 @@ describe('TrustedSafesModal', () => {
       ],
     }
     render(<TrustedSafesModal modal={modalWithSelectAllConfirmation} />)
-    fireEvent.click(screen.getByText('Yes, include them anyway'))
+    fireEvent.click(screen.getByText('是，仍然包含'))
     expect(mockModal.confirmSelectAll).toHaveBeenCalled()
   })
 
@@ -300,7 +300,7 @@ describe('TrustedSafesModal', () => {
       ],
     }
     render(<TrustedSafesModal modal={modalWithSelectAllConfirmation} />)
-    fireEvent.click(screen.getByText('No, skip similar addresses'))
+    fireEvent.click(screen.getByText('否，跳过相似地址'))
     expect(mockModal.skipSimilarSelectAll).toHaveBeenCalled()
   })
 

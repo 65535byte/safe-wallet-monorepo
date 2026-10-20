@@ -63,22 +63,22 @@ describe('SecurityDrawerChecks', () => {
     it('renders only skeletons when scanContext is null', () => {
       render(<SecurityDrawerChecks {...baseProps} scanContext={null} />)
       // None of the score-card content should be rendered while the guard is active.
-      expect(screen.queryByText(/issues found/i)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Healthy/i)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Scanned/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/发现问题/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/安全状况良好/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/已扫描/i)).not.toBeInTheDocument()
     })
 
     it('renders only skeletons when results are empty AND the scan is still in progress', () => {
       render(<SecurityDrawerChecks {...baseProps} results={{}} isComplete={false} />)
-      expect(screen.queryByText(/issues found/i)).not.toBeInTheDocument()
-      expect(screen.queryByText(/Healthy/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/发现问题/i)).not.toBeInTheDocument()
+      expect(screen.queryByText(/安全状况良好/i)).not.toBeInTheDocument()
     })
 
     it('renders the score card once a complete scan has results', () => {
       render(<SecurityDrawerChecks {...baseProps} />)
       // All-clear → header reads "Healthy" (the 0-issue branch).
-      expect(screen.getByText('Healthy')).toBeInTheDocument()
-      expect(screen.getByText(/Scanned/i)).toBeInTheDocument()
+      expect(screen.getByText('安全状况良好')).toBeInTheDocument()
+      expect(screen.getByText(/已扫描/i)).toBeInTheDocument()
     })
 
     it('renders "N issues found" with pluralisation when at least one check fails', () => {
@@ -89,7 +89,7 @@ describe('SecurityDrawerChecks', () => {
       }
       render(<SecurityDrawerChecks {...baseProps} results={results} />)
       // 1 issue + 1 partial = 2 non-passing.
-      expect(screen.getByText('2 issues found')).toBeInTheDocument()
+      expect(screen.getByText('发现 2 个问题')).toBeInTheDocument()
     })
 
     it('singularises the count when exactly one check fails', () => {
@@ -98,12 +98,12 @@ describe('SecurityDrawerChecks', () => {
         contract_version: mkResult('issue', 'High'),
       }
       render(<SecurityDrawerChecks {...baseProps} results={results} />)
-      expect(screen.getByText('1 issue found')).toBeInTheDocument()
+      expect(screen.getByText('发现 1 个问题')).toBeInTheDocument()
     })
   })
 
   describe('score summary', () => {
-    const getSummaryCard = () => screen.getByText(/Scanned/i).closest('[data-slot="card"]') as HTMLElement
+    const getSummaryCard = () => screen.getByText(/已扫描/i).closest('[data-slot="card"]') as HTMLElement
 
     it('shows an Update link when a newer contract version is available', () => {
       const results = {
@@ -111,15 +111,15 @@ describe('SecurityDrawerChecks', () => {
         contract_version: { ...mkResult('clear'), upgradeAvailable: true },
       }
       render(<SecurityDrawerChecks {...baseProps} results={results} />)
-      expect(within(getSummaryCard()).getByText('Healthy')).toBeInTheDocument()
-      const link = within(getSummaryCard()).getByRole('link', { name: /update/i })
+      expect(within(getSummaryCard()).getByText('安全状况良好')).toBeInTheDocument()
+      const link = within(getSummaryCard()).getByRole('link', { name: /更新/i })
       expect(link).toHaveAttribute('href', expect.stringContaining(AppRoutes.settings.setup))
       expect(link).toHaveAttribute('href', expect.stringContaining('safe='))
     })
 
     it('shows no Update link when the contract version is current', () => {
       render(<SecurityDrawerChecks {...baseProps} />)
-      expect(within(getSummaryCard()).queryByRole('link', { name: /update/i })).not.toBeInTheDocument()
+      expect(within(getSummaryCard()).queryByRole('link', { name: /更新/i })).not.toBeInTheDocument()
     })
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useChainId from '@/hooks/useChainId'
 import EthHashInfo from '../EthHashInfo'
 import type { EthHashInfoProps } from '../EthHashInfo/SrcEthHashInfo'
@@ -10,8 +11,8 @@ import { useContractsGetContractV1Query as useGetContractQuery } from '@safe-glo
 import { isSmartContract } from '@/utils/wallets'
 import useAsync from '@safe-global/utils/hooks/useAsync'
 
-const THIS_SAFE_ACCOUNT = 'This Safe account'
-const UNVERIFIED_CONTRACT = 'Unverified contract'
+const THIS_SAFE_ACCOUNT = translateMessage('ui.thisAccount_2faf288c')
+const UNVERIFIED_CONTRACT = translateMessage('ui.unverifiedContract_0bfa9673')
 
 const useIsContractAddress = (address?: string): boolean => {
   const [isContract] = useAsync(() => (address ? isSmartContract(address) : undefined), [address])

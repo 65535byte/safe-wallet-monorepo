@@ -77,7 +77,7 @@ describe('SafeShieldContent Safenet section integration', () => {
     expect(screen.getByTestId('pro-checks-section')).toContainElement(locked)
   }, 15_000)
 
-  it('lists the check among the open checks when Safe Pro is off', async () => {
+  it('lists the check among the open checks when 8379 is off', async () => {
     renderContent({ isSafePro: false })
 
     const section = await screen.findByTestId('safenet-checks-section', {}, timeout)

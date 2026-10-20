@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type AnalysisResult } from '@safe-global/utils/features/safe-shield/types'
 import { type ReactElement } from 'react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
@@ -13,8 +14,8 @@ export const DelegateCallCardItem = ({ result, isPrimary = false }: DelegateCall
     <AnalysisCardItemWithLink
       result={result}
       isPrimary={isPrimary}
-      beforeLinkText="This transaction calls a smart contract that will be able to modify your Safe account. "
-      linkText="Learn more"
+      beforeLinkText={translateMessage('ui.thisTransactionCallsASmartContract_82539c0c')}
+      linkText={translateMessage('ui.learnMore_0c11daba')}
       linkUrl={HelpCenterArticle.UNEXPECTED_DELEGATE_CALL}
     />
   )

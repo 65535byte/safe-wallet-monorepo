@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, type ReactNode, Fragment, useCallback, useContext } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -24,9 +25,9 @@ import { useAppDispatch } from '@/store'
 import { ESafeAction, openSafeActionsModal } from '@/features/spaces/store'
 import { useCurrentSpaceId } from '@/features/spaces'
 
-const NOT_ALLOWED_COUNTRY_MESSAGE = 'is not allowed for your country'
-const NO_ASSETS_MESSAGE = 'You have no assets or balance on this safe account.'
-export const TRANSACTION_BUILDER_TOOLTIP = 'Open Transaction Builder'
+const NOT_ALLOWED_COUNTRY_MESSAGE = translateMessage('ui.isNotAllowedForYourCountry_8260a038')
+const NO_ASSETS_MESSAGE = translateMessage('ui.youHaveNoAssetsOrBalance_9f491f78')
+export const TRANSACTION_BUILDER_TOOLTIP = translateMessage('ui.openTransactionBuilder_6c7bb5e7')
 
 const PassThrough = ({ children }: { children: (ok: boolean) => ReactNode }) => <Fragment>{children(true)}</Fragment>
 
@@ -49,13 +50,13 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
   const Wallet = isSpace ? PassThrough : CheckWallet
   const secondaryVariant = isSpace ? 'outline' : 'secondary'
 
-  const getDisabledTooltip = (action: 'Send' | 'Swap') => {
+  const getDisabledTooltip = (action: string) => {
     if (isBlockedCountry) return `${action} ${NOT_ALLOWED_COUNTRY_MESSAGE}`
     if (noAssets) return NO_ASSETS_MESSAGE
     return ''
   }
-  const sendTooltip = getDisabledTooltip('Send')
-  const swapTooltip = getDisabledTooltip('Swap')
+  const sendTooltip = getDisabledTooltip(translateMessage('ui.send_f1004bfb'))
+  const swapTooltip = getDisabledTooltip(translateMessage('ui.swap_cd9c7167'))
 
   const openModal = useCallback(
     (type: ESafeAction) => {
@@ -119,7 +120,7 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
                 <TooltipTrigger render={<span className={cn('inline-flex', { 'cursor-not-allowed': sendDisabled })} />}>
                   <ActionButton variant="default" onClick={handleOnSend} disabled={sendDisabled}>
                     <ArrowUpRight className="size-5 text-green-400" />
-                    Send
+                    {translateMessage('ui.send_f1004bfb')}
                   </ActionButton>
                 </TooltipTrigger>
                 {sendTooltip ? <TooltipContent side="top">{sendTooltip}</TooltipContent> : null}
@@ -132,13 +133,13 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
           {isSpace ? (
             <ActionButton variant={secondaryVariant} onClick={handleOnReceive} disabled={noAssets}>
               <QrCode className="size-5" />
-              Receive
+              {translateMessage('ui.receive_ae91e583')}
             </ActionButton>
           ) : (
             <QrCodeButton>
               <ActionButton variant={secondaryVariant}>
                 <QrCode className="size-5" />
-                Receive
+                {translateMessage('ui.receive_ae91e583')}
               </ActionButton>
             </QrCodeButton>
           )}
@@ -162,7 +163,7 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
                           onClick={handleOnSwap}
                         >
                           <Repeat className="size-5" strokeWidth={1.5} />
-                          Swap
+                          {translateMessage('ui.swap_cd9c7167')}
                         </ActionButton>
                       ) : (
                         <ActionButton
@@ -176,7 +177,7 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
                           }
                         >
                           <Repeat className="size-5" strokeWidth={1.5} />
-                          Swap
+                          {translateMessage('ui.swap_cd9c7167')}
                         </ActionButton>
                       )}
                     </TooltipTrigger>
@@ -195,10 +196,10 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
                 variant={secondaryVariant}
                 disabled={!isOk || noAssets}
                 onClick={handleOnBuildTx}
-                aria-label="Transaction builder"
+                aria-label={translateMessage('ui.transactionBuilder_3e8817e8')}
               >
                 <SquareDashedBottomCode className="size-5" strokeWidth={1.5} />
-                Build transaction
+                {translateMessage('ui.buildTransaction_abe527c4')}
               </ActionButton>
             ) : (
               <Button
@@ -206,7 +207,7 @@ const ActionsTray = ({ noAssets, variant = 'safe' }: ActionsTrayProps): ReactEle
                 size="icon"
                 disabled={!isOk}
                 render={isOk ? <Link href={txBuilderLink} /> : undefined}
-                aria-label="Transaction builder"
+                aria-label={translateMessage('ui.transactionBuilder_3e8817e8')}
               >
                 <SquareDashedBottomCode className="size-5 text-muted-foreground" strokeWidth={1.5} />
               </Button>

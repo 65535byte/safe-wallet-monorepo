@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NextLink from 'next/link'
 import DefiIcon from '@safe-global/views/assets/images/balances/defi.svg'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -13,7 +14,7 @@ type PositionsEmptyProps = {
   entryPoint?: string
 }
 
-const PositionsEmpty = ({ entryPoint = 'Dashboard' }: PositionsEmptyProps) => {
+const PositionsEmpty = ({ entryPoint = translateMessage('ui.dashboard_23212ed7') }: PositionsEmptyProps) => {
   const safeLinkQuery = useSafeLinkQuery()
   const isEarnFeatureEnabled = useIsEarnPromoEnabled()
 
@@ -22,7 +23,7 @@ const PositionsEmpty = ({ entryPoint = 'Dashboard' }: PositionsEmptyProps) => {
       <DefiIcon className="mx-auto" />
 
       <Typography data-testid="no-tx-text" align="center" className="text-[var(--color-primary-light)]">
-        You have no active DeFi positions yet
+        {translateMessage('ui.youHaveNoActiveDeFiPositions_5372b8f2')}
       </Typography>
 
       {isEarnFeatureEnabled && (
@@ -38,7 +39,7 @@ const PositionsEmpty = ({ entryPoint = 'Dashboard' }: PositionsEmptyProps) => {
             className="mt-2"
             render={<NextLink href={{ pathname: AppRoutes.earn, query: safeLinkQuery }} />}
           >
-            Explore Earn
+            {translateMessage('ui.exploreEarn_d0bf6966')}
           </Button>
         </Track>
       )}

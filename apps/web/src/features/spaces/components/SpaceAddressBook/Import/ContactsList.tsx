@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ChainIndicator from '@/components/common/ChainIndicator'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import { Checkbox } from '@safe-global/views/components/ui/checkbox'
@@ -96,8 +97,8 @@ const ContactsList = ({ contactItems }: { contactItems: ContactItem[] }) => {
                         {nameError
                           ? getRenameContactTooltip(nameError)
                           : alreadyAdded
-                            ? 'You already added a contact with this address.'
-                            : 'You already selected a contact with this address.'}
+                            ? translateMessage('ui.youAlreadyAddedAContactWith_b5faec4d')
+                            : translateMessage('ui.youAlreadySelectedAContactWith_10b50405')}
                       </TooltipContent>
                     </Tooltip>
                   ) : (

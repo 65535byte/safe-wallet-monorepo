@@ -112,7 +112,7 @@ describe('useStepUpCallback', () => {
     ['server_error', 'The authorization server encountered an unexpected condition'],
     ['temporarily_unavailable', undefined],
     ['authentication_failed', undefined],
-    ['access_denied', 'Cannot read property of undefined'],
+    ['access_denied', 'Cannot read property / undefined'],
   ])('should, when the callback carries the %s error, notify and clean the URL', async (error, description) => {
     saveStepUpTrip(TRIP_ACTION)
     setSearch(`?spaceId=42&error=${error}${description ? `&error_description=${encodeURIComponent(description)}` : ''}`)

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * A 403 with its own message rather than a 401, so clients can tell "verify
  * again" apart from "you are not allowed to do this".
@@ -8,7 +9,7 @@ export const ELEVATION_REQUIRED_ERROR = 'elevation_required'
 
 const HTTP_FORBIDDEN = 403
 
-export const ELEVATION_REQUIRED_MESSAGE = 'Verify your identity to continue with this action.'
+export const ELEVATION_REQUIRED_MESSAGE = translateMessage('ui.verifyYourIdentityToContinueWith_82320f3f')
 
 /**
  * The message is checked as well as the status. A 403 on its own also covers

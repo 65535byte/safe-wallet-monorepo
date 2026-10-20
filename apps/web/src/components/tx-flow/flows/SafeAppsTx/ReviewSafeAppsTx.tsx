@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect } from 'react'
 import type { ReactElement } from 'react'
 import type { SafeTransaction } from '@safe-global/types-kit'
@@ -57,8 +58,7 @@ const ReviewSafeAppsTx = ({
     <ReviewTransaction onSubmit={onSubmit} {...props}>
       {error ? (
         <ErrorMessage error={safeTxError}>
-          This Safe App initiated a transaction which cannot be processed. Please get in touch with the developer of
-          this Safe App for more information.
+          {translateMessage('ui.thisAppInitiatedATransactionWhich_effbe009')}
         </ErrorMessage>
       ) : null}
       {children}

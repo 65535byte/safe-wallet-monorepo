@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { XIcon } from 'lucide-react'
 import WarningIcon from '@safe-global/views/assets/images/notifications/warning.svg'
 import { type ReactElement, useEffect, type SyntheticEvent } from 'react'
@@ -31,9 +32,15 @@ const ConfirmCopyModal = ({ open, onClose, onCopy, children }: ConfirmCopyModalP
           <div data-testid="untrusted-token-warning" className="flex flex-row items-center gap-2">
             <WarningIcon className="-mb-0.5 size-6 text-[var(--color-warning-main)]" />
             <Typography variant="h4" className="font-bold">
-              Before you copy
+              {translateMessage('ui.beforeYouCopy_79afc8a7')}
             </Typography>
-            <Button variant="ghost" size="icon-sm" aria-label="close" onClick={onClose} className="ml-auto">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label={translateMessage('ui.close_aaaeeafe')}
+              onClick={onClose}
+              className="ml-auto"
+            >
               <XIcon />
             </Button>
           </div>
@@ -45,12 +52,12 @@ const ConfirmCopyModal = ({ open, onClose, onCopy, children }: ConfirmCopyModalP
           <div className={css.dialogActions + ' gap-2'}>
             <Track {...TX_LIST_EVENTS.COPY_WARNING_PROCEED}>
               <Button variant="ghost" size="sm" onClick={onCopy} className="w-full">
-                Proceed and copy
+                {translateMessage('ui.proceedAndCopy_3b66f873')}
               </Button>
             </Track>
             <Track {...TX_LIST_EVENTS.COPY_WARNING_CLOSE}>
               <Button variant="default" size="sm" onClick={onClose} className="w-full">
-                Do not copy
+                {translateMessage('ui.doNotCopy_31785656')}
               </Button>
             </Track>
           </div>

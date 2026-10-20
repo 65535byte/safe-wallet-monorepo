@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 /**
  * Registry of known custom-error selectors (WA-3005 / GS013).
  *
@@ -35,7 +36,7 @@ export type DecodedCustomError = {
  */
 const STANDARD_ERROR_SELECTORS = new Set(['0x08c379a0', '0x4e487b71'])
 
-export const HYPERNATIVE_GUARD_SOURCE = 'Hypernative guard'
+export const HYPERNATIVE_GUARD_SOURCE = translateMessage('ui.hypernativeGuard_b39fc649')
 
 const ABI_SOURCES: ReadonlyArray<{ source: string; abi: InterfaceAbi }> = [
   { source: HYPERNATIVE_GUARD_SOURCE, abi: HypernativeGuardAbi as InterfaceAbi },

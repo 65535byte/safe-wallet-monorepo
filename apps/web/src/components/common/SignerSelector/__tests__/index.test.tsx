@@ -17,16 +17,16 @@ describe('SignerSelector', () => {
 
   it('should render with a custom label', () => {
     const result = render(
-      <SignerSelector options={[address1, address2]} value={address1} onChange={jest.fn()} label="Delegator account" />,
+      <SignerSelector options={[address1, address2]} value={address1} onChange={jest.fn()} label="委托账户" />,
     )
 
-    expect(result.getByLabelText('Delegator account')).toBeInTheDocument()
+    expect(result.getByLabelText('委托账户')).toBeInTheDocument()
   })
 
   it('should render with default label when not specified', () => {
     const result = render(<SignerSelector options={[address1, address2]} value={address1} onChange={jest.fn()} />)
 
-    expect(result.getByLabelText('Signer account')).toBeInTheDocument()
+    expect(result.getByLabelText('签名人账户')).toBeInTheDocument()
   })
 
   it('should call onChange when a different option is selected', async () => {
@@ -53,7 +53,7 @@ describe('SignerSelector', () => {
         value={address1}
         onChange={jest.fn()}
         isOptionDisabled={(addr) => addr === address2}
-        disabledReason={() => 'Already signed'}
+        disabledReason={() => '已签名'}
       />,
     )
 

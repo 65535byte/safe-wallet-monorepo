@@ -115,8 +115,8 @@ describe('SpendingLimitDetails', () => {
 
     setup()
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument()
-    expect(screen.getByText('Upgrade to Business to edit spending limits.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeInTheDocument()
+    expect(screen.getByText('升级至 Business 以编辑支出限额。')).toBeInTheDocument()
   })
 
   it('tells a wallet that does not sign for the Safe why it cannot edit', () => {
@@ -125,8 +125,8 @@ describe('SpendingLimitDetails', () => {
 
     setup()
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled()
-    expect(screen.getByText('Only signers of this Safe account can edit this spending limit.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeDisabled()
+    expect(screen.getByText('仅此 8379 账户的签名人可以编辑此支出限额。')).toBeInTheDocument()
   })
 
   it('asks for a wallet before offering anything to do', () => {
@@ -135,7 +135,7 @@ describe('SpendingLimitDetails', () => {
 
     setup()
 
-    expect(screen.getByRole('button', { name: 'Connect wallet' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '连接钱包' })).toBeInTheDocument()
   })
 
   it('names a spender from the Space address book, and leaves an unknown one as its address', () => {
@@ -179,9 +179,7 @@ describe('SpendingLimitDetails', () => {
 
     setup()
 
-    expect(screen.getByText('Last updated').closest('dt')?.nextElementSibling).toHaveTextContent(
-      'Jun 24, 2026 · 03:35 UTC',
-    )
+    expect(screen.getByText('最后更新').closest('dt')?.nextElementSibling).toHaveTextContent('Jun 24, 2026 · 03:35 UTC')
   })
 
   it('hands the Edit button to the caller', async () => {
@@ -190,7 +188,7 @@ describe('SpendingLimitDetails', () => {
     const onEdit = jest.fn()
 
     const { user } = renderWithUserEvent(<SpendingLimitDetails policy={policy} onClose={jest.fn()} onEdit={onEdit} />)
-    await user.click(screen.getByRole('button', { name: 'Edit' }))
+    await user.click(screen.getByRole('button', { name: '编辑' }))
 
     expect(onEdit).toHaveBeenCalledTimes(1)
   })
@@ -223,7 +221,7 @@ describe('a pending spending limit', () => {
     })
 
   const expectReviewLinkToQueuedTx = () => {
-    const href = screen.getByRole('link', { name: 'Review transaction' }).getAttribute('href')
+    const href = screen.getByRole('link', { name: '检查交易' }).getAttribute('href')
     const url = new URL(href ?? '', window.location.origin)
 
     expect(url.pathname).toBe(AppRoutes.transactions.tx)
@@ -261,7 +259,7 @@ describe('a pending spending limit', () => {
 
     renderPending()
 
-    expect(screen.getByRole('button', { name: 'Copy transaction link' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '复制交易链接' })).toBeInTheDocument()
     expect(screen.getByText(/You've signed/)).toBeInTheDocument()
   })
 
@@ -272,7 +270,7 @@ describe('a pending spending limit', () => {
 
     renderPending(mockPendingPolicy({ confirmationsSubmitted: 0, confirmationsRequired: 2 }))
 
-    expect(screen.getByText('1 of 2 signed')).toBeInTheDocument()
+    expect(screen.getByText('1 / 2 signed')).toBeInTheDocument()
   })
 
   it('copies a link that opens the transaction on its Safe, without the Space', async () => {
@@ -283,7 +281,7 @@ describe('a pending spending limit', () => {
     renderInSpace()
     const writeText = mockClipboard()
     act(() => {
-      screen.getByRole('button', { name: 'Copy transaction link' }).click()
+      screen.getByRole('button', { name: '复制交易链接' }).click()
     })
 
     await waitFor(() => {
@@ -300,8 +298,8 @@ describe('a pending spending limit', () => {
 
     renderPending()
 
-    expect(screen.getByRole('button', { name: 'Review transaction' })).toBeDisabled()
-    expect(screen.queryByText(/Sign and execute/)).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '检查交易' })).toBeDisabled()
+    expect(screen.queryByText(/Sign 和 execute/)).not.toBeInTheDocument()
   })
 
   it('keeps Review transaction disabled until the chain configs have loaded', () => {
@@ -312,7 +310,7 @@ describe('a pending spending limit', () => {
 
     renderPending()
 
-    expect(screen.getByRole('button', { name: 'Review transaction' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '检查交易' })).toBeDisabled()
   })
 
   it('offers to try again when the transaction could not be loaded', async () => {
@@ -322,9 +320,9 @@ describe('a pending spending limit', () => {
     mockPendingTx({ onRetry })
 
     const { user } = renderPending()
-    await user.click(screen.getByRole('button', { name: 'Try again' }))
+    await user.click(screen.getByRole('button', { name: '重试' }))
 
-    expect(screen.getByText("The transaction couldn't be loaded.")).toBeInTheDocument()
+    expect(screen.getByText('无法加载交易。')).toBeInTheDocument()
     expect(onRetry).toHaveBeenCalledTimes(1)
   })
 
@@ -339,7 +337,7 @@ describe('a pending spending limit', () => {
       </TxModalContext.Provider>,
     )
 
-    expect(screen.queryByRole('button', { name: 'Review transaction' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '检查交易' })).not.toBeInTheDocument()
   })
 
   it('stops offering Review once the row has left the list, until it learns why', () => {
@@ -349,7 +347,7 @@ describe('a pending spending limit', () => {
 
     renderPending(pending, true)
 
-    expect(screen.getByRole('button', { name: 'Review transaction' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '检查交易' })).toBeDisabled()
     expect(mockUsePendingPolicyTransaction).toHaveBeenCalledWith(pending, true)
   })
 
@@ -359,13 +357,13 @@ describe('a pending spending limit', () => {
     mockPendingTx({ txSummary })
 
     const { user, rerender } = renderPending()
-    await user.click(screen.getByRole('button', { name: 'Connect wallet' }))
+    await user.click(screen.getByRole('button', { name: '连接钱包' }))
     expect(connectWallet).toHaveBeenCalledTimes(1)
 
     mockWallet()
     rerender(<SpendingLimitDetails policy={pending} onClose={jest.fn()} />)
 
-    expect(screen.getByRole('link', { name: 'Review transaction' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '检查交易' })).toBeInTheDocument()
   })
 
   it('reports a replaced transaction instead of offering a CTA that would fail', () => {
@@ -375,7 +373,7 @@ describe('a pending spending limit', () => {
 
     renderPending()
 
-    expect(screen.queryByRole('button', { name: 'Review transaction' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '检查交易' })).not.toBeInTheDocument()
     expect(screen.getByText(/can no longer be executed/)).toBeInTheDocument()
   })
 
@@ -386,9 +384,9 @@ describe('a pending spending limit', () => {
 
     renderPending(mockActivatingPolicy())
 
-    expect(screen.getByText('The transaction was executed.')).toBeInTheDocument()
-    expect(screen.getByText('Activating')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Review transaction' })).not.toBeInTheDocument()
+    expect(screen.getByText('交易已执行。')).toBeInTheDocument()
+    expect(screen.getByText('正在激活')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '检查交易' })).not.toBeInTheDocument()
   })
 
   // Only a queued removal carries the active allowance's createdAt, so it is the case that tests the status check.
@@ -404,7 +402,7 @@ describe('a pending spending limit', () => {
 
     renderPending(policy)
 
-    expect(screen.queryByText('Last updated')).not.toBeInTheDocument()
+    expect(screen.queryByText('最后更新')).not.toBeInTheDocument()
   })
 
   it('says the limit stays active while its removal is pending', () => {
@@ -414,6 +412,6 @@ describe('a pending spending limit', () => {
 
     renderPending(mockPendingRemoval())
 
-    expect(screen.getByText('This spending limit is still active until the removal is executed.')).toBeInTheDocument()
+    expect(screen.getByText('移除交易执行前，此支出限额仍然有效。')).toBeInTheDocument()
   })
 })

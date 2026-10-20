@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import css from './styles.module.css'
 import useWalletBalance from '@/hooks/wallets/useWalletBalance'
@@ -10,7 +11,7 @@ const BalanceInfo = () => {
   return (
     <div className={css.container}>
       <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-        <b>Wallet balance:</b> <WalletBalance balance={balance} />
+        <b>{translateMessage('ui.walletBalance_c836c659')}</b> <WalletBalance balance={balance} />
       </Typography>
     </div>
   )

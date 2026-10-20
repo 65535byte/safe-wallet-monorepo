@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ErrorMessage from '@/components/tx/ErrorMessage'
 import { useSafeShield } from '@/features/safe-shield/SafeShieldContext'
 
@@ -8,7 +9,11 @@ const RiskConfirmationError = () => {
     return null
   }
 
-  return <ErrorMessage level="warning">Please acknowledge the risk before proceeding.</ErrorMessage>
+  return (
+    <ErrorMessage level="warning">
+      {translateMessage('ui.pleaseAcknowledgeTheRiskBeforeProceeding_fadcc0cc')}
+    </ErrorMessage>
+  )
 }
 
 export default RiskConfirmationError

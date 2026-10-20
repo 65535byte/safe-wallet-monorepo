@@ -5,7 +5,7 @@ describe('PolicyDrawerActions', () => {
   it('labels the action from its prop', () => {
     render(<PolicyDrawerActions actionLabel="Review transaction" onClick={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: 'Review transaction' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '检查交易' })).toBeInTheDocument()
   })
 
   it('calls back when the action is clicked', async () => {
@@ -20,23 +20,20 @@ describe('PolicyDrawerActions', () => {
   it('renders the action as a link when given an href', () => {
     render(<PolicyDrawerActions actionLabel="Review transaction" href="/transactions/tx?id=0x9f3c" />)
 
-    expect(screen.getByRole('link', { name: 'Review transaction' })).toHaveAttribute(
-      'href',
-      '/transactions/tx?id=0x9f3c',
-    )
+    expect(screen.getByRole('link', { name: '检查交易' })).toHaveAttribute('href', '/transactions/tx?id=0x9f3c')
   })
 
   it('shows no hint unless one is given', () => {
     render(<PolicyDrawerActions actionLabel="Submit delegation" onClick={jest.fn()} />)
 
-    expect(screen.queryByText(/wallet/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/钱包/i)).not.toBeInTheDocument()
   })
 
   it('renders a disabled action that has no handler to call', () => {
     render(<PolicyDrawerActions actionLabel="Edit" disabled hint="Editing a spending limit is coming soon." />)
 
-    expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled()
-    expect(screen.getByText('Editing a spending limit is coming soon.')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '编辑' })).toBeDisabled()
+    expect(screen.getByText('Editing a spending 项限额 is coming soon.')).toBeInTheDocument()
   })
 
   it('explains a disabled action and does not fire it', async () => {
@@ -50,9 +47,9 @@ describe('PolicyDrawerActions', () => {
       />,
     )
 
-    expect(screen.getByText('Only signers of this Treasury can delete or edit this Proposer role.')).toBeInTheDocument()
+    expect(screen.getByText('Only signers / this Treasury can delete or edit this Proposer role.')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: 'Remove proposer' }))
+    await user.click(screen.getByRole('button', { name: '移除提案人' }))
 
     expect(onClick).not.toHaveBeenCalled()
   })

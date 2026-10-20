@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { SlotName, withSlot } from '../slots'
 import { Card } from '@safe-global/views/components/ui/card'
@@ -9,12 +10,12 @@ import { MODALS_EVENTS } from '@/services/analytics'
 import { SafeTxContext } from '../SafeTxProvider'
 import { useSafeShield } from '@/features/safe-shield/SafeShieldContext'
 
-type RiskConfirmationProps = {
-  subject: 'transaction' | 'message'
-}
-
-export const RiskConfirmation = ({ subject }: RiskConfirmationProps) => {
+export const RiskConfirmation = () => {
   const { needsRiskConfirmation, isRiskConfirmed, setIsRiskConfirmed } = useSafeShield()
+  const { safeTx } = useContext(SafeTxContext)
+
+  // We either scan a tx or a message if tx is undefined
+  const isTransaction = !!safeTx
 
   const toggleConfirmation = () => {
     setIsRiskConfirmed((prev) => !prev)
@@ -34,18 +35,13 @@ export const RiskConfirmation = ({ subject }: RiskConfirmationProps) => {
         >
           <Checkbox id="risk-confirmation" checked={isRiskConfirmed} onCheckedChange={toggleConfirmation} />
           <Typography variant="paragraph-small" data-testid="risk-confirmation-text">
-            I understand the risks and would like to proceed with this {subject}.
+            {translateMessage('ui.iUnderstandTheRisksAndWould_6a085bd5')}
+            {isTransaction ? translateMessage('ui.transactions_50e8fab5') : translateMessage('ui.messages_1c591068')}.
           </Typography>
         </Label>
       </Track>
     </Card>
   )
-}
-
-const TxFlowRiskConfirmation = () => {
-  const { safeTx } = useContext(SafeTxContext)
-  // A flow without a safeTx scans a message
-  return <RiskConfirmation subject={safeTx ? 'transaction' : 'message'} />
 }
 
 const useSlotCondition = () => {
@@ -54,7 +50,7 @@ const useSlotCondition = () => {
 }
 
 const RiskConfirmationSlot = withSlot({
-  Component: TxFlowRiskConfirmation,
+  Component: RiskConfirmation,
   slotName: SlotName.Footer,
   id: 'riskConfirmation',
   useSlotCondition,

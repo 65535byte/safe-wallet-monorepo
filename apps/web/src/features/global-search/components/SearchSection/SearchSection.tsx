@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { sectionItems, type SectionItem } from './sectionItems'
 import {
   SectionVisibilityProvider,
@@ -10,7 +11,7 @@ interface SearchSectionProps {
 
 const NoResults = () => (
   <div className="flex h-full min-h-[350px] items-center justify-center px-4">
-    <p className="text-base text-muted-foreground">No results found</p>
+    <p className="text-base text-muted-foreground">{translateMessage('ui.noResultsFound_5d7b917c')}</p>
   </div>
 )
 

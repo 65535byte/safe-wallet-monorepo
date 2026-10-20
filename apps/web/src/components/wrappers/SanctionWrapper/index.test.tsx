@@ -79,7 +79,7 @@ describe('SanctionWrapper', () => {
       </_SanctionWrapper>,
     )
 
-    expect(queryByText('Blocked address')).toBeTruthy()
+    expect(queryByText('已屏蔽的地址')).toBeTruthy()
   })
 
   it('should render if the sanction list is loading', () => {

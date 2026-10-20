@@ -4,7 +4,7 @@ import PaginatedDataTable, { type DataTableColumn } from './index'
 const mockUseIsMobile = jest.fn(() => false)
 jest.mock('@safe-global/views/hooks/use-mobile', () => ({ useIsMobile: () => mockUseIsMobile() }))
 
-const columns: DataTableColumn<string>[] = [{ id: 'value', header: 'Value', cell: (row) => row }]
+const columns: DataTableColumn<string>[] = [{ id: 'value', header: '价值', cell: (row) => row }]
 
 const tableElement = (rows: string[], pageSize?: number) => (
   <PaginatedDataTable columns={columns} rows={rows} pageSize={pageSize} getRowKey={(row) => row} />
@@ -18,7 +18,7 @@ describe('PaginatedDataTable', () => {
   it('renders the column headers', () => {
     render(tableElement(['a', 'b']))
 
-    expect(screen.getByText('Value')).toBeInTheDocument()
+    expect(screen.getByText('价值')).toBeInTheDocument()
   })
 
   describe('compact layout', () => {
@@ -95,28 +95,28 @@ describe('PaginatedDataTable', () => {
     expect(screen.getByText('a')).toBeInTheDocument()
     expect(screen.getByText('b')).toBeInTheDocument()
     expect(screen.queryByText('c')).not.toBeInTheDocument()
-    expect(screen.getByText('1–2 of 3')).toBeInTheDocument()
+    expect(screen.getByText('1–2 / 3')).toBeInTheDocument()
   })
 
   it('navigates between pages', () => {
     render(tableElement(['a', 'b', 'c'], 2))
 
-    const prev = screen.getByRole('button', { name: 'Previous page' })
-    const next = screen.getByRole('button', { name: 'Next page' })
+    const prev = screen.getByRole('button', { name: '上一页' })
+    const next = screen.getByRole('button', { name: '下一页' })
     expect(prev).toBeDisabled()
 
     fireEvent.click(next)
 
     expect(screen.getByText('c')).toBeInTheDocument()
     expect(screen.queryByText('a')).not.toBeInTheDocument()
-    expect(screen.getByText('3–3 of 3')).toBeInTheDocument()
+    expect(screen.getByText('3–3 / 3')).toBeInTheDocument()
     expect(next).toBeDisabled()
   })
 
   it('resets to the first page when the rows change', () => {
     const { rerender } = render(tableElement(['a', 'b', 'c'], 2))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Next page' }))
+    fireEvent.click(screen.getByRole('button', { name: '下一页' }))
     expect(screen.getByText('c')).toBeInTheDocument()
 
     rerender(tableElement(['x', 'y', 'z'], 2))
@@ -128,7 +128,7 @@ describe('PaginatedDataTable', () => {
   it('keeps the current page when the parent re-renders an equivalent row set', () => {
     const { rerender } = render(tableElement(['a', 'b', 'c'], 2))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Next page' }))
+    fireEvent.click(screen.getByRole('button', { name: '下一页' }))
     expect(screen.getByText('c')).toBeInTheDocument()
 
     // A fresh array holding the same rows — a parent re-render, not a data change
@@ -140,7 +140,7 @@ describe('PaginatedDataTable', () => {
 
   describe('sorting', () => {
     const sortableColumns: DataTableColumn<{ name: string }>[] = [
-      { id: 'name', header: 'Name', sortValue: (row) => row.name, cell: (row) => row.name },
+      { id: 'name', header: '名称', sortValue: (row) => row.name, cell: (row) => row.name },
     ]
 
     const renderSortable = () =>
@@ -157,13 +157,13 @@ describe('PaginatedDataTable', () => {
     it('does not render a header button for non-sortable columns', () => {
       render(tableElement(['a', 'b']))
 
-      expect(screen.queryByRole('button', { name: /Value/ })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /价值/ })).not.toBeInTheDocument()
     })
 
     it('cycles ascending → descending → unsorted on repeated clicks', () => {
       renderSortable()
 
-      const header = screen.getByRole('button', { name: /Name/ })
+      const header = screen.getByRole('button', { name: /名称/ })
 
       expect(cellTexts()).toEqual(['Charlie', 'Alice', 'Bob'])
 
@@ -181,7 +181,7 @@ describe('PaginatedDataTable', () => {
       render(
         <PaginatedDataTable
           columns={[
-            { id: 'name', header: 'Name', sortValue: (row) => row.name, cell: (row) => row.name },
+            { id: 'name', header: '名称', sortValue: (row) => row.name, cell: (row) => row.name },
             { id: 'code', header: 'Code', sortValue: (row) => row.code, cell: (row) => row.code },
           ]}
           rows={[
@@ -193,7 +193,7 @@ describe('PaginatedDataTable', () => {
         />,
       )
 
-      const nameHeader = screen.getByRole('button', { name: /Name/ })
+      const nameHeader = screen.getByRole('button', { name: /名称/ })
       const codeHeader = screen.getByRole('button', { name: /Code/ })
 
       fireEvent.click(nameHeader)
@@ -214,7 +214,7 @@ describe('PaginatedDataTable', () => {
   describe('responsive behaviour', () => {
     type Row = { name: string; email: string }
     const responsiveColumns: DataTableColumn<Row>[] = [
-      { id: 'name', header: 'Name', sticky: true, minWidth: 200, sortValue: (r) => r.name, cell: (r) => r.name },
+      { id: 'name', header: '名称', sticky: true, minWidth: 200, sortValue: (r) => r.name, cell: (r) => r.name },
       { id: 'email', header: 'Email', priority: 'secondary', sortValue: (r) => r.email, cell: (r) => r.email },
     ]
     const rows: Row[] = [
@@ -238,10 +238,10 @@ describe('PaginatedDataTable', () => {
 
       // No standalone "Sort by" dropdown or direction toggle on mobile
       expect(screen.queryByRole('button', { name: 'Sort ascending' })).not.toBeInTheDocument()
-      expect(screen.queryByRole('button', { name: 'Sort by' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: '排序方式' })).not.toBeInTheDocument()
 
       // The visible Name header is still a working sort control on mobile
-      const nameHeader = screen.getByRole('button', { name: /Name/ })
+      const nameHeader = screen.getByRole('button', { name: /名称/ })
       fireEvent.click(nameHeader)
       expect(nameHeader.closest('th')).toHaveAttribute('aria-sort', 'ascending')
     })
@@ -249,14 +249,14 @@ describe('PaginatedDataTable', () => {
     it('does not render the detail toggle on desktop', () => {
       renderResponsive(true)
 
-      expect(screen.queryByRole('button', { name: 'Show details' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: '显示详情' })).not.toBeInTheDocument()
     })
 
     it('lets the detail row wrap, so expanding it cannot widen the table', () => {
       mockUseIsMobile.mockReturnValue(true)
       renderResponsive(true)
 
-      fireEvent.click(screen.getAllByRole('button', { name: 'Show details' })[0]!)
+      fireEvent.click(screen.getAllByRole('button', { name: '显示详情' })[0]!)
 
       const detailCell = screen.getByText('detail-Alice').closest('td')
       expect(detailCell).toHaveClass('whitespace-normal')
@@ -268,16 +268,16 @@ describe('PaginatedDataTable', () => {
       mockUseIsMobile.mockReturnValue(true)
       renderResponsive(true)
 
-      const toggles = screen.getAllByRole('button', { name: 'Show details' })
+      const toggles = screen.getAllByRole('button', { name: '显示详情' })
       expect(toggles).toHaveLength(2)
       expect(screen.queryByText('detail-Alice')).not.toBeInTheDocument()
 
       fireEvent.click(toggles[0]!)
 
       expect(screen.getByText('detail-Alice')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: 'Hide details' })).toHaveAttribute('aria-expanded', 'true')
+      expect(screen.getByRole('button', { name: '隐藏详情' })).toHaveAttribute('aria-expanded', 'true')
 
-      fireEvent.click(screen.getByRole('button', { name: 'Hide details' }))
+      fireEvent.click(screen.getByRole('button', { name: '隐藏详情' }))
       expect(screen.queryByText('detail-Alice')).not.toBeInTheDocument()
     })
   })
@@ -304,7 +304,7 @@ describe('PaginatedDataTable', () => {
         />,
       )
 
-      fireEvent.click(screen.getAllByRole('button', { name: 'Show details' })[0]!)
+      fireEvent.click(screen.getAllByRole('button', { name: '显示详情' })[0]!)
 
       // The pair renders as [row a, detail a, row b] — only the detail row closes it.
       expect(suppressed(container)).toEqual([true, false, false])
@@ -315,7 +315,7 @@ describe('PaginatedDataTable', () => {
     const clickableTable = (onRowClick: (row: string) => void) => (
       <PaginatedDataTable
         columns={[
-          { id: 'value', header: 'Value', cell: (row) => row },
+          { id: 'value', header: '价值', cell: (row) => row },
           { id: 'open', header: '', cell: (row) => <button onClick={() => onRowClick(row)}>Open {row}</button> },
         ]}
         rows={['a', 'b']}
@@ -344,7 +344,7 @@ describe('PaginatedDataTable', () => {
       const onRowClick = jest.fn()
 
       render(clickableTable(onRowClick))
-      fireEvent.click(screen.getByRole('button', { name: 'Open a' }))
+      fireEvent.click(screen.getByRole('button', { name: '打开 a' }))
 
       expect(onRowClick).toHaveBeenCalledTimes(1)
     })
@@ -369,7 +369,7 @@ describe('PaginatedDataTable', () => {
           onRowClick={onRowClick}
         />,
       )
-      fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+      fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
 
       expect(screen.getByText('detail-a')).toBeInTheDocument()
       expect(onRowClick).not.toHaveBeenCalled()

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { ADMIN_ONLY_RENAME_MESSAGE } from '@/utils/addressBookNotifications'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -59,7 +60,7 @@ function RenameNestedSafeButton({
       {!canRename ? (
         <TooltipContent>{ADMIN_ONLY_RENAME_MESSAGE}</TooltipContent>
       ) : (
-        isOk && <TooltipContent>Rename nested Safe</TooltipContent>
+        isOk && <TooltipContent>{translateMessage('ui.renameNested_5f364418')}</TooltipContent>
       )}
     </Tooltip>
   )
@@ -119,16 +120,13 @@ export function NestedSafesList(): ReactElement | null {
 
   return (
     <>
-      <SettingsCard title="Nested Safes" className="mt-4">
+      <SettingsCard title={translateMessage('ui.nestedAccounts_7adf9ebb')} className="mt-4">
         <Typography className="mb-6">
-          Nested Safes are separate wallets owned by your main Account, perfect for organizing different funds and
-          projects.
+          {translateMessage('ui.nestedAccountsAreSeparateWalletsOwned_94e937ea')}
         </Typography>
 
         {rows.length === 0 && (
-          <Typography className="mb-6">
-            You don&apos;t have any Nested Safes yet. Set one up now to better organize your assets
-          </Typography>
+          <Typography className="mb-6">{translateMessage('ui.youDonTHaveAnyNested_90a886cd')}</Typography>
         )}
 
         {safe.deployed && (
@@ -142,7 +140,7 @@ export function NestedSafesList(): ReactElement | null {
                 className="mb-6"
               >
                 <AddIcon className="size-4" />
-                Add nested Safe
+                {translateMessage('ui.addNested_d3cce74b')}
               </Button>
             )}
           </CheckWallet>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode, ReactElement } from 'react'
 import React from 'react'
 import { Toggle } from '@safe-global/views/components/ui/toggle'
@@ -24,7 +25,7 @@ export const ToggleButtonGroup = ({ value = 0, children, onChange }: ToggleButto
   return (
     <div
       role="group"
-      aria-label="text alignment"
+      aria-label={translateMessage('ui.textAlignment_004b4579')}
       className="inline-flex gap-1 rounded-md bg-[var(--color-background-paper)] p-0.5 [&_svg]:size-4"
     >
       {children.map(({ title }, index) => (

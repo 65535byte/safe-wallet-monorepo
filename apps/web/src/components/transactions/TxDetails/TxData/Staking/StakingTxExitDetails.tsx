@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NativeStakingValidatorsExitTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { NativeStakingStatus } from '@safe-global/store/gateway/types'
 import { Link } from '@safe-global/views/components/ui/link'
@@ -15,19 +16,28 @@ const StakingTxExitDetails = ({ info }: { info: NativeStakingValidatorsExitTrans
 
   return (
     <div className="flex flex-col gap-2 pr-10">
-      <FieldsGrid title="Exit">
+      <FieldsGrid title={translateMessage('ui.exit_8ca0834c')}>
         {info.validators.map((validator: string, index: number) => {
           return (
             <>
-              <BeaconChainLink name={`Validator ${index + 1}`} validator={validator} key={index} />
+              <BeaconChainLink
+                name={translateMessage('ui.validator_6d6ec166', { p0: index + 1 })}
+                validator={validator}
+                key={index}
+              />
               {index < info.validators.length - 1 && ' | '}
             </>
           )
         })}
       </FieldsGrid>
-      {info.status !== NativeStakingStatus.EXITED && <FieldsGrid title="Est. exit time">Up to {withdrawIn}</FieldsGrid>}
+      {info.status !== NativeStakingStatus.EXITED && (
+        <FieldsGrid title={translateMessage('ui.estExitTime_fb885e86')}>
+          {translateMessage('ui.upTo_638e131c')}
+          {withdrawIn}
+        </FieldsGrid>
+      )}
 
-      <FieldsGrid title="Validator status">
+      <FieldsGrid title={translateMessage('ui.validatorStatus_0717076f')}>
         <StakingStatus status={info.status} />
       </FieldsGrid>
     </div>

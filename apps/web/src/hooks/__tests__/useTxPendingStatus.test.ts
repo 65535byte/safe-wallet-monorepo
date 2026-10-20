@@ -327,7 +327,7 @@ describe('useTxPendingStatuses', () => {
       txId: mockTxId,
       chainId: TEST_CHAIN_ID,
       safeAddress: TEST_SAFE_ADDRESS,
-      error: new Error('Transaction reverted'),
+      error: new Error('交易已回退'),
     })
 
     expect(setPendingTx).not.toHaveBeenCalled()
@@ -344,7 +344,7 @@ describe('useTxPendingStatuses', () => {
       txId: mockTxId,
       chainId: TEST_CHAIN_ID,
       safeAddress: TEST_SAFE_ADDRESS,
-      error: new Error('Transaction failed'),
+      error: new Error('交易失败'),
     })
 
     expect(setPendingTx).not.toHaveBeenCalled()
@@ -504,7 +504,7 @@ describe('useTxMonitor with live transaction events', () => {
         txId: TX_ID,
         chainId: TEST_CHAIN_ID,
         safeAddress: TEST_SAFE_ADDRESS,
-        error: new Error('Transaction not found'),
+        error: new Error('未找到交易'),
       })
     })
 

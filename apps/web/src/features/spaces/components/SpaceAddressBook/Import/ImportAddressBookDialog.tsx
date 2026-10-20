@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { FormProvider, useForm } from 'react-hook-form'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { debounce } from 'lodash'
@@ -136,7 +137,7 @@ const ImportAddressBookDialog = ({ handleClose }: { handleClose: () => void }) =
     <Dialog open onOpenChange={(isOpen) => !isOpen && handleClose()}>
       <DialogContent padding="none">
         <DialogHeader divided>
-          <DialogTitle className="font-bold text-xl">Import address book</DialogTitle>
+          <DialogTitle className="font-bold text-xl">{translateMessage('ui.importAddressBook_38aa7534')}</DialogTitle>
         </DialogHeader>
 
         <FormProvider {...formMethods}>
@@ -144,8 +145,8 @@ const ImportAddressBookDialog = ({ handleClose }: { handleClose: () => void }) =
             <div className="px-4 pt-4 mb-2">
               <SearchInput
                 id="search-by-name"
-                placeholder="Search"
-                aria-label="Search contact list by name or address"
+                placeholder={translateMessage('ui.search_b3c8cd38')}
+                aria-label={translateMessage('ui.searchContactListByNameOr_00f16f46')}
                 onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
@@ -158,11 +159,13 @@ const ImportAddressBookDialog = ({ handleClose }: { handleClose: () => void }) =
               <DialogActions
                 onCancel={handleClose}
                 cancelTestId="cancel-btn"
-                confirmLabel={`Import contacts (${selectedCount})`}
+                confirmLabel={translateMessage('ui.importContacts_3a475ce3', { p0: selectedCount })}
                 confirmType="submit"
                 confirmLoading={isSubmitting}
                 confirmDisabled={selectedCount === 0 || isSuccess}
-                confirmTooltip={hasNoImportableContacts ? 'You have no new contacts to import.' : undefined}
+                confirmTooltip={
+                  hasNoImportableContacts ? translateMessage('ui.youHaveNoNewContactsTo_6cd73334') : undefined
+                }
               />
             </DialogFooter>
           </form>

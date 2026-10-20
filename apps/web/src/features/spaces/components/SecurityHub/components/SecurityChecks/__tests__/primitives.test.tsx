@@ -10,7 +10,7 @@ describe('EvidenceList', () => {
   it('shortens an address value and renders a copy button', () => {
     // WA-2371: every address-typed evidence value renders the same way —
     // shortened (0xabcd…1234) with a copy button next to it.
-    render(<EvidenceList evidence={[{ label: 'Factory', value: ADDRESS }]} />)
+    render(<EvidenceList evidence={[{ label: '工厂合约', value: ADDRESS }]} />)
 
     // shortenAddress => first 6 chars + '...' + last 4
     expect(screen.getByText('0x1234...5678')).toBeInTheDocument()
@@ -19,9 +19,9 @@ describe('EvidenceList', () => {
   })
 
   it('renders a non-address value as plain text without a copy button', () => {
-    render(<EvidenceList evidence={[{ label: 'Status', value: 'Official Safe factory' }]} />)
+    render(<EvidenceList evidence={[{ label: '状态', value: 'Official Safe factory' }]} />)
 
-    expect(screen.getByText('Official Safe factory')).toBeInTheDocument()
+    expect(screen.getByText('官方 8379 工厂合约')).toBeInTheDocument()
     expect(screen.queryByTestId('copy-btn-icon')).not.toBeInTheDocument()
   })
 
@@ -30,8 +30,8 @@ describe('EvidenceList', () => {
     render(
       <EvidenceList
         evidence={[
-          { label: 'Factory', value: ADDRESS },
-          { label: 'Implementation', value: other },
+          { label: '工厂合约', value: ADDRESS },
+          { label: '实现合约', value: other },
         ]}
       />,
     )
@@ -46,10 +46,10 @@ describe('makeBuildCta', () => {
   const checkDefs: SecurityContract['checkDefs'] = {
     contract_version: {
       id: 'contract_version',
-      title: 'Contract version',
+      title: '合约版本',
       shortDescription: '',
       fixRoute: AppRoutes.settings.setup,
-      ctaLabel: 'Update',
+      ctaLabel: '更新',
       category: 'account',
     },
   }
@@ -69,7 +69,7 @@ describe('makeBuildCta', () => {
 
   it('returns the fix CTA for a passing check with an upgrade available', () => {
     expect(buildCta('contract_version', { ...clear, upgradeAvailable: true }, 'eth:0x1234')).toEqual({
-      label: 'Update',
+      label: '更新',
       href: `${AppRoutes.settings.setup}?safe=${encodeURIComponent('eth:0x1234')}`,
     })
   })

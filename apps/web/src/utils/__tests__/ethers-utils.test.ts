@@ -43,8 +43,8 @@ describe('ethers-utils', () => {
   describe('didReprice', () => {
     it('should return true for repriced transaction', () => {
       const error = {
-        name: 'Error',
-        message: 'Transaction was repriced',
+        name: '错误',
+        message: '交易 was repriced',
         code: 'TRANSACTION_REPLACED',
         reason: EthersTxReplacedReason.repriced,
       } as EthersError
@@ -54,8 +54,8 @@ describe('ethers-utils', () => {
 
     it('should return false for cancelled transaction', () => {
       const error = {
-        name: 'Error',
-        message: 'Transaction was cancelled',
+        name: '错误',
+        message: '交易 was cancelled',
         code: 'TRANSACTION_REPLACED',
         reason: EthersTxReplacedReason.cancelled,
       } as EthersError
@@ -65,8 +65,8 @@ describe('ethers-utils', () => {
 
     it('should return false for replaced transaction', () => {
       const error = {
-        name: 'Error',
-        message: 'Transaction was replaced',
+        name: '错误',
+        message: '交易 was replaced',
         code: 'TRANSACTION_REPLACED',
         reason: EthersTxReplacedReason.replaced,
       } as EthersError
@@ -76,7 +76,7 @@ describe('ethers-utils', () => {
 
     it('should return false for error without reason', () => {
       const error = {
-        name: 'Error',
+        name: '错误',
         message: 'Some error',
         code: 'UNKNOWN_ERROR',
       } as EthersError

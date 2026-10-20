@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -25,7 +26,6 @@ import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import commonCss from '@safe-global/views/components/tx-flow/common/styles.module.css'
 import { TOOLTIP_TITLES } from '@safe-global/views/components/tx-flow/common/constants'
 import EthHashInfo from '@/components/common/EthHashInfo'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 type FormData = Pick<AddOwnerFlowProps | ReplaceOwnerFlowProps, 'newOwner' | 'threshold'>
 
@@ -59,7 +59,10 @@ export const ChooseOwner = ({
     safe.owners.map((owner) => owner.value),
     getContractErrorMessage('GS204'),
   )
-  const notCurrentSafe = addressIsNotCurrentSafe(safeAddress)
+  const notCurrentSafe = addressIsNotCurrentSafe(
+    safeAddress,
+    translateMessage('ui.cannotUseAccountItselfAsSigner_509aab54'),
+  )
   const notReserved = addressIsNotReserved()
   const combinedValidate = (address: string) =>
     notAlreadyOwner(address) || notCurrentSafe(address) || notReserved(address)
@@ -98,12 +101,11 @@ export const ChooseOwner = ({
           {params.removedOwner && (
             <>
               <Typography variant="paragraph-small" className="block mb-2">
-                {params.removedOwner &&
-                  'Review the signer you want to replace in the active Safe account, then specify the new signer you want to replace it with:'}
+                {params.removedOwner && translateMessage('ui.reviewTheSignerYouWantTo_2c6ed86c')}
               </Typography>
               <div className="my-6">
                 <Typography variant="paragraph-small" className="block mb-2 text-muted-foreground">
-                  Current signer
+                  {translateMessage('ui.currentSigner_c2630cc6')}
                 </Typography>
                 <EthHashInfo address={params.removedOwner.address} showCopyButton shortAddress={false} hasExplorer />
               </div>
@@ -113,9 +115,9 @@ export const ChooseOwner = ({
           <div className="mb-7 w-full">
             <NameInput
               inputSize="hero"
-              label="New signer"
+              label={translateMessage('ui.newSigner_ea3ff983')}
               name="newOwner.name"
-              placeholder={fallbackName || 'Signer name'}
+              placeholder={fallbackName || translateMessage('ui.signerName_8893c373')}
               InputLabelProps={{ shrink: true }}
               InputProps={{
                 endAdornment: resolving && <Spinner className="size-5" />,
@@ -126,7 +128,7 @@ export const ChooseOwner = ({
           <div className="mb-7 w-full">
             <AddressBookInput
               name="newOwner.address"
-              label="Signer address or ENS"
+              label={translateMessage('ui.signerAddressOrENS_89fe4689')}
               validate={combinedValidate}
               required
             />
@@ -137,7 +139,7 @@ export const ChooseOwner = ({
           {mode === ChooseOwnerMode.ADD && (
             <div className="mb-7 w-full">
               <Typography variant="h4" className="mt-6 inline-flex items-center gap-1 font-bold">
-                Threshold
+                {translateMessage('ui.threshold_60fbd8eb')}
                 <Tooltip>
                   <TooltipTrigger
                     render={
@@ -151,7 +153,7 @@ export const ChooseOwner = ({
               </Typography>
 
               <Typography variant="paragraph-small" className="mb-2 block">
-                Any transaction requires the confirmation of:
+                {translateMessage('ui.anyTransactionRequiresTheConfirmationOf_d009e878')}
               </Typography>
 
               <div className="flex flex-row items-center gap-4 pt-2">
@@ -183,7 +185,8 @@ export const ChooseOwner = ({
                 </div>
                 <div>
                   <Typography>
-                    out of {newNumberOfOwners} signer{maybePlural(newNumberOfOwners)}
+                    {translateMessage('ui.outOf_9bf030fe')}
+                    {newNumberOfOwners} {translateMessage('ui.signer_efab2dcb')}
                   </Typography>
                 </div>
               </div>
@@ -198,7 +201,7 @@ export const ChooseOwner = ({
 
           <TxCardActions>
             <Button data-testid="add-owner-next-btn" type="submit" disabled={!isValid || resolving || !!thresholdError}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </form>

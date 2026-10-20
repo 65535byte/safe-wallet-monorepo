@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type SafeItem, type MultiChainSafeItem, isMultiChainSafeItem } from '@/hooks/safes'
 import { ADMIN_ONLY_RENAME_MESSAGE } from '@/utils/addressBookNotifications'
 import RemoveSafeDialog from './RemoveSafeDialog'
@@ -13,7 +14,7 @@ import {
 import EntryDialog from '@/components/address-book/EntryDialog'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { useAddressBookWriteScope, useIsAdmin } from '@/features/spaces'
 import { useSafeDisplayName } from '@/hooks/useSafeDisplayName'
 
@@ -35,6 +36,7 @@ const SpaceSafeContextMenu = ({ safeItem }: { safeItem: SafeItem | MultiChainSaf
 
   const handleOpenModal = (e: MouseEvent, type: keyof typeof open) => {
     e.stopPropagation()
+    if (type === ModalType.REMOVE) trackEvent({ ...SPACE_EVENTS.DELETE_ACCOUNT_MODAL })
     setIsMenuOpen(false)
     setOpen((prev) => ({ ...prev, [type]: true }))
   }
@@ -51,7 +53,7 @@ const SpaceSafeContextMenu = ({ safeItem }: { safeItem: SafeItem | MultiChainSaf
             <Button
               variant="ghost"
               size="icon-sm"
-              aria-label="Safe Account actions"
+              aria-label={translateMessage('ui.accountActions_02de48df')}
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation()
@@ -71,22 +73,20 @@ const SpaceSafeContextMenu = ({ safeItem }: { safeItem: SafeItem | MultiChainSaf
                 onSelect={(e) => e.stopPropagation()}
               >
                 <Pencil className="size-4 text-muted-foreground" />
-                <span data-testid="space-safe-rename-btn">Rename</span>
+                <span data-testid="space-safe-rename-btn">{translateMessage('ui.rename_f5101245')}</span>
               </DropdownMenuItem>
             </TooltipTrigger>
             {!canRename && <TooltipContent>{ADMIN_ONLY_RENAME_MESSAGE}</TooltipContent>}
           </Tooltip>
 
           {isAdmin && (
-            <Track {...SPACE_EVENTS.DELETE_ACCOUNT_MODAL}>
-              <DropdownMenuItem
-                onClick={(e) => handleOpenModal(e, ModalType.REMOVE)}
-                onSelect={(e) => e.stopPropagation()}
-              >
-                <LogOut className="size-4 text-muted-foreground" />
-                <span>Remove from Workspace</span>
-              </DropdownMenuItem>
-            </Track>
+            <DropdownMenuItem
+              onClick={(e) => handleOpenModal(e, ModalType.REMOVE)}
+              onSelect={(e) => e.stopPropagation()}
+            >
+              <LogOut className="size-4 text-muted-foreground" />
+              <span>{translateMessage('ui.removeFromWorkspace_332835e5')}</span>
+            </DropdownMenuItem>
           )}
         </DropdownMenuContent>
       </DropdownMenu>

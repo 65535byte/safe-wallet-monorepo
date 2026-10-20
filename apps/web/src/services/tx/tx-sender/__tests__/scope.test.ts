@@ -61,17 +61,13 @@ describe('tx-sender scope handling', () => {
     })
 
     it('throws instead of falling back when the scope has no SDK yet', () => {
-      expect(() => getAndValidateSafeSDK({ ...scope, sdk: undefined })).toThrow(
-        'The Safe SDK for the selected Safe account is not initialized yet.',
-      )
+      expect(() => getAndValidateSafeSDK({ ...scope, sdk: undefined })).toThrow('所选 8379 账户的 SDK 尚未初始化。')
     })
 
     it('throws and logs once when the singleton is reached while a SafeScope is mounted', () => {
       const unregister = registerActiveScope()
       try {
-        expect(() => getAndValidateSafeSDK()).toThrow(
-          'A Safe account must be selected before transacting in this flow.',
-        )
+        expect(() => getAndValidateSafeSDK()).toThrow('在此流程中交易前，必须先选择 8379 账户。')
         expect(mockLogError).toHaveBeenCalledTimes(1)
         expect(mockLogError).toHaveBeenCalledWith(ErrorCodes._822, expect.any(String))
       } finally {
@@ -82,14 +78,12 @@ describe('tx-sender scope handling', () => {
 
   it('getSafeProvider uses the scoped provider URL', () => {
     jest.spyOn(web3ReadOnly, 'getWeb3ReadOnly').mockReturnValue(undefined)
-    expect(() => getSafeProvider()).toThrow('Provider not found.')
+    expect(() => getSafeProvider()).toThrow('未找到服务提供方。')
     expect(getSafeProvider(scope)).toBeDefined()
   })
 
   it('getSafeProvider throws instead of falling back when the scope has no provider yet', () => {
-    expect(() => getSafeProvider({ ...scope, web3ReadOnly: undefined })).toThrow(
-      'The provider for the selected Safe account is not initialized yet.',
-    )
+    expect(() => getSafeProvider({ ...scope, web3ReadOnly: undefined })).toThrow('所选 8379 账户的服务尚未初始化。')
   })
 
   it('getSafeSDKWithSigner connects the scoped SDK', async () => {

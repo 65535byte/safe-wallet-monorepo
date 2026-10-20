@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MouseEvent, ReactElement } from 'react'
 import type { UrlObject } from 'url'
 import NextLink from 'next/link'
@@ -40,8 +41,14 @@ const ParentSafeWalletNotice = ({
       <AlertTitle>{title}</AlertTitle>
       <AlertDescription>
         <p>
-          Your connected wallet, {parentSafeName}, is a parent Safe account of {safeName}. To {action} on its behalf,
-          open the settings of {safeName} with a signer of {parentSafeName}.
+          {translateMessage('ui.yourConnectedWallet_ef33b0f1')}
+          {parentSafeName}
+          {translateMessage('ui.isAParentAccountOf_1b6f760f')}
+          {safeName}
+          {translateMessage('ui.to_f8ca49f1')}
+          {action} {translateMessage('ui.onItsBehalfOpenTheSettings_a4872fb8')}
+          {safeName} {translateMessage('ui.withASignerOf_54c213bf')}
+          {parentSafeName}.
         </p>
         {settingsHref && (
           <Link
@@ -49,7 +56,7 @@ const ParentSafeWalletNotice = ({
             onMouseDown={(event) => event.stopPropagation()}
             onClick={goToSettings}
           >
-            Go to Safe settings
+            {translateMessage('ui.goToSettings_782b4422')}
           </Link>
         )}
       </AlertDescription>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactNode, useMemo } from 'react'
 import { type Balance } from '@safe-global/store/gateway/AUTO_GENERATED/balances'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -12,7 +13,7 @@ const SendAmountBlock = ({
   amountInWei,
   tokenInfo,
   children,
-  title = 'Send',
+  title = translateMessage('ui.send_f1004bfb'),
   fiatConversion,
 }: {
   /** Amount in WEI */

@@ -138,8 +138,8 @@ describe('accountSetupScanner', () => {
       expect(result.status).toBe('issue')
       expect(result.severity).toBe('Critical')
       expect(result.score).toBe(15)
-      expect(result.remediation).toContain('Add another signer')
-      expect(result.remediation).not.toContain('2 of 2')
+      expect(result.remediation).toContain('添加其他签名人')
+      expect(result.remediation).not.toContain('2 / 2')
     })
 
     it('returns partial for threshold below majority (e.g., 2 of 5)', async () => {
@@ -154,7 +154,7 @@ describe('accountSetupScanner', () => {
       const result = await accountSetupScanner.scan(ctx)
       expect(result.status).toBe('partial')
       expect(result.severity).toBe('Medium')
-      expect(result.remediation).toContain('3 of 4')
+      expect(result.remediation).toContain('3 / 4')
     })
 
     it('returns clear for 3 of 4 (strict majority, not n/n)', async () => {
@@ -168,7 +168,7 @@ describe('accountSetupScanner', () => {
       const ctx = createMockContext({ owners: owners(4), threshold: 1 })
       const result = await accountSetupScanner.scan(ctx)
       expect(result.status).toBe('issue')
-      expect(result.remediation).toContain('3 of 4')
+      expect(result.remediation).toContain('3 / 4')
     })
 
     it('returns clear for threshold at simple majority (2 of 3)', async () => {

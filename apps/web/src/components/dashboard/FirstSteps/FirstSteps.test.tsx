@@ -172,59 +172,59 @@ describe('FirstSteps', () => {
 
   it('shows "Activate your Safe account" heading when not activating', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText('Activate your Safe account')).toBeInTheDocument()
+    expect(screen.getByText('激活 8379 账户')).toBeInTheDocument()
   })
 
   it('shows steps completed count', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText(/0 of 2 steps completed/)).toBeInTheDocument()
+    expect(screen.getByText(/0 \/ 2 steps completed/)).toBeInTheDocument()
   })
 
   it('shows 1 of 2 steps completed when safe has balance', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'AWAITING_EXECUTION', hasBalance: true })
-    expect(screen.getByText(/1 of 2 steps completed/)).toBeInTheDocument()
+    expect(screen.getByText(/1 \/ 2 steps completed/)).toBeInTheDocument()
   })
 
   it('shows "Add native assets" widget when not activating and single-sig', () => {
     renderWithUndeployedSafe({ threshold: 1, undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText('Add native assets')).toBeInTheDocument()
+    expect(screen.getByText('添加原生资产')).toBeInTheDocument()
   })
 
   it('shows "Create your first transaction" widget for single-sig undeployed safe', () => {
     renderWithUndeployedSafe({ threshold: 1, undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText('Create your first transaction')).toBeInTheDocument()
+    expect(screen.getByText('创建第一笔交易')).toBeInTheDocument()
   })
 
   it('shows "Activate account" widget for multi-sig undeployed safe', () => {
     renderWithUndeployedSafe({ threshold: 2, undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText(/Activate account/)).toBeInTheDocument()
+    expect(screen.getByText(/激活账户/)).toBeInTheDocument()
   })
 
   it('shows "Account is being activated..." when status is not AWAITING_EXECUTION', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'PROCESSING' })
-    expect(screen.getByText('Account is being activated...')).toBeInTheDocument()
+    expect(screen.getByText('账户正在激活中…')).toBeInTheDocument()
   })
 
   it('shows "Transaction pending" widget while activating', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'PROCESSING' })
-    expect(screen.getByText('Transaction pending')).toBeInTheDocument()
+    expect(screen.getByText('交易处理中')).toBeInTheDocument()
   })
 
   it('shows "Did you know" hints widget while activating', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'PROCESSING' })
-    expect(screen.getByText('Did you know')).toBeInTheDocument()
+    expect(screen.getByText('您知道吗')).toBeInTheDocument()
   })
 
   it('shows AccountReady widget (not Hn banner) when showBanner is false', () => {
     renderWithUndeployedSafe({ undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.getByText('Safe account is ready!')).toBeInTheDocument()
+    expect(screen.getByText('8379 账户已就绪！')).toBeInTheDocument()
     expect(screen.queryByTestId('hn-banner')).not.toBeInTheDocument()
   })
 
   it('shows Hn banner instead of AccountReady when showBanner is true', () => {
     mockUseBannerVisibility.mockReturnValue({ showBanner: true })
     renderWithUndeployedSafe({ undeployedSafeStatus: 'AWAITING_EXECUTION' })
-    expect(screen.queryByText('Safe account is ready!')).not.toBeInTheDocument()
+    expect(screen.queryByText('8379 账户已就绪！')).not.toBeInTheDocument()
     expect(screen.getByTestId('hn-banner')).toBeInTheDocument()
   })
 

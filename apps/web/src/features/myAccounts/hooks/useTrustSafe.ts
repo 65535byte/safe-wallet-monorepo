@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { useAppDispatch } from '@/store'
 import { addOrUpdateSafe } from '@/store/addedSafesSlice'
@@ -55,8 +56,8 @@ export function useTrustSafe() {
 
       dispatch(
         showNotification({
-          title: 'Safe confirmed',
-          message: 'This Safe has been added to your accounts',
+          title: translateMessage('ui.confirmed_77845f8f'),
+          message: translateMessage('ui.thisHasBeenAddedToYour_1eb98076'),
           groupKey: `pin-safe-success-${address}`,
           variant: 'success',
         }),

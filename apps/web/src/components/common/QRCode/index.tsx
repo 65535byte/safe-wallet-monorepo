@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import QRCodeReact from 'qrcode.react'
 import { lightPalette, darkPalette } from '@safe-global/theme/palettes'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -15,11 +16,11 @@ const QRCode = ({ value, size }: { value?: string; size: number }): ReactElement
       value={value}
       size={size}
       role="img"
-      aria-label="QR code"
+      aria-label={translateMessage('ui.qRCode_442151e3')}
       bgColor={palette.background.paper}
       fgColor={palette.text.primary}
       imageSettings={{
-        src: '/images/safe-logo-green.png',
+        src: '/images/brand-logo.png',
         width: QR_LOGO_SIZE,
         height: QR_LOGO_SIZE,
         excavate: true,

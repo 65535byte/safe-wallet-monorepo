@@ -24,7 +24,6 @@ export const SpacesSidebarContent = ({
   const isActiveMember = useIsActiveMember(selectedSpace?.uuid)
   const isSecurityHubEnabled = useHasFeature(FEATURES.SECURITY_HUB)
   const isAuditLogEnabled = useHasFeature(FEATURES.SPACE_AUDIT_LOG)
-  const isTransactionsEnabled = useHasFeature(FEATURES.SPACE_TRANSACTIONS)
   const isPoliciesEnabled = useHasFeature(FEATURES.POLICIES)
   const isAnnounced = useIsSafeProAnnouncementEnabled()
   const isSafePro = useIsSafeProEnabled()
@@ -55,7 +54,6 @@ export const SpacesSidebarContent = ({
           [
             [AppRoutes.spaces.security, isSecurityHubEnabled],
             [AppRoutes.spaces.activity, isAuditLogEnabled],
-            [AppRoutes.spaces.transactions, isTransactionsEnabled],
             [AppRoutes.spaces.policies, isPoliciesEnabled],
             [AppRoutes.spaces.plans, isAnnounced || isSafePro],
           ] as const
@@ -63,7 +61,7 @@ export const SpacesSidebarContent = ({
           .filter(([, isEnabled]) => isEnabled === false)
           .map(([href]) => href),
       ),
-    [isSecurityHubEnabled, isAuditLogEnabled, isTransactionsEnabled, isPoliciesEnabled, isAnnounced, isSafePro],
+    [isSecurityHubEnabled, isAuditLogEnabled, isPoliciesEnabled, isAnnounced, isSafePro],
   )
 
   const filteredSetupGroup = useMemo(

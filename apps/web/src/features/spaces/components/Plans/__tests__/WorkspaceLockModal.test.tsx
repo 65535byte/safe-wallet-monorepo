@@ -45,7 +45,7 @@ jest.mock('@safe-global/views/features/spaces/components/SafeProModals', () => (
     <div data-testid="locked-member-modal">
       <h2>{title}</h2>
       <p>{body}</p>
-      <button onClick={onAction}>Back to My accounts</button>
+      <button onClick={onAction}>返回我的账户</button>
       {secondaryActionLabel && secondaryActionHref && <a href={secondaryActionHref}>{secondaryActionLabel}</a>}
       {secondaryActionLabel && onSecondaryAction && <button onClick={onSecondaryAction}>{secondaryActionLabel}</button>}
     </div>
@@ -113,9 +113,9 @@ describe('WorkspaceLockModal', () => {
 
     expect(screen.getByRole('heading', { name: _PLAN_ERROR_COPY.title })).toBeInTheDocument()
     expect(screen.queryByTestId('claim-trial-modal')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(retry).toHaveBeenCalledTimes(1)
-    fireEvent.click(screen.getByRole('button', { name: 'Back to My accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '返回我的账户' }))
     expect(mockPush).toHaveBeenCalledWith('/welcome/accounts')
   })
 
@@ -156,12 +156,10 @@ describe('WorkspaceLockModal', () => {
     mockUseIsAdmin.mockReturnValue(false)
     render(<WorkspaceLockModal spaceId={SPACE_ID} />)
 
-    expect(screen.getByTestId('locked-member-modal')).toHaveTextContent('Your Workspace moved to Safe Pro')
-    expect(screen.getByTestId('locked-member-modal')).toHaveTextContent(
-      'Acme Inc is locked until an admin claims free access.',
-    )
+    expect(screen.getByTestId('locked-member-modal')).toHaveTextContent('开始使用 8379 工作空间')
+    expect(screen.getByTestId('locked-member-modal')).toHaveTextContent('管理员领取免费使用期前，Acme Inc 将保持锁定。')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back to My accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '返回我的账户' }))
     expect(mockPush).toHaveBeenCalledWith('/welcome/accounts')
     expect(trackEvent).not.toHaveBeenCalled()
   })
@@ -176,10 +174,10 @@ describe('WorkspaceLockModal', () => {
 
   it('words the member explanation by lock reason', () => {
     expect(_memberCopy('lapsed', null, ENDED_AT, 'Acme Inc')).toEqual({
-      title: 'Your free access ended on Dec 5, 2026',
-      body: 'An admin needs to choose a plan to unlock your Workspace.\nYour Safe accounts remain available in My accounts.',
+      title: '免费使用期已于 Dec 5, 2026 结束',
+      body: '需要管理员选择套餐以解锁工作空间。\n8379 账户仍可在“我的账户”中使用。',
     })
-    expect(_memberCopy('payment-failed', null, null, 'Acme Inc').title).toBe('Your Workspace’s last payment failed')
-    expect(_memberCopy('trial-offered', 30, null, 'Acme Inc').title).toBe('Start your 30-day free access to Safe Pro')
+    expect(_memberCopy('payment-failed', null, null, 'Acme Inc').title).toBe('工作空间上次付款失败')
+    expect(_memberCopy('trial-offered', 30, null, 'Acme Inc').title).toBe('开始免费使用 8379 30 天')
   })
 })

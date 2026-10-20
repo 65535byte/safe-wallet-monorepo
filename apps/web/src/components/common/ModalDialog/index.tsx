@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, type ReactNode } from 'react'
 import { X } from 'lucide-react'
 import { Dialog, DialogContent, DialogOverlay, DialogPortal } from '@safe-global/views/components/ui/dialog'
@@ -73,7 +74,7 @@ export const ModalDialogTitle = ({
       {onClose ? (
         <Button
           data-testid="modal-dialog-close-btn"
-          aria-label="close"
+          aria-label={translateMessage('ui.close_aaaeeafe')}
           variant="ghost"
           size="icon-sm"
           onClick={() => onClose()}

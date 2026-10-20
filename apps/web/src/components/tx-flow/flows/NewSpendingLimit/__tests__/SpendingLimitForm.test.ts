@@ -13,13 +13,13 @@ describe('CreateSpendingLimit', () => {
     it('should return an error is the amount if too big', () => {
       const result = validateSpendingLimitAmount('100000000000000000000', 18)
 
-      expect(result).toEqual('Amount is too big')
+      expect(result).toEqual('金额过大')
     })
 
     it('should return an error if the amount is too small', () => {
       const result = validateSpendingLimitAmount('0.0000000000000000001', 18)
 
-      expect(result).toEqual('Amount is too small')
+      expect(result).toEqual('金额过小')
     })
 
     it('should return an error when the token decimals are unknown', () => {

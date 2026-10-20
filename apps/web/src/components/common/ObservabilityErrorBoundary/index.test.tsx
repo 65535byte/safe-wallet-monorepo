@@ -35,7 +35,7 @@ describe('ObservabilityErrorBoundary', () => {
       </ObservabilityErrorBoundary>,
     )
 
-    expect(getByText(/Something went wrong/i)).toBeInTheDocument()
+    expect(getByText(/出现问题/i)).toBeInTheDocument()
   })
 
   it('should call onError callback when an error is caught', () => {

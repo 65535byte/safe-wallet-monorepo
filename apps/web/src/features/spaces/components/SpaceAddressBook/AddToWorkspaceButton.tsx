@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -37,7 +38,7 @@ const AddToWorkspaceButton = ({ address, name, chainIds, isCompact }: AddToWorks
     }
   }
 
-  const label = added ? 'Added' : 'Add to Workspace'
+  const label = added ? translateMessage('ui.added_62008174') : translateMessage('ui.addToWorkspace_2661fd2b')
   const icon = added ? <Check className="size-4" /> : <Plus className="size-4" />
 
   // Compact has no room for the label, so it moves into the accessible name and a tooltip

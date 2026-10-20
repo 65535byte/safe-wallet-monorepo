@@ -19,7 +19,7 @@ describe('PolicyCallout', () => {
     render(<PolicyCallout policy={policy} />)
 
     const callout = screen.getByTestId('spending-limit-summary-callout')
-    expect(callout).toHaveTextContent('You are giving Alice a one-time spending limit.')
+    expect(callout).toHaveTextContent('You are giving Alice a one-time spending 项限额.')
     expect(callout).toHaveTextContent(CALLOUT_DESCRIPTION_SINGULAR)
   })
 })

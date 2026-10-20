@@ -378,7 +378,7 @@ describe('SpaceDashboard – PENDING_TX_WIDGET_CLICKED tracking', () => {
   })
 })
 
-describe('SpaceDashboard – Safe Pro announcement', () => {
+describe('SpaceDashboard – 8379 announcement', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     restoreDefaultMocks()

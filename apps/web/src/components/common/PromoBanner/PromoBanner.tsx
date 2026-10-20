@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import css from './styles.module.css'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -184,7 +185,7 @@ const PromoBanner = ({
         <button
           type="button"
           className={css.closeButton}
-          aria-label="close"
+          aria-label={translateMessage('ui.close_aaaeeafe')}
           onClick={handleDismiss}
           style={customCloseIconColor ? { color: customCloseIconColor } : undefined}
         >

@@ -66,7 +66,7 @@ describe('AppCommunicator', () => {
     it('should send error responses to allowedOrigin', () => {
       const communicator = new AppCommunicator(iframeRef, ALLOWED_ORIGIN)
 
-      communicator.send('Something went wrong', 'req-2', true)
+      communicator.send('出现问题', 'req-2', true)
 
       expect(iframeRef.current?.contentWindow?.postMessage).toHaveBeenCalledWith(
         expect.objectContaining({ id: 'req-2', success: false }),
@@ -221,7 +221,7 @@ describe('AppCommunicator', () => {
       const [sentMessage] = (iframeRef.current?.contentWindow?.postMessage as jest.Mock).mock.calls[0]
       expect(sentMessage.error).not.toContain('secret')
       expect(sentMessage.error).not.toContain('/home/user')
-      expect(sentMessage.error).toBe('Request failed')
+      expect(sentMessage.error).toBe('请求失败')
 
       communicator.clear()
     })

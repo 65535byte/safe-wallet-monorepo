@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import TxLayout from '@/components/tx-flow/common/TxLayout'
 import SignMessage, { type SignMessageProps } from '@/components/tx-flow/flows/SignMessage/SignMessage'
 import { getSwapTitle } from '@/features/swap'
@@ -15,7 +16,7 @@ import EarnIcon from '@/public/images/common/earn.svg'
 import StakeIcon from '@/public/images/common/stake.svg'
 
 const APP_LOGO_FALLBACK_IMAGE = '/images/apps/apps-icon.svg'
-const APP_NAME_FALLBACK = 'Sign message'
+const APP_NAME_FALLBACK = translateMessage('ui.signMessage_6730bf96')
 
 /** Inline SVG to support currentColor in dark mode */
 const InlineIcon = ({ name }: { name: string }) => {
@@ -71,14 +72,14 @@ const SignMessageFlow = ({ message, ...props }: SignMessageProps) => {
 
   return (
     <TxLayout
-      title="Confirm message"
+      title={translateMessage('ui.confirmMessage_88910180')}
       subtitle={<AppTitle name={props.name} logoUri={props.logoUri} />}
       step={0}
       hideNonce
       isMessage
       hideSafeShield={!isEip712}
     >
-      <ObservabilityErrorBoundary fallback={<div>Error signing message</div>}>
+      <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorSigningMessage_168e0c5b')}</div>}>
         <SignMessage message={message} {...props} />
       </ObservabilityErrorBoundary>
     </TxLayout>

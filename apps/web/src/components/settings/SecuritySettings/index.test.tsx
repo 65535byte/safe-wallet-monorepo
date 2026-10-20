@@ -19,7 +19,7 @@ describe('SecuritySettings', () => {
 
     const checkbox = screen.getByRole('checkbox')
 
-    expect(screen.getByText('Security')).toBeInTheDocument()
+    expect(screen.getByText('安全')).toBeInTheDocument()
     expect(checkbox).toHaveAttribute('aria-checked', 'false')
 
     fireEvent.click(checkbox)

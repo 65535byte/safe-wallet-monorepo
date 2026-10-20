@@ -52,9 +52,7 @@ describe('AppsPage', () => {
       await waitFor(() => {
         expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-        expect(
-          screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-        ).toBeInTheDocument()
+        expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
       })
     })
@@ -76,16 +74,16 @@ describe('AppsPage', () => {
       // click anywhere on the card passes through the pointer-events-none content layer to this
       // link, but jsdom does no hit-testing, so the test must click the link directly.
       await waitFor(() => {
-        fireEvent.click(screen.getByRole('link', { name: 'Open Transaction Builder' }))
+        fireEvent.click(screen.getByRole('link', { name: '打开交易构建器' }))
       })
 
       await waitFor(() => {
         const safeAppPreviewDrawer = screen.getByRole('dialog')
         expect(safeAppPreviewDrawer).toBeInTheDocument()
         // Transaction Builder Safe App title
-        expect(getByRole(safeAppPreviewDrawer, 'heading', { level: 4, name: 'Transaction Builder' }))
+        expect(getByRole(safeAppPreviewDrawer, 'heading', { level: 4, name: '交易构建器' }))
         // open app button should be present
-        expect(getByText(safeAppPreviewDrawer, 'Open Safe App'))
+        expect(getByText(safeAppPreviewDrawer, '打开 8379 应用'))
       })
     })
   })
@@ -113,7 +111,7 @@ describe('AppsPage', () => {
         expect(screen.queryByText('My pinned apps (2)')).toBeInTheDocument()
       })
       await expectBookmarkTooltip('Compound', 'Unpin Compound')
-      await expectBookmarkTooltip('Transaction Builder', 'Unpin Transaction Builder')
+      await expectBookmarkTooltip('交易构建器', 'Unpin Transaction Builder')
       await expectBookmarkTooltip('ENS App', 'Pin ENS App')
       await expectBookmarkTooltip('Synthetix', 'Pin Synthetix')
     })
@@ -140,17 +138,17 @@ describe('AppsPage', () => {
         expect(screen.queryByText('My pinned apps (2)')).toBeInTheDocument()
       })
       await expectBookmarkTooltip('Compound', 'Unpin Compound')
-      await expectBookmarkTooltip('Transaction Builder', 'Unpin Transaction Builder')
+      await expectBookmarkTooltip('交易构建器', 'Unpin Transaction Builder')
 
       // unpin Transaction Builder Safe App
-      fireEvent.click(getBookmarkButton('Transaction Builder'))
+      fireEvent.click(getBookmarkButton('交易构建器'))
 
       // Compound stays pinned, Transaction Builder is now unpinned (shows the "Pin" tooltip)
       await waitFor(() => {
         expect(screen.queryByText('My pinned apps (1)')).toBeInTheDocument()
       })
       await expectBookmarkTooltip('Compound', 'Unpin Compound')
-      await expectBookmarkTooltip('Transaction Builder', 'Pin Transaction Builder')
+      await expectBookmarkTooltip('交易构建器', 'Pin Transaction Builder')
     })
 
     it('shows Safe app details when you click on the Safe app card', async () => {
@@ -177,16 +175,16 @@ describe('AppsPage', () => {
       // click anywhere on the card passes through the pointer-events-none content layer to this
       // link, but jsdom does no hit-testing, so the test must click the link directly.
       await waitFor(() => {
-        fireEvent.click(screen.getByRole('link', { name: 'Open Transaction Builder' }))
+        fireEvent.click(screen.getByRole('link', { name: '打开交易构建器' }))
       })
 
       await waitFor(() => {
         const safeAppPreviewDrawer = screen.getByRole('dialog')
         expect(safeAppPreviewDrawer).toBeInTheDocument()
         // Transaction Builder Safe App title
-        expect(getByRole(safeAppPreviewDrawer, 'heading', { level: 4, name: 'Transaction Builder' }))
+        expect(getByRole(safeAppPreviewDrawer, 'heading', { level: 4, name: '交易构建器' }))
         // open app button should be present
-        expect(getByText(safeAppPreviewDrawer, 'Open Safe App'))
+        expect(getByText(safeAppPreviewDrawer, '打开 8379 应用'))
       })
     })
   })
@@ -204,22 +202,22 @@ describe('AppsPage', () => {
 
       await waitFor(() => {
         // show add custom app card
-        expect(screen.getByRole('button', { name: 'Add custom Safe App' }))
+        expect(screen.getByRole('button', { name: '添加自定义 8379 应用' }))
       })
 
       // Add custom app modal is not present
       expect(screen.queryByRole('presentation')).not.toBeInTheDocument()
 
       act(() => {
-        fireEvent.click(screen.getByRole('button', { name: 'Add custom Safe App' }))
+        fireEvent.click(screen.getByRole('button', { name: '添加自定义 8379 应用' }))
       })
 
       // shows Add custom app modal
       await waitFor(() => {
-        expect(screen.getByRole('heading', { level: 2, name: /Add custom Safe App/i })).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 2, name: /添加自定义 8379 应用/i })).toBeInTheDocument()
 
         // shows custom safe App App Url input
-        const customSafeAppURLInput = screen.getByLabelText(/Safe App URL/)
+        const customSafeAppURLInput = screen.getByLabelText(/8379 应用 网址/)
         expect(customSafeAppURLInput).toBeInTheDocument()
       })
     })
@@ -254,10 +252,10 @@ describe('AppsPage', () => {
         },
       })
 
-      await userEvent.click(screen.getByRole('button', { name: 'Add custom Safe App' }))
+      await userEvent.click(screen.getByRole('button', { name: '添加自定义 8379 应用' }))
 
-      await waitFor(() => expect(screen.getByLabelText(/Safe App URL/)).toBeInTheDocument())
-      const appURLInput = screen.getByLabelText(/Safe App URL/)
+      await waitFor(() => expect(screen.getByLabelText(/8379 应用 网址/)).toBeInTheDocument())
+      const appURLInput = screen.getByLabelText(/8379 应用 网址/)
       fireEvent.change(appURLInput, { target: { value: APP_URL } })
       const riskCheckbox = await screen.findByRole('checkbox')
       await userEvent.click(riskCheckbox)
@@ -268,10 +266,10 @@ describe('AppsPage', () => {
           }),
         ).toBeInTheDocument(),
       )
-      await userEvent.click(screen.getByText('Add'))
+      await userEvent.click(screen.getByText('添加'))
 
       // modal is closed (shadcn Dialog unmounts the field synchronously, so wait for absence)
-      await waitFor(() => expect(screen.queryByLabelText(/Safe App URL/)).not.toBeInTheDocument())
+      await waitFor(() => expect(screen.queryByLabelText(/8379 应用 网址/)).not.toBeInTheDocument())
 
       // custom safe app is present in the list
       expect(screen.queryByText('Custom test Safe app')).toBeInTheDocument()
@@ -280,7 +278,7 @@ describe('AppsPage', () => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 
       // clicks on Custom test Safe app Safe App (overlay link — see note above about jsdom hit-testing)
-      fireEvent.click(screen.getByRole('link', { name: 'Open Custom test Safe app' }))
+      fireEvent.click(screen.getByRole('link', { name: '打开 Custom test Safe app' }))
 
       await waitFor(() => {
         const safeAppPreviewDrawer = screen.getByRole('dialog')
@@ -288,7 +286,7 @@ describe('AppsPage', () => {
         // Custom test Safe app Safe App title
         expect(getByRole(safeAppPreviewDrawer, 'heading', { level: 4, name: 'Custom test Safe app' }))
         // open app button should be present
-        expect(getByText(safeAppPreviewDrawer, 'Open Safe App'))
+        expect(getByText(safeAppPreviewDrawer, '打开 8379 应用'))
       })
     })
 
@@ -302,17 +300,17 @@ describe('AppsPage', () => {
           },
         },
       })
-      await waitFor(() => expect(screen.getByText('Add custom Safe App')).toBeInTheDocument())
-      const addCustomAppButton = screen.getByText('Add custom Safe App')
+      await waitFor(() => expect(screen.getByText('添加自定义 8379 应用')).toBeInTheDocument())
+      const addCustomAppButton = screen.getByText('添加自定义 8379 应用')
       act(() => {
         fireEvent.click(addCustomAppButton)
       })
-      await waitFor(() => expect(screen.getByLabelText(/Safe App URL/)).toBeInTheDocument(), { timeout: 3000 })
-      const appURLInput = screen.getByLabelText(/Safe App URL/)
+      await waitFor(() => expect(screen.getByLabelText(/8379 应用 网址/)).toBeInTheDocument(), { timeout: 3000 })
+      const appURLInput = screen.getByLabelText(/8379 应用 网址/)
       fireEvent.change(appURLInput, { target: { value: INVALID_SAFE_APP_URL } })
       await waitFor(
         () => {
-          expect(screen.getByText(/the app doesn't support Safe App functionality/i)).toBeInTheDocument()
+          expect(screen.getByText(/此应用不支持 8379 应用 功能/i)).toBeInTheDocument()
         },
         { timeout: 5000 },
       )
@@ -347,24 +345,24 @@ describe('AppsPage', () => {
           },
         },
       })
-      await waitFor(() => expect(screen.getByText('Add custom Safe App')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText('添加自定义 8379 应用')).toBeInTheDocument())
 
-      const addCustomAppButton = screen.getByText('Add custom Safe App')
+      const addCustomAppButton = screen.getByText('添加自定义 8379 应用')
       await userEvent.click(addCustomAppButton)
 
-      await waitFor(() => expect(screen.getByLabelText(/Safe App URL/)).toBeInTheDocument(), { timeout: 3000 })
+      await waitFor(() => expect(screen.getByLabelText(/8379 应用 网址/)).toBeInTheDocument(), { timeout: 3000 })
 
-      const appURLInput = screen.getByLabelText(/Safe App URL/)
+      const appURLInput = screen.getByLabelText(/8379 应用 网址/)
       await userEvent.type(appURLInput, APP_URL)
 
       const riskCheckbox = await screen.findByText(
-        createAppNameRegex(`This Safe App is not part of {APP_NAME} and I agree to use it at my own risk\\.`),
+        createAppNameRegex('This Safe App is not part / {APP_NAME} and I agree to use it at my own risk\\.'),
       )
 
       await userEvent.click(riskCheckbox)
       await userEvent.click(riskCheckbox)
 
-      await waitFor(() => expect(screen.getByText('Accepting the disclaimer is mandatory')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText('必须接受免责声明')).toBeInTheDocument())
     })
 
     it('allows removing custom apps', async () => {
@@ -397,10 +395,10 @@ describe('AppsPage', () => {
         },
       })
 
-      await userEvent.click(screen.getByRole('button', { name: 'Add custom Safe App' }))
+      await userEvent.click(screen.getByRole('button', { name: '添加自定义 8379 应用' }))
 
-      await waitFor(() => expect(screen.getByLabelText(/Safe App URL/)).toBeInTheDocument())
-      const appURLInput = screen.getByLabelText(/Safe App URL/)
+      await waitFor(() => expect(screen.getByLabelText(/8379 应用 网址/)).toBeInTheDocument())
+      const appURLInput = screen.getByLabelText(/8379 应用 网址/)
       fireEvent.change(appURLInput, { target: { value: APP_URL } })
       const riskCheckbox = await screen.findByRole('checkbox')
       await userEvent.click(riskCheckbox)
@@ -413,10 +411,10 @@ describe('AppsPage', () => {
         ).toBeInTheDocument(),
       )
 
-      await userEvent.click(screen.getByText('Add'))
+      await userEvent.click(screen.getByText('添加'))
 
       // modal is closed (shadcn Dialog unmounts the field synchronously, so wait for absence)
-      await waitFor(() => expect(screen.queryByLabelText(/Safe App URL/)).not.toBeInTheDocument())
+      await waitFor(() => expect(screen.queryByLabelText(/8379 应用 网址/)).not.toBeInTheDocument())
 
       // The delete label moved from a MUI aria-label to a hover-only tooltip; the delete toggle is
       // the last action button on the custom app card.
@@ -425,12 +423,12 @@ describe('AppsPage', () => {
 
       await userEvent.click(removeCustomSafeAppButton)
 
-      await waitFor(() => expect(screen.getByText('Confirm Safe App removal')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText('确认移除 8379 应用')).toBeInTheDocument())
 
-      const confirmRemovalButton = screen.getByRole('button', { name: 'Remove' })
+      const confirmRemovalButton = screen.getByRole('button', { name: '移除' })
       await userEvent.click(confirmRemovalButton)
 
-      await waitFor(() => expect(screen.queryByRole('button', { name: 'Remove' })).not.toBeInTheDocument())
+      await waitFor(() => expect(screen.queryByRole('button', { name: '移除' })).not.toBeInTheDocument())
       expect(screen.queryByText('Custom test Safe app')).not.toBeInTheDocument()
     })
   })
@@ -443,8 +441,8 @@ describe('AppsPage', () => {
         routerProps: { pathname: '/apps', query: { safe: 'matic:0x0000000000000000000000000000000000000000' } },
       })
 
-      expect(screen.queryByText('Safe Apps are not available on this network.')).not.toBeInTheDocument()
-      expect(screen.queryByPlaceholderText('Search by name or category')).not.toBeInTheDocument()
+      expect(screen.queryByText('此网络暂不支持 8379 应用。')).not.toBeInTheDocument()
+      expect(screen.queryByPlaceholderText('按名称或类别搜索')).not.toBeInTheDocument()
     })
 
     it('shows the not-available message when Safe Apps are disabled (feature === false)', () => {
@@ -454,8 +452,8 @@ describe('AppsPage', () => {
         routerProps: { pathname: '/apps', query: { safe: 'matic:0x0000000000000000000000000000000000000000' } },
       })
 
-      expect(screen.getByText('Safe Apps are not available on this network.')).toBeInTheDocument()
-      expect(screen.queryByPlaceholderText('Search by name or category')).not.toBeInTheDocument()
+      expect(screen.getByText('此网络暂不支持 8379 应用。')).toBeInTheDocument()
+      expect(screen.queryByPlaceholderText('按名称或类别搜索')).not.toBeInTheDocument()
     })
   })
 
@@ -474,15 +472,13 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
-        const query = 'Transaction'
+        const query = '交易'
 
-        const searchInput = screen.getByPlaceholderText('Search by name or category')
+        const searchInput = screen.getByPlaceholderText('按名称或类别搜索')
         fireEvent.change(searchInput, { target: { value: query } })
 
         await waitFor(() => {
@@ -490,9 +486,7 @@ describe('AppsPage', () => {
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -512,15 +506,13 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
         const query = transactionBuilderSafeAppMock.description
 
-        const searchInput = screen.getByPlaceholderText('Search by name or category')
+        const searchInput = screen.getByPlaceholderText('按名称或类别搜索')
         fireEvent.change(searchInput, { target: { value: query } })
 
         await waitFor(() => {
@@ -528,9 +520,7 @@ describe('AppsPage', () => {
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -550,15 +540,13 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
         const query = 'zero results'
 
-        const searchInput = screen.getByPlaceholderText('Search by name or category')
+        const searchInput = screen.getByPlaceholderText('按名称或类别搜索')
 
         act(() => fireEvent.change(searchInput, { target: { value: query } }))
 
@@ -568,7 +556,7 @@ describe('AppsPage', () => {
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
           expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
+            screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
@@ -594,13 +582,11 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
-        await userEvent.click(screen.getByRole('combobox', { name: /category/i }))
+        await userEvent.click(screen.getByRole('combobox', { name: /类别/i }))
 
         const categoriesDropdown = within(await screen.findByRole('listbox'))
 
@@ -618,14 +604,12 @@ describe('AppsPage', () => {
 
         await waitFor(() => {
           // 1 categories selected label
-          expect(screen.queryByText('1 categories selected')).toBeInTheDocument()
+          expect(screen.queryByText('已选择 1 个类别')).toBeInTheDocument()
           expect(
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -645,13 +629,11 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
-        await userEvent.click(screen.getByRole('combobox', { name: /category/i }))
+        await userEvent.click(screen.getByRole('combobox', { name: /类别/i }))
 
         const categoriesDropdown = within(await screen.findByRole('listbox'))
 
@@ -663,9 +645,7 @@ describe('AppsPage', () => {
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -681,9 +661,7 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
       })
@@ -701,13 +679,11 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
-        await userEvent.click(screen.getByRole('combobox', { name: /category/i }))
+        await userEvent.click(screen.getByRole('combobox', { name: /类别/i }))
 
         const categoriesDropdown = within(await screen.findByRole('listbox'))
 
@@ -719,9 +695,7 @@ describe('AppsPage', () => {
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -731,15 +705,13 @@ describe('AppsPage', () => {
         await userEvent.keyboard('{Escape}')
 
         // clear all selected filters
-        await userEvent.click(screen.getByLabelText('clear selected categories'))
+        await userEvent.click(screen.getByLabelText('清除已选类别'))
 
         // show all safe apps again
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
       })
@@ -759,9 +731,7 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
@@ -774,9 +744,7 @@ describe('AppsPage', () => {
             screen.queryByText('Compound', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
           expect(screen.queryByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).not.toBeInTheDocument()
-          expect(
-            screen.queryByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.queryByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(
             screen.queryByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' }),
           ).not.toBeInTheDocument()
@@ -796,9 +764,7 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
 
@@ -812,9 +778,7 @@ describe('AppsPage', () => {
         await waitFor(() => {
           expect(screen.getByText('Compound', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('ENS App', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
-          expect(
-            screen.getByText('Transaction Builder', { selector: '[data-variant="paragraph-bold"]' }),
-          ).toBeInTheDocument()
+          expect(screen.getByText('交易构建器', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
           expect(screen.getByText('Synthetix', { selector: '[data-variant="paragraph-bold"]' })).toBeInTheDocument()
         })
       })

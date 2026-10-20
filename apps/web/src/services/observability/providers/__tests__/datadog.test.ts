@@ -528,7 +528,7 @@ describe('DatadogProvider', () => {
       const { filterRumEvent } = await import('../datadog')
       for (const message of [
         'ResizeObserver loop completed with undelivered notifications',
-        'ResizeObserver loop limit exceeded',
+        'ResizeObserver loop 项限额 exceeded',
         'Non-Error promise rejection captured with value: null',
         'Script error.',
       ]) {
@@ -554,7 +554,7 @@ describe('DatadogProvider', () => {
             type: 'EvalError',
             source,
             message:
-              "EvalError: Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+              "EvalError: Refused to evaluate a string as JavaScript because 'unsafe-eval' is not an allowed source / script in the following Content Security Policy directive: \"script-src 'self'\".",
             stack: 'at eval (https://www.googletagmanager.com/gtm.js:1:1)',
           })
           expect(filterRumEvent(event, {} as any)).toBe(false)
@@ -644,7 +644,7 @@ describe('DatadogProvider', () => {
 
       it('reclassifies unhandled user rejections as warn actions instead of errors', async () => {
         const { filterRumEvent } = await import('../datadog')
-        for (const message of ['Rejected', 'Error: Rejected', 'User rejected.']) {
+        for (const message of ['Rejected', '错误：Rejected', 'User rejected.']) {
           const event = buildErrorEvent({ source: 'source', message })
           expect(filterRumEvent(event, {} as any)).toBe(false)
           expect(mockAddAction).toHaveBeenCalledWith(
@@ -658,7 +658,7 @@ describe('DatadogProvider', () => {
         const { filterRumEvent } = await import('../datadog')
         const event = buildErrorEvent({
           source: 'source',
-          message: 'Transaction rejected by guard module',
+          message: '交易 rejected by guard module',
           stack: 'at handler (https://app.safe.global/_next/static/chunks/main.js:1:1)',
         })
         expect(filterRumEvent(event, {} as any)).toBe(true)

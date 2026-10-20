@@ -1,11 +1,8 @@
+import { translateMessage } from '@/i18n'
 import ErrorMessage from '@/components/tx/ErrorMessage'
 
 const NonOwnerError = () => {
-  return (
-    <ErrorMessage>
-      You are currently not a signer of this Safe account and won&apos;t be able to submit this transaction.
-    </ErrorMessage>
-  )
+  return <ErrorMessage>{translateMessage('ui.youAreCurrentlyNotASigner_8a73c1ee')}</ErrorMessage>
 }
 
 export default NonOwnerError

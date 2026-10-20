@@ -22,7 +22,7 @@ describe('SpendingLimits', () => {
   it('shows remaining amount, a progress bar and the reset time when active', () => {
     render(<SpendingLimits spenders={spenders} showUsage />)
 
-    expect(screen.getByText('500 USDC remaining')).toBeInTheDocument()
+    expect(screen.getByText('剩余 500 USDC')).toBeInTheDocument()
     // Both allowances share the fixture's default resetsAtMinute, so the reset line renders twice.
     expect(screen.getAllByText('Resets Oct 1, 00:00 UTC')).toHaveLength(2)
     expect(screen.getAllByRole('progressbar')).toHaveLength(2)
@@ -35,16 +35,16 @@ describe('SpendingLimits', () => {
     expect(screen.getByText('1,500/month')).toBeInTheDocument()
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
     expect(screen.queryByText(/remaining/)).not.toBeInTheDocument()
-    expect(screen.queryByText(/Resets/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/重置时间/)).not.toBeInTheDocument()
   })
 
   it('marks each limit of a queued edit as added, changed or removed', () => {
     render(<SpendingLimits spenders={mockPendingEdit().data.spenders} showUsage={false} />)
 
     const [added, changed, removed] = screen.getAllByTestId('spending-limit-allowance')
-    expect(within(added).getByTestId('allowance-change-added')).toHaveTextContent('Added')
-    expect(within(changed).getByTestId('allowance-change-changed')).toHaveTextContent('Changed')
-    expect(within(removed).getByTestId('allowance-change-removed')).toHaveTextContent('Removed')
+    expect(within(added).getByTestId('allowance-change-added')).toHaveTextContent('已添加')
+    expect(within(changed).getByTestId('allowance-change-changed')).toHaveTextContent('已变更')
+    expect(within(removed).getByTestId('allowance-change-removed')).toHaveTextContent('已移除')
   })
 
   // A removal that reads like an addition is the bug this guards: both rows looked equally live.
@@ -69,10 +69,10 @@ describe('SpendingLimits', () => {
 
     const cards = screen.getAllByTestId('spending-limit-spender')
     expect(cards).toHaveLength(3)
-    expect(within(cards[0]).getByText('Spender 1')).toBeInTheDocument()
+    expect(within(cards[0]).getByText('支出授权人 1')).toBeInTheDocument()
     expect(within(cards[0]).getByText('USDC')).toBeInTheDocument()
     expect(within(cards[0]).queryByText('UNKNOWN')).not.toBeInTheDocument()
-    expect(within(cards[2]).getByText('Spender 3')).toBeInTheDocument()
+    expect(within(cards[2]).getByText('支出授权人 3')).toBeInTheDocument()
     expect(within(cards[2]).getByText('UNKNOWN')).toBeInTheDocument()
   })
 

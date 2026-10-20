@@ -103,7 +103,7 @@ describe('SignerForm', () => {
         <SignerForm />
       </TestWalletContextProvider>,
     )
-    expect(result.queryByText('Sign with')).toBeNull()
+    expect(result.queryByText('签名 使用')).toBeNull()
   })
 
   it('should not render if there are no nested Safes', () => {
@@ -123,7 +123,7 @@ describe('SignerForm', () => {
       </TestWalletContextProvider>,
     )
 
-    expect(result.queryByText('Sign with')).toBeNull()
+    expect(result.queryByText('签名 使用')).toBeNull()
   })
 
   it('should render sign form if there are nested Safes', () => {
@@ -140,7 +140,7 @@ describe('SignerForm', () => {
         <SignerForm />
       </TestWalletContextProvider>,
     )
-    expect(result.queryByText('Sign with')).toBeVisible()
+    expect(result.queryByText('签名 使用')).toBeVisible()
   })
 
   it('should render execution form if there are nested Safes', () => {
@@ -157,7 +157,7 @@ describe('SignerForm', () => {
         <SignerForm willExecute />
       </TestWalletContextProvider>,
     )
-    expect(result.queryByText('Execute with')).toBeVisible()
+    expect(result.queryByText('执行 使用')).toBeVisible()
   })
 
   it('should not render if execution and fully signed', () => {
@@ -190,7 +190,7 @@ describe('SignerForm', () => {
         </TestWalletContextProvider>
       </TestSafeTxProvider>,
     )
-    expect(result.queryByText('Execute with')).toBeNull()
+    expect(result.queryByText('执行 使用')).toBeNull()
   })
 
   it('should render if execution and last signer', async () => {
@@ -223,7 +223,7 @@ describe('SignerForm', () => {
         </TestWalletContextProvider>
       </TestSafeTxProvider>,
     )
-    expect(result.queryByText('Execute with')).toBeVisible()
+    expect(result.queryByText('执行 使用')).toBeVisible()
     await waitFor(() =>
       expect(result.getByRole('combobox')).toHaveTextContent(shortenAddress(mockSafeInfo.safe.owners[1].value)),
     )
@@ -259,7 +259,7 @@ describe('SignerForm', () => {
         </TestWalletContextProvider>
       </TestSafeTxProvider>,
     )
-    expect(result.queryByText('Sign with')).toBeVisible()
+    expect(result.queryByText('签名 使用')).toBeVisible()
     await waitFor(() => {
       expect(result.getByRole('combobox')).toHaveTextContent(shortenAddress(mockSafeInfo.safe.owners[1].value))
     })
@@ -283,7 +283,7 @@ describe('SignerForm', () => {
       </TestWalletContextProvider>,
     )
 
-    expect(result.queryByText('Sign with')).toBeVisible()
+    expect(result.queryByText('签名 使用')).toBeVisible()
     await waitFor(() => expect(result.queryByText(shortenAddress(proposerWallet))).toBeVisible())
   })
 
@@ -307,7 +307,7 @@ describe('SignerForm', () => {
       </TestSafeTxProvider>,
     )
 
-    expect(result.queryByText('Sign with')).toBeVisible()
+    expect(result.queryByText('签名 使用')).toBeVisible()
     expect(result.queryByText(shortenAddress(proposerWallet))).toBeNull()
   })
 })

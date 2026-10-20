@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -122,7 +123,7 @@ const HypernativeOAuthCallback: NextPage = () => {
         }, 1000)
       } catch (error) {
         console.error('OAuth callback error:', error)
-        let errorMsg = 'Unknown authentication error'
+        let errorMsg = translateMessage('ui.unknownAuthenticationError_5e6032ed')
         if (error instanceof Error) {
           errorMsg = error.message
         } else if (error && typeof error === 'object' && 'data' in error) {
@@ -154,7 +155,7 @@ const HypernativeOAuthCallback: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Hypernative Authentication</title>
+        <title>{translateMessage('ui.hypernativeAuthentication_f9527aae')}</title>
       </Head>
 
       <div
@@ -166,10 +167,10 @@ const HypernativeOAuthCallback: NextPage = () => {
             <>
               <GradientCircularProgress size={40} thickness={5} />
               <Typography variant="h3" className="mt-6 font-bold">
-                Authentication in progress
+                {translateMessage('ui.authenticationInProgress_589ab489')}
               </Typography>
               <Typography variant="paragraph-small" color="muted" className="block mt-2">
-                Hypernative authentication is in progress. Don’t close this window.
+                {translateMessage('ui.hypernativeAuthenticationIsInProgressDon_8febaee8')}
               </Typography>
             </>
           )}
@@ -180,10 +181,10 @@ const HypernativeOAuthCallback: NextPage = () => {
                 <CheckIcon className="size-5 text-[var(--color-success-main)]" />
               </div>
               <Typography variant="h3" className="mt-6 font-bold">
-                Login successful
+                {translateMessage('ui.loginSuccessful_0962e4b5')}
               </Typography>
               <Typography variant="paragraph-small" color="muted" className="block mt-2">
-                You’re now signed in to Hypernative.
+                {translateMessage('ui.youReNowSignedInTo_07a515ed')}
               </Typography>
             </>
           )}
@@ -199,7 +200,7 @@ const HypernativeOAuthCallback: NextPage = () => {
                 <InfoIcon className="size-5 text-[var(--color-info-main)]" />
               </div>
               <Typography variant="h3" className="mt-6 font-bold">
-                Something went wrong
+                {translateMessage('ui.somethingWentWrong_b021881e')}
               </Typography>
               <Typography variant="paragraph-small" color="muted" className="block mt-2">
                 {errorMessage}

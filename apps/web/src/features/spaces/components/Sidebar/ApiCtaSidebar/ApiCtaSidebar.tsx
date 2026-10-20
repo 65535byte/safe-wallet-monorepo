@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import Image from 'next/image'
 import { X } from 'lucide-react'
@@ -48,7 +49,7 @@ export const ApiCtaSidebar = (): ReactElement => {
           onClick={!isIconCollapsed ? () => setIsCollapsed(false) : undefined}
         >
           <Badge size="sm" className="tabular-nums group-data-[collapsible=icon]:hidden">
-            New
+            {translateMessage('ui.new_891f3045')}
           </Badge>
         </div>
       </SidebarMenuItem>
@@ -72,7 +73,7 @@ export const ApiCtaSidebar = (): ReactElement => {
           <button
             className="shrink-0 text-muted-foreground hover:text-foreground"
             onClick={() => setIsCollapsed(true)}
-            aria-label="Minimize API section"
+            aria-label={translateMessage('ui.minimizeAPISection_9de3bde1')}
             data-testid="api-cta-minimize"
           >
             <X className="size-4" />
@@ -80,7 +81,7 @@ export const ApiCtaSidebar = (): ReactElement => {
         </div>
 
         <Typography variant="paragraph-small" color="muted" className="leading-snug">
-          Authenticated access, predictable quotas, and webhooks for teams that rely on Safe as critical infrastructure.
+          {translateMessage('ui.authenticatedAccessPredictableQuotasAndWebhooks_0c087053')}
         </Typography>
 
         <Button
@@ -89,7 +90,7 @@ export const ApiCtaSidebar = (): ReactElement => {
           className="w-auto self-start"
           render={<a href={API_DOCS_URL} target="_blank" rel="noopener noreferrer" />}
         >
-          Get API key
+          {translateMessage('ui.getAPIKey_9280aca7')}
         </Button>
       </div>
     </SidebarMenuItem>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useMemo } from 'react'
 import { useHasUntrustedFallbackHandler } from '@/hooks/useHasUntrustedFallbackHandler'
@@ -30,16 +31,18 @@ export const UntrustedFallbackHandlerTxText = ({ isTxExecuted = false }: { isTxE
     <FallbackHandlerWarning
       message={
         <>
-          This transaction {isTxExecuted ? 'has set' : 'sets'} an <b>unofficial</b> fallback handler.
+          {translateMessage('ui.thisTransaction_250a118f')}
+          {isTxExecuted ? translateMessage('ui.hasSet_16d4ace3') : 'sets'} {translateMessage('ui.an_eda6f3d7')}
+          <b>{translateMessage('ui.unofficial_35ccf315')}</b> {translateMessage('ui.fallbackHandler_a12d0322')}
         </>
       }
-      txBuilderLinkPrefix={isTxExecuted ? 'It can be altered via the' : ''}
+      txBuilderLinkPrefix={isTxExecuted ? translateMessage('ui.itCanBeAlteredViaThe_a9f91b3b') : ''}
     />
     {!isTxExecuted && (
       <>
         <br />
-        <b>Proceed with caution:</b> ensure the fallback handler address is trusted and secure. If unsure, do not
-        proceed.
+        <b>{translateMessage('ui.proceedWithCaution_6bf72038')}</b>{' '}
+        {translateMessage('ui.ensureTheFallbackHandlerAddressIs_96aa69b2')}
       </>
     )}
   </>

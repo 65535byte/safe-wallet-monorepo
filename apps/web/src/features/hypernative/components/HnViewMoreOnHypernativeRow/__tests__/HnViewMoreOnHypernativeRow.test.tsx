@@ -17,8 +17,8 @@ describe('HnViewMoreOnHypernativeRow', () => {
   it('renders the overflow count and CTA text', () => {
     render(<HnViewMoreOnHypernativeRow overflowCount={2} assessmentUrl="https://hn.example/report" />)
     expect(screen.getByText('+2')).toBeInTheDocument()
-    expect(screen.getByText('More issues found')).toBeInTheDocument()
-    expect(screen.getByText('View full report on Hypernative')).toBeInTheDocument()
+    expect(screen.getByText('发现更多问题')).toBeInTheDocument()
+    expect(screen.getByText('在 Hypernative 中查看完整报告')).toBeInTheDocument()
   })
 
   it('links to the assessment URL with target=_blank and noopener', () => {
@@ -33,7 +33,7 @@ describe('HnViewMoreOnHypernativeRow', () => {
     const user = userEvent.setup()
     render(<HnViewMoreOnHypernativeRow overflowCount={2} assessmentUrl="https://hn.example/report" />)
     await user.click(screen.getByRole('link'))
-    expect(trackEventMock).toHaveBeenCalledWith(HYPERNATIVE_EVENTS.HYPERNATIVE_FULL_REPORT_CLICKED, undefined)
+    expect(trackEventMock).toHaveBeenCalledWith(HYPERNATIVE_EVENTS.HYPERNATIVE_FULL_REPORT_CLICKED)
   })
 
   it('returns null when assessmentUrl is null', () => {

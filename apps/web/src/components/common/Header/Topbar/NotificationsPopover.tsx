@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { forwardRef, useImperativeHandle, type MouseEvent, type ReactElement } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
@@ -67,7 +68,7 @@ const NotificationsPopover = forwardRef<NotificationsPopoverRef>((_props, ref): 
         <div className={notificationCss.popoverHeader}>
           <div className="flex items-center">
             <Typography data-testid="notifications-title" variant="h4" className="font-bold">
-              Notifications
+              {translateMessage('ui.notifications_e0d1fbb4')}
             </Typography>
             {unreadCount > 0 && (
               <Typography variant="paragraph-mini" className={notificationCss.unreadCount}>
@@ -81,7 +82,7 @@ const NotificationsPopover = forwardRef<NotificationsPopoverRef>((_props, ref): 
               onClick={handleClear}
               className={cn(notificationCss.actionLink, 'no-underline')}
             >
-              Clear all
+              {translateMessage('ui.clearAll_6e64c421')}
             </ShadcnLink>
           )}
         </div>
@@ -107,7 +108,11 @@ const NotificationsPopover = forwardRef<NotificationsPopoverRef>((_props, ref): 
                 </UnreadBadge>
               </Button>
               <Typography className="text-[var(--color-border-main)]">
-                {showAll ? 'Hide' : `${notifications.length - NOTIFICATION_CENTER_LIMIT} other notifications`}
+                {showAll
+                  ? translateMessage('ui.hide_f514f3dd')
+                  : translateMessage('ui.otherNotifications_26375997', {
+                      p0: notifications.length - NOTIFICATION_CENTER_LIMIT,
+                    })}
               </Typography>
             </>
           )}
@@ -119,7 +124,7 @@ const NotificationsPopover = forwardRef<NotificationsPopoverRef>((_props, ref): 
                 className={notificationCss.settingsLink}
                 onClick={onSettingsClick}
               >
-                <SettingsIcon className="size-4" /> Push notifications settings
+                <SettingsIcon className="size-4" /> {translateMessage('ui.pushNotificationsSettings_9ea402f0')}
               </ShadcnLink>
             </Link>
           )}

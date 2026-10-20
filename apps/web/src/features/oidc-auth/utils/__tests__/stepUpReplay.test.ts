@@ -10,6 +10,16 @@ import { stepUpReturning } from '../../store'
 import { navigateTo } from '@/utils/navigation'
 import { getReplayableAction, replayStepUpAction, saveStepUpTrip, takeStepUpTrip } from '../stepUpReplay'
 
+let mockSafeProEnabled = true
+jest.mock('@/config/pro', () => ({
+  get SAFE_PRO_ENABLED() {
+    return mockSafeProEnabled
+  },
+}))
+beforeEach(() => {
+  mockSafeProEnabled = true
+})
+
 jest.mock('@/utils/navigation', () => ({ navigateTo: jest.fn() }))
 
 const rejectedMutation = (endpointName: string, originalArgs: unknown) => ({
@@ -230,7 +240,7 @@ describe('replayStepUpAction', () => {
     const list = await store.dispatch(cgwApi.endpoints.spaceSafesGetV1.initiate({ spaceId }))
     expect(list.data).toEqual({ safes: { '1': [existingSafe, addedSafe] } })
     expect(selectNotifications(store.getState())).toEqual([
-      expect.objectContaining({ message: 'Safe account added', variant: 'success' }),
+      expect.objectContaining({ message: '8379 账户已添加', variant: 'success' }),
     ])
   })
 
@@ -346,7 +356,7 @@ describe('replayStepUpAction', () => {
 
     expect(userRequests).toHaveLength(1)
     expect(selectNotifications(store.getState())).toEqual([
-      expect.objectContaining({ message: 'Safe account added', variant: 'success' }),
+      expect.objectContaining({ message: '8379 账户已添加', variant: 'success' }),
     ])
   })
 
@@ -383,7 +393,7 @@ describe('replayStepUpAction', () => {
             quota: 20,
             used: 20,
             resetsAt: null,
-            message: 'Quota exceeded for safe_seats: 20 of 20 used.',
+            message: 'Quota exceeded for safe_seats: 20 / 20 used.',
           },
           { status: 402 },
         ),
@@ -400,8 +410,7 @@ describe('replayStepUpAction', () => {
     expect(isLeavingPage).toBe(false)
     expect(selectNotifications(store.getState())).toEqual([
       expect.objectContaining({
-        message:
-          'Your plan covers 20 Safe accounts and this Workspace already holds 20. Remove one to add another, or upgrade your plan.',
+        message: '套餐包含 20 个 8379 账户，此工作空间已有 20 个。请移除一个后再添加，或升级套餐。',
         variant: 'warning',
       }),
     ])
@@ -460,4 +469,18 @@ describe('replayStepUpAction', () => {
       }),
     ])
   })
+})
+
+describe('disabled Pro replay', () => {
+  afterEach(() => jest.restoreAllMocks())
+
+  it.each(['billingUpdateSubscriptionV1', 'billingGetCheckoutUrlV1'] as const)(
+    'does not replay %s from a previous session',
+    async (endpoint) => {
+      mockSafeProEnabled = false
+      const dispatch = jest.fn()
+      expect(await replayStepUpAction(dispatch, { endpoint, args: {} })).toBe(false)
+      expect(dispatch).not.toHaveBeenCalled()
+    },
+  )
 })

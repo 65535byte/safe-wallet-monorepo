@@ -55,7 +55,7 @@ const dispatchReverted = (txId: string | undefined) =>
       groupKey: 'group',
       chainId: TEST_CHAIN_ID,
       safeAddress: TEST_SAFE_ADDRESS,
-      error: new Error('Transaction reverted by EVM.'),
+      error: new Error('交易被 EVM 回退。'),
     })
   })
 
@@ -66,7 +66,7 @@ const dispatchFailed = (txId: string) =>
       txId,
       chainId: TEST_CHAIN_ID,
       safeAddress: TEST_SAFE_ADDRESS,
-      error: new Error('Transaction not found. It might have been replaced or cancelled in the connected wallet.'),
+      error: new Error('未找到交易，可能已在连接的钱包中替换或取消。'),
     })
   })
 
@@ -137,7 +137,7 @@ describe('SuccessScreen', () => {
   it('shows the processing status while the transaction is pending', () => {
     render(<SuccessScreen txId={TX_ID} />, { initialReduxState: { pendingTxs: processingTxs } })
 
-    expect(screen.getByTestId('transaction-status')).toHaveTextContent('Transaction is now processing')
+    expect(screen.getByTestId('transaction-status')).toHaveTextContent('交易正在处理中')
   })
 
   it('leaves the processing status for the error status when the transaction reverts', () => {
@@ -146,8 +146,8 @@ describe('SuccessScreen', () => {
     dispatchReverted(TX_ID)
 
     // The tx is mined, so it must not keep offering "Speed up" via the processing status
-    expect(screen.getByTestId('transaction-status')).toHaveTextContent('Transaction failed')
-    expect(screen.getByText('Transaction reverted by EVM.')).toBeInTheDocument()
+    expect(screen.getByTestId('transaction-status')).toHaveTextContent('交易失败')
+    expect(screen.getByText('交易被 EVM 回退。')).toBeInTheDocument()
   })
 
   it('shows the error even if the pending tx was already cleared from the store', () => {
@@ -155,8 +155,8 @@ describe('SuccessScreen', () => {
 
     dispatchReverted(TX_ID)
 
-    expect(screen.getByTestId('transaction-status')).toHaveTextContent('Transaction failed')
-    expect(screen.getByText('Transaction reverted by EVM.')).toBeInTheDocument()
+    expect(screen.getByTestId('transaction-status')).toHaveTextContent('交易失败')
+    expect(screen.getByText('交易被 EVM 回退。')).toBeInTheDocument()
   })
 
   it.each([
@@ -170,8 +170,8 @@ describe('SuccessScreen', () => {
     dispatchFailed(TX_ID)
     dispatchReverted(TX_ID)
 
-    expect(screen.queryByText('Transaction reverted by EVM.')).not.toBeInTheDocument()
-    expect(screen.getByTestId('transaction-status')).not.toHaveTextContent('Transaction failed')
+    expect(screen.queryByText('交易被 EVM 回退。')).not.toBeInTheDocument()
+    expect(screen.getByTestId('transaction-status')).not.toHaveTextContent('交易失败')
   })
 
   it('clears a failure that a later success supersedes', () => {
@@ -185,12 +185,12 @@ describe('SuccessScreen', () => {
     // A sped-up tx makes the watcher on the replaced hash report a failure the replacement disproves
     dispatchFailed(TX_ID)
 
-    expect(screen.getByTestId('transaction-status')).toHaveTextContent('Transaction failed')
+    expect(screen.getByTestId('transaction-status')).toHaveTextContent('交易失败')
     expect(screen.getByTestId('open-nested-safe-btn')).toHaveAttribute('aria-disabled', 'true')
 
     dispatchSuccess(TX_ID)
 
-    expect(screen.getByTestId('transaction-status')).not.toHaveTextContent('Transaction failed')
+    expect(screen.getByTestId('transaction-status')).not.toHaveTextContent('交易失败')
     expect(screen.getByTestId('open-nested-safe-btn')).not.toHaveAttribute('aria-disabled', 'true')
   })
 
@@ -216,7 +216,7 @@ describe('SuccessScreen', () => {
 
     dispatchReverted('multisig_0xother')
 
-    expect(screen.getByTestId('transaction-status')).toHaveTextContent('Transaction was successful')
+    expect(screen.getByTestId('transaction-status')).toHaveTextContent('交易成功')
   })
 
   it('ignores events without a txId when rendered for a module transaction', () => {

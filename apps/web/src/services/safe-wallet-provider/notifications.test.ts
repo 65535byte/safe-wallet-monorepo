@@ -4,7 +4,7 @@ describe('showNotification', () => {
   beforeEach(() => {
     jest.resetAllMocks()
 
-    Object.defineProperty(global, 'Notification', {
+    Object.defineProperty(global, '通知', {
       value: jest.fn(),
     })
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { trackEvent, MODALS_EVENTS } from '@/services/analytics'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -21,7 +22,7 @@ const ExecuteCheckbox = ({ onChange }: { onChange: (checked: boolean) => void })
 
   return (
     <>
-      <Typography>Would you like to execute the transaction immediately?</Typography>
+      <Typography>{translateMessage('ui.wouldYouLikeToExecuteThe_22266491')}</Typography>
 
       <RadioGroup
         value={String(settings.transactionExecution)}
@@ -31,12 +32,13 @@ const ExecuteCheckbox = ({ onChange }: { onChange: (checked: boolean) => void })
         <Label className={css.radio} data-testid="execute-checkbox">
           <RadioGroupItem value="true" />
           <span>
-            Yes, <b>execute</b>
+            {translateMessage('ui.yes_c02b4c3c')}
+            <b>{translateMessage('ui.execute_ecb1914a')}</b>
           </span>
         </Label>
         <Label className={css.radio} data-testid="sign-checkbox">
           <RadioGroupItem value="false" />
-          <span>No, later</span>
+          <span>{translateMessage('ui.noLater_9407fec2')}</span>
         </Label>
       </RadioGroup>
     </>

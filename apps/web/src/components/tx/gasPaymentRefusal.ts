@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { QuotaExceededError } from '@safe-global/utils/services/quotaErrors'
 import {
   GasPaymentOptionUnavailableError,
@@ -8,11 +9,9 @@ import {
 import { SPONSORED_OPTIONS, type GasPayer, type SponsoredOption } from '@/utils/gasPayment'
 import { sponsoredQuotaMessage } from '@/utils/quotaMessage'
 
-const LIMIT_REACHED_MESSAGE = 'No sponsored transactions left. Choose another gas payment method and execute again.'
-const UNAVAILABLE_MESSAGE =
-  "This gas payment option isn't available for this Safe account right now. Choose another gas payment method and execute again."
-const WALLET_ONLY_MESSAGE =
-  'This transaction can only be executed with your connected wallet. Execute again to continue.'
+const LIMIT_REACHED_MESSAGE = translateMessage('ui.noSponsoredTransactionsLeftChooseAnother_4b602344')
+const UNAVAILABLE_MESSAGE = translateMessage('ui.thisGasPaymentOptionIsnT_bb2ab231')
+const WALLET_ONLY_MESSAGE = translateMessage('ui.thisTransactionCanOnlyBeExecuted_292d766e')
 
 /** Which sponsored options a backend refusal rules out, and what to tell the user. */
 export const getGasPaymentRefusal = (

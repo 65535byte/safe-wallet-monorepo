@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ConnectedWallet } from '@/hooks/wallets/useOnboard'
 import { isMultisigExecutionInfo } from '@/utils/transaction-guards'
@@ -625,7 +626,7 @@ export const dispatchModuleTxExecution = async (
           groupKey: id,
           chainId,
           safeAddress,
-          error: new Error('No transaction receipt found'),
+          error: new Error(translateMessage('ui.noTransactionReceiptFound_b7f34fce')),
         })
       } else if (didRevert(receipt)) {
         txDispatch(TxEvent.REVERTED, {
@@ -741,7 +742,7 @@ export const dispatchTxRelay = async (
     const taskId = relayResponse.taskId
 
     if (!taskId) {
-      throw new Error('Transaction could not be relayed')
+      throw new Error(translateMessage('ui.transactionCouldNotBeRelayed_19d407cc'))
     }
 
     txDispatch(TxEvent.RELAYING, {

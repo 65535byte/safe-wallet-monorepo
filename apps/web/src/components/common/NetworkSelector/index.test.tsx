@@ -146,7 +146,7 @@ describe('NetworkSelector', () => {
     fireEvent.change(screen.getByTestId('network-selector-search-input'), { target: { value: 'no-such-network' } })
 
     expect(screen.queryAllByTestId('network-selector-item')).toHaveLength(0)
-    expect(screen.getByTestId('network-selector-empty')).toHaveTextContent('No networks match your search')
+    expect(screen.getByTestId('network-selector-empty')).toHaveTextContent('没有匹配的网络')
   })
 
   it('should, when the no-matches message appears, announce it to a screen reader', () => {
@@ -168,7 +168,7 @@ describe('NetworkSelector', () => {
 
     fireEvent.change(screen.getByTestId('network-selector-search-input'), { target: { value: 'ethereum' } })
 
-    expect(screen.queryByText('Testnets')).not.toBeInTheDocument()
+    expect(screen.queryByText('测试网')).not.toBeInTheDocument()
   })
 
   it('should, when a testnet matches, keep it under the testnets divider', () => {
@@ -178,7 +178,7 @@ describe('NetworkSelector', () => {
 
     const listed = screen.getAllByTestId('network-selector-item').map((item) => item.textContent?.trim())
 
-    expect(screen.getByText('Testnets')).toBeInTheDocument()
+    expect(screen.getByText('测试网')).toBeInTheDocument()
     expect(listed).toEqual(['Sepolia'])
   })
 

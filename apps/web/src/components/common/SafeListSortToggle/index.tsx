@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ComponentProps } from 'react'
 import { ArrowDownUp, ChevronDown } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -15,8 +16,8 @@ import { OrderByOption, selectOrderByPreference, setOrderByPreference } from '@/
 import { cn } from '@safe-global/views/utils/cn'
 
 const labels: Record<OrderByOption, string> = {
-  [OrderByOption.NAME]: 'Name',
-  [OrderByOption.LAST_VISITED]: 'Last visited',
+  [OrderByOption.NAME]: translateMessage('ui.name_84f28b85'),
+  [OrderByOption.LAST_VISITED]: translateMessage('ui.lastVisited_4ae3f025'),
   [OrderByOption.MANUAL]: 'Manual',
 }
 
@@ -63,7 +64,7 @@ const SafeListSortToggle = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>Sort by</DropdownMenuLabel>
+          <DropdownMenuLabel>{translateMessage('ui.sortBy_a633929d')}</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={orderBy}
             onValueChange={(value) => dispatch(setOrderByPreference({ orderBy: value as OrderByOption }))}

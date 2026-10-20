@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 // Be careful what you import here as it will increase the service worker bundle size
 
 import { formatUnits } from 'ethers'
@@ -78,46 +79,59 @@ export const Notifications: PushNotificationsMap = {
   [WebhookType.EXECUTED_MULTISIG_TRANSACTION]: ({ address, failed, txHash, chainId }, chain) => {
     const didFail = failed === 'true'
     return {
-      title: `Transaction ${didFail ? 'failed' : 'executed'}`,
-      body: `Safe ${shortenAddress(address)} on ${getChainName(chainId, chain)} ${
-        didFail ? 'failed to execute' : 'executed'
-      } transaction ${shortenAddress(txHash)}.`,
+      title: translateMessage('ui.transaction_6f78b752', { p0: didFail ? 'failed' : 'executed' }),
+      body: translateMessage('ui.onTransaction_c22ee73e', {
+        p0: shortenAddress(address),
+        p1: getChainName(chainId, chain),
+        p2: didFail ? translateMessage('ui.failedToExecute_47f0934c') : translateMessage('ui.executed_9436b795'),
+        p3: shortenAddress(txHash),
+      }),
     }
   },
   [WebhookType.INCOMING_ETHER]: ({ address, txHash, value, chainId }, chain) => {
     return {
-      title: `${getCurrencyName(chain)} received`,
-      body: `Safe ${shortenAddress(address)} on ${getChainName(chainId, chain)} received ${formatUnits(
-        value,
-        chain?.nativeCurrency?.decimals,
-      ).toString()} ${getCurrencySymbol(chain)} in transaction ${shortenAddress(txHash)}.`,
+      title: translateMessage('ui.received_add1d244', { p0: getCurrencyName(chain) }),
+      body: translateMessage('ui.onReceivedInTransaction_68b80b6e', {
+        p0: shortenAddress(address),
+        p1: getChainName(chainId, chain),
+        p2: formatUnits(value, chain?.nativeCurrency?.decimals).toString(),
+        p3: getCurrencySymbol(chain),
+        p4: shortenAddress(txHash),
+      }),
     }
   },
   [WebhookType.INCOMING_TOKEN]: async ({ address, txHash, tokenAddress, value, chainId }, chain) => {
     const token = await getTokenInfo(chainId, address, tokenAddress, value)
     return {
-      title: `${token.name} received`,
-      body: `Safe ${shortenAddress(address)} on ${getChainName(chainId, chain)} received ${token.value} ${
-        token.symbol
-      } in transaction ${shortenAddress(txHash)}.`,
+      title: translateMessage('ui.received_add1d244', { p0: token.name }),
+      body: translateMessage('ui.onReceivedInTransaction_68b80b6e', {
+        p0: shortenAddress(address),
+        p1: getChainName(chainId, chain),
+        p2: token.value,
+        p3: token.symbol,
+        p4: shortenAddress(txHash),
+      }),
     }
   },
   [WebhookType.MODULE_TRANSACTION]: ({ address, module, txHash, chainId }, chain) => {
     return {
-      title: 'Module transaction',
-      body: `Safe ${shortenAddress(address)} on ${getChainName(
-        chainId,
-        chain,
-      )} executed a module transaction ${shortenAddress(txHash)} from module ${shortenAddress(module)}.`,
+      title: translateMessage('ui.moduleTransaction_e403ffd3'),
+      body: translateMessage('ui.onExecutedAModuleTransactionFrom_cfc7466d', {
+        p0: shortenAddress(address),
+        p1: getChainName(chainId, chain),
+        p2: shortenAddress(txHash),
+        p3: shortenAddress(module),
+      }),
     }
   },
   [WebhookType.CONFIRMATION_REQUEST]: ({ address, safeTxHash, chainId }, chain) => {
     return {
-      title: 'Confirmation request',
-      body: `Safe ${shortenAddress(address)} on ${getChainName(
-        chainId,
-        chain,
-      )} has a new confirmation request for transaction ${shortenAddress(safeTxHash)}.`,
+      title: translateMessage('ui.confirmationRequest_4ef0c471'),
+      body: translateMessage('ui.onHasANewConfirmationRequest_f61fe2a3', {
+        p0: shortenAddress(address),
+        p1: getChainName(chainId, chain),
+        p2: shortenAddress(safeTxHash),
+      }),
     }
   },
   [WebhookType.SAFE_CREATED]: () => {

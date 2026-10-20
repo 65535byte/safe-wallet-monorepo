@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
 import {
   isSwapOwnerCalldata,
@@ -44,7 +45,7 @@ function decodeOwnerManagementTransaction(safe: SafeState, transaction: BaseTran
 
     _threshold = Number(newThreshold)
   } else {
-    throw new Error('Unexpected transaction')
+    throw new Error(translateMessage('ui.unexpectedTransaction_f0b72280'))
   }
 
   return {

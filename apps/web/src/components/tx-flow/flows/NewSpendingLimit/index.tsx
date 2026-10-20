@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
 import { TxFlowType } from '@/services/analytics'
@@ -19,12 +20,12 @@ const NewSpendingLimitFlow = () => {
   return (
     <TxFlow
       icon={SaveAddressIcon}
-      subtitle="Spending limit"
+      subtitle={translateMessage('ui.spendingLimit_26abdb30')}
       ReviewTransactionComponent={ReviewSpendingLimit}
       eventCategory={TxFlowType.SETUP_SPENDING_LIMIT}
       initialData={defaultValues}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <CreateSpendingLimit />
       </TxFlowStep>
     </TxFlow>

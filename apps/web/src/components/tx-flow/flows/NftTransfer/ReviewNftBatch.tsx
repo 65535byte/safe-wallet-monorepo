@@ -7,7 +7,6 @@ import { createMultiSendCallOnlyTx, createTx } from '@/services/tx/tx-sender'
 import { SafeTxContext } from '../../SafeTxProvider'
 import { NftItems } from '@/components/tx-flow/flows/NftTransfer/SendNftBatch'
 import ReviewTransaction, { type ReviewTransactionProps } from '@/components/tx/ReviewTransactionV2'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 import { TxFlowContext, type TxFlowContextType } from '../../TxFlowProvider'
 
@@ -33,7 +32,7 @@ const ReviewNftBatch = ({ onSubmit, children }: ReviewTransactionProps): ReactEl
     <ReviewTransaction onSubmit={onSubmit} withDecodedData={false}>
       <SendToBlock address={data?.recipient || ''} />
 
-      <FieldsGrid title={`NFT${maybePlural(tokens)}`}>
+      <FieldsGrid title="NFT">
         <NftItems tokens={tokens} />
       </FieldsGrid>
 

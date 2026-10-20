@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { FormProvider, useWatch } from 'react-hook-form'
@@ -112,10 +113,14 @@ const SelectSafesOnboarding = (): ReactElement => {
         <StepCounter currentStep={ONBOARDING_STEP} totalSteps={totalSteps} />
 
         <div className="flex flex-col gap-2 shrink-0">
-          <Typography variant="h2">{isNameStep ? 'Name your Safe accounts' : 'Select Safe accounts'}</Typography>
+          <Typography variant="h2">
+            {isNameStep
+              ? translateMessage('ui.nameYourAccounts_4bcb7c3a')
+              : translateMessage('ui.selectAccounts_a4139228')}
+          </Typography>
           {!isNameStep && (
             <Typography variant="paragraph" color="muted">
-              Select which Safe accounts to add to this Workspace. You can add more later.
+              {translateMessage('ui.selectWhichAccountsToAddTo_ccfde8de')}
             </Typography>
           )}
         </div>
@@ -127,7 +132,7 @@ const SelectSafesOnboarding = (): ReactElement => {
         ) : hasNoSafes ? (
           <Alert variant="info" className="shrink-0">
             <AlertSeverityIcon variant="info" />
-            <AlertDescription>You don&apos;t have any safes yet</AlertDescription>
+            <AlertDescription>{translateMessage('ui.youDonTHaveAnySafes_13df7eda')}</AlertDescription>
           </Alert>
         ) : (
           <>
@@ -140,8 +145,8 @@ const SelectSafesOnboarding = (): ReactElement => {
               />
               <SearchInput
                 className="flex-1"
-                placeholder="by name, address or network"
-                aria-label="Search Safe list"
+                placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+                aria-label={translateMessage('ui.searchList_41181693')}
                 autoComplete="off"
                 onChange={(e) => handleSearch(e.target.value)}
               />
@@ -150,7 +155,7 @@ const SelectSafesOnboarding = (): ReactElement => {
             <div className="relative min-w-0" data-testid="onboarding-safes-list-region">
               {noSearchResults ? (
                 <Typography variant="paragraph" align="center" color="muted" className="py-8">
-                  No safes match your search
+                  {translateMessage('ui.noSafesMatchYourSearch_6442d365')}
                 </Typography>
               ) : (
                 <OnboardingSafesList
@@ -186,7 +191,7 @@ const SelectSafesOnboarding = (): ReactElement => {
       <OnboardingFooter
         onBack={isNameStep ? showSelectStep : handleBack}
         backDisabled={isSubmitting}
-        continueLabel={isNameStep ? 'Add accounts' : 'Next'}
+        continueLabel={isNameStep ? translateMessage('ui.addAccounts_5b9c31e4') : translateMessage('ui.next_9cff86c8')}
         continueType="submit"
         continueForm={FORM_ID}
         continueDisabled={selectedSafesLength === 0 || isSubmitting || !isAddressBookReady}
@@ -201,7 +206,7 @@ const SelectSafesOnboarding = (): ReactElement => {
           disabled={isSubmitting}
           className="cursor-pointer text-sm font-semibold text-foreground underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Skip, add Safe accounts later
+          {translateMessage('ui.skipAddAccountsLater_0ec7f8e2')}
         </button>
       )}
     </div>
@@ -231,7 +236,7 @@ const SelectSafesOnboarding = (): ReactElement => {
         />
       )}
 
-      {spaceId && <CheckoutReturnModals spaceId={spaceId} trialCtaLabel="Get started" />}
+      {spaceId && <CheckoutReturnModals spaceId={spaceId} trialCtaLabel={translateMessage('ui.getStarted_5801751d')} />}
 
       {offersTrial && spaceId && (
         <ClaimTrialModal

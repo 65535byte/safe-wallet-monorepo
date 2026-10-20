@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { Avatar, AvatarImage } from '@safe-global/views/components/ui/avatar'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -48,7 +49,7 @@ const WcChainSwitchModal = ({ appInfo, chain, safes, onSelectSafe, onCancel }: W
         <div>
           <Typography variant="h4">{appInfo.name}</Typography>
           <div className="flex flex-row items-center gap-2">
-            <Typography variant="paragraph-small">wants to switch to</Typography>
+            <Typography variant="paragraph-small">{translateMessage('ui.wantsToSwitchTo_7f8862cf')}</Typography>
             <ChainIndicator chainId={chain.chainId} onlyLogo />
             <Typography variant="paragraph-small-bold">{chain.chainName}</Typography>
           </div>
@@ -57,8 +58,8 @@ const WcChainSwitchModal = ({ appInfo, chain, safes, onSelectSafe, onCancel }: W
 
       <Typography variant="paragraph-small" className="text-muted-foreground">
         {hasSafes
-          ? `Select one of your Safes on ${chain.chainName} to continue.`
-          : `Connected dapp wants to switch to chain ${chain.chainName} but you don't have Safe accounts deployed on that chain.`}
+          ? translateMessage('ui.selectOneOfYourAccountsOn_862cccf3', { p0: chain.chainName })
+          : translateMessage('ui.connectedDappWantsToSwitchTo_608a05fe', { p0: chain.chainName })}
       </Typography>
 
       {hasSafes ? (
@@ -69,12 +70,12 @@ const WcChainSwitchModal = ({ appInfo, chain, safes, onSelectSafe, onCancel }: W
         </div>
       ) : (
         <div className="rounded-lg border border-[var(--color-border-light)] p-4">
-          <Typography variant="paragraph-small">You can load or create a Safe on this network to continue.</Typography>
+          <Typography variant="paragraph-small">{translateMessage('ui.youCanLoadOrCreateA_b16d83c2')}</Typography>
         </div>
       )}
 
       <Button variant="outline" onClick={onCancel} className="self-start">
-        Cancel
+        {translateMessage('ui.cancel_d94a8eaf')}
       </Button>
     </div>
   )

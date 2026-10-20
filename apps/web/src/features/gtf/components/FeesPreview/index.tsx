@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { useContext } from 'react'
 import { ChevronDown } from 'lucide-react'
@@ -28,13 +29,14 @@ import { GAS_FEE_TOOLTIP } from '@safe-global/views/features/gtf/components/shar
 import { IS_RELAYING_LIVE } from '../../constants'
 import css from './styles.module.css'
 
-const SIGNER_FEE_TOOLTIP = 'Fees will be paid from the connected signer wallet when executing this transaction.'
+const SIGNER_FEE_TOOLTIP = translateMessage('ui.feesWillBePaidFromThe_a5c26d97')
 
 const HOW_FEES_WORK_URL = 'https://help.safe.global/articles/9993850744-safewallet-gas-fees-faq'
 
 const PAYMENT_SOURCES = ['safe', 'signer'] as const satisfies readonly GtfPaymentMode[]
 
-const paymentSourceLabel = (source: GtfPaymentMode) => (source === 'safe' ? 'Safe' : 'Signer')
+const paymentSourceLabel = (source: GtfPaymentMode) =>
+  source === 'safe' ? '8379' : translateMessage('ui.signer_a728da3c')
 
 const SignerFeeTooltip = (): ReactElement => (
   <Tooltip>
@@ -47,7 +49,7 @@ const SignerFeeTooltip = (): ReactElement => (
 
 const TotalOutgoingSection = ({ totalOutgoing }: { totalOutgoing: TotalOutgoing }): ReactElement => (
   <div className={css.totalOutgoing}>
-    <Typography variant="paragraph-small-bold">Total outgoing</Typography>
+    <Typography variant="paragraph-small-bold">{translateMessage('ui.totalOutgoing_69047b3a')}</Typography>
     <div className={css.totalOutgoingValue}>
       {totalOutgoing.primary.map((line) => (
         <Typography key={line.currency} variant="paragraph-small-bold">
@@ -174,14 +176,14 @@ const SignerFeeNotice = ({ isLocked }: { isLocked?: boolean }): ReactElement => 
   return (
     <div className={css.signerFeeNotice}>
       <div className={css.signerFeeNoticeRow}>
-        <Typography variant="paragraph-small-bold">Fees will be paid from the signer using</Typography>
+        <Typography variant="paragraph-small-bold">{translateMessage('ui.feesWillBePaidFromThe_b6d6422e')}</Typography>
         <TokenIcon logoUri={chain?.nativeCurrency.logoUri} tokenSymbol={chain?.nativeCurrency.symbol} size={24} />
         <Typography variant="paragraph-small-bold">{chain?.nativeCurrency.symbol}</Typography>
         <SignerFeeTooltip />
       </div>
       {!isLocked && (
         <Typography variant="paragraph-small" color="muted">
-          Fees can&apos;t currently be paid from your Safe.
+          {translateMessage('ui.feesCanTCurrentlyBePaid_10ce69f9')}
         </Typography>
       )}
     </div>
@@ -200,7 +202,7 @@ const ConfirmationFeeNotice = ({
 
   return (
     <div className={css.signerFeeNoticeRow}>
-      <Typography variant="paragraph-small-bold">Fees will be paid from your Safe using</Typography>
+      <Typography variant="paragraph-small-bold">{translateMessage('ui.feesWillBePaidFromYour_14a7ed11')}</Typography>
       <TokenIcon logoUri={token?.logoUri} tokenSymbol={token?.symbol} size={24} />
       <Typography variant="paragraph-small-bold">{token?.symbol}</Typography>
     </div>
@@ -250,10 +252,10 @@ const FeesPreview = (props: FeesPreviewData): ReactElement => {
   return (
     <div className={css.container}>
       <div className={css.header}>
-        <Typography variant="paragraph-small-bold">Fees</Typography>
+        <Typography variant="paragraph-small-bold">{translateMessage('ui.fees_5ef20e69')}</Typography>
         {IS_RELAYING_LIVE && (
           <a href={HOW_FEES_WORK_URL} target="_blank" rel="noreferrer noopener" className={css.howFeesWork}>
-            How fees work
+            {translateMessage('ui.howFeesWork_75461ed4')}
             <ArrowUpRightIcon className="size-4" />
           </a>
         )}
@@ -285,13 +287,13 @@ const FeesPreview = (props: FeesPreviewData): ReactElement => {
                 <div className={css.paymentRow}>
                   <div className={css.paymentRowGroup}>
                     <Typography variant="paragraph-small" color="muted">
-                      Pay fees from:
+                      {translateMessage('ui.payFeesFrom_cc2a07c3')}
                     </Typography>
                     <PaymentSourceSelector value={gtfPaymentMode} onChange={handlePaymentSourceChange} />
                   </div>
                   <div className={css.paymentRowGroup}>
                     <Typography variant="paragraph-small" color="muted">
-                      Fees token:
+                      {translateMessage('ui.feesToken_56b63a91')}
                     </Typography>
                     <GasTokenSelector
                       availableGasTokens={availableGasTokens}
@@ -332,8 +334,8 @@ const FeesPreview = (props: FeesPreviewData): ReactElement => {
         <Alert variant="warning" outlined={false} className="mt-2">
           <AlertSeverityIcon variant="warning" />
           <AlertDescription>
-            Insufficient {gasFee.currency} balance to cover the gas fee. Top up before execution, otherwise the
-            transaction will fail.
+            {translateMessage('ui.insufficient_c0f2bbaf')}
+            {gasFee.currency} {translateMessage('ui.balanceToCoverTheGasFee_8e253c79')}
           </AlertDescription>
         </Alert>
       )}

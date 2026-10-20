@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { type ReactElement } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -12,7 +13,7 @@ const OverviewSkeleton = (): ReactElement => {
         <div className="flex flex-col justify-between md:flex-row md:items-end">
           <div>
             <Typography variant="paragraph-bold" className="mb-1">
-              Total balance
+              {translateMessage('ui.totalBalance_a9526be5')}
             </Typography>
 
             <Skeleton className="h-[53px] w-full" />

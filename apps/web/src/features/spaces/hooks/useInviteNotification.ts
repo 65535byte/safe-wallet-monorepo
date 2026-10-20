@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useSpacesGetV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -53,9 +54,9 @@ export const useInviteNotification = (): void => {
       dispatch(
         showNotification({
           variant: 'info',
-          message: `You've been invited to join ${space.name}`,
+          message: translateMessage('ui.youVeBeenInvitedToJoin_dd8c0dfe', { p0: space.name }),
           groupKey: `space-invite-${space.uuid}`,
-          link: { href: AppRoutes.welcome.spaces, title: 'View invite' },
+          link: { href: AppRoutes.welcome.spaces, title: translateMessage('ui.viewInvite_663efe8d') },
         }),
       )
     }

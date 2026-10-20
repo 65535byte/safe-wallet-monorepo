@@ -68,8 +68,8 @@ export const HelperCenterArticleTitles = {
   RECOVERY: 'Learn more about the Account recovery process',
 }
 // Social
-export const DISCORD_URL = 'https://chat.safe.global'
-export const TWITTER_URL = 'https://twitter.com/safe'
-export const TERMS_URL = 'https://safe.global/terms'
-export const PRIVACY_URL = 'https://safe.global/privacy'
+export const DISCORD_URL = ''
+export const TWITTER_URL = ''
+export const TERMS_URL = process.env.NEXT_PUBLIC_TERMS_URL || process.env.EXPO_PUBLIC_TERMS_URL || ''
+export const PRIVACY_URL = process.env.NEXT_PUBLIC_PRIVACY_URL || process.env.EXPO_PUBLIC_PRIVACY_URL || ''
 export const SAFE_TO_L2_MIGRATION_VERSION = '1.4.1'

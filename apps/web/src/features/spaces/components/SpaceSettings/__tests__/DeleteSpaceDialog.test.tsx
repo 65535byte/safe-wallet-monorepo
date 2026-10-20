@@ -22,12 +22,12 @@ jest.mock('@/services/analytics', () => ({
 }))
 
 const mockSpace: GetSpaceResponse = {
+  experimentalFeatures: [],
   uuid: MOCK_SPACE_UUID,
   name: 'My Workspace',
   members: [],
   safeCount: 0,
   memberCount: 0,
-  experimentalFeatures: [],
 }
 
 const renderDialog = (space = mockSpace, onClose = jest.fn()) => {
@@ -56,7 +56,7 @@ describe('DeleteSpaceDialog', () => {
 
   it('should, when rendered, label the confirmation input with the prompt that contains the space name', () => {
     renderDialog()
-    expect(screen.getByLabelText('Type My Workspace to confirm')).toBe(screen.getByTestId('space-confirm-name-input'))
+    expect(screen.getByLabelText(/输入.*My Workspace.*确认/)).toBe(screen.getByTestId('space-confirm-name-input'))
   })
 
   it('confirm button is disabled when the input is empty', () => {
@@ -129,7 +129,7 @@ describe('DeleteSpaceDialog', () => {
       const notifications = store.getState().notifications
       expect(notifications.length).toBeGreaterThan(0)
       const last = notifications[notifications.length - 1]
-      expect(last.message).toBe('Deleted Workspace My Workspace.')
+      expect(last.message).toBe('已删除工作空间 My Workspace。')
       expect(last.variant).toBe('success')
     })
   })
@@ -144,7 +144,7 @@ describe('DeleteSpaceDialog', () => {
     fireEvent.click(screen.getByTestId('space-confirm-delete-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Error deleting the Workspace. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('删除工作空间失败，请重试。')).toBeInTheDocument()
     })
   })
 
@@ -158,7 +158,7 @@ describe('DeleteSpaceDialog', () => {
     fireEvent.click(screen.getByTestId('space-confirm-delete-button'))
 
     await waitFor(() => {
-      expect(screen.getByText('Error deleting the Workspace. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('删除工作空间失败，请重试。')).toBeInTheDocument()
     })
     expect(mockRouterPush).not.toHaveBeenCalled()
   })
@@ -167,7 +167,7 @@ describe('DeleteSpaceDialog', () => {
     const onClose = jest.fn()
     renderDialog(mockSpace, onClose)
 
-    fireEvent.click(screen.getByRole('button', { name: /cancel/i }))
+    fireEvent.click(screen.getByRole('button', { name: /取消/i }))
 
     expect(onClose).toHaveBeenCalled()
   })

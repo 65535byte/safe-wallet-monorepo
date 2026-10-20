@@ -59,7 +59,7 @@ describe('Multisend', () => {
     fireEvent.click(result.getByTestId('expande-all-btn'))
 
     // The action is shown as targeting the Safe, not a bare call to the zero address
-    expect(result.getByText('This Safe account')).toBeInTheDocument()
+    expect(result.getByText('此 8379 账户')).toBeInTheDocument()
     expect(result.queryByText('0x0000...0000')).not.toBeInTheDocument()
   })
 
@@ -71,7 +71,7 @@ describe('Multisend', () => {
     fireEvent.click(result.getByTestId('expande-all-btn'))
 
     // A real target is not rewritten to the Safe
-    expect(result.queryByText('This Safe account')).not.toBeInTheDocument()
+    expect(result.queryByText('此 8379 账户')).not.toBeInTheDocument()
   })
 
   it('does NOT resolve the zero address for a pre-1.5.0 MultiSend (keeps the raw zero address)', () => {
@@ -100,7 +100,7 @@ describe('Multisend', () => {
     fireEvent.click(result.getByTestId('expande-all-btn'))
 
     // Resolves to the nested Safe, not the connected one ("This Safe account" is the connected Safe)
-    expect(result.queryByText('This Safe account')).not.toBeInTheDocument()
+    expect(result.queryByText('此 8379 账户')).not.toBeInTheDocument()
     expect(result.queryByText('0x0000...0000')).not.toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ComponentProps, type ReactNode, useId } from 'react'
 import get from 'lodash/get'
 import { Controller, type FieldError, useFormContext } from 'react-hook-form'
@@ -79,7 +80,7 @@ const NameInput = ({
   // keystrokes mid-typing. An addon-less InputGroup renders identically to a bare Input.
   const hasAdornment = Boolean(InputProps && ('endAdornment' in InputProps || 'startAdornment' in InputProps))
 
-  const resolvedPlaceholder = placeholder ?? (required ? undefined : 'Optional')
+  const resolvedPlaceholder = placeholder ?? (required ? undefined : translateMessage('ui.optional_00a972f2'))
 
   return (
     <Controller
@@ -91,10 +92,10 @@ const NameInput = ({
         validate: (value) => {
           if (validateCharset) {
             const sanitized = sanitizeName(value ?? '')
-            if (sanitized === '') return required ? 'Required' : true
+            if (sanitized === '') return required ? translateMessage('ui.required_e20a3430') : true
             return validateName(sanitized, { minLength, maxLength }) ?? true
           }
-          if (value?.trim() === '' && required) return 'Required'
+          if (value?.trim() === '' && required) return translateMessage('ui.required_e20a3430')
           return true
         },
       }}

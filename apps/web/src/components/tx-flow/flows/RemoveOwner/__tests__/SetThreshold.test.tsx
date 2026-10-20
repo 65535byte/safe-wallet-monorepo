@@ -31,7 +31,7 @@ describe('SetThreshold (WA-3005 Bucket A / GS201-GS202)', () => {
     const onSubmit = jest.fn()
     const { getByTestId, getByText } = render(<SetThreshold params={params} onSubmit={onSubmit} />)
 
-    expect(getByText('Threshold cannot be higher than the number of signers')).toBeInTheDocument()
+    expect(getByText('Threshold cannot be higher than the number / signers')).toBeInTheDocument()
 
     const nextButton = getByTestId('next-btn')
     expect(nextButton).toBeDisabled()
@@ -44,7 +44,7 @@ describe('SetThreshold (WA-3005 Bucket A / GS201-GS202)', () => {
     const onSubmit = jest.fn()
     const { getByTestId, queryByText } = render(<SetThreshold params={params} onSubmit={onSubmit} />)
 
-    expect(queryByText('Threshold cannot be higher than the number of signers')).not.toBeInTheDocument()
+    expect(queryByText('Threshold cannot be higher than the number / signers')).not.toBeInTheDocument()
     expect(getByTestId('next-btn')).not.toBeDisabled()
   })
 })

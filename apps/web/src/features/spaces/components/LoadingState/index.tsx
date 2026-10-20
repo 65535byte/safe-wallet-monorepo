@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import { cn } from '@safe-global/views/utils/cn'
 import { useDarkMode } from '@/hooks/useDarkMode'
@@ -8,7 +9,7 @@ const LoadingState = () => {
   return (
     <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
       <div className="flex min-h-screen items-center justify-center">
-        <Spinner className="size-10" aria-label="Loading content" />
+        <Spinner className="size-10" aria-label={translateMessage('ui.loadingContent_ea79e39a')} />
       </div>
     </div>
   )

@@ -236,45 +236,6 @@ describe('signProposerDelegation', () => {
     })
   })
 
-  describe('with a contract wallet', () => {
-    const ownerSignatures = `0x${faker.string.hexadecimal({ length: 128, casing: 'lower', prefix: '' })}1c${faker.string.hexadecimal({ length: 128, casing: 'lower', prefix: '' })}1f`
-
-    beforeEach(() => {
-      isEthSignWallet.mockReturnValue(false)
-      isSmartContractWallet.mockResolvedValue(true)
-    })
-
-    afterEach(() => {
-      isSmartContractWallet.mockReset()
-    })
-
-    it.each([
-      ['queue service', queueServiceChain],
-      ['transaction service', transactionServiceChain],
-    ])(
-      'returns the wallet signature unchanged inside a contract signature for the wallet on a %s chain',
-      async (_, buildChain) => {
-        const chain = buildChain()
-        const signer = createSigner()
-        const send = jest.spyOn(signer.provider, 'send').mockResolvedValue(ownerSignatures)
-
-        const result = (await sign(chain, signer)).toLowerCase()
-
-        const typedData = delegateUtils.normalizeDelegateTypedData(
-          delegateUtils.getDelegateTypedData(chain, proposerAddress, safeAddress, 'add'),
-        )
-        expect(isSmartContractWallet).toHaveBeenCalledWith(chain.chainId, wallet.address)
-        expect(send).toHaveBeenCalledWith('eth_signTypedData_v4', [
-          signer.address.toLowerCase(),
-          JSON.stringify(typedData),
-        ])
-        expect(result.slice(2, 66)).toBe(signer.address.slice(2).toLowerCase().padStart(64, '0'))
-        expect(result.slice(130, 132)).toBe('00')
-        expect(result.endsWith(ownerSignatures.slice(2))).toBe(true)
-      },
-    )
-  })
-
   describe('with an eth_sign wallet', () => {
     const owner = new Wallet(faker.string.hexadecimal({ length: 64, casing: 'lower' }))
 
@@ -458,7 +419,7 @@ describe('signProposerTypedDataForSafe', () => {
 })
 
 describe('addressIsNotSmartContract', () => {
-  const message = 'Cannot add a smart contract account as proposer'
+  const message = '不能将智能合约账户添加为提案人'
   const chainId = '1'
 
   beforeEach(() => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -34,7 +35,7 @@ const SignMsgButton = ({ msg, compact = false }: { msg: MessageItem; compact?: b
                 disabled={!isOk || !isSignable}
                 size={compact ? 'sm' : 'action'}
               >
-                Sign
+                {translateMessage('ui.sign_1e67e9a4')}
               </Button>
             </Track>
           </span>
@@ -43,7 +44,7 @@ const SignMsgButton = ({ msg, compact = false }: { msg: MessageItem; compact?: b
         return isOk && !isSignable ? (
           <Tooltip>
             <TooltipTrigger render={button} />
-            <TooltipContent>You&apos;ve already signed this message</TooltipContent>
+            <TooltipContent>{translateMessage('ui.youVeAlreadySignedThisMessage_afc68722')}</TooltipContent>
           </Tooltip>
         ) : (
           button

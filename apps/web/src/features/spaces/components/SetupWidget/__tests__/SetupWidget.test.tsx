@@ -81,32 +81,32 @@ describe('SetupWidget', () => {
   it('renders the widget title', () => {
     render(<SetupWidget />)
 
-    expect(screen.getByText('Set up your Workspace')).toBeInTheDocument()
+    expect(screen.getByText('设置工作空间')).toBeInTheDocument()
   })
 
   it('renders all four setup steps', () => {
     render(<SetupWidget />)
 
-    expect(screen.getByText('Import your address book')).toBeInTheDocument()
-    expect(screen.getByText('Add your Safe accounts')).toBeInTheDocument()
-    expect(screen.getByText('Invite team members')).toBeInTheDocument()
-    expect(screen.getByText('Explore Workspaces')).toBeInTheDocument()
+    expect(screen.getByText('导入通讯录')).toBeInTheDocument()
+    expect(screen.getByText('添加您的 8379 账户')).toBeInTheDocument()
+    expect(screen.getByText('邀请团队成员')).toBeInTheDocument()
+    expect(screen.getByText('探索工作空间')).toBeInTheDocument()
   })
 
   it('renders the dismiss button', () => {
     render(<SetupWidget />)
 
-    expect(screen.getByText('Dismiss')).toBeInTheDocument()
+    expect(screen.getByText('关闭')).toBeInTheDocument()
   })
 
   it('hides the widget when dismiss is clicked', async () => {
     render(<SetupWidget />)
 
-    fireEvent.click(screen.getByText('Dismiss'))
+    fireEvent.click(screen.getByText('关闭'))
 
     await waitFor(
       () => {
-        expect(screen.queryByText('Set up your Workspace')).not.toBeInTheDocument()
+        expect(screen.queryByText('设置工作空间')).not.toBeInTheDocument()
       },
       { timeout: 3000 },
     )
@@ -115,7 +115,7 @@ describe('SetupWidget', () => {
   it('opens the import address book dialog when step is clicked', () => {
     render(<SetupWidget />)
 
-    fireEvent.click(screen.getByText('Import your address book'))
+    fireEvent.click(screen.getByText('导入通讯录'))
 
     expect(screen.getByTestId('import-address-book-dialog')).toBeInTheDocument()
   })
@@ -136,27 +136,22 @@ describe('SetupWidget', () => {
 
     render(<SetupWidget />)
 
-    const allStepLabels = [
-      'Import your address book',
-      'Add your Safe accounts',
-      'Invite team members',
-      'Explore Workspaces',
-    ]
+    const allStepLabels = ['导入通讯录', '添加您的 8379 账户', '邀请团队成员', '探索工作空间']
     const steps = screen
       .getAllByRole('button')
       .filter((el) => allStepLabels.some((label) => el.textContent?.includes(label)))
 
     // Completed steps should appear before incomplete ones
-    expect(steps[0]).toHaveTextContent('Import your address book')
-    expect(steps[1]).toHaveTextContent('Add your Safe accounts')
-    expect(steps[2]).toHaveTextContent('Invite team members')
-    expect(steps[3]).toHaveTextContent('Explore Workspaces')
+    expect(steps[0]).toHaveTextContent('导入通讯录')
+    expect(steps[1]).toHaveTextContent('添加您的 8379 账户')
+    expect(steps[2]).toHaveTextContent('邀请团队成员')
+    expect(steps[3]).toHaveTextContent('探索工作空间')
   })
 
   it('opens the Introducing Spaces modal when Explore Spaces is clicked', () => {
     render(<SetupWidget />)
 
-    fireEvent.click(screen.getByText('Explore Workspaces'))
+    fireEvent.click(screen.getByText('探索工作空间'))
 
     expect(screen.getByTestId('space-info-modal')).toBeInTheDocument()
   })
@@ -174,7 +169,7 @@ describe('SetupWidget', () => {
 
     render(<SetupWidget />)
 
-    fireEvent.click(screen.getByText('Explore Workspaces'))
+    fireEvent.click(screen.getByText('探索工作空间'))
     expect(screen.getByTestId('space-info-modal')).toBeInTheDocument()
 
     fireEvent.click(screen.getByTestId('close-space-info-modal'))
@@ -189,7 +184,7 @@ describe('SetupWidget', () => {
   it('does not mark the space as completed when Explore Spaces modal is closed but steps are incomplete', () => {
     render(<SetupWidget />)
 
-    fireEvent.click(screen.getByText('Explore Workspaces'))
+    fireEvent.click(screen.getByText('探索工作空间'))
     expect(screen.getByTestId('space-info-modal')).toBeInTheDocument()
 
     fireEvent.click(screen.getByTestId('close-space-info-modal'))
@@ -209,7 +204,7 @@ describe('SetupWidget', () => {
 
     render(<SetupWidget />)
 
-    expect(screen.queryByText('Set up your Workspace')).not.toBeInTheDocument()
+    expect(screen.queryByText('设置工作空间')).not.toBeInTheDocument()
   })
 
   it('disables click on completed steps', () => {
@@ -221,7 +216,7 @@ describe('SetupWidget', () => {
     render(<SetupWidget />)
 
     // Click the completed "Import your address book" step
-    fireEvent.click(screen.getByText('Import your address book'))
+    fireEvent.click(screen.getByText('导入通讯录'))
 
     // Dialog should NOT open since the step is completed
     expect(screen.queryByTestId('import-address-book-dialog')).not.toBeInTheDocument()

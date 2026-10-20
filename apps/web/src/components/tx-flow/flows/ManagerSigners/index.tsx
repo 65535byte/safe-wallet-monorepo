@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
@@ -37,12 +38,12 @@ const ManageSignersFlow = () => {
   return (
     <TxFlow
       icon={SaveAddressIcon}
-      subtitle="Manage signers"
+      subtitle={translateMessage('ui.manageSigners_984a7e8e')}
       ReviewTransactionComponent={ReviewSigners}
       eventCategory={TxFlowType.SIGNERS_STRUCTURE}
       initialData={defaultValues}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <SignersStructure />
       </TxFlowStep>
     </TxFlow>

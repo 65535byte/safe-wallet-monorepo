@@ -107,13 +107,10 @@ describe('notificationsSlice', () => {
 
       store.dispatch(showNotification({ message: 'Queued', groupKey: 'a', variant: 'success' }))
       store.dispatch(showNotification({ message: 'Failed to sign', groupKey: 'b', variant: 'error' }))
-      store.dispatch(showNotification({ message: 'Needs confirmation', groupKey: 'c', variant: 'info' }))
+      store.dispatch(showNotification({ message: '需要确认', groupKey: 'c', variant: 'info' }))
 
       expect(selectNotifications(store.getState())).toHaveLength(3)
-      expect(selectCenterNotifications(store.getState()).map(({ message }) => message)).toEqual([
-        'Queued',
-        'Needs confirmation',
-      ])
+      expect(selectCenterNotifications(store.getState()).map(({ message }) => message)).toEqual(['Queued', '需要确认'])
     })
 
     it('keeps the same reference until the notifications change', () => {

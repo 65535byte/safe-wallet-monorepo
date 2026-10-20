@@ -39,7 +39,7 @@ describe('EmailSignInButton', () => {
     render(<EmailSignInButton />)
 
     expect(screen.getByTestId('email-login-btn')).toBeInTheDocument()
-    expect(screen.getByText('Continue with email')).toBeInTheDocument()
+    expect(screen.getByText('使用邮箱继续')).toBeInTheDocument()
   })
 
   it('should track analytics event on click', () => {

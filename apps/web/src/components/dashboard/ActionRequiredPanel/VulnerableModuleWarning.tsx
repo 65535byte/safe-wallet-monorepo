@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { ActionCard } from '@/components/common/ActionCard'
 import { ATTENTION_PANEL_EVENTS } from '@/services/analytics/events/attention-panel'
@@ -12,10 +13,10 @@ export const VulnerableModuleWarning = ({ isVulnerable }: { isVulnerable: boolea
   return (
     <ActionCard
       severity="critical"
-      title="This Safe is affected by a vulnerable third-party module."
-      content="A Zodiac Delay v1.1.0 or Roles v2.1.0 module associated with it has a known critical vulnerability. We advise you to take immediate action."
+      title={translateMessage('ui.thisIsAffectedByAVulnerable_c0efaa2d')}
+      content={translateMessage('ui.aZodiacDelayV1OrRoles_54843e04')}
       action={{
-        label: 'Read more',
+        label: translateMessage('ui.readMore_531b9432'),
         href: VULNERABLE_MODULE_HELP_ARTICLE,
         target: '_blank',
         rel: 'noopener noreferrer',

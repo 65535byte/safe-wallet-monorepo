@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { isAddress } from 'ethers'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import EmailInfo from '@/components/common/EmailInfo'
@@ -15,7 +16,7 @@ const Inviter = ({ invitedByName, variant, avatarSize }: InviterProps) => {
 
   return (
     <div className="flex flex-row items-center gap-1.5">
-      <Typography variant={variant}>by</Typography>
+      <Typography variant={variant}>{translateMessage('ui.by_7d9ab38f')}</Typography>
       {/* Typography wrapper keeps the inviter name at the same font size as the surrounding text. */}
       <Typography variant={variant} as="div" className="flex items-center gap-1 font-bold text-primary">
         {isAddress(invitedByName) ? (

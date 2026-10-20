@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -30,7 +31,7 @@ type OnboardingFooterProps = {
  */
 const OnboardingFooter = ({
   onBack,
-  backLabel = 'Back',
+  backLabel = translateMessage('ui.back_dae8bf43'),
   backDisabled = false,
   continueLabel,
   onContinue,

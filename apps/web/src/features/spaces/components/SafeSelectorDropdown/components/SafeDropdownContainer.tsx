@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { RotateCw } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { SelectContent, SelectItem } from '@safe-global/views/components/ui/select'
@@ -65,12 +66,12 @@ function SafeItemSkeleton() {
 function DropdownContentError({ onRetry }: { onRetry?: () => void }) {
   return (
     <div className="flex flex-col items-center gap-2 px-4 py-8">
-      <p className="text-sm font-semibold">Unable to load accounts</p>
-      <p className="text-xs text-muted-foreground">Try to reload page.</p>
+      <p className="text-sm font-semibold">{translateMessage('ui.unableToLoadAccounts_1892f1b3')}</p>
+      <p className="text-xs text-muted-foreground">{translateMessage('ui.tryToReloadPage_e59cc683')}</p>
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry} className="mt-1">
           <RotateCw className="size-3.5" />
-          Reload
+          {translateMessage('ui.reload_00a35ede')}
         </Button>
       )}
     </div>
@@ -159,7 +160,11 @@ const SafeDropdownContainer = ({
 
     const emptyText = (
       <p className="px-4 py-6 text-center text-sm text-muted-foreground" data-testid="dropdown-empty">
-        {query ? 'No safes match your search' : wallet ? 'No safes yet' : 'Connect a wallet to find your Safe accounts'}
+        {query
+          ? translateMessage('ui.noSafesMatchYourSearch_6442d365')
+          : wallet
+            ? translateMessage('ui.noSafesYet_a971c76f')
+            : translateMessage('ui.connectAWalletToFindYour_1ec8f155')}
       </p>
     )
 
@@ -263,7 +268,7 @@ const SafeDropdownContainer = ({
                 <SearchInput
                   variant="surface"
                   className="flex-1 shadow-xs"
-                  placeholder="by name, address or network"
+                  placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   // Stop keystrokes reaching base-ui Select's typeahead, which would hijack typing.

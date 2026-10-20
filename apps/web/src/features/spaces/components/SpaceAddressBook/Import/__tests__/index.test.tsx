@@ -18,7 +18,7 @@ describe('ImportAddressBook button', () => {
 
     render(<ImportAddressBook />)
 
-    expect(screen.getByRole('button', { name: /Import/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /导入/i })).toBeDisabled()
   })
 
   it('disables the button when chains have no contacts', () => {
@@ -26,7 +26,7 @@ describe('ImportAddressBook button', () => {
 
     render(<ImportAddressBook />)
 
-    expect(screen.getByRole('button', { name: /Import/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /导入/i })).toBeDisabled()
   })
 
   it('shows a tooltip explaining why the button is disabled', async () => {
@@ -34,10 +34,10 @@ describe('ImportAddressBook button', () => {
 
     render(<ImportAddressBook />)
 
-    await userEvent.hover(screen.getByRole('button', { name: /Import/i }).parentElement!)
+    await userEvent.hover(screen.getByRole('button', { name: /导入/i }).parentElement!)
 
     await waitFor(() => {
-      expect(screen.getByText(/You don't have any contacts in your local address book/i)).toBeInTheDocument()
+      expect(screen.getByText(/You don't have any contacts in your local 通讯录/i)).toBeInTheDocument()
     })
   })
 
@@ -46,7 +46,7 @@ describe('ImportAddressBook button', () => {
 
     render(<ImportAddressBook />)
 
-    expect(screen.getByRole('button', { name: /Import/i })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: /导入/i })).not.toBeDisabled()
   })
 
   it('does not render the tooltip text when there are local contacts', async () => {
@@ -54,9 +54,9 @@ describe('ImportAddressBook button', () => {
 
     render(<ImportAddressBook />)
 
-    await userEvent.hover(screen.getByRole('button', { name: /Import/i }))
+    await userEvent.hover(screen.getByRole('button', { name: /导入/i }))
 
-    expect(screen.queryByText(/You don't have any contacts in your local address book/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/You don't have any contacts in your local 通讯录/i)).not.toBeInTheDocument()
   })
 
   it('opens the dialog when an enabled button is clicked', async () => {
@@ -66,7 +66,7 @@ describe('ImportAddressBook button', () => {
 
     expect(screen.queryByTestId('import-dialog')).not.toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: /Import/i }))
+    await userEvent.click(screen.getByRole('button', { name: /导入/i }))
 
     expect(screen.getByTestId('import-dialog')).toBeInTheDocument()
   })

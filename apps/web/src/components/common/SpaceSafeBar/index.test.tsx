@@ -276,8 +276,8 @@ describe('SpaceSafeBar', () => {
     const { getByTestId } = render(<SpaceSafeBar />)
     expect(getByTestId('safe-selector-dropdown').getAttribute('data-has-footer')).toBe('true')
     const manageBtn = getByTestId('dropdown-manage-trusted-btn')
-    expect(manageBtn).toHaveTextContent('Manage list')
-    expect(manageBtn).toHaveTextContent('Add or remove accounts from this list')
+    expect(manageBtn).toHaveTextContent('管理列表')
+    expect(manageBtn).toHaveTextContent('从列表中添加或移除账户')
   })
 
   it('drops the footer and shows the No accounts empty state when connected with no trusted safes', () => {
@@ -296,8 +296,8 @@ describe('SpaceSafeBar', () => {
     expect(getByTestId('safe-selector-dropdown').getAttribute('data-has-footer')).toBe('false')
     expect(queryByTestId('dropdown-manage-trusted-btn')).not.toBeInTheDocument()
     const emptyState = getByTestId('dropdown-no-trusted')
-    expect(emptyState).toHaveTextContent('No accounts yet')
-    expect(emptyState).toHaveTextContent('Manage your list to add or remove accounts.')
+    expect(emptyState).toHaveTextContent('暂无账户')
+    expect(emptyState).toHaveTextContent('管理列表以添加或移除账户。')
     expect(getByTestId('dropdown-manage-list-btn')).toBeInTheDocument()
   })
 
@@ -316,7 +316,7 @@ describe('SpaceSafeBar', () => {
     const { getByTestId, queryByTestId } = render(<SpaceSafeBar />)
     expect(getByTestId('safe-selector-dropdown').getAttribute('data-has-footer')).toBe('false')
     const emptyState = getByTestId('dropdown-connect-cta')
-    expect(emptyState).toHaveTextContent('Connect your wallet to access existing accounts or add new ones.')
+    expect(emptyState).toHaveTextContent('连接钱包，即可访问已有账户或添加新账户。')
     expect(getByTestId('dropdown-connect-wallet-body-btn')).toBeInTheDocument()
     expect(queryByTestId('dropdown-no-trusted')).not.toBeInTheDocument()
   })

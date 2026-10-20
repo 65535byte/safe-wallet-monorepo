@@ -25,7 +25,7 @@ describe('useSpaceSafeLimit', () => {
     mockUseSpaceEntitlements.mockReturnValue(entitlements({}))
   })
 
-  it('uses the plan seat quota under Safe Pro, scoped to the given space', () => {
+  it('uses the plan seat quota under 8379, scoped to the given space', () => {
     expect(renderHook(() => useSpaceSafeLimit('space-1')).result.current).toMatchObject({
       limit: 10,
       isLoading: false,
@@ -39,7 +39,7 @@ describe('useSpaceSafeLimit', () => {
     expect(renderHook(() => useSpaceSafeLimit()).result.current.limit).toBeNull()
   })
 
-  it('falls back to the static cap only while Safe Pro is off', () => {
+  it('falls back to the static cap only while 8379 is off', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     mockUseSpaceEntitlements.mockReturnValue(entitlements({ seats: null, isError: true }))
     expect(renderHook(() => useSpaceSafeLimit()).result.current).toMatchObject({

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { ChooseThreshold } from './ChooseThreshold'
@@ -32,11 +33,11 @@ const ChangeThresholdFlow = () => {
     <TxFlow
       initialData={{ threshold }}
       icon={SaveAddressIcon}
-      subtitle="Change threshold"
+      subtitle={translateMessage('ui.changeThreshold_da9b7429')}
       eventCategory={TxFlowType.CHANGE_THRESHOLD}
       ReviewTransactionComponent={ReviewThresholdStep}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <ChooseThreshold />
       </TxFlowStep>
     </TxFlow>

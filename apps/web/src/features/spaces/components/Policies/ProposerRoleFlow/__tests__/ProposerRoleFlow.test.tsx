@@ -90,12 +90,12 @@ const renderFlow = () => {
 const fillAndSubmit = async (user: ReturnType<typeof renderFlow>['user'], safeOption: RegExp = /Treasury/) => {
   await user.click(screen.getByTestId('safe-account-selector'))
   await user.click(await screen.findByRole('option', { name: safeOption }))
-  await user.click(screen.getByRole('combobox', { name: 'Proposer' }))
+  await user.click(screen.getByRole('combobox', { name: '提案人' }))
   await user.paste(PROPOSER)
-  await user.click(screen.getByRole('textbox', { name: 'Proposer name' }))
+  await user.click(screen.getByRole('textbox', { name: '提案人名称' }))
   await user.paste('Nicole')
-  await waitFor(() => expect(screen.getByRole('button', { name: 'Submit' })).toBeEnabled())
-  await user.click(screen.getByRole('button', { name: 'Submit' }))
+  await waitFor(() => expect(screen.getByRole('button', { name: '提交' })).toBeEnabled())
+  await user.click(screen.getByRole('button', { name: '提交' }))
 }
 
 const SAFE = '0xAAAAaaaaAAaaaaAAAaAAaaaAaAaaaaaAAAaaAAaA'
@@ -114,7 +114,7 @@ const payroll: SafeAccountOption = {
   ...treasury,
   id: buildSafeAccountId('137', OTHER_SAFE),
   address: OTHER_SAFE,
-  name: 'Payroll',
+  name: '薪资',
 }
 
 describe('ProposerRoleFlow', () => {
@@ -134,9 +134,9 @@ describe('ProposerRoleFlow', () => {
   it('renders the page title and the policy header', () => {
     render(<ProposerRoleFlow />)
 
-    expect(screen.getByTestId('modal-title')).toHaveTextContent('Create new policy')
-    expect(screen.getByRole('heading', { name: /Proposer role/ })).toBeInTheDocument()
-    expect(screen.getByText('Let teammates without signing rights propose transactions.')).toBeInTheDocument()
+    expect(screen.getByTestId('modal-title')).toHaveTextContent('创建策略')
+    expect(screen.getByRole('heading', { name: /提案人角色/ })).toBeInTheDocument()
+    expect(screen.getByText('允许没有签名权限的团队成员发起交易。')).toBeInTheDocument()
   })
 
   it('shows neither the status rail nor the Safe Shield panel', () => {
@@ -148,7 +148,7 @@ describe('ProposerRoleFlow', () => {
 
   it('keeps submit disabled until a Safe account and a proposer are set', async () => {
     const { user } = renderWithUserEvent(<ProposerRoleFlow />)
-    const submit = screen.getByRole('button', { name: 'Submit' })
+    const submit = screen.getByRole('button', { name: '提交' })
 
     expect(submit).toBeDisabled()
 
@@ -156,7 +156,7 @@ describe('ProposerRoleFlow', () => {
     await user.click(await screen.findByRole('option', { name: /Treasury/ }))
     expect(submit).toBeDisabled()
 
-    await user.click(screen.getByRole('combobox', { name: 'Proposer' }))
+    await user.click(screen.getByRole('combobox', { name: '提案人' }))
     await user.paste(PROPOSER)
 
     await waitFor(() => expect(submit).toBeEnabled())
@@ -184,7 +184,7 @@ describe('ProposerRoleFlow', () => {
     await user.click(screen.getByTestId('safe-account-selector'))
 
     expect(await screen.findByText(SIGNERS_ONLY_COPY.noEligibleAccountsText)).toBeInTheDocument()
-    expect(await screen.findByRole('button', { name: 'Switch wallet' })).toBeInTheDocument()
+    expect(await screen.findByRole('button', { name: '切换钱包' })).toBeInTheDocument()
   })
 
   it('passes the account loading and error states through to the selector', async () => {
@@ -200,7 +200,7 @@ describe('ProposerRoleFlow', () => {
     const { user } = renderWithUserEvent(<ProposerRoleFlow />)
 
     await user.click(screen.getByTestId('safe-account-selector'))
-    await user.click(await screen.findByRole('button', { name: /retry/i }))
+    await user.click(await screen.findByRole('button', { name: /重试/i }))
 
     expect(refetch).toHaveBeenCalled()
   })
@@ -228,13 +228,13 @@ describe('ProposerRoleFlow', () => {
       expect(await screen.findByTestId('parent-safe-wallet-notice')).toHaveTextContent(
         'Your connected wallet, Ops, is a parent Safe account of Treasury.',
       )
-      expect(screen.getByRole('link', { name: 'Go to Safe settings' })).toHaveAttribute(
+      expect(screen.getByRole('link', { name: '前往 8379 设置' })).toHaveAttribute(
         'href',
         expect.stringContaining(`safe=matic%3A${SAFE}`),
       )
-      expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled()
+      expect(screen.getByRole('button', { name: '提交' })).toBeDisabled()
 
-      await user.click(screen.getByRole('link', { name: 'Go to Safe settings' }))
+      await user.click(screen.getByRole('link', { name: '前往 8379 设置' }))
 
       expect(setTxFlow).toHaveBeenCalledWith(undefined, undefined, false)
       expect(push).toHaveBeenCalledWith({
@@ -288,7 +288,7 @@ describe('ProposerRoleFlow', () => {
       const { user } = renderFlow()
 
       await user.click(screen.getByTestId('safe-account-selector'))
-      await user.click(await screen.findByRole('option', { name: /Payroll/ }))
+      await user.click(await screen.findByRole('option', { name: /薪资/ }))
 
       expect(reset).toHaveBeenCalled()
     })
@@ -297,7 +297,7 @@ describe('ProposerRoleFlow', () => {
       mockUseGrantProposer.mockReturnValue(grantState({ error: new Error('boom') }))
       renderFlow()
 
-      expect(screen.getByText('Error adding proposer')).toBeInTheDocument()
+      expect(screen.getByText('添加提案人失败')).toBeInTheDocument()
     })
 
     it('shows the rejected-signature copy when the wallet rejects', () => {
@@ -305,7 +305,7 @@ describe('ProposerRoleFlow', () => {
       mockUseGrantProposer.mockReturnValue(grantState({ error: rejection }))
       renderFlow()
 
-      expect(screen.getByText('The signature request was rejected. Try again to continue.')).toBeInTheDocument()
+      expect(screen.getByText('签名请求已拒绝，请重试以继续。')).toBeInTheDocument()
     })
 
     it('shows the blocked reason when the proposer is a smart contract', () => {
@@ -321,7 +321,7 @@ describe('ProposerRoleFlow', () => {
 
       const submit = screen.getByTestId('submit-proposer-btn')
       expect(submit).toBeDisabled()
-      expect(submit).not.toHaveTextContent('Submit')
+      expect(submit).not.toHaveTextContent('提交')
     })
   })
 })

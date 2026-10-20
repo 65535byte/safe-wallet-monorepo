@@ -62,7 +62,7 @@ describe('NotificationsPopover', () => {
     fireEvent.click(screen.getByTestId('open-trigger'))
 
     expect(screen.getByTestId('notifications-title')).toBeInTheDocument()
-    expect(screen.getByTestId('notifications-title')).toHaveTextContent('Notifications')
+    expect(screen.getByTestId('notifications-title')).toHaveTextContent('通知')
   })
 
   it('renders "Clear all" when there are notifications', () => {
@@ -73,14 +73,14 @@ describe('NotificationsPopover', () => {
     render(<PopoverOpener />, { initialReduxState })
     fireEvent.click(screen.getByTestId('open-trigger'))
 
-    expect(screen.getByText('Clear all')).toBeInTheDocument()
+    expect(screen.getByText('全部清除')).toBeInTheDocument()
   })
 
   it('does not render "Clear all" when there are no notifications', () => {
     render(<PopoverOpener />)
     fireEvent.click(screen.getByTestId('open-trigger'))
 
-    expect(screen.queryByText('Clear all')).not.toBeInTheDocument()
+    expect(screen.queryByText('全部清除')).not.toBeInTheDocument()
   })
 
   it('renders data-testid="notifications-button" when push notifications feature is enabled', () => {
@@ -91,7 +91,7 @@ describe('NotificationsPopover', () => {
     fireEvent.click(screen.getByTestId('open-trigger'))
 
     expect(screen.getByTestId('notifications-button')).toBeInTheDocument()
-    expect(screen.getByTestId('notifications-button')).toHaveTextContent('Push notifications settings')
+    expect(screen.getByTestId('notifications-button')).toHaveTextContent('推送通知设置')
   })
 
   it('does not render push notifications settings when feature is disabled', () => {

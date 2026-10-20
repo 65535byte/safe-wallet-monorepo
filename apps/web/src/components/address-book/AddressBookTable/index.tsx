@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useMemo, useState } from 'react'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 
@@ -92,14 +93,14 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label="Edit entry"
+                aria-label={translateMessage('ui.editEntry_956e3e6d')}
                 onClick={() => handleOpenModalWithValues(ModalType.ENTRY, address, name)}
               >
                 <EditIcon className="size-4 text-[var(--color-border-main)]" />
               </Button>
             }
           />
-          <TooltipContent>Edit entry</TooltipContent>
+          <TooltipContent>{translateMessage('ui.editEntry_956e3e6d')}</TooltipContent>
         </Tooltip>
       </Track>
 
@@ -110,14 +111,14 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label="Delete entry"
+                aria-label={translateMessage('ui.deleteEntry_15803e49')}
                 onClick={() => handleOpenModalWithValues(ModalType.REMOVE, address, name)}
               >
                 <DeleteIcon className="size-4 text-[var(--color-error-main)]" />
               </Button>
             }
           />
-          <TooltipContent>Delete entry</TooltipContent>
+          <TooltipContent>{translateMessage('ui.deleteEntry_15803e49')}</TooltipContent>
         </Tooltip>
       </Track>
 
@@ -131,7 +132,7 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
                     <Button
                       variant="ghost"
                       size="icon-sm"
-                      aria-label="Send"
+                      aria-label={translateMessage('ui.send_f1004bfb')}
                       data-testid="send-btn"
                       onClick={() => setTxFlow(<TokenTransferFlow recipients={[{ recipient: address }]} />)}
                       disabled={!isOk}
@@ -141,7 +142,7 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
                   </span>
                 }
               />
-              <TooltipContent>Send</TooltipContent>
+              <TooltipContent>{translateMessage('ui.send_f1004bfb')}</TooltipContent>
             </Tooltip>
           </Track>
         )}
@@ -157,7 +158,7 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
   const columns: DataTableColumn<Entry>[] = [
     {
       id: 'name',
-      header: 'Name',
+      header: translateMessage('ui.name_84f28b85'),
       cellTestId: 'table-cell-name',
       width: '30%',
       minWidth: 120,
@@ -185,7 +186,7 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
     },
     {
       id: 'address',
-      header: 'Address',
+      header: translateMessage('ui.address_ad6c5986'),
       cellTestId: 'table-cell-address',
       width: '40%',
       minWidth: 240,
@@ -197,7 +198,7 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
     },
     {
       id: 'actions',
-      header: 'Actions',
+      header: translateMessage('ui.actions_d4eb333d'),
       cellTestId: 'table-cell-actions',
       align: 'end',
       width: '30%',
@@ -224,7 +225,9 @@ function AddressBookTable({ chain, setTxFlow }: AddressBookTableProps) {
           <TableCard>
             <PagePlaceholder
               img={<NoEntriesIcon />}
-              text={`No entries found${chain ? ` on ${chain.chainName}` : ''}`}
+              text={translateMessage('ui.noEntriesFound_125446d7', {
+                p0: chain ? translateMessage('ui.on_5c5ee09a', { p0: chain.chainName }) : '',
+              })}
             />
           </TableCard>
         )}

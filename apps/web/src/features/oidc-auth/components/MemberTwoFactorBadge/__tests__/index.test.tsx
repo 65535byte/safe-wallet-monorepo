@@ -10,7 +10,7 @@ describe('MemberTwoFactorBadge', () => {
 
     render(<MemberTwoFactorBadge member={member} />)
 
-    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('Active')
+    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('已启用')
   })
 
   it('shows a wallet sign-in badge for a member without an email', () => {
@@ -20,7 +20,7 @@ describe('MemberTwoFactorBadge', () => {
 
     render(<MemberTwoFactorBadge member={member} />)
 
-    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('Wallet sign-in')
+    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('钱包登录')
   })
 
   it('shows a pending badge for an invited member', () => {
@@ -33,7 +33,7 @@ describe('MemberTwoFactorBadge', () => {
 
     render(<MemberTwoFactorBadge member={member} />)
 
-    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('Invite pending')
+    expect(screen.getByTestId('member-2fa-badge')).toHaveTextContent('邀请待接受')
   })
 
   it('renders nothing for a declined invite', () => {

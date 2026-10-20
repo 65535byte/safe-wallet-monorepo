@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -12,7 +13,7 @@ import { OnboardingTooltip } from '@/components/common/OnboardingTooltip'
 import { Chip } from '@safe-global/views/components/common/Chip'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import OnlyOwnerOrProposer from '@/components/common/OnlyOwnerOrProposer'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { TX_LIST_EVENTS } from '@/services/analytics/events/txList'
 
 const getCsvExportFileName = () => {
@@ -47,7 +48,10 @@ const CsvTxExportButton = ({ hasActiveFilter }: CsvTxExportProps): ReactElement 
     ? { backgroundColor: 'static.main', color: 'secondary.main' }
     : { backgroundColor: 'secondary.main', color: 'static.main' }
 
-  const onClick = () => setOpenExportModal(true)
+  const onClick = () => {
+    setOpenExportModal(true)
+    trackEvent(TX_LIST_EVENTS.CSV_EXPORT_CLICKED)
+  }
 
   useEffect(() => {
     if (exportJobId && !exportTimeout.current) {
@@ -91,8 +95,8 @@ const CsvTxExportButton = ({ hasActiveFilter }: CsvTxExportProps): ReactElement 
         showNotification({
           variant: 'success',
           groupKey: 'export-csv-success',
-          title: 'Export successful',
-          message: 'Transactions successfully exported to CSV.',
+          title: translateMessage('ui.exportSuccessful_4d7d93b9'),
+          message: translateMessage('ui.transactionsSuccessfullyExportedToCSV_d0e998dd'),
         }),
       )
     }
@@ -102,8 +106,8 @@ const CsvTxExportButton = ({ hasActiveFilter }: CsvTxExportProps): ReactElement 
         showNotification({
           variant: 'error',
           groupKey: 'export-csv-error',
-          title: 'Something went wrong',
-          message: 'Please try exporting the CSV again.',
+          title: translateMessage('ui.somethingWentWrong_b021881e'),
+          message: translateMessage('ui.pleaseTryExportingTheCSVAgain_d333e808'),
         }),
       )
     }
@@ -135,7 +139,7 @@ const CsvTxExportButton = ({ hasActiveFilter }: CsvTxExportProps): ReactElement 
           <div className="mt-2">
             <Chip sx={{ borderRadius: 1, ...chipStyles }} fontWeight="normal" />
             <Typography className="block mt-2" variant="paragraph-small">
-              Export your transaction history for financial reporting.
+              {translateMessage('ui.exportYourTransactionHistoryForFinancial_61288e52')}
             </Typography>
           </div>
         }
@@ -143,12 +147,10 @@ const CsvTxExportButton = ({ hasActiveFilter }: CsvTxExportProps): ReactElement 
         <div>
           <OnlyOwnerOrProposer placement="top">
             {(isOk) => (
-              <Track {...TX_LIST_EVENTS.CSV_EXPORT_CLICKED}>
-                <Button variant="outline" size="action" onClick={onClick} disabled={!isOk || !!exportJobId}>
-                  {exportJobId ? <Spinner className="size-5" /> : <ExportIcon className="size-5" />}
-                  {exportJobId ? 'Exporting' : 'Export'}
-                </Button>
-              </Track>
+              <Button variant="outline" size="action" onClick={onClick} disabled={!isOk || !!exportJobId}>
+                {exportJobId ? <Spinner className="size-5" /> : <ExportIcon className="size-5" />}
+                {exportJobId ? 'Exporting' : translateMessage('ui.export_9bb429ef')}
+              </Button>
             )}
           </OnlyOwnerOrProposer>
         </div>

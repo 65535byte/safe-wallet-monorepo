@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import get from 'lodash/get'
 import { useFormContext, useWatch } from 'react-hook-form'
@@ -44,7 +45,7 @@ const NameAccountCell = ({ address }: { address: string }) => {
         {showInput ? (
           <NameInput
             name={key}
-            placeholder="Add a name"
+            placeholder={translateMessage('ui.addAName_15cee319')}
             autoFocus={focused}
             validateCharset
             minLength={NAME_MIN_LENGTH}
@@ -99,7 +100,7 @@ const NameAccountsFields = ({ items }: { items: AllSafeItems }) => {
   return (
     <div className="flex flex-col gap-4">
       <Typography variant="paragraph" color="muted">
-        Everyone on the Workspace can see these names. It is stored in the Workspace address book.
+        {translateMessage('ui.everyoneOnTheWorkspaceCanSee_c1887dcc')}
       </Typography>
 
       <SafeAccountsTable

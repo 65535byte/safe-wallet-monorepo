@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import * as React from 'react'
 
 import { cn } from '@safe-global/views/utils/cn'
@@ -39,7 +40,7 @@ function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label={translateMessage('ui.pagination_9dd3620f')}
       data-slot="pagination"
       className={cn('mx-auto flex w-full justify-center', className)}
       {...props}
@@ -76,17 +77,27 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
 
 function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
-    <PaginationLink aria-label="Go to previous page" size="default" className={cn('pl-2!', className)} {...props}>
+    <PaginationLink
+      aria-label={translateMessage('ui.goToPreviousPage_1fb2acbd')}
+      size="default"
+      className={cn('pl-2!', className)}
+      {...props}
+    >
       <ChevronLeftIcon data-icon="inline-start" />
-      <span className="hidden sm:block">Previous</span>
+      <span className="hidden sm:block">{translateMessage('ui.previous_2149c196')}</span>
     </PaginationLink>
   )
 }
 
 function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
-    <PaginationLink aria-label="Go to next page" size="default" className={cn('pr-2!', className)} {...props}>
-      <span className="hidden sm:block">Next</span>
+    <PaginationLink
+      aria-label={translateMessage('ui.goToNextPage_6e5a5f75')}
+      size="default"
+      className={cn('pr-2!', className)}
+      {...props}
+    >
+      <span className="hidden sm:block">{translateMessage('ui.next_9cff86c8')}</span>
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
   )
@@ -104,7 +115,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
       {...props}
     >
       <MoreHorizontalIcon />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">{translateMessage('ui.morePages_c9b4d394')}</span>
     </span>
   )
 }

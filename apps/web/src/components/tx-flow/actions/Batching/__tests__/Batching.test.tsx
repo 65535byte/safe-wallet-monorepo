@@ -57,7 +57,7 @@ const render = (
             onSubmit={jest.fn()}
             onSubmitSuccess={onSubmitSuccess}
             onChange={jest.fn()}
-            options={[{ id: 'batching', label: 'Add to batch' }]}
+            options={[{ id: 'batching', label: '添加到批次' }]}
             slotId="batching"
             txPreview={txPreview}
           />

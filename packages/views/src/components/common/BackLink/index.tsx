@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import { ChevronLeft } from 'lucide-react'
 
@@ -7,7 +8,7 @@ type BackLinkProps = {
   ariaLabel?: string
 }
 
-function BackLink({ children, onClick, ariaLabel = 'Go back' }: BackLinkProps) {
+function BackLink({ children, onClick, ariaLabel = translateMessage('ui.goBack_15f672dc') }: BackLinkProps) {
   return (
     // TODO: change rounded-lg (8px) to rounded-2xl (16px) after migrating to the new design system
     <div className="flex self-stretch rounded-lg bg-card shadow-[0px_4px_20px_0px_rgba(0,0,0,0.03)]">

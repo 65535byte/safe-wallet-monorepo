@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -21,19 +22,20 @@ const RemoveDialog = ({ handleClose, address }: { handleClose: () => void; addre
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Delete entry">
+    <ModalDialog open onClose={handleClose} dialogTitle={translateMessage('ui.deleteEntry_15803e49')}>
       <div className="p-6">
         <Typography>
-          Are you sure you want to permanently delete <b>{name}</b> from your address book?
+          {translateMessage('ui.areYouSureYouWantTo_db3af30f')}
+          <b>{name}</b> {translateMessage('ui.fromYourAddressBook_27bff29a')}
         </Typography>
       </div>
 
       <div className="flex items-center justify-between gap-2 p-6 pt-2">
         <Button variant="ghost" onClick={handleClose}>
-          Cancel
+          {translateMessage('ui.cancel_d94a8eaf')}
         </Button>
         <Button onClick={handleConfirm} variant="destructive">
-          Delete
+          {translateMessage('ui.delete_6cba6a2c')}
         </Button>
       </div>
     </ModalDialog>

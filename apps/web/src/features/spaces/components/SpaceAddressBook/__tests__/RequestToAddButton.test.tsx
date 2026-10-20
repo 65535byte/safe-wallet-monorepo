@@ -48,11 +48,11 @@ describe('RequestToAddButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: 'Alice' }, '137': { [address]: 'Alice' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Request to add' }))
-    expect(screen.getByText('Request to add contact')).toBeInTheDocument()
-    expect(screen.getByText('Name')).toBeInTheDocument()
-    expect(screen.getByText('Address')).toBeInTheDocument()
-    expect(screen.getByText('Networks')).toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: '申请添加' }))
+    expect(screen.getByText('申请添加联系人')).toBeInTheDocument()
+    expect(screen.getByText('名称')).toBeInTheDocument()
+    expect(screen.getByText('地址')).toBeInTheDocument()
+    expect(screen.getByText('网络')).toBeInTheDocument()
 
     await userEvent.click(screen.getByTestId('confirm-request-btn'))
 
@@ -63,7 +63,7 @@ describe('RequestToAddButton', () => {
       })
     })
 
-    await waitFor(() => expect(screen.getByText('Requested')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('已请求')).toBeInTheDocument())
   })
 
   it('submits the sanitized name so it matches the validated value', async () => {
@@ -72,7 +72,7 @@ describe('RequestToAddButton', () => {
       initialReduxState: { addressBook: { '1': { [address]: ' Alice‚Bob ' } } },
     })
 
-    await userEvent.click(screen.getByRole('button', { name: 'Request to add' }))
+    await userEvent.click(screen.getByRole('button', { name: '申请添加' }))
     await userEvent.click(screen.getByTestId('confirm-request-btn'))
 
     await waitFor(() => {
@@ -86,19 +86,19 @@ describe('RequestToAddButton', () => {
   it('disables the button and does not open the dialog when the name has invalid characters', async () => {
     render(<RequestToAddButton address={address} name="José 🦄" chainIds={['1']} />)
 
-    const button = screen.getByRole('button', { name: 'Request to add' })
+    const button = screen.getByRole('button', { name: '申请添加' })
     expect(button).toBeDisabled()
 
     await userEvent.click(button)
 
-    expect(screen.queryByText('Request to add contact')).not.toBeInTheDocument()
+    expect(screen.queryByText('申请添加联系人')).not.toBeInTheDocument()
     expect(mockCreateRequest).not.toHaveBeenCalled()
   })
 
   it('shows a tooltip explaining why an invalid-name contact cannot be requested', async () => {
     render(<RequestToAddButton address={address} name="José 🦄" chainIds={['1']} />)
 
-    await userEvent.hover(screen.getByRole('button', { name: 'Request to add' }).parentElement as HTMLElement)
+    await userEvent.hover(screen.getByRole('button', { name: '申请添加' }).parentElement as HTMLElement)
 
     await waitFor(() => expect(screen.getByText(/Rename this contact to add it to the Workspace/)).toBeInTheDocument())
   })
@@ -106,44 +106,44 @@ describe('RequestToAddButton', () => {
   it('keeps the button enabled for a valid name', () => {
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} />)
 
-    expect(screen.getByRole('button', { name: 'Request to add' })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: '申请添加' })).not.toBeDisabled()
   })
 
   it('treats an already-pending request (409) as requested', async () => {
     mockCreateRequest.mockResolvedValue({ error: { status: 409, data: {} } })
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Request to add' }))
+    await userEvent.click(screen.getByRole('button', { name: '申请添加' }))
     await userEvent.click(screen.getByTestId('confirm-request-btn'))
 
-    await waitFor(() => expect(screen.getByText('Requested')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('已请求')).toBeInTheDocument())
   })
 
   it('renders the requested badge when a pending request already exists', () => {
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} alreadyRequested />)
 
-    expect(screen.getByText('Requested')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Request to add' })).not.toBeInTheDocument()
+    expect(screen.getByText('已请求')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '申请添加' })).not.toBeInTheDocument()
   })
 
   it('drops the label into the accessible name in the compact layout', () => {
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} isCompact />)
 
-    expect(screen.getByRole('button', { name: 'Request to add' })).toHaveTextContent('')
+    expect(screen.getByRole('button', { name: '申请添加' })).toHaveTextContent('')
   })
 
   it('shows the requested state as an icon in the compact layout', () => {
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} alreadyRequested isCompact />)
 
-    expect(screen.getByLabelText('Requested')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Request to add' })).not.toBeInTheDocument()
+    expect(screen.getByLabelText('已请求')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '申请添加' })).not.toBeInTheDocument()
   })
 
   it('tracks the request once it is created', async () => {
     mockCreateRequest.mockResolvedValue({ data: {} })
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Request to add' }))
+    await userEvent.click(screen.getByRole('button', { name: '申请添加' }))
     await userEvent.click(screen.getByTestId('confirm-request-btn'))
 
     await waitFor(() => expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.ADDRESS_REQUEST_SENT))
@@ -153,10 +153,10 @@ describe('RequestToAddButton', () => {
     mockCreateRequest.mockResolvedValue({ error: { status: 409 } })
     render(<RequestToAddButton address={address} name="Alice" chainIds={['1']} />)
 
-    await userEvent.click(screen.getByRole('button', { name: 'Request to add' }))
+    await userEvent.click(screen.getByRole('button', { name: '申请添加' }))
     await userEvent.click(screen.getByTestId('confirm-request-btn'))
 
-    await waitFor(() => expect(screen.getByText('Requested')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('已请求')).toBeInTheDocument())
     expect(trackEvent).not.toHaveBeenCalled()
   })
 })

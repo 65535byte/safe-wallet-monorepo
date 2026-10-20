@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ChooseOwner, ChooseOwnerMode } from '@/components/tx-flow/flows/AddOwner/ChooseOwner'
 import { ReviewOwner } from '@/components/tx-flow/flows/AddOwner/ReviewOwner'
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
@@ -45,10 +46,10 @@ const AddOwnerFlow = ({ address }: { address?: string }) => {
       initialData={defaultValues}
       eventCategory={TxFlowType.ADD_OWNER}
       icon={SaveAddressIcon}
-      subtitle="Add signer"
+      subtitle={translateMessage('ui.addSigner_b6fc1988')}
       ReviewTransactionComponent={ReviewOwnerStep}
     >
-      <TxFlowStep title="New transaction">
+      <TxFlowStep title={translateMessage('ui.newTransaction_7f00cf16')}>
         <ChooseOwnerStep />
       </TxFlowStep>
     </TxFlow>

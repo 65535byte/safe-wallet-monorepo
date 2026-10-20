@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -16,7 +17,11 @@ import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 import SettingsCard from '@safe-global/views/components/settings/SettingsCard'
 
 const NoTransactionGuard = () => {
-  return <Typography className="mt-4 text-muted-foreground">No transaction guard set</Typography>
+  return (
+    <Typography className="mt-4 text-muted-foreground">
+      {translateMessage('ui.noTransactionGuardSet_97f1da7c')}
+    </Typography>
+  )
 }
 
 const GuardDisplay = ({ guardAddress, chainId }: { guardAddress: string; chainId: string }) => {
@@ -51,14 +56,12 @@ const TransactionGuards = () => {
   }
 
   return (
-    <SettingsCard title="Transaction guards">
+    <SettingsCard title={translateMessage('ui.transactionGuards_5ee6b873')}>
       <div>
         <Typography>
-          Transaction guards impose additional constraints that are checked prior to executing a Safe transaction.
-          Transaction guards are potentially risky, so make sure to only use transaction guards from trusted sources.
-          Learn more about transaction guards{' '}
+          {translateMessage('ui.transactionGuardsImposeAdditionalConstraintsThat_284b9b90')}{' '}
           <ExternalLink className="font-bold hover:text-muted-foreground" href={HelpCenterArticle.TRANSACTION_GUARD}>
-            here
+            {translateMessage('ui.here_134b2f0e')}
           </ExternalLink>
           .
         </Typography>

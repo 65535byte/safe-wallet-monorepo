@@ -63,7 +63,7 @@ describe('validateLimitAmount', () => {
   })
 
   it('rejects an amount that does not fit uint96', () => {
-    expect(validateLimitAmount('100000000000000000000', 18)).toBe('Amount is too big')
+    expect(validateLimitAmount('100000000000000000000', 18)).toBe('金额过大')
   })
 })
 

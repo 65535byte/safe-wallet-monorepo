@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import useTxHistory from '@/hooks/useTxHistory'
@@ -28,7 +29,7 @@ const History: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Transaction history`}</title>
+        <title>{translateMessage('ui.transactionHistory_a5fabe11', { p0: BRAND_NAME })}</title>
       </Head>
 
       <TxHeader>

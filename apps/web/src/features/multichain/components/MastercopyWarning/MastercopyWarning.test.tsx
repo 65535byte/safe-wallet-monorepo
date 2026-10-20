@@ -49,10 +49,10 @@ describe('MastercopyWarning', () => {
       render(<MastercopyWarning variant="settings" />)
 
       expect(screen.getByTestId('action-card')).toBeInTheDocument()
-      expect(screen.getByText(/This Safe is running an unsupported version/)).toBeInTheDocument()
+      expect(screen.getByText(/此 8379 正在使用不受支持的版本/)).toBeInTheDocument()
       expect(screen.getByText(/You should migrate it to a compatible version/)).toBeInTheDocument()
       expect(screen.getByTestId('migrate-mastercopy-btn')).toBeInTheDocument()
-      expect(screen.getByText('Migrate')).toBeInTheDocument()
+      expect(screen.getByText('迁移')).toBeInTheDocument()
     })
 
     it("renders the Get CLI ActionCard for the 'cli' action", () => {
@@ -77,7 +77,7 @@ describe('MastercopyWarning', () => {
       render(<MastercopyWarning variant="settings" />)
 
       expect(screen.getByTestId('redeploy-mastercopy-warning')).toBeInTheDocument()
-      expect(screen.getByText(/create a new Safe and transfer your assets/)).toBeInTheDocument()
+      expect(screen.getByText(/create a new Safe 和 transfer your assets/)).toBeInTheDocument()
       expect(screen.queryByTestId('action-card-button')).not.toBeInTheDocument()
     })
   })
@@ -98,7 +98,7 @@ describe('MastercopyWarning', () => {
       expect(screen.getByTestId('action-card')).toBeInTheDocument()
       expect(screen.getByText(/New Safe version is available - 1.4.1/)).toBeInTheDocument()
       expect(screen.getByTestId('update-mastercopy-btn')).toBeInTheDocument()
-      expect(screen.getByText('Update')).toBeInTheDocument()
+      expect(screen.getByText('更新')).toBeInTheDocument()
     })
 
     it('omits the Update button for non-owners', () => {
@@ -115,7 +115,7 @@ describe('MastercopyWarning', () => {
       render(<MastercopyWarning />)
 
       expect(screen.getByTestId('action-card')).toBeInTheDocument()
-      expect(screen.queryByText('Update')).not.toBeInTheDocument()
+      expect(screen.queryByText('更新')).not.toBeInTheDocument()
     })
 
     it('renders nothing for a non-critical update', () => {
@@ -161,8 +161,8 @@ describe('MastercopyWarning', () => {
       render(<MastercopyWarning variant="settings" />)
 
       expect(screen.getByText(/New version is available: 1.4.1/)).toBeInTheDocument()
-      expect(screen.getByText('changelog').closest('a')).toHaveAttribute('href', CHANGELOG)
-      expect(screen.getByText('Update')).toBeInTheDocument()
+      expect(screen.getByText('更新日志').closest('a')).toHaveAttribute('href', CHANGELOG)
+      expect(screen.getByText('更新')).toBeInTheDocument()
       // Settings Update button intentionally has no tracking test id.
       expect(screen.queryByTestId('update-mastercopy-btn')).not.toBeInTheDocument()
     })
@@ -180,7 +180,7 @@ describe('MastercopyWarning', () => {
       render(<MastercopyWarning variant="settings" />)
 
       expect(screen.getByText(/New version is available: 1.4.1/)).toBeInTheDocument()
-      expect(screen.getByText('Update')).toBeInTheDocument()
+      expect(screen.getByText('更新')).toBeInTheDocument()
     })
 
     it('renders nothing for a non-official update', () => {

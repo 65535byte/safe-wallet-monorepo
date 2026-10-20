@@ -14,7 +14,7 @@ jest.mock('@safe-global/store/gateway/AUTO_GENERATED/spaces', () => ({
 }))
 jest.mock('../useCurrentSpaceId', () => ({ useCurrentSpaceId: jest.fn() }))
 jest.mock('../useGetSpaceAddressBook', () => ({ __esModule: true, useSpaceAddressBookState: jest.fn() }))
-jest.mock('../useWorkspaceAddressBookLabel', () => ({ useWorkspaceAddressBookLabel: () => 'Acme address book' }))
+jest.mock('../useWorkspaceAddressBookLabel', () => ({ useWorkspaceAddressBookLabel: () => 'Acme 通讯录' }))
 
 const ADDRESS = '0x1111111111111111111111111111111111111111'
 const SPACE_ID = 'space-uuid'
@@ -51,7 +51,7 @@ describe('useUpsertWorkspaceSafeName', () => {
     const upsert = setup({ addressBook: [{ address: ADDRESS, name: 'Old', chainIds: ['1', '137'] }] })
     const { result } = renderHook(() => useUpsertWorkspaceSafeName())
 
-    await result.current({ address: ADDRESS, name: 'New', chainIds: ['10'] })
+    await result.current({ address: ADDRESS, name: '新建', chainIds: ['10'] })
 
     const sent = upsert.mock.calls[0][0].upsertAddressBookItemsDto.items[0]
     expect(sent.chainIds.sort()).toEqual(['1', '10', '137'])
@@ -72,7 +72,7 @@ describe('useUpsertWorkspaceSafeName', () => {
     const { result } = renderHook(() => useUpsertWorkspaceSafeName())
 
     await expect(result.current({ address: ADDRESS, name: 'Treasury', chainIds: ['1'] })).resolves.toEqual({
-      error: 'No Workspace is selected. Switch to a Workspace and try again.',
+      error: '尚未选择工作空间。请切换至工作空间后重试。',
     })
     expect(upsert).not.toHaveBeenCalled()
   })
@@ -129,7 +129,7 @@ describe('useUpsertWorkspaceSafeNames — address book not read', () => {
     const { result } = renderHook(() => useUpsertWorkspaceSafeNames())
 
     await expect(result.current([{ address: ADDRESS, name: 'Treasury', chainIds: ['1'] }])).resolves.toEqual({
-      error: 'The Workspace address book is unavailable. Try again in a moment.',
+      error: '工作空间通讯录暂不可用，请稍后重试。',
     })
     expect(upsert).not.toHaveBeenCalled()
   })

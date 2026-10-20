@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Chip as ShadcnChip } from '@safe-global/views/components/ui/chip'
 
 type ChipSx = {
@@ -15,7 +16,7 @@ type Props = {
 const resolveColor = (value?: string): string | undefined =>
   value === undefined ? undefined : value.includes('.') ? `var(--color-${value.replace('.', '-')})` : value
 
-export function Chip({ sx, label = 'New', fontWeight = 'bold' }: Props) {
+export function Chip({ sx, label = translateMessage('ui.new_891f3045'), fontWeight = 'bold' }: Props) {
   const style: React.CSSProperties = {
     marginTop: '-2px',
     fontWeight,

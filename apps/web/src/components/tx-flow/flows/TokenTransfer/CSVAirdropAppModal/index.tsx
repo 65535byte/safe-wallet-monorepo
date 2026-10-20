@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import { AppRoutes } from '@/config/routes'
 import CSVAirdropLogo from '@/public/images/apps/csv-airdrop-app-logo.svg'
@@ -15,7 +16,7 @@ const CSVAirdropAppModal = ({ onClose, appUrl }: { onClose: () => void; appUrl?:
       data-testid="csvairdrop-dialog"
       open
       onClose={onClose}
-      dialogTitle="Limit reached"
+      dialogTitle={translateMessage('ui.limitReached_c1046550')}
       hideChainIndicator
       maxWidth="xs"
       forceBackdrop
@@ -24,11 +25,10 @@ const CSVAirdropAppModal = ({ onClose, appUrl }: { onClose: () => void; appUrl?:
         <div>
           <CSVAirdropLogo className="mx-auto" />
           <Typography variant="paragraph-bold" className="mt-4 mb-4">
-            Use CSV Airdrop
+            {translateMessage('ui.useCSVAirdrop_ccfb3f72')}
           </Typography>
           <Typography variant="paragraph-small" className="block">
-            You&apos;ve reached the limit of 5 recipients. To add more use CSV Airdrop, where you can simply upload you
-            CSV file and send to endless number of recipients.
+            {translateMessage('ui.youVeReachedTheLimitOf_fc811de0')}
           </Typography>
         </div>
       </div>
@@ -48,7 +48,7 @@ const CSVAirdropAppModal = ({ onClose, appUrl }: { onClose: () => void; appUrl?:
               />
             }
           >
-            Open CSV Airdrop
+            {translateMessage('ui.openCSVAirdrop_8dade58c')}
           </Button>
         </div>
       )}

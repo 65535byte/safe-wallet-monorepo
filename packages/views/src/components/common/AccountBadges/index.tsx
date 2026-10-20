@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Clock, User } from 'lucide-react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { cn } from '@safe-global/views/utils/cn'
@@ -33,8 +34,13 @@ export function ThresholdBadge({
 
 /** Hover label for the pending badge: total queued, plus how many await the wallet's signature. */
 export const formatPendingLabel = (count: number, awaitingConfirmation = 0): string => {
-  const base = count === 1 ? '1 pending transaction' : `${count} pending transactions`
-  return awaitingConfirmation > 0 ? `${base} · ${awaitingConfirmation} awaiting your confirmation` : base
+  const base =
+    count === 1
+      ? translateMessage('ui.pendingTransaction_7d6bf42c')
+      : translateMessage('ui.pendingTransactions_6f9344f3', { p0: count })
+  return awaitingConfirmation > 0
+    ? translateMessage('ui.awaitingYourConfirmation_6619ba85', { p0: base, p1: awaitingConfirmation })
+    : base
 }
 
 /**
@@ -73,12 +79,12 @@ export function PendingBadge({
           {count}
         </>
       ) : (
-        `${count} · Pending`
+        translateMessage('ui.pending_4692e61f', { p0: count })
       )}
       {needsConfirmation && (
         <span
           data-testid="account-awaiting-confirmation"
-          aria-label={`${awaitingConfirmation} awaiting your confirmation`}
+          aria-label={translateMessage('ui.awaitingYourConfirmation_d8f1ad27', { p0: awaitingConfirmation })}
           className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-[var(--color-warning-main)] ring-1 ring-white/50"
         />
       )}

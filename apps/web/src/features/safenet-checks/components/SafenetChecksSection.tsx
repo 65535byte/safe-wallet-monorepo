@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useState, type ReactElement, type ReactNode } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@safe-global/views/components/ui/collapsible'
@@ -51,7 +52,10 @@ const EducationCopy = ({ kind }: { kind?: PreCheckKind }): ReactElement => (
 
 const EducationTooltip = ({ kind }: { kind?: PreCheckKind }): ReactElement => (
   <Tooltip>
-    <TooltipTrigger render={<span className="inline-flex" tabIndex={0} />} aria-label="About Safenet">
+    <TooltipTrigger
+      render={<span className="inline-flex" tabIndex={0} />}
+      aria-label={translateMessage('ui.aboutSafenet_1cec1ac8')}
+    >
       <InfoIcon className="size-4 text-[var(--color-border-main)]" />
     </TooltipTrigger>
     <TooltipContent className="text-center">
@@ -126,7 +130,7 @@ const PreCheck = ({ kind }: { kind: PreCheckKind }): ReactElement => (
     className="flex items-center gap-2 p-3"
   >
     <span role="status" aria-live="polite" className="sr-only">
-      Safenet checks this transaction after you sign
+      {translateMessage('ui.safenetChecksThisTransactionAfterYou_21340455')}
     </span>
     <Typography
       variant="paragraph-small"
@@ -284,7 +288,7 @@ const CheckRow = ({
       // Remounts when a risk lands so the row opens even if it was already on screen.
       key={isRisk ? 'risk' : 'other'}
       icon={<RowIcon content={content} isInFlight={isInFlight} />}
-      announcement={`Safenet: ${title}`}
+      announcement={`Safenet：${title}`}
       status={publicStatus}
       reason={unavailableReason}
       defaultOpen={isRisk}
@@ -315,7 +319,7 @@ export const SafenetChecksSectionView = ({
   if (locked) {
     return (
       <LockedCheckRow data-testid="safenet-checks-locked" tooltip={<EducationCopy kind={preCheck ?? 'multisig'} />}>
-        Safenet check
+        {translateMessage('ui.safenetCheck_00a41bc6')}
       </LockedCheckRow>
     )
   }

@@ -74,9 +74,9 @@ describe('OnChainConfirmation', () => {
 
     renderWithFlowData(childEnvelope)
 
-    expect(screen.getByText('Interacted with')).toBeInTheDocument()
+    expect(screen.getByText('已交互对象')).toBeInTheDocument()
     expect(screen.getByTestId('hexData')).toHaveTextContent('0xabcdef')
-    expect(screen.queryByText('Could not load details on hash to approve.')).not.toBeInTheDocument()
+    expect(screen.queryByText('无法加载待批准哈希的详情。')).not.toBeInTheDocument()
   })
 
   it('renders human-readable decoding from the CGW preview of the envelope', () => {
@@ -126,7 +126,7 @@ describe('OnChainConfirmation', () => {
       </TxFlowContext.Provider>,
     )
 
-    expect(screen.getByText('Could not load details on hash to approve.')).toBeInTheDocument()
+    expect(screen.getByText('无法加载待批准哈希的详情。')).toBeInTheDocument()
   })
 
   it('prefers the envelope over the service lookup and skips the query', () => {
@@ -143,8 +143,8 @@ describe('OnChainConfirmation', () => {
 
     renderWithFlowData({ ...childEnvelope, nonce: childEnvelope.nonce + 1 })
 
-    expect(screen.queryByText('Interacted with')).not.toBeInTheDocument()
-    expect(screen.getByText('Could not load details on hash to approve.')).toBeInTheDocument()
+    expect(screen.queryByText('已交互对象')).not.toBeInTheDocument()
+    expect(screen.getByText('无法加载待批准哈希的详情。')).toBeInTheDocument()
   })
 
   it('renders an error when the service lookup fails and no envelope is available', () => {
@@ -152,7 +152,7 @@ describe('OnChainConfirmation', () => {
 
     renderWithFlowData(undefined)
 
-    expect(screen.getByText('Could not load details on hash to approve.')).toBeInTheDocument()
+    expect(screen.getByText('无法加载待批准哈希的详情。')).toBeInTheDocument()
   })
 
   it('renders a skeleton while the service lookup is pending and no envelope is available', () => {
@@ -160,7 +160,7 @@ describe('OnChainConfirmation', () => {
 
     renderWithFlowData(undefined)
 
-    expect(screen.queryByText('Interacted with')).not.toBeInTheDocument()
-    expect(screen.queryByText('Could not load details on hash to approve.')).not.toBeInTheDocument()
+    expect(screen.queryByText('已交互对象')).not.toBeInTheDocument()
+    expect(screen.queryByText('无法加载待批准哈希的详情。')).not.toBeInTheDocument()
   })
 })

@@ -184,7 +184,7 @@ describe('SpaceAddressBookTable', () => {
     )
 
     expect(screen.getByTestId('network-logos')).toBeInTheDocument()
-    expect(screen.queryByText('All')).not.toBeInTheDocument()
+    expect(screen.queryByText('全部')).not.toBeInTheDocument()
   })
 
   it('renders EthHashInfo in the "Added by" cell when createdBy is an address', () => {
@@ -209,8 +209,8 @@ describe('SpaceAddressBookTable', () => {
     const createdBy = faker.finance.ethereumAddress()
     render(<SpaceAddressBookTable entries={[entryBuilder().with({ createdBy }).build()]} showAddedBy={false} />)
 
-    expect(screen.queryByText('Added by')).not.toBeInTheDocument()
-    expect(screen.queryByText('Last updated')).not.toBeInTheDocument()
+    expect(screen.queryByText('添加者')).not.toBeInTheDocument()
+    expect(screen.queryByText('最后更新')).not.toBeInTheDocument()
     // Only the Address column renders EthHashInfo — there is no "Added by" cell
     expect(screen.getAllByTestId('eth-hash-info')).toHaveLength(1)
   })
@@ -228,13 +228,13 @@ describe('SpaceAddressBookTable', () => {
 
     const { unmount } = render(<SpaceAddressBookTable entries={[entry]} />)
     expect(screen.getByRole('button', { name })).toHaveClass('truncate')
-    expect(screen.getByText('Address')).toBeInTheDocument()
+    expect(screen.getByText('地址')).toBeInTheDocument()
     unmount()
 
     mockUseIsMobile.mockReturnValue(true)
     render(<SpaceAddressBookTable entries={[entry]} />)
     expect(screen.getByRole('button', { name })).not.toHaveClass('truncate')
-    expect(screen.queryByText('Address')).not.toBeInTheDocument()
+    expect(screen.queryByText('地址')).not.toBeInTheDocument()
   })
 
   it('moves the address under the name on mobile', () => {
@@ -276,11 +276,11 @@ describe('SpaceAddressBookTable', () => {
 
     const chainsBefore = screen.queryAllByTestId('chain-indicator').length
 
-    fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+    fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
 
     // The detail row renders one ChainIndicator per chain plus the "Added by" value
     expect(screen.queryAllByTestId('chain-indicator').length).toBeGreaterThan(chainsBefore)
-    expect(screen.getByRole('button', { name: 'Hide details' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '隐藏详情' })).toBeInTheDocument()
     expect(screen.getAllByTestId('email-info').length).toBeGreaterThan(0)
   })
 })

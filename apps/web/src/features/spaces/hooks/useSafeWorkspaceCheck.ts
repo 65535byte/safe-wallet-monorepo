@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import {
@@ -174,7 +175,7 @@ export const useSafeWorkspaceCheck = (): void => {
     if (action === 'removeNotMember') {
       dispatch(
         showNotification({
-          message: 'You are not a member of this Workspace, so the Safe opens outside it.',
+          message: translateMessage('ui.youAreNotAMemberOf_8b2cb62a'),
           variant: 'info',
           groupKey: 'safe-workspace-not-member',
         }),

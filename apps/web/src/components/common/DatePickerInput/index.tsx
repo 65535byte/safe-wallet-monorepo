@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useFormContext, Controller, type ControllerFieldState, type ControllerRenderProps } from 'react-hook-form'
 import {
@@ -37,7 +38,7 @@ import {
 } from '@safe-global/views/components/ui/input-group'
 
 const DATE_FORMAT = 'dd/MM/yyyy'
-const INVALID_DATE_ERROR = 'Invalid date'
+const INVALID_DATE_ERROR = translateMessage('ui.invalidDate_b2d37091')
 const YEARS_SELECTABLE = 20
 
 const toText = (value: Date | null) => (value && isValid(value) ? format(value, DATE_FORMAT) : '')
@@ -135,12 +136,12 @@ const DatePickerInput = ({
 
           // Compare days using `startOfDay` to ignore timezone offset
           if (disableFuture && isFuture(startOfDay(val))) {
-            return 'Date cannot be in the future'
+            return translateMessage('ui.dateCannotBeInTheFuture_2b37165e')
           }
 
           const { start, end } = getSelectableRange(disableFuture)
           if (isBefore(startOfDay(val), startOfDay(start)) || isAfter(startOfDay(val), startOfDay(end))) {
-            return 'Date is out of range'
+            return translateMessage('ui.dateIsOutOfRange_f3edb4ba')
           }
 
           return validate?.(val)
@@ -306,7 +307,13 @@ const DatePickerField = ({
           />
           <InputGroupAddon align="inline-end">
             <PopoverTrigger
-              render={<InputGroupButton variant="ghost" size="icon-xs" aria-label={`Open ${label} calendar`} />}
+              render={
+                <InputGroupButton
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label={translateMessage('ui.openCalendar_f575c989', { p0: label })}
+                />
+              }
             >
               <CalendarIcon className="size-4 text-muted-foreground" />
             </PopoverTrigger>

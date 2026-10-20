@@ -76,9 +76,9 @@ describe('HnCalendlyStep', () => {
 
       render(<HnCalendlyStep calendlyUrl={calendlyUrl} onBookingScheduled={mockOnBookingScheduled} />)
 
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
-      expect(screen.getByText('Please reload the page.')).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /reload/i })).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
+      expect(screen.getByText('请刷新页面。')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /刷新/i })).toBeInTheDocument()
     })
 
     it('should call refresh when reload button is clicked', async () => {
@@ -93,7 +93,7 @@ describe('HnCalendlyStep', () => {
 
       render(<HnCalendlyStep calendlyUrl={calendlyUrl} onBookingScheduled={mockOnBookingScheduled} />)
 
-      const reloadButton = screen.getByRole('button', { name: /reload/i })
+      const reloadButton = screen.getByRole('button', { name: /刷新/i })
       await user.click(reloadButton)
 
       expect(mockRefresh).toHaveBeenCalledTimes(1)
@@ -114,7 +114,7 @@ describe('HnCalendlyStep', () => {
       )
 
       // Click reload button
-      const reloadButton = screen.getByRole('button', { name: /reload/i })
+      const reloadButton = screen.getByRole('button', { name: /刷新/i })
       await user.click(reloadButton)
 
       // Verify refresh was called
@@ -152,7 +152,7 @@ describe('HnCalendlyStep', () => {
         <HnCalendlyStep calendlyUrl={calendlyUrl} onBookingScheduled={mockOnBookingScheduled} />,
       )
 
-      const reloadButton = screen.getByRole('button', { name: /reload/i })
+      const reloadButton = screen.getByRole('button', { name: /刷新/i })
       await user.click(reloadButton)
 
       mockUseCalendly.mockReturnValue({
@@ -203,7 +203,7 @@ describe('HnCalendlyStep', () => {
 
       render(<HnCalendlyStep calendlyUrl={calendlyUrl} onBookingScheduled={mockOnBookingScheduled} />)
 
-      const openInNewTabButton = screen.getByRole('button', { name: /open in a new tab/i })
+      const openInNewTabButton = screen.getByRole('button', { name: /在新标签页中打开/i })
       await user.click(openInNewTabButton)
 
       expect(windowOpenSpy).toHaveBeenCalledWith(calendlyUrl, '_blank', 'noopener,noreferrer')

@@ -319,7 +319,7 @@ describe('useSessionExpiryGuard', () => {
     const notification = findNotification(store)
     expect(notification).toMatchObject({ message: SESSION_EXPIRED_MESSAGE })
     expect(notification?.link).toBeUndefined()
-    expect(SESSION_EXPIRED_MESSAGE).toBe('Your session has expired. Please sign in to Workspaces again.')
+    expect(SESSION_EXPIRED_MESSAGE).toBe('会话已过期，请重新登录工作空间。')
   })
 
   it('clears auth but shows no toast when the session expires outside /welcome/spaces', async () => {
@@ -340,7 +340,7 @@ describe('useSessionExpiryGuard', () => {
       variant: 'info',
       groupKey: SESSION_EXPIRED_GROUP_KEY,
     })
-    expect(SESSION_EXPIRED_MESSAGE).toBe('Your session has expired. Please sign in to Workspaces again.')
+    expect(SESSION_EXPIRED_MESSAGE).toBe('会话已过期，请重新登录工作空间。')
   })
 
   it('shows no toast when the mid-tab timer fires outside a workspaces route', async () => {

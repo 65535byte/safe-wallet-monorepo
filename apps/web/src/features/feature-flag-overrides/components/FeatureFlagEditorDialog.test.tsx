@@ -31,14 +31,14 @@ describe('FeatureFlagEditorDialog', () => {
     mockData([], [row(FEATURES.EARN)])
     const { getByRole, getByLabelText } = render(<FeatureFlagEditorDialog open onOpenChange={jest.fn()} />)
 
-    expect(getByRole('heading', { name: 'Feature flags' })).toBeInTheDocument()
-    expect(getByLabelText('Search flags')).toBeInTheDocument()
+    expect(getByRole('heading', { name: '功能开关' })).toBeInTheDocument()
+    expect(getByLabelText('搜索开关')).toBeInTheDocument()
   })
 
   it('disables "Reset all overrides" when there are no overrides', () => {
     mockData([], [row(FEATURES.EARN)])
     const { getByRole } = render(<FeatureFlagEditorDialog open onOpenChange={jest.fn()} />)
-    expect(getByRole('button', { name: 'Reset all overrides' })).toBeDisabled()
+    expect(getByRole('button', { name: '重置所有覆盖' })).toBeDisabled()
   })
 
   it('clears all overrides in the store on reset', () => {
@@ -47,7 +47,7 @@ describe('FeatureFlagEditorDialog', () => {
       initialReduxState: { featureFlagOverrides: { [FEATURES.EARN]: true } },
     })
 
-    const resetButton = getByRole('button', { name: 'Reset all overrides' })
+    const resetButton = getByRole('button', { name: '重置所有覆盖' })
     expect(resetButton).toBeEnabled()
 
     fireEvent.click(resetButton)
@@ -60,7 +60,7 @@ describe('FeatureFlagEditorDialog', () => {
     const onOpenChange = jest.fn()
     const { getByRole } = render(<FeatureFlagEditorDialog open onOpenChange={onOpenChange} />)
 
-    fireEvent.click(getByRole('button', { name: 'Done' }))
+    fireEvent.click(getByRole('button', { name: '完成' }))
 
     expect(onOpenChange).toHaveBeenCalled()
     expect(onOpenChange.mock.calls[0][0]).toBe(false)

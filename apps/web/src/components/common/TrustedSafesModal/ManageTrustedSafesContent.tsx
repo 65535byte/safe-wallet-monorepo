@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useState } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -120,7 +121,7 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
     <>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="shrink-0">
-          <SecurityBanner title="Verify before you trust" />
+          <SecurityBanner title={translateMessage('ui.verifyBeforeYouTrust_1ad58b4e')} />
 
           {!wallet && (
             <div className="mb-4">
@@ -133,14 +134,15 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
               type="button"
               role="checkbox"
               aria-checked={someSelected && !allSelected ? 'mixed' : allSelected}
-              aria-label="Select all"
+              aria-label={translateMessage('ui.selectAll_0f52c380')}
               onClick={() => (allSelected ? deselectAll() : selectAll())}
               disabled={isLoading || totalSafesCount === 0}
               data-testid="manage-trusted-select-all"
               className="flex shrink-0 items-center gap-2 rounded-md py-1 pl-[28px] pr-2 text-sm text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Checkbox checked={allSelected} indeterminate={someSelected && !allSelected} tabIndex={-1} aria-hidden />
-              Select all · {selectedCount} of {totalSafesCount} selected
+              {translateMessage('ui.selectAll_59c9c27f')}
+              {selectedCount} / {totalSafesCount} {translateMessage('ui.selected_7b51a5e2')}
             </button>
             <div className="flex grow basis-72 items-center justify-end gap-3">
               <InputGroup variant="outline" className="max-w-sm flex-1">
@@ -148,8 +150,8 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
                   <Search className="size-4" />
                 </InputGroupAddon>
                 <InputGroupInput
-                  placeholder="by name, address or network"
-                  aria-label="Search Safes by name, address or network"
+                  placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+                  aria-label={translateMessage('ui.searchAccountsByNameAddressOr_f016d7e2')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoComplete="off"
@@ -169,7 +171,9 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
           </div>
         ) : items.length === 0 ? (
           <div className="py-8 text-center text-sm text-muted-foreground">
-            {searchQuery ? 'No safes found matching your search' : 'No safes available'}
+            {searchQuery
+              ? translateMessage('ui.noSafesFoundMatchingYourSearch_4a6931dc')
+              : translateMessage('ui.noSafesAvailable_b22cbff0')}
           </div>
         ) : (
           <div className={SCROLL_AREA}>
@@ -194,7 +198,7 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
       <div className="mt-4 flex shrink-0 flex-row items-center gap-3 border-t border-border pt-4">
         <Button onClick={onSecondary} variant="secondary" size="lg" className="flex-1">
           {secondaryLabel === 'Back' && <ChevronLeft className="size-4" />}
-          {secondaryLabel}
+          {secondaryLabel === 'Back' ? translateMessage('ui.back_dae8bf43') : translateMessage('ui.back_1a7163b9')}
         </Button>
         <Button
           onClick={handleSave}
@@ -203,7 +207,7 @@ const ManageTrustedSafesContent = ({ modal, secondaryLabel, onSecondary, onSaved
           className="flex-1"
           data-testid="manage-trusted-save"
         >
-          Save
+          {translateMessage('ui.save_5fe30f30')}
         </Button>
       </div>
 

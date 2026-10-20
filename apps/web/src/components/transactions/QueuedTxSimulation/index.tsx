@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import useIsSafeOwner from '@/hooks/useIsSafeOwner'
@@ -41,7 +42,7 @@ export const _getSimulationIcon = (isSuccessful: boolean) =>
     : { color: 'var(--color-error-main)', Component: CloseIcon }
 
 export const _getSimulationStatusText = (isSuccessful: boolean) =>
-  isSuccessful ? 'Simulation successful' : 'Simulation failed'
+  isSuccessful ? translateMessage('ui.simulationSuccessful_497d6a17') : translateMessage('ui.simulationFailed_fbdba66d')
 
 const CompactSimulationButton = ({
   label,
@@ -82,14 +83,11 @@ const SimulationSetupLink = () => {
             className="flex flex-row items-center gap-1 rounded-lg bg-[var(--color-background-main)] px-2 py-1 no-underline"
           >
             <TenderlyIcon className="h-4" />
-            <Typography variant="paragraph-small-bold">Set up simulation</Typography>
+            <Typography variant="paragraph-small-bold">{translateMessage('ui.setUpSimulation_01478e75')}</Typography>
           </NextLink>
         }
       />
-      <TooltipContent>
-        Built-in simulation is part of Safe Pro. To simulate on your own Tenderly project, add its URL and access token
-        in Settings › Environment variables.
-      </TooltipContent>
+      <TooltipContent>{translateMessage('ui.builtInSimulationIsPartOf_5526ede8')}</TooltipContent>
     </Tooltip>
   )
 }
@@ -137,13 +135,19 @@ const InlineTxSimulation = ({ transaction }: { transaction: TransactionDetails }
   }
 
   if (status?.isLoading) {
-    return <CompactSimulationButton label="Simulating" iconComponent={<Spinner className="size-4" />} disabled={true} />
+    return (
+      <CompactSimulationButton
+        label={translateMessage('ui.simulating_2930a886')}
+        iconComponent={<Spinner className="size-4" />}
+        disabled={true}
+      />
+    )
   }
 
   if (!status?.isFinished) {
     return (
       <CompactSimulationButton
-        label="Simulate"
+        label={translateMessage('ui.simulate_b93b6014')}
         iconComponent={<TenderlyIcon className="h-4" />}
         disabled={!safeTransaction}
         onClick={handleSimulation}
@@ -168,7 +172,9 @@ const InlineTxSimulation = ({ transaction }: { transaction: TransactionDetails }
     return (
       <div className="flex flex-row items-center gap-1">
         <CloseIcon className="h-4 text-[var(--color-error-main)]" />
-        {hasOwnTenderly ? 'Simulation failed. Check your Tenderly API URL and access token.' : 'Error while simulating'}
+        {hasOwnTenderly
+          ? translateMessage('ui.simulationFailedCheckYourTenderlyAPI_88738580')
+          : translateMessage('ui.errorWhileSimulating_a1ae88ca')}
       </div>
     )
   }

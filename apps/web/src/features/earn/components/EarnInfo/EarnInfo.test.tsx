@@ -40,7 +40,7 @@ describe('EarnInfo', () => {
 
     render(<EarnInfo onGetStarted={jest.fn()} />)
 
-    expect(screen.getByText('Eligible assets')).toBeInTheDocument()
+    expect(screen.getByText('支持的资产')).toBeInTheDocument()
     expect(screen.getByText('Up to 3.78%*')).toBeInTheDocument()
   })
 
@@ -50,7 +50,7 @@ describe('EarnInfo', () => {
 
     render(<EarnInfo onGetStarted={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: 'Get started' })).toBeInTheDocument()
-    expect(screen.queryByText('Eligible assets')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '开始使用' })).toBeInTheDocument()
+    expect(screen.queryByText('支持的资产')).not.toBeInTheDocument()
   })
 })

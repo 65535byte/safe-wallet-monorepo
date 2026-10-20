@@ -14,10 +14,9 @@ const chain = {
 
 const Safe_111_interface = Gnosis_safe__factory.createInterface()
 
-const warningText = 'This upgrade will invalidate all queued transactions!'
+const warningText = '此次升级将使所有待处理交易失效！'
 
-const unknownTargetWarningText =
-  'The target contract for this upgrade is unknown. Verify the transaction data and the target contract address before executing this transaction.'
+const unknownTargetWarningText = '此次升级的目标合约未知。执行前请核实交易数据和目标合约地址。'
 
 describe('Container', () => {
   it('renders correctly with a queue warning', async () => {
@@ -108,7 +107,7 @@ describe('Container', () => {
       />,
     )
     expect(container.queryByText('Current version: 1.1.1')).toBeVisible()
-    expect(container.queryAllByText('Unknown contract')).toHaveLength(2)
+    expect(container.queryAllByText('未知合约')).toHaveLength(2)
     expect(container.queryByText(unknownTargetWarningText)).toBeVisible()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { ExternalLink } from 'lucide-react'
 import RowIconAction from './RowIconAction'
 
@@ -5,7 +6,7 @@ import RowIconAction from './RowIconAction'
 // (the component itself no longer emits sidebar-specific events from the table/dropdown).
 const ExplorerLinkButton = ({
   href,
-  title = 'View on block explorer',
+  title = translateMessage('ui.viewOnBlockExplorer_4378f4ce'),
   testId = 'safe-item-explorer-link',
   onOpen,
 }: {

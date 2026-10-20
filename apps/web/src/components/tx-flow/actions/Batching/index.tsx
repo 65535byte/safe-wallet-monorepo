@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, type SyntheticEvent } from 'react'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import useIsSafeOwner from '@/hooks/useIsSafeOwner'
@@ -107,7 +108,7 @@ const useShouldRegisterSlot = () => {
 
 const BatchingSlot = withSlot({
   Component: Batching,
-  label: 'Add to batch',
+  label: translateMessage('ui.addToBatch_16daada8'),
   slotName: SlotName.ComboSubmit,
   id: 'batching',
   useSlotCondition: useShouldRegisterSlot,

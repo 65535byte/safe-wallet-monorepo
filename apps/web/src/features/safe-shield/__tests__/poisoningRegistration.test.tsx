@@ -102,7 +102,7 @@ describe('useSafeShieldForAddressPoisoning: registration lifetime', () => {
 
     await waitFor(() => expect(getByTestId('poisoning-title')).toHaveTextContent('Potential address poisoning'))
 
-    fireEvent.click(getByRole('button', { name: 'Next' }))
+    fireEvent.click(getByRole('button', { name: '下一步' }))
 
     expect(queryByTestId('registrar')).not.toBeInTheDocument()
     expect(getByTestId('poisoning-title')).toHaveTextContent('Potential address poisoning')

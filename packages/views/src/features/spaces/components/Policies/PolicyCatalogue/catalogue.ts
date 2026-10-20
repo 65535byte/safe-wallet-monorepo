@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { MessageSquarePlus, UserRoundPen, WalletCards, type LucideIcon } from 'lucide-react'
 
 export type PolicyCatalogueId = 'spending-limit' | 'proposer' | 'suggestion'
@@ -16,23 +17,23 @@ export interface PolicyCatalogueEntry {
 export const POLICY_CATALOGUE: PolicyCatalogueEntry[] = [
   {
     id: 'spending-limit',
-    title: 'Spending limit',
-    description: 'Let spenders access assets without collecting signatures.',
+    title: translateMessage('ui.spendingLimit_26abdb30'),
+    description: translateMessage('ui.letSpendersAccessAssetsWithoutCollecting_4450464f'),
     Icon: WalletCards,
-    action: 'Set policy',
+    action: translateMessage('ui.setPolicy_24438b8b'),
   },
   {
     id: 'proposer',
-    title: 'Proposer role',
-    description: 'Let teammates without signing rights propose transactions.',
+    title: translateMessage('ui.proposerRole_1d90df3b'),
+    description: translateMessage('ui.letTeammatesWithoutSigningRightsPropose_65ac3715'),
     Icon: UserRoundPen,
-    action: 'Set policy',
+    action: translateMessage('ui.setPolicy_24438b8b'),
   },
   {
     id: 'suggestion',
-    title: 'Something missing?',
-    description: 'Tell us which rules would help you manage your Safe accounts.',
+    title: translateMessage('ui.somethingMissing_02feaa53'),
+    description: translateMessage('ui.tellUsWhichRulesWouldHelp_bf3530b2'),
     Icon: MessageSquarePlus,
-    action: 'Give feedback',
+    action: translateMessage('ui.giveFeedback_024afe87'),
   },
 ]

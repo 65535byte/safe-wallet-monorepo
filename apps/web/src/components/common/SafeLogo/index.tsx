@@ -1,24 +1,18 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import Link from 'next/link'
 import { AppRoutes } from '@/config/routes'
 import { cn } from '@safe-global/views/utils/cn'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
-import css from './SafeLogo.module.css'
 
 const LogoMark = (): ReactElement => (
-  <>
-    <img
-      src="/images/logo-no-text.svg"
-      alt="Safe"
-      width={24}
-      height={24}
-      className="size-6 group-data-[collapsible=icon]:size-4.5 dark:hidden"
-      data-testid="logo-image"
-    />
-    <span
-      className={`hidden dark:block size-6 group-data-[collapsible=icon]:size-4.5 shrink-0 rounded-[2px] ${css.logoPrimaryFill}`}
-    />
-  </>
+  <img
+    src="/images/brand-logo.png"
+    alt={translateMessage('ui.safe_32142578')}
+    width={24}
+    height={24}
+    className="size-6 shrink-0 rounded-sm object-contain group-data-[collapsible=icon]:size-4.5"
+    data-testid="logo-image"
+  />
 )
 
 const SafeLogo = ({
@@ -48,11 +42,11 @@ const SafeLogo = ({
       >
         <LogoMark />
         {showProLockup ? (
-          <span className="block h-4 w-6 shrink-0" role="img" aria-label="Safe Pro">
-            <ProChip className="size-full" />
+          <span className="block h-4 w-6 shrink-0" role="img" aria-label="8379">
+            <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
           </span>
         ) : (
-          <span className="text-sm font-semibold">Home</span>
+          <span className="text-sm font-semibold">{translateMessage('ui.home_582aefdb')}</span>
         )}
       </Link>
     )

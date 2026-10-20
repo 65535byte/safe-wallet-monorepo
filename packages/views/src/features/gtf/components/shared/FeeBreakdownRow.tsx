@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -49,7 +50,7 @@ export const FeeBreakdownRow = ({
         <Skeleton className="h-4 min-w-[7em]" />
       ) : error ? (
         <Typography variant="paragraph-small" className="text-[var(--color-warning-main)]">
-          Cannot estimate
+          {translateMessage('ui.cannotEstimate_8024d910')}
         </Typography>
       ) : note ? (
         <Typography variant="paragraph-small" color="muted">
@@ -60,7 +61,7 @@ export const FeeBreakdownRow = ({
           <div className={css.feeAmount}>
             {isFree && (
               <Typography variant="paragraph-small-bold" as="span" className="text-[var(--color-success-main)]">
-                FREE
+                {translateMessage('ui.fREE_85d7273a')}
               </Typography>
             )}
             {amount &&

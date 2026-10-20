@@ -31,7 +31,7 @@ describe('Popup', () => {
     )
 
     await screen.findByText('Approve this session?')
-    await userEvent.click(screen.getByText('New transaction'))
+    await userEvent.click(screen.getByText('新建交易'))
 
     await waitFor(() => expect(onClose).toHaveBeenCalled())
   })

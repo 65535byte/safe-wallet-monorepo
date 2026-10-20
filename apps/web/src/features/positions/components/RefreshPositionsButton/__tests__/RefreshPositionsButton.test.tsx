@@ -50,7 +50,7 @@ describe('RefreshPositionsButton', () => {
 
       await user.hover(screen.getByRole('button'))
 
-      expect(await screen.findByText('Refresh positions data')).toBeInTheDocument()
+      expect(await screen.findByText('刷新持仓数据')).toBeInTheDocument()
     })
 
     it('should show portfolio tooltip when portfolio endpoint is enabled', async () => {
@@ -66,7 +66,7 @@ describe('RefreshPositionsButton', () => {
 
       await user.hover(screen.getByRole('button'))
 
-      expect(await screen.findByText('Refresh portfolio data')).toBeInTheDocument()
+      expect(await screen.findByText('刷新资产组合数据')).toBeInTheDocument()
     })
   })
 

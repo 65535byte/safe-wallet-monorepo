@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import TokenIcon from '@/components/common/TokenIcon'
 import FiatValue from '@/components/common/FiatValue'
 import { Chip } from '@safe-global/views/components/ui/chip'
@@ -31,7 +32,7 @@ const PositionsHeader = ({ protocol, fiatTotal }: { protocol: Protocol; fiatTota
               {shareOfFiatTotal}
             </Chip>
           </TooltipTrigger>
-          <TooltipContent>Based on total positions value</TooltipContent>
+          <TooltipContent>{translateMessage('ui.basedOnTotalPositionsValue_a1447dd6')}</TooltipContent>
         </Tooltip>
       )}
 

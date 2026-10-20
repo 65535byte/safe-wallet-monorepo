@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TypedData } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import Approvals from '@/components/tx/ApprovalEditor/Approvals'
@@ -15,10 +16,10 @@ import css from './styles.module.css'
 import { updateApprovalTxs } from '@safe-global/utils/components/tx/ApprovalEditor/utils/approvals'
 
 const Title = ({ isErc721 }: { isErc721: boolean }) => {
-  const title = 'Allow access to tokens?'
+  const title = translateMessage('ui.allowAccessToTokens_cc54e406')
   const subtitle = isErc721
-    ? 'This allows the spender to transfer the specified token.'
-    : 'This allows the spender to spend the specified amount of your tokens.'
+    ? translateMessage('ui.thisAllowsTheSpenderToTransfer_67539a94')
+    : translateMessage('ui.thisAllowsTheSpenderToSpend_3aa90d71')
 
   return (
     <div>
@@ -70,7 +71,7 @@ const ApprovalEditor = ({
       {error ? (
         <Alert variant="destructive">
           <AlertSeverityIcon variant="destructive" />
-          <AlertDescription>Error while decoding approval transactions.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.errorWhileDecodingApprovalTransactions_63cd7ce3')}</AlertDescription>
         </Alert>
       ) : loading || !readableApprovals ? (
         <Skeleton className="h-[100px] w-full" data-testid="approval-editor-loading" />

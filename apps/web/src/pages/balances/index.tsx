@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -43,7 +44,7 @@ const Balances: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Assets`}</title>
+        <title>{translateMessage('ui.assets_80ae5d8f', { p0: BRAND_NAME })}</title>
       </Head>
 
       <AssetsHeader />
@@ -65,8 +66,8 @@ const Balances: NextPage = () => {
           <div className="flex flex-row items-center justify-between">
             <TotalAssetValue
               fiatTotal={tokensFiatTotal}
-              title="Total assets value"
-              tooltipTitle="Total from this list only. Portfolio total includes positions and may use other token data."
+              title={translateMessage('ui.totalAssetsValue_8a03dd7e')}
+              tooltipTitle={translateMessage('ui.totalFromThisListOnlyPortfolio_a7ff46ef')}
             />
 
             <div className="flex flex-col items-end gap-1">
@@ -80,7 +81,7 @@ const Balances: NextPage = () => {
         </div>
 
         {error ? (
-          <PagePlaceholder img={<NoAssetsIcon />} text="There was an error loading your assets" />
+          <PagePlaceholder img={<NoAssetsIcon />} text={translateMessage('ui.thereWasAnErrorLoadingYour_9b3ce636')} />
         ) : (
           <>
             <AssetsTable

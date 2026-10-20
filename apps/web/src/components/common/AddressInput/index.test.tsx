@@ -79,7 +79,7 @@ const TestForm = ({
       <form onSubmit={methods.handleSubmit(() => null)}>
         <AddressInput
           name={name}
-          label="Recipient address"
+          label="接收方地址"
           validate={validate}
           disabled={disabled}
           chain={chain}
@@ -99,7 +99,7 @@ const setup = (
   chain?: AddressInputProps['chain'],
 ) => {
   const utils = render(<TestForm address={address} validate={validate} disabled={disabled} chain={chain} />)
-  const input = utils.getByLabelText('Recipient address', { exact: false })
+  const input = utils.getByLabelText('接收方地址', { exact: false })
 
   return {
     input: input as HTMLInputElement,
@@ -143,21 +143,21 @@ describe('AddressInput tests', () => {
   describe('optional placeholder', () => {
     it('defaults to an "Optional" placeholder when not required and none is provided', () => {
       const utils = render(<TestForm address="" required={false} />)
-      const input = utils.getByLabelText('Recipient address', { exact: false })
+      const input = utils.getByLabelText('接收方地址', { exact: false })
 
       expect(input).toHaveAttribute('placeholder', 'Optional')
     })
 
     it('keeps the provided placeholder when one is given', () => {
       const utils = render(<TestForm address="" required={false} placeholder="0x... address" />)
-      const input = utils.getByLabelText('Recipient address', { exact: false })
+      const input = utils.getByLabelText('接收方地址', { exact: false })
 
       expect(input).toHaveAttribute('placeholder', '0x... address')
     })
 
     it('does not add an "Optional" placeholder when the field is required by default', () => {
       const utils = render(<TestForm address="" />)
-      const input = utils.getByLabelText('Recipient address', { exact: false })
+      const input = utils.getByLabelText('接收方地址', { exact: false })
 
       expect(input).not.toHaveAttribute('placeholder')
     })
@@ -259,7 +259,7 @@ describe('AddressInput tests', () => {
 
     await waitFor(() => {
       expect(input.value).toBe('0x0000000000000000000000000000000000000000')
-      expect(utils.getByLabelText('Address resolved from zero.eth', { exact: false })).toBeDefined()
+      expect(utils.getByLabelText('地址解析来源：zero.eth', { exact: false })).toBeDefined()
     })
   })
 
@@ -270,14 +270,14 @@ describe('AddressInput tests', () => {
       fireEvent.change(input, { target: { value: 'zero.eth' } })
     })
 
-    await waitFor(() => expect(utils.getByLabelText('Address resolved from zero.eth', { exact: false })).toBeDefined())
+    await waitFor(() => expect(utils.getByLabelText('地址解析来源：zero.eth', { exact: false })).toBeDefined())
 
     act(() => {
       fireEvent.change(input, { target: { value: TEST_ADDRESS_B } })
     })
 
     await waitFor(() => {
-      expect(utils.queryByLabelText('Address resolved from zero.eth', { exact: false })).toBeNull()
+      expect(utils.queryByLabelText('地址解析来源：zero.eth', { exact: false })).toBeNull()
     })
   })
 
@@ -337,7 +337,7 @@ describe('AddressInput tests', () => {
 
     expect(useNameResolver).toHaveBeenCalledWith('', undefined)
     await waitFor(() => expect(input.value).toBe('zero.eth'))
-    await waitFor(() => expect(utils.getByLabelText('ENS name not available on Base', { exact: false })).toBeDefined())
+    await waitFor(() => expect(utils.getByLabelText('Base 上不支持 ENS 名称', { exact: false })).toBeDefined())
   })
 
   it('shows a domain-specific error when an ENS name cannot be resolved on the chain', async () => {
@@ -355,9 +355,7 @@ describe('AddressInput tests', () => {
       jest.advanceTimersByTime(1000)
     })
 
-    await waitFor(() =>
-      expect(utils.getByLabelText('ENS name not available on Polygon', { exact: false })).toBeDefined(),
-    )
+    await waitFor(() => expect(utils.getByLabelText('Polygon 上不支持 ENS 名称', { exact: false })).toBeDefined())
   })
 
   it('should show chain prefix in an adornment', async () => {
@@ -385,14 +383,14 @@ describe('AddressInput tests', () => {
       return (
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(() => null)}>
-            <AddressInput name={name} label="Recipient" />
+            <AddressInput name={name} label="接收方" />
           </form>
         </FormProvider>
       )
     }
 
     const utils = render(<Form />)
-    const input = utils.getByLabelText('Recipient', { exact: false }) as HTMLInputElement
+    const input = utils.getByLabelText('接收方', { exact: false }) as HTMLInputElement
 
     act(() => {
       fireEvent.change(input, { target: { value: `${mockChain.shortName}:${TEST_ADDRESS_A}` } })
@@ -614,7 +612,7 @@ describe('AddressInput tests', () => {
       expect(utils.queryByTestId('address-book-recipient')).not.toBeInTheDocument()
 
       act(() => {
-        fireEvent.blur(input, { relatedTarget: utils.getByRole('button', { name: 'Submit' }) })
+        fireEvent.blur(input, { relatedTarget: utils.getByRole('button', { name: '提交' }) })
       })
 
       expect(utils.getByTestId('address-book-recipient')).toBeInTheDocument()

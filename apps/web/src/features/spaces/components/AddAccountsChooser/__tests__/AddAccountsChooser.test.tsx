@@ -55,23 +55,23 @@ describe('AddAccountsChooser', () => {
   it('renders the trigger button with the default label', () => {
     render(<AddAccountsChooser entryPoint="dashboard" />)
 
-    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('Add accounts')
+    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('添加账户')
   })
 
   it('respects a custom buttonLabel', () => {
     render(<AddAccountsChooser buttonLabel="Manage accounts" entryPoint="dashboard" />)
 
-    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('Manage accounts')
+    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('管理账户')
   })
 
   it('opens the chooser dialog when the trigger button is clicked', () => {
     render(<AddAccountsChooser entryPoint="dashboard" />)
 
-    expect(screen.queryByRole('heading', { name: 'Add Safe accounts' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: '添加 8379 账户' })).not.toBeInTheDocument()
 
     openChooser()
 
-    expect(screen.getByRole('heading', { name: 'Add Safe accounts' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '添加 8379 账户' })).toBeInTheDocument()
   })
 
   it('shows the two chooser rows and no "See all Safe accounts" row', () => {
@@ -80,8 +80,8 @@ describe('AddAccountsChooser', () => {
     openChooser()
 
     expect(screen.getByTestId(ADD_ROW)).toBeInTheDocument()
-    expect(screen.getByText('Create new Safe')).toBeInTheDocument()
-    expect(screen.queryByText('See all Safe accounts')).not.toBeInTheDocument()
+    expect(screen.getByText('创建新的 8379')).toBeInTheDocument()
+    expect(screen.queryByText('See all 个 Safe 账户')).not.toBeInTheDocument()
   })
 
   it('opens AddAccounts picker when admin clicks the add row', () => {
@@ -143,7 +143,7 @@ describe('AddAccountsChooser', () => {
     render(<AddAccountsChooser entryPoint="dashboard" />)
 
     openChooser()
-    fireEvent.click(screen.getByText('Create new Safe'))
+    fireEvent.click(screen.getByText('创建新的 8379'))
 
     expect(mockPush).toHaveBeenCalledWith({
       pathname: '/new-safe/create',
@@ -158,10 +158,10 @@ describe('AddAccountsChooser', () => {
     openChooser()
 
     expect(screen.getByTestId('seat-limit-banner')).toHaveTextContent('The Business plan includes 40 Safe accounts')
-    expect(screen.getByText('Manage accounts')).toBeInTheDocument()
-    expect(screen.getByText('Swap one out to add another · 40 of 40')).toBeInTheDocument()
-    expect(screen.getByText('Create new')).toBeInTheDocument()
-    expect(screen.getByText('Created outside the Workspace, in My accounts')).toBeInTheDocument()
+    expect(screen.getByText('管理账户')).toBeInTheDocument()
+    expect(screen.getByText('替换一个以添加其他账户 · 40 / 40')).toBeInTheDocument()
+    expect(screen.getByText('创建新账户')).toBeInTheDocument()
+    expect(screen.getByText('在工作空间之外的“我的账户”中创建')).toBeInTheDocument()
   })
 
   it('does not show the seat limit to non-admins even when the workspace is at the limit', () => {
@@ -172,7 +172,7 @@ describe('AddAccountsChooser', () => {
     openChooser()
 
     expect(screen.queryByTestId('seat-limit-banner')).not.toBeInTheDocument()
-    expect(screen.getByText('Select from my accounts')).toBeInTheDocument()
+    expect(screen.getByText('从我的账户中选择')).toBeInTheDocument()
   })
 
   it('does not show the seat limit when the workspace is below it', () => {
@@ -181,7 +181,7 @@ describe('AddAccountsChooser', () => {
     openChooser()
 
     expect(screen.queryByTestId('seat-limit-banner')).not.toBeInTheDocument()
-    expect(screen.getByText('Create new Safe')).toBeInTheDocument()
+    expect(screen.getByText('创建新的 8379')).toBeInTheDocument()
   })
 
   it('still navigates to /new-safe/create when at the limit (creation is never blocked)', () => {
@@ -189,7 +189,7 @@ describe('AddAccountsChooser', () => {
     render(<AddAccountsChooser entryPoint="dashboard" />)
 
     openChooser()
-    fireEvent.click(screen.getByText('Create new'))
+    fireEvent.click(screen.getByText('创建新账户'))
 
     expect(mockPush).toHaveBeenCalledWith({
       pathname: '/new-safe/create',
@@ -202,7 +202,7 @@ describe('AddAccountsChooser', () => {
     render(<AddAccountsChooser entryPoint="dashboard" />)
 
     openChooser()
-    fireEvent.click(screen.getByText('Create new Safe'))
+    fireEvent.click(screen.getByText('创建新的 8379'))
 
     expect(mockPush).toHaveBeenCalledWith({
       pathname: '/new-safe/create',

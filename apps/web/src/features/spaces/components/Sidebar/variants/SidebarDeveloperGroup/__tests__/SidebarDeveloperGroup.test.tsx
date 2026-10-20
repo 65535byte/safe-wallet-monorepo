@@ -53,11 +53,11 @@ jest.mock('../../../developerItems', () => {
 
   return {
     sidebarDeveloperGroup: {
-      label: 'Developer',
+      label: '开发者',
       items: [
         {
           icon: Icon,
-          label: 'Feature flags',
+          label: '功能开关',
           id: 'feature-flags',
           useItemState: makeItemStateHook('feature-flags', 3),
         },
@@ -71,8 +71,8 @@ describe('SidebarDeveloperGroup', () => {
   it('renders the label and every configured entry', () => {
     render(<SidebarDeveloperGroup />)
 
-    expect(screen.getByText('Developer')).toBeInTheDocument()
-    expect(screen.getByTestId('sidebar-feature-flags-item')).toHaveTextContent('Feature flags')
+    expect(screen.getByText('开发者')).toBeInTheDocument()
+    expect(screen.getByTestId('sidebar-feature-flags-item')).toHaveTextContent('功能开关')
     expect(screen.getByTestId('sidebar-playground-item')).toHaveTextContent('Playground')
   })
 
@@ -108,7 +108,7 @@ describe('SidebarDeveloperGroup', () => {
       const { container } = render(<SidebarDeveloperGroup />)
 
       expect(container).toBeEmptyDOMElement()
-      expect(screen.queryByText('Developer')).not.toBeInTheDocument()
+      expect(screen.queryByText('开发者')).not.toBeInTheDocument()
     } finally {
       setIsProduction(originalIsProduction)
     }
@@ -118,6 +118,6 @@ describe('SidebarDeveloperGroup', () => {
     render(<SidebarDeveloperGroup isLoading />)
 
     expect(screen.getAllByTestId('nav-item-skeleton')).toHaveLength(2)
-    expect(screen.queryByText('Feature flags')).not.toBeInTheDocument()
+    expect(screen.queryByText('功能开关')).not.toBeInTheDocument()
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useIsBelowMd } from '@/hooks/useMediaQuery'
@@ -29,7 +30,7 @@ export const SpenderField = ({ address }: { address: string }) => {
   return (
     <div className={`${css.approvalField} flex flex-row items-center justify-between gap-4`}>
       <Typography variant="paragraph-small" className="text-muted-foreground">
-        Spender
+        {translateMessage('ui.spender_77803664')}
       </Typography>
       <div className="overflow-hidden">
         <EthHashInfo

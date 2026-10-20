@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useCallback } from 'react'
 import { Severity, SafeStatus } from '@safe-global/utils/features/safe-shield/types'
 import type { SafeAnalysisResult } from '@safe-global/utils/features/safe-shield/types'
@@ -26,8 +27,8 @@ const useUntrustedSafeAnalysis = (): UntrustedSafeAnalysisResult => {
     return {
       severity: Severity.CRITICAL,
       type: SafeStatus.UNTRUSTED,
-      title: 'Not in your accounts',
-      description: "You're creating a transaction from a Safe that isn't in your accounts. Add it if you recognize it.",
+      title: translateMessage('ui.notInYourAccounts_b1303f87'),
+      description: translateMessage('ui.youReCreatingATransactionFrom_1181f14b'),
     }
   }, [safeLoaded, isTrusted])
 

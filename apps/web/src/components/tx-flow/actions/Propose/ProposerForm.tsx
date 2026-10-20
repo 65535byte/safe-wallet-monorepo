@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import WalletRejectionError from '@/components/tx/shared/errors/WalletRejectionError'
 import { isWalletRejection } from '@/utils/wallets'
 import { type ReactElement, type SyntheticEvent, useContext, useState } from 'react'
@@ -70,8 +71,9 @@ export const ProposerForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <Typography>
-        As a <strong>Proposer</strong>, you&apos;re creating this transaction without any signatures. It will need
-        approval from a signer before it becomes a valid transaction.
+        {translateMessage('ui.asA_36d99f28')}
+        <strong>{translateMessage('ui.proposer_7ebd3069')}</strong>
+        {translateMessage('ui.youReCreatingThisTransactionWithout_9bd22f5c')}
       </Typography>
 
       {isRejectedByUser && (

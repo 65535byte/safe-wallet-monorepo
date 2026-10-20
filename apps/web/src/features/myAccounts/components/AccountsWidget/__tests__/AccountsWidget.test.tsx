@@ -43,7 +43,7 @@ describe('AccountsWidget', () => {
   it('renders the widget title', () => {
     render(<AccountsWidget items={[]} />)
 
-    expect(screen.getByText('Accounts')).toBeInTheDocument()
+    expect(screen.getByText('账户')).toBeInTheDocument()
   })
 
   it('renders the shared accounts table with the provided items', () => {
@@ -66,34 +66,34 @@ describe('AccountsWidget', () => {
     // 3 accounts displayed out of 17 total → 14 hidden.
     render(<AccountsWidget items={mockItems} totalCount={17} onViewAll={jest.fn()} />)
 
-    expect(screen.getByText('View all')).toBeInTheDocument()
+    expect(screen.getByText('查看全部')).toBeInTheDocument()
     expect(screen.getByText('+14')).toBeInTheDocument()
   })
 
   it('renders "View all" without an overflow badge when all accounts are displayed', () => {
     render(<AccountsWidget items={mockItems} totalCount={mockItems.length} onViewAll={jest.fn()} />)
 
-    expect(screen.getByText('View all')).toBeInTheDocument()
+    expect(screen.getByText('查看全部')).toBeInTheDocument()
     expect(screen.queryByText(/^\+\d+$/)).not.toBeInTheDocument()
   })
 
   it('does not render the "View all" action when onViewAll is not provided', () => {
     render(<AccountsWidget items={mockItems} totalCount={17} />)
 
-    expect(screen.queryByText('View all')).not.toBeInTheDocument()
+    expect(screen.queryByText('查看全部')).not.toBeInTheDocument()
   })
 
   it('does not render "View all" in the empty state even when onViewAll is provided', () => {
     render(<AccountsWidget items={[]} onViewAll={jest.fn()} />)
 
-    expect(screen.queryByText('View all')).not.toBeInTheDocument()
+    expect(screen.queryByText('查看全部')).not.toBeInTheDocument()
   })
 
   it('calls onViewAll when the "View all" action is clicked', async () => {
     const onViewAll = jest.fn()
     render(<AccountsWidget items={mockItems} totalCount={17} onViewAll={onViewAll} />)
 
-    await userEvent.click(screen.getByText('View all'))
+    await userEvent.click(screen.getByText('查看全部'))
 
     expect(onViewAll).toHaveBeenCalledTimes(1)
   })
@@ -111,30 +111,30 @@ describe('AccountsWidget', () => {
   it('renders the empty state when no accounts are provided', () => {
     render(<AccountsWidget items={[]} />)
 
-    expect(screen.getByText('No accounts yet')).toBeInTheDocument()
-    expect(screen.getByText('Add your Safe accounts to view balances and manage transactions.')).toBeInTheDocument()
+    expect(screen.getByText('暂无账户')).toBeInTheDocument()
+    expect(screen.getByText('添加 8379 账户以查看余额和管理交易。')).toBeInTheDocument()
     expect(screen.queryByTestId('safe-accounts-table')).not.toBeInTheDocument()
   })
 
   it('renders the empty state action when provided', () => {
     render(<AccountsWidget items={[]} emptyStateAction={<button>Add account</button>} />)
 
-    expect(screen.getByRole('button', { name: 'Add account' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '添加账户' })).toBeInTheDocument()
   })
 
   it('renders the error state with error message and hides the table', () => {
     render(<AccountsWidget items={mockItems} error="Failed to load accounts" />)
 
     expect(screen.getByText('Failed to load accounts')).toBeInTheDocument()
-    expect(screen.queryByText('No accounts yet')).not.toBeInTheDocument()
+    expect(screen.queryByText('暂无账户')).not.toBeInTheDocument()
     expect(screen.queryByTestId('safe-accounts-table')).not.toBeInTheDocument()
   })
 
   it('renders the refresh button in error state and calls onRefresh when clicked', async () => {
     const onRefresh = jest.fn()
-    render(<AccountsWidget items={[]} error="Something went wrong" onRefresh={onRefresh} />)
+    render(<AccountsWidget items={[]} error="出现问题" onRefresh={onRefresh} />)
 
-    await userEvent.click(screen.getByRole('button', { name: /reload page/i }))
+    await userEvent.click(screen.getByRole('button', { name: /刷新页面/i }))
 
     expect(onRefresh).toHaveBeenCalledTimes(1)
   })

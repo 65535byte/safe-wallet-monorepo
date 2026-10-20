@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import type { SafeRef } from '@safe-global/views/features/spaces/components/Plans/types'
 import { useSeatTrim } from './useSeatTrim'
@@ -16,7 +17,7 @@ export const useSeatTrimCheckout = (spaceId: string, returnPathname?: string) =>
     [trim, startCheckout],
   )
 
-  const error = trimError ?? (isCheckoutError ? 'We couldn’t start the checkout. Please try again.' : undefined)
+  const error = trimError ?? (isCheckoutError ? translateMessage('ui.weCouldnTStartTheCheckout_c5353817') : undefined)
 
   return { seatCount, needsTrim, checkout, isBusy: isRedirecting || isTrimming, error }
 }

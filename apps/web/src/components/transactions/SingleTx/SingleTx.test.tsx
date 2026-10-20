@@ -72,10 +72,10 @@ describe('SingleTx', () => {
 
     const screen = render(<SingleTx />)
 
-    const button = screen.queryByText('Details')
+    const button = screen.queryByText('详情')
     expect(button).not.toBeInTheDocument()
 
-    expect(await screen.findByText('Contract interaction')).toBeInTheDocument()
+    expect(await screen.findByText('合约交互')).toBeInTheDocument()
   })
 
   it('shows an error when the transaction has failed to load', async () => {
@@ -88,16 +88,16 @@ describe('SingleTx', () => {
     const screen = render(<SingleTx />)
 
     await waitFor(() => {
-      expect(screen.getByText('The website failed to load data. Please try again.')).toBeInTheDocument()
+      expect(screen.getByText('网站加载数据失败，请重试。')).toBeInTheDocument()
     })
 
-    expect(screen.getByRole('button', { name: 'Reload' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '刷新' })).toBeInTheDocument()
 
     // A known CGW response state shows its message alone — no code reference, and no Details
     // toggle revealing the raw response (WA-3252).
     expect(screen.queryByTestId('error-details')).not.toBeInTheDocument()
     expect(screen.queryByText('CGW-500')).not.toBeInTheDocument()
-    expect(screen.queryByText('Details')).not.toBeInTheDocument()
+    expect(screen.queryByText('详情')).not.toBeInTheDocument()
     expect(screen.queryByText('Server error')).not.toBeInTheDocument()
   })
 
@@ -114,13 +114,13 @@ describe('SingleTx', () => {
     const screen = render(<SingleTx />)
 
     await waitFor(() => {
-      expect(screen.getByText('This transaction was not found in this Safe account.')).toBeInTheDocument()
+      expect(screen.getByText('在此 8379 账户中未找到该交易。')).toBeInTheDocument()
     })
 
     // Reloading can never surface a tx that belongs to another Safe, so no CTA is offered.
-    expect(screen.queryByRole('button', { name: 'Reload' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '刷新' })).not.toBeInTheDocument()
 
     // The raw gateway response is never offered to the user — there is no Details toggle to open.
-    expect(screen.queryByText('Details')).not.toBeInTheDocument()
+    expect(screen.queryByText('详情')).not.toBeInTheDocument()
   })
 })

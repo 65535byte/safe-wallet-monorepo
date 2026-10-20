@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import { TERMS_URL } from '@safe-global/utils/config/constants'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -14,30 +15,32 @@ const LegalDisclaimerContent = ({
   <div className={css.disclaimerContainer}>
     {withTitle && (
       <Typography variant="h3" className="my-6 font-bold">
-        Disclaimer
+        {translateMessage('ui.disclaimer_7271ee86')}
       </Typography>
     )}
     <div className={css.disclaimerInner}>
       <Typography className="mb-8">
-        You are now accessing {isSafeApps ? 'third-party apps' : 'a third-party app'}, which we do not own, control,
-        maintain or audit. We are not liable for any loss you may suffer in connection with interacting with the{' '}
-        {isSafeApps ? 'apps' : 'app'}, which is at your own risk.
+        {translateMessage('ui.youAreNowAccessing_321e7b5f')}
+        {isSafeApps ? translateMessage('ui.thirdPartyApps_63b0ea26') : translateMessage('ui.aThirdPartyApp_83eedc83')}
+        {translateMessage('ui.whichWeDoNotOwnControl_2167434a')}
+        {isSafeApps ? 'apps' : 'app'}
+        {translateMessage('ui.whichIsAtYourOwnRisk_d5a69eb6')}
       </Typography>
 
       <Typography className="mb-8">
-        You must read our Terms, which contain more detailed provisions binding on you relating to the{' '}
+        {translateMessage('ui.youMustReadOurTermsWhich_1670e55d')}
         {isSafeApps ? 'apps' : 'app'}.
       </Typography>
 
       <Typography>
-        I have read and understood the{' '}
+        {translateMessage('ui.iHaveReadAndUnderstoodThe_6e19c19b')}{' '}
         <ExternalLink
           href={TERMS_URL}
           className="font-bold no-underline hover:text-muted-foreground hover:no-underline"
         >
-          Terms
+          {translateMessage('ui.terms_3c2528e1')}
         </ExternalLink>{' '}
-        and this Disclaimer, and agree to be bound by them.
+        {translateMessage('ui.andThisDisclaimerAndAgreeTo_5024ca60')}
       </Typography>
     </div>
   </div>

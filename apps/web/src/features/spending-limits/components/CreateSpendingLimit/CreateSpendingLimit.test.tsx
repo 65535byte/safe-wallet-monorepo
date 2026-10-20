@@ -141,7 +141,7 @@ describe('CreateSpendingLimit', () => {
       renderForm()
       await fillForm('100000000000000000000')
 
-      expect(await screen.findByText('Amount is too big')).toBeInTheDocument()
+      expect(await screen.findByText('金额过大')).toBeInTheDocument()
       expect(screen.getByTestId('next-btn')).toBeDisabled()
     })
 

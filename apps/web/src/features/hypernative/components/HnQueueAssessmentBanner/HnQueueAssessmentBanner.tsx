@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Alert, AlertDescription } from '@safe-global/views/components/ui/alert'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -24,11 +25,11 @@ interface HnQueueAssessmentBannerProps {
 }
 
 const SEVERITY_MESSAGES: Record<Severity, string> = {
-  [Severity.OK]: 'No issues found by Hypernative Guardian.',
-  [Severity.INFO]: 'Info available from Hypernative Guardian.',
-  [Severity.WARN]: 'Issues found by Hypernative Guardian.',
-  [Severity.CRITICAL]: 'Transaction was blocked by Hypernative Guardian.',
-  [Severity.ERROR]: 'Unable to fetch security scan result.',
+  [Severity.OK]: translateMessage('ui.noIssuesFoundByHypernativeGuardian_8a415246'),
+  [Severity.INFO]: translateMessage('ui.infoAvailableFromHypernativeGuardian_f69a95c6'),
+  [Severity.WARN]: translateMessage('ui.issuesFoundByHypernativeGuardian_9b06c937'),
+  [Severity.CRITICAL]: translateMessage('ui.transactionWasBlockedByHypernativeGuardian_38ec9b30'),
+  [Severity.ERROR]: translateMessage('ui.unableToFetchSecurityScanResult_ddeb19f6'),
 }
 
 const ALERT_SEVERITIES: Record<Severity, AlertVariant> = {
@@ -63,14 +64,16 @@ export const HnQueueAssessmentBanner = ({
         <LockIcon />
         <AlertDescription>
           <div className="flex flex-col gap-2">
-            <Typography variant="paragraph-small">Log in to Hypernative to view security scan result.</Typography>
+            <Typography variant="paragraph-small">
+              {translateMessage('ui.logInToHypernativeToView_fffd5fd1')}
+            </Typography>
             <ExternalLink
               onClick={handleLogin}
               href="#"
               noIcon={false}
               className="inline-flex self-start hover:text-[var(--color-primary-light)]!"
             >
-              Log in
+              {translateMessage('ui.logIn_e4fc3500')}
             </ExternalLink>
           </div>
         </AlertDescription>
@@ -99,7 +102,7 @@ export const HnQueueAssessmentBanner = ({
             href={assessmentUrl}
             className="inline-flex self-start"
           >
-            <Typography variant="paragraph-small-bold">View details</Typography>
+            <Typography variant="paragraph-small-bold">{translateMessage('ui.viewDetails_b34027e8')}</Typography>
           </ExternalLink>
         </div>
       </AlertDescription>

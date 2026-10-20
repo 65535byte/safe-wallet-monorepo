@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TokenInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { OrderTransactionInfo } from '@safe-global/store/gateway/types'
 import type { ReactElement } from 'react'
@@ -44,7 +45,7 @@ export const SwapTx = ({ info }: { info: OrderTransactionInfo }): ReactElement =
     // `text-ellipsis` on this flex container never applied, since text-overflow needs a block box.
     <div className="flex min-w-0 items-center gap-1 overflow-hidden font-bold whitespace-nowrap">
       {from}
-      <span className="mx-1 shrink-0">&nbsp;to&nbsp;</span>
+      <span className="mx-1 shrink-0">{translateMessage('ui.to_30e2333e')}</span>
       {to}
     </div>
   )

@@ -242,7 +242,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} />)
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
     })
 
     it('should NOT render error dropdown when result has no error field', () => {
@@ -250,8 +250,8 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} />)
 
-      expect(screen.queryByText('Show details')).not.toBeInTheDocument()
-      expect(screen.queryByText('Hide details')).not.toBeInTheDocument()
+      expect(screen.queryByText('显示详情')).not.toBeInTheDocument()
+      expect(screen.queryByText('隐藏详情')).not.toBeInTheDocument()
     })
 
     it('should display error text when expanded', async () => {
@@ -261,11 +261,11 @@ describe('AnalysisGroupCardItem', () => {
         />,
       )
 
-      const showDetailsButton = screen.getByText('Show details')
+      const showDetailsButton = screen.getByText('显示详情')
       await user.click(showDetailsButton)
 
       expect(screen.getByText('Simulation Error: Reverted')).toBeInTheDocument()
-      expect(screen.getByText('Hide details')).toBeInTheDocument()
+      expect(screen.getByText('隐藏详情')).toBeInTheDocument()
     })
 
     it('should expand and collapse error dropdown', async () => {
@@ -273,22 +273,22 @@ describe('AnalysisGroupCardItem', () => {
         <AnalysisGroupCardItem result={ThreatAnalysisResultBuilder.failed().error('Test error message').build()} />,
       )
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
-      expect(screen.queryByText('Hide details')).not.toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
+      expect(screen.queryByText('隐藏详情')).not.toBeInTheDocument()
       const errorText = screen.getByText('Test error message')
 
       expect(errorText).not.toBeVisible()
 
-      await user.click(screen.getByText('Show details'))
+      await user.click(screen.getByText('显示详情'))
 
-      expect(screen.getByText('Hide details')).toBeInTheDocument()
-      expect(screen.queryByText('Show details')).not.toBeInTheDocument()
+      expect(screen.getByText('隐藏详情')).toBeInTheDocument()
+      expect(screen.queryByText('显示详情')).not.toBeInTheDocument()
       expect(errorText).toBeVisible()
 
-      await user.click(screen.getByText('Hide details'))
+      await user.click(screen.getByText('隐藏详情'))
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
-      expect(screen.queryByText('Hide details')).not.toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
+      expect(screen.queryByText('隐藏详情')).not.toBeInTheDocument()
     })
 
     it('should work with different error messages', () => {
@@ -296,10 +296,10 @@ describe('AnalysisGroupCardItem', () => {
       const result2 = ThreatAnalysisResultBuilder.failed().error('Reverted').build()
 
       const { rerender } = render(<AnalysisGroupCardItem result={result1} />)
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
 
       rerender(<AnalysisGroupCardItem result={result2} />)
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
     })
 
     it('should not interfere with other components when error is present', () => {
@@ -307,7 +307,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} />)
 
-      expect(screen.getByText('Show details')).toBeInTheDocument()
+      expect(screen.getByText('显示详情')).toBeInTheDocument()
       expect(screen.getByText('Threat analysis failed. Review before processing.')).toBeInTheDocument()
     })
   })
@@ -319,7 +319,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} requestId={requestId} />)
 
-      expect(screen.getByText('Report false result')).toBeInTheDocument()
+      expect(screen.getByText('报告误判')).toBeInTheDocument()
     })
 
     it('should show report link for moderate threat when requestId is provided', () => {
@@ -328,7 +328,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} requestId={requestId} />)
 
-      expect(screen.getByText('Report false result')).toBeInTheDocument()
+      expect(screen.getByText('报告误判')).toBeInTheDocument()
     })
 
     it('should not show report link when requestId is not provided', () => {
@@ -336,7 +336,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} />)
 
-      expect(screen.queryByText('Report false result')).not.toBeInTheDocument()
+      expect(screen.queryByText('报告误判')).not.toBeInTheDocument()
     })
 
     it('should not show report link for non-threat results', () => {
@@ -345,7 +345,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} requestId={requestId} />)
 
-      expect(screen.queryByText('Report false result')).not.toBeInTheDocument()
+      expect(screen.queryByText('报告误判')).not.toBeInTheDocument()
     })
 
     it('should open modal when report link is clicked', () => {
@@ -354,7 +354,7 @@ describe('AnalysisGroupCardItem', () => {
 
       render(<AnalysisGroupCardItem result={result} requestId={requestId} />)
 
-      const reportLink = screen.getByText('Report false result')
+      const reportLink = screen.getByText('报告误判')
       fireEvent.click(reportLink)
 
       expect(screen.getByTestId('report-modal')).toBeInTheDocument()

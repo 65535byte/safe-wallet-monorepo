@@ -27,7 +27,7 @@ describe('NotificationsPage', () => {
 
     expect(screen.getByTestId('settings-header')).toBeInTheDocument()
     expect(screen.getByTestId('push-notifications')).toBeInTheDocument()
-    expect(screen.queryByText('Notifications are not available on this network.')).not.toBeInTheDocument()
+    expect(screen.queryByText('此网络暂不支持通知。')).not.toBeInTheDocument()
   })
 
   it('keeps the settings header while the chains config is still loading (feature === undefined)', () => {
@@ -37,7 +37,7 @@ describe('NotificationsPage', () => {
 
     expect(screen.getByTestId('settings-header')).toBeInTheDocument()
     expect(screen.queryByTestId('push-notifications')).not.toBeInTheDocument()
-    expect(screen.queryByText('Notifications are not available on this network.')).not.toBeInTheDocument()
+    expect(screen.queryByText('此网络暂不支持通知。')).not.toBeInTheDocument()
   })
 
   it('keeps the settings header and shows the not-available message when the feature is disabled (feature === false)', () => {
@@ -47,6 +47,6 @@ describe('NotificationsPage', () => {
 
     expect(screen.getByTestId('settings-header')).toBeInTheDocument()
     expect(screen.queryByTestId('push-notifications')).not.toBeInTheDocument()
-    expect(screen.getByText('Notifications are not available on this network.')).toBeInTheDocument()
+    expect(screen.getByText('此网络暂不支持通知。')).toBeInTheDocument()
   })
 })

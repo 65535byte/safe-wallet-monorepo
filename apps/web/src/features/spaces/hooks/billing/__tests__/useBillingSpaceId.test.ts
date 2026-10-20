@@ -20,7 +20,7 @@ describe('useBillingSpaceId', () => {
     mockCurrentSpaceId = CURRENT_SPACE_ID
   })
 
-  it('returns the explicit spaceId when Safe Pro is live and the user is signed in', () => {
+  it('returns the explicit spaceId when 8379 is live and the user is signed in', () => {
     const { result } = renderHook(() => useBillingSpaceId(SPACE_ID))
 
     expect(result.current).toBe(SPACE_ID)
@@ -38,7 +38,7 @@ describe('useBillingSpaceId', () => {
     expect(result.current).toBeNull()
   })
 
-  it('returns null when the Safe Pro flag is off', () => {
+  it('returns null when the 8379 flag is off', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     const { result } = renderHook(() => useBillingSpaceId(SPACE_ID))
 

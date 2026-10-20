@@ -53,7 +53,7 @@ const renderContent = (hasProFeatures: boolean, hypernativeAuth?: HypernativeAut
     />,
   )
 
-describe('SafeShieldContent Safe Pro gating', () => {
+describe('SafeShieldContent 8379 gating', () => {
   beforeEach(() => {
     mockHasOwnTenderly = false
   })
@@ -82,7 +82,7 @@ describe('SafeShieldContent Safe Pro gating', () => {
     expect(screen.getByTestId('run-simulation-btn')).toBeInTheDocument()
   })
 
-  it('locks the simulation without Safe Pro and without a Tenderly project of one’s own', () => {
+  it('locks the simulation without 8379 and without a Tenderly project of one’s own', () => {
     renderContent(false)
 
     expect(screen.getByTestId('tenderly-simulation-locked')).toBeInTheDocument()
@@ -183,7 +183,7 @@ describe('SafeShieldContent Safe Pro gating', () => {
     expect(screen.getByTestId('run-simulation-btn')).toBeInTheDocument()
   })
 
-  it('runs the simulation on its own with Safe Pro, with no Run button', () => {
+  it('runs the simulation on its own with 8379, with no Run button', () => {
     renderContent(true)
 
     expect(screen.getByTestId('tenderly-simulation')).toBeInTheDocument()
@@ -191,7 +191,7 @@ describe('SafeShieldContent Safe Pro gating', () => {
     expect(screen.queryByTestId('tenderly-simulation-locked')).not.toBeInTheDocument()
   })
 
-  it('falls back from the automatic simulation to the locked row when the Safe loses Safe Pro', () => {
+  it('falls back from the automatic simulation to the locked row when the Safe loses 8379', () => {
     const { rerender } = renderContent(true)
     expect(screen.getByTestId('tenderly-simulation')).toBeInTheDocument()
 
@@ -208,11 +208,11 @@ describe('SafeShieldContent Safe Pro gating', () => {
 
     expect(screen.queryByTestId('tenderly-simulation')).not.toBeInTheDocument()
     expect(screen.getByTestId('tenderly-simulation-locked')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Set' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '设置' })).toBeInTheDocument()
     expect(screen.getByTestId('pro-upgrade-link')).toBeInTheDocument()
   })
 
-  it('locks the recipient check behind an upgrade without Safe Pro', () => {
+  it('locks the recipient check behind an upgrade without 8379', () => {
     render(
       <SafeShieldContent
         recipient={emptyAnalysis}
@@ -225,7 +225,7 @@ describe('SafeShieldContent Safe Pro gating', () => {
 
     expect(screen.getByTestId('pro-checks-row')).toBeInTheDocument()
     expect(screen.getByTestId('pro-upgrade-link')).toHaveAttribute('href', '/welcome/spaces')
-    expect(screen.getByTestId('recipient-analysis-locked')).toHaveTextContent('Known recipient')
+    expect(screen.getByTestId('recipient-analysis-locked')).toHaveTextContent('已知接收方')
     expect(screen.queryByTestId('recipient-analysis-group-card')).not.toBeInTheDocument()
   })
 
@@ -247,7 +247,7 @@ describe('SafeShieldContent Safe Pro gating', () => {
     expect(screen.getByTestId('recipient-analysis-group-card')).toBeInTheDocument()
   })
 
-  it('locks the contract check behind an upgrade without Safe Pro when the transaction calls a contract', () => {
+  it('locks the contract check behind an upgrade without 8379 when the transaction calls a contract', () => {
     render(
       <SafeShieldContent
         recipient={emptyAnalysis}
@@ -260,17 +260,17 @@ describe('SafeShieldContent Safe Pro gating', () => {
     )
 
     expect(screen.getByTestId('pro-checks-section')).toContainElement(screen.getByTestId('contract-analysis-locked'))
-    expect(screen.getByTestId('contract-analysis-locked')).toHaveTextContent('Known contract')
+    expect(screen.getByTestId('contract-analysis-locked')).toHaveTextContent('已知合约')
     expect(screen.queryByTestId('contract-analysis-group-card')).not.toBeInTheDocument()
   })
 
-  it('leaves the locked contract check out of a native transfer without Safe Pro', () => {
+  it('leaves the locked contract check out of a native transfer without 8379', () => {
     renderContent(false)
 
     expect(screen.queryByTestId('contract-analysis-locked')).not.toBeInTheDocument()
   })
 
-  it('shows the contract check result instead of the locked row with Safe Pro', () => {
+  it('shows the contract check result instead of the locked row with 8379', () => {
     render(
       <SafeShieldContent
         recipient={emptyAnalysis}

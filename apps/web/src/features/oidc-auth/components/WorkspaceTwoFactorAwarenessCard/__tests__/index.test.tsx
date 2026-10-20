@@ -5,14 +5,14 @@ describe('WorkspaceTwoFactorAwarenessCard', () => {
   it('renders the headline and the supporting line', () => {
     render(<WorkspaceTwoFactorAwarenessCard onDismiss={jest.fn()} />)
 
-    expect(screen.getByText('Protect your Workspace with 2FA')).toBeInTheDocument()
-    expect(screen.getByText('A second factor is required on all sensitive actions.')).toBeInTheDocument()
+    expect(screen.getByText('使用双重身份验证保护工作空间')).toBeInTheDocument()
+    expect(screen.getByText('所有敏感操作均需要第二重身份验证。')).toBeInTheDocument()
   })
 
   it('points Continue at the general settings of the current space', () => {
     render(<WorkspaceTwoFactorAwarenessCard spaceId="space-uuid" onDismiss={jest.fn()} />)
 
-    expect(screen.getByRole('link', { name: 'Continue' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: '继续' })).toHaveAttribute(
       'href',
       '/spaces/settings/general?spaceId=space-uuid',
     )
@@ -21,14 +21,14 @@ describe('WorkspaceTwoFactorAwarenessCard', () => {
   it('points Continue at the general settings page when no space is known', () => {
     render(<WorkspaceTwoFactorAwarenessCard onDismiss={jest.fn()} />)
 
-    expect(screen.getByRole('link', { name: 'Continue' })).toHaveAttribute('href', '/spaces/settings/general')
+    expect(screen.getByRole('link', { name: '继续' })).toHaveAttribute('href', '/spaces/settings/general')
   })
 
   it('calls onDismiss from the close button', () => {
     const onDismiss = jest.fn()
     render(<WorkspaceTwoFactorAwarenessCard onDismiss={onDismiss} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
 
     expect(onDismiss).toHaveBeenCalledTimes(1)
   })

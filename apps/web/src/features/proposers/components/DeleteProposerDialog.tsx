@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CheckWallet from '@/components/common/CheckWallet'
 import Track from '@/components/common/Track'
 import {
@@ -75,7 +76,7 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
     setError(undefined)
 
     if (!wallet?.provider || !safeAddress || !chain) {
-      setError(new Error('Please connect your wallet first'))
+      setError(new Error(translateMessage('ui.pleaseConnectYourWalletFirst_7c9cf431')))
       return
     }
 
@@ -168,8 +169,10 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
         showNotification({
           variant: 'success',
           groupKey: 'delete-proposer-success',
-          title: 'Proposer deleted successfully!',
-          message: `${shortenAddress(proposer.delegate)} cannot suggest transactions anymore.`,
+          title: translateMessage('ui.proposerDeletedSuccessfully_61971f47'),
+          message: translateMessage('ui.cannotSuggestTransactionsAnymore_92411942', {
+            p0: shortenAddress(proposer.delegate),
+          }),
         }),
       )
       setOpen(false)
@@ -200,9 +203,9 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
         {(isOk) => {
           const tooltipTitle =
             isOk && canDelete
-              ? 'Delete proposer'
+              ? translateMessage('ui.deleteProposer_38c3d85d')
               : isOk && !canDelete
-                ? 'Only the owner of this proposer or the proposer itself can delete them'
+                ? translateMessage('ui.onlyTheOwnerOfThisProposer_5f44b53f')
                 : ''
 
           const button = (
@@ -237,9 +240,18 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
       <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onCancel()}>
         <DialogContent padding="none" showCloseButton={false}>
           <DialogHeader className="flex-row items-center justify-between">
-            <DialogTitle>{multiSigInitiated ? 'Signature collection initiated' : 'Delete this proposer?'}</DialogTitle>
+            <DialogTitle>
+              {multiSigInitiated
+                ? translateMessage('ui.signatureCollectionInitiated_470f1242')
+                : translateMessage('ui.deleteThisProposer_e730958b')}
+            </DialogTitle>
 
-            <Button variant="ghost" size="icon-sm" aria-label="close" onClick={onCancel}>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label={translateMessage('ui.close_aaaeeafe')}
+              onClick={onCancel}
+            >
               <XIcon />
             </Button>
           </DialogHeader>
@@ -251,17 +263,18 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
               <>
                 <Alert variant="info" className="mb-4">
                   <AlertSeverityIcon variant="info" />
-                  <AlertDescription>1 of {parentThreshold} signatures collected</AlertDescription>
+                  <AlertDescription>
+                    {translateMessage('ui.of_f7914142')}
+                    {parentThreshold} {translateMessage('ui.signaturesCollected_f16e16fc')}
+                  </AlertDescription>
                 </Alert>
 
                 <Typography variant="paragraph-small" className="mb-4 block">
-                  The removal request has been created as an off-chain message on your parent Safe. Other owners of the
-                  parent Safe need to sign it before the proposer can be removed.
+                  {translateMessage('ui.theRemovalRequestHasBeenCreated_5774eddc')}
                 </Typography>
 
                 <Typography variant="paragraph-small" color="muted">
-                  The other parent Safe owners can find and sign this pending delegation on the proposer settings page
-                  of this Safe.
+                  {translateMessage('ui.theOtherParentOwnersCanFind_9c6237ad')}
                 </Typography>
               </>
             ) : (
@@ -270,25 +283,27 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
                   <Alert variant="info" className="mb-4">
                     <AlertSeverityIcon variant="info" />
                     <AlertDescription>
-                      This requires {parentThreshold} of {parentOwners?.length ?? '?'} parent Safe owner signatures to
-                      complete.
+                      {translateMessage('ui.thisRequires_2744d66b')}
+                      {parentThreshold} / {parentOwners?.length ?? '?'}{' '}
+                      {translateMessage('ui.parentOwnerSignaturesToComplete_450bc591')}
                     </AlertDescription>
                   </Alert>
                 )}
 
                 <div className="mb-4">
                   <Typography>
-                    Deleting this proposer will permanently remove the address, and it won&apos;t be able to suggest
-                    transactions anymore.
+                    {translateMessage('ui.deletingThisProposerWillPermanentlyRemove_f91b714c')}
                     <br />
                     <br />
-                    To complete this action, confirm it with your connected wallet signature.
+                    {translateMessage('ui.toCompleteThisActionConfirmIt_8264229d')}
                   </Typography>
                 </div>
 
                 {error && (
                   <div className="mt-4">
-                    <ErrorMessage error={error}>{getProposerErrorText(error, 'Error deleting proposer')}</ErrorMessage>
+                    <ErrorMessage error={error}>
+                      {getProposerErrorText(error, translateMessage('ui.errorDeletingProposer_6294c60d'))}
+                    </ErrorMessage>
                   </div>
                 )}
 
@@ -302,13 +317,13 @@ const InternalDeleteProposer = ({ wallet, safeAddress, chainId, chain, proposer 
           {/* eslint-disable-next-line no-restricted-syntax -- p-6: bespoke footer padding around DialogActions (item A), no token */}
           <DialogFooter className="p-6">
             {multiSigInitiated ? (
-              <DialogActions confirmLabel="Done" onConfirm={onCancel} />
+              <DialogActions confirmLabel={translateMessage('ui.done_23c91b78')} onConfirm={onCancel} />
             ) : (
               <DialogActions
                 onCancel={onCancel}
-                cancelLabel="No, keep it"
+                cancelLabel={translateMessage('ui.noKeepIt_39df34cb')}
                 cancelTestId="reject-delete-proposer-btn"
-                confirmLabel="Yes, delete"
+                confirmLabel={translateMessage('ui.yesDelete_185fdfd2')}
                 confirmTestId="confirm-delete-proposer-btn"
                 confirmDestructive
                 confirmLoading={isLoading}

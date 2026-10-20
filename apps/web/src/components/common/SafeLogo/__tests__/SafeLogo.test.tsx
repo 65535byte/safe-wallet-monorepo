@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@/tests/test-utils'
 import SafeLogo from '../index'
 import { AppRoutes } from '@/config/routes'
 
@@ -28,21 +28,23 @@ describe('SafeLogo', () => {
   it('renders the Safe logo image with alt text and testid', () => {
     render(<SafeLogo />)
     const img = screen.getByTestId('logo-image')
-    expect(img).toHaveAttribute('alt', 'Safe')
+    expect(img).toHaveAttribute('alt', '品牌标志')
+    expect(img).toHaveAttribute('src', '/images/brand-logo.png')
+    expect(img).not.toHaveClass('dark:hidden')
   })
 
   it('renders the Home label pill variant with the logo', () => {
     render(<SafeLogo href={AppRoutes.welcome.accounts} showHomeLabel />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', AppRoutes.welcome.accounts)
-    expect(link).toHaveTextContent('Home')
+    expect(link).toHaveTextContent('首页')
     expect(screen.getByTestId('logo-image')).toBeInTheDocument()
   })
 
   it('renders the logo with the PRO chip in the pill for Workspaces on a plan', () => {
     render(<SafeLogo showHomeLabel showProLockup />)
-    expect(screen.getByRole('img', { name: 'Safe Pro' })).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: '8379' })).toBeInTheDocument()
     expect(screen.getByTestId('logo-image')).toBeInTheDocument()
-    expect(screen.getByRole('link')).not.toHaveTextContent('Home')
+    expect(screen.getByRole('link')).not.toHaveTextContent('首页')
   })
 })

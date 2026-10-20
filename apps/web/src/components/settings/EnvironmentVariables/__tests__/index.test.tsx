@@ -101,8 +101,8 @@ describe('EnvironmentVariables', () => {
     })
 
     const rpcInput = screen.getByPlaceholderText(mockChain.rpcUri.value) as HTMLInputElement
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL') as HTMLInputElement
-    const tenderlyTokenInput = screen.getByLabelText('Tenderly access token') as HTMLInputElement
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址') as HTMLInputElement
+    const tenderlyTokenInput = screen.getByLabelText('Tenderly 访问令牌') as HTMLInputElement
 
     expect(rpcInput).toHaveValue(mockRpcUrl)
     expect(tenderlyUrlInput).toHaveValue(mockTenderlyUrl)
@@ -138,17 +138,17 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const tenderlyTokenInput = screen.getByLabelText('Tenderly access token') as HTMLInputElement
+    const tenderlyTokenInput = screen.getByLabelText('Tenderly 访问令牌') as HTMLInputElement
     // Never a password field, so password managers leave it alone; the masking is CSS only.
     expect(tenderlyTokenInput).toHaveAttribute('type', 'text')
     expect(tenderlyTokenInput).toHaveAttribute('data-1p-ignore')
     expect(tenderlyTokenInput).toHaveAttribute('data-lpignore', 'true')
     expect(tenderlyTokenInput).toHaveClass('[-webkit-text-security:disc]')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Show access token' }))
+    fireEvent.click(screen.getByRole('button', { name: '显示访问令牌' }))
     expect(tenderlyTokenInput).not.toHaveClass('[-webkit-text-security:disc]')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Hide access token' }))
+    fireEvent.click(screen.getByRole('button', { name: '隐藏访问令牌' }))
     expect(tenderlyTokenInput).toHaveClass('[-webkit-text-security:disc]')
     expect(tenderlyTokenInput).toHaveAttribute('type', 'text')
   })
@@ -166,14 +166,14 @@ describe('EnvironmentVariables', () => {
     const rpcInput = screen.getByPlaceholderText(mockChain.rpcUri.value) as HTMLInputElement
 
     // Initially no reset button
-    expect(screen.queryAllByLabelText('Reset to default value')).toHaveLength(0)
+    expect(screen.queryAllByLabelText('恢复默认值')).toHaveLength(0)
 
     // Enter value
     fireEvent.change(rpcInput, { target: { value: mockRpcUrl } })
 
     // Reset button should appear
     await waitFor(() => {
-      expect(screen.getAllByLabelText('Reset to default value').length).toBeGreaterThan(0)
+      expect(screen.getAllByLabelText('恢复默认值').length).toBeGreaterThan(0)
     })
   })
 
@@ -191,7 +191,7 @@ describe('EnvironmentVariables', () => {
     expect(rpcInput).toHaveValue(mockRpcUrl)
 
     // Click reset button
-    const resetButtons = screen.getAllByLabelText('Reset to default value')
+    const resetButtons = screen.getAllByLabelText('恢复默认值')
     fireEvent.click(resetButtons[0])
 
     await waitFor(() => {
@@ -209,15 +209,15 @@ describe('EnvironmentVariables', () => {
 
     // Fill in values
     const rpcInput = screen.getByPlaceholderText(mockChain.rpcUri.value) as HTMLInputElement
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL') as HTMLInputElement
-    const tenderlyTokenInput = screen.getByLabelText('Tenderly access token') as HTMLInputElement
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址') as HTMLInputElement
+    const tenderlyTokenInput = screen.getByLabelText('Tenderly 访问令牌') as HTMLInputElement
 
     fireEvent.change(rpcInput, { target: { value: mockRpcUrl } })
     fireEvent.change(tenderlyUrlInput, { target: { value: mockTenderlyUrl } })
     fireEvent.change(tenderlyTokenInput, { target: { value: mockTenderlyToken } })
 
     // Submit form
-    const saveButton = screen.getByText('Save')
+    const saveButton = screen.getByText('保存')
     fireEvent.click(saveButton)
 
     await waitFor(() => {
@@ -241,7 +241,7 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const saveButton = screen.getByText('Save')
+    const saveButton = screen.getByText('保存')
     fireEvent.click(saveButton)
 
     await waitFor(() => {
@@ -265,19 +265,17 @@ describe('EnvironmentVariables', () => {
     })
 
     const tile = screen.getByTestId('tenderly-info')
-    expect(tile).toHaveTextContent(
-      'Transaction simulation is included in Safe Pro. You can also connect your own Tenderly project.',
-    )
+    expect(tile).toHaveTextContent('8379 包含交易模拟功能。您也可以连接自己的 Tenderly 项目。')
 
-    const guideLink = screen.getByRole('link', { name: /View setup guide/ })
+    const guideLink = screen.getByRole('link', { name: /查看配置指南/ })
     expect(guideLink).toHaveAttribute('href', TENDERLY_SETUP_GUIDE_URL)
     expect(guideLink).toHaveAttribute('target', '_blank')
 
-    expect(screen.getByRole('link', { name: 'See plans' })).toHaveAttribute('href', '/welcome/spaces')
-    expect(screen.queryByText('Read more')).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '查看套餐' })).toHaveAttribute('href', '/welcome/spaces')
+    expect(screen.queryByText('阅读更多')).not.toBeInTheDocument()
   })
 
-  it('hides the plans link for Safe Pro users', () => {
+  it('hides the plans link for 8379 users', () => {
     mockUseSafeProAccess.mockReturnValue({ hasProFeatures: true, isLoading: false, spaceId: 'space-1' })
     render(<EnvironmentVariables />, {
       initialReduxState: {
@@ -288,8 +286,8 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    expect(screen.getByRole('link', { name: /View setup guide/ })).toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: 'See plans' })).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /查看配置指南/ })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: '查看套餐' })).not.toBeInTheDocument()
   })
 
   it('shows the Simulation API endpoint format as placeholder and helper text', () => {
@@ -302,11 +300,9 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL')
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址')
     expect(tenderlyUrlInput).toHaveAttribute('placeholder', TENDERLY_SIMULATE_URL_PLACEHOLDER)
-    expect(tenderlyUrlInput).toHaveAccessibleDescription(
-      'Copy the Simulation API URL from your Tenderly project. It ends in /simulate.',
-    )
+    expect(tenderlyUrlInput).toHaveAccessibleDescription('从 Tenderly 项目复制以 /simulate 结尾的模拟 API 网址。')
   })
 
   it('rejects a Tenderly dashboard URL and does not save', async () => {
@@ -317,15 +313,13 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL')
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址')
     fireEvent.change(tenderlyUrlInput, { target: { value: 'https://dashboard.tenderly.co/my-org/my-project' } })
 
-    expect(
-      await screen.findByText('This is not a Simulation API URL. Copy it from your Tenderly project.'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('这不是模拟 API 网址，请从 Tenderly 项目中复制。')).toBeInTheDocument()
     expect(tenderlyUrlInput).toHaveAttribute('aria-invalid', 'true')
 
-    fireEvent.click(screen.getByText('Save'))
+    fireEvent.click(screen.getByText('保存'))
 
     await waitFor(() => {
       expect(analytics.trackEvent).not.toHaveBeenCalled()
@@ -345,11 +339,9 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    fireEvent.click(screen.getByText('Save'))
+    fireEvent.click(screen.getByText('保存'))
 
-    expect(
-      await screen.findByText('This is not a Simulation API URL. Copy it from your Tenderly project.'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('这不是模拟 API 网址，请从 Tenderly 项目中复制。')).toBeInTheDocument()
     expect(analytics.trackEvent).not.toHaveBeenCalled()
     expect(store.getState().settings.env.tenderly.url).toBe('https://dashboard.tenderly.co/my-org/my-project')
     expect(reloadPage).not.toHaveBeenCalled()
@@ -363,9 +355,9 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    fireEvent.change(screen.getByLabelText('Tenderly API URL'), { target: { value: mockTenderlyUrl } })
-    fireEvent.change(screen.getByLabelText('Tenderly access token'), { target: { value: mockTenderlyToken } })
-    fireEvent.click(screen.getByText('Save'))
+    fireEvent.change(screen.getByLabelText('Tenderly API 网址'), { target: { value: mockTenderlyUrl } })
+    fireEvent.change(screen.getByLabelText('Tenderly 访问令牌'), { target: { value: mockTenderlyToken } })
+    fireEvent.click(screen.getByText('保存'))
 
     await waitFor(() => {
       expect(store.getState().settings.env.tenderly).toEqual({
@@ -384,9 +376,9 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    fireEvent.change(screen.getByLabelText('Tenderly API URL'), { target: { value: `${mockTenderlyUrl}/` } })
-    fireEvent.change(screen.getByLabelText('Tenderly access token'), { target: { value: mockTenderlyToken } })
-    fireEvent.click(screen.getByText('Save'))
+    fireEvent.change(screen.getByLabelText('Tenderly API 网址'), { target: { value: `${mockTenderlyUrl}/` } })
+    fireEvent.change(screen.getByLabelText('Tenderly 访问令牌'), { target: { value: mockTenderlyToken } })
+    fireEvent.click(screen.getByText('保存'))
 
     await waitFor(() => {
       expect(store.getState().settings.env.tenderly.url).toBe(mockTenderlyUrl)
@@ -403,17 +395,15 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL')
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址')
     fireEvent.change(tenderlyUrlInput, { target: { value: 'https://dashboard.tenderly.co/my-org/my-project' } })
-    await screen.findByText('This is not a Simulation API URL. Copy it from your Tenderly project.')
+    await screen.findByText('这不是模拟 API 网址，请从 Tenderly 项目中复制。')
 
     const urlGroup = tenderlyUrlInput.closest('[data-slot="input-group"]') as HTMLElement
-    fireEvent.click(within(urlGroup).getByRole('button', { name: 'Reset to default value' }))
+    fireEvent.click(within(urlGroup).getByRole('button', { name: '恢复默认值' }))
 
     await waitFor(() => {
-      expect(
-        screen.queryByText('This is not a Simulation API URL. Copy it from your Tenderly project.'),
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('这不是模拟 API 网址，请从 Tenderly 项目中复制。')).not.toBeInTheDocument()
     })
     expect(tenderlyUrlInput).toHaveValue('')
     expect(tenderlyUrlInput).not.toHaveAttribute('aria-invalid')
@@ -429,11 +419,11 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    fireEvent.change(screen.getByLabelText('Tenderly API URL'), {
+    fireEvent.change(screen.getByLabelText('Tenderly API 网址'), {
       target: { value: 'https://api.tenderly.co/api/v1/account/my-org/project/my-project/' },
     })
 
-    expect(await screen.findByText('Add /simulate to the end of the URL.')).toBeInTheDocument()
+    expect(await screen.findByText('请在网址末尾添加 /simulate。')).toBeInTheDocument()
   })
 
   it('rejects a Simulation API URL without an access token and does not save', async () => {
@@ -444,11 +434,11 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    fireEvent.change(screen.getByLabelText('Tenderly API URL'), { target: { value: mockTenderlyUrl } })
-    fireEvent.click(screen.getByText('Save'))
+    fireEvent.change(screen.getByLabelText('Tenderly API 网址'), { target: { value: mockTenderlyUrl } })
+    fireEvent.click(screen.getByText('保存'))
 
-    expect(await screen.findByText('Add the access token from your Tenderly project.')).toBeInTheDocument()
-    expect(screen.getByLabelText('Tenderly access token')).toHaveAttribute('aria-invalid', 'true')
+    expect(await screen.findByText('添加 Tenderly 项目的访问令牌。')).toBeInTheDocument()
+    expect(screen.getByLabelText('Tenderly 访问令牌')).toHaveAttribute('aria-invalid', 'true')
     expect(analytics.trackEvent).not.toHaveBeenCalled()
     expect(store.getState().settings.env.tenderly.url).toBe('')
     expect(reloadPage).not.toHaveBeenCalled()
@@ -464,18 +454,18 @@ describe('EnvironmentVariables', () => {
       },
     })
 
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL')
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址')
     fireEvent.change(tenderlyUrlInput, { target: { value: mockTenderlyUrl } })
-    fireEvent.click(screen.getByText('Save'))
-    await screen.findByText('Add the access token from your Tenderly project.')
+    fireEvent.click(screen.getByText('保存'))
+    await screen.findByText('添加 Tenderly 项目的访问令牌。')
 
     const urlGroup = tenderlyUrlInput.closest('[data-slot="input-group"]') as HTMLElement
-    fireEvent.click(within(urlGroup).getByRole('button', { name: 'Reset to default value' }))
+    fireEvent.click(within(urlGroup).getByRole('button', { name: '恢复默认值' }))
 
     await waitFor(() => {
-      expect(screen.queryByText('Add the access token from your Tenderly project.')).not.toBeInTheDocument()
+      expect(screen.queryByText('添加 Tenderly 项目的访问令牌。')).not.toBeInTheDocument()
     })
-    expect(screen.getByLabelText('Tenderly access token')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByLabelText('Tenderly 访问令牌')).not.toHaveAttribute('aria-invalid')
   })
 
   it('should allow clearing all inputs', async () => {
@@ -492,8 +482,8 @@ describe('EnvironmentVariables', () => {
     })
 
     const rpcInput = screen.getByPlaceholderText(mockChain.rpcUri.value) as HTMLInputElement
-    const tenderlyUrlInput = screen.getByLabelText('Tenderly API URL') as HTMLInputElement
-    const tenderlyTokenInput = screen.getByLabelText('Tenderly access token') as HTMLInputElement
+    const tenderlyUrlInput = screen.getByLabelText('Tenderly API 网址') as HTMLInputElement
+    const tenderlyTokenInput = screen.getByLabelText('Tenderly 访问令牌') as HTMLInputElement
 
     // All inputs should have values
     expect(rpcInput).toHaveValue(mockRpcUrl)
@@ -501,7 +491,7 @@ describe('EnvironmentVariables', () => {
     expect(tenderlyTokenInput).toHaveValue(mockTenderlyToken)
 
     // Click all reset buttons
-    const resetButtons = screen.getAllByLabelText('Reset to default value')
+    const resetButtons = screen.getAllByLabelText('恢复默认值')
     resetButtons.forEach((button) => fireEvent.click(button))
 
     await waitFor(() => {

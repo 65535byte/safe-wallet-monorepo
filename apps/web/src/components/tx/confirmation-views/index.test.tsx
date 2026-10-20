@@ -55,7 +55,7 @@ describe('ConfirmationView', () => {
     )
 
     expect(getByTestId('spending-limit-batch-summary')).toBeInTheDocument()
-    expect(getByText('Modify spending limit:')).toBeInTheDocument()
+    expect(getByText('Modify 支出限额：')).toBeInTheDocument()
   })
 
   it('leaves a batch with other calls undecoded as a spending limit', () => {

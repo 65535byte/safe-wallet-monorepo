@@ -102,11 +102,11 @@ describe('PushNotifications', () => {
   it('renders push notification settings', () => {
     render(<PushNotifications />)
 
-    expect(screen.getByText('Push notifications')).toBeInTheDocument()
+    expect(screen.getByText('推送通知')).toBeInTheDocument()
     expect(screen.getByTestId('notifications-switch')).toBeChecked()
-    expect(screen.getByLabelText('Incoming transactions')).toBeInTheDocument()
-    expect(screen.getByLabelText('Outgoing transactions')).toBeInTheDocument()
-    expect(screen.getByText('Confirmation requests')).toBeInTheDocument()
+    expect(screen.getByLabelText('转入交易')).toBeInTheDocument()
+    expect(screen.getByLabelText('转出交易')).toBeInTheDocument()
+    expect(screen.getByText('确认请求')).toBeInTheDocument()
   })
 
   it('registers the Safe when the switch is toggled on', async () => {

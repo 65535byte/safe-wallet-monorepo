@@ -15,8 +15,8 @@ describe('HnBanner', () => {
     const mockOnHnSignupClick = jest.fn()
     render(<HnBanner onHnSignupClick={mockOnHnSignupClick} />)
 
-    expect(screen.getByText('Enforce enterprise-grade security')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Learn more' })).toBeInTheDocument()
+    expect(screen.getByText('启用企业级安全保护')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '了解更多' })).toBeInTheDocument()
   })
 
   it('renders dismiss button when onDismiss is provided', () => {
@@ -24,7 +24,7 @@ describe('HnBanner', () => {
     const mockOnDismiss = jest.fn()
     render(<HnBanner onHnSignupClick={mockOnHnSignupClick} onDismiss={mockOnDismiss} />)
 
-    const dismissButton = screen.getByRole('button', { name: 'close' })
+    const dismissButton = screen.getByRole('button', { name: '关闭' })
     expect(dismissButton).toBeInTheDocument()
   })
 
@@ -32,7 +32,7 @@ describe('HnBanner', () => {
     const mockOnHnSignupClick = jest.fn()
     render(<HnBanner onHnSignupClick={mockOnHnSignupClick} />)
 
-    const dismissButton = screen.queryByRole('button', { name: 'close' })
+    const dismissButton = screen.queryByRole('button', { name: '关闭' })
     expect(dismissButton).not.toBeInTheDocument()
   })
 })

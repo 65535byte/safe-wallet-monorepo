@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useForm, FormProvider, useFieldArray, Controller } from 'react-hook-form'
 import type { ReactElement } from 'react'
 
@@ -17,7 +18,6 @@ import type { RecoverAccountFlowProps } from '.'
 import { type AddressInfo } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
 
 import commonCss from '@safe-global/views/components/tx-flow/common/styles.module.css'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -65,7 +65,7 @@ export function _validateNewOwner({
   }
 
   if (sameAddress(value, safeAddress)) {
-    return 'Cannot use Safe account itself as signer.'
+    return translateMessage('ui.cannotUseAccountItselfAsSigner_509aab54')
   }
 
   const isDuplicate = newOwners.filter((owner) => sameAddress(owner.value, value)).length > 1
@@ -116,12 +116,11 @@ export function RecoverAccountFlowSetup({
         <TxCard>
           <div>
             <Typography variant="h4" className="mb-2">
-              Add signer(s)
+              {translateMessage('ui.addSignerS_95133fec')}
             </Typography>
 
             <Typography variant="paragraph-small" className="mb-2 block">
-              Set the new signer wallet(s) of this Safe account and how many need to confirm a transaction before it can
-              be executed.
+              {translateMessage('ui.setTheNewSignerWalletS_bc5ab258')}
             </Typography>
           </div>
 
@@ -130,7 +129,7 @@ export function RecoverAccountFlowSetup({
               <div className="flex items-center gap-6" key={index}>
                 <div className="flex-1">
                   <AddressBookInput
-                    label={`Signer ${index + 1}`}
+                    label={translateMessage('ui.signer_0b61c910', { p0: index + 1 })}
                     name={`${RecoverAccountFlowFields.owners}.${index}.value`}
                     required
                     fullWidth
@@ -152,14 +151,14 @@ export function RecoverAccountFlowSetup({
 
           <Button variant="ghost" onClick={() => append({ value: '' })} className="my-2 self-start">
             <AddIcon className="size-4" />
-            Add new signer
+            {translateMessage('ui.addNewSigner_d338b9bd')}
           </Button>
 
           <Separator bleed="6" />
 
           <div>
             <Typography variant="h4" className="mb-2">
-              Threshold
+              {translateMessage('ui.threshold_60fbd8eb')}
               <Tooltip>
                 <TooltipTrigger render={<span />}>
                   <InfoIcon className="ml-1 inline size-4 align-middle text-[var(--color-border-main)]" />
@@ -169,7 +168,7 @@ export function RecoverAccountFlowSetup({
             </Typography>
 
             <Typography variant="paragraph-small" className="mb-2 block">
-              After recovery, Safe account transactions will require:
+              {translateMessage('ui.afterRecoveryAccountTransactionsWillRequire_83a280f4')}
             </Typography>
           </div>
 
@@ -201,7 +200,8 @@ export function RecoverAccountFlowSetup({
 
             <div>
               <Typography>
-                out of {fields.length} signer{maybePlural(fields)}
+                {translateMessage('ui.outOf_9bf030fe')}
+                {fields.length} {translateMessage('ui.signer_efab2dcb')}
               </Typography>
             </div>
           </div>
@@ -211,7 +211,7 @@ export function RecoverAccountFlowSetup({
           {isSameSetup && (
             <Alert variant="destructive" className="border-0">
               <AlertSeverityIcon variant="destructive" />
-              <AlertDescription>The proposed Account setup is the same as the current one.</AlertDescription>
+              <AlertDescription>{translateMessage('ui.theProposedAccountSetupIsThe_ab7a7a27')}</AlertDescription>
             </Alert>
           )}
 
@@ -225,7 +225,7 @@ export function RecoverAccountFlowSetup({
               className="mt-2"
               disabled={isSameSetup || !!thresholdError}
             >
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </TxCardActions>
         </TxCard>

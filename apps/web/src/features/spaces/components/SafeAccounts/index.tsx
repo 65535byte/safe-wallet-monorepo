@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import AddAccountsChooser from '../AddAccountsChooser'
 import EmptySafeAccounts from '@safe-global/views/features/spaces/components/SafeAccounts/EmptySafeAccounts'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@safe-global/views/components/ui/input-group'
@@ -72,7 +73,7 @@ const SpaceSafeAccounts = () => {
     <>
       {isInvited && <PreviewInvite />}
       <Typography variant="h2" className="mb-6 font-bold leading-[1] tracking-tight">
-        Safe accounts
+        {translateMessage('ui.accounts_0ecf161b')}
       </Typography>
 
       {isAtSeatLimit && <SeatLimitBanner className="mb-6" />}
@@ -94,8 +95,8 @@ const SpaceSafeAccounts = () => {
                 <Search className="size-4" />
               </InputGroupAddon>
               <InputGroupInput
-                placeholder="by name, address or network"
-                aria-label="Search Safe accounts by name, address or network"
+                placeholder={translateMessage('ui.byNameAddressOrNetwork_5c37a5de')}
+                aria-label={translateMessage('ui.searchAccountsByNameAddressOr_cda42767')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoComplete="off"
@@ -110,7 +111,11 @@ const SpaceSafeAccounts = () => {
         )}
         {isAdmin && (
           <Track {...SPACE_EVENTS.ADD_ACCOUNTS_MODAL} label={SPACE_LABELS.accounts_page}>
-            <AddAccountsChooser buttonVariant="default" buttonLabel="Add accounts" entryPoint="safe_accounts" />
+            <AddAccountsChooser
+              buttonVariant="default"
+              buttonLabel={translateMessage('ui.addAccounts_5b9c31e4')}
+              entryPoint="safe_accounts"
+            />
           </Track>
         )}
       </div>
@@ -119,9 +124,13 @@ const SpaceSafeAccounts = () => {
         <div className="flex items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive/5 px-5 py-4">
           <TriangleAlert className="size-5 shrink-0 text-destructive" />
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-medium text-destructive">Failed to load Safe accounts</span>
+            <span className="text-sm font-medium text-destructive">
+              {translateMessage('ui.failedToLoadAccounts_5d478fe1')}
+            </span>
             <span className="text-xs text-muted-foreground">
-              {spaceSafesError ? getRtkQueryErrorMessage(spaceSafesError) : 'Please try again.'}
+              {spaceSafesError
+                ? getRtkQueryErrorMessage(spaceSafesError)
+                : translateMessage('ui.pleaseTryAgain_6659ccde')}
             </span>
           </div>
           <button
@@ -130,18 +139,18 @@ const SpaceSafeAccounts = () => {
             type="button"
           >
             <RotateCw className="size-3.5" />
-            Retry
+            {translateMessage('ui.retry_2cd6945d')}
           </button>
         </div>
       ) : isSpaceEmpty ? (
         <EmptySafeAccounts />
       ) : visibleSafes.length === 0 ? (
         <Typography variant="paragraph-small" color="muted" align="center" className="py-8">
-          No Safe accounts match your search
+          {translateMessage('ui.noAccountsMatchYourSearch_aefae7ae')}
         </Typography>
       ) : (
         <div className="flex flex-col gap-4">
-          {similarAddresses.size > 0 && <SecurityBanner title="Verify before you trust" />}
+          {similarAddresses.size > 0 && <SecurityBanner title={translateMessage('ui.verifyBeforeYouTrust_1ad58b4e')} />}
           <SafeAccountsTable
             items={visibleSafes}
             // The table sits directly on the page background here, so the card outline is dropped.

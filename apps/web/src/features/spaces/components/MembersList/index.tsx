@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type MemberDto } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { formatDate, formatTimeInWords, parseTimestamp } from '@safe-global/utils/utils/date'
 import EditIcon from '@safe-global/views/assets/images/common/edit.svg'
@@ -59,10 +60,17 @@ const dateColumn = (
 })
 
 const DATE_COLUMNS: Record<MembersListVariant, DataTableColumn<MemberDto>[]> = {
-  active: [dateColumn('memberSince', 'Member since', (member) => member.createdAt, formatDate)],
+  active: [
+    dateColumn('memberSince', translateMessage('ui.memberSince_25e3b9e6'), (member) => member.createdAt, formatDate),
+  ],
   pending: [
-    dateColumn('invitedOn', 'Invited on', (member) => member.createdAt, formatDate),
-    dateColumn('expires', 'Expires', (member) => member.inviteExpiresAt, formatTimeInWords),
+    dateColumn('invitedOn', translateMessage('ui.invitedOn_dc2767b4'), (member) => member.createdAt, formatDate),
+    dateColumn(
+      'expires',
+      translateMessage('ui.expires_b8d5dbf9'),
+      (member) => member.inviteExpiresAt,
+      formatTimeInWords,
+    ),
   ],
 }
 
@@ -78,13 +86,15 @@ const EditButton = ({ member, disabled }: { member: MemberDto; disabled: boolean
             size="icon-sm"
             onClick={() => setOpen(true)}
             disabled={disabled}
-            aria-label="Edit member"
+            aria-label={translateMessage('ui.editMember_f2c4fa4b')}
           >
             <EditIcon className="size-4 text-muted-foreground" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          {disabled ? 'Cannot edit role of last admin' : `Edit ${checkIsAdmin(member) ? 'admin' : 'member'}`}
+          {disabled
+            ? translateMessage('ui.cannotEditRoleOfLastAdmin_fd42fbce')
+            : translateMessage('ui.edit_0a3cb2be', { p0: checkIsAdmin(member) ? 'admin' : 'member' })}
         </TooltipContent>
       </Tooltip>
       {open && <EditMemberDialog member={member} handleClose={() => setOpen(false)} />}
@@ -116,14 +126,16 @@ export const RemoveMemberButton = ({
               size="icon-sm"
               disabled={disabled}
               onClick={() => setOpenRemoveMemberDialog(true)}
-              aria-label={`Remove ${isInvite ? 'invitation' : 'member'}`}
+              aria-label={translateMessage('ui.remove_a5d07fea', { p0: isInvite ? 'invitation' : 'member' })}
             >
               <DeleteIcon className={disabled ? 'size-4 text-muted-foreground' : 'size-4 text-destructive'} />
             </Button>
           </Track>
         </TooltipTrigger>
         <TooltipContent>
-          {disabled ? 'Cannot remove last admin' : `Remove ${isInvite ? 'invitation' : 'member'}`}
+          {disabled
+            ? translateMessage('ui.cannotRemoveLastAdmin_73a60f9a')
+            : translateMessage('ui.remove_a5d07fea', { p0: isInvite ? 'invitation' : 'member' })}
         </TooltipContent>
       </Tooltip>
       {openRemoveMemberDialog && (
@@ -184,7 +196,7 @@ const MembersList = ({ members, variant = 'active' }: { members: MemberDto[]; va
   const columns: DataTableColumn<MemberDto>[] = [
     {
       id: 'name',
-      header: 'Name',
+      header: translateMessage('ui.name_84f28b85'),
       width: isTwoFactorEnabled || variant === 'pending' ? '20%' : '35%',
       sticky: true,
       minWidth: 200,
@@ -198,12 +210,12 @@ const MembersList = ({ members, variant = 'active' }: { members: MemberDto[]; va
               <MemberName member={member} isCompact={isCompact} />
               {isDeclined && (
                 <Badge variant="destructive" className="shrink-0">
-                  Declined
+                  {translateMessage('ui.declined_885b1eb6')}
                 </Badge>
               )}
               {isExpired && (
                 <Badge variant="warning" className="shrink-0">
-                  Expired
+                  {translateMessage('ui.expired_b75ba2e1')}
                 </Badge>
               )}
             </div>
@@ -215,7 +227,7 @@ const MembersList = ({ members, variant = 'active' }: { members: MemberDto[]; va
     },
     {
       id: 'email',
-      header: 'Email or address',
+      header: translateMessage('ui.emailOrAddress_015722ea'),
       width: isCondensed ? '15%' : '20%',
       priority: 'secondary',
       minWidth: 180,
@@ -226,12 +238,16 @@ const MembersList = ({ members, variant = 'active' }: { members: MemberDto[]; va
     ...(isTwoFactorEnabled ? [twoFactorColumn] : []),
     {
       id: 'role',
-      header: 'Role',
+      header: translateMessage('ui.role_9362a435'),
       width: badgeWidth,
       minWidth: 90,
       cellTestId: 'table-cell-role',
       sortValue: (m) => m.role,
-      cell: (member) => <Badge variant="secondary">{checkIsAdmin(member) ? 'Admin' : 'Member'}</Badge>,
+      cell: (member) => (
+        <Badge variant="secondary">
+          {checkIsAdmin(member) ? translateMessage('ui.admin_f22d5ee6') : translateMessage('ui.member_ddb02644')}
+        </Badge>
+      ),
     },
     ...DATE_COLUMNS[variant],
     {

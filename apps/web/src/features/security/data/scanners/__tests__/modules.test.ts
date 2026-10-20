@@ -164,9 +164,9 @@ describe('modulesScanner', () => {
       expect(result.status).toBe('issue')
       expect(result.severity).toBe('Critical')
       expect(result.score).toBe(0)
-      expect(result.ctaLabelOverride).toBe('Remove unsupported module')
+      expect(result.ctaLabelOverride).toBe('移除不受支持的模块')
       expect(result.vulnerableModules).toEqual([delay.value])
-      expect(result.evidence).toContainEqual({ label: 'Vulnerable module', value: 'Delay Modifier' })
+      expect(result.evidence).toContainEqual({ label: '存在漏洞的模块', value: 'Delay Modifier' })
     })
 
     it('flags a vulnerable Roles module as Critical', async () => {
@@ -220,9 +220,9 @@ describe('modulesScanner', () => {
       expect(result.status).toBe('issue')
       expect(result.severity).toBe('Critical')
       expect(result.score).toBe(0)
-      expect(result.ctaLabelOverride).toBe('Remove unsupported module')
+      expect(result.ctaLabelOverride).toBe('移除不受支持的模块')
       expect(result.vulnerableModules).toEqual([UNSUPPORTED_MASTERCOPY])
-      expect(result.evidence).toContainEqual({ label: 'Vulnerable module', value: UNSUPPORTED_MASTERCOPY })
+      expect(result.evidence).toContainEqual({ label: '存在漏洞的模块', value: UNSUPPORTED_MASTERCOPY })
     })
 
     it('matches the unsupported mastercopy case-insensitively', async () => {

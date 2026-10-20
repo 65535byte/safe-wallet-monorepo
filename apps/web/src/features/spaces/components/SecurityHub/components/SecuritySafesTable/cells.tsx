@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import type { GradeSummary } from '@/features/security/types'
@@ -41,11 +42,11 @@ export const UpdateCell = ({ href }: { href?: SafeHref }) =>
   href ? (
     <Link
       href={href}
-      aria-label="Update contracts"
+      aria-label={translateMessage('ui.updateContracts_3dfa6964')}
       onClick={(e) => e.stopPropagation()}
       className="group inline-flex shrink-0 items-center gap-1 rounded text-xs font-bold text-primary no-underline hover:underline focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
     >
-      Update
+      {translateMessage('ui.update_5cb0e4fd')}
       <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
     </Link>
   ) : null

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NumberField from '@/components/common/NumberField'
 import { AutocompleteItem } from '@/components/tx-flow/flows/TokenTransfer/CreateTokenTransfer'
 import { safeFormatUnits, safeParseUnits } from '@safe-global/utils/utils/formatters'
@@ -22,7 +23,7 @@ import { type Balances } from '@safe-global/store/gateway/AUTO_GENERATED/balance
 import FiatValue from '@/components/common/FiatValue'
 import { computeFiatValue } from '@/utils/fiat'
 
-export const InsufficientFundsValidationError = 'Insufficient funds'
+export const InsufficientFundsValidationError = translateMessage('ui.insufficientFunds_646f2ef9')
 
 const getFieldName = (field: TokenAmountFields, fieldArray?: TokenAmountInputProps['fieldArray']) =>
   fieldArray ? `${fieldArray.name}.${fieldArray.index}.${field}` : field
@@ -137,7 +138,7 @@ const TokenAmountInput = ({
       <div data-testid="token-amount-section" className="w-full">
         <NumberField
           data-testid="token-amount-field"
-          label={shownAmountError?.message?.toString() || 'Amount'}
+          label={shownAmountError?.message?.toString() || translateMessage('ui.amount_a72e74a9')}
           error={isAmountError}
           fullWidth
           inputSize="hero"
@@ -152,7 +153,7 @@ const TokenAmountInput = ({
                   className="h-auto uppercase"
                   onClick={onMaxAmountClick}
                 >
-                  Max
+                  {translateMessage('ui.max_26f69a90')}
                 </Button>
               )}
               <Separator orientation="vertical" className="mx-1" />

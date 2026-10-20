@@ -11,7 +11,7 @@ jest.mock('@/components/common/CheckWallet', () => ({
 }))
 
 const MOCK_GUARD = zeroPadValue('0x01', 20)
-const EMPTY_LABEL = 'No transaction guard set'
+const EMPTY_LABEL = '未设置交易守卫'
 
 describe('TransactionGuards', () => {
   const extendedSafeInfo = extendedSafeInfoBuilder().build()

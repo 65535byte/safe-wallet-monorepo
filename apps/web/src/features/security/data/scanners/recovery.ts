@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
 import type { SecurityScanner } from './types'
 import { getSeverityFromScore } from './constants'
@@ -15,7 +16,12 @@ export const recoveryScanner: SecurityScanner = {
         status: 'not_applicable',
         severity: getSeverityFromScore(score, { excluded: true }),
         score,
-        evidence: [{ label: 'Status', value: 'Not available on this network' }],
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.notAvailableOnThisNetwork_9d67ca28'),
+          },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -30,9 +36,13 @@ export const recoveryScanner: SecurityScanner = {
         status: 'issue',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'No recovery configured' }],
-        remediation:
-          'If all signers lose access, this Safe cannot be recovered. Set up a recovery mechanism to protect against key loss.',
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.noRecoveryConfigured_a81545d0'),
+          },
+        ],
+        remediation: translateMessage('ui.ifAllSignersLoseAccessThis_17dec1dd'),
         lastChecked: now,
       }
     }
@@ -46,7 +56,12 @@ export const recoveryScanner: SecurityScanner = {
         status: 'clear',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'Recovery module configured' }],
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.recoveryModuleConfigured_c12dd6af'),
+          },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -58,9 +73,10 @@ export const recoveryScanner: SecurityScanner = {
       status: 'partial',
       severity: getSeverityFromScore(score),
       score,
-      evidence: [{ label: 'Status', value: 'Recovery not confirmed' }],
-      remediation:
-        'This Safe has modules installed but none were recognized as a recovery module. Verify that account recovery is configured.',
+      evidence: [
+        { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.recoveryNotConfirmed_70317e40') },
+      ],
+      remediation: translateMessage('ui.thisHasModulesInstalledButNone_eb998b04'),
       lastChecked: now,
     }
   },

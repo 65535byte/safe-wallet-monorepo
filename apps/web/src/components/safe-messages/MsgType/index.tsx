@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MessageItem } from '@safe-global/store/gateway/AUTO_GENERATED/messages'
 import { FilePen as RequiredIcon } from 'lucide-react'
 import ImageFallback from '@safe-global/views/components/common/ImageFallback'
@@ -29,7 +30,7 @@ const MsgType = ({ msg }: { msg: MessageItem }) => {
         <ImageFallback
           src={msg.logoUri || FALLBACK_LOGO_URI}
           fallbackSrc={FALLBACK_LOGO_URI}
-          alt="Message type"
+          alt={translateMessage('ui.messageType_0df0f1ef')}
           width={16}
           height={16}
         />

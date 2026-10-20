@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactElement, ComponentType, SyntheticEvent } from 'react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { buttonVariants } from '@safe-global/views/components/ui/button'
@@ -70,7 +71,7 @@ const ExplorerButton = ({
           className="mr-[var(--space-1)] whitespace-nowrap"
           style={{ fontSize }}
         >
-          View on explorer
+          {translateMessage('ui.viewOnExplorer_216ad527')}
         </Typography>
 
         <Icon className="size-5" />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Dialog, DialogContent } from '@safe-global/views/components/ui/dialog'
 import {
@@ -17,12 +18,14 @@ import type {
 
 /** The accounts step leads to the change summary, not to Stripe: a live plan is moved, not bought. */
 export const _continueLabelFor = (direction: PlanChangeDirection): string =>
-  direction === 'change' ? 'Continue' : `Continue to ${direction}`
+  direction === 'change'
+    ? translateMessage('ui.continue_a4bd8255')
+    : translateMessage('ui.continueTo_92ee7924', { p0: direction })
 
 /** What the picked plan costs once the trial is over, as the confirmation words it. */
 export const _pickedPrice = (pick: PlanPick): string =>
   pick.option.price === null
-    ? 'a custom price'
+    ? translateMessage('ui.aCustomPrice_52a82d29')
     : `${formatPlanPrice(pick.option.price, pick.tier.currency)}${priceSuffix(pick.tier.billingCycle)}`
 
 export default function ChangePlanFlow({

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCurrentChain } from '@/hooks/useChains'
 import useSafeAddress from '@/hooks/useSafeAddress'
 import { useCallback, useEffect, type ReactElement } from 'react'
@@ -15,8 +16,10 @@ import NetworkMultiSelectorInput from '@/components/common/NetworkSelector/Netwo
 const SafeCreationNetworkInput = ({
   name,
   isAdvancedFlow = false,
+  networks,
 }: {
   name: string
+  networks?: Chain[]
   isAdvancedFlow?: boolean
 }): ReactElement => {
   const router = useRouter()
@@ -109,11 +112,12 @@ const SafeCreationNetworkInput = ({
       render={({ field }) => (
         <NetworkMultiSelectorInput
           value={field.value || []}
+          networks={networks}
           name={name}
           onNetworkChange={updateCurrentNetwork}
           isOptionDisabled={isOptionDisabled}
           error={!!errors.networks}
-          helperText={errors.networks ? 'Select at least one network' : ''}
+          helperText={errors.networks ? translateMessage('ui.selectAtLeastOneNetwork_ea392c05') : ''}
         />
       )}
       rules={{ required: true }}

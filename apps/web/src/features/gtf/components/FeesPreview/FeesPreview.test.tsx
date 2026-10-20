@@ -22,8 +22,8 @@ afterEach(() => {
 
 const defaultProps: FeesPreviewData = {
   canCoverFees: true,
-  executionFee: { label: 'Execution fee', isFree: true },
-  gasFee: { label: 'Max gas fee', amount: '0.0002733', currency: 'ETH', fiatAmount: '$97.30' },
+  executionFee: { label: '执行费用', isFree: true },
+  gasFee: { label: '最高 Gas 费用', amount: '0.0002733', currency: 'ETH', fiatAmount: '$97.30' },
   totalOutgoing: { primary: [{ amount: '0.60126', currency: 'ETH' }], fiatTotal: '$1,768.85' },
   availableGasTokens: [{ address: '0x0000000000000000000000000000000000000000', symbol: 'ETH', logoUri: '' }],
   selectedGasToken: '0x0000000000000000000000000000000000000000',
@@ -34,16 +34,16 @@ describe('FeesPreview', () => {
   it('renders "Fees" header and "How fees work" link', () => {
     render(<FeesPreview {...defaultProps} />)
 
-    expect(screen.getByText('Fees')).toBeInTheDocument()
-    expect(screen.getByText(/How fees work/)).toBeInTheDocument()
+    expect(screen.getByText('费用')).toBeInTheDocument()
+    expect(screen.getByText(/费用说明/)).toBeInTheDocument()
   })
 
   it('renders payment source selector with Safe active by default', () => {
     render(<FeesPreview {...defaultProps} />)
 
-    expect(screen.getByText('Pay fees from:')).toBeInTheDocument()
+    expect(screen.getByText('费用支付方：')).toBeInTheDocument()
     expect(screen.getByTestId('payment-source-selector')).toHaveTextContent('Safe')
-    expect(screen.getByText('Fees token:')).toBeInTheDocument()
+    expect(screen.getByText('手续费代币：')).toBeInTheDocument()
   })
 
   it('renders gas token selector', () => {
@@ -55,21 +55,21 @@ describe('FeesPreview', () => {
   it('renders execution fee as FREE only (no amount, no percentage)', () => {
     render(<FeesPreview {...defaultProps} />)
 
-    expect(screen.getByText('FREE')).toBeInTheDocument()
+    expect(screen.getByText('免费')).toBeInTheDocument()
     expect(screen.queryByText(/Execution fee \(/)).not.toBeInTheDocument()
   })
 
   it('renders gas fee with fiat', () => {
     render(<FeesPreview {...defaultProps} />)
 
-    expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+    expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
     expect(screen.getByText('$97.30')).toBeInTheDocument()
   })
 
   it('renders total outgoing when Safe wallet selected', () => {
     render(<FeesPreview {...defaultProps} />)
 
-    expect(screen.getByText('Total outgoing')).toBeInTheDocument()
+    expect(screen.getByText('总转出')).toBeInTheDocument()
     expect(screen.getByText('0.60126 ETH')).toBeInTheDocument()
     expect(screen.getByText('$1,768.85')).toBeInTheDocument()
   })
@@ -78,9 +78,9 @@ describe('FeesPreview', () => {
     render(<FeesPreview {...defaultProps} />)
 
     fireEvent.click(screen.getByTestId('payment-source-selector'))
-    fireEvent.click(screen.getByRole('menuitem', { name: 'Signer' }))
+    fireEvent.click(screen.getByRole('menuitem', { name: '签名人' }))
 
-    expect(screen.getByText('Total outgoing')).toBeInTheDocument()
+    expect(screen.getByText('总转出')).toBeInTheDocument()
   })
 
   it('renders total outgoing with 2 currencies', () => {
@@ -102,41 +102,41 @@ describe('FeesPreview', () => {
   it('renders skeleton when loading', () => {
     render(<FeesPreview {...defaultProps} loading />)
 
-    expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+    expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
     expect(screen.queryByText('0.0002733 ETH')).not.toBeInTheDocument()
   })
 
   it('renders "Cannot estimate" when error', () => {
     render(<FeesPreview {...defaultProps} error />)
 
-    expect(screen.getByText('Cannot estimate')).toBeInTheDocument()
+    expect(screen.getByText('无法估算')).toBeInTheDocument()
   })
 
   it('shows skeleton over error when both loading and error', () => {
     render(<FeesPreview {...defaultProps} loading error />)
 
-    expect(screen.queryByText('Cannot estimate')).not.toBeInTheDocument()
+    expect(screen.queryByText('无法估算')).not.toBeInTheDocument()
   })
 
   describe('fallback EOA (canCoverFees: false)', () => {
     const fallbackProps: FeesPreviewData = {
       canCoverFees: false,
-      executionFee: { label: 'Execution fee', isFree: true },
-      gasFee: { label: 'Max gas fee', amount: '0.0002733', currency: 'ETH' },
+      executionFee: { label: '执行费用', isFree: true },
+      gasFee: { label: '最高 Gas 费用', amount: '0.0002733', currency: 'ETH' },
     }
 
     it('does not render payment source selector', () => {
       render(<FeesPreview {...fallbackProps} />)
 
-      expect(screen.queryByText('Pay fees from:')).not.toBeInTheDocument()
+      expect(screen.queryByText('费用支付方：')).not.toBeInTheDocument()
       expect(screen.queryByTestId('payment-source-selector')).not.toBeInTheDocument()
     })
 
     it('renders fee rows', () => {
       render(<FeesPreview {...fallbackProps} />)
 
-      expect(screen.getByText('FREE')).toBeInTheDocument()
-      expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+      expect(screen.getByText('免费')).toBeInTheDocument()
+      expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
     })
 
     it('renders signer fallback notice', () => {
@@ -149,7 +149,7 @@ describe('FeesPreview', () => {
     it('does not render total outgoing', () => {
       render(<FeesPreview {...fallbackProps} />)
 
-      expect(screen.queryByText('Total outgoing')).not.toBeInTheDocument()
+      expect(screen.queryByText('总转出')).not.toBeInTheDocument()
     })
 
     it('always renders the chain native currency when no availableGasTokens', () => {
@@ -207,15 +207,15 @@ describe('FeesPreview', () => {
     it('hides the "How fees work" link', () => {
       render(<FeesPreview {...defaultProps} />)
 
-      expect(screen.queryByText(/How fees work/)).not.toBeInTheDocument()
+      expect(screen.queryByText(/费用说明/)).not.toBeInTheDocument()
     })
 
     it('hides both selectors', () => {
       render(<FeesPreview {...defaultProps} />)
 
-      expect(screen.queryByText('Pay fees from:')).not.toBeInTheDocument()
+      expect(screen.queryByText('费用支付方：')).not.toBeInTheDocument()
       expect(screen.queryByTestId('payment-source-selector')).not.toBeInTheDocument()
-      expect(screen.queryByText('Fees token:')).not.toBeInTheDocument()
+      expect(screen.queryByText('手续费代币：')).not.toBeInTheDocument()
       expect(screen.queryByTestId('gas-token-selector')).not.toBeInTheDocument()
     })
 
@@ -235,11 +235,11 @@ describe('FeesPreview', () => {
     it('still renders the fee table', () => {
       render(<FeesPreview {...defaultProps} />)
 
-      expect(screen.getByText('Fees')).toBeInTheDocument()
-      expect(screen.getByText('FREE')).toBeInTheDocument()
-      expect(screen.getByText('Max gas fee')).toBeInTheDocument()
+      expect(screen.getByText('费用')).toBeInTheDocument()
+      expect(screen.getByText('免费')).toBeInTheDocument()
+      expect(screen.getByText('最高 Gas 费用')).toBeInTheDocument()
       expect(screen.getByText('$97.30')).toBeInTheDocument()
-      expect(screen.getByText('Total outgoing')).toBeInTheDocument()
+      expect(screen.getByText('总转出')).toBeInTheDocument()
       expect(screen.getByText('0.60126 ETH')).toBeInTheDocument()
     })
 

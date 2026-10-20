@@ -56,7 +56,7 @@ describe('ContractVersion', () => {
 
     render(<ContractVersion />)
 
-    expect(screen.getByText(/Latest version/)).toBeInTheDocument()
+    expect(screen.getByText(/最新版本/)).toBeInTheDocument()
     expectSettingsDelegation()
   })
 
@@ -68,7 +68,7 @@ describe('ContractVersion', () => {
 
     render(<ContractVersion />)
 
-    expect(screen.queryByText(/Latest version/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/最新版本/)).not.toBeInTheDocument()
     expectSettingsDelegation()
   })
 
@@ -81,7 +81,7 @@ describe('ContractVersion', () => {
     render(<ContractVersion />)
 
     // No `isCritical` gate for the check either: an outdated official Safe never shows it.
-    expect(screen.queryByText(/Latest version/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/最新版本/)).not.toBeInTheDocument()
     expectSettingsDelegation()
   })
 
@@ -92,7 +92,7 @@ describe('ContractVersion', () => {
     render(<ContractVersion />)
 
     // Preserves today's behaviour: an unsupported Safe that still reports a version keeps the check.
-    expect(screen.getByText(/Latest version/)).toBeInTheDocument()
+    expect(screen.getByText(/最新版本/)).toBeInTheDocument()
     expectSettingsDelegation()
   })
 
@@ -102,7 +102,7 @@ describe('ContractVersion', () => {
 
     render(<ContractVersion />)
 
-    expect(screen.getByText(/Latest version/)).toBeInTheDocument()
+    expect(screen.getByText(/最新版本/)).toBeInTheDocument()
     expectSettingsDelegation()
   })
 
@@ -112,7 +112,7 @@ describe('ContractVersion', () => {
 
     render(<ContractVersion />)
 
-    expect(screen.getByText('View release').closest('a')).toHaveAttribute(
+    expect(screen.getByText('查看版本发布').closest('a')).toHaveAttribute(
       'href',
       'https://github.com/safe-fndn/safe-smart-account/releases/tag/v1.4.1',
     )

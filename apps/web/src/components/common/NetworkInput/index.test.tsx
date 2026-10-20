@@ -34,7 +34,7 @@ describe('NetworkInput', () => {
       </Wrapper>,
     )
 
-    expect(screen.getByText('Optional')).toBeInTheDocument()
+    expect(screen.getByText('选填')).toBeInTheDocument()
   })
 
   it('does not show an "Optional" placeholder when required', () => {
@@ -44,7 +44,7 @@ describe('NetworkInput', () => {
       </Wrapper>,
     )
 
-    expect(screen.queryByText('Optional')).not.toBeInTheDocument()
+    expect(screen.queryByText('选填')).not.toBeInTheDocument()
   })
 
   it('renders the chain indicator for the selected network', () => {
@@ -54,8 +54,8 @@ describe('NetworkInput', () => {
       </Wrapper>,
     )
 
-    expect(screen.getByLabelText('Network')).toHaveTextContent('Chain 1')
-    expect(screen.queryByText('Optional')).not.toBeInTheDocument()
+    expect(screen.getByLabelText('网络')).toHaveTextContent('Chain 1')
+    expect(screen.queryByText('选填')).not.toBeInTheDocument()
   })
 
   it('marks the field as invalid when required and submitted empty', async () => {
@@ -65,12 +65,12 @@ describe('NetworkInput', () => {
       </Wrapper>,
     )
 
-    fireEvent.click(screen.getByText('Submit'))
+    fireEvent.click(screen.getByText('提交'))
 
     await waitFor(() => {
-      expect(screen.getByLabelText('Network')).toHaveAttribute('aria-invalid', 'true')
+      expect(screen.getByLabelText('网络')).toHaveAttribute('aria-invalid', 'true')
     })
-    expect(screen.getByText('Network')).toHaveClass('text-destructive')
+    expect(screen.getByText('网络')).toHaveClass('text-destructive')
   })
 
   it('is not marked invalid when optional and submitted empty', async () => {
@@ -80,11 +80,11 @@ describe('NetworkInput', () => {
       </Wrapper>,
     )
 
-    fireEvent.click(screen.getByText('Submit'))
+    fireEvent.click(screen.getByText('提交'))
 
     await waitFor(() => {
-      expect(screen.getByText('Network')).not.toHaveClass('text-destructive')
+      expect(screen.getByText('网络')).not.toHaveClass('text-destructive')
     })
-    expect(screen.getByLabelText('Network')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByLabelText('网络')).not.toHaveAttribute('aria-invalid')
   })
 })

@@ -37,7 +37,7 @@ describe('HnQueueAssessmentBanner', () => {
 
     render(<HnQueueAssessmentBanner safeTxHash="0x123" assessment={undefined} isAuthenticated={false} />)
 
-    await user.click(screen.getByText('Log in'))
+    await user.click(screen.getByText('登录'))
 
     expect(trackEvent).toHaveBeenCalledWith(HYPERNATIVE_EVENTS.HYPERNATIVE_LOGIN_CLICKED, {
       [MixpanelEventParams.SOURCE]: HYPERNATIVE_SOURCE.Queue,
@@ -50,7 +50,7 @@ describe('HnQueueAssessmentBanner', () => {
 
     render(<HnQueueAssessmentBanner safeTxHash="0x123" assessment={undefined} isAuthenticated={true} />)
 
-    await user.click(screen.getByText('View details'))
+    await user.click(screen.getByText('查看详情'))
 
     expect(trackEvent).toHaveBeenCalledWith(HYPERNATIVE_EVENTS.SECURITY_REPORT_CLICKED)
   })

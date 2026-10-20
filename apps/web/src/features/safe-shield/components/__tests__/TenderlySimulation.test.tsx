@@ -74,7 +74,7 @@ describe('TenderlySimulation', () => {
   it('expands and collapses a finished nested simulation from the keyboard', async () => {
     const { user } = renderSimulation({ isNested: true, isFinished: true })
 
-    const header = await screen.findByRole('button', { name: /Transaction simulations/ })
+    const header = await screen.findByRole('button', { name: /交易模拟/ })
 
     await user.tab()
     expect(header).toHaveFocus()
@@ -82,16 +82,16 @@ describe('TenderlySimulation', () => {
 
     await user.keyboard('{Enter}')
     expect(header).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByText('Nested transaction simulation successful.')).toBeVisible()
+    expect(screen.getByText('嵌套交易模拟成功。')).toBeVisible()
 
     await user.keyboard(' ')
     expect(header).toHaveAttribute('aria-expanded', 'false')
   })
 
-  it('keeps the finished nested header as a keyboard trigger under Safe Pro auto-run', async () => {
+  it('keeps the finished nested header as a keyboard trigger under 8379 auto-run', async () => {
     const { user } = renderSimulation({ isNested: true, isFinished: true, autoRun: true })
 
-    const header = await screen.findByRole('button', { name: /Transaction simulations/ })
+    const header = await screen.findByRole('button', { name: /交易模拟/ })
     expect(screen.queryByTestId('run-simulation-btn')).not.toBeInTheDocument()
 
     await user.tab()
@@ -99,14 +99,14 @@ describe('TenderlySimulation', () => {
 
     await user.keyboard('{Enter}')
     expect(header).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByText('Nested transaction simulation successful.')).toBeVisible()
+    expect(screen.getByText('嵌套交易模拟成功。')).toBeVisible()
   })
 
   it('does not make the header a tab stop while the simulation can not expand', async () => {
     const { user } = renderSimulation({ isNested: true, isFinished: false })
 
     const runButton = await screen.findByTestId('run-simulation-btn')
-    expect(screen.queryByRole('button', { name: /Transaction simulation$/ })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /交易模拟$/ })).not.toBeInTheDocument()
 
     await user.tab()
     expect(runButton).toHaveFocus()

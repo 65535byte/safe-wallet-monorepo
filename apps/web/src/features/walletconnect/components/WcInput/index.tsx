@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Track from '@/components/common/Track'
 import { isPairingUri } from '../../services/utils'
 import { WalletConnectContext } from '../WalletConnectContext'
@@ -41,7 +42,7 @@ const WcInput = ({ uri }: { uri: string }) => {
       setValue(val)
 
       if (val && !isPairingUri(val)) {
-        setInputError(new Error('Invalid pairing code'))
+        setInputError(new Error(translateMessage('ui.invalidPairingCode_e9c0fffd')))
         return
       }
 
@@ -60,7 +61,7 @@ const WcInput = ({ uri }: { uri: string }) => {
       setTimeout(() => {
         if (loading && loading !== WCLoadingState.APPROVE) {
           setLoading(null)
-          setError(new Error('Connection timed out'))
+          setError(new Error(translateMessage('ui.connectionTimedOut_de201ec7')))
         }
       }, PROPOSAL_TIMEOUT)
     },
@@ -83,7 +84,7 @@ const WcInput = ({ uri }: { uri: string }) => {
     }
   }, [onInput])
 
-  const label = inputError ? inputError.message : 'Pairing code'
+  const label = inputError ? inputError.message : translateMessage('ui.pairingCode_d4bbc409')
 
   return (
     <div className="flex w-full flex-col gap-1.5 text-left">

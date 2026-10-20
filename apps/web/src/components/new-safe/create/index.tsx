@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useRouter } from 'next/router'
 
@@ -40,39 +41,39 @@ const staticHints: Record<
   { title: string; variant: CreateSafeInfoVariant; steps: { title: string; text: string | ReactElement }[] }
 > = {
   1: {
-    title: 'Safe account creation',
+    title: translateMessage('ui.accountCreation_7dcd84c3'),
     variant: 'info',
     steps: [
       {
-        title: 'Network fee',
-        text: 'Deploying your Safe account requires the payment of the associated network fee with your connected wallet. An estimation will be provided in the last step.',
+        title: translateMessage('ui.networkFee_b1f6f53f'),
+        text: translateMessage('ui.deployingYourAccountRequiresThePayment_729c01ab'),
       },
       {
-        title: 'Address book privacy',
-        text: 'The name of your Safe account will be stored in a local address book on your device and can be changed at a later stage. It will not be shared with us or any third party.',
+        title: translateMessage('ui.addressBookPrivacy_1a650b6f'),
+        text: translateMessage('ui.theNameOfYourAccountWill_21ea6d73'),
       },
     ],
   },
   2: {
-    title: 'Safe account creation',
+    title: translateMessage('ui.accountCreation_7dcd84c3'),
     variant: 'info',
     steps: [
       {
-        title: 'Flat hierarchy',
-        text: 'Every signer has the same rights within the Safe account and can propose, sign and execute transactions that have the required confirmations.',
+        title: translateMessage('ui.flatHierarchy_5881d282'),
+        text: translateMessage('ui.everySignerHasTheSameRights_bbc92c90'),
       },
       {
-        title: 'Managing Signers',
-        text: 'You can always change the number of signers and required confirmations in your Safe account after creation.',
+        title: translateMessage('ui.managingSigners_8a3a02ad'),
+        text: translateMessage('ui.youCanAlwaysChangeTheNumber_0ac204ba'),
       },
       {
-        title: 'Safe account setup',
+        title: translateMessage('ui.accountSetup_9b968879'),
         text: (
           <>
-            Not sure how many signers and confirmations you need for your Safe account?
+            {translateMessage('ui.notSureHowManySignersAnd_b90ab989')}
             <br />
             <ExternalLink href={HelpCenterArticle.SAFE_SETUP} className="font-bold">
-              Learn more about setting up your Safe account.
+              {translateMessage('ui.learnMoreAboutSettingUpYour_f13597ec')}
             </ExternalLink>
           </>
         ),
@@ -80,22 +81,22 @@ const staticHints: Record<
     ],
   },
   3: {
-    title: 'Safe account creation',
+    title: translateMessage('ui.accountCreation_7dcd84c3'),
     variant: 'info',
     steps: [
       {
-        title: 'Wait for the creation',
-        text: 'Depending on network usage, it can take some time until the transaction is successfully added to the blockchain and picked up by our services.',
+        title: translateMessage('ui.waitForTheCreation_4b1e3fac'),
+        text: translateMessage('ui.dependingOnNetworkUsageItCan_5edc2367'),
       },
     ],
   },
   4: {
-    title: 'Safe account usage',
+    title: translateMessage('ui.accountUsage_6a20ccee'),
     variant: 'success',
     steps: [
       {
-        title: 'Connect your Safe account',
-        text: 'In our Safe Apps section you can connect your Safe account to over 70 dApps directly or via Wallet Connect to interact with any application.',
+        title: translateMessage('ui.connectYourAccount_f8f766e7'),
+        text: translateMessage('ui.inOurSafeAppsSectionYou_ae9ca37b'),
       },
     ],
   },
@@ -114,8 +115,8 @@ const CreateSafe = () => {
 
   const CreateSafeSteps: TxStepperProps<NewSafeFormData>['steps'] = [
     {
-      title: 'Set up the basics',
-      subtitle: 'Give a name to your account and select which networks to deploy it on.',
+      title: translateMessage('ui.setUpTheBasics_e0d5054a'),
+      subtitle: translateMessage('ui.giveANameToYourAccount_3b414605'),
       render: (data, onSubmit, onBack, setStep) => (
         <SetNameStep
           setOverviewNetworks={setOverviewNetworks}
@@ -129,9 +130,8 @@ const CreateSafe = () => {
       ),
     },
     {
-      title: 'Signers and confirmations',
-      subtitle:
-        'Set the signer wallets of your Safe account and how many need to confirm to execute a valid transaction.',
+      title: translateMessage('ui.signersAndConfirmations_434f9efb'),
+      subtitle: translateMessage('ui.setTheSignerWalletsOfYour_e8adcf16'),
       render: (data, onSubmit, onBack, setStep) => (
         <OwnerPolicyStep
           setDynamicHint={setDynamicHint}
@@ -143,9 +143,8 @@ const CreateSafe = () => {
       ),
     },
     {
-      title: 'Review',
-      subtitle:
-        "You're about to create a new Safe account and will have to confirm the transaction with your connected wallet.",
+      title: translateMessage('ui.review_ce84ccb0'),
+      subtitle: translateMessage('ui.youReAboutToCreateA_5a400c60'),
       render: (data, onSubmit, onBack, setStep) => (
         <ReviewStep data={data} onSubmit={onSubmit} onBack={onBack} setStep={setStep} />
       ),
@@ -186,7 +185,7 @@ const CreateSafe = () => {
       <div className="grid grid-cols-12 justify-center gap-x-6">
         <div className="col-span-12">
           <Typography variant="h2" className="pb-4">
-            Create new Safe account
+            {translateMessage('ui.createNewAccount_cf67da11')}
           </Typography>
         </div>
         <div className="order-1 col-span-12 md:order-0 md:col-span-8">

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import NextLink from 'next/link'
 import { ArrowRight, Lock } from 'lucide-react'
@@ -40,10 +41,13 @@ export default function SeatLimitBanner({
   useTrackOnce(SAFE_PRO_EVENTS.UPGRADE_PROMPT_VIEWED, PROMPT, limit !== null && Boolean(upgradePlanName))
   if (limit === null) return null
 
-  const title = `${tierName ? `The ${tierName} plan` : 'Your plan'} includes ${limit} Safe accounts`
+  const title = translateMessage('ui.includesAccounts_cc48511a', {
+    p0: tierName ? translateMessage('ui.thePlan_71b8acf7', { p0: tierName }) : translateMessage('ui.yourPlan_93a20c7c'),
+    p1: limit,
+  })
   const body = upgradePlanName
-    ? 'Upgrade for more, or remove one to add another.'
-    : 'Remove one to add another, or talk to us about a higher limit.'
+    ? translateMessage('ui.upgradeForMoreOrRemoveOne_05dc253e')
+    : translateMessage('ui.removeOneToAddAnotherOr_5ca15593')
   const cta = (
     <Button
       size="sm"
@@ -64,7 +68,9 @@ export default function SeatLimitBanner({
         })
       }
     >
-      {upgradePlanName ? `Upgrade to ${upgradePlanName}` : 'Talk to sales'}
+      {upgradePlanName
+        ? translateMessage('ui.upgradeTo_12fad32d', { p0: upgradePlanName })
+        : translateMessage('ui.talkToSales_9cc25443')}
       <ArrowRight data-icon="inline-end" />
     </Button>
   )
@@ -100,7 +106,7 @@ export default function SeatLimitBanner({
           <div className="flex flex-col gap-0.5">
             <span className="font-semibold text-foreground">{title}</span>
             <span className="text-muted-foreground">
-              Remove one to add another, or{' '}
+              {translateMessage('ui.removeOneToAddAnotherOr_8eb77993')}{' '}
               {upgradePlanName ? (
                 <Link
                   variant="inherit"
@@ -113,7 +119,8 @@ export default function SeatLimitBanner({
                     })
                   }
                 >
-                  upgrade to {upgradePlanName}.
+                  {translateMessage('ui.upgradeTo_2cd4e529')}
+                  {upgradePlanName}.
                 </Link>
               ) : (
                 <Link
@@ -123,14 +130,14 @@ export default function SeatLimitBanner({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  talk to us about a higher limit.
+                  {translateMessage('ui.talkToUsAboutAHigher_bce685a6')}
                 </Link>
               )}{' '}
               <ArrowRight className="inline size-4 align-text-bottom" />
             </span>
           </div>
           <Button variant="outline" className="shrink-0" onClick={dismiss}>
-            Got it
+            {translateMessage('ui.gotIt_008f9813')}
           </Button>
         </div>
       </AlertDescription>

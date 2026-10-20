@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactNode } from 'react'
@@ -11,7 +12,7 @@ import { TokenType } from '@safe-global/store/gateway/types'
 
 const TotalAssetValue = ({
   fiatTotal,
-  title = 'Total value',
+  title = translateMessage('ui.totalValue_ffe1c1dd'),
   tooltipTitle,
   size = 'md',
   action,

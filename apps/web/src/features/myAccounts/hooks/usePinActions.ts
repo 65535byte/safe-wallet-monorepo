@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
@@ -51,7 +52,7 @@ export function usePinActions(
 
     dispatch(
       showNotification({
-        title: 'Added to my accounts',
+        title: translateMessage('ui.addedToMyAccounts_88341473'),
         message: name ?? shortenAddress(address),
         groupKey: `pin-safe-success-${address}`,
         variant: 'success',
@@ -68,7 +69,7 @@ export function usePinActions(
 
     dispatch(
       showNotification({
-        title: 'Removed multi-chain Safe',
+        title: translateMessage('ui.removedMultiChain_e85c6c15'),
         message: name ?? shortenAddress(address),
         groupKey: `unpin-safe-success-${address}`,
         variant: 'success',

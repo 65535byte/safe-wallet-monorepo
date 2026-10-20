@@ -17,7 +17,7 @@ describe('AppFrame', () => {
   it('should not show the transaction queue bar when there are no queued transactions', () => {
     render(<AppFrame appUrl="https://app.url" allowedFeaturesList="" safeAppFromManifest={emptySafeApp} />)
 
-    expect(screen.queryAllByText('(0) Transaction queue').length).toBe(0)
+    expect(screen.queryAllByText('（0）待处理交易').length).toBe(0)
   })
 
   it('should show queued transactions in the queue bar', () => {
@@ -75,11 +75,11 @@ describe('AppFrame', () => {
       },
     })
 
-    expect(screen.getByText('(1) Transaction queue')).toBeInTheDocument()
+    expect(screen.getByText('（1）待处理交易')).toBeInTheDocument()
 
-    const expandBtn = screen.getByLabelText('expand transaction queue bar')
+    const expandBtn = screen.getByLabelText('展开交易队列栏')
     fireEvent.click(expandBtn)
 
-    expect(screen.getByText('On-chain rejection')).toBeInTheDocument()
+    expect(screen.getByText('链上拒绝')).toBeInTheDocument()
   })
 })

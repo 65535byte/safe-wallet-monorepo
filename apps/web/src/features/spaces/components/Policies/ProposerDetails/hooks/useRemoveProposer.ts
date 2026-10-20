@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useState } from 'react'
 import { useDelegatesDeleteDelegateV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/delegates'
 import { asError } from '@safe-global/utils/services/exceptions/utils'
@@ -15,8 +16,7 @@ import type { Proposer } from '@safe-global/views/features/spaces/components/Pol
 import { formatContactLabel } from '@safe-global/views/features/spaces/components/Policies/utils/policyLabel'
 import type { ProposerRef } from '@safe-global/views/features/spaces/components/Policies/ProposerDetails/hooks/types'
 
-export const REMOVE_PROPOSER_NOT_ALLOWED =
-  'Only the signer who granted this proposer role, or the proposer themselves, can remove it'
+export const REMOVE_PROPOSER_NOT_ALLOWED = translateMessage('ui.onlyTheSignerWhoGrantedThis_a516577d')
 
 /** The grant the wallet made, or any grant when the proposer removes itself. Another owner gets none. */
 export const getRemovableGrantDelegator = (proposer: Proposer, walletAddress?: string): string | undefined => {
@@ -45,7 +45,7 @@ export const useRemoveProposer = (ref: ProposerRef, onRemoved: () => void) => {
     setError(undefined)
 
     if (!onboard || !chain) {
-      setError(new Error('Please connect your wallet first'))
+      setError(new Error(translateMessage('ui.pleaseConnectYourWalletFirst_7c9cf431')))
       return
     }
 
@@ -89,8 +89,11 @@ export const useRemoveProposer = (ref: ProposerRef, onRemoved: () => void) => {
           variant: 'success',
           groupKey: 'delete-proposer-success',
           autoHideDuration: WORKSPACE_CONFIRMATION_HIDE_MS,
-          title: 'Proposer deleted successfully!',
-          message: `${proposerLabel} cannot suggest transactions for ${safeLabel} anymore.`,
+          title: translateMessage('ui.proposerDeletedSuccessfully_61971f47'),
+          message: translateMessage('ui.cannotSuggestTransactionsForAnymore_7cf827cc', {
+            p0: proposerLabel,
+            p1: safeLabel,
+          }),
         }),
       )
       onRemoved()

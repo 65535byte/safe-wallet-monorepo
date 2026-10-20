@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import HypernativeIcon from '@/public/images/hypernative/hypernative-icon.svg'
@@ -39,7 +40,7 @@ const HnSecurityReportBtn = ({ chainId, safe, tx }: HnSecurityReportBtnProps): R
           </Button>
         }
       />
-      <TooltipContent>Review security report on Hypernative</TooltipContent>
+      <TooltipContent>{translateMessage('ui.reviewSecurityReportOnHypernative_053fb147')}</TooltipContent>
     </Tooltip>
   )
 }

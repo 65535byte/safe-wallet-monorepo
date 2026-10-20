@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -18,7 +19,7 @@ const Settings: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings`}</title>
+        <title>{translateMessage('ui.settings_6230dd27', { p0: BRAND_NAME })}</title>
       </Head>
     </>
   )

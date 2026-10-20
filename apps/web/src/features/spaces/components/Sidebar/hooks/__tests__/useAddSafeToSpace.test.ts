@@ -71,7 +71,7 @@ describe('useAddSafeToSpace', () => {
       expect.objectContaining({
         type: 'notifications/add',
         payload: {
-          message: 'Successfully added Safe to Workspace.',
+          message: '8379 已成功添加到工作空间。',
           variant: 'success',
           groupKey: 'add-safe-to-workspace-success',
         },
@@ -96,7 +96,7 @@ describe('useAddSafeToSpace', () => {
       type: 'notifications/add',
       payload: {
         message:
-          'Failed to add Safe to Workspace. Your plan covers 3 Safe accounts and this Workspace already holds 3. Remove one to add another, or upgrade your plan.',
+          'Failed to add Safe to Workspace. Your plan covers 3 个 Safe 账户s and this Workspace already holds 3. Remove one to add another, or upgrade your plan.',
         variant: 'warning',
         groupKey: 'add-safe-to-workspace-error',
       },
@@ -140,7 +140,7 @@ describe('useAddSafeToSpace', () => {
       expect.objectContaining({
         type: 'notifications/add',
         payload: expect.objectContaining({
-          message: 'Failed to add Safe to Workspace. API error',
+          message: '添加 Safe 到工作空间失败。API error',
           variant: 'error',
           groupKey: 'add-safe-to-workspace-error',
         }),
@@ -224,7 +224,7 @@ describe('useAddSafeToSpace', () => {
       expect.objectContaining({
         type: 'notifications/add',
         payload: expect.objectContaining({
-          message: 'Failed to add Safe to Workspace. Network failure',
+          message: '添加 Safe 到工作空间失败。Network failure',
           variant: 'error',
           groupKey: 'add-safe-to-workspace-error',
         }),
@@ -257,7 +257,7 @@ describe('useAddSafeToSpace', () => {
     expect(mockDispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         payload: expect.objectContaining({
-          message: 'Failed to add Safe to Workspace. Safe already exists in this Workspace',
+          message: '添加 Safe 到工作空间失败。Safe already exists in this Workspace',
           variant: 'error',
         }),
       }),
@@ -278,7 +278,7 @@ describe('useAddSafeToSpace', () => {
       expect.objectContaining({
         payload: expect.objectContaining({
           message:
-            "Failed to add Safe to Workspace. Couldn't connect to the server. Please check your connection and try again.",
+            "添加 Safe 到工作空间失败。Couldn't connect to the server. Please check your connection and try again.",
           variant: 'error',
         }),
       }),
@@ -324,7 +324,7 @@ describe('useAddSafeToSpace', () => {
         expect.objectContaining({
           type: 'notifications/add',
           payload: expect.objectContaining({
-            message: 'Failed to add Safe to Workspace. ',
+            message: '添加 8379 到工作空间失败。',
             variant: 'error',
           }),
         }),

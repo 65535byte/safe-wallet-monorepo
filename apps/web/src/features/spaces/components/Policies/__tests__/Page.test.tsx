@@ -67,7 +67,7 @@ describe('SpacePoliciesPage', () => {
     mockUseSpacePolicies.mockReturnValue({ ...settled, isError: true, refetch })
 
     render(<SpacePoliciesPage spaceId="space-1" />)
-    fireEvent.click(screen.getByRole('button', { name: 'Reload' }))
+    fireEvent.click(screen.getByRole('button', { name: '刷新' }))
 
     expect(screen.getByTestId('policies-error')).toBeInTheDocument()
     expect(refetch).toHaveBeenCalledTimes(1)
@@ -90,7 +90,7 @@ describe('SpacePoliciesPage', () => {
 
   it('should, when a proposer is only in the local address book, show its local name in the table', () => {
     const proposers = [
-      { proposer: MOCK_ADDRESSES.bob, delegatedBy: [{ delegator: MOCK_ADDRESSES.alice, label: 'Proposer' }] },
+      { proposer: MOCK_ADDRESSES.bob, delegatedBy: [{ delegator: MOCK_ADDRESSES.alice, label: '提案人' }] },
     ]
     mockUseSpacePolicies.mockReturnValue({ ...settled, policies: [mockProposerPolicy({ data: { proposers } })] })
     jest
@@ -126,7 +126,7 @@ describe('SpacePoliciesPage', () => {
     mockUsePlanGate.mockReturnValue(lockedGate)
 
     render(<SpacePoliciesPage spaceId="space-1" />)
-    fireEvent.click(screen.getByRole('button', { name: /Upgrade to Business/ }))
+    fireEvent.click(screen.getByRole('button', { name: /升级至 Business/ }))
 
     expect(mockPush).toHaveBeenCalledWith(PLANS_HREF)
   })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Controller, useForm } from 'react-hook-form'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -12,7 +13,6 @@ import { validateThreshold } from '@safe-global/utils/utils/validation'
 import type { ChangeThresholdFlowProps } from '@/components/tx-flow/flows/ChangeThreshold'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import { TOOLTIP_TITLES } from '@safe-global/views/components/tx-flow/common/constants'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import { createUpdateThresholdTx } from '@/services/tx/tx-sender'
 import { TxFlowContext } from '@/components/tx-flow/TxFlowProvider'
@@ -42,7 +42,7 @@ export const ChooseThreshold = () => {
     <TxCard>
       <div>
         <Typography variant="h3" className="inline-flex items-center gap-1 font-bold">
-          Threshold
+          {translateMessage('ui.threshold_60fbd8eb')}
           <Tooltip>
             <TooltipTrigger
               render={
@@ -55,7 +55,7 @@ export const ChooseThreshold = () => {
           </Tooltip>
         </Typography>
 
-        <Typography>Any transaction will require the confirmation of:</Typography>
+        <Typography>{translateMessage('ui.anyTransactionWillRequireTheConfirmation_3995efd5')}</Typography>
       </div>
       <form onSubmit={formMethods.handleSubmit(onNext)}>
         <div className="mb-4">
@@ -64,7 +64,7 @@ export const ChooseThreshold = () => {
             rules={{
               validate: (value) => {
                 if (value === safe.threshold) {
-                  return `Current policy is already set to ${safe.threshold}.`
+                  return translateMessage('ui.currentPolicyIsAlreadySetTo_71b6c5d4', { p0: safe.threshold })
                 }
                 return validateThreshold(value, safe.owners.length)
               },
@@ -92,7 +92,8 @@ export const ChooseThreshold = () => {
                   </div>
                   <div>
                     <Typography>
-                      out of {safe.owners.length} signer{maybePlural(safe.owners)}
+                      {translateMessage('ui.outOf_9bf030fe')}
+                      {safe.owners.length} {translateMessage('ui.signer_efab2dcb')}
                     </Typography>
                   </div>
                   <div className="w-full">
@@ -100,9 +101,12 @@ export const ChooseThreshold = () => {
                       <Typography className="mb-4 text-destructive">{error}</Typography>
                     ) : (
                       <Typography className="mb-4">
-                        {fieldState.isDirty ? 'Previous policy was ' : 'Current policy is '}
+                        {fieldState.isDirty
+                          ? translateMessage('ui.previousPolicyWas_8f05ca08')
+                          : translateMessage('ui.currentPolicyIs_a20b74ee')}
                         <b>
-                          {safe.threshold} out of {safe.owners.length}
+                          {safe.threshold} {translateMessage('ui.outOf_d22acd25')}
+                          {safe.owners.length}
                         </b>
                         .
                       </Typography>
@@ -127,7 +131,7 @@ export const ChooseThreshold = () => {
               newThreshold === safe.threshold
             }
           >
-            Next
+            {translateMessage('ui.next_9cff86c8')}
           </Button>
         </TxCardActions>
       </form>

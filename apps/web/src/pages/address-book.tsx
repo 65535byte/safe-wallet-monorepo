@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import AddressBookTable from '@/components/address-book/AddressBookTable'
@@ -8,7 +9,7 @@ const AddressBook: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Address book`}</title>
+        <title>{translateMessage('ui.addressBook_02d4aede', { p0: BRAND_NAME })}</title>
       </Head>
 
       <AddressBookSourceProvider source="localOnly">

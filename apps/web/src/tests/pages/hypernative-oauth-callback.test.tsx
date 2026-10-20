@@ -121,7 +121,7 @@ describe('HypernativeOAuthCallback', () => {
   it('should show loading state initially', () => {
     render(<HypernativeOAuthCallback />)
 
-    expect(screen.getByText('Authentication in progress')).toBeInTheDocument()
+    expect(screen.getByText('正在验证身份')).toBeInTheDocument()
     expect(screen.getByText(/Hypernative authentication is in progress/i)).toBeInTheDocument()
     expect(screen.getByText(/close this window/i)).toBeInTheDocument()
     expect(screen.getByRole('progressbar')).toBeInTheDocument()
@@ -136,7 +136,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     // Should still show loading, not try to process
-    expect(screen.getByText('Authentication in progress')).toBeInTheDocument()
+    expect(screen.getByText('正在验证身份')).toBeInTheDocument()
     expect(mockExchangeToken).not.toHaveBeenCalled()
   })
 
@@ -165,7 +165,7 @@ describe('HypernativeOAuthCallback', () => {
     // Wait for success state
     await waitFor(
       () => {
-        expect(screen.getByText('Login successful')).toBeInTheDocument()
+        expect(screen.getByText('登录成功')).toBeInTheDocument()
       },
       { timeout: 3000 },
     )
@@ -212,7 +212,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/Missing authorization code in callback URL/)).toBeInTheDocument()
     })
 
@@ -234,7 +234,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/Missing state parameter in callback URL/)).toBeInTheDocument()
     })
 
@@ -259,7 +259,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/Invalid OAuth state parameter - possible CSRF attack/)).toBeInTheDocument()
     })
 
@@ -284,7 +284,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/Missing PKCE code verifier - authentication flow corrupted/)).toBeInTheDocument()
     })
 
@@ -309,7 +309,7 @@ describe('HypernativeOAuthCallback', () => {
     render(<HypernativeOAuthCallback />)
 
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/OAuth authorization failed: User denied authorization/)).toBeInTheDocument()
     })
 
@@ -345,7 +345,7 @@ describe('HypernativeOAuthCallback', () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+        expect(screen.getByText('出现问题')).toBeInTheDocument()
         expect(screen.getByText('invalid_grant')).toBeInTheDocument()
       },
       { timeout: 3000 },
@@ -387,7 +387,7 @@ describe('HypernativeOAuthCallback', () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+        expect(screen.getByText('出现问题')).toBeInTheDocument()
         // The error message will be from the component's validation
         expect(screen.getByText(/Invalid token response: missing access_token or expires_in/)).toBeInTheDocument()
       },
@@ -433,7 +433,7 @@ describe('HypernativeOAuthCallback', () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText('Login successful')).toBeInTheDocument()
+        expect(screen.getByText('登录成功')).toBeInTheDocument()
       },
       { timeout: 3000 },
     )
@@ -488,7 +488,7 @@ describe('HypernativeOAuthCallback', () => {
 
     // Wait for error
     await waitFor(() => {
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+      expect(screen.getByText('出现问题')).toBeInTheDocument()
       expect(screen.getByText(/Invalid OAuth state parameter/)).toBeInTheDocument()
     })
 

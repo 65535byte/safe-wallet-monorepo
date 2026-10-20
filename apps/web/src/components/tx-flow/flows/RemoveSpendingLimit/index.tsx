@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SpendingLimitState } from '@/features/spending-limits'
 import SaveAddressIcon from '@/public/images/common/save-address.svg'
 import { useMemo } from 'react'
@@ -20,7 +21,7 @@ const RemoveSpendingLimitFlow = ({ spendingLimit }: { spendingLimit: SpendingLim
 
   return (
     <TxFlow
-      subtitle="Remove spending limit"
+      subtitle={translateMessage('ui.removeSpendingLimit_81a8f9bf')}
       eventCategory={TxFlowType.REMOVE_SPENDING_LIMIT}
       icon={SaveAddressIcon}
       ReviewTransactionComponent={ReviewTransactionComponent}

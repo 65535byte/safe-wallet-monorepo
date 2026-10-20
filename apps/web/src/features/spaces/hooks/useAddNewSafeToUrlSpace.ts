@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import { useSpaceSafesCreateV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useAppDispatch, useAppSelector } from '@/store'
@@ -38,7 +39,7 @@ export const useAddNewSafeToUrlSpace = (): ((
       if (!isAdmin) {
         dispatch(
           showNotification({
-            message: 'Safe created in My accounts. Ask an admin to add it to the Workspace.',
+            message: translateMessage('ui.createdInMyAccountsAskAn_9e02093d'),
             variant: 'info',
             groupKey: 'new-safe-space-skipped',
           }),
@@ -61,7 +62,9 @@ export const useAddNewSafeToUrlSpace = (): ((
       if (isQuotaRefusal) refreshSpaceEntitlements(dispatch, spaceId)
       dispatch(
         showNotification({
-          message: `Safe created in My accounts, but not added to the Workspace. ${getRtkQueryErrorMessage(result.error)}`,
+          message: translateMessage('ui.createdInMyAccountsButNot_cd09bd79', {
+            p0: getRtkQueryErrorMessage(result.error),
+          }),
           variant: isQuotaRefusal ? 'warning' : 'error',
           groupKey: 'new-safe-space-error',
         }),

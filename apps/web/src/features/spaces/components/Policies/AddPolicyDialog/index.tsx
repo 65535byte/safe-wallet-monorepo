@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import { MixpanelEventParams, trackEvent } from '@/services/analytics'
@@ -49,7 +50,9 @@ const AddPolicyDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent size={isTwoColumn ? 'sm' : 'xs'} data-testid="add-policy-dialog">
         <DialogHeader>
-          <DialogTitle className="text-xl leading-6 font-semibold">Add policy</DialogTitle>
+          <DialogTitle className="text-xl leading-6 font-semibold">
+            {translateMessage('ui.addPolicy_7ce66374')}
+          </DialogTitle>
         </DialogHeader>
 
         <div

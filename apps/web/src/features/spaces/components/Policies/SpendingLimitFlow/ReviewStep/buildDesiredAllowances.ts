@@ -1,9 +1,10 @@
+import { translateMessage } from '@/i18n'
 import type { DesiredAllowance, SpendingLimitState } from '@/features/spending-limits'
 import { isSpendingLimitFor } from '@/features/spending-limits/services'
 import type { SpendingLimitPolicyFormValues } from '@safe-global/views/features/spaces/components/Policies/SpendingLimitFlow/types'
 import { findTokenOption, type TokenOption } from '../utils/tokenOptions'
 
-export const UNKNOWN_TOKEN_IN_POLICY_ERROR = 'A token in this policy could not be resolved. Go back and pick it again.'
+export const UNKNOWN_TOKEN_IN_POLICY_ERROR = translateMessage('ui.aTokenInThisPolicyCould_e9842c55')
 
 /** Either every row resolved, or the first reason none of them can be. */
 export type DesiredAllowancesResult =

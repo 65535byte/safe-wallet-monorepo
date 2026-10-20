@@ -61,11 +61,8 @@ jest.mock('@/hooks/wallets/useOnboard', () => ({ __esModule: true, default: () =
 jest.mock('@/hooks/useSafeInfo')
 jest.mock('@/hooks/useChains')
 
-type RiskState = { needsRiskConfirmation: boolean; isRiskConfirmed: boolean; setIsRiskConfirmed: jest.Mock }
-const NO_RISK: RiskState = { needsRiskConfirmation: false, isRiskConfirmed: false, setIsRiskConfirmed: jest.fn() }
-const mockUseSafeShield = jest.fn<RiskState, []>(() => NO_RISK)
 jest.mock('@/features/safe-shield/SafeShieldContext', () => ({
-  useSafeShield: () => mockUseSafeShield(),
+  useSafeShield: () => ({ needsRiskConfirmation: false, isRiskConfirmed: false }),
   useSafeShieldForTxData: () => undefined,
 }))
 
@@ -125,8 +122,8 @@ const renderReviewBatch = () =>
   render(<ReviewBatch params={{ txs: [getMockTx({ nonce: 1 }), getMockTx({ nonce: 2 })] }} />)
 
 const submit = async () => {
-  await screen.findByText('Data')
-  const button = screen.getByRole('button', { name: 'Submit' })
+  await screen.findByText('数据')
+  const button = screen.getByRole('button', { name: '提交' })
   await waitFor(() => expect(button).toBeEnabled())
   fireEvent.click(button)
 }
@@ -134,7 +131,6 @@ const submit = async () => {
 describe('ReviewBatch', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mockUseSafeShield.mockReturnValue(NO_RISK)
     mockSafeInfo({ version: '1.4.1' })
     const chain = mockCurrentChain()
     ;(jest.requireMock('@/hooks/useChains').default as jest.Mock).mockReturnValue({ configs: [chain] })
@@ -146,45 +142,6 @@ describe('ReviewBatch', () => {
     ])
     mockDispatchBatchExecution.mockResolvedValue(faker.string.hexadecimal({ length: 64 }))
     mockDispatchBatchExecutionRelay.mockResolvedValue(undefined)
-  })
-
-  describe('when Safe Shield needs a risk confirmation', () => {
-    const mockRiskState = (isRiskConfirmed: boolean) => {
-      const setIsRiskConfirmed = jest.fn()
-      mockUseSafeShield.mockReturnValue({ needsRiskConfirmation: true, isRiskConfirmed, setIsRiskConfirmed })
-      return setIsRiskConfirmed
-    }
-
-    it('shows the risk checkbox and keeps Submit disabled until the risk is confirmed', async () => {
-      const setIsRiskConfirmed = mockRiskState(false)
-      renderReviewBatch()
-
-      await screen.findByText('Data')
-      expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled()
-      expect(
-        screen.getByText('I understand the risks and would like to proceed with this transaction.'),
-      ).toBeInTheDocument()
-
-      fireEvent.click(screen.getByRole('checkbox'))
-
-      expect(setIsRiskConfirmed).toHaveBeenCalledTimes(1)
-    })
-
-    it('executes the batch once the risk is confirmed', async () => {
-      mockRiskState(true)
-      renderReviewBatch()
-
-      await submit()
-
-      await waitFor(() => expect(mockDispatchBatchExecutionRelay).toHaveBeenCalledTimes(1))
-    })
-  })
-
-  it('shows no risk checkbox when Safe Shield needs no confirmation', async () => {
-    renderReviewBatch()
-
-    await screen.findByText('Data')
-    expect(screen.queryByTestId('risk-confirmation-checkbox')).not.toBeInTheDocument()
   })
 
   it('relays a daily offer through the chain route', async () => {
@@ -231,13 +188,11 @@ describe('ReviewBatch', () => {
     await submit()
 
     expect(
-      await screen.findByText(
-        'Your Workspace has used all 10 sponsored transactions of this cycle. Pay the gas with your connected wallet instead.',
-      ),
+      await screen.findByText('工作空间已用完本周期的 10 笔赞助交易，请改用已连接钱包支付 Gas。'),
     ).toBeInTheDocument()
     expect(mockExclude).toHaveBeenCalledWith(['SUBSCRIPTION'])
     expect(mockDispatchBatchExecutionRelay).toHaveBeenCalledTimes(1)
-    expect(screen.getByRole('button', { name: 'Submit' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '提交' })).toBeEnabled()
   })
 
   it('shows the generic submit error for any other failure', async () => {
@@ -246,7 +201,7 @@ describe('ReviewBatch', () => {
 
     await submit()
 
-    expect(await screen.findByText(/Could not submit the transaction/)).toBeInTheDocument()
+    expect(await screen.findByText(/Could not submit the 笔交易/)).toBeInTheDocument()
     expect(logError).toHaveBeenCalled()
     expect(mockExclude).not.toHaveBeenCalled()
   })

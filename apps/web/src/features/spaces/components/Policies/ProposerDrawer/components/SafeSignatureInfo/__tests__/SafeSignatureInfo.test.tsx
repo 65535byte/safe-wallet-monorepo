@@ -7,7 +7,7 @@ describe('SafeSignatureInfo', () => {
   it('names the Safe and how many signatures it still needs', () => {
     render(<SafeSignatureInfo safe={SAFE} signatures={2} />)
 
-    expect(screen.getByText('Parent Safe account')).toBeInTheDocument()
+    expect(screen.getByText('上级 8379 账户')).toBeInTheDocument()
     expect(screen.getByTestId('safe-signature-progress')).toHaveTextContent('2 of 3 signed')
     expect(screen.getByText('Ops')).toBeInTheDocument()
   })
@@ -42,10 +42,10 @@ describe('SafeSignatureInfo', () => {
   })
 
   it('takes a custom label', () => {
-    render(<SafeSignatureInfo safe={SAFE} signatures={1} label="Signing Safe account" />)
+    render(<SafeSignatureInfo safe={SAFE} signatures={1} label="Signing 个 Safe 账户" />)
 
-    expect(screen.getByText('Signing Safe account')).toBeInTheDocument()
-    expect(screen.queryByText('Parent Safe account')).not.toBeInTheDocument()
+    expect(screen.getByText('Signing 个 Safe 账户')).toBeInTheDocument()
+    expect(screen.queryByText('上级 8379 账户')).not.toBeInTheDocument()
   })
 
   it('turns the progress green once the threshold is met', () => {

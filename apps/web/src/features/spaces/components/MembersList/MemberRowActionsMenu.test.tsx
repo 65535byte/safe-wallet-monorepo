@@ -86,7 +86,7 @@ describe('MemberRowActionsMenu', () => {
   })
 
   const member = memberBuilder().with({ name: 'Alice' }).build()
-  const openMenu = () => fireEvent.click(screen.getByRole('button', { name: 'Member actions' }))
+  const openMenu = () => fireEvent.click(screen.getByRole('button', { name: '成员操作' }))
 
   it('opens the edit dialog from the menu for active members', () => {
     render(
@@ -94,7 +94,7 @@ describe('MemberRowActionsMenu', () => {
     )
 
     openMenu()
-    fireEvent.click(screen.getByRole('button', { name: 'Edit member' }))
+    fireEvent.click(screen.getByRole('button', { name: '编辑成员' }))
 
     expect(screen.getByTestId('edit-dialog')).toBeInTheDocument()
   })
@@ -105,7 +105,7 @@ describe('MemberRowActionsMenu', () => {
     )
 
     openMenu()
-    fireEvent.click(screen.getByRole('button', { name: 'Remove member' }))
+    fireEvent.click(screen.getByRole('button', { name: '移除成员' }))
 
     expect(screen.getByTestId('remove-dialog')).toBeInTheDocument()
   })
@@ -115,16 +115,16 @@ describe('MemberRowActionsMenu', () => {
 
     openMenu()
 
-    expect(screen.queryByRole('button', { name: 'Edit member' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Renew invitation' })).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Remove invitation' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '编辑成员' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '重新发送邀请' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '移除邀请' })).toBeInTheDocument()
   })
 
   it('triggers renew from the menu when the invite is renewable', () => {
     render(<MemberRowActionsMenu member={member} disabled={false} editDisabled={false} isInvite canRenew />)
 
     openMenu()
-    fireEvent.click(screen.getByRole('button', { name: 'Renew invitation' }))
+    fireEvent.click(screen.getByRole('button', { name: '重新发送邀请' }))
 
     expect(mockRenew).toHaveBeenCalled()
   })
@@ -133,7 +133,7 @@ describe('MemberRowActionsMenu', () => {
     render(<MemberRowActionsMenu member={member} disabled={false} editDisabled={false} isInvite canRenew />)
 
     openMenu()
-    const renewItem = screen.getByRole('button', { name: 'Renew invitation' })
+    const renewItem = screen.getByRole('button', { name: '重新发送邀请' })
 
     expect(renewItem.closest('[data-track-event]')).toHaveAttribute(
       'data-track-event',
@@ -146,8 +146,8 @@ describe('MemberRowActionsMenu', () => {
 
     openMenu()
 
-    expect(screen.getByRole('button', { name: 'Edit member' })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Remove member' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '编辑成员' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '移除成员' })).toBeDisabled()
   })
 
   it('keeps edit enabled for the current user while remove stays disabled', () => {
@@ -155,7 +155,7 @@ describe('MemberRowActionsMenu', () => {
 
     openMenu()
 
-    expect(screen.getByRole('button', { name: 'Edit member' })).not.toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Remove member' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '编辑成员' })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: '移除成员' })).toBeDisabled()
   })
 })

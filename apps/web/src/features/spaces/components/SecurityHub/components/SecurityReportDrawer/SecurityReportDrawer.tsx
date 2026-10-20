@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import type { ScanContext, ScanResult } from '@/features/security/types'
 import { useSecurityScan } from '@/features/security'
@@ -53,7 +54,7 @@ const SecurityReportDrawer = ({
         // Keep the Drawer mounted while closed so the sheet can play its slide-out animation
         open={!!selectedSafe}
         onClose={onClose}
-        ariaLabel="Security report"
+        ariaLabel={translateMessage('ui.securityReport_d3e66e91')}
       >
         {selectedSafe && (
           <>

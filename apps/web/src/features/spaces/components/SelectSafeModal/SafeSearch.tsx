@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SearchInput } from '@safe-global/views/components/ui/search-input'
 
 interface SafeSearchProps {
@@ -8,10 +9,10 @@ interface SafeSearchProps {
 const SafeSearch = ({ value, onChange }: SafeSearchProps) => {
   return (
     <SearchInput
-      placeholder="Search for safes"
+      placeholder={translateMessage('ui.searchForSafes_5231b39c')}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      aria-label="Search for safes"
+      aria-label={translateMessage('ui.searchForSafes_5231b39c')}
     />
   )
 }

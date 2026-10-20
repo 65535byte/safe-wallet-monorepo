@@ -16,7 +16,7 @@ describe('SettingsChange', () => {
     )
 
     expect(container).toMatchSnapshot()
-    expect(getByText('Add owner')).toBeInTheDocument()
+    expect(getByText('添加所有者')).toBeInTheDocument()
     expect(getByText(ownerAddress)).toBeInTheDocument()
   })
 
@@ -48,7 +48,7 @@ describe('SettingsChange', () => {
     )
 
     expect(container).toMatchSnapshot()
-    expect(getByText('Previous signer')).toBeInTheDocument()
+    expect(getByText('原签名人')).toBeInTheDocument()
     expect(getByText(newOwnerAddress)).toBeInTheDocument()
   })
 })

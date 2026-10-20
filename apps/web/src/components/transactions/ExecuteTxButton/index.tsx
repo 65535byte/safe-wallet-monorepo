@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useIsExpiredSwap } from '@/features/swap'
 import useIsPending from '@/hooks/useIsPending'
@@ -67,7 +68,7 @@ const ExecuteTxButton = ({
               // the app's standard 36px control height instead of the 32px small one.
               size={compact ? 'default' : 'action'}
             >
-              Execute
+              {translateMessage('ui.execute_eea2eb83')}
             </Button>
           </span>
         )
@@ -75,7 +76,7 @@ const ExecuteTxButton = ({
         return isOk && !isNext ? (
           <Tooltip>
             <TooltipTrigger render={button} />
-            <TooltipContent>You must execute the transaction with the lowest nonce first</TooltipContent>
+            <TooltipContent>{translateMessage('ui.youMustExecuteTheTransactionWith_51315259')}</TooltipContent>
           </Tooltip>
         ) : (
           button

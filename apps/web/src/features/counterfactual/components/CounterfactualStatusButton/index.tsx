@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { selectUndeployedSafe } from '../../store/undeployedSafesSlice'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
@@ -41,7 +42,9 @@ const CounterfactualStatusButton = () => {
         {isActivating ? <LoopIcon /> : <InfoIcon />}
       </TooltipTrigger>
       <TooltipContent side="right">
-        {isActivating ? 'Safe account is being activated' : 'Safe account is not activated'}
+        {isActivating
+          ? translateMessage('ui.accountIsBeingActivated_786ec996')
+          : translateMessage('ui.accountIsNotActivated_47f4716a')}
       </TooltipContent>
     </Tooltip>
   )

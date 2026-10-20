@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import type { ReactElement } from 'react'
 
@@ -50,7 +51,7 @@ function RecoveryList(): ReactElement | null {
 
   return (
     <>
-      <div className={labelCss.container}>Pending recovery</div>
+      <div className={labelCss.container}>{translateMessage('ui.pendingRecovery_d9eca802')}</div>
 
       <TxListGrid>
         <InternalRecoveryList recoveryQueue={recoveryQueue} />

@@ -12,7 +12,7 @@ describe('List', () => {
     )
     expect(screen.getByRole('list')).toBeInTheDocument()
     expect(screen.getAllByRole('listitem')).toHaveLength(1)
-    expect(screen.getByText('Owner')).toBeInTheDocument()
+    expect(screen.getByText('所有者')).toBeInTheDocument()
     expect(screen.getByText('0x123')).toBeInTheDocument()
   })
 

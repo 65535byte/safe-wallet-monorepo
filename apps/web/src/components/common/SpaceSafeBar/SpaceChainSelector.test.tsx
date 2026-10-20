@@ -180,9 +180,7 @@ describe('SpaceChainSelector', () => {
 
       const tooltip = screen.getByTestId('tooltip')
       expect(tooltip).toContainElement(screen.getByTestId('chain-selector-block'))
-      expect(screen.getByTestId('tooltip-content')).toHaveTextContent(
-        'Changing the network is not allowed in this screen',
-      )
+      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('此页面不允许切换网络')
     })
   })
 
@@ -197,9 +195,7 @@ describe('SpaceChainSelector', () => {
       render(<SpaceChainSelector />)
 
       expect(screen.getByTestId('chain-selector-block')).toHaveAttribute('data-disabled', 'true')
-      expect(screen.getByTestId('tooltip-content')).toHaveTextContent(
-        'Changing the network is not allowed in this screen',
-      )
+      expect(screen.getByTestId('tooltip-content')).toHaveTextContent('此页面不允许切换网络')
     })
 
     it('does not disable ChainSelectorBlock on /apps/open without an appUrl', () => {

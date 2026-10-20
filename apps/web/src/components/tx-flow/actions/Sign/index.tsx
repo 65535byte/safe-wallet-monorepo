@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import { useCallback, useContext } from 'react'
 import { TxFlowContext } from '../../TxFlowProvider'
@@ -52,7 +53,7 @@ const useShouldRegisterSlot = () => {
 
 const SignSlot = withSlot({
   Component: Sign,
-  label: 'Sign',
+  label: translateMessage('ui.sign_1e67e9a4'),
   slotName: SlotName.ComboSubmit,
   id: 'sign',
   useSlotCondition: useShouldRegisterSlot,

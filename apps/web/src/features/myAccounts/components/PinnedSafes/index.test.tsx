@@ -44,7 +44,7 @@ describe('PinnedSafes', () => {
     ]
 
     render(<PinnedSafes allSafes={pinnedSafes} />)
-    expect(screen.getByText('My accounts')).toBeInTheDocument()
+    expect(screen.getByText('我的账户')).toBeInTheDocument()
   })
 
   it('renders SafesList when there are pinned safes', () => {
@@ -88,7 +88,7 @@ describe('PinnedSafes', () => {
 
     const addButton = screen.getByTestId('add-more-safes-button')
     expect(addButton).toBeInTheDocument()
-    expect(addButton).toHaveTextContent('Manage list')
+    expect(addButton).toHaveTextContent('管理列表')
   })
 
   it('calls onOpenSelectionModal when "Manage trusted Safes" button is clicked', () => {

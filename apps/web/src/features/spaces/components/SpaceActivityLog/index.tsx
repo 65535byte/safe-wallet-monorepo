@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
@@ -7,7 +8,6 @@ import useGetSpaceAuditLog, { type SpaceAuditLogQueryArgs } from '../../hooks/us
 import { useCurrentSpaceId } from '../../hooks/useCurrentSpaceId'
 import type { SpaceAuditLogEntryDto, SpaceAuditLogPage } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { trackEvent } from '@/services/analytics'
-import { useTrackOnce } from '@/services/analytics/useTrackOnce'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { MixpanelEventParams } from '@/services/analytics/mixpanel-events'
 import AuditEventRow from './AuditEventRow'
@@ -75,7 +75,9 @@ function SpaceActivityLog() {
   const [extraCursors, setExtraCursors] = useState<string[]>([])
   const [extraPages, setExtraPages] = useState<Record<number, SpaceAuditLogPage>>({})
 
-  useTrackOnce(SPACE_EVENTS.ACTIVITY_LOG_VIEWED)
+  useEffect(() => {
+    trackEvent(SPACE_EVENTS.ACTIVITY_LOG_VIEWED)
+  }, [])
 
   const handleFiltersChange = (next: ActivityLogFilterState) => {
     const changed = (Object.keys(FILTER_SOURCE) as Array<keyof ActivityLogFilterState>).find(
@@ -156,9 +158,11 @@ function SpaceActivityLog() {
         {isLoading ? (
           <LoadingSkeleton />
         ) : isError ? (
-          <p className="text-muted-foreground py-4 text-sm">Could not load activity.</p>
+          <p className="text-muted-foreground py-4 text-sm">{translateMessage('ui.couldNotLoadActivity_5ac30016')}</p>
         ) : events.length === 0 ? (
-          <p className="text-muted-foreground py-4 text-sm">{isFiltered ? 'No results' : 'No activity yet.'}</p>
+          <p className="text-muted-foreground py-4 text-sm">
+            {isFiltered ? translateMessage('ui.noResults_c19bac83') : translateMessage('ui.noActivityYet_435b51fc')}
+          </p>
         ) : (
           <>
             <div>
@@ -176,7 +180,7 @@ function SpaceActivityLog() {
                   disabled={isLoadingMore}
                   onClick={onLoadMore}
                 >
-                  {isLoadingMore ? 'Loading…' : 'Load more'}
+                  {isLoadingMore ? 'Loading…' : translateMessage('ui.loadMore_2e466969')}
                 </Button>
               </div>
             )}

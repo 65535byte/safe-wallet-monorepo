@@ -32,13 +32,10 @@ describe('SeatLimitBanner', () => {
     mockUseSeatUpsell.mockReturnValue({ tierName: 'Business', limit: 20, plansHref: '/spaces/plans?spaceId=1' })
     render(<SeatLimitBanner />)
 
-    expect(screen.getByText('The Business plan includes 20 Safe accounts')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'talk to us about a higher limit.' })).toHaveAttribute(
-      'href',
-      CONTACT_SALES_URL,
-    )
+    expect(screen.getByText('The Business plan includes 20 个 Safe 账户')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '联系我们提高上限。' })).toHaveAttribute('href', CONTACT_SALES_URL)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Got it' }))
+    fireEvent.click(screen.getByRole('button', { name: '知道了' }))
     expect(screen.queryByTestId('seat-limit-banner')).not.toBeInTheDocument()
   })
 
@@ -62,7 +59,7 @@ describe('SeatLimitBanner', () => {
     render(<SeatLimitBanner variant="alert" />)
 
     expect(screen.getByTestId('seat-limit-banner')).toHaveTextContent('The Business plan includes 20 Safe accounts')
-    expect(screen.getByRole('link', { name: 'Talk to sales' })).toHaveAttribute('href', CONTACT_SALES_URL)
+    expect(screen.getByRole('link', { name: '联系销售' })).toHaveAttribute('href', CONTACT_SALES_URL)
   })
 
   it('sends a Starter Workspace to the Plans page for the bigger plan, also as an alert', () => {
@@ -74,9 +71,9 @@ describe('SeatLimitBanner', () => {
     })
     render(<SeatLimitBanner variant="alert" />)
 
-    expect(screen.getByText('The Starter plan includes 2 Safe accounts')).toBeInTheDocument()
-    expect(screen.getByText('Upgrade for more, or remove one to add another.')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Upgrade to Business' })).toHaveAttribute('href', '/spaces/plans?spaceId=1')
+    expect(screen.getByText('The Starter plan includes 2 个 Safe 账户')).toBeInTheDocument()
+    expect(screen.getByText('升级以添加更多，或移除一个后再添加。')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: '升级至 Business' })).toHaveAttribute('href', '/spaces/plans?spaceId=1')
   })
 
   it('renders nothing without a seat limit', () => {

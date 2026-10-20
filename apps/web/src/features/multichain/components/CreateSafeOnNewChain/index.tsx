@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import NetworkInput from '@/components/common/NetworkInput'
 import { updateAddressBook } from '@/components/new-safe/create/logic/address-book'
@@ -114,7 +115,7 @@ const ReplaySafeDialog = ({
       // 1. Double check that the creation Data will lead to the correct address
       const predictedAddress = await predictAddressBasedOnReplayData(safeCreationData, provider)
       if (!sameAddress(safeAddress, predictedAddress)) {
-        setCreationError(new Error('The replayed Safe leads to an unexpected address'))
+        setCreationError(new Error(translateMessage('ui.theReplayedLeadsToAnUnexpected_92812f89')))
         hasError = true
         return
       }
@@ -194,13 +195,13 @@ const ReplaySafeDialog = ({
           groupKey: 'replay-safe-success',
           message:
             persistResult.skipped === 'already-deployed'
-              ? `This account is already deployed on ${selectedChain.chainName}`
-              : `Successfully added your account on ${selectedChain.chainName}`,
+              ? translateMessage('ui.thisAccountIsAlreadyDeployedOn_76d6c941', { p0: selectedChain.chainName })
+              : translateMessage('ui.successfullyAddedYourAccountOn_4823b996', { p0: selectedChain.chainName }),
         }),
       )
     } catch (err) {
       console.error(err)
-      setCreationError(err instanceof Error ? err : new Error('Failed to add the account on the selected network'))
+      setCreationError(err instanceof Error ? err : new Error(translateMessage('ui.failedToAddTheAccountOn_f97dfd8b')))
       hasError = true
     } finally {
       setIsSubmitting(false)
@@ -225,12 +226,17 @@ const ReplaySafeDialog = ({
     !chain && safeCreationData && replayableChains && replayableChains.filter((chain) => chain.available).length === 0
 
   return (
-    <ModalDialog open={open} onClose={onClose} dialogTitle="Add another network" hideChainIndicator>
+    <ModalDialog
+      open={open}
+      onClose={onClose}
+      dialogTitle={translateMessage('ui.addAnotherNetwork_1383fc46')}
+      hideChainIndicator
+    >
       <form onSubmit={onFormSubmit} id="recreate-safe">
         <div className="px-6 py-4" data-testid="add-chain-dialog">
           <FormProvider {...formMethods}>
             <div className="flex flex-col gap-4">
-              <Typography>Add this Safe to another network with the same address.</Typography>
+              <Typography>{translateMessage('ui.addThisToAnotherNetworkWith_4efeba1e')}</Typography>
 
               {chain && (
                 <div data-testid="added-network" className="rounded-md bg-[var(--color-background-main)] p-4">
@@ -238,16 +244,13 @@ const ReplaySafeDialog = ({
                 </div>
               )}
 
-              <ErrorMessage level="info">
-                The Safe will use the initial setup of the copied Safe. Any changes to owners, threshold, modules or the
-                Safe&apos;s version will not be reflected in the copy.
-              </ErrorMessage>
+              <ErrorMessage level="info">{translateMessage('ui.theWillUseTheInitialSetup_e1ab2776')}</ErrorMessage>
 
               {willStayOutsideSpace && (
                 <div data-testid="space-seat-limit-notice">
                   <ErrorMessage level="info">
-                    This Workspace is at its limit of {spaceSafeLimit} Safe accounts. The new network will be added in
-                    My accounts, outside the Workspace.
+                    {translateMessage('ui.thisWorkspaceIsAtItsLimit_bb3a55c0')}
+                    {spaceSafeLimit} {translateMessage('ui.accountsTheNewNetworkWillBe_2ea023dc')}
                   </ErrorMessage>
                 </div>
               )}
@@ -255,18 +258,16 @@ const ReplaySafeDialog = ({
               {safeCreationDataLoading ? (
                 <div className="flex flex-col items-center gap-2">
                   <Spinner className="size-10" />
-                  <Typography variant="paragraph-small">Loading Safe data</Typography>
+                  <Typography variant="paragraph-small">{translateMessage('ui.loadingData_421e41bc')}</Typography>
                 </div>
               ) : safeCreationDataError ? (
                 <ErrorMessage error={safeCreationDataError} level="error">
-                  Could not determine the Safe creation parameters.
+                  {translateMessage('ui.couldNotDetermineTheCreationParameters_7d9bb195')}
                 </ErrorMessage>
               ) : isUnsupportedSafeCreationVersion ? (
-                <ErrorMessage>
-                  This account was created from an outdated mastercopy. Adding another network is not possible.
-                </ErrorMessage>
+                <ErrorMessage>{translateMessage('ui.thisAccountWasCreatedFromAn_e0bb778a')}</ErrorMessage>
               ) : noChainsAvailable ? (
-                <ErrorMessage level="error">This Safe cannot be replayed on any chains.</ErrorMessage>
+                <ErrorMessage level="error">{translateMessage('ui.thisCannotBeReplayedOnAny_b488d147')}</ErrorMessage>
               ) : (
                 <>
                   {!chain && (
@@ -291,17 +292,17 @@ const ReplaySafeDialog = ({
           {isUnsupportedSafeCreationVersion ? (
             <>
               <ExternalLink className="grow" href={MULTICHAIN_HELP_ARTICLE}>
-                Read more
+                {translateMessage('ui.readMore_531b9432')}
               </ExternalLink>
-              <Button onClick={onClose}>Got it</Button>
+              <Button onClick={onClose}>{translateMessage('ui.gotIt_008f9813')}</Button>
             </>
           ) : (
             <>
               <Button variant="ghost" onClick={onCancel}>
-                Cancel
+                {translateMessage('ui.cancel_d94a8eaf')}
               </Button>
               <Button data-testid="modal-add-network-btn" type="submit" disabled={submitDisabled}>
-                {isSubmitting ? <Spinner className="size-5" /> : 'Add network'}
+                {isSubmitting ? <Spinner className="size-5" /> : translateMessage('ui.addNetwork_d36fbc53')}
               </Button>
             </>
           )}

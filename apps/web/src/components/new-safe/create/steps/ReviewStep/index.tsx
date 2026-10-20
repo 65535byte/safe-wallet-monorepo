@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NamedAddress } from '@/components/new-safe/create/types'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import {
@@ -146,9 +147,14 @@ export const SafeSetupOverview = ({
           </Tooltip>
         }
       />
-      {name && <ReviewRow name="Name" value={<Typography data-testid="review-step-safe-name">{name}</Typography>} />}
+      {name && (
+        <ReviewRow
+          name={translateMessage('ui.name_84f28b85')}
+          value={<Typography data-testid="review-step-safe-name">{name}</Typography>}
+        />
+      )}
       <ReviewRow
-        name="Signers"
+        name={translateMessage('ui.signers_e1137966')}
         value={
           <div data-testid="review-step-owner-info" className={css.ownersArray}>
             {owners.map((owner, index) => (
@@ -167,7 +173,7 @@ export const SafeSetupOverview = ({
         }
       />
       <ReviewRow
-        name="Threshold"
+        name={translateMessage('ui.threshold_60fbd8eb')}
         value={
           <Typography data-testid="review-step-threshold">{getThresholdLabel(threshold, owners.length)}</Typography>
         }
@@ -354,14 +360,16 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
             showNotification({
               variant: 'info',
               groupKey: 'cf-safe-already-deployed',
-              message: `This account is already deployed on ${deployedChains.map((r) => r.chain.chainName).join(', ')}`,
+              message: translateMessage('ui.thisAccountIsAlreadyDeployedOn_76d6c941', {
+                p0: deployedChains.map((r) => r.chain.chainName).join(', '),
+              }),
             }),
           )
         }
       }
     } catch (err) {
       console.error(err)
-      setSubmitError('Error creating the Safe account. Please try again later.')
+      setSubmitError(translateMessage('ui.errorCreatingTheAccountPleaseTry_5373ce92'))
     } finally {
       if (stepUpReturnUrl && !isStepUpPending) dispatch(stepUpReturnUrlCleared(stepUpReturnUrl))
       setIsCreating(false)
@@ -485,8 +493,8 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
     } catch (_err) {
       const error = asError(_err)
       const submitError = isWalletRejection(error)
-        ? 'User rejected signing.'
-        : 'Error creating the Safe account. Please try again later.'
+        ? translateMessage('ui.userRejectedSigning_d1a98a28')
+        : translateMessage('ui.errorCreatingTheAccountPleaseTry_5373ce92')
       setSubmitError(submitError)
 
       if (isWalletRejection(error)) {
@@ -548,15 +556,15 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
 
             {showNetworkWarning && (
               <div className="mt-6">
-                <NetworkWarning action="create a Safe account" />
+                <NetworkWarning action={translateMessage('ui.createAAccount_9578f6dd')} />
               </div>
             )}
 
             {effectivePayMethod === PayMethod.PayLater && willStayOutsideSpace && (
               <div className="mt-4" data-testid="space-seat-limit-notice">
                 <ErrorMessage level="info">
-                  This Workspace is at its limit of {spaceSafeLimit} Safe accounts. The new Safe will be created in My
-                  accounts, outside the Workspace.
+                  {translateMessage('ui.thisWorkspaceIsAtItsLimit_bb3a55c0')}
+                  {spaceSafeLimit} {translateMessage('ui.accountsTheNewWillBeCreated_4a733245')}
                 </ErrorMessage>
               </div>
             )}
@@ -565,12 +573,12 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
               <div className="mt-4">
                 <Typography>
                   {!showFeeInConfirmationText ? (
-                    'You will have to confirm a transaction with your connected wallet'
+                    translateMessage('ui.youWillHaveToConfirmA_68cfda2e')
                   ) : (
                     <>
-                      You will have to confirm a transaction and pay an estimated fee of{' '}
-                      <NetworkFee totalFee={totalFee} isWaived={willRelay} chain={chain} inline /> with your connected
-                      wallet
+                      {translateMessage('ui.youWillHaveToConfirmA_3d84d4f1')}{' '}
+                      <NetworkFee totalFee={totalFee} isWaived={willRelay} chain={chain} inline />{' '}
+                      {translateMessage('ui.withYourConnectedWallet_593244ba')}
                     </>
                   )}
                 </Typography>
@@ -586,7 +594,7 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
             {canRelay && (
               <div className="grid grid-cols-12 gap-6">
                 <ReviewRow
-                  name="Execution method"
+                  name={translateMessage('ui.executionMethod_b4c76970')}
                   value={
                     <ExecutionMethodSelector
                       executionMethod={executionMethod}
@@ -601,14 +609,14 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
             {showGasFeeEstimation && (
               <div data-testid="network-fee-section" className="grid grid-cols-12 gap-6">
                 <ReviewRow
-                  name="Est. network fee"
+                  name={translateMessage('ui.estNetworkFee_56528bed')}
                   value={
                     <>
                       <NetworkFee totalFee={totalFee} isWaived={willRelay} chain={chain} />
 
                       {!willRelay && (
                         <Typography variant="paragraph-small" className="mt-2 block text-[var(--color-text-secondary)]">
-                          You will have to confirm a transaction with your connected wallet.
+                          {translateMessage('ui.youWillHaveToConfirmA_81746f6a')}
                         </Typography>
                       )}
                     </>
@@ -617,12 +625,10 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
               </div>
             )}
 
-            {showNetworkWarning && <NetworkWarning action="create a Safe account" />}
+            {showNetworkWarning && <NetworkWarning action={translateMessage('ui.createAAccount_9578f6dd')} />}
 
             {!walletCanPay && !willRelay && showInsufficientFundsWarning && (
-              <ErrorMessage>
-                Your connected wallet doesn&apos;t have enough funds to execute this transaction
-              </ErrorMessage>
+              <ErrorMessage>{translateMessage('ui.yourConnectedWalletDoesnTHave_541d7403')}</ErrorMessage>
             )}
           </div>
         </>
@@ -633,7 +639,7 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
         <div className="flex flex-row justify-between gap-6">
           <Button data-testid="back-btn" variant="outline" size="lg" onClick={handleBack}>
             <ArrowBackIcon className="size-4" />
-            Back
+            {translateMessage('ui.back_dae8bf43')}
           </Button>
           <Button
             data-testid="review-step-next-btn"
@@ -642,7 +648,7 @@ const ReviewStep = ({ data, onSubmit, onBack, setStep }: StepRenderProps<NewSafe
             size="lg"
             disabled={isDisabled}
           >
-            {isCreating ? <Spinner className="size-[18px]" /> : 'Create account'}
+            {isCreating ? <Spinner className="size-[18px]" /> : translateMessage('ui.createAccount_1e91f528')}
           </Button>
         </div>
       </div>

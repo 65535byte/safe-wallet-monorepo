@@ -7,7 +7,7 @@ interface TestItem {
 }
 
 const items: TestItem[] = [
-  { name: 'Payroll', address: '0xabc123' },
+  { name: '薪资', address: '0xabc123' },
   { name: 'Treasury', address: '0xdef456' },
   { name: 'My account', address: '0xghi789' },
 ]
@@ -21,7 +21,7 @@ describe('useGlobalSearchFilter', () => {
 
     it('filters items by key match', () => {
       const { result } = renderHook(() => useGlobalSearchFilter(items, 'pay', 'name'))
-      expect(result.current).toEqual([{ name: 'Payroll', address: '0xabc123' }])
+      expect(result.current).toEqual([{ name: '薪资', address: '0xabc123' }])
     })
 
     it('is case-insensitive', () => {
@@ -36,7 +36,7 @@ describe('useGlobalSearchFilter', () => {
 
     it('trims whitespace from query', () => {
       const { result } = renderHook(() => useGlobalSearchFilter(items, '  pay  ', 'name'))
-      expect(result.current).toEqual([{ name: 'Payroll', address: '0xabc123' }])
+      expect(result.current).toEqual([{ name: '薪资', address: '0xabc123' }])
     })
   })
 

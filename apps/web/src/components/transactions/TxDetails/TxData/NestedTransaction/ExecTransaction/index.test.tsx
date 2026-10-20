@@ -46,7 +46,7 @@ describe('ExecTransaction (nested Safe MultiSend)', () => {
     ])
 
     const execTxData: TransactionData = {
-      to: { value: nestedSafe, name: 'Nested Safe B' },
+      to: { value: nestedSafe, name: '嵌套 Safe B' },
       value: '0',
       operation: Operation.CALL,
       trustedDelegateCallTarget: false,
@@ -63,7 +63,7 @@ describe('ExecTransaction (nested Safe MultiSend)', () => {
       operation: Operation.DELEGATE,
       trustedDelegateCallTarget: false,
       addressInfoIndex: {
-        [nestedSafe]: { value: nestedSafe, name: 'Nested Safe B' },
+        [nestedSafe]: { value: nestedSafe, name: '嵌套 Safe B' },
       },
       dataDecoded: {
         method: 'multiSend',
@@ -110,8 +110,8 @@ describe('ExecTransaction (nested Safe MultiSend)', () => {
     fireEvent.click(result.getByTestId('expande-all-btn'))
 
     // Resolves to the nested Safe, not the connected Safe ("This Safe account") nor the zero address
-    expect(result.getAllByText(/Nested Safe B/).length).toBeGreaterThan(0)
-    expect(result.queryByText('This Safe account')).not.toBeInTheDocument()
+    expect(result.getAllByText(/嵌套 8379 B/).length).toBeGreaterThan(0)
+    expect(result.queryByText('此 8379 账户')).not.toBeInTheDocument()
     expect(result.queryByText('0x0000...0000')).not.toBeInTheDocument()
   })
 })

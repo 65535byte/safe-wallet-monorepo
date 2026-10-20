@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useUpdateSpace, type UpdateSpaceFormData } from './useUpdateSpace'
 import ErrorAlert from '@safe-global/views/features/spaces/components/SpaceSettings/ErrorAlert'
@@ -33,7 +34,7 @@ const UpdateSpaceForm = ({ space, onClose }: { space: GetSpaceResponse | undefin
       <form onSubmit={onSubmit}>
         <NameInput
           name="name"
-          label="Workspace name"
+          label={translateMessage('ui.workspaceName_6b883ca0')}
           required
           validateCharset
           minLength={NAME_MIN_LENGTH}
@@ -43,7 +44,7 @@ const UpdateSpaceForm = ({ space, onClose }: { space: GetSpaceResponse | undefin
         <ErrorAlert error={error} />
 
         <Button data-testid="space-save-button" type="submit" className="mt-4" disabled={!canSubmit}>
-          Save
+          {translateMessage('ui.save_5fe30f30')}
         </Button>
       </form>
     </FormProvider>

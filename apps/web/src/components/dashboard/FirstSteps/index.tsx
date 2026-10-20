@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CheckWallet from '@/components/common/CheckWallet'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -69,16 +70,16 @@ const ActivationStatusWidget = ({ explorerLink }: { explorerLink?: string }) => 
     <StatusCard
       badge={
         <Typography variant="paragraph-small" className="block rounded-b bg-[var(--color-border-light)] px-2 py-1">
-          Just submitted
+          {translateMessage('ui.justSubmitted_4b2d3ada')}
         </Typography>
       }
-      title="Transaction pending"
-      content="Depending on network usage, it can take some time until the transaction is successfully processed and executed."
+      title={translateMessage('ui.transactionPending_29f821c8')}
+      content={translateMessage('ui.dependingOnNetworkUsageItCan_d694e11e')}
       completed={false}
     >
       {explorerLink && (
         <ExternalLink href={explorerLink} className="mt-4">
-          View Explorer
+          {translateMessage('ui.viewExplorer_8c10eb58')}
         </ExternalLink>
       )}
     </StatusCard>
@@ -91,11 +92,11 @@ const UsefulHintsWidget = () => {
       badge={
         <Typography variant="paragraph-small" className={classnames(css.badgeText, css.badgeTextInfo)}>
           <Lightbulb className="mr-1 size-5" />
-          Did you know
+          {translateMessage('ui.didYouKnow_f2704197')}
         </Typography>
       }
-      title="Explore over 70+ dApps"
-      content="In our Safe App section you can connect your Safe to over 70 dApps directly or via Wallet Connect to interact with any application."
+      title={translateMessage('ui.exploreOverDApps_82827664')}
+      content={translateMessage('ui.inOurAppSectionYouCan_b8f51d68')}
       completed={false}
     />
   )
@@ -110,8 +111,8 @@ const AddFundsWidget = ({ completed }: { completed: boolean }) => {
   const qrPrefix = settings.shortName.qr ? `${chain?.shortName}:` : ''
   const qrCode = `${qrPrefix}${safeAddress}`
 
-  const title = 'Add native assets'
-  const content = `Receive ${chain?.nativeCurrency.name} to start interacting with your account.`
+  const title = translateMessage('ui.addNativeAssets_c7348246')
+  const content = translateMessage('ui.receiveToStartInteractingWithYour_2a7236da', { p0: chain?.nativeCurrency.name })
 
   const toggleDialog = () => {
     setOpen((prev) => !prev)
@@ -121,7 +122,7 @@ const AddFundsWidget = ({ completed }: { completed: boolean }) => {
     <StatusCard
       badge={
         <Typography variant="paragraph-small" className={css.badgeText}>
-          First interaction
+          {translateMessage('ui.firstInteraction_0e21594c')}
         </Typography>
       }
       title={title}
@@ -134,14 +135,14 @@ const AddFundsWidget = ({ completed }: { completed: boolean }) => {
             <Track {...OVERVIEW_EVENTS.ADD_FUNDS}>
               <Button data-testid="add-funds-btn" onClick={toggleDialog}>
                 <Plus />
-                Add funds
+                {translateMessage('ui.addFunds_c56d758e')}
               </Button>
             </Track>
           </div>
           <ModalDialog
             open={open}
             onClose={toggleDialog}
-            dialogTitle="Add funds to your Safe account"
+            dialogTitle={translateMessage('ui.addFundsToYourAccount_9de60f8d')}
             hideChainIndicator
           >
             <div className="flex flex-col gap-6 px-8 pb-10 pt-2">
@@ -156,14 +157,15 @@ const AddFundsWidget = ({ completed }: { completed: boolean }) => {
                     onCheckedChange={(checked) => dispatch(setQrShortName(checked))}
                   />
                   <span>
-                    QR code with chain prefix (<b>{chain?.shortName}:</b>)
+                    {translateMessage('ui.qRCodeWithChainPrefix_eec7b64e')}
+                    <b>{chain?.shortName}:</b>)
                   </span>
                 </Label>
               </div>
 
               <div className="flex flex-col gap-4">
                 <Typography className="text-center">
-                  Copy your address to send tokens from a different account.
+                  {translateMessage('ui.copyYourAddressToSendTokens_fdffa9a5')}
                 </Typography>
 
                 <div data-testid="address-info" className="rounded-md bg-[var(--color-background-main)] p-4 text-sm">
@@ -194,15 +196,15 @@ const FirstTransactionWidget = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false)
 
-  const title = 'Create your first transaction'
-  const content = 'Simply send funds, add a new signer or swap tokens through a safe app.'
+  const title = translateMessage('ui.createYourFirstTransaction_fb025287')
+  const content = translateMessage('ui.simplySendFundsAddANew_82e989a4')
 
   return (
     <>
       <StatusCard
         badge={
           <Typography variant="paragraph-small" className={css.badgeText}>
-            First interaction
+            {translateMessage('ui.firstInteraction_0e21594c')}
           </Typography>
         }
         title={title}
@@ -220,7 +222,7 @@ const FirstTransactionWidget = ({
                   className="mt-4"
                   disabled={!isOk}
                 >
-                  Create transaction
+                  {translateMessage('ui.createTransaction_b19791ba')}
                 </Button>
               </Track>
             )}
@@ -243,15 +245,15 @@ const ActivateSafeWidget = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false)
 
-  const title = `Activate account ${chain ? 'on ' + chain.chainName : ''}`
-  const content = 'Activate your account to start using all benefits of Safe'
+  const title = translateMessage('ui.activateAccount_27a33c6a', { p0: chain ? 'on ' + chain.chainName : '' })
+  const content = translateMessage('ui.activateYourAccountToStartUsing_a6e19a17')
 
   return (
     <>
       <StatusCard
         badge={
           <Typography variant="paragraph-small" className={css.badgeText}>
-            First interaction
+            {translateMessage('ui.firstInteraction_0e21594c')}
           </Typography>
         }
         title={title}
@@ -272,9 +274,9 @@ const AccountReadyWidget = () => {
         <CircleCheckBig className="size-[60px]" />
       </div>
       <Typography variant="h4" className="mb-4 mt-4 font-bold">
-        Safe account is ready!
+        {translateMessage('ui.accountIsReady_53f1b0e5')}
       </Typography>
-      <Typography>Continue to improve your account security and unlock more features</Typography>
+      <Typography>{translateMessage('ui.continueToImproveYourAccountSecurity_d9a72628')}</Typography>
     </Card>
   )
 }
@@ -317,19 +319,22 @@ const FirstSteps = () => {
           </div>
           <div>
             <Typography variant="h2" className="mb-2">
-              {isActivating ? 'Account is being activated...' : 'Activate your Safe account'}
+              {isActivating
+                ? translateMessage('ui.accountIsBeingActivated_171e551d')
+                : translateMessage('ui.activateYourAccount_3d40c3e8')}
             </Typography>
 
             {isActivating ? (
               <Typography variant="paragraph-small" className="block">
-                <strong>This may take a few minutes.</strong> Once activated, your account will be up and running.
+                <strong>{translateMessage('ui.thisMayTakeAFewMinutes_49f31e9d')}</strong>{' '}
+                {translateMessage('ui.onceActivatedYourAccountWillBe_57f83194')}
               </Typography>
             ) : (
               <Typography variant="paragraph-small" className="block">
                 <strong>
-                  {stepsCompleted} of {completedItems.length} steps completed.
+                  {stepsCompleted} / {completedItems.length} {translateMessage('ui.stepsCompleted_776622fd')}
                 </strong>{' '}
-                Finish the next steps to start using all Safe account features:
+                {translateMessage('ui.finishTheNextStepsToStart_fa9d2321')}
               </Typography>
             )}
           </div>

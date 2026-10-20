@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Info } from 'lucide-react'
 import { Badge, type badgeVariants } from '@safe-global/views/components/ui/badge'
@@ -68,17 +69,23 @@ export const DelegateCallWarning = ({
       datatestid="delegate-call-warning"
       title={
         <>
-          This transaction calls a smart contract that will be able to modify your Safe account.
+          {translateMessage('ui.thisTransactionCallsASmartContract_74112b74')}
           {!trustedDelegateCall && (
             <>
               <br />
-              <ExternalLink href={HelpCenterArticle.UNEXPECTED_DELEGATE_CALL}>Learn more</ExternalLink>
+              <ExternalLink href={HelpCenterArticle.UNEXPECTED_DELEGATE_CALL}>
+                {translateMessage('ui.learnMore_0c11daba')}
+              </ExternalLink>
             </>
           )}
         </>
       }
       severity={trustedDelegateCall ? 'success' : 'warning'}
-      text={trustedDelegateCall ? 'Delegate call' : 'Unexpected delegate call'}
+      text={
+        trustedDelegateCall
+          ? translateMessage('ui.delegateCall_501100d1')
+          : translateMessage('ui.unexpectedDelegateCall_6af6492b')
+      }
     />
   )
 }
@@ -92,23 +99,23 @@ export const UntrustedFallbackHandlerWarning = ({
     datatestid="untrusted-fallback-handler-warning"
     title={<UntrustedFallbackHandlerTxText isTxExecuted={isTxExecuted} />}
     severity="warning"
-    text="Unofficial fallback handler"
+    text={translateMessage('ui.unofficialFallbackHandler_980859ac')}
   />
 )
 
 export const ThresholdWarning = (): ReactElement => (
   <Warning
     datatestid="threshold-warning"
-    title="This transaction potentially alters the number of confirmations required to execute a transaction. Please verify before signing."
+    title={translateMessage('ui.thisTransactionPotentiallyAltersTheNumber_61ffc6d0')}
     severity="warning"
-    text="Confirmation policy change"
+    text={translateMessage('ui.confirmationPolicyChange_ab001bca')}
   />
 )
 
 export const UnsignedWarning = (): ReactElement => (
   <Warning
-    title="This transaction is unsigned and could have been created by anyone. To avoid phishing, only sign it if you trust the source of the link."
+    title={translateMessage('ui.thisTransactionIsUnsignedAndCould_b39dd702')}
     severity="error"
-    text="Untrusted transaction"
+    text={translateMessage('ui.untrustedTransaction_0e910362')}
   />
 )

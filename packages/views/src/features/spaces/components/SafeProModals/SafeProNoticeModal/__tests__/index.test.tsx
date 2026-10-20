@@ -7,17 +7,17 @@ describe('SafeProNoticeModal', () => {
     render(
       <SafeProNoticeModal
         open
-        title="Your free access ended on Dec 5, 2026"
+        title="免费使用期已于 Dec 5, 2026 结束"
         body="An admin needs to choose a plan to unlock it."
         onAction={onAction}
       />,
     )
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Your free access ended on Dec 5, 2026')
+    expect(screen.getByRole('heading')).toHaveTextContent('免费使用期已于 Dec 5, 2026 结束')
     expect(screen.getByText('An admin needs to choose a plan to unlock it.')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '关闭' })).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Go to My accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '前往我的账户' }))
     expect(onAction).toHaveBeenCalled()
   })
 
@@ -35,9 +35,9 @@ describe('SafeProNoticeModal', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Got it' }))
+    fireEvent.click(screen.getByRole('button', { name: '知道了' }))
     expect(onAction).toHaveBeenCalled()
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
     expect(onOpenChange).toHaveBeenCalledWith(false, expect.anything())
   })
 
@@ -56,7 +56,7 @@ describe('SafeProNoticeModal', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(onSecondaryAction).toHaveBeenCalled()
   })
 
@@ -64,7 +64,7 @@ describe('SafeProNoticeModal', () => {
     render(
       <SafeProNoticeModal
         open
-        title="Your free access ended on Dec 5, 2026"
+        title="免费使用期已于 Dec 5, 2026 结束"
         body="An admin needs to choose a plan to unlock it."
         onAction={jest.fn()}
         secondaryActionLabel="Create new Workspace"
@@ -72,6 +72,6 @@ describe('SafeProNoticeModal', () => {
       />,
     )
 
-    expect(screen.getByRole('link', { name: 'Create new Workspace' })).toHaveAttribute('href', '/welcome/spaces')
+    expect(screen.getByRole('link', { name: '创建工作空间' })).toHaveAttribute('href', '/welcome/spaces')
   })
 })

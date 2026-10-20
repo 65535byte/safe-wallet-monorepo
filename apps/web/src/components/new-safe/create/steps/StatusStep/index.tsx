@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCounter } from '@/components/common/Notifications/useCounter'
 import type { StepRenderProps } from '@/components/new-safe/CardStepper/useCardStepper'
 import type { NewSafeFormData } from '@/components/new-safe/create'
@@ -103,9 +104,11 @@ export const CreateSafeStatus = ({ setProgressColor, setStep, setStepData }: Ste
         {counter && counter > SPEED_UP_THRESHOLD_IN_SECONDS && !isError && (
           <Alert variant="warning" outlined={false} className="mt-10">
             <Rocket />
-            <AlertTitle className="text-left font-bold">Transaction is taking too long</AlertTitle>
+            <AlertTitle className="text-left font-bold">
+              {translateMessage('ui.transactionIsTakingTooLong_0c8888fd')}
+            </AlertTitle>
             <AlertDescription className="text-left">
-              Try to speed it up with better gas parameters in your wallet.
+              {translateMessage('ui.tryToSpeedItUpWith_00e07d93')}
             </AlertDescription>
           </Alert>
         )}
@@ -113,10 +116,10 @@ export const CreateSafeStatus = ({ setProgressColor, setStep, setStepData }: Ste
         {isError && (
           <div className="flex flex-row justify-center gap-4">
             <Button variant="outline" onClick={onCancel} render={<Link href={AppRoutes.index} />}>
-              Go to homepage
+              {translateMessage('ui.goToHomepage_a61e6b56')}
             </Button>
             <Button variant="default" onClick={tryAgain}>
-              Try again
+              {translateMessage('ui.tryAgain_27537f8f')}
             </Button>
           </div>
         )}

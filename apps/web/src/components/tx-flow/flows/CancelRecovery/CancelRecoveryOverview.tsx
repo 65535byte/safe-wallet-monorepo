@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { useContext } from 'react'
@@ -26,19 +27,18 @@ export function CancelRecoveryOverview(): ReactElement {
         <ReplaceTxIcon />
 
         <Typography variant="h4" align="center" className="mt-10 mb-2">
-          Do you want to cancel the Account recovery?
+          {translateMessage('ui.doYouWantToCancelThe_63ef8035')}
         </Typography>
 
         <Typography variant="paragraph-small" align="center" className="mb-6 block">
-          If it is an unwanted recovery proposal or you&apos;ve noticed something suspicious, you can cancel it at any
-          time.
+          {translateMessage('ui.ifItIsAnUnwantedRecovery_088c7b27')}
         </Typography>
 
         <DialogActions
           onCancel={onClose}
-          cancelLabel="Go back"
+          cancelLabel={translateMessage('ui.goBack_15f672dc')}
           onConfirm={onNext}
-          confirmLabel="Yes, cancel proposal"
+          confirmLabel={translateMessage('ui.yesCancelProposal_2c308c10')}
           confirmTestId="cancel-proposal-btn"
         />
       </div>

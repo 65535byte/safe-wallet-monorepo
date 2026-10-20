@@ -45,7 +45,7 @@ describe('SignInOptions', () => {
     render(<SignInOptions afterSignIn={mockAfterSignIn} />)
 
     expect(screen.getByTestId('connect-wallet-btn')).toBeInTheDocument()
-    expect(screen.getByText('OR')).toBeInTheDocument()
+    expect(screen.getByText('或')).toBeInTheDocument()
     expect(screen.getByTestId('google-login-btn')).toBeInTheDocument()
     expect(screen.getByTestId('email-login-btn')).toBeInTheDocument()
   })
@@ -56,7 +56,7 @@ describe('SignInOptions', () => {
     render(<SignInOptions afterSignIn={mockAfterSignIn} />)
 
     const wallet = screen.getByTestId('connect-wallet-btn')
-    const divider = screen.getByText('OR')
+    const divider = screen.getByText('或')
     const google = screen.getByTestId('google-login-btn')
     const email = screen.getByTestId('email-login-btn')
 
@@ -72,7 +72,7 @@ describe('SignInOptions', () => {
 
     expect(screen.queryByTestId('email-login-btn')).not.toBeInTheDocument()
     expect(screen.queryByTestId('google-login-btn')).not.toBeInTheDocument()
-    expect(screen.queryByText('OR')).not.toBeInTheDocument()
+    expect(screen.queryByText('或')).not.toBeInTheDocument()
     expect(screen.getByTestId('connect-wallet-btn')).toBeInTheDocument()
   })
 
@@ -83,7 +83,7 @@ describe('SignInOptions', () => {
 
     expect(screen.queryByTestId('email-login-btn')).not.toBeInTheDocument()
     expect(screen.queryByTestId('google-login-btn')).not.toBeInTheDocument()
-    expect(screen.queryByText('OR')).not.toBeInTheDocument()
+    expect(screen.queryByText('或')).not.toBeInTheDocument()
     expect(screen.getByTestId('connect-wallet-btn')).toBeInTheDocument()
   })
 
@@ -92,6 +92,6 @@ describe('SignInOptions', () => {
 
     render(<SignInOptions afterSignIn={mockAfterSignIn} />)
 
-    expect(screen.getByText('Connect wallet')).toBeInTheDocument()
+    expect(screen.getByText('连接钱包')).toBeInTheDocument()
   })
 })

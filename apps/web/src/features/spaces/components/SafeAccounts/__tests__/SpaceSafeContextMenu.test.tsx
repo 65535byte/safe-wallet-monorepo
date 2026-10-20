@@ -82,7 +82,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.getByText('Rename')).toBeInTheDocument()
+      expect(screen.getByText('重命名')).toBeInTheDocument()
     })
   })
 
@@ -95,7 +95,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.getByText('Rename')).toBeInTheDocument()
+      expect(screen.getByText('重命名')).toBeInTheDocument()
     })
   })
 
@@ -106,7 +106,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.getByText('Rename')).toBeInTheDocument()
+      expect(screen.getByText('重命名')).toBeInTheDocument()
     })
   })
 
@@ -117,7 +117,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.getByText('Rename')).toBeInTheDocument()
+      expect(screen.getByText('重命名')).toBeInTheDocument()
     })
   })
 
@@ -130,7 +130,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.getByText('Remove from Workspace')).toBeInTheDocument()
+      expect(screen.getByText('从工作空间移除')).toBeInTheDocument()
     })
   })
 
@@ -141,7 +141,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      expect(screen.queryByText('Remove from Workspace')).not.toBeInTheDocument()
+      expect(screen.queryByText('从工作空间移除')).not.toBeInTheDocument()
     })
   })
 
@@ -152,7 +152,7 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      const renameOption = screen.getByText('Rename')
+      const renameOption = screen.getByText('重命名')
       fireEvent.click(renameOption)
     })
 
@@ -168,10 +168,10 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(screen.getByRole('button'))
 
     await waitFor(() => {
-      expect(screen.getByRole('menuitem', { name: 'Rename' })).toHaveAttribute('data-disabled')
+      expect(screen.getByRole('menuitem', { name: '重命名' })).toHaveAttribute('data-disabled')
     })
 
-    fireEvent.click(screen.getByText('Rename'))
+    fireEvent.click(screen.getByText('重命名'))
     expect(screen.queryByTestId('entry-dialog')).not.toBeInTheDocument()
   })
 
@@ -184,12 +184,12 @@ describe('SpaceSafeContextMenu', () => {
     fireEvent.click(menuButton)
 
     await waitFor(() => {
-      const removeOption = screen.getByText('Remove from Workspace')
+      const removeOption = screen.getByText('从工作空间移除')
       fireEvent.click(removeOption)
     })
 
     // Verify the RemoveSafeDialog is rendered
     expect(screen.getByTestId('remove-safe-dialog')).toBeInTheDocument()
-    expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.DELETE_ACCOUNT_MODAL, undefined)
+    expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.DELETE_ACCOUNT_MODAL)
   })
 })

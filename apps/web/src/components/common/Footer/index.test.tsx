@@ -29,4 +29,9 @@ describe('Footer', () => {
     render(<Footer forceShow />, { routerProps: { pathname: AppRoutes.home } })
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
   })
+  it('shows the version without GitHub links or icons', () => {
+    const { container } = renderAt(AppRoutes.welcome.accounts)
+    expect(container.querySelector('a[href*="github.com"]')).not.toBeInTheDocument()
+    expect(container.querySelector('.lucide-github')).not.toBeInTheDocument()
+  })
 })

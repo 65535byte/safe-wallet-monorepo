@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import ReviewTransactionSkeleton from './ReviewTransactionSkeleton'
@@ -27,7 +28,7 @@ const ReviewTransaction = ({ title, ...props }: ReviewTransactionProps) => {
   }
 
   return (
-    <TxFlowStep title={title ?? 'Confirm transaction'}>
+    <TxFlowStep title={title ?? translateMessage('ui.confirmTransaction_bfd300c6')}>
       <ReviewTransactionContent {...props} txDetails={txDetails} txPreview={txPreview}>
         {props.children}
       </ReviewTransactionContent>

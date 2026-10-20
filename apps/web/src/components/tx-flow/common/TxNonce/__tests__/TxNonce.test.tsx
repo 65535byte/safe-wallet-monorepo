@@ -150,12 +150,12 @@ describe('TxNonce', () => {
     it('shows reset button when nonce differs from recommended', () => {
       renderTxNonce({ nonce: 10, recommendedNonce: 5 })
       // Reset to recommended nonce button appears as an IconButton
-      expect(screen.getByRole('button', { name: /reset to recommended nonce/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /恢复建议的 nonce/i })).toBeInTheDocument()
     })
 
     it('does not show reset button when nonce equals recommended', () => {
       renderTxNonce({ nonce: 5, recommendedNonce: 5 })
-      expect(screen.queryByRole('button', { name: /reset to recommended nonce/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /恢复建议的 nonce/i })).not.toBeInTheDocument()
     })
   })
 
@@ -218,8 +218,8 @@ describe('TxNonce', () => {
       await waitFor(() => {
         expect(screen.getByRole('listbox')).toBeInTheDocument()
       })
-      expect(screen.getByText('Recommended nonce')).toBeInTheDocument()
-      expect(screen.getByText('Replace existing')).toBeInTheDocument()
+      expect(screen.getByText('建议的 nonce')).toBeInTheDocument()
+      expect(screen.getByText('替换已有交易')).toBeInTheDocument()
     })
 
     it('opens the nonce dropdown on arrow down', async () => {
@@ -297,20 +297,20 @@ describe('TxNonce', () => {
 
     it('falls back to humanDescription when note is missing', async () => {
       mockUsePreviousNonces.mockReturnValue([4])
-      mockQueueByNonce(4, buildQueuedTx({ note: null, humanDescription: 'Send to alice.eth' }))
+      mockQueueByNonce(4, buildQueuedTx({ note: null, humanDescription: '发送 to alice.eth' }))
       renderTxNonce({ nonce: 5, recommendedNonce: 5 })
 
       const option = getPreviousNonceOption(await openNonceDropdown())
-      expect(option).toHaveTextContent(/Send to alice\.eth/)
+      expect(option).toHaveTextContent(/发送 to alice\.eth/)
     })
 
     it('treats a whitespace-only note as missing and falls back', async () => {
       mockUsePreviousNonces.mockReturnValue([4])
-      mockQueueByNonce(4, buildQueuedTx({ note: '   ', humanDescription: 'Send to alice.eth' }))
+      mockQueueByNonce(4, buildQueuedTx({ note: '   ', humanDescription: '发送 to alice.eth' }))
       renderTxNonce({ nonce: 5, recommendedNonce: 5 })
 
       const option = getPreviousNonceOption(await openNonceDropdown())
-      expect(option).toHaveTextContent(/Send to alice\.eth/)
+      expect(option).toHaveTextContent(/发送 to alice\.eth/)
     })
 
     it('shows "New transaction" when no queued txs exist for that nonce', async () => {
@@ -319,7 +319,7 @@ describe('TxNonce', () => {
       renderTxNonce({ nonce: 5, recommendedNonce: 5 })
 
       const option = getPreviousNonceOption(await openNonceDropdown())
-      expect(option).toHaveTextContent(/New transaction/)
+      expect(option).toHaveTextContent(/新建交易/)
     })
   })
 

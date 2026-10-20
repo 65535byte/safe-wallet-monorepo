@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@safe-global/views/components/ui/dialog'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -33,17 +34,16 @@ export function SimilarityConfirmDialog({
     >
       <DialogContent data-testid="similarity-confirm-dialog" showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle className="font-bold">Similar address detected</DialogTitle>
+          <DialogTitle className="font-bold">{translateMessage('ui.similarAddressDetected_fc23da03')}</DialogTitle>
         </DialogHeader>
         <div className="px-4">
           <Typography variant="paragraph-small" color="muted" className="block mb-4">
-            This address looks similar to other addresses in your list. This could be a sign of an address poisoning
-            attack where attackers create addresses that visually resemble legitimate ones.
+            {translateMessage('ui.thisAddressLooksSimilarToOther_c0ed952d')}
           </Typography>
 
           <div className="mb-4">
             <Typography variant="paragraph-small-medium" className="mb-2 block">
-              Selected address:
+              {translateMessage('ui.selectedAddress_28d83737')}
             </Typography>
             <EthHashInfo address={address} chainId={chainId} showCopyButton hasExplorer shortAddress={false} />
           </div>
@@ -51,7 +51,8 @@ export function SimilarityConfirmDialog({
           {similarAddresses.length > 0 && (
             <div>
               <Typography variant="paragraph-small-medium" className="mb-2 block">
-                Similar {similarAddresses.length === 1 ? 'address' : 'addresses'}:
+                {translateMessage('ui.similar_46e84608')}
+                {similarAddresses.length === 1 ? 'address' : 'addresses'}:
               </Typography>
               {similarAddresses.map((addr) => (
                 <div key={addr} className="mb-2">
@@ -62,15 +63,15 @@ export function SimilarityConfirmDialog({
           )}
 
           <Typography variant="paragraph-small-medium" className="mt-4 block text-[var(--color-warning-main)]">
-            Please verify this is the correct address before proceeding.
+            {translateMessage('ui.pleaseVerifyThisIsTheCorrect_098825a9')}
           </Typography>
         </div>
         <div className="flex justify-between gap-2 p-4 pt-0 pb-6">
           <Button variant="outline" onClick={onCancel} data-testid="similarity-cancel-button">
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
           <Button onClick={onConfirm} data-testid="similarity-confirm-button">
-            I understand, proceed
+            {translateMessage('ui.iUnderstandProceed_50587849')}
           </Button>
         </div>
       </DialogContent>

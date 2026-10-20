@@ -33,7 +33,7 @@ describe('useSafeProAnnouncementModal', () => {
   })
 
   it.each([true, false])(
-    'never opens, and records nothing, once Safe Pro is live (announcement flag %s)',
+    'never opens, and records nothing, once 8379 is live (announcement flag %s)',
     (isAnnounced) => {
       mockUseIsSafeProAnnouncementEnabled.mockReturnValue(isAnnounced)
       mockUseIsSafeProEnabled.mockReturnValue(true)

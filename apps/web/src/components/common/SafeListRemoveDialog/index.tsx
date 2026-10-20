@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactElement } from 'react'
 
@@ -44,10 +45,11 @@ const SafeListRemoveDialog = ({
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Delete entry" chainId={chainId}>
+    <ModalDialog open onClose={handleClose} dialogTitle={translateMessage('ui.deleteEntry_15803e49')} chainId={chainId}>
       <div className="p-6">
         <Typography>
-          Are you sure you want to remove the <b>{safe}</b> account?
+          {translateMessage('ui.areYouSureYouWantTo_8d354e23')}
+          <b>{safe}</b> {translateMessage('ui.account_992a703f')}
         </Typography>
       </div>
 
@@ -55,7 +57,7 @@ const SafeListRemoveDialog = ({
         className="p-4 pt-2"
         onCancel={handleClose}
         cancelTestId="cancel-btn"
-        confirmLabel="Delete"
+        confirmLabel={translateMessage('ui.delete_6cba6a2c')}
         confirmTestId="delete-btn"
         confirmDestructive
         onConfirm={handleConfirm}

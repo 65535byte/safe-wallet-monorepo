@@ -53,7 +53,7 @@ describe('formatFlaggedCount', () => {
   it('reads N of M across a split vote', () => {
     const summary = summariseRejection([vote(0, null), vote(1, 'R-4.1')])
 
-    expect(formatFlaggedCount(summary)).toBe('1 of 2 sentinels flagged this.')
+    expect(formatFlaggedCount(summary)).toBe('1 / 2 sentinels 标记了此风险。')
   })
 })
 
@@ -64,18 +64,14 @@ describe('explainFailure', () => {
   }
 
   it.each<[string, NormalizedCheckEvent[], string]>([
-    ['no vote', [requestCreatedEvent(), sentinelCommittedEvent()], 'No sentinel voted before the deadline.'],
-    ['votes without a result', [sentinelRevealedEvent()], 'Not enough sentinels voted before the deadline.'],
+    ['no vote', [requestCreatedEvent(), sentinelCommittedEvent()], '截止前没有哨兵投票。'],
+    ['votes without a result', [sentinelRevealedEvent()], '截止前参与投票的哨兵数量不足。'],
     [
       'a result without a verified signature',
       [sentinelRevealedEvent(), oracleResultEvent(), attestedEvent()],
-      'Sentinels voted, but the validators did not sign the result in time.',
+      '哨兵已投票，但验证者未及时签署结果。',
     ],
-    [
-      'an out-of-scope ruling',
-      [sentinelRevealedEvent(), outOfScope],
-      'Safenet gave no ruling because this transaction is out of scope.',
-    ],
+    ['an out-of-scope ruling', [sentinelRevealedEvent(), outOfScope], '此交易超出检查范围，Safenet 未作出裁定。'],
   ])('explains %s', (_, events, reason) => {
     expect(explainFailure({ events, attestation: UNVERIFIED_ATTESTATION })).toBe(reason)
   })
@@ -83,8 +79,6 @@ describe('explainFailure', () => {
   it('names a signature that did not verify', () => {
     const attestation = { status: AttestationVerificationStatus.INVALID, signatureId: null, message: null }
 
-    expect(explainFailure({ events: [oracleResultEvent(), attestedEvent()], attestation })).toBe(
-      "The validators' signature could not be verified.",
-    )
+    expect(explainFailure({ events: [oracleResultEvent(), attestedEvent()], attestation })).toBe('无法验证验证者签名。')
   })
 })

@@ -119,10 +119,10 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('3 of 3 checks passed')).toBeInTheDocument()
+      expect(screen.getByText('已通过 3 / 3 项检查')).toBeInTheDocument()
     })
 
-    it('counts the locked Pro checks, Safenet included, as not passed without Safe Pro', () => {
+    it('counts the locked Pro checks, Safenet included, as not passed without 8379', () => {
       mockSafenetState({ check: { shown: true, passed: false } })
       render(
         <SafeShieldDisplay
@@ -134,7 +134,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('1 of 3 checks passed')).toBeInTheDocument()
+      expect(screen.getByText('已通过 1 / 3 项检查')).toBeInTheDocument()
     })
 
     it('counts a Safenet verdict as a check', () => {
@@ -148,11 +148,11 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('4 of 4 checks passed')).toBeInTheDocument()
+      expect(screen.getByText('已通过 4 / 4 项检查')).toBeInTheDocument()
     })
 
     it('shows a Safenet risk instead of "all checks passed"', () => {
-      mockSafenetState({ risk: { severity: Severity.CRITICAL, title: 'Risk detected' } })
+      mockSafenetState({ risk: { severity: Severity.CRITICAL, title: '检测到风险' } })
       render(
         <SafeShieldDisplay
           recipient={mockRecipient}
@@ -162,8 +162,8 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByTestId('safe-shield-status')).toHaveTextContent('Risk detected')
-      expect(screen.queryByText(/checks passed/i)).not.toBeInTheDocument()
+      expect(screen.getByTestId('safe-shield-status')).toHaveTextContent('检测到风险')
+      expect(screen.queryByText(/已通过 .* 项检查/)).not.toBeInTheDocument()
     })
 
     it('should show "Risk detected" when there are critical issues', () => {
@@ -176,7 +176,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('Risk detected')).toBeInTheDocument()
+      expect(screen.getByText('检测到风险')).toBeInTheDocument()
     })
 
     it('should show "Issues found" when there are warnings', () => {
@@ -189,7 +189,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('Issues found')).toBeInTheDocument()
+      expect(screen.getByText('发现问题')).toBeInTheDocument()
     })
 
     it('should show "Analyzing..." during loading', () => {
@@ -205,7 +205,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('Analyzing...')).toBeInTheDocument()
+      expect(screen.getByText('分析中…')).toBeInTheDocument()
     })
 
     it('should show "Checks unavailable" on error', () => {
@@ -221,7 +221,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText('Checks unavailable')).toBeInTheDocument()
+      expect(screen.getByText('检查不可用')).toBeInTheDocument()
     })
   })
 
@@ -268,9 +268,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(
-        screen.getByText('Transaction details will be automatically scanned for potential risks and will appear here.'),
-      ).toBeInTheDocument()
+      expect(screen.getByText('系统将自动扫描交易详情中的潜在风险，并在此显示。')).toBeInTheDocument()
     })
 
     it('should not show loading state when data is present', () => {
@@ -299,13 +297,9 @@ describe('SafeShieldDisplay', () => {
       )
 
       // Header should show status
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
       // Content should not show empty state
-      expect(
-        screen.queryByText(
-          'Transaction details will be automatically scanned for potential risks and will appear here.',
-        ),
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('系统将自动扫描交易详情中的潜在风险，并在此显示。')).not.toBeInTheDocument()
     })
 
     it('should handle contract results', () => {
@@ -319,13 +313,9 @@ describe('SafeShieldDisplay', () => {
       )
 
       // Header should show status
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
       // Content should not show empty state
-      expect(
-        screen.queryByText(
-          'Transaction details will be automatically scanned for potential risks and will appear here.',
-        ),
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('系统将自动扫描交易详情中的潜在风险，并在此显示。')).not.toBeInTheDocument()
     })
 
     it('should handle threat results', () => {
@@ -339,13 +329,9 @@ describe('SafeShieldDisplay', () => {
       )
 
       // Threat data is displayed with appropriate status
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
       // Content should not show empty state when threat data is present
-      expect(
-        screen.queryByText(
-          'Transaction details will be automatically scanned for potential risks and will appear here.',
-        ),
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('系统将自动扫描交易详情中的潜在风险，并在此显示。')).not.toBeInTheDocument()
     })
 
     it('should handle all props together', () => {
@@ -358,7 +344,7 @@ describe('SafeShieldDisplay', () => {
         />,
       )
 
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
       expect(container.querySelector('mock-icon')).toBeInTheDocument()
     })
   })
@@ -377,8 +363,8 @@ describe('SafeShieldDisplay', () => {
       )
 
       // Header shows "Risk detected" from critical recipient, threat content is displayed
-      expect(screen.getByText('Risk detected')).toBeInTheDocument()
-      expect(screen.getByText('Malicious threat detected')).toBeInTheDocument()
+      expect(screen.getByText('检测到风险')).toBeInTheDocument()
+      expect(screen.getByText('检测到恶意威胁')).toBeInTheDocument()
     })
   })
 
@@ -474,7 +460,7 @@ describe('SafeShieldDisplay', () => {
       )
 
       expect(screen.queryByText('Authentication required')).not.toBeInTheDocument()
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
     })
 
     it('should not show authentication required when hypernativeAuth is not provided', () => {
@@ -488,7 +474,7 @@ describe('SafeShieldDisplay', () => {
       )
 
       expect(screen.queryByText('Authentication required')).not.toBeInTheDocument()
-      expect(screen.getByText(/checks passed/i)).toBeInTheDocument()
+      expect(screen.getByText(/已通过 .* 项检查/)).toBeInTheDocument()
     })
   })
 })

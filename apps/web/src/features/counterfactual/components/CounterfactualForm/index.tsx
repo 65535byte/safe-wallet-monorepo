@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { TxModalContext } from '@/components/tx-flow'
 import useDeployGasLimit from '../../hooks/useDeployGasLimit'
 import { deploySafeAndExecuteTx } from '../../services/safeDeployment'
@@ -119,18 +120,18 @@ export const CounterfactualForm = ({
         <Alert variant="info" className="mb-4 border-0">
           <AlertSeverityIcon variant="info" />
           <AlertDescription>
-            Executing this transaction will activate your account.
+            {translateMessage('ui.executingThisTransactionWillActivateYour_8369f5d4')}
             <br />
             <ul style={{ margin: 0, padding: '4px 16px 0' }}>
               <li>
-                Base fee: &asymp;{' '}
+                {translateMessage('ui.baseFee_75226557')}{' '}
                 <strong>
                   {getTotalFeeFormatted(advancedParams.maxFeePerGas, BigInt(gasLimit?.safeTxGas || '0'), chain)}{' '}
                   {chain?.nativeCurrency.symbol}
                 </strong>
               </li>
               <li>
-                One-time activation fee: &asymp;{' '}
+                {translateMessage('ui.oneTimeActivationFee_548c1e0c')}{' '}
                 <strong>
                   {getTotalFeeFormatted(advancedParams.maxFeePerGas, BigInt(gasLimit?.safeDeploymentGas || '0'), chain)}{' '}
                   {chain?.nativeCurrency.symbol}
@@ -155,11 +156,9 @@ export const CounterfactualForm = ({
         {cannotPropose ? (
           <NonOwnerError />
         ) : isExecutionLoop ? (
-          <ErrorMessage>
-            Cannot execute a transaction from the Safe account itself, please connect a different account.
-          </ErrorMessage>
+          <ErrorMessage>{translateMessage('ui.cannotExecuteATransactionFromThe_181bf8cf')}</ErrorMessage>
         ) : !walletCanPay ? (
-          <ErrorMessage>Your connected wallet doesn&apos;t have enough funds to execute this transaction.</ErrorMessage>
+          <ErrorMessage>{translateMessage('ui.yourConnectedWalletDoesnTHave_496964dc')}</ErrorMessage>
         ) : (
           gasLimitError && <TxCheckError error={gasLimitError} />
         )}
@@ -177,7 +176,7 @@ export const CounterfactualForm = ({
           <CheckWallet allowNonOwner={onlyExecute} checkNetwork={!submitDisabled}>
             {(isOk) => (
               <SubmitButton loading={!isSubmittable} disabled={!isOk || submitDisabled}>
-                Execute
+                {translateMessage('ui.execute_eea2eb83')}
               </SubmitButton>
             )}
           </CheckWallet>

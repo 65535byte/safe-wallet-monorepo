@@ -46,32 +46,32 @@ describe('selectSponsoredOffer', () => {
   it.each<[string, Partial<GasPaymentInputs>, SponsoredOffer | null]>([
     ['the campaign first', {}, campaignOffer],
     [
-      'the daily limit when the campaign is not listed',
+      'the daily 项限额 when the campaign is not listed',
       { chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'] },
       dailyOffer,
     ],
-    ['the daily limit when the campaign is excluded', { excluded: new Set(['NO_FEE_CAMPAIGN']) }, dailyOffer],
+    ['the daily 项限额 when the campaign is excluded', { excluded: new Set(['NO_FEE_CAMPAIGN']) }, dailyOffer],
     [
-      'the daily limit when the Safe is not eligible for the campaign',
+      'the daily 项限额 when the Safe is not eligible for the campaign',
       { campaign: { isEligible: false, remaining: 0, limit: 0, isGasTooHigh: false } },
       dailyOffer,
     ],
     [
-      'the daily limit with the plan unknown while it loads',
+      'the daily 项限额 with the plan unknown while it loads',
       { chainOptions: ['FREE_DAILY_LIMIT'], pro: { ...withoutPlan, isLoading: true } },
       { ...dailyOffer, isPro: null },
     ],
     [
-      'the daily limit with the plan unknown after its lookup failed',
+      'the daily 项限额 with the plan unknown after its lookup failed',
       { chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'], pro: { ...withoutPlan, isError: true } },
       { ...dailyOffer, isPro: null },
     ],
     [
-      'nothing to a Safe without a plan once the campaign and the daily limit are excluded',
+      'nothing to a Safe without a plan once the campaign and the daily 项限额 are excluded',
       { excluded: new Set(['NO_FEE_CAMPAIGN', 'FREE_DAILY_LIMIT']) },
       null,
     ],
-    ['the plan before the campaign and the daily limit to a Safe on a plan', { pro: withPlan }, subscriptionOffer],
+    ['the plan before the campaign and the daily 项限额 to a Safe on a plan', { pro: withPlan }, subscriptionOffer],
     [
       'the plan to a Safe on a plan when the daily relays are unknown',
       { pro: withPlan, daily: undefined },
@@ -93,13 +93,13 @@ describe('selectSponsoredOffer', () => {
       campaignOffer,
     ],
     [
-      'the daily limit marked Pro where the chain does not list the plan',
+      'the daily 项限额 marked Pro where the chain does not list the plan',
       { pro: withPlan, chainOptions: ['FREE_DAILY_LIMIT'] },
       { ...dailyOffer, isPro: true },
     ],
     ['nothing when the chain lists no option', { chainOptions: [] }, null],
     ['nothing when the chain only lists paying from the Safe', { chainOptions: ['PAY_FROM_SAFE'] }, null],
-    ['nothing for a refund transaction', { isRefundTx: true }, null],
+    ['nothing for a refund 笔交易', { isRefundTx: true }, null],
     ['nothing when the wallet cannot relay', { walletCanRelay: false }, null],
     ['no subscription without a plan', { chainOptions: ['SUBSCRIPTION'] }, null],
   ])('offers %s', (_label, overrides, expected) => {
@@ -113,12 +113,12 @@ describe('selectSponsoredOffer', () => {
       { ...campaignOffer, disabledReason: 'GAS_TOO_HIGH' },
     ],
     [
-      'the gas is too high and the limit is reached',
+      'the gas is too high and the 项限额 is reached',
       { isEligible: true, remaining: 0, limit: 5, isGasTooHigh: true },
       { ...campaignOffer, remaining: 0, disabledReason: 'GAS_TOO_HIGH' },
     ],
     [
-      'the limit is reached',
+      'the 项限额 is reached',
       { isEligible: true, remaining: 0, limit: 5, isGasTooHigh: false },
       { ...campaignOffer, remaining: 0, disabledReason: 'LIMIT_REACHED' },
     ],
@@ -135,7 +135,7 @@ describe('selectSponsoredOffer', () => {
       true,
     ],
     [
-      'Safe Pro is off',
+      '8379 is off',
       {
         chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'],
         pro: { ...withoutPlan, isEnabled: false },
@@ -149,7 +149,7 @@ describe('selectSponsoredOffer', () => {
       false,
     ],
     [
-      'the Safe is on a plan and the plan is excluded',
+      'the Safe is on a plan 和 the plan is excluded',
       {
         chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'],
         daily: spentDaily,
@@ -164,11 +164,11 @@ describe('selectSponsoredOffer', () => {
       false,
     ],
     ['the chain does not list the subscription', { chainOptions: ['FREE_DAILY_LIMIT'], daily: spentDaily }, false],
-    ['the chain does not list the daily limit', { chainOptions: ['SUBSCRIPTION'], daily: spentDaily }, false],
+    ['the chain does not list the daily 项限额', { chainOptions: ['SUBSCRIPTION'], daily: spentDaily }, false],
     ['the daily relays are unknown', { chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'], daily: undefined }, false],
     ['a daily relay is left', { chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'] }, false],
     [
-      'it is a refund transaction',
+      'it is a refund 笔交易',
       { chainOptions: ['FREE_DAILY_LIMIT', 'SUBSCRIPTION'], daily: spentDaily, isRefundTx: true },
       false,
     ],
@@ -193,7 +193,7 @@ describe('getGasPayment', () => {
     ],
     ['the wallet method', subscriptionOffer, ExecutionMethod.WALLET, { gasPayer: 'WALLET', sponsorSpaceId: null }],
     ['the campaign', campaignOffer, ExecutionMethod.RELAY, { gasPayer: 'NO_FEE_CAMPAIGN', sponsorSpaceId: null }],
-    ['the daily limit', dailyOffer, ExecutionMethod.RELAY, { gasPayer: 'FREE_DAILY_LIMIT', sponsorSpaceId: null }],
+    ['the daily 项限额', dailyOffer, ExecutionMethod.RELAY, { gasPayer: 'FREE_DAILY_LIMIT', sponsorSpaceId: null }],
     [
       'the subscription',
       subscriptionOffer,

@@ -52,7 +52,7 @@ describe('useSafeProAccess', () => {
     ],
     ['the subscription lapsed', () => mockUseSpacePlan.mockReturnValue({ status: 'canceled', isLoading: false })],
     [
-      'the Safe is not part of the Workspace',
+      'the Safe is not part / the Workspace',
       () =>
         mockUseSpaceSafesGetV1Query.mockReturnValue({
           currentData: { safes: { '1': ['0x00000000000000000000000000000000000000aa'] } },

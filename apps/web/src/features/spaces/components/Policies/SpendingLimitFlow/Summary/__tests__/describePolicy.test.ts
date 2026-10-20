@@ -25,8 +25,8 @@ const spender = (name: string | undefined, resetTimes: string[]) =>
 describe('joinNames', () => {
   it.each([
     [['Alice'], 'Alice'],
-    [['Alice', 'Bob'], 'Alice and Bob'],
-    [['Alice', 'Bob', 'Carol'], 'Alice, Bob and Carol'],
+    [['Alice', 'Bob'], 'Alice 和 Bob'],
+    [['Alice', 'Bob', 'Carol'], 'Alice, Bob 和 Carol'],
     [[], ''],
   ])('joins %j as "%s"', (names, expected) => {
     expect(joinNames(names)).toBe(expected)
@@ -54,7 +54,7 @@ describe('describePolicy', () => {
       .build()
 
     expect(describePolicy(policy)).toEqual({
-      title: 'You are giving Alice a one-time spending limit.',
+      title: 'You are giving Alice a one-time spending 项限额.',
       description: CALLOUT_DESCRIPTION_SINGULAR,
     })
   })
@@ -65,7 +65,7 @@ describe('describePolicy', () => {
       .build()
 
     expect(describePolicy(policy)).toEqual({
-      title: 'You are giving Alice and Bob weekly spending limits.',
+      title: 'You are giving Alice and Bob weekly spending 项限额s.',
       description: CALLOUT_DESCRIPTION_PLURAL,
     })
   })
@@ -75,7 +75,7 @@ describe('describePolicy', () => {
       .with({ spenders: [spender('Alice', ['0']), spender('Bob', ['10080', '43200'])] })
       .build()
 
-    expect(describePolicy(policy).title).toBe('You are giving Alice and Bob spending limits.')
+    expect(describePolicy(policy).title).toBe('You are giving Alice and Bob spending 项限额s.')
   })
 
   it('drops the adjective for a uniform test-chain period, which has no word of its own', () => {
@@ -86,7 +86,7 @@ describe('describePolicy', () => {
       })
       .build()
 
-    expect(describePolicy(policy).title).toBe('You are giving Alice a spending limit.')
+    expect(describePolicy(policy).title).toBe('You are giving Alice a spending 项限额.')
   })
 
   it('lists three spenders with commas and a final "and"', () => {
@@ -94,7 +94,7 @@ describe('describePolicy', () => {
       .with({ spenders: [spender('Alice', ['0']), spender('Bob', ['0']), spender('Carol', ['0'])] })
       .build()
 
-    expect(describePolicy(policy).title).toBe('You are giving Alice, Bob and Carol one-time spending limits.')
+    expect(describePolicy(policy).title).toBe('You are giving Alice, Bob and Carol one-time spending 项限额s.')
   })
 
   it('uses the shortened address for an unnamed spender', () => {
@@ -112,7 +112,7 @@ describe('describePolicy', () => {
     const policy = spendingLimitSummaryBuilder().with({ spenders: [] }).build()
 
     expect(describePolicy(policy)).toEqual({
-      title: 'You are giving spending limits.',
+      title: 'You are giving spending 项限额s.',
       description: CALLOUT_DESCRIPTION_PLURAL,
     })
   })
@@ -132,12 +132,12 @@ describe('describeEdit', () => {
 
   it('counts what the edit does, leaving the untouched rows out', () => {
     expect(describeEdit(policy(['added', 'changed', 'removed', 'removed', 'unchanged'])).title).toBe(
-      '1 added, 1 changed and 2 removed — 4 spending limits in all.',
+      '1 added, 1 changed and 2 removed — 共 4 spending limits。',
     )
   })
 
   it('speaks of a single change in the singular', () => {
-    expect(describeEdit(policy(['changed', 'unchanged'])).title).toBe('1 changed — 1 spending limit in all.')
+    expect(describeEdit(policy(['changed', 'unchanged'])).title).toBe('1 changed — 共 1 spending limit。')
   })
 
   it('says so when an edit touches nothing', () => {

@@ -168,7 +168,7 @@ describe('CreateSpaceOnboarding', () => {
     expect(mockGoToSelectSafes).not.toHaveBeenCalled()
     expect(screen.queryByTestId('claim-trial-modal')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(retry).toHaveBeenCalled()
   })
 

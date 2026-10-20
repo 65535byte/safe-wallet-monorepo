@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -14,8 +15,11 @@ const HelpTooltip = () => (
       }
     />
     <TooltipContent>
-      Always verify transaction details.{' '}
-      <ExternalLink href={HelpCenterArticle.VERIFY_TX_DETAILS}>Learn more</ExternalLink>.
+      {translateMessage('ui.alwaysVerifyTransactionDetails_b1decdbc')}
+      <ExternalLink href={HelpCenterArticle.VERIFY_TX_DETAILS}>
+        {translateMessage('ui.learnMore_0c11daba')}
+      </ExternalLink>
+      .
     </TooltipContent>
   </Tooltip>
 )

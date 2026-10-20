@@ -63,28 +63,28 @@ describe('AddToSpacePopupModal', () => {
   it('renders the "Add to Space" title', () => {
     render(<AddToSpacePopupModal />)
 
-    expect(screen.getByText('Add to Workspace')).toBeInTheDocument()
+    expect(screen.getByText('添加到工作空间')).toBeInTheDocument()
   })
 
   it('renders all three benefit items', () => {
     render(<AddToSpacePopupModal />)
 
-    expect(screen.getByText('Keep all related Safes in one shared Workspace')).toBeInTheDocument()
-    expect(screen.getByText('Give teams shared context around transactions and activity')).toBeInTheDocument()
-    expect(screen.getByText('Streamline coordination across initiators, approvers, and executors')).toBeInTheDocument()
+    expect(screen.getByText('将所有相关 8379 放在同一个共享工作空间')).toBeInTheDocument()
+    expect(screen.getByText('让团队共享交易与活动信息')).toBeInTheDocument()
+    expect(screen.getByText('简化发起人、审批人和执行人之间的协作')).toBeInTheDocument()
   })
 
   it('renders a close button', () => {
     render(<AddToSpacePopupModal />)
 
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '关闭' })).toBeInTheDocument()
   })
 
   it('navigates to createSpace with safe query param when "Create a Space" is clicked', () => {
     mockRouterQuery = { safe: '1:0xdeadbeef' }
     render(<AddToSpacePopupModal />)
 
-    fireEvent.click(screen.getByRole('button', { name: /Create a Workspace/i }))
+    fireEvent.click(screen.getByRole('button', { name: /创建工作空间/i }))
 
     expect(mockPush).toHaveBeenCalledWith({
       pathname: AppRoutes.spaces.createSpace,

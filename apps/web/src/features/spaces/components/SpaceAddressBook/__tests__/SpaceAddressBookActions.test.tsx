@@ -84,38 +84,38 @@ describe('SpaceAddressBookActions', () => {
 
     render(<SpaceAddressBookActions entry={buildEntry()} />)
 
-    expect(screen.getByRole('button', { name: 'Edit entry' })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Delete entry' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '编辑联系人' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '删除联系人' })).toBeDisabled()
   })
 
   it('disables the compact-layout actions for a member', () => {
     mockUseIsAdmin.mockReturnValue(false)
 
     render(<SpaceAddressBookActions entry={buildEntry()} isCompact />)
-    fireEvent.click(screen.getByRole('button', { name: 'Contact actions' }))
+    fireEvent.click(screen.getByRole('button', { name: '联系人操作' }))
 
-    expect(screen.getByRole('button', { name: 'Edit entry' })).toBeDisabled()
-    expect(screen.getByRole('button', { name: 'Delete entry' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '编辑联系人' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '删除联系人' })).toBeDisabled()
   })
 
   it('leaves the actions enabled for an admin', () => {
     render(<SpaceAddressBookActions entry={buildEntry()} />)
 
-    expect(screen.getByRole('button', { name: 'Edit entry' })).toBeEnabled()
-    expect(screen.getByRole('button', { name: 'Delete entry' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '编辑联系人' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '删除联系人' })).toBeEnabled()
   })
 
   it('does not render the kebab in the regular layout', () => {
     render(<SpaceAddressBookActions entry={buildEntry()} />)
 
-    expect(screen.queryByRole('button', { name: 'Contact actions' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '联系人操作' })).not.toBeInTheDocument()
   })
 
   it('opens the edit dialog from the compact-layout kebab', () => {
     render(<SpaceAddressBookActions entry={buildEntry()} isCompact />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Contact actions' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Edit entry' }))
+    fireEvent.click(screen.getByRole('button', { name: '联系人操作' }))
+    fireEvent.click(screen.getByRole('button', { name: '编辑联系人' }))
 
     expect(screen.getByTestId('edit-contact-dialog')).toBeInTheDocument()
   })
@@ -123,8 +123,8 @@ describe('SpaceAddressBookActions', () => {
   it('opens the delete dialog from the compact-layout kebab', () => {
     render(<SpaceAddressBookActions entry={buildEntry()} isCompact />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Contact actions' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Delete entry' }))
+    fireEvent.click(screen.getByRole('button', { name: '联系人操作' }))
+    fireEvent.click(screen.getByRole('button', { name: '删除联系人' }))
 
     expect(screen.getByTestId('delete-contact-dialog')).toBeInTheDocument()
   })

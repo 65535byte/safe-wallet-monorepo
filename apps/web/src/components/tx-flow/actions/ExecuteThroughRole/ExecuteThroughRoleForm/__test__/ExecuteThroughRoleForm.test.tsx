@@ -175,12 +175,10 @@ describe('ExecuteThroughRoleForm', () => {
     expect(await findByTestId('combo-submit-executeThroughRole')).toBeDisabled()
 
     expect(
-      getByText(
-        textContentMatcher('You are a member of the eth_wrapping role but it does not allow this transaction.'),
-      ),
+      getByText(textContentMatcher('You are a member / the eth_wrapping role but it does not allow this transaction.')),
     ).toBeInTheDocument()
 
-    expect(getByText('Role is not allowed to call target address')).toBeInTheDocument()
+    expect(getByText('该角色无权调用目标地址')).toBeInTheDocument()
   })
 
   it('executes the tx when the submit button is clicked', async () => {
@@ -271,7 +269,7 @@ describe('ExecuteThroughRoleForm', () => {
   })
 })
 
-const SLOT_OPTIONS = [{ id: 'executeThroughRole', label: 'Execute through role' }]
+const SLOT_OPTIONS = [{ id: 'executeThroughRole', label: '通过角色执行' }]
 const ROLES_MOD_ADDRESS = '0x1234567890000000000000000000000000000000'
 const MEMBER_ADDRESS = '0x1111111110000000000000000000000000000000'
 const ROLE_KEY = encodeBytes32String('eth_wrapping')

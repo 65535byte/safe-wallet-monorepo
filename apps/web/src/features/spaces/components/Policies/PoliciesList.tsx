@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState } from 'react'
 import { ArrowDownUp, Plus } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
@@ -20,8 +21,8 @@ import {
 import type { Policy, PolicyType } from '@safe-global/views/features/spaces/components/Policies/types'
 
 const POLICY_TYPE_FILTERS: { type: PolicyType; label: string }[] = [
-  { type: 'spending-limit', label: 'Spending limits' },
-  { type: 'proposer', label: 'Proposers' },
+  { type: 'spending-limit', label: translateMessage('ui.spendingLimits_a36dee76') },
+  { type: 'proposer', label: translateMessage('ui.proposers_8aaa6a22') },
 ]
 
 export type PoliciesListProps = {
@@ -68,7 +69,7 @@ const PoliciesList = ({ policies, onAddPolicy, onSelectPolicy }: PoliciesListPro
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button onClick={onAddPolicy} className="shrink-0" data-testid="add-policy-button">
           <Plus className="size-4 text-green-500" aria-hidden />
-          Add policy
+          {translateMessage('ui.addPolicy_7ce66374')}
         </Button>
 
         <SearchInput
@@ -76,8 +77,8 @@ const PoliciesList = ({ policies, onAddPolicy, onSelectPolicy }: PoliciesListPro
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           onClear={() => setQuery('')}
-          placeholder="Search"
-          aria-label="Search policies"
+          placeholder={translateMessage('ui.search_b3c8cd38')}
+          aria-label={translateMessage('ui.searchPolicies_affba786')}
           autoComplete="off"
           className="flex-1"
           data-testid="policies-search"
@@ -86,7 +87,7 @@ const PoliciesList = ({ policies, onAddPolicy, onSelectPolicy }: PoliciesListPro
         <Select value={sort} onValueChange={(value) => setSort(value as PolicySortOption | null)}>
           <SelectTrigger
             className="shrink-0 data-[placeholder]:text-foreground sm:w-44"
-            aria-label="Sort policies"
+            aria-label={translateMessage('ui.sortPolicies_79b2af47')}
             data-testid="policies-sort"
           >
             <ArrowDownUp className="size-4 text-foreground" aria-hidden />
@@ -106,8 +107,12 @@ const PoliciesList = ({ policies, onAddPolicy, onSelectPolicy }: PoliciesListPro
         </Select>
       </div>
 
-      <div className="flex items-center gap-2" role="group" aria-label="Filter by policy type">
-        <span className="text-sm text-muted-foreground">Filter by:</span>
+      <div
+        className="flex items-center gap-2"
+        role="group"
+        aria-label={translateMessage('ui.filterByPolicyType_eab0cd7a')}
+      >
+        <span className="text-sm text-muted-foreground">{translateMessage('ui.filterBy_21a27c33')}</span>
         {POLICY_TYPE_FILTERS.map(({ type, label }) => {
           const isSelected = typeFilter === type
           const count = matches.filter((policy) => policy.type === type).length

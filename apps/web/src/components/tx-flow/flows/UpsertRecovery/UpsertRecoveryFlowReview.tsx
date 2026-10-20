@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect } from 'react'
 import type { ReactElement } from 'react'
 
@@ -11,7 +12,7 @@ import { useWeb3ReadOnly } from '@/hooks/wallets/web3ReadOnly'
 import { createMultiSendCallOnlyTx, createTx } from '@/services/tx/tx-sender'
 import { TOOLTIP_TITLES } from '@safe-global/views/components/tx-flow/common/constants'
 import type { UpsertRecoveryFlowProps } from '.'
-import { getDetailedPeriod } from '@safe-global/utils/utils/date'
+import { getDetailedPeriod } from '@safe-global/views/utils/formatPeriod'
 import { TxFlowContext, type TxFlowContextType } from '../../TxFlowProvider'
 import ReviewTransaction, { type ReviewTransactionProps } from '@/components/tx/ReviewTransactionV2'
 import ErrorMessage from '@/components/tx/ErrorMessage'
@@ -46,7 +47,7 @@ export function UpsertRecoveryFlowReview({ children, ...props }: ReviewTransacti
   const isEdit = !!data?.moduleAddress
 
   if (!data) {
-    return <ErrorMessage>No data provided</ErrorMessage>
+    return <ErrorMessage>{translateMessage('ui.noDataProvided_77e6691f')}</ErrorMessage>
   }
 
   const { recoverer, delay, expiry } = data
@@ -55,17 +56,18 @@ export function UpsertRecoveryFlowReview({ children, ...props }: ReviewTransacti
   return (
     <ReviewTransaction {...props}>
       <Typography>
-        This transaction will {isEdit ? 'update' : 'enable'} the Account recovery feature once executed.
+        {translateMessage('ui.thisTransactionWill_b37c5552')}
+        {isEdit ? 'update' : 'enable'} {translateMessage('ui.theAccountRecoveryFeatureOnceExecuted_7216594f')}
       </Typography>
 
-      <TxDataRow title="Trusted Recoverer">
+      <TxDataRow title={translateMessage('ui.trustedRecoverer_bc55a11e')}>
         <EthHashInfo address={recoverer} showName={false} hasExplorer showCopyButton avatarSize={24} />
       </TxDataRow>
 
       <TxDataRow
         title={
           <>
-            Review window
+            {translateMessage('ui.reviewWindow_d007ef5d')}
             <Tooltip>
               <TooltipTrigger render={<span />}>
                 <InfoIcon className="ml-1 inline size-4 align-middle text-[var(--color-border-main)]" />
@@ -82,7 +84,7 @@ export function UpsertRecoveryFlowReview({ children, ...props }: ReviewTransacti
         <TxDataRow
           title={
             <>
-              Proposal expiry
+              {translateMessage('ui.proposalExpiry_368c328d')}
               <Tooltip>
                 <TooltipTrigger render={<span />}>
                   <InfoIcon className="ml-1 inline size-4 align-middle text-[var(--color-border-main)]" />

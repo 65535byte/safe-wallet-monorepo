@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import type { SafeGrade } from '@/features/security/types'
 import SafeGradeChip, {
   SAFE_GRADE_LABEL,
@@ -16,7 +16,7 @@ export type StatusCellProps = {
 }
 
 const formatNonPassingLabel = (grade: SafeGrade, count: number): string =>
-  `${SAFE_GRADE_LABEL[grade]} · ${count} issue${maybePlural(count)} found`
+  translateMessage('ui.issueFound_3d502f1d', { p0: SAFE_GRADE_LABEL[grade], p1: count })
 
 const StatusCell = ({ grade, count, isScanning }: StatusCellProps) => {
   if (!grade) {

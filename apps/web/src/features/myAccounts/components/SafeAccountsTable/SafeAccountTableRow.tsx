@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useMemo, type MouseEvent, type ReactNode } from 'react'
 import type { DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
 import type { LinkProps } from 'next/link'
@@ -175,7 +176,7 @@ const ReorderHandle = ({
   <span
     {...dragHandleProps}
     data-testid="account-drag-handle"
-    aria-label="Drag to reorder"
+    aria-label={translateMessage('ui.dragToReorder_b6c8c4c3')}
     className={cn(
       'text-muted-foreground hover:text-foreground absolute inset-y-0 flex cursor-grab items-center justify-center active:cursor-grabbing',
       inline ? 'left-0 w-4' : 'left-0 w-7',
@@ -199,7 +200,7 @@ const SelectCell = ({
         indeterminate={checkbox.indeterminate}
         disabled={checkbox.disabled}
         onCheckedChange={(next) => onSelectToggle?.(Boolean(next))}
-        aria-label={`Select ${checkbox.ariaLabel ?? ''}`.trim()}
+        aria-label={translateMessage('ui.select_ea2dabb9', { p0: checkbox.ariaLabel ?? '' }).trim()}
         data-testid="account-select-checkbox"
       />
     )}

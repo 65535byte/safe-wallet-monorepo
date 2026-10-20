@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Checkbox } from '@safe-global/views/components/ui/checkbox'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -84,16 +85,22 @@ export const PushNotifications = (): ReactElement => {
 
   return (
     <>
-      <SettingsCard title="Push notifications" className="mb-4" contentClassName="sm:grid-cols-[1fr_2fr]">
+      <SettingsCard
+        title={translateMessage('ui.pushNotifications_4b60d36f')}
+        className="mb-4"
+        contentClassName="sm:grid-cols-[1fr_2fr]"
+      >
         <div className="flex flex-col gap-5">
           <NotificationRenewal />
 
           <Typography>
-            Enable push notifications for {safeLoaded ? 'this Safe account' : 'your Safe accounts'} in your browser with
-            your signature. You will need to enable them again if you clear your browser cache. Learn more about push
-            notifications{' '}
+            {translateMessage('ui.enablePushNotificationsFor_84be4c17')}
+            {safeLoaded
+              ? translateMessage('ui.thisAccount_6eff2e56')
+              : translateMessage('ui.yourAccounts_bfcf09bc')}{' '}
+            {translateMessage('ui.inYourBrowserWithYourSignature_1551fb69')}{' '}
             <ExternalLink className="font-bold hover:text-muted-foreground" href={HelpCenterArticle.PUSH_NOTIFICATIONS}>
-              here
+              {translateMessage('ui.here_134b2f0e')}
             </ExternalLink>
           </Typography>
 
@@ -102,11 +109,14 @@ export const PushNotifications = (): ReactElement => {
               <AlertSeverityIcon variant="info" />
               <AlertDescription>
                 <Typography variant="paragraph-small-bold" className="mb-2 block">
-                  For macOS users
+                  {translateMessage('ui.forMacOSUsers_6070b9b2')}
                 </Typography>
                 <Typography variant="paragraph-small">
-                  Double-check that you have enabled your browser notifications under <b>System Settings</b> &gt;{' '}
-                  <b>Notifications</b> &gt; <b>Application Notifications</b> (path may vary depending on OS version).
+                  {translateMessage('ui.doubleCheckThatYouHaveEnabled_31a3238e')}
+                  <b>{translateMessage('ui.systemSettings_13527289')}</b> &gt;{' '}
+                  <b>{translateMessage('ui.notifications_e0d1fbb4')}</b> &gt;{' '}
+                  <b>{translateMessage('ui.applicationNotifications_3fbde10e')}</b>{' '}
+                  {translateMessage('ui.pathMayVaryDependingOnOS_614d8244')}
                 </Typography>
               </AlertDescription>
             </Alert>
@@ -115,7 +125,7 @@ export const PushNotifications = (): ReactElement => {
           {safeLoaded ? (
             <>
               <Separator />
-              <NetworkWarning action="change your notification settings" />
+              <NetworkWarning action={translateMessage('ui.changeYourNotificationSettings_9922342a')} />
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <EthHashInfo
@@ -139,7 +149,9 @@ export const PushNotifications = (): ReactElement => {
                           onCheckedChange={handleOnChange}
                           disabled={disabled}
                         />
-                        <FieldLabel>{preferences ? 'On' : 'Off'}</FieldLabel>
+                        <FieldLabel>
+                          {preferences ? translateMessage('ui.on_b629d376') : translateMessage('ui.off_ba73348a')}
+                        </FieldLabel>
                       </Field>
                     )
                   }}
@@ -148,9 +160,9 @@ export const PushNotifications = (): ReactElement => {
 
               <div className={css.globalInfo}>
                 <Typography variant="paragraph-small">
-                  Want to setup notifications for different or all Safe accounts? You can do so in your{' '}
+                  {translateMessage('ui.wantToSetupNotificationsForDifferent_5e2d01ee')}{' '}
                   <ShadcnLink className="font-bold" render={<NextLink href={AppRoutes.settings.notifications} />}>
-                    global preferences
+                    {translateMessage('ui.globalPreferences_a9a982be')}
                   </ShadcnLink>
                   .
                 </Typography>
@@ -162,7 +174,7 @@ export const PushNotifications = (): ReactElement => {
         </div>
       </SettingsCard>
       {preferences && (
-        <SettingsCard title="Notification" contentClassName="sm:grid-cols-[1fr_2fr]">
+        <SettingsCard title={translateMessage('ui.notification_d41b6f05')} contentClassName="sm:grid-cols-[1fr_2fr]">
           <div className="flex flex-col gap-4">
             <Field orientation="horizontal" className="w-fit">
               <Checkbox
@@ -179,7 +191,7 @@ export const PushNotifications = (): ReactElement => {
                   trackEvent({ ...PUSH_NOTIFICATION_EVENTS.TOGGLE_INCOMING_TXS, label: checked })
                 }}
               />
-              <FieldLabel htmlFor="incoming-txs">Incoming transactions</FieldLabel>
+              <FieldLabel htmlFor="incoming-txs">{translateMessage('ui.incomingTransactions_95d1bee4')}</FieldLabel>
             </Field>
 
             <Field orientation="horizontal" className="w-fit">
@@ -199,7 +211,7 @@ export const PushNotifications = (): ReactElement => {
                   trackEvent({ ...PUSH_NOTIFICATION_EVENTS.TOGGLE_OUTGOING_TXS, label: checked })
                 }}
               />
-              <FieldLabel htmlFor="outgoing-txs">Outgoing transactions</FieldLabel>
+              <FieldLabel htmlFor="outgoing-txs">{translateMessage('ui.outgoingTransactions_8a44b5f8')}</FieldLabel>
             </Field>
 
             <Field orientation="horizontal" className="w-fit" data-disabled={!isOwner || !preferences || undefined}>
@@ -234,10 +246,12 @@ export const PushNotifications = (): ReactElement => {
               />
               <FieldLabel htmlFor="confirmation-requests">
                 <span className="flex flex-col">
-                  <Typography>Confirmation requests</Typography>
+                  <Typography>{translateMessage('ui.confirmationRequests_76ce23a4')}</Typography>
                   {!preferences[WebhookType.CONFIRMATION_REQUEST] && (
                     <Typography variant="paragraph-small" className="text-muted-foreground">
-                      {isOwner ? 'Requires your signature' : 'Only signers'}
+                      {isOwner
+                        ? translateMessage('ui.requiresYourSignature_264a5ddf')
+                        : translateMessage('ui.onlySigners_fd046100')}
                     </Typography>
                   )}
                 </span>

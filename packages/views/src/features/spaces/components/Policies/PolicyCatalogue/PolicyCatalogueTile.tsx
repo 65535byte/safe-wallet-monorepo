@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Lock, type LucideIcon } from 'lucide-react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -38,7 +39,7 @@ const PolicyCatalogueTile = ({
 
         {locked && accountCount && (
           <Badge variant="subtle" size="status" shape="pill" data-testid="policy-account-count">
-            {accountCount.applied} / {accountCount.total} Accounts
+            {accountCount.applied} / {accountCount.total} {translateMessage('ui.accounts_1cc93171')}
           </Badge>
         )}
       </div>
@@ -51,7 +52,12 @@ const PolicyCatalogueTile = ({
       </div>
     </div>
 
-    <Button variant="outline" className="w-full" onClick={onClick} aria-label={`${action}: ${title}`}>
+    <Button
+      variant="outline"
+      className="w-full"
+      onClick={onClick}
+      aria-label={translateMessage('ui.text_f6d9a181', { p0: action, p1: title })}
+    >
       {locked && <Lock aria-hidden data-testid="policy-locked-icon" />}
       {action}
     </Button>

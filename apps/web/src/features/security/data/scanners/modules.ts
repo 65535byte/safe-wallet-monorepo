@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ContractVersions, KnownContracts, type SupportedNetworks } from '@gnosis.pm/zodiac'
 import { getAllowanceModuleDeployment } from '@safe-global/safe-modules-deployments'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
@@ -39,7 +40,7 @@ const ALLOWANCE_MODULE_VERSIONS = ['0.1.0', '0.1.1']
 const KNOWN_MODULE_NAMES = [
   'delay',
   'allowance',
-  'spending limit',
+  translateMessage('ui.spendingLimit_ff0d50cc'),
   'roles',
   'scope guard',
   'bridge',
@@ -124,7 +125,9 @@ export const modulesScanner: SecurityScanner = {
         status: 'not_applicable',
         severity: getSeverityFromScore(score, { excluded: true }),
         score,
-        evidence: [{ label: 'Status', value: 'No modules installed' }],
+        evidence: [
+          { label: translateMessage('ui.status_8042eaf1'), value: translateMessage('ui.noModulesInstalled_b7fc07b0') },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -148,13 +151,18 @@ export const modulesScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: hasRemovable
-          ? vulnerable.map((m) => ({ label: 'Vulnerable module', value: moduleLabel(m) }))
-          : [{ label: 'Status', value: 'Affected by a known Zodiac module vulnerability' }],
+          ? vulnerable.map((m) => ({ label: translateMessage('ui.vulnerableModule_456f3613'), value: moduleLabel(m) }))
+          : [
+              {
+                label: translateMessage('ui.status_8042eaf1'),
+                value: translateMessage('ui.affectedByAKnownZodiacModule_0569b987'),
+              },
+            ],
         remediation: hasRemovable
-          ? 'This Safe has a Zodiac module affected by a known security vulnerability. Remove it immediately to protect your funds.'
-          : 'This Safe is affected by a known Zodiac module vulnerability through a related account. Review your setup and remove the affected module.',
+          ? translateMessage('ui.thisHasAZodiacModuleAffected_64f9a662')
+          : translateMessage('ui.thisIsAffectedByAKnown_8cb671a3'),
         lastChecked: now,
-        ctaLabelOverride: hasRemovable ? 'Remove unsupported module' : undefined,
+        ctaLabelOverride: hasRemovable ? translateMessage('ui.removeUnsupportedModule_7739f5ba') : undefined,
         vulnerableModules: vulnerable.map((m) => m.value),
       }
     }
@@ -162,8 +170,14 @@ export const modulesScanner: SecurityScanner = {
     const trusted = activeModules.filter((m) => isKnownModule(chainId, m.value, m.name))
     const untrusted = activeModules.filter((m) => !isKnownModule(chainId, m.value, m.name))
 
-    const trustedEvidence = trusted.map((m) => ({ label: 'Trusted module', value: moduleLabel(m) }))
-    const untrustedEvidence = untrusted.map((m) => ({ label: 'Unverified module', value: moduleLabel(m) }))
+    const trustedEvidence = trusted.map((m) => ({
+      label: translateMessage('ui.trustedModule_b97c3dfb'),
+      value: moduleLabel(m),
+    }))
+    const untrustedEvidence = untrusted.map((m) => ({
+      label: translateMessage('ui.unverifiedModule_51cfbabf'),
+      value: moduleLabel(m),
+    }))
 
     // Tier 2: All modules are trusted
     if (untrusted.length === 0) {
@@ -186,8 +200,7 @@ export const modulesScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [...trustedEvidence, ...untrustedEvidence],
-        remediation:
-          'One installed module could not be verified as a known Safe ecosystem module. Review it in Settings to ensure it is from a trusted source.',
+        remediation: translateMessage('ui.oneInstalledModuleCouldNotBe_b184e735'),
         lastChecked: now,
       }
     }
@@ -199,8 +212,7 @@ export const modulesScanner: SecurityScanner = {
       severity: getSeverityFromScore(score),
       score,
       evidence: [...trustedEvidence, ...untrustedEvidence],
-      remediation:
-        'Unverified modules have full control over your Safe and can execute transactions without signer approval. Review and remove any modules you do not recognize.',
+      remediation: translateMessage('ui.unverifiedModulesHaveFullControlOver_64c14f8a'),
       lastChecked: now,
     }
   },

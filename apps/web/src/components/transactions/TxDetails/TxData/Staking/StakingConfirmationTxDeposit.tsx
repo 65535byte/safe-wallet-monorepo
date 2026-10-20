@@ -1,9 +1,10 @@
+import { translateMessage } from '@/i18n'
 import type { NativeStakingDepositTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { cn } from '@safe-global/views/utils/cn'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 import ConfirmationOrderHeader from '@/components/tx/ConfirmationOrder/ConfirmationOrderHeader'
-import { formatDurationFromMilliseconds, formatVisualAmount, maybePlural } from '@safe-global/utils/utils/formatters'
+import { formatDurationFromMilliseconds, formatVisualAmount } from '@safe-global/utils/utils/formatters'
 import { formatCurrency } from '@safe-global/utils/utils/formatNumber'
 import StakingStatus from './StakingStatus'
 import { InfoTooltip } from '@safe-global/views/components/common/InfoTooltip'
@@ -29,21 +30,21 @@ const StakingConfirmationTxDeposit = ({ order, isTxDetails }: StakingOrderConfir
             {
               value: order.value,
               tokenInfo: order.tokenInfo,
-              label: 'Deposit',
+              label: translateMessage('ui.deposit_99d820fe'),
             },
             {
               value: order.annualNrr.toFixed(3) + '%',
-              label: 'Rewards rate (after fees)',
+              label: translateMessage('ui.rewardsRateAfterFees_853a5036'),
             },
           ]}
         />
       )}
-      <FieldsGrid title="Net annual rewards">
+      <FieldsGrid title={translateMessage('ui.netAnnualRewards_e4d6acdf')}>
         {formatVisualAmount(order.expectedAnnualReward, order.tokenInfo.decimals)} {order.tokenInfo.symbol}
         {' ('}
         {formatCurrency(order.expectedFiatAnnualReward, CURRENCY)})
       </FieldsGrid>
-      <FieldsGrid title="Net monthly rewards">
+      <FieldsGrid title={translateMessage('ui.netMonthlyRewards_6b5e9670')}>
         {formatVisualAmount(order.expectedMonthlyReward, order.tokenInfo.decimals)} {order.tokenInfo.symbol}
         {' ('}
         {formatCurrency(order.expectedFiatMonthlyReward, CURRENCY)})
@@ -51,10 +52,8 @@ const StakingConfirmationTxDeposit = ({ order, isTxDetails }: StakingOrderConfir
       <FieldsGrid
         title={
           <>
-            Fee
-            <InfoTooltip
-              title={`The widget fee incurred here is charged by Kiln for the operation of this widget. The fee is calculated automatically. Part of the fee will contribute to a license fee that supports the Safe Community. Neither the Safe Ecosystem Foundation nor ${BRAND_NAME} operates the Kiln Widget and/or Kiln.`}
-            />
+            {translateMessage('ui.fee_26159a09')}
+            <InfoTooltip title={translateMessage('ui.theWidgetFeeIncurredHereIs_c6717c2b', { p0: BRAND_NAME })} />
           </>
         }
       >
@@ -68,29 +67,32 @@ const StakingConfirmationTxDeposit = ({ order, isTxDetails }: StakingOrderConfir
       >
         {isOrder ? (
           <Typography className="mb-4 font-bold">
-            You will own{' '}
+            {translateMessage('ui.youWillOwn_2d6e72a5')}{' '}
             <span className="bg-[var(--color-border-background)] rounded px-2 py-1">
-              {order.numValidators} Ethereum validator{maybePlural(order.numValidators)}
+              {order.numValidators} {translateMessage('ui.ethereumValidator_8a18cd00')}
             </span>
           </Typography>
         ) : (
-          <FieldsGrid title="Validators">{order.numValidators}</FieldsGrid>
+          <FieldsGrid title={translateMessage('ui.validators_0de86bdd')}>{order.numValidators}</FieldsGrid>
         )}
 
-        <FieldsGrid title="Activation time">{formatDurationFromMilliseconds(order.estimatedEntryTime)}</FieldsGrid>
+        <FieldsGrid title={translateMessage('ui.activationTime_3e330e90')}>
+          {formatDurationFromMilliseconds(order.estimatedEntryTime)}
+        </FieldsGrid>
 
-        <FieldsGrid title="Rewards">Approx. every 5 days after activation</FieldsGrid>
+        <FieldsGrid title={translateMessage('ui.rewards_0a460c55')}>
+          {translateMessage('ui.approxEveryDaysAfterActivation_1417a2ec')}
+        </FieldsGrid>
 
         {!isOrder && (
-          <FieldsGrid title="Validator status">
+          <FieldsGrid title={translateMessage('ui.validatorStatus_0717076f')}>
             <StakingStatus status={order.status} />
           </FieldsGrid>
         )}
 
         {isOrder && (
           <Typography variant="paragraph-small" className="block mt-4 text-muted-foreground">
-            Earn ETH rewards with dedicated validators. Rewards must be withdrawn manually, and you can request a
-            withdrawal at any time.
+            {translateMessage('ui.earnETHRewardsWithDedicatedValidators_b23664fa')}
           </Typography>
         )}
       </div>

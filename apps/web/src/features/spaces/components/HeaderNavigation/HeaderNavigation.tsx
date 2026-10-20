@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { MouseEvent, ReactNode } from 'react'
 import { useMemo } from 'react'
 import { Search, Bell, Wallet, Layers } from 'lucide-react'
@@ -108,21 +109,21 @@ export function HeaderNavigation({
       {/* TODO: Global search button */}
       {showSearch && (
         <div className="flex items-center rounded-lg bg-muted">
-          <IconAction onClick={onSearchClick} aria-label="Search">
+          <IconAction onClick={onSearchClick} aria-label={translateMessage('ui.search_b3c8cd38')}>
             <Search className="size-5 text-muted-foreground" strokeWidth={ICON_STROKE} />
           </IconAction>
         </div>
       )}
 
       <div className="relative flex items-center rounded-lg bg-muted" data-testid="notifications-center">
-        <IconAction onClick={onNotificationsClick} aria-label="Notifications">
+        <IconAction onClick={onNotificationsClick} aria-label={translateMessage('ui.notifications_e0d1fbb4')}>
           <Bell className="size-5 text-muted-foreground" strokeWidth={ICON_STROKE} />
         </IconAction>
 
         {messages > 0 && (
           <span
             className="absolute z-10 flex items-center justify-center rounded-full bg-[rgba(18,255,128,0.1)] text-[10px] font-medium leading-none text-secondary-foreground min-w-[18px] h-[18px] px-1 -top-[2px] -right-[4px]"
-            aria-label={`${messages} unread messages`}
+            aria-label={translateMessage('ui.unreadMessages_a6f894f6', { p0: messages })}
           >
             {messages > 99 ? '99+' : messages}
           </span>
@@ -135,14 +136,14 @@ export function HeaderNavigation({
         <BatchTooltip>
           <Track {...BATCH_EVENTS.BATCH_SIDEBAR_OPEN} label={batchCount}>
             <div className="relative flex items-center rounded-lg bg-muted" data-track="batching: Batch sidebar open">
-              <IconAction onClick={onBatchClick} aria-label="Batch transactions">
+              <IconAction onClick={onBatchClick} aria-label={translateMessage('ui.batchTransactions_0c3744a1')}>
                 <Layers className="size-5 text-muted-foreground" strokeWidth={ICON_STROKE} />
               </IconAction>
 
               {batchCount > 0 && (
                 <span
                   className="absolute z-10 flex items-center justify-center rounded-full bg-[rgba(18,255,128,0.1)] text-[10px] font-medium leading-none text-secondary-foreground min-w-[18px] h-[18px] px-1 -top-[2px] -right-[4px]"
-                  aria-label={`${batchCount} batched transactions`}
+                  aria-label={translateMessage('ui.batchedTransactions_13f43cea', { p0: batchCount })}
                 >
                   {batchCount > 99 ? '99+' : batchCount}
                 </span>
@@ -159,16 +160,26 @@ export function HeaderNavigation({
             size="chip"
             onClick={onWalletClick}
             className="m-1"
-            aria-label={isConnected ? `Wallet ${walletDisplayName}` : 'Connect wallet'}
+            aria-label={
+              isConnected
+                ? translateMessage('ui.wallet_e43fe6fe', { p0: walletDisplayName })
+                : translateMessage('ui.connectWallet_301090ba')
+            }
             data-testid={isConnected ? 'open-account-center' : 'connect-wallet-btn'}
           >
             {isConnected && identiconUrl ? (
               <div className="relative shrink-0">
-                <img src={identiconUrl} alt="Wallet identicon" className="size-6 rounded-full" />
+                <img
+                  src={identiconUrl}
+                  alt={translateMessage('ui.walletIdenticon_8a623c74')}
+                  className="size-6 rounded-full"
+                />
                 {providerIconSrc && (
                   <img
                     src={providerIconSrc}
-                    alt={`${walletLabel ?? 'Wallet'} logo`}
+                    alt={translateMessage('ui.logo_efd72bef', {
+                      p0: walletLabel ?? translateMessage('ui.wallet_de75a284'),
+                    })}
                     className="absolute -bottom-0.5 -right-0.5 size-3.5 rounded-full border-2 border-card bg-background p-px"
                   />
                 )}
@@ -177,7 +188,7 @@ export function HeaderNavigation({
               <Wallet className="size-5 text-muted-foreground" strokeWidth={ICON_STROKE} />
             )}
             <span className="text-xs text-muted-foreground font-normal">
-              {isConnected ? walletDisplayName : 'Connect Wallet'}
+              {isConnected ? walletDisplayName : translateMessage('ui.connectWallet_242da8dd')}
             </span>
           </Button>
         </div>

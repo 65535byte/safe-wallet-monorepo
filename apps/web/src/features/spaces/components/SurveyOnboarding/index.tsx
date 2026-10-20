@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useState, type ReactElement } from 'react'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -121,7 +122,7 @@ const SurveyOnboarding = (): ReactElement | null => {
 
       <div className="flex flex-col gap-2">
         <Typography variant="h2" id="survey-page-title">
-          {page?.title ?? 'How will you use Safe?'}
+          {page?.title ?? translateMessage('ui.howWillYouUse_b9f00816')}
         </Typography>
         <Typography variant="paragraph" color="muted">
           {page?.subtitle ?? "Select all that apply. We'll tailor your setup."}
@@ -133,7 +134,7 @@ const SurveyOnboarding = (): ReactElement | null => {
       {error && !isNotFoundError(error) && (
         <Alert variant="destructive">
           <AlertSeverityIcon variant="destructive" />
-          <AlertDescription>Failed to load survey. Please refresh.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.failedToLoadSurveyPleaseRefresh_41e60088')}</AlertDescription>
         </Alert>
       )}
 
@@ -154,7 +155,7 @@ const SurveyOnboarding = (): ReactElement | null => {
       {submitError && (
         <Alert variant="destructive">
           <AlertSeverityIcon variant="destructive" />
-          <AlertDescription>Failed to submit. Please try again.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.failedToSubmitPleaseTryAgain_6026f7f9')}</AlertDescription>
         </Alert>
       )}
     </div>
@@ -164,7 +165,7 @@ const SurveyOnboarding = (): ReactElement | null => {
     <OnboardingFooter
       onBack={goBack}
       backDisabled={isSubmitting}
-      continueLabel="Create Workspace"
+      continueLabel={translateMessage('ui.createWorkspace_34bf60be')}
       continueType="button"
       onContinue={onFinish}
       continueDisabled={!spaceId || selected.size === 0 || isSubmitting}

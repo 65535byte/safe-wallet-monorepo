@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import RecoveryPlus from '@safe-global/views/assets/images/common/recovery-plus.svg'
 import { UpsertRecoveryFlowReview as UpsertRecoveryFlowReview } from './UpsertRecoveryFlowReview'
@@ -43,13 +44,22 @@ function UpsertRecoveryFlow({ delayModifier }: { delayModifier?: RecoveryState[n
       eventCategory={TxFlowType.SETUP_RECOVERY}
       ReviewTransactionComponent={UpsertRecoveryFlowReview}
       icon={RecoveryPlus}
-      title="Account recovery"
-      subtitle="Set up account recovery"
+      title={translateMessage('ui.accountRecovery_a5ed5ee0')}
+      subtitle={translateMessage('ui.setUpAccountRecovery_be08c268')}
     >
-      <TxFlowStep title="Account recovery" subtitle="How does recovery work" hideNonce hideProgress>
+      <TxFlowStep
+        title={translateMessage('ui.accountRecovery_a5ed5ee0')}
+        subtitle={translateMessage('ui.howDoesRecoveryWork_7841fe71')}
+        hideNonce
+        hideProgress
+      >
         <UpsertRecoveryFlowIntro />
       </TxFlowStep>
-      <TxFlowStep title="Account recovery" subtitle="Set up recovery settings" icon={RecoveryPlus}>
+      <TxFlowStep
+        title={translateMessage('ui.accountRecovery_a5ed5ee0')}
+        subtitle={translateMessage('ui.setUpRecoverySettings_379b0301')}
+        icon={RecoveryPlus}
+      >
         <UpsertRecoveryFlowSettings />
       </TxFlowStep>
     </TxFlow>

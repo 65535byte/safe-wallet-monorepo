@@ -90,22 +90,23 @@ describe('PlanChooserModal', () => {
   })
 
   it('words the headline by lock reason', () => {
-    expect(chooserCopy('lapsed', ENDED_AT).title).toBe('Your Safe Pro free access ended on Dec 5, 2026')
-    expect(chooserCopy('lapsed', null).title).toBe('Your Workspace has no active plan')
-    expect(chooserCopy('payment-failed', null).title).toBe('Your last payment failed')
+    expect(chooserCopy('lapsed', ENDED_AT).title).toBe('您的 8379 免费使用期已于 Dec 5, 2026 结束')
+    expect(chooserCopy('lapsed', null).title).toBe('工作空间没有有效套餐')
+    expect(chooserCopy('payment-failed', null).title).toBe('上次付款失败')
   })
 
   it('offers Starter and Business, leads with Business, and points large needs to sales', () => {
     const onBack = jest.fn()
     render(<PlanChooserModal spaceId={SPACE_ID} reason="lapsed" endedAt={ENDED_AT} onBack={onBack} />)
 
-    expect(screen.getByRole('heading', { name: 'Your Safe Pro free access ended on Dec 5, 2026' })).toBeInTheDocument()
-    expect(screen.getByText('Choose a plan to unlock your Workspace.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '您的 8379 免费使用期已于 Dec 5, 2026 结束' })).toBeInTheDocument()
+    expect(screen.getByText('选择套餐以解锁工作空间。')).toBeInTheDocument()
     expect(screen.queryByText('Enterprise')).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /Talk to sales/ })).toHaveAttribute('href', CONTACT_SALES_URL)
+    expect(screen.queryByRole('button', { name: '关闭' })).not.toBeInTheDocument()
+    expect(screen.getByText('需要超过 20？')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /联系销售/ })).toHaveAttribute('href', CONTACT_SALES_URL)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back to My accounts' }))
+    fireEvent.click(screen.getByRole('button', { name: '返回我的账户' }))
     expect(onBack).toHaveBeenCalled()
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.WORKSPACE_LOCKED_VIEWED, undefined)
   })
@@ -113,7 +114,7 @@ describe('PlanChooserModal', () => {
   it('goes straight to Stripe when the picked plan covers the Workspace', () => {
     render(<PlanChooserModal spaceId={SPACE_ID} reason="lapsed" endedAt={ENDED_AT} onBack={jest.fn()} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue with Business' }))
+    fireEvent.click(screen.getByRole('button', { name: '继续使用 Business' }))
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.PLAN_SELECTION_STARTED, LOCKED_ENTRY)
     expect(trackEvent).toHaveBeenCalledWith(
       SAFE_PRO_EVENTS.PLAN_CTA_CLICKED,
@@ -126,16 +127,16 @@ describe('PlanChooserModal', () => {
   it('asks which Safes stay when the picked plan covers fewer than the Workspace holds', () => {
     render(<PlanChooserModal spaceId={SPACE_ID} reason="lapsed" endedAt={ENDED_AT} onBack={jest.fn()} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue with Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(mockCheckout).not.toHaveBeenCalled()
     expect(screen.getByTestId('select-accounts-step')).toHaveAttribute('data-limit', '2')
     expect(screen.getByTestId('select-accounts-step')).toHaveAttribute('data-plan', 'Starter')
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '关闭' })).toBeInTheDocument()
 
     fireEvent.click(screen.getByText('step-back'))
-    expect(screen.getByRole('heading', { name: 'Your Safe Pro free access ended on Dec 5, 2026' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '您的 8379 免费使用期已于 Dec 5, 2026 结束' })).toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue with Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     fireEvent.click(screen.getByText('step-continue'))
     expect(mockCheckout).toHaveBeenCalledWith(SPACE_ID, 'pl_starter', [{ chainId: '1', address: '0xC' }])
   })
@@ -143,8 +144,8 @@ describe('PlanChooserModal', () => {
   it('sends a failed payment to the billing portal instead of the catalog', () => {
     render(<PlanChooserModal spaceId={SPACE_ID} reason="payment-failed" endedAt={null} onBack={jest.fn()} />)
 
-    expect(screen.queryByRole('button', { name: 'Continue with Business' })).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: /Update billing details/ }))
+    expect(screen.queryByRole('button', { name: '继续使用 Business' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /更新账单信息/ }))
     expect(mockOpenPortal).toHaveBeenCalled()
     expect(trackEvent).toHaveBeenCalledWith(SAFE_PRO_EVENTS.PLAN_SELECTION_STARTED, LOCKED_ENTRY)
   })
@@ -157,9 +158,9 @@ describe('PlanChooserModal', () => {
     expect(screen.getByTestId('plan-chooser-skeleton')).toBeInTheDocument()
 
     mockUseSpaceOffers.mockReturnValue({ paidPlans: [], isLoading: false })
-    mockTrimState = { error: 'We couldn’t start the checkout. Please try again.' }
+    mockTrimState = { error: '无法开始结账，请重试。' }
     rerender(<PlanChooserModal spaceId={SPACE_ID} reason="lapsed" endedAt={null} onBack={jest.fn()} />)
-    expect(screen.getByText('There is no plan available for this Workspace right now.')).toBeInTheDocument()
-    expect(screen.getByText('We couldn’t start the checkout. Please try again.')).toBeInTheDocument()
+    expect(screen.getByText('此工作空间目前没有可用套餐。')).toBeInTheDocument()
+    expect(screen.getByText('无法开始结账，请重试。')).toBeInTheDocument()
   })
 })

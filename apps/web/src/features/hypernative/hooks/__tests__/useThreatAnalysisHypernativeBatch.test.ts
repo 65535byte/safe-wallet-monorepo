@@ -73,7 +73,7 @@ describe('useThreatAnalysisHypernativeBatch', () => {
 
   const createMockLabelItem = () => ({
     type: 'LABEL' as const,
-    label: 'Next' as const,
+    label: '下一步' as const,
   })
 
   describe('hash extraction', () => {
@@ -480,7 +480,7 @@ describe('useThreatAnalysisHypernativeBatch', () => {
       const safeTxHash1 = faker.string.hexadecimal({ length: 64 }) as `0x${string}`
       const safeTxHash2 = faker.string.hexadecimal({ length: 64 }) as `0x${string}`
 
-      const cachedAssessment = { severity: 'OK' } as any
+      const cachedAssessment = { severity: '确定' } as any
 
       const mockFetchedAssessments = {
         [safeTxHash2]: [[], undefined, false] as any,
@@ -529,7 +529,7 @@ describe('useThreatAnalysisHypernativeBatch', () => {
       const [data, error, loading] = result.current[safeTxHash]
       expect(data).toBeUndefined()
       expect(error).toBeInstanceOf(Error)
-      expect(error?.message).toBe('Assessment failed')
+      expect(error?.message).toBe('评估失败')
       expect(loading).toBe(false)
     })
 
@@ -537,7 +537,7 @@ describe('useThreatAnalysisHypernativeBatch', () => {
       const safeTxHash1 = faker.string.hexadecimal({ length: 64 }) as `0x${string}`
       const safeTxHash2 = faker.string.hexadecimal({ length: 64 }) as `0x${string}`
 
-      const cachedAssessment = { severity: 'OK' } as any
+      const cachedAssessment = { severity: '确定' } as any
 
       const pages: QueuedItemPage[] = [
         {
@@ -596,7 +596,7 @@ describe('useThreatAnalysisHypernativeBatch', () => {
 
     it('should store data for successful assessments in Redux', () => {
       const safeTxHash = faker.string.hexadecimal({ length: 64 }) as `0x${string}`
-      const mockData = { severity: 'OK' } as any
+      const mockData = { severity: '确定' } as any
 
       const mockAssessments = {
         [safeTxHash]: [mockData, undefined, false] as any,

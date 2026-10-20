@@ -198,7 +198,7 @@ describe.each([
         variant: 'success',
         groupKey: 'add-proposer-success',
         autoHideDuration: 7000,
-        title: 'Proposer added successfully!',
+        title: '提案人添加成功！',
       }),
     ])
   })
@@ -266,12 +266,12 @@ describe.each([
   })
 
   it('surfaces a refused chain switch without signing or posting', async () => {
-    jest.spyOn(sdk, 'assertWalletChain').mockRejectedValue(new Error('Wallet connected to wrong chain.'))
+    jest.spyOn(sdk, 'assertWalletChain').mockRejectedValue(new Error('钱包连接的链不正确。'))
 
     const { ok, result } = await submit()
 
     expect(ok).toBe(false)
-    expect(result.current.error?.message).toBe('Wallet connected to wrong chain.')
+    expect(result.current.error?.message).toBe('钱包连接的链不正确。')
     expect(proposerUtils.signProposerDelegation).not.toHaveBeenCalled()
     expect(addDelegate.trigger).not.toHaveBeenCalled()
     expect(addOrRequestContact).not.toHaveBeenCalled()

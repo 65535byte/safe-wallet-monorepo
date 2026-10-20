@@ -1,44 +1,39 @@
+import { translateMessage } from '@safe-global/views/i18n'
 /** Copy of the Create step, verbatim from the Figma frames. */
-export const CREATE_STEP_TITLE = 'Create new policy'
-export const EDIT_STEP_TITLE = 'Edit policy'
-export const UNKNOWN_MODULE_ERROR =
-  "This policy's module isn't a known spending limit module on this network, so it can't be added."
-export const MODULE_ALREADY_ENABLED_ERROR =
-  'The spending limit module is already added to this Safe account. The policy will show as active shortly.'
-export const FLOW_SUBTITLE = 'Spending limit'
-export const FLOW_HELP_LABEL = 'Learn more about spending limits'
+export const CREATE_STEP_TITLE = translateMessage('ui.createNewPolicy_7f8971f1')
+export const EDIT_STEP_TITLE = translateMessage('ui.editPolicy_4ece2451')
+export const UNKNOWN_MODULE_ERROR = translateMessage('ui.thisPolicySModuleIsnT_d276c4c1')
+export const MODULE_ALREADY_ENABLED_ERROR = translateMessage('ui.theSpendingLimitModuleIsAlready_98574ad8')
+export const FLOW_SUBTITLE = translateMessage('ui.spendingLimit_26abdb30')
+export const FLOW_HELP_LABEL = translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')
 
-export const CALLOUT_TITLE = 'The spender can be anyone.'
-export const CALLOUT_DESCRIPTION =
-  "A bot, a teammate, or an external wallet, they don't have to be a signer. Once this transaction executes, withdrawals up to the limit you set go through with no further approvals required."
-export const CALLOUT_DISMISS_LABEL = 'Dismiss'
+export const CALLOUT_TITLE = translateMessage('ui.theSpenderCanBeAnyone_f3f9aa2d')
+export const CALLOUT_DESCRIPTION = translateMessage('ui.aBotATeammateOrAn_4463e01e')
+export const CALLOUT_DISMISS_LABEL = translateMessage('ui.dismiss_900510da')
 
-export const SPENDER_LABEL = 'Spender'
-export const SPENDER_PLACEHOLDER = 'by name or address'
-export const SPENDER_HELPER_TEXT = 'The beneficiary that can spend within this limit, no signatures needed'
+export const SPENDER_LABEL = translateMessage('ui.spender_77803664')
+export const SPENDER_PLACEHOLDER = translateMessage('ui.byNameOrAddress_548cf12c')
+export const SPENDER_HELPER_TEXT = translateMessage('ui.theBeneficiaryThatCanSpendWithin_68c7a3be')
 
-export const LIMIT_AMOUNT_LABEL = 'Limit amount'
+export const LIMIT_AMOUNT_LABEL = translateMessage('ui.limitAmount_01c4ae51')
 export const LIMIT_AMOUNT_PLACEHOLDER = '0.0'
 export const FREQUENCY_LABEL = 'Frequency'
-export const ONE_TIME_HELPER_TEXT = 'One-time limit, it does not reset'
+export const ONE_TIME_HELPER_TEXT = translateMessage('ui.oneTimeLimitItDoesNot_974ba9ed')
 
-export const ADD_TOKEN_LABEL = 'Add token'
-export const ADD_SPENDER_LABEL = 'Add spender'
-export const REMOVE_SPENDER_LABEL = 'Remove spender'
-export const REMOVE_LIMIT_LABEL = 'Remove token limit'
-export const NEXT_LABEL = 'Next'
-export const DISCARD_CHANGES_LABEL = 'Discard all changes'
+export const ADD_TOKEN_LABEL = translateMessage('ui.addToken_dfb15fb5')
+export const ADD_SPENDER_LABEL = translateMessage('ui.addSpender_8bf974ac')
+export const REMOVE_SPENDER_LABEL = translateMessage('ui.removeSpender_1d36bcf6')
+export const REMOVE_LIMIT_LABEL = translateMessage('ui.removeTokenLimit_f9e72b19')
+export const NEXT_LABEL = translateMessage('ui.next_9cff86c8')
+export const DISCARD_CHANGES_LABEL = translateMessage('ui.discardAllChanges_52fff56b')
 
-export const DUPLICATE_SPENDER_ERROR = 'This spender is already in the policy. Add the token to their existing card.'
-export const DUPLICATE_TOKEN_ERROR = 'This token already has a limit for this spender'
-export const EXISTING_LIMIT_ERROR = 'This spender already has a spending limit for this token'
-export const EXISTING_LIMIT_TOOLTIP =
-  'This spender already has a spending limit for this token. Edit the policy to change it.'
-export const SPENDER_RESERVED_ERROR = 'This spender address is not valid'
-export const SPENDER_IS_SAFE_ERROR = 'Cannot add the Safe account itself as spender'
-export const EXISTING_LIMITS_LOAD_ERROR =
-  "The Safe's current spending limits could not be loaded. Close this window and try again."
-export const EXISTING_LIMIT_IN_POLICY_ERROR =
-  'A spender in this policy already has a spending limit for one of these tokens. Go back and remove that token.'
+export const DUPLICATE_SPENDER_ERROR = translateMessage('ui.thisSpenderIsAlreadyInThe_853c822f')
+export const DUPLICATE_TOKEN_ERROR = translateMessage('ui.thisTokenAlreadyHasALimit_ec1c6927')
+export const EXISTING_LIMIT_ERROR = translateMessage('ui.thisSpenderAlreadyHasASpending_244da7bf')
+export const EXISTING_LIMIT_TOOLTIP = translateMessage('ui.thisSpenderAlreadyHasASpending_ee317ae0')
+export const SPENDER_RESERVED_ERROR = translateMessage('ui.thisSpenderAddressIsNotValid_77c147cd')
+export const SPENDER_IS_SAFE_ERROR = translateMessage('ui.cannotAddTheAccountItselfAs_529eaa33')
+export const EXISTING_LIMITS_LOAD_ERROR = translateMessage('ui.theSCurrentSpendingLimitsCould_1809b02d')
+export const EXISTING_LIMIT_IN_POLICY_ERROR = translateMessage('ui.aSpenderInThisPolicyAlready_070d353d')
 
-export const REVIEW_STEP_TITLE = 'Confirm policy'
+export const REVIEW_STEP_TITLE = translateMessage('ui.confirmPolicy_076b3960')

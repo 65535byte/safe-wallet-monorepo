@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
 import { GripVertical } from 'lucide-react'
 
@@ -10,7 +11,7 @@ const DragHandle = ({ dragHandleProps }: { dragHandleProps?: DraggableProvidedDr
   <span
     {...dragHandleProps}
     data-testid="safe-drag-handle"
-    aria-label="Drag to reorder"
+    aria-label={translateMessage('ui.dragToReorder_b6c8c4c3')}
     onClick={(e) => e.stopPropagation()}
     className="-ml-1 flex shrink-0 cursor-grab items-center text-muted-foreground transition-colors hover:text-foreground active:cursor-grabbing"
   >

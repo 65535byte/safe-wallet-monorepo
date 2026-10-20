@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { RotateCcw } from 'lucide-react'
 import {
@@ -28,11 +29,8 @@ export const FeatureFlagEditorDialog = ({ open, onOpenChange }: FeatureFlagEdito
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent size="md" className="flex max-h-[90vh] flex-col">
         <DialogHeader divided className="shrink-0">
-          <DialogTitle className="font-bold">Feature flags</DialogTitle>
-          <DialogDescription>
-            Override the feature flags delivered by the config service. Changes apply instantly across all chains — no
-            reload needed.
-          </DialogDescription>
+          <DialogTitle className="font-bold">{translateMessage('ui.featureFlags_91d3122f')}</DialogTitle>
+          <DialogDescription>{translateMessage('ui.overrideTheFeatureFlagsDeliveredBy_82ecdefa')}</DialogDescription>
         </DialogHeader>
 
         <div className="flex min-h-0 flex-1 flex-col p-4">
@@ -47,9 +45,11 @@ export const FeatureFlagEditorDialog = ({ open, onOpenChange }: FeatureFlagEdito
             disabled={overridden.length === 0}
           >
             <RotateCcw />
-            Reset all overrides
+            {translateMessage('ui.resetAllOverrides_ca274a28')}
           </Button>
-          <DialogClose render={<Button size="lg" className="ml-auto" />}>Done</DialogClose>
+          <DialogClose render={<Button size="lg" className="ml-auto" />}>
+            {translateMessage('ui.done_23c91b78')}
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

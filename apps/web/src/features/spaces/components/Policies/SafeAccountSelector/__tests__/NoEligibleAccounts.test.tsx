@@ -18,7 +18,7 @@ describe('NoEligibleAccounts', () => {
 
     expect(screen.getByText(SIGNERS_ONLY_COPY.noEligibleAccountsText)).toBeInTheDocument()
     expect(screen.queryByText(NO_ELIGIBLE_ACCOUNTS_TEXT)).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Switch wallet' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '切换钱包' })).toBeInTheDocument()
   })
 
   it('asks for a wallet instead of blaming one when none is connected', () => {
@@ -26,14 +26,14 @@ describe('NoEligibleAccounts', () => {
 
     expect(screen.getByText(NO_WALLET_TEXT)).toBeInTheDocument()
     expect(screen.queryByText(NO_ELIGIBLE_ACCOUNTS_TEXT)).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Connect wallet' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '连接钱包' })).toBeInTheDocument()
   })
 
   it('calls onSwitchWallet when the switch-wallet button is clicked', async () => {
     const onSwitchWallet = jest.fn()
     const { user } = renderWithUserEvent(<NoEligibleAccounts onSwitchWallet={onSwitchWallet} />)
 
-    await user.click(screen.getByRole('button', { name: 'Switch wallet' }))
+    await user.click(screen.getByRole('button', { name: '切换钱包' }))
 
     expect(onSwitchWallet).toHaveBeenCalledTimes(1)
   })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Chip } from '@safe-global/views/components/ui/chip'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -54,7 +55,7 @@ export const FiatChange = ({ balanceItem, change, inline = false }: FiatChangePr
           </Chip>
         }
       />
-      <TooltipContent>24h change</TooltipContent>
+      <TooltipContent>{translateMessage('ui.hChange_0af8819b')}</TooltipContent>
     </Tooltip>
   )
 }

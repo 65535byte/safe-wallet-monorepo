@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { ShieldCheck } from 'lucide-react'
 import ChainIndicator from '@/components/common/ChainIndicator'
@@ -23,21 +24,27 @@ const PolicyOverview = ({
   enforcedBy,
 }: PolicyOverviewProps): ReactElement => {
   const items: DrawerListItem[] = [
-    { label: 'Safe account', content: <AccountIdentity {...appliesTo} showCopyButton /> },
-    { label: 'Network', content: <ChainIndicator chainId={chainId} inline className="min-w-0! justify-end!" /> },
+    { label: translateMessage('ui.account_7e251525'), content: <AccountIdentity {...appliesTo} showCopyButton /> },
+    {
+      label: translateMessage('ui.network_eb8f6520'),
+      content: <ChainIndicator chainId={chainId} inline className="min-w-0! justify-end!" />,
+    },
   ]
 
   if (initiatedBy) {
-    items.push({ label: 'Initiated by', content: <AccountIdentity {...initiatedBy} showCopyButton /> })
+    items.push({
+      label: translateMessage('ui.initiatedBy_63ad62d6'),
+      content: <AccountIdentity {...initiatedBy} showCopyButton />,
+    })
   }
 
   if (lastUpdated) {
-    items.push({ label: 'Last updated', content: lastUpdated })
+    items.push({ label: translateMessage('ui.lastUpdated_8cd51832'), content: lastUpdated })
   }
 
   if (enforcedBy) {
     items.push({
-      label: 'Enforced by',
+      label: translateMessage('ui.enforcedBy_18db72a9'),
       content: (
         <span className="inline-flex items-center gap-1">
           <ShieldCheck className="size-3.5" />
@@ -61,7 +68,7 @@ const PolicyOverview = ({
   }
 
   return (
-    <DrawerSection title="Policy overview">
+    <DrawerSection title={translateMessage('ui.policyOverview_d78b3715')}>
       <DrawerList items={items} />
     </DrawerSection>
   )

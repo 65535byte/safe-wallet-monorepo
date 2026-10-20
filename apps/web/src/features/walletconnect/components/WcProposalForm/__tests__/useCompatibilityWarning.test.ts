@@ -67,8 +67,7 @@ describe('useCompatibilityWarning', () => {
       const { result } = renderHook(() => useCompatibilityWarning(proposal, false))
 
       expect(result.current).toEqual({
-        message:
-          'While bridging via Fake Bridge, please make sure that the desination address you send funds to matches the Safe address you have on the respective chain. Otherwise, the funds will be lost.',
+        message: '通过 Fake Bridge 跨链时，请确保目标地址与目标链上的 Safe 地址一致，否则资金将会丢失。',
         severity: 'warning',
       })
     })
@@ -85,8 +84,7 @@ describe('useCompatibilityWarning', () => {
       const { result } = renderHook(() => useCompatibilityWarning(proposal, false))
 
       expect(result.current).toEqual({
-        message:
-          'While bridging via this dApp, please make sure that the desination address you send funds to matches the Safe address you have on the respective chain. Otherwise, the funds will be lost.',
+        message: '通过 this dApp 跨链时，请确保目标地址与目标链上的 Safe 地址一致，否则资金将会丢失。',
         severity: 'warning',
       })
     })
@@ -105,7 +103,8 @@ describe('useCompatibilityWarning', () => {
       const { result } = renderHook(() => useCompatibilityWarning(proposal, true))
 
       expect(result.current).toEqual({
-        message: `Fake dApp does not support this Safe account's network (this network). Please switch to a Safe account on one of the supported networks below.`,
+        message:
+          "Fake dApp does not support this 个 Safe 账户's network (this network). Please switch to a Safe account on one of the supported networks below.",
         severity: 'error',
       })
     })
@@ -122,7 +121,8 @@ describe('useCompatibilityWarning', () => {
       const { result } = renderHook(() => useCompatibilityWarning(proposal, true))
 
       expect(result.current).toEqual({
-        message: `This dApp does not support this Safe account's network (this network). Please switch to a Safe account on one of the supported networks below.`,
+        message:
+          "This dApp does not support this 个 Safe 账户's network (this network). Please switch to a Safe account on one of the supported networks below.",
         severity: 'error',
       })
     })
@@ -154,7 +154,7 @@ describe('useCompatibilityWarning', () => {
       })
 
       expect(result.current).toEqual({
-        message: 'Please make sure that the dApp is connected to Ethereum.',
+        message: '请确保 dApp 连接至 Ethereum。',
         severity: 'info',
       })
     })
@@ -171,7 +171,7 @@ describe('useCompatibilityWarning', () => {
       const { result } = renderHook(() => useCompatibilityWarning(proposal, false))
 
       expect(result.current).toEqual({
-        message: 'Please make sure that the dApp is connected to this network.',
+        message: '请确保 dApp 连接至 this network。',
         severity: 'info',
       })
     })

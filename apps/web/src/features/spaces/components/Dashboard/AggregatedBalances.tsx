@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { useRouter } from 'next/router'
 import { useContext, useCallback, useState } from 'react'
@@ -98,7 +99,7 @@ const AggregatedBalance = ({
           otherActions={
             <Button variant="ghost" size="sm" className="text-muted-foreground">
               <MoreVertical className="size-4 text-foreground" />
-              Customize
+              {translateMessage('ui.customize_41a48f39')}
             </Button>
           }
         />

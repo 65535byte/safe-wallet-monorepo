@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -34,14 +35,16 @@ const NoAssets = () => (
       <NoAssetsIcon />
     </div>
 
-    <Typography className="mb-1 mt-6">No assets yet</Typography>
+    <Typography className="mb-1 mt-6">{translateMessage('ui.noAssetsYet_95ae3223')}</Typography>
 
-    <Typography className="text-[var(--color-primary-light)]">Deposit from another wallet to get started.</Typography>
+    <Typography className="text-[var(--color-primary-light)]">
+      {translateMessage('ui.depositFromAnotherWalletToGet_b3863780')}
+    </Typography>
   </div>
 )
 
 const AssetsSkeleton = () => (
-  <WidgetCard title="Top assets" testId="assets-widget">
+  <WidgetCard title={translateMessage('ui.topAssets_c00eafa2')} testId="assets-widget">
     <Skeleton className="h-[66px] w-full rounded-lg" />
   </WidgetCard>
 )
@@ -162,7 +165,11 @@ const AssetsWidget = () => {
   if (isLoading) return <AssetsSkeleton />
 
   return (
-    <WidgetCard title="Top assets" viewAllUrl={items.length > 0 ? viewAllUrl : undefined} testId="assets-widget">
+    <WidgetCard
+      title={translateMessage('ui.topAssets_c00eafa2')}
+      viewAllUrl={items.length > 0 ? viewAllUrl : undefined}
+      testId="assets-widget"
+    >
       <div>{items.length > 0 ? <AssetList items={items} /> : <NoAssets />}</div>
     </WidgetCard>
   )

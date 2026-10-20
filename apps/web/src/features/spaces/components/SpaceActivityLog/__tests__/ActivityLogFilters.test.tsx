@@ -33,7 +33,7 @@ describe('ActivityLogFilters', () => {
     const onFiltersChange = jest.fn()
     render(<ActivityLogFilters filters={EMPTY_FILTERS} onFiltersChange={onFiltersChange} />)
 
-    fireEvent.change(screen.getByLabelText('From'), { target: { value: '2026-06-01' } })
+    fireEvent.change(screen.getByLabelText('从'), { target: { value: '2026-06-01' } })
 
     const [filters] = onFiltersChange.mock.lastCall
     expect(new Date(filters.createdAtGte).getDate()).toBe(1)
@@ -44,7 +44,7 @@ describe('ActivityLogFilters', () => {
     const onFiltersChange = jest.fn()
     render(<ActivityLogFilters filters={EMPTY_FILTERS} onFiltersChange={onFiltersChange} />)
 
-    fireEvent.change(screen.getByLabelText('To'), { target: { value: '2026-06-10' } })
+    fireEvent.change(screen.getByLabelText('至'), { target: { value: '2026-06-10' } })
 
     const [filters] = onFiltersChange.mock.lastCall
     const upperBound = new Date(filters.createdAtLte)
@@ -62,9 +62,9 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByLabelText('From')).toHaveValue('2026-06-01')
+    expect(screen.getByLabelText('从')).toHaveValue('2026-06-01')
 
-    fireEvent.change(screen.getByLabelText('From'), { target: { value: '' } })
+    fireEvent.change(screen.getByLabelText('从'), { target: { value: '' } })
 
     const [filters] = onFiltersChange.mock.lastCall
     expect(filters.createdAtGte).toBeUndefined()
@@ -82,9 +82,9 @@ describe('ActivityLogFilters', () => {
     )
 
     // The range violation is From's fault, so it's flagged inline on From only.
-    expect(screen.getByRole('alert')).toHaveTextContent("'From' date can't be after the 'To' date")
-    expect(screen.getByLabelText('From')).toHaveAttribute('aria-invalid', 'true')
-    expect(screen.getByLabelText('To')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByRole('alert')).toHaveTextContent('开始日期不能晚于结束日期')
+    expect(screen.getByLabelText('从')).toHaveAttribute('aria-invalid', 'true')
+    expect(screen.getByLabelText('至')).not.toHaveAttribute('aria-invalid')
   })
 
   it.each<[string, ActivityLogFilterState]>([
@@ -122,15 +122,15 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByLabelText('From')).toHaveAttribute('max', '2026-06-10')
-    expect(screen.getByLabelText('To')).toHaveAttribute('min', '2026-06-01')
+    expect(screen.getByLabelText('从')).toHaveAttribute('max', '2026-06-10')
+    expect(screen.getByLabelText('至')).toHaveAttribute('min', '2026-06-01')
   })
 
   it('caps both date pickers at today when no opposite bound is set', () => {
     render(<ActivityLogFilters filters={EMPTY_FILTERS} onFiltersChange={jest.fn()} />)
 
-    expect(screen.getByLabelText('From')).toHaveAttribute('max', '2026-06-24')
-    expect(screen.getByLabelText('To')).toHaveAttribute('max', '2026-06-24')
+    expect(screen.getByLabelText('从')).toHaveAttribute('max', '2026-06-24')
+    expect(screen.getByLabelText('至')).toHaveAttribute('max', '2026-06-24')
   })
 
   it('keeps the from cap at today when a future to date is set', () => {
@@ -141,7 +141,7 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByLabelText('From')).toHaveAttribute('max', '2026-06-24')
+    expect(screen.getByLabelText('从')).toHaveAttribute('max', '2026-06-24')
   })
 
   it('shows a future-date error and flags only the to field when the to date is in the future', () => {
@@ -152,9 +152,9 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByRole('alert')).toHaveTextContent("Date can't be in the future")
-    expect(screen.getByLabelText('To')).toHaveAttribute('aria-invalid', 'true')
-    expect(screen.getByLabelText('From')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByRole('alert')).toHaveTextContent('日期不能晚于今天')
+    expect(screen.getByLabelText('至')).toHaveAttribute('aria-invalid', 'true')
+    expect(screen.getByLabelText('从')).not.toHaveAttribute('aria-invalid')
   })
 
   it('shows a future-date error and flags only the from field when the from date is in the future', () => {
@@ -165,9 +165,9 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByRole('alert')).toHaveTextContent("Date can't be in the future")
-    expect(screen.getByLabelText('From')).toHaveAttribute('aria-invalid', 'true')
-    expect(screen.getByLabelText('To')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByRole('alert')).toHaveTextContent('日期不能晚于今天')
+    expect(screen.getByLabelText('从')).toHaveAttribute('aria-invalid', 'true')
+    expect(screen.getByLabelText('至')).not.toHaveAttribute('aria-invalid')
   })
 
   it('flags only the future field even when it breaks range order against a valid past bound', () => {
@@ -181,17 +181,17 @@ describe('ActivityLogFilters', () => {
       />,
     )
 
-    expect(screen.getByRole('alert')).toHaveTextContent("Date can't be in the future")
-    expect(screen.getByLabelText('From')).toHaveAttribute('aria-invalid', 'true')
-    expect(screen.getByLabelText('To')).not.toHaveAttribute('aria-invalid')
+    expect(screen.getByRole('alert')).toHaveTextContent('日期不能晚于今天')
+    expect(screen.getByLabelText('从')).toHaveAttribute('aria-invalid', 'true')
+    expect(screen.getByLabelText('至')).not.toHaveAttribute('aria-invalid')
   })
 
   it('sources the member dropdown from the audit log actors endpoint', () => {
     render(<ActivityLogFilters filters={EMPTY_FILTERS} onFiltersChange={jest.fn()} />)
 
     expect(mockUseActors).toHaveBeenCalled()
-    expect(screen.getByLabelText('Member')).toBeInTheDocument()
-    expect(screen.getByLabelText('Sort')).toBeInTheDocument()
+    expect(screen.getByLabelText('成员')).toBeInTheDocument()
+    expect(screen.getByLabelText('排序')).toBeInTheDocument()
   })
 
   it('shows the Team-page display name for a wallet member instead of the address', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EthHashInfo from '@/components/common/EthHashInfo'
 import TokenIcon from '@/components/common/TokenIcon'
 import useBalances from '@/hooks/useBalances'
@@ -43,7 +44,7 @@ const FungibleBalanceChange = ({
   return (
     <>
       <Typography variant="paragraph-small" className="mx-2">
-        {change.value ? formatAmount(change.value) : 'unknown'}
+        {change.value ? formatAmount(change.value) : translateMessage('ui.unknown_30b090da')}
       </Typography>
       <TokenIcon size={16} logoUri={logoUri} tokenSymbol={asset.symbol} />
       <Typography variant="paragraph-small-bold" className="ml-1 inline">
@@ -133,7 +134,7 @@ const BalanceChangesDisplay = () => {
       <div className={css.loader}>
         <Spinner className="size-[22px] text-[var(--color-text-secondary)]" />
         <Typography variant="paragraph-small" className="text-muted-foreground">
-          Calculating...
+          {translateMessage('ui.calculating_3b2758d7')}
         </Typography>
       </div>
     )
@@ -141,14 +142,14 @@ const BalanceChangesDisplay = () => {
   if (threatError) {
     return (
       <Typography variant="paragraph-small" className="text-muted-foreground justify-self-end">
-        Could not calculate balance changes.
+        {translateMessage('ui.couldNotCalculateBalanceChanges_7f5f4c30')}
       </Typography>
     )
   }
   if (totalBalanceChanges === 0) {
     return (
       <Typography variant="paragraph-small" className="text-muted-foreground justify-self-end">
-        No balance change detected
+        {translateMessage('ui.noBalanceChangeDetected_eb3d33ba')}
       </Typography>
     )
   }
@@ -181,7 +182,7 @@ export const BalanceChanges = () => {
   return (
     <div className={css.box}>
       <Typography variant="paragraph-small-bold" className="shrink-0">
-        Balance change
+        {translateMessage('ui.balanceChange_2c791948')}
         <Tooltip>
           <TooltipTrigger
             render={
@@ -190,13 +191,10 @@ export const BalanceChanges = () => {
               </span>
             }
           />
-          <TooltipContent>
-            The balance change gives an overview of the implications of a transaction. You can see which assets will be
-            sent and received after the transaction is executed.
-          </TooltipContent>
+          <TooltipContent>{translateMessage('ui.theBalanceChangeGivesAnOverview_3181d582')}</TooltipContent>
         </Tooltip>
       </Typography>
-      <ObservabilityErrorBoundary fallback={<div>Error showing balance changes</div>}>
+      <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorShowingBalanceChanges_2d73c831')}</div>}>
         <BalanceChangesDisplay />
       </ObservabilityErrorBoundary>
     </div>

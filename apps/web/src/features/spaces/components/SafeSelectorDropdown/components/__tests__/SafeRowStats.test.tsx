@@ -26,7 +26,7 @@ describe('SafeRowStats tooltips', () => {
     expect(trigger).toBeInTheDocument()
 
     await userEvent.hover(trigger as HTMLElement)
-    expect(await screen.findByText('2 out of 3 signers required')).toBeInTheDocument()
+    expect(await screen.findByText('2 / 共 3 signers required')).toBeInTheDocument()
   })
 
   it('labels the threshold generically when the setup differs per chain', () => {
@@ -71,7 +71,7 @@ describe('SafeRowStats tooltips', () => {
     )
 
     await userEvent.hover(tooltipTriggerOf(screen.getByTestId('account-pending')) as HTMLElement)
-    expect(await screen.findByText('3 pending transactions · 2 awaiting your confirmation')).toBeInTheDocument()
+    expect(await screen.findByText('3 笔待处理交易s · 2 awaiting your confirmation')).toBeInTheDocument()
 
     // No dot when nothing awaits the wallet, even with queued transactions present.
     rerender(

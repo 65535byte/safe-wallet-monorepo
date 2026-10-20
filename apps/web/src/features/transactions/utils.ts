@@ -1,3 +1,5 @@
+import { getLanguage } from '@/i18n'
+import { translateMessage } from '@/i18n'
 import { isMultisigExecutionInfo } from '@/utils/transaction-guards'
 import type { RecoveryQueueItem } from '@/features/recovery'
 import type { TransactionQueuedItem } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
@@ -9,15 +11,15 @@ export function getTxStatus(tx: TransactionQueuedItem): string {
 
   const { confirmationsSubmitted, confirmationsRequired } = tx.transaction.executionInfo
   if (confirmationsSubmitted >= confirmationsRequired) {
-    return 'Execution needed'
+    return translateMessage('ui.executionNeeded_baa23b66')
   }
 
   const missing = confirmationsRequired - confirmationsSubmitted
-  return `${missing} signature${missing > 1 ? 's' : ''} needed`
+  return translateMessage('ui.signatureNeeded_7b4bba75', { p0: missing })
 }
 
 export function formatTxDate(timestamp: number): string {
-  return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  return new Date(timestamp).toLocaleDateString(getLanguage(), { month: 'short', day: 'numeric' })
 }
 
 export function getActionableTransactions(

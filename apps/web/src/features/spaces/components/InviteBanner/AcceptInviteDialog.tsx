@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import {
   type GetSpaceResponse,
   useMembersAcceptInviteV1Mutation,
@@ -18,6 +19,8 @@ import { PRIVACY_URL } from '@safe-global/utils/config/constants'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { isAuthenticated } from '@/store/authSlice'
 import { useUsersGetWithWalletsV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/users'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
+import { trackEvent } from '@/services/analytics'
 import { showNotification } from '@/store/notificationsSlice'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -57,6 +60,11 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
       setIsSubmitting(false)
     }
 
+    trackEvent(
+      { ...SPACE_EVENTS.WORKSPACE_MEMBER_INVITE_ACCEPTED, label: space.uuid },
+      { workspace_id: space.uuid, user_id: currentUser?.id },
+    )
+
     if (router.pathname === AppRoutes.welcome.spaces) {
       router.push({ pathname: AppRoutes.spaces.index, query: { spaceId: space.uuid } })
     }
@@ -65,7 +73,7 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
 
     dispatch(
       showNotification({
-        message: `Accepted invite to ${space.name}`,
+        message: translateMessage('ui.acceptedInviteTo_a540f3f6', { p0: space.name }),
         variant: 'success',
         groupKey: 'accept-invite-success',
       }),
@@ -73,7 +81,7 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
   })
 
   return (
-    <ModalDialog open onClose={onClose} dialogTitle="Accept invite" hideChainIndicator>
+    <ModalDialog open onClose={onClose} dialogTitle={translateMessage('ui.acceptInvite_3f8bf5a8')} hideChainIndicator>
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <FormProvider {...methods}>
           <form onSubmit={onSubmit}>
@@ -81,7 +89,7 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
               <div className="mb-4">
                 <NameInput
                   data-testid="invite-name-input"
-                  label="Name"
+                  label={translateMessage('ui.name_84f28b85')}
                   autoFocus
                   name="name"
                   required
@@ -91,7 +99,8 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
                 />
               </div>
               <Typography variant="paragraph-small" color="muted">
-                How is my data processed? Read our <ExternalLink href={PRIVACY_URL}>privacy policy</ExternalLink>
+                {translateMessage('ui.howIsMyDataProcessedRead_340362c2')}
+                <ExternalLink href={PRIVACY_URL}>{translateMessage('ui.privacyPolicy_695dc448')}</ExternalLink>
               </Typography>
 
               {error && (
@@ -107,7 +116,7 @@ function AcceptInviteDialog({ space, onClose }: { space: GetSpaceResponse; onClo
               onCancel={onClose}
               cancelTestId="cancel-btn"
               confirmType="submit"
-              confirmLabel="Accept invite"
+              confirmLabel={translateMessage('ui.acceptInvite_3f8bf5a8')}
               confirmTestId="confirm-accept-invite-button"
               confirmDisabled={!formState.isValid}
               confirmLoading={isSubmitting}

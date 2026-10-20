@@ -20,7 +20,7 @@ jest.mock('@/store/notificationsSlice', () => ({
 
 jest.mock('@/features/spaces', () => ({
   useCurrentSpaceId: () => '42',
-  useWorkspaceAddressBookLabel: () => 'Acme address book',
+  useWorkspaceAddressBookLabel: () => 'Acme 通讯录',
 }))
 
 jest.mock('@/services/analytics', () => ({
@@ -76,8 +76,8 @@ const entry: SpaceAddressBookItemDto = {
 }
 
 const submitForm = async () => {
-  fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Alice Updated' } })
-  const submitButton = screen.getByRole('button', { name: 'Save' })
+  fireEvent.change(screen.getByLabelText('名称'), { target: { value: 'Alice Updated' } })
+  const submitButton = screen.getByRole('button', { name: '保存' })
   await waitFor(() => expect(submitButton).not.toBeDisabled())
   fireEvent.click(submitButton)
 }
@@ -126,7 +126,7 @@ describe('EditContactDialog', () => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'notifications/show',
         payload: expect.objectContaining({
-          message: 'Contact updated in Acme address book',
+          message: '联系人已在 Acme address book 中更新',
           variant: 'success',
         }),
       }),
@@ -136,8 +136,8 @@ describe('EditContactDialog', () => {
   it('treats a name that sanitizes back to the saved name as unchanged', async () => {
     render(<EditContactDialog entry={entry} onClose={jest.fn()} />)
 
-    const nameInput = screen.getByLabelText('Name')
-    const submitButton = screen.getByRole('button', { name: 'Save' })
+    const nameInput = screen.getByLabelText('名称')
+    const submitButton = screen.getByRole('button', { name: '保存' })
 
     fireEvent.change(nameInput, { target: { value: 'Bob' } })
     await waitFor(() => expect(submitButton).not.toBeDisabled())

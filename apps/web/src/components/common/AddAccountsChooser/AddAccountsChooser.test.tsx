@@ -24,21 +24,21 @@ describe('AddAccountsChooser (My accounts)', () => {
 
   it('renders the trigger with the "Add accounts" label', () => {
     renderChooser()
-    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('Add accounts')
+    expect(screen.getByTestId('open-add-accounts-chooser-button')).toHaveTextContent('添加账户')
   })
 
   it('does not render the dialog until the trigger is clicked', () => {
     renderChooser()
-    expect(screen.queryByRole('heading', { name: 'Add Safe accounts' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: '添加 8379 账户' })).not.toBeInTheDocument()
   })
 
   it('opens the chooser dialog with both options', async () => {
     renderChooser()
     await openChooser()
 
-    expect(screen.getByRole('heading', { name: 'Add Safe accounts' })).toBeInTheDocument()
-    expect(screen.getByTestId('add-accounts-select-existing')).toHaveTextContent('Select existing')
-    expect(screen.getByTestId('add-accounts-create-new')).toHaveTextContent('Create new')
+    expect(screen.getByRole('heading', { name: '添加 8379 账户' })).toBeInTheDocument()
+    expect(screen.getByTestId('add-accounts-select-existing')).toHaveTextContent('选择已有账户')
+    expect(screen.getByTestId('add-accounts-create-new')).toHaveTextContent('创建新账户')
   })
 
   it('navigates to /new-safe/load with the current page as `next` when selecting existing', async () => {
@@ -47,7 +47,7 @@ describe('AddAccountsChooser (My accounts)', () => {
     await userEvent.click(screen.getByTestId('add-accounts-select-existing'))
 
     expect(push).toHaveBeenCalledWith({ pathname: '/new-safe/load', query: { next: '/welcome/accounts' } })
-    expect(mockTrackEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'Add Safe to watchlist' }), undefined)
+    expect(mockTrackEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'Add Safe to watchlist' }))
   })
 
   it('navigates to /new-safe/create with the current page as `next` when creating new', async () => {
@@ -56,7 +56,7 @@ describe('AddAccountsChooser (My accounts)', () => {
     await userEvent.click(screen.getByTestId('add-accounts-create-new'))
 
     expect(push).toHaveBeenCalledWith({ pathname: '/new-safe/create', query: { next: '/welcome/accounts' } })
-    expect(mockTrackEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'Create new Safe' }), undefined)
+    expect(mockTrackEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'Create new Safe' }))
   })
 
   it('calls onLinkClick when a row navigates (closes the sidebar drawer)', async () => {

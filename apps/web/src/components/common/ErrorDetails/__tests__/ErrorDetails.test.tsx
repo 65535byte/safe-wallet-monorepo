@@ -6,7 +6,7 @@ describe('ErrorDetails', () => {
     const { getByTestId, getByText } = render(<ErrorDetails code="GS013" />)
 
     expect(getByTestId('error-details')).toBeInTheDocument()
-    expect(getByText('Error code')).toBeInTheDocument()
+    expect(getByText('错误代码')).toBeInTheDocument()
     expect(getByText('GS013')).toBeInTheDocument()
   })
 

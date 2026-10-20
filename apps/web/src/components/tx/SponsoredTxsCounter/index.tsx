@@ -1,3 +1,5 @@
+import { getLanguage } from '@/i18n'
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import NextLink from 'next/link'
 import { ArrowRight, Info } from 'lucide-react'
@@ -5,8 +7,6 @@ import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { AppRoutes } from '@/config/routes'
-import ProChip from '@/public/images/safe-pro/pro-chip.svg'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { MixpanelEventParams, PlanSelectionEntryPoint, UpgradeFeature, UpgradeLocation } from '@/services/analytics'
 import Track from '@/components/common/Track'
 import { useTrackOnce } from '@/services/analytics/useTrackOnce'
@@ -22,7 +22,7 @@ export const _formatResetsAt = (iso: string | null): string | null => {
   if (!iso) return null
   const timestamp = Date.parse(iso)
   if (Number.isNaN(timestamp)) return null
-  const formatted = new Intl.DateTimeFormat('en-US', {
+  const formatted = new Intl.DateTimeFormat(getLanguage(), {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
@@ -57,18 +57,20 @@ const SponsoredTxsCounter = ({
     <div className="flex items-center justify-between gap-3 bg-muted px-4 py-2" data-testid="sponsored-txs-counter">
       <Typography variant="paragraph-small" className="flex flex-wrap items-baseline gap-1">
         {left === null ? (
-          <span>Unlimited sponsored transactions</span>
+          <span>{translateMessage('ui.unlimitedSponsoredTransactions_246afdd4')}</span>
         ) : isSubscription && quota !== null ? (
           <span>
             <span className="font-semibold" data-testid="sponsored-txs-left">
               {left}
             </span>
-            <span className="text-muted-foreground">/{quota} sponsored transactions left</span>
+            <span className="text-muted-foreground">
+              /{quota} {translateMessage('ui.sponsoredTransactionsLeft_bb44cf87')}
+            </span>
           </span>
         ) : (
           <span className="inline-flex items-center gap-1">
             <span data-testid="sponsored-txs-left">
-              <span className="font-semibold">{left}</span> free transactions left today
+              <span className="font-semibold">{left}</span> {translateMessage('ui.freeTransactionsLeftToday_9ccc1952')}
             </span>
             {quota !== null && (
               <Tooltip>
@@ -80,20 +82,26 @@ const SponsoredTxsCounter = ({
                   }
                 />
                 <TooltipContent>
-                  {quota} transaction{maybePlural(quota)} per day for free
+                  {translateMessage('ui.transaction_ee02e386')}
+                  {quota} {translateMessage('ui.perDayForFree_b908752c')}
                 </TooltipContent>
               </Tooltip>
             )}
           </span>
         )}
-        {resets && <span className="text-xs text-muted-foreground">· Resets {resets}</span>}
+        {resets && (
+          <span className="text-xs text-muted-foreground">
+            {translateMessage('ui.resets_45d23e01')}
+            {resets}
+          </span>
+        )}
       </Typography>
 
       {isPro === null ? (
         <span className="block h-5 w-8 shrink-0" aria-hidden />
       ) : isPro ? (
-        <span className="block h-5 w-8 shrink-0" role="img" aria-label="Safe Pro">
-          <ProChip className="size-full" />
+        <span className="block h-5 w-8 shrink-0" role="img" aria-label="8379">
+          <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
         </span>
       ) : (
         <Track
@@ -107,9 +115,9 @@ const SponsoredTxsCounter = ({
             render={<NextLink href={AppRoutes.welcome.spaces} />}
             data-testid="sponsored-txs-upgrade"
           >
-            Upgrade to
-            <span className="block h-4 w-6" aria-label="Safe Pro">
-              <ProChip className="size-full" />
+            {translateMessage('ui.upgradeTo_192019a8')}
+            <span className="block h-4 w-6" aria-label="8379">
+              <img src="/images/brand-logo.png" alt="" className="size-full object-contain" />
             </span>
             <ArrowRight data-icon="inline-end" className="text-badge-dot-success" />
           </Button>

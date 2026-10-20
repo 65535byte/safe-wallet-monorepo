@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NextLink from 'next/link'
 import { AppRoutes } from '@/config/routes'
 import { useNewSafeNextParam } from '@/components/new-safe/getReturnUrl'
@@ -14,7 +15,7 @@ const CreateButton = ({ isPrimary, className }: { isPrimary: boolean; className?
       className={cn('max-[599px]:w-full', className)}
       render={<NextLink href={{ pathname: AppRoutes.newSafe.create, query: { next } }} />}
     >
-      Create account
+      {translateMessage('ui.createAccount_1e91f528')}
     </Button>
   )
 }

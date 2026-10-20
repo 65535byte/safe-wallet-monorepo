@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useEffect, useRef } from 'react'
 import type { QueuedItemPage } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ThreatAnalysisResults } from '@safe-global/utils/features/safe-shield/types'
@@ -89,7 +90,7 @@ const cachedToAsyncResult = (
   cached: ThreatAnalysisResults | null | undefined,
 ): AsyncResult<ThreatAnalysisResults> | null => {
   if (cached === undefined) return null
-  if (cached === null) return [undefined, new Error('Assessment failed'), false]
+  if (cached === null) return [undefined, new Error(translateMessage('ui.assessmentFailed_5c4fa34a')), false]
   return [cached, undefined, false]
 }
 

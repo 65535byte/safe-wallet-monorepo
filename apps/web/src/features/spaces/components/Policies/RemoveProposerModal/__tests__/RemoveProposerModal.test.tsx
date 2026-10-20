@@ -5,7 +5,7 @@ describe('RemoveProposerModal', () => {
   it('should, when open, ask to confirm and explain that a signature is needed', () => {
     render(<RemoveProposerModal open onClose={jest.fn()} onConfirm={jest.fn()} />)
 
-    expect(screen.getByText('Remove this proposer?')).toBeInTheDocument()
+    expect(screen.getByText('移除此提案人？')).toBeInTheDocument()
     expect(screen.getByText(/won't be able to suggest transactions anymore/)).toBeInTheDocument()
     expect(screen.getByText(/confirm it with a signature on your connected wallet/)).toBeInTheDocument()
   })
@@ -21,7 +21,7 @@ describe('RemoveProposerModal', () => {
     const onConfirm = jest.fn()
 
     render(<RemoveProposerModal open onClose={onClose} onConfirm={onConfirm} />)
-    fireEvent.click(screen.getByRole('button', { name: 'No, keep it' }))
+    fireEvent.click(screen.getByRole('button', { name: '否，保留' }))
 
     expect(onClose).toHaveBeenCalledTimes(1)
     expect(onConfirm).not.toHaveBeenCalled()
@@ -42,7 +42,7 @@ describe('RemoveProposerModal', () => {
     const onConfirm = jest.fn()
 
     render(<RemoveProposerModal open onClose={jest.fn()} onConfirm={onConfirm} />)
-    fireEvent.click(screen.getByRole('button', { name: 'Yes, delete' }))
+    fireEvent.click(screen.getByRole('button', { name: '是，删除' }))
 
     expect(onConfirm).toHaveBeenCalledTimes(1)
   })

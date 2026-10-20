@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AddressBookState } from '@/store/addressBookSlice'
 import type { ContactItem } from './Import/ContactsList'
 import type { ImportContactsFormValues } from './Import/ImportAddressBookDialog'
@@ -57,4 +58,4 @@ export const validateContactName = (name: string): string | undefined =>
   validateName(sanitizeName(name), { minLength: NAME_MIN_LENGTH, maxLength: ADDRESS_BOOK_NAME_MAX_LENGTH })
 
 export const getRenameContactTooltip = (nameError: string): string =>
-  `Rename this contact to add it to the Workspace. ${nameError}`
+  translateMessage('ui.renameThisContactToAddIt_d12c3219', { p0: nameError })

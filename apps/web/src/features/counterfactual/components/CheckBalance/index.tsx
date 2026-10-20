@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
 import ActivateAccountButton from '../ActivateAccountButton'
 import Track from '@/components/common/Track'
@@ -20,17 +21,15 @@ const CheckBalance = () => {
     <Alert data-testid="no-tokens-alert" variant="info" className="mx-auto mt-6 flex max-w-[600px] flex-col px-6 py-4">
       <AlertSeverityIcon variant="info" />
       <Typography variant="paragraph-bold" className="mb-2">
-        Don&apos;t see your tokens?
+        {translateMessage('ui.donTSeeYourTokens_78df7296')}
       </Typography>
       <Typography variant="paragraph-small" className="block mb-4">
-        Your Safe account is not activated yet so we can only display your native balance. Non-native tokens may not
-        show up immediately after the Safe is deployed. Finish the onboarding to deploy your account onchain and unlock
-        all features.{' '}
+        {translateMessage('ui.yourAccountIsNotActivatedYet_6d59727d')}{' '}
         {blockExplorerLink && (
           <>
-            You can always view all of your assets on the{' '}
+            {translateMessage('ui.youCanAlwaysViewAllOf_506c5fc7')}{' '}
             <Track {...COUNTERFACTUAL_EVENTS.CHECK_BALANCES}>
-              <ExternalLink href={blockExplorerLink.href}>Block Explorer</ExternalLink>
+              <ExternalLink href={blockExplorerLink.href}>{translateMessage('ui.blockExplorer_3edcd71e')}</ExternalLink>
             </Track>
           </>
         )}

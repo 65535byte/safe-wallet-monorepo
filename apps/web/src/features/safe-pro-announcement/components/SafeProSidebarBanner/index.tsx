@@ -1,9 +1,9 @@
+import { translateMessage } from '@/i18n'
 import { ArrowUpRight, X } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { cn } from '@safe-global/views/utils/cn'
 import { SAFE_PRO_ANNOUNCEMENT_URL } from '@/config/constants'
-import ProWordmark from '@/public/images/safe-pro/pro-wordmark.svg'
 import { MixpanelEventParams } from '@/services/analytics'
 import { useTrackOnce } from '@/services/analytics/useTrackOnce'
 import { SAFE_PRO_EVENTS } from '@/services/analytics/events/safe-pro'
@@ -36,7 +36,7 @@ const SafeProSidebarBanner = ({
           type="button"
           className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
           onClick={onDismiss}
-          aria-label="Dismiss"
+          aria-label={translateMessage('ui.dismiss_900510da')}
           data-testid="safe-pro-sidebar-banner-dismiss"
         >
           <X className="size-4" />
@@ -44,17 +44,17 @@ const SafeProSidebarBanner = ({
       )}
 
       <span className={cn('flex shrink-0 items-center rounded-sm px-2 py-1.5', css.proChip)}>
-        <ProWordmark className="h-2 w-[21px] overflow-visible" />
+        <img src="/images/brand-logo.png" alt="8379" className="size-6 object-contain" />
       </span>
 
       {/* Grows to fill the slot, so the button below stays at the bottom edge and keeps its place
         when this banner gives way to another one whose copy wraps to fewer lines. */}
       <div className="flex w-full flex-1 flex-col gap-1">
         <Typography variant="paragraph-small-bold" className="text-foreground">
-          Your Workspace moves to Safe Pro on Oct 6, 2026
+          {translateMessage('ui.yourWorkspaceMovesToOnOct_570fbd80')}
         </Typography>
         <Typography variant="paragraph-mini" color="muted">
-          Your Safe accounts remain available outside the Workspace.
+          {translateMessage('ui.yourAccountsRemainAvailableOutsideThe_8261a2d0')}
         </Typography>
       </div>
 
@@ -62,7 +62,7 @@ const SafeProSidebarBanner = ({
         size="xs"
         render={
           <a
-            onClick={() => trackSafeProBannerClick('sidebar', SAFE_PRO_ANNOUNCEMENT_URL)}
+            onClick={() => trackSafeProBannerClick('sidebar')}
             href={SAFE_PRO_ANNOUNCEMENT_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -70,7 +70,7 @@ const SafeProSidebarBanner = ({
         }
         className={css.learnMore}
       >
-        Learn more
+        {translateMessage('ui.learnMore_0c11daba')}
         <ArrowUpRight data-icon="inline-end" className={cn('text-green-400', css.arrow)} />
       </Button>
     </div>

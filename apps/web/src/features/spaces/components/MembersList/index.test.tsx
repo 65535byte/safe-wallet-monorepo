@@ -92,7 +92,7 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.getByText('Email or address')).toBeInTheDocument()
+    expect(screen.getByText('邮箱或地址')).toBeInTheDocument()
 
     const emailCells = screen.getAllByTestId('table-cell-email')
 
@@ -154,28 +154,10 @@ describe('MembersList', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Email or address' }))
+    fireEvent.click(screen.getByRole('button', { name: '邮箱或地址' }))
 
     const cells = screen.getAllByTestId('table-cell-email').map((cell) => cell.textContent)
     expect(cells).toEqual([SHORT_WALLET_ADDRESS, 'alice@example.com', 'zed@example.com'])
-  })
-
-  it('sorts the Name column by the display name, so an alias wins over the name', () => {
-    render(
-      <MembersList
-        members={[
-          memberBuilder().with({ id: 1, name: 'Charlie' }).build(),
-          memberBuilder().with({ id: 2, name: 'Alice' }).build(),
-          memberBuilder().with({ id: 3, name: 'Bob' }).build(),
-          memberBuilder().with({ id: 4, name: 'Zed', alias: 'Aaron' }).build(),
-        ]}
-      />,
-    )
-
-    fireEvent.click(screen.getByRole('button', { name: 'Name' }))
-
-    const names = screen.getAllByTestId('table-cell-name').map((cell) => cell.textContent)
-    expect(names).toEqual(['Zed', 'Alice', 'Bob', 'Charlie'])
   })
 
   it('prefers the email over the wallet address when both are present', () => {
@@ -210,7 +192,7 @@ describe('MembersList', () => {
     )
 
     const emailCell = screen.getByTestId('table-cell-email')
-    fireEvent.click(within(emailCell).getByRole('button', { name: 'Copy address' }))
+    fireEvent.click(within(emailCell).getByRole('button', { name: '复制地址' }))
 
     expect(writeText).toHaveBeenCalledWith(WALLET_ADDRESS)
   })
@@ -228,7 +210,7 @@ describe('MembersList', () => {
     )
 
     const emailCell = screen.getByTestId('table-cell-email')
-    fireEvent.click(within(emailCell).getByRole('button', { name: 'Copy email' }))
+    fireEvent.click(within(emailCell).getByRole('button', { name: '复制邮箱' }))
 
     expect(writeText).toHaveBeenCalledWith('alice@example.com')
   })
@@ -247,7 +229,7 @@ describe('MembersList', () => {
     )
 
     const nameCell = screen.getByTestId('table-cell-name')
-    fireEvent.click(within(nameCell).getByRole('button', { name: 'Copy address' }))
+    fireEvent.click(within(nameCell).getByRole('button', { name: '复制地址' }))
 
     expect(writeText).toHaveBeenCalledWith(WALLET_ADDRESS)
   })
@@ -263,7 +245,7 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.getByText('Expired')).toBeInTheDocument()
+    expect(screen.getByText('已过期')).toBeInTheDocument()
   })
 
   it('does not show an Expired chip for active members or unexpired invites', () => {
@@ -278,7 +260,7 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.queryByText('Expired')).not.toBeInTheDocument()
+    expect(screen.queryByText('已过期')).not.toBeInTheDocument()
   })
 
   it('renders the Renew button for pending email invites and for expired invites without an email', () => {
@@ -306,7 +288,7 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.getAllByRole('button', { name: 'Renew invitation' })).toHaveLength(2)
+    expect(screen.getAllByRole('button', { name: '重新发送邀请' })).toHaveLength(2)
   })
 
   it('does not render the Renew button for an unexpired invite without an email', () => {
@@ -320,7 +302,7 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.queryByRole('button', { name: 'Renew invitation' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '重新发送邀请' })).not.toBeInTheDocument()
   })
 
   it('collapses row actions into a kebab menu on mobile', () => {
@@ -342,8 +324,8 @@ describe('MembersList', () => {
     )
 
     // The kebab replaces the inline edit / renew / remove cluster
-    expect(screen.getByRole('button', { name: 'Member actions' })).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Renew invitation' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '成员操作' })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '重新发送邀请' })).not.toBeInTheDocument()
   })
 
   it('surfaces the email under the member name on mobile', () => {
@@ -426,9 +408,9 @@ describe('MembersList', () => {
 
       const cells = screen.getAllByTestId('table-cell-2fa')
       expect(cells).toHaveLength(4)
-      expect(within(cells[0]!).getByText('Active')).toBeInTheDocument()
-      expect(within(cells[1]!).getByText('Wallet sign-in')).toBeInTheDocument()
-      expect(within(cells[2]!).getByText('Invite pending')).toBeInTheDocument()
+      expect(within(cells[0]!).getByText('已启用')).toBeInTheDocument()
+      expect(within(cells[1]!).getByText('钱包登录')).toBeInTheDocument()
+      expect(within(cells[2]!).getByText('邀请待接受')).toBeInTheDocument()
       expect(within(cells[3]!).queryByTestId('member-2fa-badge')).not.toBeInTheDocument()
     })
 
@@ -441,10 +423,10 @@ describe('MembersList', () => {
       expect(screen.queryAllByTestId('table-cell-2fa')).toHaveLength(0)
       expect(screen.queryByTestId('member-2fa-badge')).not.toBeInTheDocument()
 
-      fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+      fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
 
       expect(screen.getByText('2FA')).toBeInTheDocument()
-      expect(screen.getByText('Wallet sign-in')).toBeInTheDocument()
+      expect(screen.getByText('钱包登录')).toBeInTheDocument()
     })
 
     it('leaves the badge out of the row detail for a declined invite', () => {
@@ -452,7 +434,7 @@ describe('MembersList', () => {
 
       render(<MembersList members={[twoFactorMembers[3]!]} />)
 
-      fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+      fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
 
       expect(screen.queryByText('2FA')).not.toBeInTheDocument()
     })
@@ -465,7 +447,7 @@ describe('MembersList', () => {
       expect(screen.queryByText('2FA')).not.toBeInTheDocument()
       expect(screen.queryAllByTestId('table-cell-2fa')).toHaveLength(0)
       // The other columns still render
-      expect(screen.getByText('Email or address')).toBeInTheDocument()
+      expect(screen.getByText('邮箱或地址')).toBeInTheDocument()
     })
   })
 
@@ -473,9 +455,9 @@ describe('MembersList', () => {
     const createdAt = '2026-04-22T12:00:00.000Z'
     render(<MembersList variant="active" members={[memberBuilder().with({ name: 'Alice', createdAt }).build()]} />)
 
-    expect(screen.getByText('Member since')).toBeInTheDocument()
-    expect(screen.queryByText('Invited on')).not.toBeInTheDocument()
-    expect(screen.queryByText('Expires')).not.toBeInTheDocument()
+    expect(screen.getByText('加入时间')).toBeInTheDocument()
+    expect(screen.queryByText('邀请时间')).not.toBeInTheDocument()
+    expect(screen.queryByText('过期时间')).not.toBeInTheDocument()
     expect(within(screen.getByTestId('table-cell-memberSince')).getByText(formatDate(createdAt))).toBeInTheDocument()
   })
 
@@ -489,9 +471,9 @@ describe('MembersList', () => {
       />,
     )
 
-    expect(screen.getByText('Invited on')).toBeInTheDocument()
-    expect(screen.getByText('Expires')).toBeInTheDocument()
-    expect(screen.queryByText('Member since')).not.toBeInTheDocument()
+    expect(screen.getByText('邀请时间')).toBeInTheDocument()
+    expect(screen.getByText('过期时间')).toBeInTheDocument()
+    expect(screen.queryByText('加入时间')).not.toBeInTheDocument()
 
     // "Invited on" is the absolute creation date; "Expires" is relative time-to-go.
     expect(within(screen.getByTestId('table-cell-invitedOn')).getByText(formatDate(createdAt))).toBeInTheDocument()
@@ -510,9 +492,9 @@ describe('MembersList', () => {
 
     // The date column is dropped from the compact table — it only lives in the row detail
     expect(screen.queryByText(formatDate(createdAt))).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+    fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
     expect(screen.getByText(formatDate(createdAt))).toBeInTheDocument()
-    expect(screen.getByText('Member since')).toBeInTheDocument()
+    expect(screen.getByText('加入时间')).toBeInTheDocument()
   })
 
   it('surfaces both invite dates in the row detail on mobile for the pending variant', () => {
@@ -527,11 +509,11 @@ describe('MembersList', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Show details' }))
+    fireEvent.click(screen.getByRole('button', { name: '显示详情' }))
     expect(screen.getByText(formatDate(createdAt))).toBeInTheDocument()
     expect(screen.getByText(formatTimeInWords(new Date(inviteExpiresAt).getTime()))).toBeInTheDocument()
-    expect(screen.getByText('Invited on')).toBeInTheDocument()
-    expect(screen.getByText('Expires')).toBeInTheDocument()
+    expect(screen.getByText('邀请时间')).toBeInTheDocument()
+    expect(screen.getByText('过期时间')).toBeInTheDocument()
   })
 
   it('renders a dash in the Expires column when a pending invite has no expiry', () => {

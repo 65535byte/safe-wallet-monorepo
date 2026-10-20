@@ -40,7 +40,7 @@ jest.mock('@/components/common/EthHashInfo', () => ({
 jest.mock('../AddressBookHeader', () => ({
   __esModule: true,
   default: ({ onSearchQueryChange }: { onSearchQueryChange: (query: string) => void }) => (
-    <input aria-label="Search" onChange={(event) => onSearchQueryChange(event.target.value)} />
+    <input aria-label="搜索" onChange={(event) => onSearchQueryChange(event.target.value)} />
   ),
 }))
 
@@ -58,7 +58,7 @@ jest.mock('@/components/address-book/ExportDialog', () => ({ __esModule: true, d
 jest.mock('@/components/address-book/ImportDialog', () => ({ __esModule: true, default: () => null }))
 
 const goToSecondPage = () => {
-  fireEvent.click(screen.getByRole('button', { name: 'Next page' }))
+  fireEvent.click(screen.getByRole('button', { name: '下一页' }))
   expect(screen.getByText(`26–50 of ${ENTRY_COUNT}`)).toBeInTheDocument()
 }
 
@@ -71,7 +71,7 @@ describe('AddressBookTable', () => {
     render(<AddressBookTable />)
     goToSecondPage()
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Edit entry' })[0])
+    fireEvent.click(screen.getAllByRole('button', { name: '编辑联系人' })[0])
 
     expect(screen.getByTestId('entry-dialog')).toHaveTextContent('Contact 26')
     expect(screen.getByText(`26–50 of ${ENTRY_COUNT}`)).toBeInTheDocument()
@@ -84,7 +84,7 @@ describe('AddressBookTable', () => {
     render(<AddressBookTable />)
     goToSecondPage()
 
-    fireEvent.click(screen.getAllByRole('button', { name: 'Delete entry' })[0])
+    fireEvent.click(screen.getAllByRole('button', { name: '删除联系人' })[0])
 
     expect(screen.getByTestId('remove-dialog')).toBeInTheDocument()
     expect(screen.getByText(`26–50 of ${ENTRY_COUNT}`)).toBeInTheDocument()
@@ -94,9 +94,9 @@ describe('AddressBookTable', () => {
     render(<AddressBookTable />)
     goToSecondPage()
 
-    fireEvent.change(screen.getByLabelText('Search'), { target: { value: 'Contact 1' } })
+    fireEvent.change(screen.getByLabelText('搜索'), { target: { value: 'Contact 1' } })
 
-    expect(screen.getByText('1–25 of 111')).toBeInTheDocument()
+    expect(screen.getByText('1–25 / 111')).toBeInTheDocument()
     expect(screen.getByText('Contact 1')).toBeInTheDocument()
   })
 })

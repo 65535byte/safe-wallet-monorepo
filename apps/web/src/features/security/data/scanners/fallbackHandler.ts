@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { identifyOfficialFallbackHandler } from '@safe-global/utils/services/contracts/deployments'
 import { sameAddress } from '@safe-global/utils/utils/addresses'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
@@ -18,9 +19,9 @@ const identifyFallbackHandler = (address: string, chainId: string): HandlerMatch
 }
 
 const HANDLER_LABELS: Record<Exclude<HandlerMatch, null>, string> = {
-  compatibility: 'Official Safe fallback handler',
-  extensible: 'Official Safe extensible fallback handler',
-  twap: 'CoW Protocol TWAP handler',
+  compatibility: translateMessage('ui.officialFallbackHandler_2d611365'),
+  extensible: translateMessage('ui.officialExtensibleFallbackHandler_ac740f04'),
+  twap: translateMessage('ui.coWProtocolTWAPHandler_3f6a1261'),
 }
 
 export const fallbackHandlerScanner: SecurityScanner = {
@@ -37,7 +38,12 @@ export const fallbackHandlerScanner: SecurityScanner = {
         status: 'clear',
         severity: getSeverityFromScore(score),
         score,
-        evidence: [{ label: 'Status', value: 'No fallback handler set' }],
+        evidence: [
+          {
+            label: translateMessage('ui.status_8042eaf1'),
+            value: translateMessage('ui.noFallbackHandlerSet_44bed8fb'),
+          },
+        ],
         remediation: '',
         lastChecked: now,
       }
@@ -53,8 +59,8 @@ export const fallbackHandlerScanner: SecurityScanner = {
         severity: getSeverityFromScore(score),
         score,
         evidence: [
-          { label: 'Handler', value: handlerLabel },
-          { label: 'Status', value: HANDLER_LABELS[match] },
+          { label: translateMessage('ui.handler_e85e8767'), value: handlerLabel },
+          { label: translateMessage('ui.status_8042eaf1'), value: HANDLER_LABELS[match] },
         ],
         remediation: '',
         lastChecked: now,
@@ -67,11 +73,13 @@ export const fallbackHandlerScanner: SecurityScanner = {
       severity: getSeverityFromScore(score),
       score,
       evidence: [
-        { label: 'Handler', value: handlerLabel },
-        { label: 'Status', value: 'Unrecognized fallback handler' },
+        { label: translateMessage('ui.handler_e85e8767'), value: handlerLabel },
+        {
+          label: translateMessage('ui.status_8042eaf1'),
+          value: translateMessage('ui.unrecognizedFallbackHandler_8d592d19'),
+        },
       ],
-      remediation:
-        'The fallback handler is not a recognized Safe deployment. An untrusted handler can intercept calls to the Safe. Review it in Settings to ensure it is legitimate.',
+      remediation: translateMessage('ui.theFallbackHandlerIsNotA_1ba0dedd'),
       lastChecked: now,
     }
   },

@@ -73,10 +73,7 @@ describe('useInviteNotification', () => {
 
     const { store } = renderWithStore()
 
-    expect(inviteMessages(store)).toEqual([
-      "You've been invited to join Workspace A",
-      "You've been invited to join Workspace B",
-    ])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A', '您受邀加入 Workspace B'])
   })
 
   it('dispatches an info notification grouped and linked to the invite', () => {
@@ -87,9 +84,9 @@ describe('useInviteNotification', () => {
     const [notification] = selectNotifications(store.getState())
     expect(notification).toMatchObject({
       variant: 'info',
-      message: "You've been invited to join Workspace A",
+      message: '您受邀加入 Workspace A',
       groupKey: 'space-invite-space-a',
-      link: { href: AppRoutes.welcome.spaces, title: 'View invite' },
+      link: { href: AppRoutes.welcome.spaces, title: '查看邀请' },
     })
   })
 
@@ -109,7 +106,7 @@ describe('useInviteNotification', () => {
     rerender()
     rerender()
 
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
   })
 
   it('dispatches once for a space that newly appears in the INVITED list mid-session', () => {
@@ -123,20 +120,17 @@ describe('useInviteNotification', () => {
     ])
     rerender()
 
-    expect(inviteMessages(store)).toEqual([
-      "You've been invited to join Workspace A",
-      "You've been invited to join Workspace B",
-    ])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A', '您受邀加入 Workspace B'])
   })
 
   it('re-dispatches on a fresh mount while the invite is still INVITED', () => {
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.INVITED)])
 
     const { store } = renderWithStore()
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
 
     const second = renderWithStore()
-    expect(inviteMessages(second.store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(second.store)).toEqual(['您受邀加入 Workspace A'])
   })
 
   it('dispatches nothing when there are no invites', () => {
@@ -160,32 +154,26 @@ describe('useInviteNotification', () => {
   it('stops notifying once a space leaves the INVITED list and notifies again on re-invite', () => {
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.INVITED)])
     const { store, rerender } = renderWithStore()
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
 
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.ACTIVE)])
     rerender()
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
 
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.INVITED)])
     rerender()
-    expect(inviteMessages(store)).toEqual([
-      "You've been invited to join Workspace A",
-      "You've been invited to join Workspace A",
-    ])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A', '您受邀加入 Workspace A'])
   })
 
   it('re-notifies when the invite is resent with a new expiry while status stays INVITED', () => {
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.INVITED, '2026-01-01T00:00:00Z')])
     const { store, rerender } = renderWithStore()
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
 
     mockSpaces([makeSpace('space-a', 'Workspace A', MemberStatus.INVITED, '2026-02-01T00:00:00Z')])
     rerender()
 
-    expect(inviteMessages(store)).toEqual([
-      "You've been invited to join Workspace A",
-      "You've been invited to join Workspace A",
-    ])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A', '您受邀加入 Workspace A'])
   })
 
   it('does not re-notify on re-render when the resent invite keeps the same expiry', () => {
@@ -193,7 +181,7 @@ describe('useInviteNotification', () => {
     const { store, rerender } = renderWithStore()
     rerender()
 
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
   })
 
   it('dismisses the visible toast once the invite is accepted/declined elsewhere', () => {
@@ -241,6 +229,6 @@ describe('useInviteNotification', () => {
     mockPathname = '/some-other-page'
     rerender()
 
-    expect(inviteMessages(store)).toEqual(["You've been invited to join Workspace A"])
+    expect(inviteMessages(store)).toEqual(['您受邀加入 Workspace A'])
   })
 })

@@ -145,7 +145,7 @@ describe('SpenderCard', () => {
     await user.click(screen.getByRole('button', { name: ADD_TOKEN_LABEL }))
     expect(screen.getAllByTestId('token-limit-card')).toHaveLength(2)
 
-    await user.click(screen.getByRole('button', { name: 'remove limit 0' }))
+    await user.click(screen.getByRole('button', { name: 'remove 项限额 0' }))
     expect(screen.getAllByTestId('token-limit-card')).toHaveLength(1)
     expect(screen.getByTestId('token-limit-card')).toHaveTextContent('limit 0')
     expect(screen.queryByRole('button', { name: /remove row/ })).not.toBeInTheDocument()

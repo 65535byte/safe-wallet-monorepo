@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { X as CloseIcon } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -23,15 +24,20 @@ export const HnPendingBanner = ({ onDismiss }: HnPendingBannerProps): ReactEleme
         </div>
         <div className={css.textContainer}>
           <Typography variant="paragraph-bold" className={css.title}>
-            Guardian setup in progress
+            {translateMessage('ui.guardianSetupInProgress_2bda4f1e')}
           </Typography>
           <Typography variant="paragraph-small" className={css.description}>
-            We&apos;ve received your request and will follow up with next steps.
+            {translateMessage('ui.weVeReceivedYourRequestAnd_1c057a35')}
           </Typography>
         </div>
       </div>
       {onDismiss && (
-        <Button variant="ghost" className={css.closeButton} aria-label="close" onClick={onDismiss}>
+        <Button
+          variant="ghost"
+          className={css.closeButton}
+          aria-label={translateMessage('ui.close_aaaeeafe')}
+          onClick={onDismiss}
+        >
           <CloseIcon />
         </Button>
       )}

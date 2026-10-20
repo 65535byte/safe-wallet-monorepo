@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useRouter } from 'next/router'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import type { ReactElement } from 'react'
@@ -23,7 +24,7 @@ export function NestedSafeBreadcrumbs(): ReactElement | null {
   return (
     <>
       <BreadcrumbItem
-        title="Parent Safe"
+        title={translateMessage('ui.parent_0517a13e')}
         address={parentSafe.address.value}
         href={{
           pathname,
@@ -31,7 +32,7 @@ export function NestedSafeBreadcrumbs(): ReactElement | null {
         }}
       />
       <Typography variant="paragraph-small">/</Typography>
-      <BreadcrumbItem title="Nested Safe" address={safeAddress} />
+      <BreadcrumbItem title={translateMessage('ui.nested_945d8f67')} address={safeAddress} />
     </>
   )
 }

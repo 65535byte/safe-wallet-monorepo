@@ -1,3 +1,5 @@
+import { translateMessage } from '@/i18n'
+import { BRAND_NAME } from '@/config/constants'
 import type { ReactElement } from 'react'
 import { PencilLine, ShieldCheck, UsersRound } from 'lucide-react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
@@ -9,15 +11,15 @@ import ProposerPreview from './ProposerPreview'
 const EXPLAINERS: PolicyIntroExplainer[] = [
   {
     Icon: UsersRound,
-    text: 'Proposers can suggest transactions but cannot approve or execute them.',
+    text: translateMessage('ui.proposersCanSuggestTransactionsButCannot_9aaca19a'),
   },
   {
     Icon: ShieldCheck,
-    text: 'Separate transaction preparation from transaction approval while maintaining security.',
+    text: translateMessage('ui.separateTransactionPreparationFromTransactionApproval_3aaa5ff8'),
   },
   {
     Icon: PencilLine,
-    text: 'Any changes require owner signatures, and all permissions are managed through Safe{Wallet}.',
+    text: translateMessage('ui.anyChangesRequireOwnerSignaturesAnd_f158cd8a', { p0: BRAND_NAME }),
   },
 ]
 
@@ -32,13 +34,13 @@ const ProposerIntroDialog = ({ open, onOpenChange, onProceed }: ProposerIntroDia
     open={open}
     onOpenChange={onOpenChange}
     onProceed={onProceed}
-    title="Proposer role"
-    description="Let teammates without signing rights propose transactions."
+    title={translateMessage('ui.proposerRole_1d90df3b')}
+    description={translateMessage('ui.letTeammatesWithoutSigningRightsPropose_65ac3715')}
     helpArticle={HelpCenterArticle.PROPOSERS}
-    helpLabel="Learn more about proposers"
+    helpLabel={translateMessage('ui.learnMoreAboutProposers_9fabb4ac')}
     explainers={EXPLAINERS}
     preview={<ProposerPreview />}
-    proceedLabel="Set up proposer"
+    proceedLabel={translateMessage('ui.setUpProposer_0e2c6e67')}
     testId="proposer-intro-dialog"
   />
 )

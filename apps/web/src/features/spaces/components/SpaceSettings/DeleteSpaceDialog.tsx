@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { AlertTriangle, Check, X } from 'lucide-react'
@@ -17,14 +18,16 @@ import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/c
 import { AppRoutes } from '@/config/routes'
 import { useAppDispatch } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
+import { trackEvent } from '@/services/analytics'
 import { isElevationRequiredError } from '@/features/oidc-auth/utils/elevation'
 
 type Consequence = { variant: 'danger' | 'success'; text: string }
 
 const CONSEQUENCES: Consequence[] = [
-  { variant: 'danger', text: 'Members lose access to this Workspace immediately.' },
-  { variant: 'danger', text: 'Member list and Safe account names are deleted.' },
-  { variant: 'success', text: 'Linked Safe accounts keep working — only the Workspace is removed.' },
+  { variant: 'danger', text: translateMessage('ui.membersLoseAccessToThisWorkspace_2ee11f5c') },
+  { variant: 'danger', text: translateMessage('ui.memberListAndAccountNamesAre_22bda059') },
+  { variant: 'success', text: translateMessage('ui.linkedAccountsKeepWorkingOnlyThe_d6917151') },
 ]
 
 const ConsequenceRow = ({ variant, text }: Consequence) => (
@@ -60,9 +63,10 @@ const DeleteSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undef
       await deleteSpace({ id: space.uuid }).unwrap()
       onClose()
 
+      trackEvent({ ...SPACE_EVENTS.DELETE_SPACE })
       dispatch(
         showNotification({
-          message: `Deleted Workspace ${space.name}.`,
+          message: translateMessage('ui.deletedWorkspace_c4232ea8', { p0: space.name }),
           variant: 'success',
           groupKey: 'delete-space-success',
         }),
@@ -72,7 +76,7 @@ const DeleteSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undef
     } catch (e) {
       if (isElevationRequiredError(e)) return
       console.error(e)
-      setError('Error deleting the Workspace. Please try again.')
+      setError(translateMessage('ui.errorDeletingTheWorkspacePleaseTry_a7adead0'))
     }
   }
 
@@ -83,8 +87,10 @@ const DeleteSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undef
           <div className="flex items-center justify-center size-10 rounded-full bg-destructive/10 text-destructive shrink-0">
             <AlertTriangle className="size-5" />
           </div>
-          <AlertDialogTitle>Delete Workspace</AlertDialogTitle>
-          <AlertDialogDescription>This action is permanent and cannot be undone.</AlertDialogDescription>
+          <AlertDialogTitle>{translateMessage('ui.deleteWorkspace_ba8eed2c')}</AlertDialogTitle>
+          <AlertDialogDescription>
+            {translateMessage('ui.thisActionIsPermanentAndCannot_66b1e922')}
+          </AlertDialogDescription>
         </AlertDialogHeader>
 
         <ul className="flex flex-col gap-3">
@@ -96,7 +102,9 @@ const DeleteSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undef
         <div className="flex flex-col gap-1.5">
           {/* Not a <label>: clicking a label focuses the input, which clears the selection and stops users copying the name */}
           <Typography id="delete-confirm-label" variant="paragraph-small-medium" as="p">
-            Type <span className="font-mono font-semibold text-foreground">{space?.name}</span> to confirm
+            {translateMessage('ui.type_b2714449')}
+            <span className="font-mono font-semibold text-foreground">{space?.name}</span>{' '}
+            {translateMessage('ui.toConfirm_197b1d46')}
           </Typography>
           <Input
             id="delete-confirm-input"
@@ -119,7 +127,7 @@ const DeleteSpaceDialog = ({ space, onClose }: { space: GetSpaceResponse | undef
         <AlertDialogFooter>
           <DialogActions
             onCancel={onClose}
-            confirmLabel="Delete Workspace"
+            confirmLabel={translateMessage('ui.deleteWorkspace_ba8eed2c')}
             onConfirm={onDelete}
             confirmDestructive
             confirmDisabled={!canConfirm}

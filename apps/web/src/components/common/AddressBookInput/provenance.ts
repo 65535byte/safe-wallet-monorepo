@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ContactSource, type ExtendedContact } from '@/hooks/useAllAddressBooks'
 import { formatTimeInWords } from '@safe-global/utils/utils/date'
 
@@ -33,14 +34,14 @@ export const getProvenanceLine = (
   resolveName?: (address: string) => string,
 ): ProvenanceLine | undefined => {
   if (contact.source === ContactSource.local) {
-    return { text: 'Saved on this device' }
+    return { text: translateMessage('ui.savedOnThisDevice_bfcd04cd') }
   }
 
   if (contact.createdBy) {
     // Prefer the space member name, then an address book name; otherwise show the
     // raw actor value (name, email, or address) as-is — the UI ellipsizes it
     return {
-      text: 'Added by',
+      text: translateMessage('ui.addedBy_8b1e27ae'),
       actor: memberName || resolveName?.(contact.createdBy) || contact.createdBy,
       timestamp: contact.createdAt || undefined,
     }

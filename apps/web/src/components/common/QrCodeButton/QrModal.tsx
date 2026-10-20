@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Switch } from '@safe-global/views/components/ui/switch'
 import { Label } from '@safe-global/views/components/ui/label'
@@ -23,7 +24,7 @@ const QrModal = ({ onClose }: { onClose: () => void }): ReactElement => {
   return (
     <ModalDialog
       open
-      dialogTitle="Receive assets"
+      dialogTitle={translateMessage('ui.receiveAssets_8d6db819')}
       onClose={onClose}
       hideChainIndicator
       slotProps={{ paper: { sx: { borderRadius: '24px' } } }}
@@ -33,11 +34,12 @@ const QrModal = ({ onClose }: { onClose: () => void }): ReactElement => {
           className="-mx-6 px-6 py-4"
           style={{ backgroundColor: chain?.theme.backgroundColor, color: chain?.theme.textColor }}
         >
-          {chainName} only &mdash; assets sent from other networks will be lost.
+          {chainName} {translateMessage('ui.onlyAssetsSentFromOtherNetworks_7da38c2a')}
         </div>
 
         <Typography className="my-4">
-          Scan the QR or copy the address below to deposit {nativeToken} and any ERC‑20 or ERC‑721 token.
+          {translateMessage('ui.scanTheQROrCopyThe_8c647a39')}
+          {nativeToken} {translateMessage('ui.andAnyERCOrERCToken_d2c65dfc')}
         </Typography>
 
         <div className="my-4 flex flex-col flex-wrap items-center justify-center">
@@ -48,7 +50,8 @@ const QrModal = ({ onClose }: { onClose: () => void }): ReactElement => {
           <Label className="gap-2">
             <Switch checked={settings.shortName.qr} onCheckedChange={(checked) => dispatch(setQrShortName(checked))} />
             <span>
-              QR code with chain prefix (<b>{chain?.shortName}:</b>)
+              {translateMessage('ui.qRCodeWithChainPrefix_eec7b64e')}
+              <b>{chain?.shortName}:</b>)
             </span>
           </Label>
 

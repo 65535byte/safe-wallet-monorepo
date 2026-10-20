@@ -29,8 +29,8 @@ describe('FeeTokenPreference', () => {
   it('renders the fee token preference settings', () => {
     render(<FeeTokenPreference />)
 
-    expect(screen.getByText('Fee token preference')).toBeInTheDocument()
-    expect(screen.getByText('Please connect your wallet to configure fee token preference.')).toBeInTheDocument()
+    expect(screen.getByText('手续费代币偏好')).toBeInTheDocument()
+    expect(screen.getByText('请先连接钱包，再配置手续费代币偏好。')).toBeInTheDocument()
   })
 
   it('does not render when Tempo gas token support is disabled', () => {

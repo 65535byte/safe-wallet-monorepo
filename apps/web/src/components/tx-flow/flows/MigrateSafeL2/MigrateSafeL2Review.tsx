@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect } from 'react'
 import { useCurrentChain } from '@/hooks/useChains'
 import useSafeInfo from '@/hooks/useSafeInfo'
@@ -24,11 +25,8 @@ export const MigrateSafeL2Review = ({ children, ...props }: ReviewTransactionPro
 
   return (
     <ReviewTransaction {...props}>
-      <ErrorMessage level="warning" title="Migration transaction">
-        <Typography>
-          The migration may take a few minutes. Transactions made before or during the migration won&apos;t show up in
-          your transaction history, but all future transactions will appear as usual.
-        </Typography>
+      <ErrorMessage level="warning" title={translateMessage('ui.migrationTransaction_c5cd0a13')}>
+        <Typography>{translateMessage('ui.theMigrationMayTakeAFew_7c1434bc')}</Typography>
       </ErrorMessage>
 
       {children}

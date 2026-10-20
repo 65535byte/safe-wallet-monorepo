@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext } from 'react'
 import { TxFlow } from '../../TxFlow'
 import { TxFlowContext } from '../../TxFlowProvider'
@@ -18,7 +19,7 @@ const RemoveModuleFlow = ({ address }: RemoveModuleFlowProps) => {
   return (
     <TxFlow
       initialData={{ address }}
-      subtitle="Remove module"
+      subtitle={translateMessage('ui.removeModule_8ec1b493')}
       eventCategory={TxFlowType.REMOVE_MODULE}
       ReviewTransactionComponent={ReviewRemoveModuleStep}
     />

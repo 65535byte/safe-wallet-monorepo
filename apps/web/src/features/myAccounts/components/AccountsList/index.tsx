@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import FilteredSafes from '../FilteredSafes'
 import PinnedSafes from '../PinnedSafes'
 import CurrentSafe from '../CurrentSafe'
@@ -71,7 +72,7 @@ const AccountsList = ({
           align="center"
           className="py-6"
         >
-          You don&apos;t have any safes yet
+          {translateMessage('ui.youDonTHaveAnySafes_13df7eda')}
         </Typography>
       )}
 

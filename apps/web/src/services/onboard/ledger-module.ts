@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type {
   DmkError,
   ExecuteDeviceActionReturnType,
@@ -70,7 +71,7 @@ export function ledgerModule(): WalletInit {
           if (!newChain) {
             throw new ProviderRpcError({
               code: ProviderRpcErrorCode.UNRECOGNIZED_CHAIN_ID,
-              message: `Unrecognized chain ID: ${chainId}`,
+              message: translateMessage('ui.unrecognizedChainID_0bf002f7', { p0: chainId }),
             })
           }
           currentChain = newChain
@@ -100,7 +101,7 @@ export function ledgerModule(): WalletInit {
           if (!currentAccount?.derivationPath) {
             throw new ProviderRpcError({
               code: -32000, // Method handler crashed
-              message: 'No derivation path found',
+              message: translateMessage('ui.noDerivationPathFound_7ad2d82a'),
             })
           }
           return currentAccount.derivationPath
@@ -116,7 +117,7 @@ export function ledgerModule(): WalletInit {
             if (!rpcUrl) {
               throw new ProviderRpcError({
                 code: ProviderRpcErrorCode.UNRECOGNIZED_CHAIN_ID,
-                message: `No RPC found for chain ID: ${currentChain.id}`,
+                message: translateMessage('ui.noRPCFoundForChainID_1c70f887', { p0: currentChain.id }),
               })
             }
             return rpcUrl

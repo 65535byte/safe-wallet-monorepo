@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 import type Safe from '@safe-global/protocol-kit'
@@ -55,7 +56,11 @@ export const SafeScopeProvider = ({ initial, children }: SafeScopeProviderProps)
     () => (currentData ? { ...currentData, deployed: true } : undefined),
     [currentData],
   )
-  const safeError = error ? ('message' in error ? String(error.message) : 'Failed to load safe info') : undefined
+  const safeError = error
+    ? 'message' in error
+      ? String(error.message)
+      : translateMessage('ui.failedToLoadSafeInfo_57f4308b')
+    : undefined
 
   // 2. Read-only provider for the target chain, honouring the user's custom RPC.
   const chain = useChain(target?.chainId ?? '')

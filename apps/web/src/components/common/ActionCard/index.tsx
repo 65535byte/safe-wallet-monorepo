@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement, ReactNode } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -5,6 +6,7 @@ import { Typography } from '@safe-global/views/components/ui/typography'
 import WarningIcon from '@safe-global/views/assets/images/notifications/warning.svg'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import ErrorIcon from '@/public/images/notifications/error.svg'
+import { trackEvent } from '@/services/analytics'
 import type { AnalyticsEvent } from '@/services/analytics/types'
 import Track from '@/components/common/Track'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -82,20 +84,37 @@ const ActionButton = ({
     </>
   )
 
-  const button = (
+  if (action.href) {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className={ACTION_BUTTON_CLASSNAME}
+        data-testid={testId}
+        render={<a href={action.href} target={action.target} rel={action.rel} />}
+        onClick={trackingEvent ? () => trackEvent(trackingEvent) : undefined}
+      >
+        {label}
+      </Button>
+    )
+  }
+
+  return (
     <Button
       variant="ghost"
       size="sm"
       className={ACTION_BUTTON_CLASSNAME}
       data-testid={testId}
-      render={action.href ? <a href={action.href} target={action.target} rel={action.rel} /> : undefined}
-      onClick={action.href ? undefined : action.onClick}
+      onClick={() => {
+        if (trackingEvent) {
+          trackEvent(trackingEvent)
+        }
+        action.onClick?.()
+      }}
     >
       {label}
     </Button>
   )
-
-  return trackingEvent ? <Track {...trackingEvent}>{button}</Track> : button
 }
 
 export const ActionCard = ({
@@ -129,7 +148,7 @@ export const ActionCard = ({
               {' '}
               <Track {...(learnMore.trackingEvent || DEFAULT_LEARN_MORE_EVENT)} label={learnMore.label || 'learn-more'}>
                 <ExternalLink href={learnMore.href} noIcon className="font-normal underline [&_span]:underline">
-                  Learn more
+                  {translateMessage('ui.learnMore_0c11daba')}
                 </ExternalLink>
               </Track>
             </>

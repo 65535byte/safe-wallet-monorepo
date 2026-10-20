@@ -123,7 +123,7 @@ describe('useGasPaymentOptions', () => {
 
   it.each<[string, GasPaymentOption[], () => void, boolean]>([
     ['the campaign', ['NO_FEE_CAMPAIGN'], () => mockCampaign({ isLoading: true }), true],
-    ['the daily limit', ['FREE_DAILY_LIMIT'], () => mockRelays({ remaining: 4, limit: 5 }, true), true],
+    ['the daily 项限额', ['FREE_DAILY_LIMIT'], () => mockRelays({ remaining: 4, limit: 5 }, true), true],
     [
       'the plan',
       ['NO_FEE_CAMPAIGN', 'FREE_DAILY_LIMIT', 'SUBSCRIPTION'],
@@ -132,7 +132,7 @@ describe('useGasPaymentOptions', () => {
     ],
     ['an unlisted campaign', ['FREE_DAILY_LIMIT'], () => mockCampaign({ isLoading: true }), false],
     [
-      'an unlisted daily limit',
+      'an unlisted daily 项限额',
       ['SUBSCRIPTION'],
       () => {
         mockRelays(undefined, true)

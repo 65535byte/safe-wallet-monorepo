@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import useConnectWallet from '@/components/common/ConnectWallet/useConnectWallet'
 import { cn } from '@safe-global/views/utils/cn'
@@ -34,7 +35,7 @@ const ConnectWalletButton = ({
       size={size}
       className={cn(fullWidth && 'w-full', className)}
     >
-      {text || 'Connect'}
+      {text || translateMessage('wallet.connect')}
     </Button>
   )
 }

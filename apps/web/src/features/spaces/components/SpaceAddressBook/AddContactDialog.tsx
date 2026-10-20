@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Plus } from 'lucide-react'
@@ -50,7 +51,7 @@ type AddContactDialogProps = {
 const AddContactDialog = ({
   triggerLabel,
   dialogTitle,
-  submitLabel = 'Add contact',
+  submitLabel = translateMessage('ui.addContact_fa12fe86'),
   intro,
   successMessage,
   successGroupKey,
@@ -157,19 +158,27 @@ const AddContactDialog = ({
                       66px — the default h-9 left the two fields visibly uneven. */}
                   <NameInput
                     name="name"
-                    label="Name"
+                    label={translateMessage('ui.name_84f28b85')}
                     required
                     validateCharset={validateCharset}
                     minLength={validateCharset ? NAME_MIN_LENGTH : undefined}
                     maxLength={validateCharset ? ADDRESS_BOOK_NAME_MAX_LENGTH : undefined}
                     inputSize="hero"
                   />
-                  <AddressInput name="address" label="Address or ENS" required showPrefix={false} chain={ensChain} />
+                  <AddressInput
+                    name="address"
+                    label={translateMessage('ui.addressOrENS_7545c486')}
+                    required
+                    showPrefix={false}
+                    chain={ensChain}
+                  />
 
                   <div>
-                    <p className="mb-1 inline-flex items-center gap-1 text-sm font-bold">Select networks</p>
+                    <p className="mb-1 inline-flex items-center gap-1 text-sm font-bold">
+                      {translateMessage('ui.selectNetworks_e0c1529e')}
+                    </p>
                     <p className="text-muted-foreground mb-2 text-sm">
-                      Add contact on all networks or only on specific ones of your choice.
+                      {translateMessage('ui.addContactOnAllNetworksOr_c1ca9eb6')}
                     </p>
                     <Controller
                       name="networks"
@@ -180,7 +189,7 @@ const AddContactDialog = ({
                           showSelectAll
                           value={field.value || []}
                           error={!!errors.networks}
-                          helperText={errors.networks ? 'Select at least one network' : ''}
+                          helperText={errors.networks ? translateMessage('ui.selectAtLeastOneNetwork_ea392c05') : ''}
                         />
                       )}
                       rules={{ required: true }}

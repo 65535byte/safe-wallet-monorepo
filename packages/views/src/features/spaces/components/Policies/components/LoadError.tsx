@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { AlertCircle, RotateCw } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -20,7 +21,7 @@ const LoadError = ({
       onRetry && (
         <Button variant="destructive" size="sm" onClick={onRetry}>
           <RotateCw className="size-3.5" />
-          Retry
+          {translateMessage('ui.retry_2cd6945d')}
         </Button>
       )
     }

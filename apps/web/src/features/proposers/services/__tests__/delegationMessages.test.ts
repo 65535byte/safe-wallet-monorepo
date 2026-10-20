@@ -281,14 +281,14 @@ describe('delegationMessages', () => {
     })
 
     it('should throw error when confirmation fails', async () => {
-      const error = new Error('Confirmation failed')
+      const error = new Error('确认 failed')
       const mockDispatch = jest.fn().mockReturnValue({
         unwrap: jest.fn().mockRejectedValue(error),
       })
 
       await expect(
         confirmDelegationMessage(mockDispatch as unknown as AppDispatch, chainId, messageHash, signature),
-      ).rejects.toThrow('Confirmation failed')
+      ).rejects.toThrow('确认 failed')
     })
   })
 })

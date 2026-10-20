@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import { Plus } from 'lucide-react'
 import { useSpacesGetOneV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
@@ -42,9 +43,9 @@ const InviteMembersOnboarding = (): ReactElement => {
       <StepCounter currentStep={ONBOARDING_STEP} totalSteps={totalSteps} />
 
       <div className="flex flex-col gap-2">
-        <Typography variant="h2">Invite your team</Typography>
+        <Typography variant="h2">{translateMessage('ui.inviteYourTeam_96783bc7')}</Typography>
         <Typography variant="paragraph" color="muted">
-          Add people to collaborate on this Workspace.
+          {translateMessage('ui.addPeopleToCollaborateOnThis_1c7c7c5a')}
         </Typography>
       </div>
 
@@ -74,7 +75,7 @@ const InviteMembersOnboarding = (): ReactElement => {
         data-testid="add-another-member"
       >
         <Plus className="size-4" />
-        <Typography variant="paragraph-small-medium">Add another</Typography>
+        <Typography variant="paragraph-small-medium">{translateMessage('ui.addAnother_d928f7fe')}</Typography>
       </button>
 
       {error && (
@@ -91,7 +92,7 @@ const InviteMembersOnboarding = (): ReactElement => {
       <OnboardingFooter
         onBack={goBack}
         backDisabled={isSubmitting}
-        continueLabel="Next"
+        continueLabel={translateMessage('ui.next_9cff86c8')}
         continueType="submit"
         continueForm={FORM_ID}
         continueDisabled={!formState.isValid || isSubmitting}
@@ -105,7 +106,7 @@ const InviteMembersOnboarding = (): ReactElement => {
         disabled={isSubmitting}
         className="cursor-pointer text-sm font-semibold text-foreground underline-offset-4 hover:underline disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Skip, invite later
+        {translateMessage('ui.skipInviteLater_f516ed11')}
       </button>
     </div>
   )

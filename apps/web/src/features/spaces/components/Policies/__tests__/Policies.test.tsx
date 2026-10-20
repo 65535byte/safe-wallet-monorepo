@@ -117,14 +117,14 @@ describe('Policies', () => {
   it('renders the page title', () => {
     render(<Policies />)
 
-    expect(screen.getByRole('heading', { name: 'Policies' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '策略' })).toBeInTheDocument()
   })
 
   it('should, under the title, describe policies and link to the help centre', () => {
     render(<Policies />)
 
     expect(screen.getByText(/Policies are rules that help you/)).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Learn more' })).toHaveAttribute('href', HelpCenterArticle.POLICIES)
+    expect(screen.getByRole('link', { name: '了解更多' })).toHaveAttribute('href', HelpCenterArticle.POLICIES)
   })
 
   it('should hide the description while the policies are loading', () => {
@@ -142,9 +142,9 @@ describe('Policies', () => {
   it('renders the policy catalogue', () => {
     render(<Policies />)
 
-    expect(screen.getByText('Spending limit')).toBeInTheDocument()
-    expect(screen.getByText('Proposer role')).toBeInTheDocument()
-    expect(screen.getByText('Something missing?')).toBeInTheDocument()
+    expect(screen.getByText('支出限额')).toBeInTheDocument()
+    expect(screen.getByText('提案人角色')).toBeInTheDocument()
+    expect(screen.getByText('缺少某项功能？')).toBeInTheDocument()
   })
 
   it('renders the catalogue only, with no table, create button or search', () => {
@@ -158,7 +158,7 @@ describe('Policies', () => {
     it('explains a spending limit before the flow starts', async () => {
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
 
       expect(screen.getByTestId('spending-limit-intro-dialog')).toBeInTheDocument()
     })
@@ -166,8 +166,8 @@ describe('Policies', () => {
     it('returns to the catalogue with nothing started when dismissed', async () => {
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
-      await user.click(screen.getByRole('button', { name: 'Close' }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
+      await user.click(screen.getByRole('button', { name: '关闭' }))
 
       await waitFor(() => expect(screen.queryByTestId('spending-limit-intro-dialog')).not.toBeInTheDocument())
       expect(screen.getByTestId('policy-catalogue')).toBeInTheDocument()
@@ -176,8 +176,8 @@ describe('Policies', () => {
     it('records that it has been shown', async () => {
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
-      await user.click(screen.getByRole('button', { name: 'Close' }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
+      await user.click(screen.getByRole('button', { name: '关闭' }))
 
       expect(mockSetHasSeenSpendingLimitIntro).toHaveBeenCalledWith(true)
     })
@@ -186,7 +186,7 @@ describe('Policies', () => {
       mockHasSeenSpendingLimitIntro = true
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
 
       expect(screen.queryByTestId('spending-limit-intro-dialog')).not.toBeInTheDocument()
     })
@@ -195,7 +195,7 @@ describe('Policies', () => {
       mockHasSeenProposerIntro = true
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
 
       expect(screen.getByTestId('spending-limit-intro-dialog')).toBeInTheDocument()
     })
@@ -203,8 +203,8 @@ describe('Policies', () => {
     it('records only its own key when dismissed', async () => {
       const { user } = renderWithUserEvent(<Policies />)
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
-      await user.click(screen.getByRole('button', { name: 'Close' }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
+      await user.click(screen.getByRole('button', { name: '关闭' }))
 
       expect(mockSetHasSeenSpendingLimitIntro).toHaveBeenCalledWith(true)
       expect(mockSetHasSeenProposerIntro).not.toHaveBeenCalled()
@@ -224,7 +224,7 @@ describe('Policies', () => {
       const { user } = renderWithUserEvent(<Policies />)
 
       await user.click(screen.getByRole('button', { name: 'Set policy: Proposer role' }))
-      await user.click(screen.getByRole('button', { name: 'Close' }))
+      await user.click(screen.getByRole('button', { name: '关闭' }))
 
       await waitFor(() => expect(screen.queryByTestId('proposer-intro-dialog')).not.toBeInTheDocument())
       expect(screen.getByTestId('policy-catalogue')).toBeInTheDocument()
@@ -234,7 +234,7 @@ describe('Policies', () => {
       const { user } = renderWithUserEvent(<Policies />)
 
       await user.click(screen.getByRole('button', { name: 'Set policy: Proposer role' }))
-      await user.click(screen.getByRole('button', { name: 'Close' }))
+      await user.click(screen.getByRole('button', { name: '关闭' }))
 
       expect(mockSetHasSeenProposerIntro).toHaveBeenCalledWith(true)
       expect(mockSetHasSeenSpendingLimitIntro).not.toHaveBeenCalled()
@@ -271,7 +271,7 @@ describe('Policies', () => {
       const { user, setTxFlow } = renderWithTxModal()
 
       await user.click(screen.getByRole('button', { name: 'Set policy: Proposer role' }))
-      await user.click(await screen.findByRole('button', { name: 'Set up proposer' }))
+      await user.click(await screen.findByRole('button', { name: '设置提案人' }))
 
       expect(setTxFlow).toHaveBeenCalledTimes(1)
       expect(setTxFlow.mock.calls[0][0].type).toBe(ProposerRoleFlow)
@@ -380,7 +380,7 @@ describe('Policies', () => {
 
       expect(screen.getByTestId('policies-list')).toBeInTheDocument()
       expect(screen.getAllByTestId('policy-cell-rule')).toHaveLength(mockPolicies().length)
-      expect(screen.getByPlaceholderText('Search')).toBeInTheDocument()
+      expect(screen.getByPlaceholderText('搜索')).toBeInTheDocument()
     })
   })
 
@@ -403,8 +403,8 @@ describe('Policies', () => {
     it('should, when the policies are still loading, render the heading and the loading state only', () => {
       render(<Policies policies={[]} isLoading />)
 
-      expect(screen.getByRole('heading', { name: 'Policies' })).toBeInTheDocument()
-      expect(screen.getByTestId('policies-loading')).toHaveTextContent('Almost there…')
+      expect(screen.getByRole('heading', { name: '策略' })).toBeInTheDocument()
+      expect(screen.getByTestId('policies-loading')).toHaveTextContent('即将完成…')
       expect(screen.queryByTestId('policy-catalogue')).not.toBeInTheDocument()
       expect(screen.queryByTestId('policies-list')).not.toBeInTheDocument()
     })
@@ -412,7 +412,7 @@ describe('Policies', () => {
     it('should, when the policies failed to load, render the error state instead of the catalogue or the list', () => {
       render(<Policies policies={mockPolicies()} isError />)
 
-      expect(screen.getByRole('alert')).toHaveTextContent('The website failed to load data. Please try again.')
+      expect(screen.getByRole('alert')).toHaveTextContent('网站加载数据失败，请重试。')
       expect(screen.queryByTestId('policy-catalogue')).not.toBeInTheDocument()
       expect(screen.queryByTestId('policies-list')).not.toBeInTheDocument()
     })
@@ -421,7 +421,7 @@ describe('Policies', () => {
       const onRetry = jest.fn()
 
       render(<Policies policies={[]} isError onRetry={onRetry} />)
-      fireEvent.click(screen.getByRole('button', { name: 'Reload' }))
+      fireEvent.click(screen.getByRole('button', { name: '刷新' }))
 
       expect(onRetry).toHaveBeenCalledTimes(1)
     })
@@ -429,7 +429,7 @@ describe('Policies', () => {
     it('should, when the policies failed to load and there is no reload handler, render no Reload button', () => {
       render(<Policies policies={[]} isError />)
 
-      expect(screen.queryByRole('button', { name: 'Reload' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: '刷新' })).not.toBeInTheDocument()
     })
 
     it('should, when Add policy is clicked and no handler is given, open the add policy dialog', async () => {
@@ -498,16 +498,16 @@ describe('Policies', () => {
       const proposerPolicy = asActivePolicy(mockProposerPolicy())
 
       render(<Policies policies={[proposerPolicy]} />)
-      fireEvent.click(screen.getByRole('button', { name: 'Open Proposer for 0x8675...a19b' }))
+      fireEvent.click(screen.getByRole('button', { name: '打开 Proposer for 0x8675...a19b' }))
 
-      expect(screen.getByText('Proposer role')).toBeInTheDocument()
+      expect(screen.getByText('提案人角色')).toBeInTheDocument()
     })
 
     it('should, when a spending limit row is clicked, open its side panel', () => {
       render(<Policies policies={[mockActiveSpendingLimit()]} />)
-      fireEvent.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+      fireEvent.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-      expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
     })
 
     it('should hold one open panel at a time, so a second row replaces the first', () => {
@@ -515,13 +515,13 @@ describe('Policies', () => {
       const [proposerRow, spendingLimitRow] = screen.getAllByTestId('policy-open-button')
 
       fireEvent.click(proposerRow)
-      expect(screen.getByRole('dialog', { name: 'Proposer role' })).toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '提案人角色' })).toBeInTheDocument()
 
       // The open drawer makes the row behind it inert, so the click goes to the element itself.
       fireEvent.click(spendingLimitRow)
 
-      expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-      expect(screen.queryByRole('dialog', { name: 'Proposer role' })).not.toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+      expect(screen.queryByRole('dialog', { name: '提案人角色' })).not.toBeInTheDocument()
     })
 
     it('should refresh the open panel when the policy is refetched', () => {
@@ -529,23 +529,23 @@ describe('Policies', () => {
       const { rerender } = render(<Policies policies={[spendingLimit]} />)
       fireEvent.click(screen.getAllByTestId('policy-open-button')[0])
 
-      expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-      expect(screen.queryByText('Spender 2')).not.toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+      expect(screen.queryByText('支出授权人 2')).not.toBeInTheDocument()
 
       rerender(<Policies policies={[{ ...asActivePolicy(mockMultiSpenderPolicy()), id: spendingLimit.id }]} />)
 
-      expect(screen.getByText('Spender 2')).toBeInTheDocument()
+      expect(screen.getByText('支出授权人 2')).toBeInTheDocument()
     })
 
     it('should close the open panel when its policy leaves the response', () => {
       const { rerender } = render(<Policies policies={[mockActiveSpendingLimit()]} />)
       fireEvent.click(screen.getAllByTestId('policy-open-button')[0])
 
-      expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
 
       rerender(<Policies policies={[]} />)
 
-      expect(screen.queryByRole('dialog', { name: 'Spending limit' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('dialog', { name: '支出限额' })).not.toBeInTheDocument()
     })
 
     describe('a pending spending limit', () => {
@@ -555,41 +555,41 @@ describe('Policies', () => {
 
       it('should, when its row is clicked, open the side panel in its pending state', () => {
         render(<Policies policies={[mockPendingPolicy()]} />)
-        fireEvent.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+        fireEvent.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-        expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-        expect(screen.getByText('Pending signatures')).toBeInTheDocument()
+        expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+        expect(screen.getByText('待签名')).toBeInTheDocument()
       })
 
       it('should, for a row already executed and waiting for the indexer, open the panel as executed', () => {
         render(<Policies policies={[mockActivatingPolicy()]} />)
-        fireEvent.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+        fireEvent.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-        expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-        expect(screen.getByText('The transaction was executed.')).toBeInTheDocument()
-        expect(screen.queryByRole('button', { name: 'Review transaction' })).not.toBeInTheDocument()
+        expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+        expect(screen.getByText('交易已执行。')).toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: '检查交易' })).not.toBeInTheDocument()
       })
 
       it('should keep its panel open after the row leaves the queue, so the panel can say why', () => {
         const { rerender } = render(<Policies policies={[mockPendingPolicy()]} />)
-        fireEvent.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+        fireEvent.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
         mockUsePendingPolicyTransaction.mockReturnValue({ confirmedBy: [], outcome: 'deleted' })
         rerender(<Policies policies={[asActivePolicy(mockProposerPolicy())]} />)
 
-        expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-        expect(screen.getByText('The transaction was deleted.')).toBeInTheDocument()
+        expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+        expect(screen.getByText('交易已删除。')).toBeInTheDocument()
       })
 
       it('should keep its panel open once the row turns activating, and say it was executed', () => {
         const { rerender } = render(<Policies policies={[mockPendingPolicy()]} />)
-        fireEvent.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+        fireEvent.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
         mockUsePendingPolicyTransaction.mockReturnValue({ confirmedBy: [], outcome: 'executed' })
         rerender(<Policies policies={[mockActivatingPolicy()]} />)
 
-        expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
-        expect(screen.getByText('The transaction was executed.')).toBeInTheDocument()
+        expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
+        expect(screen.getByText('交易已执行。')).toBeInTheDocument()
       })
     })
 
@@ -598,7 +598,7 @@ describe('Policies', () => {
       const proposerPolicy = asActivePolicy(mockProposerPolicy())
 
       render(<Policies policies={[proposerPolicy]} onSelectPolicy={onSelectPolicy} />)
-      fireEvent.click(screen.getByRole('button', { name: 'Open Proposer for 0x8675...a19b' }))
+      fireEvent.click(screen.getByRole('button', { name: '打开 Proposer for 0x8675...a19b' }))
 
       expect(onSelectPolicy).toHaveBeenCalledWith(proposerPolicy)
     })
@@ -619,8 +619,8 @@ describe('Policies', () => {
     it('opens the flow when the intro is confirmed', async () => {
       const { user, setTxFlow } = renderWithTxModal()
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
-      await user.click(screen.getByRole('button', { name: 'Set up spending limit' }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
+      await user.click(screen.getByRole('button', { name: '设置支出限额' }))
 
       expect(setTxFlow).toHaveBeenCalledTimes(1)
       expect(setTxFlow.mock.calls[0][0]).toMatchObject({ type: SpendingLimitFlow })
@@ -630,7 +630,7 @@ describe('Policies', () => {
       mockHasSeenSpendingLimitIntro = true
       const { user, setTxFlow } = renderWithTxModal()
 
-      await user.click(screen.getByRole('button', { name: /Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /支出限额/ }))
 
       expect(setTxFlow).toHaveBeenCalledTimes(1)
       expect(setTxFlow.mock.calls[0][0]).toMatchObject({ type: SpendingLimitFlow })
@@ -642,7 +642,7 @@ describe('Policies', () => {
       render(<Policies locked={{ ...mockStarterPlan, onUpgrade: jest.fn() }} />)
 
       expect(screen.getByTestId('policy-upsell-banner')).toHaveTextContent('Acme Inc is on Starter')
-      expect(screen.getByRole('button', { name: /Upgrade to Business/ })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /升级至 Business/ })).toBeInTheDocument()
     })
 
     it('should, when no plan is given, render no banner', () => {
@@ -655,7 +655,7 @@ describe('Policies', () => {
       const onUpgrade = jest.fn()
       const { user } = renderWithUserEvent(<Policies locked={{ ...mockStarterPlan, onUpgrade }} />)
 
-      await user.click(screen.getByRole('button', { name: /Upgrade to Business/ }))
+      await user.click(screen.getByRole('button', { name: /升级至 Business/ }))
 
       expect(onUpgrade).toHaveBeenCalledTimes(1)
     })
@@ -724,14 +724,14 @@ describe('Policies', () => {
         </TxModalContext.Provider>,
       )
 
-      await user.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
-      await user.click(screen.getByRole('button', { name: 'Edit' }))
+      await user.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: '编辑' }))
 
       expect(setTxFlow).toHaveBeenCalledTimes(1)
       expect(setTxFlow.mock.calls[0][0].type).toBe(EditSpendingLimitFlow)
       expect(setTxFlow.mock.calls[0][0].props.safe).toEqual(policy.safe)
       // Left open rather than closed, so cancelling the flow lands back on the panel.
-      expect(screen.getByRole('dialog', { name: 'Spending limit' })).toBeInTheDocument()
+      expect(screen.getByRole('dialog', { name: '支出限额' })).toBeInTheDocument()
     })
 
     it('keeps Edit disabled and points to the upgrade while the plan locks spending limits', async () => {
@@ -745,10 +745,10 @@ describe('Policies', () => {
         </TxModalContext.Provider>,
       )
 
-      await user.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-      expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled()
-      expect(screen.getByText('Upgrade to Business to edit spending limits.')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '编辑' })).toBeDisabled()
+      expect(screen.getByText('升级至 Business 以编辑支出限额。')).toBeInTheDocument()
       expect(setTxFlow).not.toHaveBeenCalled()
     })
 
@@ -763,10 +763,10 @@ describe('Policies', () => {
         </TxModalContext.Provider>,
       )
 
-      await user.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-      expect(screen.getByRole('button', { name: 'Add module' })).toBeDisabled()
-      expect(screen.getByText('Upgrade to Business to add the module.')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: '添加模块' })).toBeDisabled()
+      expect(screen.getByText('升级至 Business 以添加模块。')).toBeInTheDocument()
       expect(setTxFlow).not.toHaveBeenCalled()
     })
 
@@ -783,9 +783,9 @@ describe('Policies', () => {
         </TxModalContext.Provider>,
       )
 
-      await user.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-      expect(screen.getByRole('button', { name: 'Edit' })).toBeEnabled()
+      expect(screen.getByRole('button', { name: '编辑' })).toBeEnabled()
     })
 
     it('hides the panel while a flow is open, as the pending panel does', async () => {
@@ -798,9 +798,9 @@ describe('Policies', () => {
         </TxModalContext.Provider>,
       )
 
-      await user.click(screen.getByRole('button', { name: /^Open Spending limit/ }))
+      await user.click(screen.getByRole('button', { name: /^打开 Spending limit/ }))
 
-      expect(screen.queryByRole('dialog', { name: 'Spending limit' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('dialog', { name: '支出限额' })).not.toBeInTheDocument()
     })
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useEffect, useMemo, useState } from 'react'
 import classnames from 'classnames'
 import type { UseFormRegisterReturn } from 'react-hook-form'
@@ -139,7 +140,7 @@ const AddMemberInput = ({ error, inputProps, onSelectAddress, value }: AddMember
                 variant="ghost"
                 size="icon-xs"
                 tabIndex={-1}
-                aria-label="Toggle suggestions"
+                aria-label={translateMessage('ui.toggleSuggestions_6606714e')}
                 className={classnames(css.openButton, { [css.rotated]: isOpen })}
                 onClick={() => setIsOpen((open) => !open)}
               >

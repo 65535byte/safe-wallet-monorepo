@@ -12,14 +12,12 @@ describe('HexEncodedData', () => {
     const result = render(<HexEncodedData hexData={hexData} title="Data (hex-encoded)" />)
     const showMoreButton = result.getByTestId('show-more')
     expect(showMoreButton).toBeInTheDocument()
-    expect(showMoreButton).toHaveTextContent('Show more')
+    expect(showMoreButton).toHaveTextContent('显示更多')
 
     // The first-bytes tooltip text is now Base UI tooltip content, revealed on hover
     const firstBytesTrigger = result.container.querySelector('b') as HTMLElement
     await userEvent.hover(firstBytesTrigger)
-    expect(
-      await screen.findByText('The first 4 bytes determine the contract method that is being called'),
-    ).toBeInTheDocument()
+    expect(await screen.findByText('前 4 个字节用于确定调用的合约方法')).toBeInTheDocument()
 
     expect(result.container).toMatchSnapshot()
   })
@@ -62,13 +60,13 @@ describe('HexEncodedData', () => {
     expect(zeroesBlocks[1].textContent).toHaveLength(25)
     expect(zeroesBlocks[2].textContent).toHaveLength(24)
     // Show less button should be visible
-    expect(showMoreButton).toHaveTextContent('Show less')
+    expect(showMoreButton).toHaveTextContent('收起')
 
     // Click show less
     fireEvent.click(showMoreButton)
 
     // Should be back to shortened data
     expect(initialData).toHaveTextContent(`${longHexData.slice(0, 20)}…Show more`)
-    expect(showMoreButton).toHaveTextContent('Show more')
+    expect(showMoreButton).toHaveTextContent('显示更多')
   })
 })

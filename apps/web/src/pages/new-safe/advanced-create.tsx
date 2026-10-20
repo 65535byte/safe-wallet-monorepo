@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Head from 'next/head'
 import type { NextPage } from 'next'
 
@@ -12,7 +13,7 @@ const Open: NextPage = () => {
         <SafeLogo />
       </div>
       <Head>
-        <title>{`${BRAND_NAME} – Advanced Safe creation`}</title>
+        <title>{translateMessage('ui.advancedCreation_f5d94aed', { p0: BRAND_NAME })}</title>
       </Head>
 
       <AdvancedCreateSafe />

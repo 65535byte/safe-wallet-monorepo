@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Card, CardContent } from '@safe-global/views/components/ui/card'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -43,7 +44,7 @@ export const NestedTransaction = ({
         <div className="border-border-light flex items-center gap-4 border-b p-4">
           <NestedTransactionIcon className="size-4" />
           <Typography variant="h4" className="grow">
-            Nested transaction
+            {translateMessage('ui.nestedTransaction_4574e00b')}
           </Typography>
           {chain && txData && signedHash && (
             <Track {...MODALS_EVENTS.OPEN_NESTED_TX}>
@@ -56,7 +57,7 @@ export const NestedTransaction = ({
                 legacyBehavior
               >
                 <ExternalLink className="text-muted-foreground">
-                  <Typography variant="paragraph-small-bold">Open</Typography>
+                  <Typography variant="paragraph-small-bold">{translateMessage('ui.open_a211eefa')}</Typography>
                 </ExternalLink>
               </Link>
             </Track>

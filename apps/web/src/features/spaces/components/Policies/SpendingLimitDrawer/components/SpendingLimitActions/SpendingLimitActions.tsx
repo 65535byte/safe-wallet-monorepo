@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import type { LinkProps } from 'next/link'
 import { PolicyDrawerActions } from '../../../components/PolicyDrawerActions'
@@ -34,13 +35,19 @@ const SpendingLimitActions = ({
 }: SpendingLimitActionsProps): ReactElement | null => {
   switch (state.action) {
     case 'connect':
-      return <PolicyDrawerActions actionLabel="Connect wallet" onClick={onConnectWallet} hint={state.helper} />
+      return (
+        <PolicyDrawerActions
+          actionLabel={translateMessage('ui.connectWallet_301090ba')}
+          onClick={onConnectWallet}
+          hint={state.helper}
+        />
+      )
 
     // Editing covers removal too: the edit flow can drop individual limits or all of them.
     case 'manage':
       return (
         <PolicyDrawerActions
-          actionLabel="Edit"
+          actionLabel={translateMessage('ui.edit_ed035142')}
           onClick={onEdit}
           hint={state.helper ?? (onEdit ? undefined : EDIT_LOCKED_HELPER)}
           disabled={state.disabled || !onEdit}
@@ -50,7 +57,7 @@ const SpendingLimitActions = ({
     case 'enable':
       return (
         <PolicyDrawerActions
-          actionLabel="Add module"
+          actionLabel={translateMessage('ui.addModule_ef31652f')}
           onClick={onEnableModule}
           hint={state.helper ?? (onEnableModule ? undefined : ENABLE_LOCKED_HELPER)}
           disabled={state.disabled || !onEnableModule}
@@ -59,12 +66,18 @@ const SpendingLimitActions = ({
 
     case 'review':
       if (pending?.onRetry) {
-        return <PolicyDrawerActions actionLabel="Try again" onClick={pending.onRetry} hint={TX_LOAD_FAILED_HELPER} />
+        return (
+          <PolicyDrawerActions
+            actionLabel={translateMessage('ui.tryAgain_27537f8f')}
+            onClick={pending.onRetry}
+            hint={TX_LOAD_FAILED_HELPER}
+          />
+        )
       }
 
       return pending ? (
         <PolicyDrawerActions
-          actionLabel="Review transaction"
+          actionLabel={translateMessage('ui.reviewTransaction_cc55ae47')}
           href={pending.reviewTransactionHref}
           disabled={!pending.reviewTransactionHref}
         />

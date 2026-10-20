@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { TransactionStatus } from '@safe-global/store/gateway/types'
 import { useContext, type ReactNode } from 'react'
@@ -65,7 +66,9 @@ const TxStatusWidget = ({
             <CreatedIcon />
           </span>
 
-          <StatusLabel>{isBatch ? 'Queue transactions' : 'Create'}</StatusLabel>
+          <StatusLabel>
+            {isBatch ? translateMessage('ui.queueTransactions_ccbfaee8') : translateMessage('ui.create_2e386efa')}
+          </StatusLabel>
         </li>
 
         <li className={classnames(css.item, { [css.incomplete]: !canConfirm && !isBatch })}>
@@ -75,14 +78,15 @@ const TxStatusWidget = ({
 
           <StatusLabel>
             {isBatch ? (
-              'Create batch'
+              translateMessage('ui.createBatch_711211c4')
             ) : !nonceNeeded ? (
-              'Confirmed'
+              translateMessage('ui.confirmed_2a0ef702')
             ) : isMessage ? (
-              'Collect signatures'
+              translateMessage('ui.collectSignatures_89b1793f')
             ) : (
               <>
-                Confirmed ({confirmationsSubmitted} of {threshold}){canSign && <span className={css.badge}>+1</span>}
+                {translateMessage('ui.confirmed_e03df75f')}
+                {confirmationsSubmitted} / {threshold}){canSign && <span className={css.badge}>+1</span>}
               </>
             )}
           </StatusLabel>
@@ -94,7 +98,7 @@ const TxStatusWidget = ({
               <SignedIcon />
             </span>
 
-            <StatusLabel>Sign</StatusLabel>
+            <StatusLabel>{translateMessage('ui.sign_1e67e9a4')}</StatusLabel>
           </li>
         )}
 
@@ -103,7 +107,9 @@ const TxStatusWidget = ({
             <SignedIcon />
           </span>
 
-          <StatusLabel>{isMessage ? 'Done' : 'Execute'}</StatusLabel>
+          <StatusLabel>
+            {isMessage ? translateMessage('ui.done_23c91b78') : translateMessage('ui.execute_eea2eb83')}
+          </StatusLabel>
         </li>
       </ul>
     </div>

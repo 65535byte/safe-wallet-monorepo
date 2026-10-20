@@ -43,7 +43,7 @@ describe('MsgSigners', () => {
 
     expect(result.baseElement).toHaveTextContent('0x0000...0001')
     expect(result.baseElement).toHaveTextContent('0x0000...0002')
-    expect(result.baseElement).toHaveTextContent('2 of 1')
+    expect(result.baseElement).toHaveTextContent('2 / 1')
   })
 
   it('should show missing signatures if prop is enabled', () => {
@@ -78,10 +78,10 @@ describe('MsgSigners', () => {
     const result = render(<MsgSigners msg={mockMessage} showMissingSignatures />)
 
     expect(result.baseElement).toHaveTextContent('0x0000...0001')
-    expect(result.baseElement).toHaveTextContent('1 of 5')
-    expect(result.baseElement).toHaveTextContent('Confirmation #2')
-    expect(result.baseElement).toHaveTextContent('Confirmation #3')
-    expect(result.baseElement).toHaveTextContent('Confirmation #4')
-    expect(result.baseElement).toHaveTextContent('Confirmation #5')
+    expect(result.baseElement).toHaveTextContent('1 / 5')
+    expect(result.baseElement).toHaveTextContent('确认 #2')
+    expect(result.baseElement).toHaveTextContent('确认 #3')
+    expect(result.baseElement).toHaveTextContent('确认 #4')
+    expect(result.baseElement).toHaveTextContent('确认 #5')
   })
 })

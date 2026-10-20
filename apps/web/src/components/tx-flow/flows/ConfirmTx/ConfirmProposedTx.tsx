@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useContext, useEffect } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import useChainId from '@/hooks/useChainId'
@@ -7,9 +8,9 @@ import type { ReviewTransactionProps } from '@/components/tx/ReviewTransactionV2
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import { TxFlowContext } from '@/components/tx-flow/TxFlowProvider'
 
-const SIGN_TEXT = 'Sign this transaction.'
-const EXECUTE_TEXT = 'Submit the form to execute this transaction.'
-const SIGN_EXECUTE_TEXT = 'Sign or immediately execute this transaction.'
+const SIGN_TEXT = translateMessage('ui.signThisTransaction_df5344cd')
+const EXECUTE_TEXT = translateMessage('ui.submitTheFormToExecuteThis_05bdab5a')
+const SIGN_EXECUTE_TEXT = translateMessage('ui.signOrImmediatelyExecuteThisTransaction_020c88af')
 
 const ConfirmProposedTx = ({ children, ...props }: ReviewTransactionProps): ReactElement => {
   const chainId = useChainId()

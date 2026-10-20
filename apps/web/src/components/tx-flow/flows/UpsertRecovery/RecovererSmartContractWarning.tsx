@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useLazySafesGetSafeV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
 import { useState, useEffect } from 'react'
 import { useWatch } from 'react-hook-form'
@@ -45,7 +46,7 @@ export function RecovererWarning(): ReactElement | null {
       try {
         await triggerGetSafe({ chainId: safe.chainId, safeAddress: debouncedRecoverer }).unwrap()
       } catch {
-        setWarning('The given address is a smart contract. Please ensure that it can sign transactions.')
+        setWarning(translateMessage('ui.theGivenAddressIsASmart_fc993537'))
       }
     })()
   }, [debouncedRecoverer, safe.chainId, safeAddress, triggerGetSafe])

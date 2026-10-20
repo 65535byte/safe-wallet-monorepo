@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { getSafeSDK } from '@/hooks/coreSDK/safeCoreSDK'
 import type Safe from '@safe-global/protocol-kit'
 import { SafeProvider } from '@safe-global/protocol-kit'
@@ -20,7 +21,6 @@ import { type OnboardAPI } from '@web3-onboard/core'
 import type { ConnectedWallet } from '@/hooks/wallets/useOnboard'
 import { UncheckedJsonRpcSigner } from '@/utils/providers/UncheckedJsonRpcSigner'
 import get from 'lodash/get'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { hasActiveScope } from '@safe-global/views/components/tx-flow/safe-scope/activeScope'
 import type { TxSenderScope } from '@safe-global/views/components/tx-flow/safe-scope/types'
 import { logError } from '@/services/exceptions'
@@ -37,7 +37,7 @@ import ErrorCodes from '@safe-global/utils/services/exceptions/ErrorCodes'
 export const getAndValidateSafeSDK = (scope?: TxSenderScope): Safe => {
   if (scope) {
     if (!scope.sdk) {
-      throw new Error('The Safe SDK for the selected Safe account is not initialized yet.')
+      throw new Error(translateMessage('ui.theSDKForTheSelectedAccount_0ede76b5'))
     }
     return scope.sdk
   }
@@ -46,14 +46,12 @@ export const getAndValidateSafeSDK = (scope?: TxSenderScope): Safe => {
     // A Space-level flow is open but this caller did not pass its scope: it is about to use the URL
     // Safe's SDK. Safe-level routes never hit this (no provider mounted).
     logError(ErrorCodes._822, 'getAndValidateSafeSDK called without a scope while a SafeScopeProvider is mounted')
-    throw new Error('A Safe account must be selected before transacting in this flow.')
+    throw new Error(translateMessage('ui.aAccountMustBeSelectedBefore_718ba539'))
   }
 
   const safeSDK = getSafeSDK()
   if (!safeSDK) {
-    throw new Error(
-      'The Safe SDK could not be initialized. Please be aware that we only support v1.0.0 Safe accounts and up.',
-    )
+    throw new Error(translateMessage('ui.theSDKCouldNotBeInitialized_6969b659'))
   }
   return safeSDK
 }
@@ -61,14 +59,14 @@ export const getAndValidateSafeSDK = (scope?: TxSenderScope): Safe => {
 export const getSafeProvider = (scope?: TxSenderScope) => {
   if (scope) {
     if (!scope.web3ReadOnly) {
-      throw new Error('The provider for the selected Safe account is not initialized yet.')
+      throw new Error(translateMessage('ui.theProviderForTheSelectedAccount_74bb3c6f'))
     }
     return new SafeProvider({ provider: scope.web3ReadOnly._getConnection().url })
   }
 
   const provider = getWeb3ReadOnly()
   if (!provider) {
-    throw new Error('Provider not found.')
+    throw new Error(translateMessage('ui.providerNotFound_9bdb2e90'))
   }
 
   return new SafeProvider({ provider: provider._getConnection().url })
@@ -148,17 +146,17 @@ export const assertWalletChain = async (onboard: OnboardAPI, chainId: string): P
   const wallet = getConnectedWallet(onboard.state.get().wallets)
 
   if (!wallet) {
-    throw new Error('No wallet connected.')
+    throw new Error(translateMessage('ui.noWalletConnected_b0a21e54'))
   }
 
   const newWallet = await switchWalletChain(onboard, chainId)
 
   if (!newWallet) {
-    throw new Error('No wallet connected.')
+    throw new Error(translateMessage('ui.noWalletConnected_b0a21e54'))
   }
 
   if (newWallet.chainId !== chainId) {
-    throw new Error('Wallet connected to wrong chain.')
+    throw new Error(translateMessage('ui.walletConnectedToWrongChain_b76914da'))
   }
 
   return newWallet
@@ -197,7 +195,7 @@ export const prepareTxExecution = async (
   const sdk = await getSafeSDKWithSigner(provider, scope)
 
   if (!sdk.getContractManager().safeContract) {
-    throw new Error('Safe is not deployed')
+    throw new Error(translateMessage('ui.isNotDeployed_90bdeccf'))
   }
 
   const transaction =
@@ -221,18 +219,14 @@ export const prepareTxExecution = async (
 
   if (threshold > signedSafeTransaction.signatures.size) {
     const signaturesMissing = threshold - signedSafeTransaction.signatures.size
-    throw new Error(
-      `There ${signaturesMissing > 1 ? 'are' : 'is'} ${signaturesMissing} signature${maybePlural(
-        signaturesMissing,
-      )} missing`,
-    )
+    throw new Error(translateMessage('ui.thereSignatureMissing_5f9667cf', { p0: signaturesMissing }))
   }
 
   const value = BigInt(signedSafeTransaction.data.value)
   if (value !== 0n) {
     const balance = await sdk.getBalance()
     if (value > balance) {
-      throw new Error('Not enough Ether funds')
+      throw new Error(translateMessage('ui.notEnoughEtherFunds_23cb2e2c'))
     }
   }
 
@@ -246,7 +240,7 @@ export const prepareApproveTxHash = async (hash: string, provider: Eip1193Provid
   const safeContract = sdk.getContractManager().safeContract
 
   if (!safeContract) {
-    throw new Error('Safe is not deployed')
+    throw new Error(translateMessage('ui.isNotDeployed_90bdeccf'))
   }
 
   const owners = await sdk.getOwners()

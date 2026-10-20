@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect, useMemo } from 'react'
 import { formatUnits } from 'ethers'
 import { ZERO_ADDRESS } from '@safe-global/utils/utils/constants'
@@ -67,7 +68,7 @@ export type FeesPreviewData = {
   previewedSafeTx?: SafeTransaction
 }
 
-const EXECUTION_FEE: FeeRow = { label: 'Execution fee', isFree: true }
+const EXECUTION_FEE: FeeRow = { label: translateMessage('ui.executionFee_4eb85f17'), isFree: true }
 
 export const useFeesPreview = (): FeesPreviewData => {
   const { safeTx, gtfPaymentMode, gtfSelectedGasToken, setGtfSelectedGasToken } = useContext(SafeTxContext)
@@ -258,7 +259,7 @@ export const useFeesPreview = (): FeesPreviewData => {
       ...base,
       canCoverFees: true,
       gasFee: {
-        label: 'Max gas fee',
+        label: translateMessage('ui.maxGasFee_ef546e83'),
         amount: gasAmount,
         currency: gasSymbol,
         fiatAmount: formatCurrencyMinimal(gasFiatUsd, currency),
@@ -279,7 +280,10 @@ export const useFeesPreview = (): FeesPreviewData => {
         isConfirmation: true,
         isLegacySigned: true,
         canCoverFees: true,
-        gasFee: { label: 'Max gas fee', note: 'Calculated at execution' },
+        gasFee: {
+          label: translateMessage('ui.maxGasFee_ef546e83'),
+          note: translateMessage('ui.calculatedAtExecution_62a91f6e'),
+        },
         loading: false,
         error: false,
       }
@@ -290,7 +294,7 @@ export const useFeesPreview = (): FeesPreviewData => {
       isLegacySigned: true,
       canCoverFees: true,
       gasFee: {
-        label: 'Max gas fee',
+        label: translateMessage('ui.maxGasFee_ef546e83'),
         amount: getTotalFeeFormatted(gasPrice?.maxFeePerGas, gasLimit, chain),
         currency: nativeSymbol,
       },
@@ -306,7 +310,10 @@ export const useFeesPreview = (): FeesPreviewData => {
       return {
         ...base,
         canCoverFees: true,
-        gasFee: { label: 'Max gas fee', note: 'Calculated at execution' },
+        gasFee: {
+          label: translateMessage('ui.maxGasFee_ef546e83'),
+          note: translateMessage('ui.calculatedAtExecution_62a91f6e'),
+        },
         loading: false,
         error: false,
       }
@@ -332,7 +339,7 @@ export const useFeesPreview = (): FeesPreviewData => {
       ...base,
       canCoverFees: true,
       gasFee: {
-        label: 'Max gas fee',
+        label: translateMessage('ui.maxGasFee_ef546e83'),
         amount: getTotalFeeFormatted(gasPrice?.maxFeePerGas, gasLimit, chain),
         currency: nativeSymbol,
       },
@@ -348,7 +355,7 @@ export const useFeesPreview = (): FeesPreviewData => {
     return {
       ...base,
       canCoverFees: true,
-      gasFee: { label: 'Max gas fee', currency: gasSymbol },
+      gasFee: { label: translateMessage('ui.maxGasFee_ef546e83'), currency: gasSymbol },
       loading: true,
       error: false,
     }
@@ -382,7 +389,7 @@ export const useFeesPreview = (): FeesPreviewData => {
       ...base,
       canCoverFees: true,
       gasFee: {
-        label: 'Max gas fee',
+        label: translateMessage('ui.maxGasFee_ef546e83'),
         amount: gasAmount,
         currency: gasSymbol,
         fiatAmount: formatCurrencyMinimal(relayCostFiat, relayCostFiatCode),
@@ -404,7 +411,10 @@ export const useFeesPreview = (): FeesPreviewData => {
     return {
       ...base,
       canCoverFees: false,
-      gasFee: { label: 'Max gas fee', note: 'Calculated at execution' },
+      gasFee: {
+        label: translateMessage('ui.maxGasFee_ef546e83'),
+        note: translateMessage('ui.calculatedAtExecution_62a91f6e'),
+      },
       loading: false,
       error: false,
     }
@@ -414,7 +424,7 @@ export const useFeesPreview = (): FeesPreviewData => {
     ...base,
     canCoverFees: false,
     gasFee: {
-      label: 'Max gas fee',
+      label: translateMessage('ui.maxGasFee_ef546e83'),
       amount: fallbackAmount,
       currency: nativeSymbol,
     },

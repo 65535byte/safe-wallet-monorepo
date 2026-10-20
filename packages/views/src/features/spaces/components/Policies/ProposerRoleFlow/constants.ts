@@ -1,18 +1,19 @@
-export const PROPOSER_ROLE_TITLE = 'Proposer role'
-export const PROPOSER_ROLE_DESCRIPTION = 'Let teammates without signing rights propose transactions.'
-export const CREATE_POLICY_TITLE = 'Create new policy'
-export const PROPOSER_FIELD_HELPER = 'The beneficiary that will have the ability to propose transactions.'
-export const PROPOSER_NAME_HELPER = 'Sent to an admin to add to the Workspace address book.'
-export const PROPOSER_NAME_WORKSPACE_HELPER = 'Saved to the Workspace address book, visible to all members.'
-export const GRANT_INFO_TITLE = 'You are about to grant the ability to propose transactions.'
-export const GRANT_INFO_DESCRIPTION = 'To complete the setup, confirm with a signature from your connected wallet.'
+import { translateMessage } from '@safe-global/views/i18n'
+export const PROPOSER_ROLE_TITLE = translateMessage('ui.proposerRole_1d90df3b')
+export const PROPOSER_ROLE_DESCRIPTION = translateMessage('ui.letTeammatesWithoutSigningRightsPropose_65ac3715')
+export const CREATE_POLICY_TITLE = translateMessage('ui.createNewPolicy_7f8971f1')
+export const PROPOSER_FIELD_HELPER = translateMessage('ui.theBeneficiaryThatWillHaveThe_493c9283')
+export const PROPOSER_NAME_HELPER = translateMessage('ui.sentToAnAdminToAdd_6d112add')
+export const PROPOSER_NAME_WORKSPACE_HELPER = translateMessage('ui.savedToTheWorkspaceAddressBook_56052a1e')
+export const GRANT_INFO_TITLE = translateMessage('ui.youAreAboutToGrantThe_f9dc99a4')
+export const GRANT_INFO_DESCRIPTION = translateMessage('ui.toCompleteTheSetupConfirmWith_d9743ed3')
 export const PARENT_SAFE_WALLET_COPY = {
-  title: 'Add this proposer on the Safe account level',
-  action: 'grant this role',
+  title: translateMessage('ui.addThisProposerOnTheAccount_e38f6e6f'),
+  action: translateMessage('ui.grantThisRole_904de896'),
 }
-export const PROPOSER_IS_SAFE_ERROR = 'Cannot add the Safe account itself as proposer'
-export const PROPOSER_IS_OWNER_ERROR = 'Cannot add a signer of this Safe account as proposer'
-export const PROPOSER_EXISTS_ERROR = 'This address is already a proposer of this Safe account'
-export const PROPOSER_RESERVED_ERROR = 'This proposer address is not valid'
-export const PROPOSER_SAFE_LOADING_MESSAGE = 'Loading the Safe account details, please wait'
-export const PROPOSER_SAFE_ERROR_MESSAGE = 'Could not load the Safe account details, please try again'
+export const PROPOSER_IS_SAFE_ERROR = translateMessage('ui.cannotAddTheAccountItselfAs_13f457db')
+export const PROPOSER_IS_OWNER_ERROR = translateMessage('ui.cannotAddASignerOfThis_e7d7992b')
+export const PROPOSER_EXISTS_ERROR = translateMessage('ui.thisAddressIsAlreadyAProposer_279084ec')
+export const PROPOSER_RESERVED_ERROR = translateMessage('ui.thisProposerAddressIsNotValid_c8ec1c9c')
+export const PROPOSER_SAFE_LOADING_MESSAGE = translateMessage('ui.loadingTheAccountDetailsPleaseWait_d770647c')
+export const PROPOSER_SAFE_ERROR_MESSAGE = translateMessage('ui.couldNotLoadTheAccountDetails_6d85bd1a')

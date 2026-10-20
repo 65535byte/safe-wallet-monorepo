@@ -21,29 +21,29 @@ function makeNestedSafe(overrides?: Partial<NestedSafeWithStatus>): NestedSafeWi
 
 describe('getSelectedCountLabel', () => {
   it('uses singular "safe" for exactly one selected', () => {
-    expect(getSelectedCountLabel(1)).toBe('1 safe selected')
+    expect(getSelectedCountLabel(1)).toBe('已选择 1 safe')
   })
 
   it('uses plural "safes" for zero selected', () => {
-    expect(getSelectedCountLabel(0)).toBe('0 safes selected')
+    expect(getSelectedCountLabel(0)).toBe('已选择 0 safes')
   })
 
   it('uses plural "safes" for multiple selected', () => {
-    expect(getSelectedCountLabel(5)).toBe('5 safes selected')
+    expect(getSelectedCountLabel(5)).toBe('已选择 5 safes')
   })
 })
 
 describe('getUncuratedCountLabel', () => {
   it('uses singular "safe" for exactly one uncurated', () => {
-    expect(getUncuratedCountLabel(1)).toBe('+1 more nested safe found')
+    expect(getUncuratedCountLabel(1)).toBe('还发现 +1 个嵌套 safe')
   })
 
   it('uses plural "safes" for multiple uncurated', () => {
-    expect(getUncuratedCountLabel(3)).toBe('+3 more nested safes found')
+    expect(getUncuratedCountLabel(3)).toBe('还发现 +3 个嵌套 safes')
   })
 
   it('uses plural "safes" for zero (edge case)', () => {
-    expect(getUncuratedCountLabel(0)).toBe('+0 more nested safes found')
+    expect(getUncuratedCountLabel(0)).toBe('还发现 +0 个嵌套 safes')
   })
 })
 

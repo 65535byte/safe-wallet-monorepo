@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import TableCard from '@safe-global/views/components/common/TableCard'
@@ -115,7 +116,7 @@ const SpaceAddressBook = () => {
       <div>
         <div className="mb-6 flex flex-col gap-6">
           <Typography variant="h2" className="font-bold leading-[1] tracking-tight">
-            Address book
+            {translateMessage('ui.addressBook_84131c25')}
           </Typography>
         </div>
 
@@ -130,25 +131,30 @@ const SpaceAddressBook = () => {
             <TabsTrigger value="workspace" className="cursor-pointer">
               <Tooltip>
                 <TooltipTrigger render={<span />}>
-                  Workspace contacts{isAddressBookSettled ? ` (${addressBookItems.length})` : ''}
+                  {translateMessage('ui.workspaceContacts_a7dbf433')}
+                  {isAddressBookSettled ? ` (${addressBookItems.length})` : ''}
                 </TooltipTrigger>
-                <TooltipContent>Shared contacts visible to everyone in this Workspace</TooltipContent>
+                <TooltipContent>{translateMessage('ui.sharedContactsVisibleToEveryoneIn_8b0650b4')}</TooltipContent>
               </Tooltip>
             </TabsTrigger>
             {isPrivateAddressBookEnabled && (
               <>
                 <TabsTrigger value="mine" className="cursor-pointer">
                   <Tooltip>
-                    <TooltipTrigger render={<span />}>Local contacts ({sortedLocalContacts.length})</TooltipTrigger>
-                    <TooltipContent>These contacts are in your local browser storage</TooltipContent>
+                    <TooltipTrigger render={<span />}>
+                      {translateMessage('ui.localContacts_056450da')}
+                      {sortedLocalContacts.length})
+                    </TooltipTrigger>
+                    <TooltipContent>{translateMessage('ui.theseContactsAreInYourLocal_d1a3229d')}</TooltipContent>
                   </Tooltip>
                 </TabsTrigger>
                 <TabsTrigger value="pending" className="cursor-pointer">
                   <Tooltip>
                     <TooltipTrigger render={<span />}>
-                      Pending{isRequestsSettled ? ` (${pendingRequests.length})` : ''}
+                      {translateMessage('ui.pending_c096ae70')}
+                      {isRequestsSettled ? ` (${pendingRequests.length})` : ''}
                     </TooltipTrigger>
-                    <TooltipContent>Contacts you proposed to add to the Workspace</TooltipContent>
+                    <TooltipContent>{translateMessage('ui.contactsYouProposedToAddTo_705a1396')}</TooltipContent>
                   </Tooltip>
                 </TabsTrigger>
               </>
@@ -166,7 +172,7 @@ const SpaceAddressBook = () => {
                   {isAdmin && activeTab === 'workspace' && (
                     <>
                       <Track {...SPACE_EVENTS.ADD_ADDRESS}>
-                        <AddContact label="Add shared contact" />
+                        <AddContact label={translateMessage('ui.addSharedContact_16bb4a0a')} />
                       </Track>
                       <ImportAddressBook />
                     </>
@@ -189,9 +195,11 @@ const SpaceAddressBook = () => {
               ) : isAddressBookError ? (
                 <SpaceLoadError onReload={refetchAddressBook} testId="address-book-error" />
               ) : searchQuery && filteredAll.length === 0 ? (
-                <p className="text-muted-foreground mb-2 p-4 text-sm">Found 0 results</p>
+                <p className="text-muted-foreground mb-2 p-4 text-sm">{translateMessage('ui.foundResults_b4dfe665')}</p>
               ) : addressBookItems.length === 0 ? (
-                <p className="text-muted-foreground p-4 text-sm">No contacts in this Workspace yet.</p>
+                <p className="text-muted-foreground p-4 text-sm">
+                  {translateMessage('ui.noContactsInThisWorkspaceYet_6f1ad286')}
+                </p>
               ) : (
                 <SpaceAddressBookTable entries={filteredAll} />
               )}
@@ -201,9 +209,13 @@ const SpaceAddressBook = () => {
               <>
                 <TabsContent value="mine">
                   {searchQuery && filteredMine.length === 0 ? (
-                    <p className="text-muted-foreground mb-2 p-4 text-sm">Found 0 results</p>
+                    <p className="text-muted-foreground mb-2 p-4 text-sm">
+                      {translateMessage('ui.foundResults_b4dfe665')}
+                    </p>
                   ) : filteredMine.length === 0 ? (
-                    <p className="text-muted-foreground p-4 text-sm">You haven&apos;t added any contacts yet.</p>
+                    <p className="text-muted-foreground p-4 text-sm">
+                      {translateMessage('ui.youHavenTAddedAnyContacts_acf3e040')}
+                    </p>
                   ) : (
                     <SpaceAddressBookTable
                       entries={filteredMine}
@@ -218,16 +230,21 @@ const SpaceAddressBook = () => {
                             <Tooltip>
                               <TooltipTrigger
                                 render={
-                                  <span className="inline-flex" aria-label={isCompact ? 'Already shared' : undefined} />
+                                  <span
+                                    className="inline-flex"
+                                    aria-label={isCompact ? translateMessage('ui.alreadyShared_9a9d5215') : undefined}
+                                  />
                                 }
                               >
                                 {isCompact ? (
                                   <Check className="text-muted-foreground size-4" />
                                 ) : (
-                                  <Badge variant="secondary">Already shared</Badge>
+                                  <Badge variant="secondary">{translateMessage('ui.alreadyShared_9a9d5215')}</Badge>
                                 )}
                               </TooltipTrigger>
-                              <TooltipContent>Already saved in your Workspace address book</TooltipContent>
+                              <TooltipContent>
+                                {translateMessage('ui.alreadySavedInYourWorkspaceAddress_3cc9449d')}
+                              </TooltipContent>
                             </Tooltip>
                           )
                         }
@@ -265,7 +282,10 @@ const SpaceAddressBook = () => {
 
                 <TabsContent value="pending" className="mt-4 sm:mt-0">
                   {isRequestsLoading ? (
-                    <SpaceLoading subject="pending requests" testId="pending-requests-loading" />
+                    <SpaceLoading
+                      subject={translateMessage('ui.pendingRequests_c155ea1c')}
+                      testId="pending-requests-loading"
+                    />
                   ) : isRequestsError ? (
                     <SpaceLoadError onReload={refetchRequests} testId="pending-requests-error" />
                   ) : (

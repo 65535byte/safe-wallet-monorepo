@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import type { LinkProps } from 'next/link'
 import { Drawer, DrawerBody } from '@/components/common/Drawer'
@@ -69,7 +70,12 @@ const SpendingLimitDrawer = (props: SpendingLimitDrawerProps): ReactElement => {
       : undefined
 
   const outcome = isPendingDrawer(props) ? props.outcome : undefined
-  const state = resolveSpendingLimitDrawerState(policy, viewer, safe.name ?? 'this Safe account', outcome)
+  const state = resolveSpendingLimitDrawerState(
+    policy,
+    viewer,
+    safe.name ?? translateMessage('ui.thisAccount_6eff2e56'),
+    outcome,
+  )
   const Icon = getPolicyIcon(policy.type)
   // A queued transaction that left the queue is no longer pending; only an executed one is on its way.
   const status = outcome ? (outcome === 'executed' ? 'activating' : null) : getPolicyStatus(policy)

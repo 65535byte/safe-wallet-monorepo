@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Badge } from '@safe-global/views/components/ui/badge'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -16,7 +17,7 @@ export type SafeSignatureInfoProps = {
 const SafeSignatureInfo = ({
   safe,
   signatures,
-  label = 'Parent Safe account',
+  label = translateMessage('ui.parentAccount_d16d4813'),
   badgeVariant,
 }: SafeSignatureInfoProps): ReactElement => (
   <div className="flex w-full items-center justify-between gap-3 rounded-lg bg-muted p-3">
@@ -28,7 +29,7 @@ const SafeSignatureInfo = ({
         shape="status"
         data-testid="safe-signature-progress"
       >
-        {signatures} of {safe.threshold} signed
+        {signatures} / {safe.threshold} {translateMessage('ui.signed_8f035951')}
       </Badge>
     </div>
 

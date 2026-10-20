@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { SafeTxContext } from '@/components/tx-flow/SafeTxProvider'
 import { useCallback, useContext, useEffect } from 'react'
 import { TxFlowContext } from '../../TxFlowProvider'
@@ -67,7 +68,7 @@ const useShouldRegisterSlot = () => {
 const ExecuteThroughRoleSlot = withSlot({
   Component: ExecuteThroughRole,
   slotName: SlotName.ComboSubmit,
-  label: 'Execute through role',
+  label: translateMessage('ui.executeThroughRole_048f6d35'),
   id: 'executeThroughRole',
   useSlotCondition: useShouldRegisterSlot,
 })

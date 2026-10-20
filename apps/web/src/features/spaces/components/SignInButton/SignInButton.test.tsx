@@ -95,7 +95,7 @@ describe('SignInButton tracking', () => {
     mockSignIn.mockResolvedValue({ token: 'abc' })
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(trackEvent).toHaveBeenNthCalledWith(
@@ -111,7 +111,7 @@ describe('SignInButton tracking', () => {
     mockSignIn.mockRejectedValue(error)
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.AUTH_LOGIN_FAILED, {
@@ -122,10 +122,10 @@ describe('SignInButton tracking', () => {
   })
 
   it('tracks AUTH_LOGIN_FAILED when signIn returns an error object', async () => {
-    mockSignIn.mockResolvedValue({ error: new Error('Signature failed') })
+    mockSignIn.mockResolvedValue({ error: new Error('签名 failed') })
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.AUTH_LOGIN_FAILED, {
@@ -139,7 +139,7 @@ describe('SignInButton tracking', () => {
     mockSignIn.mockResolvedValue(null)
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(trackEvent).not.toHaveBeenCalledWith(
@@ -165,13 +165,13 @@ describe('SignInButton error messages', () => {
     mockSignIn.mockRejectedValue(new Error('cannot sign'))
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'notifications/show',
         payload: expect.objectContaining({
-          message: 'Safe{Wallet} for logging into Workspace is not supported at the moment.',
+          message: '目前不支持使用 Safe{Wallet} 登录工作空间。',
           variant: 'error',
         }),
       })
@@ -184,13 +184,13 @@ describe('SignInButton error messages', () => {
     mockSignIn.mockRejectedValue(new Error('cannot sign'))
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'notifications/show',
         payload: expect.objectContaining({
-          message: 'MetaMask for logging into Workspace is not supported at the moment.',
+          message: '目前不支持使用 MetaMask 登录工作空间。',
           variant: 'error',
         }),
       })
@@ -202,13 +202,13 @@ describe('SignInButton error messages', () => {
     mockSignIn.mockRejectedValue(new Error('Ledger device error'))
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'notifications/show',
         payload: expect.objectContaining({
-          message: 'Ledger for logging into Workspace is not supported at the moment.',
+          message: '目前不支持使用 Ledger 登录工作空间。',
           variant: 'error',
         }),
       })
@@ -219,13 +219,13 @@ describe('SignInButton error messages', () => {
     mockSignIn.mockRejectedValue(new Error('network error'))
 
     render(<SignInButton redirectLoading={false} afterSignIn={jest.fn()} />)
-    fireEvent.click(screen.getByText('Sign in'))
+    fireEvent.click(screen.getByText('登录'))
 
     await waitFor(() => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: 'notifications/show',
         payload: expect.objectContaining({
-          message: 'Something went wrong while trying to sign in',
+          message: '登录时出错',
           variant: 'error',
         }),
       })

@@ -5,8 +5,8 @@ import NavTabs from '@/components/common/NavTabs'
 import { AppRoutes } from '@/config/routes'
 
 const tabs = [
-  { label: 'Tokens', href: AppRoutes.balances.index },
-  { label: 'NFTs', href: AppRoutes.balances.nfts },
+  { label: '代币', href: AppRoutes.balances.index },
+  { label: 'NFT', href: AppRoutes.balances.nfts },
 ]
 
 describe('NavTabs', () => {
@@ -21,14 +21,14 @@ describe('NavTabs', () => {
 
     rerender(<NavTabs tabs={tabs} />)
 
-    expect(screen.getByRole('tab', { name: 'NFTs' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Tokens' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('tab', { name: 'NFT' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: '代币' })).toHaveAttribute('aria-selected', 'false')
   })
 
   it('falls back to the first tab when the route matches no tab', () => {
     render(<NavTabs tabs={tabs} />, { routerProps: { pathname: '/unknown' } })
 
-    expect(screen.getByRole('tab', { name: 'Tokens' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: '代币' })).toHaveAttribute('aria-selected', 'true')
   })
 
   it('keeps the Safe and the Workspace of the URL in every tab link', () => {
@@ -37,7 +37,7 @@ describe('NavTabs', () => {
       routerProps: { pathname: AppRoutes.balances.index, query: { safe: 'eth:0x1', spaceId } },
     })
 
-    expect(screen.getByRole('tab', { name: 'NFTs' })).toHaveAttribute(
+    expect(screen.getByRole('tab', { name: 'NFT' })).toHaveAttribute(
       'href',
       `${AppRoutes.balances.nfts}?safe=eth%3A0x1&spaceId=${spaceId}`,
     )

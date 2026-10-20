@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@safe-global/views/components/ui/tooltip'
 import { isAddress } from 'ethers'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
@@ -86,7 +87,7 @@ function SpaceAddressBookTable({
   const columns: DataTableColumn<AddressBookEntry>[] = [
     {
       id: 'name',
-      header: 'Name',
+      header: translateMessage('ui.name_84f28b85'),
       width: '20%',
       sticky: true,
       minWidth: 120,
@@ -111,7 +112,7 @@ function SpaceAddressBookTable({
     },
     {
       id: 'address',
-      header: 'Address',
+      header: translateMessage('ui.address_ad6c5986'),
       width: hasMiddleColumn || hasExtraAction ? '30%' : '40%',
       minWidth: 240,
       priority: 'secondary',
@@ -120,7 +121,7 @@ function SpaceAddressBookTable({
     },
     {
       id: 'chains',
-      header: 'Chains',
+      header: translateMessage('ui.chains_a433a021'),
       width: hasExtraAction ? '15%' : '20%',
       priority: 'secondary',
       minWidth: 90,
@@ -131,7 +132,7 @@ function SpaceAddressBookTable({
       ? [
           {
             id: 'middle',
-            header: showAddedBy ? 'Added by' : 'Last updated',
+            header: showAddedBy ? translateMessage('ui.addedBy_8b1e27ae') : translateMessage('ui.lastUpdated_8cd51832'),
             width: '15%' as const,
             priority: 'secondary' as const,
             minWidth: 120,
@@ -162,7 +163,7 @@ function SpaceAddressBookTable({
   const renderRowDetail = (entry: AddressBookEntry) => (
     <div className="flex flex-col gap-2 text-sm">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-muted-foreground w-20 shrink-0">Chains</span>
+        <span className="text-muted-foreground w-20 shrink-0">{translateMessage('ui.chains_a433a021')}</span>
         <div className="flex flex-wrap gap-1">
           {entry.chainIds.map((chainId) => (
             <ChainIndicator key={chainId} chainId={chainId} />
@@ -171,7 +172,9 @@ function SpaceAddressBookTable({
       </div>
       {hasMiddleColumn && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-muted-foreground w-20 shrink-0">{showAddedBy ? 'Added by' : 'Last updated'}</span>
+          <span className="text-muted-foreground w-20 shrink-0">
+            {showAddedBy ? translateMessage('ui.addedBy_8b1e27ae') : translateMessage('ui.lastUpdated_8cd51832')}
+          </span>
           {renderAddedBy(entry)}
         </div>
       )}

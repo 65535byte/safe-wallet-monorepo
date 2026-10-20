@@ -113,7 +113,6 @@ jest.mock('@/services/analytics', () => ({
 
 // Every svg import resolves to one stub, so the mark and the lockup are told apart by their sizing.
 const querySafeMark = (container: HTMLElement) => container.querySelector('.size-10')
-const queryProLockup = (container: HTMLElement) => container.querySelector('.h-10.w-auto')
 
 describe('SpacesList — auth/expiry state rendering', () => {
   // The component reads two auth selectors. Route them through the mocked
@@ -144,57 +143,59 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByRole('link', { name: /get safe pro/i })).toHaveAttribute('href', AppRoutes.welcome.createSpace)
+    expect(screen.getByRole('link', { name: /获取 8379/i })).toHaveAttribute('href', AppRoutes.welcome.createSpace)
   })
 
-  it('keeps the pre-launch first Workspace CTA until Safe Pro is live', () => {
+  it('keeps the pre-launch first Workspace CTA until 8379 is live', () => {
     mockUseSpacesGetV1Query.mockReturnValue({ currentData: [], isFetching: false, error: undefined })
     mockUseUsersGetWithWalletsV1Query.mockReturnValue({ currentData: { id: 1 } })
 
     render(<SpacesList />)
 
-    expect(screen.getByRole('link', { name: /create your first workspace/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /创建您的第一个工作空间/i })).toHaveAttribute(
       'href',
       AppRoutes.welcome.createSpace,
     )
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
-  describe('Safe Pro banner gating', () => {
-    it('keeps the pre-Pro Workspace banner when the flag is off', () => {
+  describe('8379 banner gating', () => {
+    it('hides the Workspace introduction and announcement link when signed out', () => {
       setAuth(false)
 
       const { container } = render(<SpacesList />)
 
-      expect(screen.getByText('Introducing Workspace')).toBeInTheDocument()
+      expect(screen.queryByText('工作空间介绍')).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: '阅读工作空间公告' })).not.toBeInTheDocument()
       expect(screen.queryByTestId('safe-pro-banner')).not.toBeInTheDocument()
       expect(querySafeMark(container)).toBeInTheDocument()
-      expect(queryProLockup(container)).not.toBeInTheDocument()
+      expect(container.querySelector('img[src="/images/brand-logo.png"]')).toBeInTheDocument()
     })
 
-    it('swaps in the Safe Pro banner when the flag is on', () => {
+    it('swaps in the 8379 banner when the flag is on', () => {
       setAuth(false)
       mockUseIsSafeProAnnouncementEnabled.mockReturnValue(true)
 
       const { container } = render(<SpacesList />)
 
       expect(screen.getByTestId('safe-pro-banner')).toBeInTheDocument()
-      expect(screen.queryByText('Introducing Workspace')).not.toBeInTheDocument()
-      expect(queryProLockup(container)).toBeInTheDocument()
-      expect(querySafeMark(container)).not.toBeInTheDocument()
+      expect(screen.queryByText('工作空间介绍')).not.toBeInTheDocument()
+      expect(container.querySelector('img[src="/images/brand-logo.png"]')).toBeInTheDocument()
+      expect(querySafeMark(container)).toBeInTheDocument()
     })
 
-    it('keeps the Pro lockup and terms once Safe Pro is live without the announcement', () => {
+    it('keeps the Pro lockup and terms once 8379 is live without the announcement', () => {
       setAuth(false)
       mockUseIsSafeProEnabled.mockReturnValue(true)
 
       const { container } = render(<SpacesList />)
 
-      expect(queryProLockup(container)).toBeInTheDocument()
-      expect(querySafeMark(container)).not.toBeInTheDocument()
-      expect(screen.getByText('Introducing Workspace')).toBeInTheDocument()
+      expect(container.querySelector('img[src="/images/brand-logo.png"]')).toBeInTheDocument()
+      expect(querySafeMark(container)).toBeInTheDocument()
+      expect(screen.queryByText('工作空间介绍')).not.toBeInTheDocument()
+      expect(screen.queryByRole('link', { name: '阅读工作空间公告' })).not.toBeInTheDocument()
       expect(screen.queryByTestId('safe-pro-banner')).not.toBeInTheDocument()
-      expect(screen.getByRole('link', { name: /safe pro user terms/i })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: /8379 用户条款/i })).toBeInTheDocument()
     })
 
     it('shows the wide Pro banner above the workspaces list when signed in and the flag is on', () => {
@@ -212,7 +213,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
       expect(screen.getByTestId('safe-pro-workspaces-banner')).toBeInTheDocument()
     })
 
-    it('shows the wide Pro banner above the empty state, before and after Safe Pro is live', () => {
+    it('shows the wide Pro banner above the empty state, before and after 8379 is live', () => {
       setAuth(true)
       mockUseIsSafeProAnnouncementEnabled.mockReturnValue(true)
       mockUseUsersGetWithWalletsV1Query.mockReturnValue({ currentData: { id: 1 } })
@@ -220,13 +221,13 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
       const { unmount } = render(<SpacesList />)
       expect(screen.getByTestId('safe-pro-workspaces-banner')).toBeInTheDocument()
-      expect(screen.getByText(/create your first workspace/i)).toBeInTheDocument()
+      expect(screen.getByText(/创建您的第一个工作空间/i)).toBeInTheDocument()
       unmount()
 
       mockUseIsSafeProEnabled.mockReturnValue(true)
       render(<SpacesList />)
       expect(screen.getByTestId('safe-pro-workspaces-banner')).toBeInTheDocument()
-      expect(screen.getByText(/get safe pro/i)).toBeInTheDocument()
+      expect(screen.getByText(/获取 8379/i)).toBeInTheDocument()
     })
 
     it('hides the wide Pro banner when signed in and the flag is off', () => {
@@ -252,12 +253,12 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     // The signed-out card with the "Sign in to your workspace" heading +
     // SignInOptions must render…
-    expect(screen.getByRole('heading', { name: /sign in to your Workspace/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /登录您的工作空间/i })).toBeInTheDocument()
     expect(screen.getByTestId('sign-in-options')).toBeInTheDocument()
 
     // …and the Create workspace CTA / no-workspaces empty state must NOT.
-    expect(screen.queryByText(/^create workspace$/i)).not.toBeInTheDocument()
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^创建工作空间$/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
   // /welcome/spaces keeps its Topbar + tabbed layout. The Accounts/Workspaces
@@ -289,7 +290,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    const cta = screen.getByRole('link', { name: /create your first workspace/i })
+    const cta = screen.getByRole('link', { name: /创建您的第一个工作空间/i })
     expect(cta).toHaveAttribute('href')
     expect(cta).toHaveClass('[&_svg]:text-green-400')
     await userEvent.click(cta)
@@ -299,7 +300,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     // Sign in card must NOT render in this branch.
     expect(screen.queryByTestId('sign-in-options')).not.toBeInTheDocument()
-    expect(screen.queryByRole('status', { name: /loading/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('status', { name: /加载中/i })).not.toBeInTheDocument()
   })
 
   it('renders the No-spaces empty state Card with size="none" so the default gap does not inflate its height', () => {
@@ -320,8 +321,8 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByRole('status', { name: /loading/i })).toBeInTheDocument()
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /加载中/i })).toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
   it('shows a loading spinner, not the sign-in card or empty state, before the store is hydrated on a hard refresh', () => {
@@ -329,9 +330,9 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByRole('status', { name: /loading/i })).toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /加载中/i })).toBeInTheDocument()
     expect(screen.queryByTestId('sign-in-options')).not.toBeInTheDocument()
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
   it('shows an error message with a retry button, not the empty state, when the spaces query errors', () => {
@@ -346,9 +347,9 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByText(/couldn't load your workspaces/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument()
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/无法加载您的工作空间/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /重试/i })).toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
   it('calls refetch when the retry button is clicked in the error state', async () => {
@@ -365,7 +366,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    await userEvent.click(screen.getByRole('button', { name: /try again/i }))
+    await userEvent.click(screen.getByRole('button', { name: /重试/i }))
     expect(refetch).toHaveBeenCalled()
   })
 
@@ -382,8 +383,8 @@ describe('SpacesList — auth/expiry state rendering', () => {
     render(<SpacesList />)
 
     expect(screen.getByTestId('space-row')).toBeInTheDocument()
-    expect(screen.queryByText(/couldn't load your workspaces/i)).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /try again/i })).not.toBeInTheDocument()
+    expect(screen.queryByText(/无法加载您的工作空间/)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /重试/i })).not.toBeInTheDocument()
   })
 
   it('shows the error state, not a stale empty state, when the query errors with no cached spaces', () => {
@@ -398,8 +399,8 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByText(/couldn't load your workspaces/i)).toBeInTheDocument()
-    expect(screen.queryByText(/get safe pro/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/无法加载您的工作空间/)).toBeInTheDocument()
+    expect(screen.queryByText(/获取 8379/i)).not.toBeInTheDocument()
   })
 
   it('shows a loading spinner, not the spaces list, when the user is signed in but the store is not yet hydrated', () => {
@@ -413,7 +414,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    expect(screen.getByRole('status', { name: /loading/i })).toBeInTheDocument()
+    expect(screen.getByRole('status', { name: /加载中/i })).toBeInTheDocument()
     expect(screen.queryByTestId('space-row')).not.toBeInTheDocument()
   })
 
@@ -516,36 +517,36 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     render(<SpacesList />)
 
-    const heading = screen.getByRole('heading', { name: /sign in to your Workspace/i })
+    const heading = screen.getByRole('heading', { name: /登录您的工作空间/i })
     expect(heading.className).toContain('text-center')
   })
 
   // WA-2486: the "By continuing…" Terms/Privacy text is moved out of the card
   // (below it) to reduce text overload inside the box.
-  it('renders the "By continuing" text outside the sign-in card when Safe Pro is off', () => {
+  it('renders the "By continuing" text outside the sign-in card when 8379 is off', () => {
     setAuth(false)
 
     const { container } = render(<SpacesList />)
 
     const card = container.querySelector('.bg-card')
-    const termsLink = screen.getByRole('link', { name: /^terms$/i })
+    const termsLink = screen.getByRole('link', { name: /^条款$/i })
     expect(card).toBeInTheDocument()
     expect(card).not.toContainElement(termsLink)
   })
 
-  it('keeps the general terms while only the Safe Pro announcement is on', () => {
+  it('keeps the general terms while only the 8379 announcement is on', () => {
     setAuth(false)
     mockUseIsSafeProAnnouncementEnabled.mockReturnValue(true)
 
     render(<SpacesList />)
 
-    const termsLink = screen.getByRole('link', { name: /^terms$/i })
+    const termsLink = screen.getByRole('link', { name: /^条款$/i })
     expect(termsLink).toHaveAttribute('href', 'https://safe.global/terms')
     expect(termsLink).toHaveAttribute('target', '_blank')
-    expect(screen.queryByRole('link', { name: /safe pro user terms/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /8379 用户条款/i })).not.toBeInTheDocument()
   })
 
-  it('puts the Safe Pro user terms and privacy links inside the sign-in card, opening in a new tab, when Safe Pro is on', () => {
+  it('puts the 8379 user terms and privacy links inside the sign-in card, opening in a new tab, when 8379 is on', () => {
     setAuth(false)
     mockUseIsSafeProAnnouncementEnabled.mockReturnValue(true)
     mockUseIsSafeProEnabled.mockReturnValue(true)
@@ -553,15 +554,15 @@ describe('SpacesList — auth/expiry state rendering', () => {
     const { container } = render(<SpacesList />)
 
     const card = container.querySelector('.bg-card')
-    const termsLink = screen.getByRole('link', { name: /safe pro user terms/i })
-    const privacyLink = screen.getByRole('link', { name: /privacy policy/i })
+    const termsLink = screen.getByRole('link', { name: /8379 用户条款/i })
+    const privacyLink = screen.getByRole('link', { name: /隐私政策/i })
     expect(card).toContainElement(termsLink)
     expect(card).toContainElement(privacyLink)
     expect(termsLink).toHaveAttribute('href', 'https://safe.global/pro-user-terms')
     expect(termsLink).toHaveAttribute('target', '_blank')
     expect(privacyLink).toHaveAttribute('href', 'https://safe.global/privacy')
     expect(privacyLink).toHaveAttribute('target', '_blank')
-    expect(screen.queryByRole('link', { name: /^terms$/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /^条款$/i })).not.toBeInTheDocument()
   })
 
   // The Create button sits right-aligned above the workspaces list when the
@@ -596,7 +597,7 @@ describe('SpacesList — auth/expiry state rendering', () => {
 
     // The header button is absent; only the empty-state CTA inside the
     // No-workspaces card renders (it lives outside the spacesHeader).
-    expect(screen.getByText(/create your first workspace/i)).toBeInTheDocument()
+    expect(screen.getByText(/创建您的第一个工作空间/i)).toBeInTheDocument()
     expect(screen.getAllByTestId('create-space-button')).toHaveLength(1)
   })
 
@@ -619,6 +620,6 @@ describe('SpacesList — auth/expiry state rendering', () => {
     expect(button).toHaveAttribute('aria-disabled', 'true')
 
     await userEvent.hover(button)
-    expect(await screen.findByText(/limit of 10 workspaces reached/i)).toBeInTheDocument()
+    expect(await screen.findByText(/已达到上限： 10 个工作空间/)).toBeInTheDocument()
   })
 })

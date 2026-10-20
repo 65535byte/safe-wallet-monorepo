@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ArrowDownLeft, ArrowUpRight, Repeat, UserRound, type LucideIcon } from 'lucide-react'
 import type { ReactElement, ReactNode } from 'react'
 import Identicon from '@/components/common/Identicon'
@@ -117,7 +118,7 @@ const ProposerPreview = (): ReactElement => (
       }}
     >
       <PreviewCard left={27.3} top={21.3} width={200} height={207} scale={CARD_SCALE_FRONT}>
-        <CardHeading fontSize={HEADING_FONT_SIZE + 2}>Transactions</CardHeading>
+        <CardHeading fontSize={HEADING_FONT_SIZE + 2}>{translateMessage('ui.transactions_50e8fab5')}</CardHeading>
 
         {TRANSACTION_ICONS.map((Icon, index) => (
           <PreviewRow key={index} scale={CARD_SCALE_FRONT}>
@@ -137,7 +138,7 @@ const ProposerPreview = (): ReactElement => (
 
       <PreviewCard left={129.5} top={82.5} width={146} height={151} scale={1}>
         <div className="flex shrink-0 items-center" style={{ gap: 6 }}>
-          <CardHeading>Signers</CardHeading>
+          <CardHeading>{translateMessage('ui.signers_e1137966')}</CardHeading>
 
           <div className="flex items-center rounded-full bg-black/5" style={{ gap: 2, paddingInline: 4, height: 10.5 }}>
             <UserRound className="text-muted-foreground" style={{ width: 6.3, height: 6.3 }} />
@@ -160,7 +161,7 @@ const ProposerPreview = (): ReactElement => (
       </PreviewCard>
 
       <PreviewCard left={225.6} top={21.6} width={147} height={152} scale={1}>
-        <CardHeading>Proposers</CardHeading>
+        <CardHeading>{translateMessage('ui.proposers_8aaa6a22')}</CardHeading>
 
         {PREVIEW_PROPOSERS.map((address) => (
           <PreviewRow key={address} scale={1}>

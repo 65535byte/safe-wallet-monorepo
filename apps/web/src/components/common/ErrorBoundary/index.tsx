@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NextLink from 'next/link'
 
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -20,17 +21,17 @@ const ErrorBoundary = ({ error, componentStack }: ErrorBoundaryProps) => {
     <div className={css.container}>
       <div className={css.wrapper}>
         <Typography variant="h3" className="text-[var(--color-text-primary)]">
-          Something went wrong,
+          {translateMessage('ui.somethingWentWrong_4f9db64c')}
           <br />
-          please try again.
+          {translateMessage('ui.pleaseTryAgain_4096057f')}
         </Typography>
 
         <CircularIcon icon={WarningIcon} badgeColor="warning" />
 
         {IS_PRODUCTION ? (
           <Typography className="text-[var(--color-text-primary)]">
-            In case the problem persists, please reach out to us via our{' '}
-            <ExternalLink href={HELP_CENTER_URL}>Help Center</ExternalLink>
+            {translateMessage('ui.inCaseTheProblemPersistsPlease_b884b821')}
+            <ExternalLink href={HELP_CENTER_URL}>{translateMessage('ui.helpCenter_a9643f1f')}</ExternalLink>
           </Typography>
         ) : (
           <>
@@ -40,7 +41,7 @@ const ErrorBoundary = ({ error, componentStack }: ErrorBoundaryProps) => {
           </>
         )}
         <Link href={AppRoutes.index} className="mt-4" render={<NextLink href={AppRoutes.index} />}>
-          Go home
+          {translateMessage('ui.goHome_a49cee55')}
         </Link>
       </div>
     </div>

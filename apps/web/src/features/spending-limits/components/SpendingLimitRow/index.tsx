@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { RadioGroup, RadioGroupItem } from '@safe-global/views/components/ui/radio-group'
 import { Label } from '@safe-global/views/components/ui/label'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -44,7 +45,7 @@ const SpendingLimitRow = ({
 
   return (
     <div className="flex flex-col">
-      <Label className="mb-1">Send as</Label>
+      <Label className="mb-1">{translateMessage('ui.sendAs_2ec40bf0')}</Label>
       <Controller
         rules={{ required: true }}
         control={control}
@@ -68,7 +69,7 @@ const SpendingLimitRow = ({
             {canCreateStandardTx && (
               <Label data-testid="standard-tx" className={`${css.label} flex items-center gap-2 text-sm font-normal`}>
                 <RadioGroupItem value={TokenTransferType.multiSig} />
-                Standard transaction
+                {translateMessage('ui.standardTransaction_0241f11e')}
                 <Tooltip>
                   <TooltipTrigger
                     render={
@@ -78,10 +79,12 @@ const SpendingLimitRow = ({
                     }
                   />
                   <TooltipContent>
-                    A standard transaction requires the signatures of other signers before the specified funds can be
-                    transferred.&nbsp;
-                    <ExternalLink href={HelpCenterArticle.SPENDING_LIMITS} title="Learn more about spending limits">
-                      Learn more about spending limits
+                    {translateMessage('ui.aStandardTransactionRequiresTheSignatures_c246510e')}
+                    <ExternalLink
+                      href={HelpCenterArticle.SPENDING_LIMITS}
+                      title={translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')}
+                    >
+                      {translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')}
                     </ExternalLink>
                     .
                   </TooltipContent>
@@ -96,7 +99,8 @@ const SpendingLimitRow = ({
                 })}
               >
                 <RadioGroupItem value={TokenTransferType.spendingLimit} />
-                Spending limit <b>{`(${formattedAmount} ${selectedToken?.symbol})`}</b>
+                {translateMessage('ui.spendingLimit_6465c751')}
+                <b>{`(${formattedAmount} ${selectedToken?.symbol})`}</b>
                 <Tooltip>
                   <TooltipTrigger
                     render={
@@ -106,10 +110,12 @@ const SpendingLimitRow = ({
                     }
                   />
                   <TooltipContent>
-                    A spending limit transaction allows you to transfer the specified funds without the need to collect
-                    the signatures of other signers.&nbsp;
-                    <ExternalLink href={HelpCenterArticle.SPENDING_LIMITS} title="Learn more about spending limits">
-                      Learn more about spending limits
+                    {translateMessage('ui.aSpendingLimitTransactionAllowsYou_1c2d7952')}
+                    <ExternalLink
+                      href={HelpCenterArticle.SPENDING_LIMITS}
+                      title={translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')}
+                    >
+                      {translateMessage('ui.learnMoreAboutSpendingLimits_f51b7cae')}
                     </ExternalLink>
                     .
                   </TooltipContent>

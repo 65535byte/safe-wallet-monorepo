@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@safe-global/views/components/ui/dropdown-menu'
@@ -97,8 +98,8 @@ function ChainSelectorBlock({
           variant="surface"
           // eslint-disable-next-line no-restricted-syntax -- the radius has to be the popup's less this field's inset; no preset can know the container it is nested in
           className="m-1 w-[calc(100%-0.5rem)] rounded-[16px] shadow-xs"
-          placeholder="Search networks"
-          aria-label="Search networks"
+          placeholder={translateMessage('ui.searchNetworks_7e7f2748')}
+          aria-label={translateMessage('ui.searchNetworks_7e7f2748')}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           onClear={() => setSearch('')}

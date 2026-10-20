@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useWallet from '@/hooks/wallets/useWallet'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -23,7 +24,6 @@ import { createMultiSendCallOnlyTx, dispatchBatchExecution, dispatchBatchExecuti
 import { getMultiSendTxs } from '@/utils/transactions'
 import TxCard, { TxCardActions } from '@safe-global/views/components/tx-flow/common/TxCard'
 import CheckWallet from '@/components/common/CheckWallet'
-import { RiskConfirmation } from '@/components/tx-flow/features/RiskConfirmation'
 import type { ExecuteBatchFlowProps } from '.'
 import { asError } from '@safe-global/utils/services/exceptions/utils'
 import ErrorMessage from '@/components/tx/ErrorMessage'
@@ -223,15 +223,15 @@ export const ReviewBatch = ({ params }: { params: ExecuteBatchFlowProps }) => {
     <>
       <TxCard>
         <Typography variant="paragraph-small" className="block">
-          This transaction batches a total of {params.txs.length} transactions from your queue into a single Ethereum
-          transaction. Please check every included transaction carefully, especially if you have rejection transactions,
-          and make sure you want to execute all of them. Included transactions are highlighted when you hover over the
-          execute button.
+          {translateMessage('ui.thisTransactionBatchesATotalOf_4d2b1a3a')}
+          {params.txs.length} {translateMessage('ui.transactionsFromYourQueueIntoA_ff92e396')}
         </Typography>
 
-        {multiSendContract && <SendToBlock address={multiSendContractAddress} title="Interact with" />}
+        {multiSendContract && (
+          <SendToBlock address={multiSendContractAddress} title={translateMessage('ui.interactWith_9eefaee7')} />
+        )}
 
-        {multiSendTxData && <HexEncodedData title="Data" hexData={multiSendTxData} />}
+        {multiSendTxData && <HexEncodedData title={translateMessage('ui.data_e932c3b4')} hexData={multiSendTxData} />}
 
         <div>
           <DecodedTxs txs={txsWithDetails} />
@@ -249,13 +249,12 @@ export const ReviewBatch = ({ params }: { params: ExecuteBatchFlowProps }) => {
             setExecutionMethod={setExecutionMethod}
             offer={offer}
             showsProUpsell={showsProUpsell}
-            tooltip="You can only relay multisend transactions containing executions from the same Safe account."
+            tooltip={translateMessage('ui.youCanOnlyRelayMultisendTransactions_ce9e17cd')}
           />
         )}
 
         <Alert variant="warning" outlined={false}>
-          Be aware that if any of the included transactions revert, none of them will be executed. This will result in
-          the loss of the allocated transaction fees.
+          {translateMessage('ui.beAwareThatIfAnyOf_0982e9e9')}
         </Alert>
 
         <BatchErrorMessages
@@ -264,8 +263,6 @@ export const ReviewBatch = ({ params }: { params: ExecuteBatchFlowProps }) => {
           submitError={submitError}
           isRejectedByUser={isRejectedByUser}
         />
-
-        <RiskConfirmation subject="transaction" />
 
         <div>
           <div className="pt-4">
@@ -276,7 +273,7 @@ export const ReviewBatch = ({ params }: { params: ExecuteBatchFlowProps }) => {
             <CheckWallet allowNonOwner={true} checkNetwork>
               {(isOk) => (
                 <Button type="submit" size="submit" disabled={!isOk || submitDisabled} onClick={handleSubmit}>
-                  {!isSubmittable ? <Spinner className="size-5" /> : 'Submit'}
+                  {!isSubmittable ? <Spinner className="size-5" /> : translateMessage('ui.submit_3c850bc4')}
                 </Button>
               )}
             </CheckWallet>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type EndpointBuilder } from '@reduxjs/toolkit/query/react'
 
 import type { SafeOverview } from '@safe-global/store/gateway/AUTO_GENERATED/safes'
@@ -90,7 +91,7 @@ class SafeOverviewFetcher {
         item.callback({ data: overview })
       })
     } catch {
-      itemsToProcess.forEach((item) => item.callback({ error: 'Could not fetch Safe overview' }))
+      itemsToProcess.forEach((item) => item.callback({ error: translateMessage('ui.couldNotFetchOverview_94d37f14') }))
     }
   }
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type {
   NativeStakingDepositTransactionInfo,
   TransactionData,
@@ -16,9 +17,13 @@ const StakingTxDepositDetails = ({
   return (
     <div className="flex flex-col gap-2 pl-2 pr-10">
       {txData && (
-        <SendAmountBlock title="Deposit" amountInWei={txData.value?.toString() || '0'} tokenInfo={info.tokenInfo} />
+        <SendAmountBlock
+          title={translateMessage('ui.deposit_99d820fe')}
+          amountInWei={txData.value?.toString() || '0'}
+          tokenInfo={info.tokenInfo}
+        />
       )}
-      <FieldsGrid title="Net reward rate">{info.annualNrr.toFixed(3)}%</FieldsGrid>
+      <FieldsGrid title={translateMessage('ui.netRewardRate_8e630a77')}>{info.annualNrr.toFixed(3)}%</FieldsGrid>
       <StakingConfirmationTxDeposit order={info} isTxDetails />
     </div>
   )

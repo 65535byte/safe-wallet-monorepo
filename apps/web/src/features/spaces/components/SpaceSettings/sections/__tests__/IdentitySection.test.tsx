@@ -73,7 +73,7 @@ describe('IdentitySection', () => {
     fireEvent.change(getInput(), { target: { value: 'Jo' } })
 
     await waitFor(() => {
-      expect(screen.getByText('Names must be at least 3 character(s) long')).toBeInTheDocument()
+      expect(screen.getByText('Names must be，时间 least 3 character(s) long')).toBeInTheDocument()
     })
     expect(getSaveButton()).toBeDisabled()
   })

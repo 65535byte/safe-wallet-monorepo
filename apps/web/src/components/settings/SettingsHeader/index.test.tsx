@@ -21,7 +21,7 @@ describe('SettingsHeader', () => {
     it('displays safe specific preferences if on a safe', () => {
       const result = render(<SettingsHeader safeAddress="0x1234" chain={CONFIG_SERVICE_CHAINS[0]} />)
 
-      expect(result.getByText('Setup')).toBeInTheDocument()
+      expect(result.getByText('账户配置')).toBeInTheDocument()
     })
 
     it('displays Notifications if feature is enabled', () => {
@@ -35,7 +35,7 @@ describe('SettingsHeader', () => {
         />,
       )
 
-      expect(result.getByText('Notifications')).toBeInTheDocument()
+      expect(result.getByText('通知')).toBeInTheDocument()
     })
   })
 
@@ -48,10 +48,10 @@ describe('SettingsHeader', () => {
     it('displays general preferences if no safe is open', () => {
       const result = render(<SettingsHeader safeAddress="" chain={CONFIG_SERVICE_CHAINS[0]} />)
 
-      expect(result.getByText('Cookies')).toBeInTheDocument()
-      expect(result.getByText('Appearance')).toBeInTheDocument()
-      expect(result.getByText('Data')).toBeInTheDocument()
-      expect(result.getByText('Environment variables')).toBeInTheDocument()
+      expect(result.getByText('Cookie')).toBeInTheDocument()
+      expect(result.getByText('外观')).toBeInTheDocument()
+      expect(result.getByText('数据')).toBeInTheDocument()
+      expect(result.getByText('环境变量')).toBeInTheDocument()
     })
 
     it('displays Notifications if feature is enabled', () => {
@@ -65,7 +65,7 @@ describe('SettingsHeader', () => {
         />,
       )
 
-      expect(result.getByText('Notifications')).toBeInTheDocument()
+      expect(result.getByText('通知')).toBeInTheDocument()
     })
   })
 })

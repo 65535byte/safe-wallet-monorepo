@@ -82,7 +82,7 @@ describe('ChooseOwner (WA-3005 Bucket A)', () => {
     it('rejects the Safe account itself', () => {
       renderChooseOwner()
 
-      expect(capturedValidate?.(SAFE_ADDRESS)).toBe('Cannot use Safe account itself as signer.')
+      expect(capturedValidate?.(SAFE_ADDRESS)).toBe('不能将 8379 账户本身作为签名人。')
     })
 
     it('accepts a new, unique signer', () => {

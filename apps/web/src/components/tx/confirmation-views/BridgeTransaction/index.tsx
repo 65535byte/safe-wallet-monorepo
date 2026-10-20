@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ChainIndicator from '@/components/common/ChainIndicator'
 import NamedAddressInfo from '@/components/common/NamedAddressInfo'
 import { DataRow } from '@safe-global/views/components/common/Table/DataRow'
@@ -19,7 +20,7 @@ interface BridgeTransactionProps {
 
 const BridgeTxRecipientRow = ({ txInfo }: BridgeTransactionProps) => {
   return (
-    <DataRow datatestid="recipient" key="recipient" title="Recipient">
+    <DataRow datatestid="recipient" key="recipient" title={translateMessage('ui.recipient_f737f260')}>
       <div className="flex flex-col">
         <NamedAddressInfo
           address={txInfo.recipient.value}
@@ -40,16 +41,17 @@ function pendingBridgeTransactionRows(txInfo: BridgeAndSwapTransactionInfo & { s
     BigInt(txInfo.fromAmount) + BigInt(txInfo.fees?.integratorFee ?? 0n) + BigInt(txInfo.fees?.lifiFee ?? 0n)
 
   return [
-    <DataRow datatestid="amount" key="amount" title="Amount">
+    <DataRow datatestid="amount" key="amount" title={translateMessage('ui.amount_a72e74a9')}>
       <div className="flex flex-row items-center gap-2">
-        Sending{' '}
+        {translateMessage('ui.sending_ddd4e5b4')}{' '}
         <TokenAmount
           value={actualFromAmount.toString()}
           decimals={txInfo.fromToken.decimals}
           logoUri={txInfo.fromToken.logoUri ?? ''}
           tokenSymbol={txInfo.fromToken.symbol}
         />{' '}
-        to <ChainIndicator chainId={txInfo.toChain} inline />
+        {translateMessage('ui.to_474fc495')}
+        <ChainIndicator chainId={txInfo.toChain} inline />
       </div>
     </DataRow>,
   ]
@@ -59,19 +61,20 @@ function failedBridgeTransactionRows(txInfo: BridgeAndSwapTransactionInfo & { st
   const actualFromAmount =
     BigInt(txInfo.fromAmount) + BigInt(txInfo.fees?.integratorFee ?? 0n) + BigInt(txInfo.fees?.lifiFee ?? 0n)
   return [
-    <DataRow datatestid="amount" key="amount" title="Amount">
+    <DataRow datatestid="amount" key="amount" title={translateMessage('ui.amount_a72e74a9')}>
       <div className="flex flex-row items-center gap-2">
-        Failed to send{' '}
+        {translateMessage('ui.failedToSend_c7db57ef')}{' '}
         <TokenAmount
           value={actualFromAmount.toString()}
           decimals={txInfo.fromToken.decimals}
           logoUri={txInfo.fromToken.logoUri ?? ''}
           tokenSymbol={txInfo.fromToken.symbol}
         />{' '}
-        to <ChainIndicator chainId={txInfo.toChain} inline />
+        {translateMessage('ui.to_474fc495')}
+        <ChainIndicator chainId={txInfo.toChain} inline />
       </div>
     </DataRow>,
-    <DataRow datatestid="substatus" key="substatus" title="Substatus">
+    <DataRow datatestid="substatus" key="substatus" title={translateMessage('ui.substatus_9d0c2886')}>
       {txInfo.substatus}
     </DataRow>,
   ]
@@ -95,10 +98,10 @@ function successfulBridgeTransactionRows(
   const rows = []
 
   rows.push(
-    <DataRow datatestid="amount" key="amount" title="Amount">
+    <DataRow datatestid="amount" key="amount" title={translateMessage('ui.amount_a72e74a9')}>
       <div className="flex flex-col gap-1">
         <div className="flex flex-row items-center gap-2">
-          Sell{' '}
+          {translateMessage('ui.sell_aa061cbb')}{' '}
           <TokenAmount
             value={actualFromAmount.toString()}
             decimals={txInfo.fromToken.decimals}
@@ -106,12 +109,13 @@ function successfulBridgeTransactionRows(
             tokenSymbol={txInfo.fromToken.symbol}
             chainId={chainId}
           />{' '}
-          on {fromChainConfig?.chainName ?? 'Unknown Chain'}
+          {translateMessage('ui.on_f1bc39ef')}
+          {fromChainConfig?.chainName ?? 'Unknown Chain'}
         </div>
         <div className="flex flex-row items-center gap-2">
           {txInfo.toToken && txInfo.toAmount ? (
             <>
-              For{' '}
+              {translateMessage('ui.for_9837dd1e')}{' '}
               <TokenAmount
                 value={txInfo.toAmount}
                 decimals={txInfo.toToken.decimals}
@@ -119,10 +123,11 @@ function successfulBridgeTransactionRows(
                 tokenSymbol={txInfo.toToken.symbol}
                 chainId={txInfo.toChain}
               />{' '}
-              on {toChainConfig?.chainName ?? 'Unknown Chain'}
+              {translateMessage('ui.on_f1bc39ef')}
+              {toChainConfig?.chainName ?? 'Unknown Chain'}
             </>
           ) : (
-            <>Could not find buy token information.</>
+            <>{translateMessage('ui.couldNotFindBuyTokenInformation_778c1425')}</>
           )}
         </div>
       </div>
@@ -130,7 +135,7 @@ function successfulBridgeTransactionRows(
   )
   if (exchangeRate) {
     rows.push(
-      <DataRow datatestid="exchange-rate" key="Exchange Rate" title="Exchange Rate">
+      <DataRow datatestid="exchange-rate" key="Exchange Rate" title={translateMessage('ui.exchangeRate_5c6da80c')}>
         1 {txInfo.fromToken.symbol} = {formatAmount(exchangeRate)} {txInfo.toToken!.symbol}
       </DataRow>,
     )
@@ -160,16 +165,20 @@ function BridgeTransaction({ txInfo }: BridgeTransactionProps) {
   }
   rows.push(
     <BridgeTxRecipientRow key="recipient" txInfo={txInfo} />,
-    <DataRow datatestid="total-fee" key="fees" title="Fees">
+    <DataRow datatestid="total-fee" key="fees" title={translateMessage('ui.fees_5ef20e69')}>
       {formatAmount(totalFee)} {txInfo.fromToken.symbol}
     </DataRow>,
   )
 
   if (txInfo.explorerUrl) {
     rows.push(
-      <DataRow datatestid="lifi-explorer-url" key="lifi-explorer-url" title="Lifi Explorer">
+      <DataRow
+        datatestid="lifi-explorer-url"
+        key="lifi-explorer-url"
+        title={translateMessage('ui.lifiExplorer_f696d3f7')}
+      >
         <ExternalLink className={css.externalLink} href={txInfo.explorerUrl}>
-          View in LiFi Explorer
+          {translateMessage('ui.viewInLiFiExplorer_1dc34b29')}
         </ExternalLink>
       </DataRow>,
     )

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import Identicon from '@/components/common/Identicon'
 import TokenIcon from '@/components/common/TokenIcon'
@@ -11,7 +12,7 @@ const PREVIEW_TOKEN = {
   symbol: 'USDC',
   logoUri: 'https://safe-transaction-assets.safe.global/tokens/logos/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.png',
   allowance: '1,500/Month',
-  remaining: '500 USDC remaining',
+  remaining: translateMessage('ui.uSDCRemaining_df26c5f5'),
   remainingPercentage: 33,
 }
 
@@ -35,7 +36,7 @@ const SpenderCard = ({ address, position }: { address: string; position: string 
     className={`absolute left-1/2 flex h-10 -translate-x-1/2 items-center gap-2 rounded-md bg-card px-3 py-2 shadow-md ${position}`}
   >
     <Typography variant="paragraph-mini-medium" className="flex-1">
-      Spender
+      {translateMessage('ui.spender_77803664')}
     </Typography>
 
     <Identicon address={address} size={24} />

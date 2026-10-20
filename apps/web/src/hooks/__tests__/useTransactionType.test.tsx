@@ -88,9 +88,9 @@ const iconProps = (icon: string | ReactElement) =>
 describe('getTransactionType', () => {
   describe('icon per transaction type', () => {
     const mappings: { label: string; txInfo: Transaction['txInfo']; icon: LucideIcon; text: string }[] = [
-      { label: 'Safe creation', txInfo: creationTxInfo(), icon: Settings, text: 'Safe account created' },
+      { label: 'Safe creation', txInfo: creationTxInfo(), icon: Settings, text: '8379 账户已创建' },
       {
-        label: 'TWAP order',
+        label: 'TWAP 订单',
         txInfo: txInfoOfType(TransactionInfoType.TWAP_ORDER),
         icon: Repeat,
         text: TWAP_ORDER_TITLE,
@@ -99,25 +99,25 @@ describe('getTransactionType', () => {
         label: 'staking deposit',
         txInfo: txInfoOfType(TransactionInfoType.NATIVE_STAKING_DEPOSIT),
         icon: Database,
-        text: 'Stake',
+        text: '质押',
       },
       {
         label: 'staking validators exit',
         txInfo: txInfoOfType(TransactionInfoType.NATIVE_STAKING_VALIDATORS_EXIT),
         icon: Database,
-        text: 'Withdraw request',
+        text: '提取请求',
       },
       {
         label: 'staking withdraw',
         txInfo: txInfoOfType(TransactionInfoType.NATIVE_STAKING_WITHDRAW),
         icon: Database,
-        text: 'Claim',
+        text: '领取',
       },
-      { label: 'vault deposit', txInfo: txInfoOfType('VaultDeposit'), icon: TrendingUp, text: 'Deposit' },
-      { label: 'vault redeem', txInfo: txInfoOfType('VaultRedeem'), icon: TrendingUp, text: 'Withdraw' },
-      { label: 'bridge', txInfo: txInfoOfType('SwapAndBridge'), icon: SendToBack, text: 'Bridge' },
-      { label: 'swap', txInfo: txInfoOfType('Swap'), icon: Repeat, text: 'Swap' },
-      { label: 'unknown type', txInfo: txInfoOfType('SomethingNew'), icon: Code, text: 'Contract interaction' },
+      { label: 'vault deposit', txInfo: txInfoOfType('VaultDeposit'), icon: TrendingUp, text: '存入' },
+      { label: 'vault redeem', txInfo: txInfoOfType('VaultRedeem'), icon: TrendingUp, text: '提取' },
+      { label: 'bridge', txInfo: txInfoOfType('SwapAndBridge'), icon: SendToBack, text: '跨链桥' },
+      { label: 'swap', txInfo: txInfoOfType('Swap'), icon: Repeat, text: '兑换' },
+      { label: 'unknown type', txInfo: txInfoOfType('SomethingNew'), icon: Code, text: '合约交互' },
     ]
 
     it.each(mappings)('renders the right icon for a $label', ({ txInfo, icon, text }) => {
@@ -132,7 +132,7 @@ describe('getTransactionType', () => {
     it('renders a red outgoing arrow for an executed send', () => {
       const result = getTransactionType(makeTx({ txInfo: transferTxInfo('OUTGOING') }), {})
 
-      expect(result.text).toBe('Sent')
+      expect(result.text).toBe('已发送')
       expect(iconProps(result.icon).icon).toBe(ArrowUpRight)
       expect(iconProps(result.icon).className).toContain('text-destructive')
     })
@@ -140,7 +140,7 @@ describe('getTransactionType', () => {
     it('renders a green incoming arrow for a receipt', () => {
       const result = getTransactionType(makeTx({ txInfo: transferTxInfo('INCOMING') }), {})
 
-      expect(result.text).toBe('Received')
+      expect(result.text).toBe('已接收')
       expect(iconProps(result.icon).icon).toBe(ArrowDownLeft)
       expect(iconProps(result.icon).className).toContain('text-accent-success')
     })
@@ -150,7 +150,7 @@ describe('getTransactionType', () => {
 
       const result = getTransactionType(tx, {})
 
-      expect(result.text).toBe('Send')
+      expect(result.text).toBe('发送')
       expect(iconProps(result.icon).icon).toBe(ArrowUpRight)
     })
   })
@@ -189,14 +189,14 @@ describe('getTransactionType', () => {
     it('renders Repeat for a market order', () => {
       const result = getTransactionType(makeTx({ txInfo: swapOrderTxInfo() }), {})
 
-      expect(result.text).toBe('Swap order')
+      expect(result.text).toBe('兑换订单')
       expect(iconProps(result.icon).icon).toBe(Repeat)
     })
 
     it('renders Repeat for a limit order', () => {
       const result = getTransactionType(makeTx({ txInfo: swapOrderTxInfo('limit') }), {})
 
-      expect(result.text).toBe('Limit order')
+      expect(result.text).toBe('限价订单')
       expect(iconProps(result.icon).icon).toBe(Repeat)
     })
   })
@@ -205,23 +205,23 @@ describe('getTransactionType', () => {
     it('shows the Safe App name and logo when safeAppInfo is present', () => {
       const logoUri = 'https://apps.safe.global/tx-builder/logo.svg'
       const tx = makeTx({
-        safeAppInfo: { id: 1, name: 'Transaction Builder', url: 'https://apps.safe.global/tx-builder', logoUri },
+        safeAppInfo: { id: 1, name: '交易构建器', url: 'https://apps.safe.global/tx-builder', logoUri },
       })
 
       const result = getTransactionType(tx, {})
 
-      expect(result.text).toBe('Transaction Builder')
+      expect(result.text).toBe('交易构建器')
       expect(result.icon).toBe(logoUri)
     })
 
     it('falls back to the Code icon when safeAppInfo has no logo', () => {
       const tx = makeTx({
-        safeAppInfo: { id: 1, name: 'Transaction Builder', url: 'https://apps.safe.global/tx-builder' },
+        safeAppInfo: { id: 1, name: '交易构建器', url: 'https://apps.safe.global/tx-builder' },
       })
 
       const result = getTransactionType(tx, {})
 
-      expect(result.text).toBe('Transaction Builder')
+      expect(result.text).toBe('交易构建器')
       expect(iconProps(result.icon).icon).toBe(Code)
     })
   })
@@ -241,7 +241,7 @@ describe('getTransactionType', () => {
     it('renders Layers for a multiSend batch', () => {
       const result = getTransactionType(makeTx({ safeAppInfo: null }), {})
 
-      expect(result.text).toBe('Batch')
+      expect(result.text).toBe('批次')
       expect(iconProps(result.icon).icon).toBe(Layers)
     })
 
@@ -250,7 +250,7 @@ describe('getTransactionType', () => {
 
       const result = getTransactionType(makeTx({ txInfo }), {})
 
-      expect(result.text).toBe('On-chain rejection')
+      expect(result.text).toBe('链上拒绝')
       expect(iconProps(result.icon).icon).toBe(CircleX)
       expect(iconProps(result.icon).className).toContain('text-destructive')
     })
@@ -260,7 +260,7 @@ describe('getTransactionType', () => {
 
       const result = getTransactionType(makeTx({ txInfo }), {})
 
-      expect(result.text).toBe('Nested Safe')
+      expect(result.text).toBe('嵌套 8379')
       expect(iconProps(result.icon).icon).toBe(GitMerge)
     })
 
@@ -269,7 +269,7 @@ describe('getTransactionType', () => {
 
       const result = getTransactionType(makeTx({ txInfo }), {})
 
-      expect(result.text).toBe('Contract interaction')
+      expect(result.text).toBe('合约交互')
       expect(iconProps(result.icon).icon).toBe(Code)
     })
 

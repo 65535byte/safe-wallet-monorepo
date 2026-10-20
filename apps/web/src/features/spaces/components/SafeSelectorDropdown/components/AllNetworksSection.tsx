@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, useState } from 'react'
 import { Info, Loader2, Plus } from 'lucide-react'
 import {
@@ -14,9 +15,8 @@ import { OVERVIEW_EVENTS, OVERVIEW_LABELS, trackEvent } from '@/services/analyti
 import ChainLogo from './ChainLogo'
 
 const UNAVAILABLE_MESSAGES: Record<AddNetworkUnavailableReason, string> = {
-  'safe-specific': 'Adding another network is not possible for this Safe.',
-  'outdated-mastercopy':
-    'This account was created from an outdated mastercopy. Adding another network is not possible.',
+  'safe-specific': translateMessage('ui.addingAnotherNetworkIsNotPossible_59cb8770'),
+  'outdated-mastercopy': translateMessage('ui.thisAccountWasCreatedFromAn_e0bb778a'),
 }
 
 const ALL_NETWORKS_ITEM = 'all-networks'
@@ -63,7 +63,7 @@ function AllNetworksSection({
         className="block px-4 py-3 text-center text-muted-foreground"
         data-testid="all-networks-empty"
       >
-        No networks match your search
+        {translateMessage('ui.noNetworksMatchYourSearch_0aa8a97f')}
       </Typography>
     ) : null
 
@@ -139,7 +139,7 @@ function AllNetworksSection({
           className="rounded-lg pl-4 pr-2 py-2 hover:bg-muted/30 text-muted-foreground cursor-pointer"
         >
           <Typography variant="paragraph-small-medium" className="text-muted-foreground">
-            All networks
+            {translateMessage('ui.allNetworks_ec5f6f6c')}
           </Typography>
         </AccordionTrigger>
         <AccordionContent className="pb-0">
@@ -153,7 +153,7 @@ function AllNetworksSection({
                   disabled={disabled}
                   className="flex items-center justify-between px-2 py-2 rounded-lg w-full cursor-pointer hover:bg-muted/30 text-left disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent"
                   data-testid="add-network-btn"
-                  aria-label={`Add ${chainItem.chainName}`}
+                  aria-label={translateMessage('ui.add_e4a9c968', { p0: chainItem.chainName })}
                 >
                   <div className="flex items-center gap-4">
                     <ChainLogo chainId={chainItem.chainId} />
@@ -163,7 +163,7 @@ function AllNetworksSection({
                   </div>
                   {disabled ? (
                     <Badge variant="secondary" size="sm">
-                      Not available
+                      {translateMessage('ui.notAvailable_6505d8d6')}
                     </Badge>
                   ) : (
                     <Plus className="size-4 shrink-0 text-muted-foreground" />

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { CircleAlert } from 'lucide-react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -8,16 +9,19 @@ interface WidgetErrorStateProps {
   onRefresh?: () => void
 }
 
-const WidgetErrorState = ({ message = 'Unable to load content', onRefresh }: WidgetErrorStateProps): ReactElement => {
+const WidgetErrorState = ({
+  message = translateMessage('ui.unableToLoadContent_b6cc4694'),
+  onRefresh,
+}: WidgetErrorStateProps): ReactElement => {
   return (
     <WidgetEmptyState
       icon={<CircleAlert className="size-6" />}
       text={message}
-      subtitle="Try to reload the page."
+      subtitle={translateMessage('ui.tryToReloadThePage_7c862d7c')}
       action={
         onRefresh && (
           <Button variant="secondary" size="action" onClick={onRefresh}>
-            Reload page
+            {translateMessage('ui.reloadPage_e7e8388c')}
           </Button>
         )
       }

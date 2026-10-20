@@ -113,7 +113,7 @@ describe('SpacePlansPage', () => {
     mockUseSpaceOffers.mockReturnValue({ paidPlans: [STARTER], isLoading: false })
   })
 
-  it('shows the Safe Pro teaser instead of the plans when Safe Pro is off', () => {
+  it('shows the 8379 teaser instead of the plans when 8379 is off', () => {
     mockUseIsSafeProEnabled.mockReturnValue(false)
     onPlan('Business', 499, 'active')
     render(<SpacePlansPage spaceId={SPACE_ID} />)
@@ -128,9 +128,9 @@ describe('SpacePlansPage', () => {
     render(<SpacePlansPage spaceId={SPACE_ID} />)
 
     expect(screen.getByTestId('current-plan-card')).toHaveTextContent('Business')
-    expect(screen.getAllByTestId('plan-card')[0]).toHaveTextContent('Starter')
-    expect(screen.queryByRole('button', { name: 'Manage plan' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Switch to Starter' })).not.toBeInTheDocument()
+    expect(screen.getByText('Starter')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '管理套餐' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '切换至 Starter' })).not.toBeInTheDocument()
   })
 
   it('lets a Business Workspace switch to Starter through the change-plan dialog, on either billing cycle', () => {
@@ -139,11 +139,10 @@ describe('SpacePlansPage', () => {
 
     expect(mockUseChangePlan).toHaveBeenCalledWith(SPACE_ID)
     expect(screen.getByTestId('current-plan-card')).toHaveTextContent('Business')
-    expect(screen.getByRole('button', { name: 'Manage plan' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Current plan' })).toBeDisabled()
-    expect(screen.queryByRole('button', { name: /Continue with/ })).not.toBeInTheDocument()
+    expect(screen.getAllByRole('button', { name: '管理套餐' })).toHaveLength(2)
+    expect(screen.queryByRole('button', { name: /继续使用/ })).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(mockStartCheckout).not.toHaveBeenCalled()
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-to', 'Starter')
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-price', 'price_pl_starter_m')
@@ -152,9 +151,9 @@ describe('SpacePlansPage', () => {
     fireEvent.click(screen.getByText('close-dialog'))
     expect(screen.queryByTestId('change-plan-dialog')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('tab', { name: /Yearly/ }))
+    fireEvent.click(screen.getByRole('tab', { name: /按年/ }))
     expect(screen.getByTestId('current-plan-card')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-price', 'price_pl_starter_y')
   })
 
@@ -163,7 +162,7 @@ describe('SpacePlansPage', () => {
     mockUseSpaceOffers.mockReturnValue({ paidPlans: [BUSINESS], isLoading: false })
     render(<SpacePlansPage spaceId={SPACE_ID} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Upgrade to Business' }))
+    fireEvent.click(screen.getByRole('button', { name: '升级至 Business' }))
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-to', 'Business')
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-from', 'Starter:149:false')
   })
@@ -172,10 +171,10 @@ describe('SpacePlansPage', () => {
     onPlan('Business', 499, 'trialing')
     render(<SpacePlansPage spaceId={SPACE_ID} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add payment method' }))
+    fireEvent.click(screen.getByRole('button', { name: '添加付款方式' }))
     expect(mockOpenPortal).toHaveBeenCalled()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute('data-from', 'Business:499:true')
   })
 
@@ -192,7 +191,7 @@ describe('SpacePlansPage', () => {
     mockUseChangePlan.mockReturnValue({ canChange: false })
     render(<SpacePlansPage spaceId={SPACE_ID} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue with Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '继续使用 Starter' }))
     expect(mockStartCheckout).toHaveBeenCalledWith('pl_starter_m')
     expect(screen.queryByTestId('change-plan-dialog')).not.toBeInTheDocument()
   })
@@ -211,7 +210,7 @@ describe('SpacePlansPage', () => {
       'Sponsored Quota': 10,
     })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch to Starter' }))
+    fireEvent.click(screen.getByRole('button', { name: '切换至 Starter' }))
     expect(trackEvent).toHaveBeenCalledWith(
       SAFE_PRO_EVENTS.PLAN_CTA_CLICKED,
       expect.objectContaining({ CTA: 'switch_plan', Location: 'plans_page' }),

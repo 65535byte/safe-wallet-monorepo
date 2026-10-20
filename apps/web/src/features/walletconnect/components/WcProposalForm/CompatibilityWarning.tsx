@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { WalletKitTypes } from '@reown/walletkit'
 
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -35,7 +36,7 @@ export const CompatibilityWarning = ({
       {isUnsupportedChain && (
         <>
           <Typography variant="h4" className="mt-6 mb-2">
-            Supported networks
+            {translateMessage('ui.supportedNetworks_1f246e38')}
           </Typography>
 
           <div className={`flex flex-row ${css.chainContainer}`}>

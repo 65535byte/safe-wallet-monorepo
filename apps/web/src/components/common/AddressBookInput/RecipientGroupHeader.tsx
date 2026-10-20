@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Building2, HardDrive, Info } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -24,17 +25,17 @@ const RecipientGroupHeader = ({
       <Typography variant="paragraph-mini-bold" className={css.groupLabel}>
         {isSpace ? (
           <>
-            Contacts of
+            {translateMessage('ui.contactsOf_da87d475')}
             {workspaceName ? (
               /* Pill styling is a spoofing defense: user-provided names render in a
                  visual container that typed text cannot reproduce */
               <span className={css.nameBadge}>{workspaceName}</span>
             ) : (
-              ' your Workspace'
+              translateMessage('ui.yourWorkspace_2975708d')
             )}
           </>
         ) : (
-          'Local contacts'
+          translateMessage('ui.localContacts_2bc16825')
         )}
       </Typography>
 
@@ -42,8 +43,10 @@ const RecipientGroupHeader = ({
         <TooltipTrigger render={<Info size={14} className={css.groupInfoIcon} />} />
         <TooltipContent>
           {isSpace
-            ? `Shared with everyone in ${workspaceName ?? 'your Workspace'}. Only Workspace admins can add or change these contacts.`
-            : 'Saved only in this browser, from your old address book. Not shared with your Workspace.'}
+            ? translateMessage('ui.sharedWithEveryoneInOnlyWorkspace_fd8e30ed', {
+                p0: workspaceName ?? 'your Workspace',
+              })
+            : translateMessage('ui.savedOnlyInThisBrowserFrom_bdc195aa')}
         </TooltipContent>
       </Tooltip>
 

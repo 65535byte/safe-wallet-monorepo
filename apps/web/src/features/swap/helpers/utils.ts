@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { DataDecoded, SwapOrderTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { OrderTransactionInfo } from '@safe-global/store/gateway/types'
 import { formatUnits, id } from 'ethers'
@@ -255,7 +256,7 @@ export const getSwapTitle = (tradeType: SwapState['tradeType'], txs: BaseTransac
     [WRAP_SIGHASH]: 'Wrap',
     [UNWRAP_SIGHASH]: 'Unwrap',
     [CREATE_WITH_CONTEXT_SIGHASH]: TWAP_ORDER_TITLE,
-    [CANCEL_ORDER_SIGHASH]: 'Cancel Order',
+    [CANCEL_ORDER_SIGHASH]: translateMessage('ui.cancelOrder_ac7da93b'),
   }
 
   const swapTitle = txs

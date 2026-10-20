@@ -74,7 +74,7 @@ describe('FeatureFlagRow', () => {
         row={{ ...baseRow, override: true, configValue: true, effective: true, matchesCurrentChain: true }}
       />,
     )
-    expect(getByRole('img', { name: 'Matches config service setting for the current chain' })).toBeVisible()
+    expect(getByRole('img', { name: '与当前链的配置服务设置一致' })).toBeVisible()
   })
 
   it('dispatches setOverride when the switch is toggled', () => {

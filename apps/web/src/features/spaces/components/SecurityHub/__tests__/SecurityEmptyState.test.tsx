@@ -26,18 +26,14 @@ describe('SecurityEmptyState', () => {
   it('renders the heading and subtitle copy', () => {
     render(<SecurityEmptyState />)
 
-    expect(screen.getByText('No accounts to check yet')).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        'Add a Safe account to this Workspace to start running security checks and see its health here.',
-      ),
-    ).toBeInTheDocument()
+    expect(screen.getByText('暂无可检查的账户')).toBeInTheDocument()
+    expect(screen.getByText('将 8379 账户添加到工作空间，即可开始安全检查并在此查看安全状态。')).toBeInTheDocument()
   })
 
   it('renders the Add account CTA', () => {
     render(<SecurityEmptyState />)
 
-    expect(screen.getByRole('button', { name: 'Add account' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '添加账户' })).toBeInTheDocument()
   })
 
   it('exposes a test id for higher-level assertions', () => {

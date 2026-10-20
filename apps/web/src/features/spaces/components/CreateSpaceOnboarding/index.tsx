@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useMemo, useState, type ReactElement } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import OnboardingFooter from '@safe-global/views/components/common/OnboardingFooter'
@@ -73,7 +74,7 @@ const CreateSpaceOnboarding = (): ReactElement => {
     required: true,
     validate: (value) => {
       const sanitized = sanitizeName(value ?? '')
-      if (sanitized === '') return 'Required'
+      if (sanitized === '') return translateMessage('ui.required_e20a3430')
       return validateName(sanitized, { minLength: NAME_MIN_LENGTH, maxLength: SPACE_NAME_MAX_LENGTH }) ?? true
     },
   })
@@ -111,21 +112,21 @@ const CreateSpaceOnboarding = (): ReactElement => {
       <StepCounter currentStep={ONBOARDING_STEP} totalSteps={totalSteps} />
 
       <div className="flex flex-col gap-2">
-        <Typography variant="h2">Create a Workspace</Typography>
+        <Typography variant="h2">{translateMessage('ui.createAWorkspace_47b40542')}</Typography>
         <Typography variant="paragraph" color="muted">
-          Your team&apos;s home for managing Safes, tracking activity, and collaborating.
+          {translateMessage('ui.yourTeamSHomeForManaging_ca01e244')}
         </Typography>
       </div>
 
       <form id={FORM_ID} onSubmit={onSubmit} className="flex flex-col gap-6">
         <div className="relative">
           <label htmlFor="space-name" className="m-0 text-sm leading-5 font-medium">
-            Workspace name
+            {translateMessage('ui.workspaceName_6b883ca0')}
           </label>
           <Input
             id="space-name"
             data-testid="space-name-input"
-            placeholder="e.g. Treasury Ops, DeFi Team"
+            placeholder={translateMessage('ui.eGTreasuryOpsDeFiTeam_fcad18d8')}
             autoComplete="off"
             disabled={isInputDisabled}
             variant="surface"
@@ -159,12 +160,10 @@ const CreateSpaceOnboarding = (): ReactElement => {
         {isTrialCheckFailed && (
           <Alert variant="destructive" data-testid="trial-check-error">
             <AlertSeverityIcon variant="destructive" />
-            <AlertDescription>
-              We couldn&apos;t check your Workspace&apos;s free access. Please try again.
-            </AlertDescription>
+            <AlertDescription>{translateMessage('ui.weCouldnTCheckYourWorkspace_5a5dd289')}</AlertDescription>
             <AlertAction>
               <Button type="button" variant="outline" size="sm" onClick={trialLock.retry}>
-                Try again
+                {translateMessage('ui.tryAgain_27537f8f')}
               </Button>
             </AlertAction>
           </Alert>
@@ -177,7 +176,7 @@ const CreateSpaceOnboarding = (): ReactElement => {
     <OnboardingFooter
       onBack={onExit}
       backDisabled={isSubmitting}
-      continueLabel="Next"
+      continueLabel={translateMessage('ui.next_9cff86c8')}
       continueType="submit"
       continueForm={FORM_ID}
       continueDisabled={!isValid || isSubmitting || isCheckingAccess || isSpaceLoading || Boolean(createdSpaceId)}

@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import { useState, type ReactElement } from 'react'
 import { useSpacesGetV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { ChooserRow } from '@safe-global/views/components/common/ChooserRow'
 import InitialsAvatar from '@/components/common/InitialsAvatar'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -39,10 +39,8 @@ const WorkspaceChooser = ({ pick }: { pick: SafeWorkspacePick | undefined }): Re
     <Dialog open onOpenChange={(open) => !open && close()}>
       <DialogContent data-testid="safe-workspace-chooser-dialog">
         <DialogHeader>
-          <DialogTitle>Open this Safe in a Workspace</DialogTitle>
-          <DialogDescription>
-            This Safe is in more than one of your Workspaces. Choose the Workspace to open it in.
-          </DialogDescription>
+          <DialogTitle>{translateMessage('ui.openThisInAWorkspace_3997404c')}</DialogTitle>
+          <DialogDescription>{translateMessage('ui.thisIsInMoreThanOne_7e71a76d')}</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col gap-1 px-4">
@@ -51,7 +49,7 @@ const WorkspaceChooser = ({ pick }: { pick: SafeWorkspacePick | undefined }): Re
               key={space.uuid}
               icon={<InitialsAvatar name={space.name} size="small" />}
               title={space.name}
-              subtitle={`${space.safeCount} Safe account${maybePlural(space.safeCount)}`}
+              subtitle={translateMessage('ui.account_94500827', { p0: space.safeCount })}
               onClick={() => choose(space.uuid)}
               testId="safe-workspace-choice"
             />
@@ -60,7 +58,7 @@ const WorkspaceChooser = ({ pick }: { pick: SafeWorkspacePick | undefined }): Re
 
         <DialogFooter>
           <Button variant="outline" onClick={close}>
-            Continue without Workspace
+            {translateMessage('ui.continueWithoutWorkspace_6268797f')}
           </Button>
         </DialogFooter>
       </DialogContent>

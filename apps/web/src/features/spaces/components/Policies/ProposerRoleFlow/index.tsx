@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useState, type ReactElement } from 'react'
 import { TxModalContext } from '@/components/tx-flow'
 import { SafeScopeProvider } from '@/components/tx-flow/safe-scope/SafeScopeProvider'
@@ -50,7 +51,9 @@ const ProposerRoleFlowContent = (): ReactElement => {
   )
 
   const errorMessage = error ? (
-    <ErrorMessage error={error}>{getProposerErrorText(error, 'Error adding proposer')}</ErrorMessage>
+    <ErrorMessage error={error}>
+      {getProposerErrorText(error, translateMessage('ui.errorAddingProposer_6566450b'))}
+    </ErrorMessage>
   ) : blockedReason ? (
     <ErrorMessage>{blockedReason}</ErrorMessage>
   ) : undefined

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import CopyButton from '@/components/common/CopyButton'
 import CopyIcon from '@/public/images/common/copy.svg'
@@ -27,13 +28,13 @@ const ErrorDetails = ({ code, customError }: { code: string; customError?: Decod
 
   return (
     <span className="flex items-center gap-1" data-testid="error-details">
-      <span>Error code</span>{' '}
+      <span>{translateMessage('ui.errorCode_bab4383b')}</span>{' '}
       <span className="break-all">
         {code}
         {customErrorLabel && ` · ${customErrorLabel}`}
       </span>
-      <CopyButton text={copyText} initialToolTipText="Copy error code">
-        <Button variant="ghost" size="icon-xs" aria-label="Copy error code">
+      <CopyButton text={copyText} initialToolTipText={translateMessage('ui.copyErrorCode_e24f9fb6')}>
+        <Button variant="ghost" size="icon-xs" aria-label={translateMessage('ui.copyErrorCode_e24f9fb6')}>
           <CopyIcon data-testid="copy-btn-icon" className="size-4 fill-current" />
         </Button>
       </CopyButton>

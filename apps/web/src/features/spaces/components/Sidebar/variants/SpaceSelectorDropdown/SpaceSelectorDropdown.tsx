@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useId, useMemo, useState, type ReactElement } from 'react'
 import { Check, ChevronsUpDown, Plus, CircleFadingPlus, LayoutGrid, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/router'
@@ -13,7 +14,6 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { AppRoutes } from '@/config/routes'
 import { trackEvent } from '@/services/analytics'
-import Track from '@/components/common/Track'
 import { SPACE_EVENTS, SPACE_LABELS } from '@/services/analytics/events/spaces'
 import { WorkspaceCreateEntryPoint } from '@/services/analytics/mixpanel-events'
 import { cn } from '@safe-global/views/utils/cn'
@@ -31,19 +31,18 @@ import { isAuthenticated } from '@/store/authSlice'
 import { useUsersGetWithWalletsV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/users'
 import { AdminOnlyWorkspaceTooltip } from '@safe-global/views/features/spaces/components/AdminOnlyWorkspaceTooltip'
 import { getDeterministicColor } from '@/utils/colors'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { useIsSafeProEnabled } from '@/hooks/useIsSafeProEnabled'
 import { useSpacePlan } from '../../../../hooks/useSpacePlan'
 import { useSpacesSafeEligibility } from '../../../../hooks/useSpacesSafeEligibility'
 import { trialLabel } from '../../../../hooks/billing/subscription'
 
-export const SAFE_ALREADY_IN_WORKSPACE_TOOLTIP = 'Safe is already in this Workspace'
-export const NO_PLAN_TOOLTIP = 'Choose a plan for this Workspace to add Safe accounts'
+export const SAFE_ALREADY_IN_WORKSPACE_TOOLTIP = translateMessage('ui.isAlreadyInThisWorkspace_d0f19509')
+export const NO_PLAN_TOOLTIP = translateMessage('ui.chooseAPlanForThisWorkspace_3bdad7ec')
 
 const safeLimitMessage = (limit: number, isSafePro: boolean): string =>
   isSafePro
-    ? `Your plan covers ${limit} Safe account${maybePlural(limit)}, and all are in use. Upgrade to add more.`
-    : `You can have up to ${limit} Safes per Workspace`
+    ? translateMessage('ui.yourPlanCoversAccountAndAll_1cf15b42', { p0: limit })
+    : translateMessage('ui.youCanHaveUpToAccounts_2f32bcef', { p0: limit })
 
 const MENU_ITEM_CLASS = 'cursor-pointer gap-3 min-h-9 px-2 py-2'
 
@@ -64,12 +63,18 @@ export const SpaceSelectorDropdown = ({
   const spaceName = selectedSpace?.name ?? ''
   const isSafePro = useIsSafeProEnabled()
   const { tierName, isTrialing, isTrialEndingSoon, plan } = useSpacePlan()
-  const planLabel = !isSafePro ? 'Workspace' : isTrialing ? trialLabel(plan?.daysLeft) : tierName
+  const planLabel = !isSafePro
+    ? translateMessage('ui.workspace_c8c48e9f')
+    : isTrialing
+      ? trialLabel(plan?.daysLeft)
+      : tierName
   const displayName = truncateSpaceName(spaceName, SPACE_SELECTOR_NAME_MAX_LENGTH)
   const initial = spaceName.charAt(0).toUpperCase()
   const selectedSpaceColor = spaceName ? getDeterministicColor(spaceName) : undefined
   const isAddToWorkspace = triggerVariant === 'addToWorkspace'
-  const triggerAriaLabel = isAddToWorkspace ? 'Add Safe to Workspace' : 'Open Workspace selector'
+  const triggerAriaLabel = isAddToWorkspace
+    ? translateMessage('ui.addToWorkspace_3f470c53')
+    : translateMessage('ui.openWorkspaceSelector_774942c7')
   const safe = useSafeQueryParam() || undefined
   const safeAddress = useSafeAddressFromUrl()
   const chainId = useChainId()
@@ -109,8 +114,14 @@ export const SpaceSelectorDropdown = ({
   }
 
   const handleCreateSpace = () => {
+    trackEvent(SPACE_EVENTS.WORKSPACE_CREATE_STARTED, { entry_point: WorkspaceCreateEntryPoint.SIDEBAR })
     // eslint-disable-next-line no-restricted-syntax -- The Workspace to create does not exist yet
     router.push(safe ? { pathname: AppRoutes.spaces.createSpace, query: { safe } } : AppRoutes.spaces.createSpace)
+  }
+
+  const handleViewSpaces = () => {
+    trackEvent({ ...SPACE_EVENTS.OPEN_SPACE_LIST_PAGE, label: SPACE_LABELS.space_selector })
+    router.push(AppRoutes.welcome.spaces)
   }
 
   const isAdminOfSpace = (space: SpaceItem) => isUserActiveAdmin(space.members ?? [], currentUser?.id)
@@ -178,7 +189,7 @@ export const SpaceSelectorDropdown = ({
             <span className={css.addSafeToWorkspaceRing}>
               <CircleFadingPlus className={css.addSafeToWorkspacePlusIcon} />
             </span>
-            <span className={css.addSafeToWorkspaceLabel}>Add Safe to Workspace</span>
+            <span className={css.addSafeToWorkspaceLabel}>{translateMessage('ui.addToWorkspace_3f470c53')}</span>
           </>
         ) : (
           <>
@@ -223,24 +234,17 @@ export const SpaceSelectorDropdown = ({
         className={css.spaceSelectorDropdownContent}
         data-testid="space-selector-menu"
       >
-        <div className={cn(css.groupLabel, 'mb-1')}>Workspaces</div>
+        <div className={cn(css.groupLabel, 'mb-1')}>{translateMessage('ui.workspaces_2fe24fcf')}</div>
         {spaces.map((space) => renderSpaceMenuItem(space))}
 
         <DropdownMenuSeparator className="my-1" />
 
-        <Track
-          {...SPACE_EVENTS.WORKSPACE_CREATE_STARTED}
-          mixpanelParams={{ entry_point: WorkspaceCreateEntryPoint.SIDEBAR }}
-        >
-          <AddWorkspaceMenuItem isAtSpacesLimit={spaces.length >= SPACES_LIMIT} onClick={handleCreateSpace} />
-        </Track>
+        <AddWorkspaceMenuItem isAtSpacesLimit={spaces.length >= SPACES_LIMIT} onClick={handleCreateSpace} />
 
-        <Track {...SPACE_EVENTS.OPEN_SPACE_LIST_PAGE} label={SPACE_LABELS.space_selector}>
-          <DropdownMenuItem onClick={() => router.push(AppRoutes.welcome.spaces)} className={MENU_ITEM_CLASS}>
-            <LayoutGrid className={`size-5 flex-shrink-0 ${css.dropdownIcon}`} />
-            <span>View all</span>
-          </DropdownMenuItem>
-        </Track>
+        <DropdownMenuItem onClick={handleViewSpaces} className={MENU_ITEM_CLASS}>
+          <LayoutGrid className={`size-5 flex-shrink-0 ${css.dropdownIcon}`} />
+          <span>{translateMessage('ui.viewAll_51f8dcd8')}</span>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -256,7 +260,7 @@ const AddWorkspaceMenuItem = ({
   const menuItem = (
     <DropdownMenuItem onClick={onClick} disabled={isAtSpacesLimit} className={MENU_ITEM_CLASS}>
       <Plus className={`size-5 flex-shrink-0 ${css.dropdownIcon}`} />
-      <span>Add new Workspace</span>
+      <span>{translateMessage('ui.addNewWorkspace_72ade124')}</span>
     </DropdownMenuItem>
   )
 
@@ -265,7 +269,10 @@ const AddWorkspaceMenuItem = ({
   return (
     <Tooltip>
       <TooltipTrigger render={<div className="block w-full" />}>{menuItem}</TooltipTrigger>
-      <TooltipContent side="right">Limit of {SPACES_LIMIT} Workspaces reached</TooltipContent>
+      <TooltipContent side="right">
+        {translateMessage('ui.limitOf_6bb0cfcf')}
+        {SPACES_LIMIT} {translateMessage('ui.workspacesReached_4ea37bd5')}
+      </TooltipContent>
     </Tooltip>
   )
 }

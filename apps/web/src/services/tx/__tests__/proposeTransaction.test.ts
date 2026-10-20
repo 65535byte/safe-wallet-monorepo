@@ -175,7 +175,7 @@ describe('proposeTx', () => {
   it('should handle API errors gracefully', async () => {
     server.use(
       http.post(`${GATEWAY_URL}/v1/chains/${CHAIN_ID}/transactions/${SAFE_ADDRESS}/propose`, () => {
-        return HttpResponse.json({ message: 'Invalid transaction' }, { status: 400 })
+        return HttpResponse.json({ message: 'Invalid 笔交易' }, { status: 400 })
       }),
     )
 

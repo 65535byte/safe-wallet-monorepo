@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, type ReactNode, type TransitionEvent, useMemo, useState, useEffect, useRef } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@safe-global/views/components/ui/collapsible'
@@ -111,7 +112,9 @@ export const AnalysisGroupCard = ({
         <div className="flex flex-row items-center gap-2">
           <SeverityIcon severity={primaryResult.severity} muted={!isHighlighted} />
           <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-            {primaryResult.title}
+            {primaryResult.title === 'Malicious threat detected'
+              ? translateMessage('ui.maliciousThreatDetected_18b2488a')
+              : primaryResult.title}
           </Typography>
         </div>
 

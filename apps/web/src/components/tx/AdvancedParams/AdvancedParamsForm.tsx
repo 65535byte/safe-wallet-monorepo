@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type SyntheticEvent } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -69,13 +70,13 @@ const AdvancedParamsForm = ({ params, ...props }: AdvancedParamsFormProps) => {
   }
 
   return (
-    <ModalDialog open dialogTitle="Advanced parameters" hideChainIndicator forceBackdrop>
+    <ModalDialog open dialogTitle={translateMessage('ui.advancedParameters_28f91ca2')} hideChainIndicator forceBackdrop>
       <FormProvider {...formMethods}>
         <form onSubmit={onFormSubmit}>
           <div className="p-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <Typography className="font-bold">Execution parameters</Typography>
+                <Typography className="font-bold">{translateMessage('ui.executionParameters_df87d9ae')}</Typography>
               </div>
 
               {/* User nonce */}
@@ -116,7 +117,11 @@ const AdvancedParamsForm = ({ params, ...props }: AdvancedParamsFormProps) => {
                 <NumberField
                   fullWidth
                   disabled={props.willRelay}
-                  label={errors.maxFeePerGas?.message || props.isEIP1559 ? 'Max fee (Gwei)' : 'Gas price (Gwei)'}
+                  label={
+                    errors.maxFeePerGas?.message || props.isEIP1559
+                      ? translateMessage('ui.maxFeeGwei_bac57a85')
+                      : translateMessage('ui.gasPriceGwei_5d9c2dae')
+                  }
                   error={!!errors.maxFeePerGas}
                   required
                   {...register(AdvancedField.maxFeePerGas, { required: true, pattern: FLOAT_REGEX, min: 0 })}
@@ -127,7 +132,7 @@ const AdvancedParamsForm = ({ params, ...props }: AdvancedParamsFormProps) => {
             {/* Help link */}
             <Typography className="mt-4">
               <ExternalLink href={HelpCenterArticle.ADVANCED_PARAMS}>
-                How can I configure these parameters manually?
+                {translateMessage('ui.howCanIConfigureTheseParameters_5caa3bf6')}
               </ExternalLink>
             </Typography>
           </div>
@@ -135,10 +140,10 @@ const AdvancedParamsForm = ({ params, ...props }: AdvancedParamsFormProps) => {
           {/* Buttons */}
           <div className="flex justify-between gap-2 px-6 pb-6">
             <Button variant="ghost" onClick={onBack}>
-              Back
+              {translateMessage('ui.back_dae8bf43')}
             </Button>
 
-            <Button type="submit">Confirm</Button>
+            <Button type="submit">{translateMessage('ui.confirm_6ed20c1c')}</Button>
           </div>
         </form>
       </FormProvider>

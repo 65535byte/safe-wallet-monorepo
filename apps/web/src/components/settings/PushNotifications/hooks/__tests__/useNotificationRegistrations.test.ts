@@ -394,7 +394,7 @@ describe('useNotificationRegistrations', () => {
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
         groupKey: 'notifications',
-        message: 'You will now receive notifications for these Safe accounts in your browser.',
+        message: '您现在将通过浏览器接收 these Safe accounts 的通知。',
         variant: 'success',
       })
     })

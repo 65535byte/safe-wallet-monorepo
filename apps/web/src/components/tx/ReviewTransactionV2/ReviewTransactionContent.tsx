@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails, TransactionPreview } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { PropsWithChildren, ReactElement } from 'react'
 import { useCallback, useContext } from 'react'
@@ -65,7 +66,7 @@ export const ReviewTransactionContent = ({
           withDecodedData={withDecodedData}
         >
           {!isRejection && (
-            <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+            <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
               {isApproval && <ApprovalEditor safeTransaction={safeTx} />}
             </ObservabilityErrorBoundary>
           )}
@@ -94,7 +95,7 @@ export const ReviewTransactionContent = ({
                   disabled={!isOk || isSubmitDisabled || (needsRiskConfirmation && !isRiskConfirmed)}
                   className="order-1"
                 >
-                  {isSubmitLoading ? <Spinner className="size-5" /> : 'Continue'}
+                  {isSubmitLoading ? <Spinner className="size-5" /> : translateMessage('ui.continue_a4bd8255')}
                 </Button>
               )
             }}

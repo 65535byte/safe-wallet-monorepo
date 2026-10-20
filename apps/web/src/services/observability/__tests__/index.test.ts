@@ -107,7 +107,7 @@ describe('Observability Module', () => {
     })
 
     it('fully replaces the default provider with consumer-provided providers', () => {
-      const defaultProvider = makeMockProvider('Default')
+      const defaultProvider = makeMockProvider('默认')
       const injected = makeMockProvider('Injected')
 
       jest.isolateModules(() => {
@@ -134,7 +134,7 @@ describe('Observability Module', () => {
 
       jest.isolateModules(() => {
         jest.doMock('../factory', () => ({
-          createObservabilityProvider: jest.fn(() => makeMockProvider('Default')),
+          createObservabilityProvider: jest.fn(() => makeMockProvider('默认')),
         }))
 
         const { initObservability, captureError } = require('../index')

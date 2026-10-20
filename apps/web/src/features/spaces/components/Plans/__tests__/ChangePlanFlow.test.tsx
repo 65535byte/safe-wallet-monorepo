@@ -132,7 +132,7 @@ describe('ChangePlanFlow', () => {
     expect(screen.getByTestId('accounts-step')).toHaveAttribute('data-plan', 'Starter')
     expect(screen.queryByTestId('change-plan-dialog')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to downgrade' }))
+    fireEvent.click(screen.getByRole('button', { name: '继续前往 downgrade' }))
 
     expect(screen.queryByTestId('accounts-step')).not.toBeInTheDocument()
     expect(screen.getByTestId('change-plan-dialog')).toHaveAttribute(
@@ -153,7 +153,7 @@ describe('ChangePlanFlow', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+    fireEvent.click(screen.getByRole('button', { name: '返回' }))
 
     expect(onClose).toHaveBeenCalled()
   })
@@ -198,7 +198,7 @@ describe('ChangePlanFlow', () => {
     expect(screen.getByTestId('switched-modal')).toHaveAttribute('data-ends', String(Date.UTC(2026, 11, 6)))
     expect(screen.getByTestId('switched-modal')).toHaveAttribute('data-price', '€1,669/mo')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Get started' }))
+    fireEvent.click(screen.getByRole('button', { name: '开始使用' }))
     expect(onClose).toHaveBeenCalled()
   })
 
@@ -217,19 +217,19 @@ describe('ChangePlanFlow', () => {
     fireEvent.click(screen.getByText('confirm-change'))
 
     expect(screen.getByTestId('activated-modal')).toHaveAttribute('data-plan', 'Starter')
-    fireEvent.click(screen.getByRole('button', { name: 'Get started' }))
+    fireEvent.click(screen.getByRole('button', { name: '开始使用' }))
     expect(onClose).toHaveBeenCalled()
   })
 
   it('words the picked price, custom ones included', () => {
     expect(_pickedPrice(pick(2, 189))).toBe('€189/mo')
     const custom = pick(2, 189)
-    expect(_pickedPrice({ ...custom, option: { ...custom.option, price: null } })).toBe('a custom price')
+    expect(_pickedPrice({ ...custom, option: { ...custom.option, price: null } })).toBe('自定义价格')
   })
 
   it('words the step button after the direction of the change', () => {
-    expect(_continueLabelFor('downgrade')).toBe('Continue to downgrade')
-    expect(_continueLabelFor('upgrade')).toBe('Continue to upgrade')
-    expect(_continueLabelFor('change')).toBe('Continue')
+    expect(_continueLabelFor('downgrade')).toBe('继续前往 downgrade')
+    expect(_continueLabelFor('upgrade')).toBe('继续前往 upgrade')
+    expect(_continueLabelFor('change')).toBe('继续')
   })
 })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -66,16 +67,18 @@ const SpeedUpMonitor = ({ txId, pendingTx, modalTrigger = 'alertBox' }: SpeedUpM
         <Alert variant="warning" outlined={false}>
           <Rocket className="size-4" />
           <AlertTitle>
-            <Typography align="left">Taking too long?</Typography>
+            <Typography align="left">{translateMessage('ui.takingTooLong_5d7d0e37')}</Typography>
           </AlertTitle>
-          <AlertDescription>Try to speed up with better gas parameters.</AlertDescription>
+          <AlertDescription>{translateMessage('ui.tryToSpeedUpWithBetter_d51f9ebf')}</AlertDescription>
           <AlertAction className="top-1/2">
-            <Button variant="outline" className="text-foreground" onClick={onOpen}>{`Speed up >`}</Button>
+            <Button variant="outline" className="text-foreground" onClick={onOpen}>
+              {translateMessage('ui.speedUp_99b09611')}
+            </Button>
           </AlertAction>
         </Alert>
       ) : (
         <Button variant="outline" size="sm" onClick={onOpen}>
-          Speed up
+          {translateMessage('ui.speedUp_aa0d09b4')}
         </Button>
       )}
     </div>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useCallback, useMemo, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { flattenSafeItems, type SafeItem } from '@/hooks/safes'
@@ -21,8 +22,8 @@ import useSafeActionMapper from './useSafeActionMapper'
 import { safeModalTitles } from './constants'
 import { FEATURES, hasFeature } from '@safe-global/utils/utils/chains'
 
-const SWAP_DISABLED_TOOLTIP = 'Swap is not supported on this chain. Try another chain.'
-const SWAP_DISABLED_CF_TOOLTIP = 'This account is not activated yet and cannot swap.'
+const SWAP_DISABLED_TOOLTIP = translateMessage('ui.swapIsNotSupportedOnThis_a363ee10')
+const SWAP_DISABLED_CF_TOOLTIP = translateMessage('ui.thisAccountIsNotActivatedYet_b41eb50d')
 
 const QrModal = dynamic(() => import('@/components/common/QrCodeButton/QrModal'))
 
@@ -97,7 +98,9 @@ const SelectSafeModal = () => {
                   <Skeleton className="h-[72px] w-full rounded-3xl" />
                 </div>
               ) : filteredSafes.length === 0 ? (
-                <p className="py-8 text-center text-sm text-muted-foreground">No safes found</p>
+                <p className="py-8 text-center text-sm text-muted-foreground">
+                  {translateMessage('ui.noSafesFound_de07020c')}
+                </p>
               ) : (
                 <div className="flex flex-col gap-1.5">
                   {filteredSafes.map((safe) => {

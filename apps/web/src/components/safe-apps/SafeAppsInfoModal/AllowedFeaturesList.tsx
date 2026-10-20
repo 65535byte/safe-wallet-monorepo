@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ShieldIcon from '@/public/images/settings/permissions/shield.svg'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
@@ -21,11 +22,11 @@ const AllowedFeaturesList: React.FC<SafeAppsInfoAllowedFeaturesProps> = ({
       <ShieldIcon className="mx-auto mb-2 size-6 text-[var(--color-primary-main)]" />
 
       <Typography variant="paragraph-small" className="text-center text-[var(--color-text-secondary)]">
-        Manage the features Safe Apps can use
+        {translateMessage('ui.manageTheFeaturesSafeAppsCan_6b80caa3')}
       </Typography>
 
       <div className="mx-2 my-6 text-left">
-        <Typography>This Safe App is requesting permission to use:</Typography>
+        <Typography>{translateMessage('ui.thisAppIsRequestingPermissionTo_94ae3c39')}</Typography>
 
         <div className="m-4 flex flex-col gap-4">
           {features

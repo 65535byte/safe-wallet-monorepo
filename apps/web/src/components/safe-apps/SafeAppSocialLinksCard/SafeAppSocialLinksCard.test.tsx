@@ -8,9 +8,9 @@ import { render, screen, waitFor } from '@/tests/test-utils'
 const transactionBuilderSafeAppMock: SafeAppData = {
   id: 24,
   url: 'https://cloudflare-ipfs.com/ipfs/QmdVaZxDov4bVARScTLErQSRQoxgqtBad8anWuw3YPQHCs',
-  name: 'Transaction Builder',
+  name: '交易构建器',
   iconUrl: 'https://cloudflare-ipfs.com/ipfs/QmdVaZxDov4bVARScTLErQSRQoxgqtBad8anWuw3YPQHCs/tx-builder.png',
-  description: 'A Safe app to compose custom transactions',
+  description: 'A Safe app to compose custom 笔交易',
   chainIds: ['1', '4', '56', '100', '137', '246', '73799'],
   provider: undefined,
   accessControl: {
@@ -58,7 +58,7 @@ describe('SafeAppSocialLinksCard', () => {
     render(<SafeAppSocialLinksCard safeApp={transactionBuilderSafeAppMock} />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Something wrong with the Safe App?')).not.toBeInTheDocument()
+      expect(screen.queryByText('8379 应用 出现问题？')).not.toBeInTheDocument()
     })
   })
 
@@ -70,7 +70,7 @@ describe('SafeAppSocialLinksCard', () => {
     render(<SafeAppSocialLinksCard safeApp={safeAppData} />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Something wrong with the Safe App?')).toBeInTheDocument()
+      expect(screen.queryByText('8379 应用 出现问题？')).toBeInTheDocument()
       expect(screen.queryByText(developerWebsiteMock)).toBeInTheDocument()
     })
   })
@@ -83,11 +83,11 @@ describe('SafeAppSocialLinksCard', () => {
     render(<SafeAppSocialLinksCard safeApp={safeAppData} />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Something wrong with the Safe App?')).toBeInTheDocument()
-      expect(screen.getByLabelText('Discord link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Twitter link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Github link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Telegram link')).toBeInTheDocument()
+      expect(screen.queryByText('8379 应用 出现问题？')).toBeInTheDocument()
+      expect(screen.getByLabelText('Discord 链接')).toBeInTheDocument()
+      expect(screen.getByLabelText('Twitter 链接')).toBeInTheDocument()
+      expect(screen.queryByLabelText('GitHub 链接')).not.toBeInTheDocument()
+      expect(screen.getByLabelText('Telegram 链接')).toBeInTheDocument()
     })
   })
 
@@ -100,12 +100,12 @@ describe('SafeAppSocialLinksCard', () => {
     render(<SafeAppSocialLinksCard safeApp={safeAppData} />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Something wrong with the Safe App?')).toBeInTheDocument()
+      expect(screen.queryByText('8379 应用 出现问题？')).toBeInTheDocument()
       expect(screen.queryByText(developerWebsiteMock)).toBeInTheDocument()
-      expect(screen.getByLabelText('Discord link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Twitter link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Github link')).toBeInTheDocument()
-      expect(screen.getByLabelText('Telegram link')).toBeInTheDocument()
+      expect(screen.getByLabelText('Discord 链接')).toBeInTheDocument()
+      expect(screen.getByLabelText('Twitter 链接')).toBeInTheDocument()
+      expect(screen.queryByLabelText('GitHub 链接')).not.toBeInTheDocument()
+      expect(screen.getByLabelText('Telegram 链接')).toBeInTheDocument()
     })
   })
 
@@ -118,11 +118,23 @@ describe('SafeAppSocialLinksCard', () => {
     render(<SafeAppSocialLinksCard safeApp={safeAppData} />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Something wrong with the Safe App?')).toBeInTheDocument()
-      expect(screen.queryByLabelText('Discord link')).toBeInTheDocument()
-      expect(screen.queryByLabelText('Twitter link')).not.toBeInTheDocument()
-      expect(screen.queryByLabelText('Github link')).not.toBeInTheDocument()
-      expect(screen.queryByLabelText('Telegram link')).not.toBeInTheDocument()
+      expect(screen.queryByText('8379 应用 出现问题？')).toBeInTheDocument()
+      expect(screen.queryByLabelText('Discord 链接')).toBeInTheDocument()
+      expect(screen.queryByLabelText('Twitter 链接')).not.toBeInTheDocument()
+      expect(screen.queryByLabelText('GitHub 链接')).not.toBeInTheDocument()
+      expect(screen.queryByLabelText('Telegram 链接')).not.toBeInTheDocument()
     })
+  })
+  it('renders nothing when GitHub is the only available contact', () => {
+    const { container } = render(
+      <SafeAppSocialLinksCard
+        safeApp={{
+          ...transactionBuilderSafeAppMock,
+          socialProfiles: [githubSocialProfileMock],
+          developerWebsite: 'https://github.com/example',
+        }}
+      />,
+    )
+    expect(container).toBeEmptyDOMElement()
   })
 })

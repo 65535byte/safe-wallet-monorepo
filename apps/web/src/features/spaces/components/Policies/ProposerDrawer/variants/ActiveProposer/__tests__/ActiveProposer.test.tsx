@@ -14,7 +14,7 @@ describe('ActiveProposer', () => {
   it('shows the proposer overview', () => {
     render(<ActiveProposer overview={OVERVIEW} />)
 
-    expect(screen.getByText('Policy overview')).toBeInTheDocument()
+    expect(screen.getByText('策略概览')).toBeInTheDocument()
     expect(screen.getByText('Marc')).toBeInTheDocument()
   })
 
@@ -22,7 +22,7 @@ describe('ActiveProposer', () => {
     render(<ActiveProposer overview={OVERVIEW} />)
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-    expect(screen.queryByText('Pending signatures')).not.toBeInTheDocument()
+    expect(screen.queryByText('待签名')).not.toBeInTheDocument()
     expect(screen.queryByTestId('safe-signature-progress')).not.toBeInTheDocument()
   })
 })

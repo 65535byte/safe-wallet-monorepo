@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Severity, type AnalysisResult } from '@safe-global/utils/features/safe-shield/types'
 import { getCommonAffixLengths } from '@safe-global/utils/utils/addressSimilarity'
 import { getBlockExplorerLink } from '@safe-global/utils/utils/chains'
@@ -23,7 +24,7 @@ const AddressRow = ({ label, address, prefixLen, suffixLen, explorerHref }: Addr
         {label}
       </Typography>
       <div className="flex flex-row items-start gap-0.5">
-        <CopyTooltip text={address} initialToolTipText="Copy address">
+        <CopyTooltip text={address} initialToolTipText={translateMessage('ui.copyAddress_e5bff417')}>
           <Typography variant="paragraph-mini" className="flex-1 cursor-pointer text-primary hover:text-foreground">
             <HighlightedAddress address={address} prefixLen={prefixLen} suffixLen={suffixLen} />
           </Typography>
@@ -65,7 +66,7 @@ export const AddressPoisoningCardItem = ({ result }: AddressPoisoningCardItemPro
           <div className="flex flex-col gap-2">
             {entered && (
               <AddressRow
-                label="Address entered"
+                label={translateMessage('ui.addressEntered_883823ad')}
                 address={entered.address}
                 prefixLen={prefixLen}
                 suffixLen={suffixLen}
@@ -74,7 +75,11 @@ export const AddressPoisoningCardItem = ({ result }: AddressPoisoningCardItemPro
             )}
             {anchor && (
               <AddressRow
-                label={anchor.name ? `Saved address: ${anchor.name}` : 'Saved address'}
+                label={
+                  anchor.name
+                    ? translateMessage('ui.savedAddress_cd3bfd95', { p0: anchor.name })
+                    : translateMessage('ui.savedAddress_57e774eb')
+                }
                 address={anchor.address}
                 prefixLen={prefixLen}
                 suffixLen={suffixLen}

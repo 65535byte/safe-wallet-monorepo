@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import * as React from 'react'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -143,7 +144,7 @@ function DialogContent({
             render={<Button variant="ghost" className="absolute top-4 right-4" size="icon-sm" />}
           >
             <XIcon />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{translateMessage('ui.close_fbd8cee0')}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>

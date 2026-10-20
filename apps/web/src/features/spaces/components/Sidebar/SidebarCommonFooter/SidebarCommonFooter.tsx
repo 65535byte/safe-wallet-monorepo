@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useCallback, type ReactElement } from 'react'
 import { Sparkles } from 'lucide-react'
 import {
@@ -10,8 +11,7 @@ import { cn } from '@safe-global/views/utils/cn'
 import { icons } from '../config'
 import css from '../styles.module.css'
 import { IS_PRODUCTION } from '@/config/constants'
-import { OVERVIEW_EVENTS, MixpanelEventParams } from '@/services/analytics'
-import Track from '@/components/common/Track'
+import { trackEvent, OVERVIEW_EVENTS, MixpanelEventParams } from '@/services/analytics'
 import { Switch } from '@safe-global/views/components/ui/switch'
 import { Field, FieldLabel } from '@safe-global/views/components/ui/field'
 import { setDarkMode } from '@/store/settingsSlice'
@@ -85,6 +85,7 @@ export const SidebarCommonFooter = ({ isSafeSidebar = false }: { isSafeSidebar?:
   }
 
   const handleHelpClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    trackEvent({ ...OVERVIEW_EVENTS.HELP_CENTER }, { [MixpanelEventParams.SIDEBAR_ELEMENT]: 'Help Center' })
     setHelpMenuAnchor(event.currentTarget)
   }, [])
 
@@ -93,6 +94,7 @@ export const SidebarCommonFooter = ({ isSafeSidebar = false }: { isSafeSidebar?:
   }, [])
 
   const handleBeamerClick = useCallback(() => {
+    trackEvent({ ...OVERVIEW_EVENTS.WHATS_NEW }, { [MixpanelEventParams.SIDEBAR_ELEMENT]: "What's New" })
     if (!hasBeamerConsent) {
       dispatch(openCookieBanner({ warningKey: CookieAndTermType.UPDATES }))
     }
@@ -109,12 +111,12 @@ export const SidebarCommonFooter = ({ isSafeSidebar = false }: { isSafeSidebar?:
               checked={isDarkMode}
               onCheckedChange={(checked) => dispatch(setDarkMode(checked))}
             />
-            <FieldLabel htmlFor="dark-mode-toggle">Dark mode</FieldLabel>
+            <FieldLabel htmlFor="dark-mode-toggle">{translateMessage('ui.darkMode_29b1de14')}</FieldLabel>
           </Field>
           {isSafeSidebar && (
             <Field orientation="horizontal">
               <Switch id="prod-cgw-toggle" checked={isProdGateway} onCheckedChange={onToggleGateway} />
-              <FieldLabel htmlFor="prod-cgw-toggle">Use prod CGW</FieldLabel>
+              <FieldLabel htmlFor="prod-cgw-toggle">{translateMessage('ui.useProdCGW_890d5ccb')}</FieldLabel>
             </Field>
           )}
         </div>
@@ -151,55 +153,47 @@ export const SidebarCommonFooter = ({ isSafeSidebar = false }: { isSafeSidebar?:
             'group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5',
           )}
         >
-          <Track
-            {...OVERVIEW_EVENTS.HELP_CENTER}
-            mixpanelParams={{ [MixpanelEventParams.SIDEBAR_ELEMENT]: 'Help Center' }}
-          >
-            <SidebarMenuButton
-              className={cn(
-                'h-9 min-w-0 flex-1 gap-3 group-data-[collapsible=icon]:flex-none',
-                css.sidebarInteractive,
-                css.sidebarNavItem,
-              )}
-              data-testid="list-item-need-help"
-              onClick={handleHelpClick}
-            >
-              <Tooltip>
-                <TooltipTrigger render={<div />} className="flex min-w-0 cursor-pointer items-center gap-3">
-                  <icons.CircleHelp />
-                  <span className="truncate group-data-[collapsible=icon]:hidden">Help</span>
-                </TooltipTrigger>
-                <TooltipContent side="right">Help center</TooltipContent>
-              </Tooltip>
-            </SidebarMenuButton>
-          </Track>
-          <Track
-            {...OVERVIEW_EVENTS.WHATS_NEW}
-            mixpanelParams={{ [MixpanelEventParams.SIDEBAR_ELEMENT]: "What's New" }}
+          <SidebarMenuButton
+            className={cn(
+              'h-9 min-w-0 flex-1 gap-3 group-data-[collapsible=icon]:flex-none',
+              css.sidebarInteractive,
+              css.sidebarNavItem,
+            )}
+            data-testid="list-item-need-help"
+            onClick={handleHelpClick}
           >
             <Tooltip>
-              <TooltipTrigger
-                render={
-                  <SidebarMenuButton
-                    type="button"
-                    id={BEAMER_SELECTOR}
-                    data-testid="list-item-whats-new"
-                    aria-label="What's new"
-                    className={cn(
-                      'h-9 w-9 min-w-9 shrink-0 gap-0 !px-0 !py-0 text-center !justify-center !overflow-visible',
-                      '[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:stroke-[1.25]',
-                      css.sidebarInteractive,
-                      css.footerBeamerButton,
-                    )}
-                    onClick={handleBeamerClick}
-                  />
-                }
-              >
-                <Sparkles aria-hidden strokeWidth={1.25} />
+              <TooltipTrigger render={<div />} className="flex min-w-0 cursor-pointer items-center gap-3">
+                <icons.CircleHelp />
+                <span className="truncate group-data-[collapsible=icon]:hidden">
+                  {translateMessage('ui.help_506fc9ad')}
+                </span>
               </TooltipTrigger>
-              <TooltipContent side="top">What&apos;s new</TooltipContent>
+              <TooltipContent side="right">{translateMessage('ui.helpCenter_d4f6b178')}</TooltipContent>
             </Tooltip>
-          </Track>
+          </SidebarMenuButton>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <SidebarMenuButton
+                  type="button"
+                  id={BEAMER_SELECTOR}
+                  data-testid="list-item-whats-new"
+                  aria-label={translateMessage('ui.whatSNew_fa9e2650')}
+                  className={cn(
+                    'h-9 w-9 min-w-9 shrink-0 gap-0 !px-0 !py-0 text-center !justify-center !overflow-visible',
+                    '[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:stroke-[1.25]',
+                    css.sidebarInteractive,
+                    css.footerBeamerButton,
+                  )}
+                  onClick={handleBeamerClick}
+                />
+              }
+            >
+              <Sparkles aria-hidden strokeWidth={1.25} />
+            </TooltipTrigger>
+            <TooltipContent side="top">{translateMessage('ui.whatSNew_fa9e2650')}</TooltipContent>
+          </Tooltip>
           <div className={css.footerHelpStatus}>
             <SidebarIndexingStatus isSafeSidebar={isSafeSidebar} />
           </div>

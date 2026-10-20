@@ -25,8 +25,8 @@ describe('HubSpotForm', () => {
   it('should render the form title and description', () => {
     render(<HubSpotForm {...defaultProps} />)
 
-    expect(screen.getByText('Request demo')).toBeInTheDocument()
-    expect(screen.getByText('Share your details to book a demo call.')).toBeInTheDocument()
+    expect(screen.getByText('预约演示')).toBeInTheDocument()
+    expect(screen.getByText('填写您的信息，预约演示通话。')).toBeInTheDocument()
   })
 
   it('should render the HubSpot form container', () => {
@@ -43,7 +43,7 @@ describe('HubSpotForm', () => {
     // the actual HubSpot form submission is beyond the scope of unit tests
     render(<HubSpotForm {...defaultProps} onSubmit={onSubmitMock} />)
 
-    expect(screen.getByText('Request demo')).toBeInTheDocument()
+    expect(screen.getByText('预约演示')).toBeInTheDocument()
   })
 
   it('should load HubSpot script on mount', () => {

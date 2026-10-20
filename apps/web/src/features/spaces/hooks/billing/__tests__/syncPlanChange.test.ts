@@ -2,6 +2,16 @@ import { syncPlanChange } from '../syncPlanChange'
 import { refreshSpaceEntitlements } from '@/services/entitlements/refreshSpaceEntitlements'
 import { cgwApi as billingApi } from '@safe-global/store/gateway/AUTO_GENERATED/billing'
 
+let mockSafeProEnabled = true
+jest.mock('@/config/pro', () => ({
+  get SAFE_PRO_ENABLED() {
+    return mockSafeProEnabled
+  },
+}))
+beforeEach(() => {
+  mockSafeProEnabled = true
+})
+
 jest.mock('@/services/entitlements/refreshSpaceEntitlements', () => ({ refreshSpaceEntitlements: jest.fn() }))
 
 const mockRefresh = refreshSpaceEntitlements as jest.Mock
@@ -10,6 +20,14 @@ const entitlements = (planId: string) => Promise.resolve({ data: { plan: { id: p
 
 describe('syncPlanChange', () => {
   beforeEach(() => jest.clearAllMocks())
+  afterEach(() => jest.restoreAllMocks())
+
+  it('does not poll entitlements or billing when Pro is disabled', async () => {
+    mockSafeProEnabled = false
+    expect(await syncPlanChange(dispatch, 'space-1', 'price_new')).toBe(false)
+    expect(mockRefresh).not.toHaveBeenCalled()
+    expect(dispatch).not.toHaveBeenCalled()
+  })
 
   it('re-reads the entitlements until they name the new plan, then refetches the billing queries', async () => {
     mockRefresh

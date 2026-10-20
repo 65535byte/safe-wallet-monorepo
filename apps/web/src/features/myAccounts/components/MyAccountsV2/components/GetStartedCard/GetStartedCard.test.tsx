@@ -3,6 +3,12 @@ import userEvent from '@testing-library/user-event'
 import { PRIVACY_URL, TERMS_URL } from '@safe-global/utils/config/constants'
 import GetStartedCard from './index'
 
+jest.mock('@safe-global/utils/config/constants', () => ({
+  ...jest.requireActual('@safe-global/utils/config/constants'),
+  TERMS_URL: 'https://example.com/terms',
+  PRIVACY_URL: 'https://example.com/privacy',
+}))
+
 const mockConnectWallet = jest.fn()
 jest.mock('@/components/common/ConnectWallet/useConnectWallet', () => ({
   __esModule: true,
@@ -19,7 +25,7 @@ describe('GetStartedCard', () => {
       routerProps: { pathname: '/welcome/accounts', query: {} },
     })
 
-    expect(getByRole('heading', { name: /get started/i })).toBeInTheDocument()
+    expect(getByRole('heading', { name: /开始使用/i })).toBeInTheDocument()
     expect(getByTestId('connect-wallet-button')).toBeInTheDocument()
     expect(getByTestId('watch-account-button')).toBeInTheDocument()
   })
@@ -49,7 +55,7 @@ describe('GetStartedCard', () => {
       routerProps: { pathname: '/welcome/accounts', query: {} },
     })
 
-    expect(getByRole('link', { name: 'Safe{Wallet} Terms' })).toHaveAttribute('href', TERMS_URL)
-    expect(getByRole('link', { name: /Privacy Policy/ })).toHaveAttribute('href', PRIVACY_URL)
+    expect(getByRole('link', { name: '使用条款' })).toHaveAttribute('href', TERMS_URL)
+    expect(getByRole('link', { name: /隐私政策/ })).toHaveAttribute('href', PRIVACY_URL)
   })
 })

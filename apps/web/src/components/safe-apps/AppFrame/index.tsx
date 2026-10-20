@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import useAddressBook from '@/hooks/useAddressBook'
 import useChainId from '@/hooks/useChainId'
 import { type AddressBookItem, Methods } from '@safe-global/safe-apps-sdk'
@@ -32,7 +33,7 @@ import { useSanctionedAddress } from '@/hooks/useSanctionedAddress'
 import BlockedAddress from '@/components/common/BlockedAddress'
 import { BRAND_NAME } from '@/config/constants'
 
-const UNKNOWN_APP_NAME = 'Unknown Safe App'
+const UNKNOWN_APP_NAME = translateMessage('ui.unknownApp_651b26ed')
 
 type AppFrameProps = {
   appUrl: string
@@ -94,7 +95,7 @@ const AppFrame = ({ appUrl, allowedFeaturesList, safeAppFromManifest, isNativeEm
     }
 
     if (id != null) {
-      communicator?.send('Permissions were rejected', id as string, true)
+      communicator?.send(translateMessage('ui.permissionsWereRejected_86947f75'), id as string, true)
     }
   }
 
@@ -125,10 +126,12 @@ const AppFrame = ({ appUrl, allowedFeaturesList, safeAppFromManifest, isNativeEm
     return (
       <>
         <Head>
-          <title>{`Safe Apps - Viewer - ${remoteApp ? remoteApp.name : UNKNOWN_APP_NAME}`}</title>
+          <title>
+            {translateMessage('ui.safeAppsViewer_46a28652', { p0: remoteApp ? remoteApp.name : UNKNOWN_APP_NAME })}
+          </title>
         </Head>
         <div className="p-4">
-          <BlockedAddress address={sanctionedAddress} featureTitle="Safe{Pass} Safe app" />
+          <BlockedAddress address={sanctionedAddress} featureTitle={translateMessage('ui.safePassSafeApp_b46a513e')} />
         </div>
       </>
     )
@@ -138,7 +141,9 @@ const AppFrame = ({ appUrl, allowedFeaturesList, safeAppFromManifest, isNativeEm
     <>
       {!isNativeEmbed && (
         <Head>
-          <title>{`${BRAND_NAME} - Safe Apps${remoteApp ? ' - ' + remoteApp.name : ''}`}</title>
+          <title>
+            {translateMessage('ui.safeApps_b6229de9', { p0: BRAND_NAME, p1: remoteApp ? ' - ' + remoteApp.name : '' })}
+          </title>
         </Head>
       )}
 
@@ -149,7 +154,7 @@ const AppFrame = ({ appUrl, allowedFeaturesList, safeAppFromManifest, isNativeEm
           <div className={css.loadingContainer}>
             {isLoadingSlow && (
               <Typography variant="h4" className="mb-2">
-                The Safe App is taking too long to load, consider refreshing.
+                {translateMessage('ui.theAppIsTakingTooLong_f86f4099')}
               </Typography>
             )}
             <Spinner className="size-12 text-[var(--color-primary-main)]" />

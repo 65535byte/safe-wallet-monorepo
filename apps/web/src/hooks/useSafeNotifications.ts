@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect } from 'react'
 import { showNotification, closeNotification } from '@/store/notificationsSlice'
 import useSafeInfo from './useSafeInfo'
@@ -13,7 +14,7 @@ import { useSafeLinkQuery } from '@/hooks/useSafeLinkQuery'
 
 const CLI_LINK = {
   href: 'https://github.com/5afe/safe-cli',
-  title: 'Get CLI',
+  title: translateMessage('ui.getCLI_dfe39434'),
 }
 
 type DismissedUpdateNotifications = {
@@ -101,8 +102,8 @@ const useSafeNotifications = (): void => {
         groupKey: OUTDATED_VERSION_KEY,
 
         message: isUnsupported
-          ? `Safe account version ${version} is not supported by this web app anymore. You can update your Safe account via the CLI.`
-          : `Your Safe account version ${version} is out of date. Please update it.`,
+          ? translateMessage('ui.accountVersionIsNotSupportedBy_c83a1bde', { p0: version })
+          : translateMessage('ui.yourAccountVersionIsOutOf_bcc33ffd', { p0: version }),
 
         link: isUnsupported
           ? CLI_LINK
@@ -111,7 +112,7 @@ const useSafeNotifications = (): void => {
                 pathname: AppRoutes.settings.setup,
                 query: safeLinkQuery,
               },
-              title: 'Update Safe account',
+              title: translateMessage('ui.updateAccount_c145ab62'),
             },
 
         onClose: () => dismissUpdateNotification(OUTDATED_VERSION_KEY),

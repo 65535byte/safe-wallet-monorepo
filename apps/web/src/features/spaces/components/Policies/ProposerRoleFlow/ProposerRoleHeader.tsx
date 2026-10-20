@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Info, UserRoundPen } from 'lucide-react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -19,7 +20,7 @@ const ProposerRoleHeader = () => (
         <ExternalLink
           href={HelpCenterArticle.PROPOSERS}
           noIcon
-          aria-label="Learn more about proposers"
+          aria-label={translateMessage('ui.learnMoreAboutProposers_9fabb4ac')}
           className="flex text-muted-foreground no-underline hover:text-foreground"
         >
           <Info className="size-4 translate-y-px" aria-hidden />

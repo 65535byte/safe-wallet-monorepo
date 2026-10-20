@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -9,12 +10,12 @@ const SingleTransaction: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Message details`}</title>
+        <title>{translateMessage('ui.messageDetails_27e9661f', { p0: BRAND_NAME })}</title>
       </Head>
 
       <main>
         <Typography data-testid="tx-details" variant="h3" className="pt-2 mb-6">
-          Message details
+          {translateMessage('ui.messageDetails_8a647831')}
         </Typography>
 
         <SingleMsg />

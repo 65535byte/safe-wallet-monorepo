@@ -78,7 +78,7 @@ describe('TxNonce context sync', () => {
     const user = userEvent.setup()
     const contextValue = renderTxNonce({ nonce: 10, recommendedNonce: 5 })
 
-    const resetButton = screen.getByRole('button', { name: /reset to recommended nonce/i })
+    const resetButton = screen.getByRole('button', { name: /恢复建议的 nonce/i })
     await user.click(resetButton)
 
     await waitFor(() => {

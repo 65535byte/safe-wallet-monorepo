@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { predictAddressBasedOnReplayData } from '@/features/multichain'
 import { useWeb3ReadOnly } from '@/hooks/wallets/web3ReadOnly'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -104,7 +105,7 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
         <div className="flex flex-col gap-4">
           <div className={layoutCss.row}>
             <Typography variant="h4" className="inline-flex items-center gap-2">
-              Safe version
+              {translateMessage('ui.version_3ec63f77')}
               <Tooltip>
                 <TooltipTrigger
                   render={
@@ -113,27 +114,24 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
                     </span>
                   }
                 />
-                <TooltipContent>
-                  The threshold of a Safe account specifies how many signers need to confirm a Safe account transaction
-                  before it can be executed.
-                </TooltipContent>
+                <TooltipContent>{translateMessage('ui.theThresholdOfAAccountSpecifies_fc4cfa69')}</TooltipContent>
               </Tooltip>
             </Typography>
             <Typography variant="paragraph-small" className="mb-4 block">
-              Changes the used master copy and fallback handler of the Safe.
+              {translateMessage('ui.changesTheUsedMasterCopyAnd_9e41642c')}
             </Typography>
             <Controller
               control={control}
               name="safeVersion"
               render={({ field }) => (
                 <Field>
-                  <FieldLabel htmlFor="advanced-safe-version">Safe version</FieldLabel>
+                  <FieldLabel htmlFor="advanced-safe-version">{translateMessage('ui.version_3ec63f77')}</FieldLabel>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger id="advanced-safe-version" className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="1.4.1">1.4.1 (latest)</SelectItem>
+                      <SelectItem value="1.4.1">{translateMessage('ui.latest_922ddf4c')}</SelectItem>
                       <SelectItem value="1.3.0">1.3.0</SelectItem>
                     </SelectContent>
                   </Select>
@@ -142,7 +140,7 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
             />
 
             <Typography variant="h4" className="mt-8 inline-flex w-full items-center gap-2">
-              Salt nonce
+              {translateMessage('ui.saltNonce_12d30c3b')}
               <Tooltip>
                 <TooltipTrigger
                   render={
@@ -151,38 +149,35 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
                     </span>
                   }
                 />
-                <TooltipContent>
-                  The salt nonce changes the predicted Safe address. It can be used to re-create a Safe from another
-                  chain or to create a specific Safe address
-                </TooltipContent>
+                <TooltipContent>{translateMessage('ui.theSaltNonceChangesThePredicted_dd0585a3')}</TooltipContent>
               </Tooltip>
             </Typography>
             <Typography variant="paragraph-small" className="mb-4 block">
-              Impacts the derived Safe address
+              {translateMessage('ui.impactsTheDerivedAddress_4c8dabe8')}
             </Typography>
             <NumberField
               {...register(AdvancedOptionsFields.saltNonce, {
                 validate: async (value) => {
                   if (isNaN(value)) {
-                    return 'Salt nonce must be a number'
+                    return translateMessage('ui.saltNonceMustBeANumber_e656b90f')
                   }
                   if (value < 0) {
-                    return 'Salt nonce must be positive'
+                    return translateMessage('ui.saltNonceMustBePositive_ed576d11')
                   }
                 },
-                required: 'Salt nonce is required',
+                required: translateMessage('ui.saltNonceIsRequired_983237f9'),
               })}
               fullWidth
-              label="Salt nonce"
+              label={translateMessage('ui.saltNonce_12d30c3b')}
               error={Boolean(formState.errors[AdvancedOptionsFields.saltNonce]) || Boolean(isDeployed)}
               helperText={
                 formState.errors[AdvancedOptionsFields.saltNonce]?.message ||
-                (Boolean(isDeployed) ? 'The Safe is already deployed. Use a different salt nonce.' : undefined)
+                (Boolean(isDeployed) ? translateMessage('ui.theIsAlreadyDeployedUseA_7f76ebc0') : undefined)
               }
             />
 
             <Typography variant="h4" className="mt-8 inline-flex w-full items-center gap-2">
-              Payment receiver
+              {translateMessage('ui.paymentReceiver_3228e694')}
               <Tooltip>
                 <TooltipTrigger
                   render={
@@ -191,11 +186,11 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
                     </span>
                   }
                 />
-                <TooltipContent>The payment receiver changes the predicted Safe address.</TooltipContent>
+                <TooltipContent>{translateMessage('ui.thePaymentReceiverChangesThePredicted_1a3250c2')}</TooltipContent>
               </Tooltip>
             </Typography>
             <Typography variant="paragraph-small" className="mb-4 block">
-              Impacts the derived Safe address
+              {translateMessage('ui.impactsTheDerivedAddress_4c8dabe8')}
             </Typography>
             <Controller
               control={control}
@@ -204,13 +199,15 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
               // receiver keeps the form valid and Next enabled. predictAddressBasedOnReplayData then
               // throws inside useAsync, whose error is discarded — leaving the "New Safe address"
               // skeleton spinning forever with no explanation.
-              rules={{ required: 'Payment receiver is required', validate: validateAddress }}
+              rules={{ required: translateMessage('ui.paymentReceiverIsRequired_c13955da'), validate: validateAddress }}
               render={({ field, fieldState }) => {
                 const isInvalid = fieldState.invalid || Boolean(isDeployed)
 
                 return (
                   <Field data-invalid={isInvalid || undefined}>
-                    <FieldLabel htmlFor="advanced-payment-receiver">Payment receiver</FieldLabel>
+                    <FieldLabel htmlFor="advanced-payment-receiver">
+                      {translateMessage('ui.paymentReceiver_3228e694')}
+                    </FieldLabel>
                     <Input
                       id="advanced-payment-receiver"
                       name={field.name}
@@ -220,9 +217,7 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
                       aria-invalid={isInvalid || undefined}
                       error={
                         fieldState.error?.message ||
-                        (Boolean(isDeployed)
-                          ? 'The Safe is already deployed. Use a different payment receiver.'
-                          : undefined)
+                        (Boolean(isDeployed) ? translateMessage('ui.theIsAlreadyDeployedUseA_9d4c24c4') : undefined)
                       }
                     />
                   </Field>
@@ -235,7 +230,7 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
 
           <div className={layoutCss.row}>
             <Typography variant="h4" className="mb-2">
-              New Safe address
+              {translateMessage('ui.newAddress_c397814a')}
             </Typography>
             {predictedSafeAddress ? (
               <EthHashInfo address={predictedSafeAddress} hasExplorer showCopyButton />
@@ -250,10 +245,10 @@ const AdvancedOptionsStep = ({ onSubmit, onBack, data, setStep }: StepRenderProp
             <div className="flex flex-row justify-between gap-6">
               <Button data-testid="back-btn" variant="outline" size="lg" onClick={handleBack}>
                 <ArrowBackIcon className="size-4" />
-                Back
+                {translateMessage('ui.back_dae8bf43')}
               </Button>
               <Button data-testid="next-btn" type="submit" variant="default" size="lg" disabled={isDisabled}>
-                Next
+                {translateMessage('ui.next_9cff86c8')}
               </Button>
             </div>
           </div>

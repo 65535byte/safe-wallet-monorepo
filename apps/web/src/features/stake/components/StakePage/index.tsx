@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Disclaimer from '@safe-global/views/components/common/Disclaimer'
 import WidgetDisclaimer from '@/components/common/WidgetDisclaimer'
 import StakingWidget from '../StakingWidget'
@@ -17,7 +18,7 @@ const StakePage = () => {
   if (blockedAddress) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
-        <BlockedAddress address={blockedAddress} featureTitle="stake feature with Kiln" />
+        <BlockedAddress address={blockedAddress} featureTitle={translateMessage('ui.stakeFeatureWithKiln_0a749ee8')} />
       </div>
     )
   }
@@ -29,10 +30,10 @@ const StakePage = () => {
       ) : (
         <div className="flex flex-1 flex-col items-center justify-center">
           <Disclaimer
-            title="Note"
-            content={<WidgetDisclaimer widgetName="Stake Widget by Kiln" />}
+            title={translateMessage('ui.note_b1eff7f0')}
+            content={<WidgetDisclaimer widgetName={translateMessage('ui.stakeWidgetByKiln_43c44e23')} />}
             onAccept={onAccept}
-            buttonText="Continue"
+            buttonText={translateMessage('ui.continue_a4bd8255')}
           />
         </div>
       )}

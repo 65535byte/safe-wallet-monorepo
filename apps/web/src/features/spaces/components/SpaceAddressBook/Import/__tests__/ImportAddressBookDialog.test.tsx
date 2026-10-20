@@ -55,8 +55,8 @@ describe('ImportAddressBookDialog', () => {
 
     render(<ImportAddressBookDialog handleClose={handleClose} />)
 
-    expect(screen.getByText(/Import address book/i)).toBeInTheDocument()
-    expect(screen.getByPlaceholderText(/Search/i)).toBeInTheDocument()
+    expect(screen.getByText(/导入通讯录/i)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/搜索/i)).toBeInTheDocument()
     expect(screen.getByText('Alice')).toBeInTheDocument()
     expect(screen.getByText('Bob')).toBeInTheDocument()
     expect(screen.getByText('Charlie')).toBeInTheDocument()
@@ -92,7 +92,7 @@ describe('ImportAddressBookDialog', () => {
     const selectCharlieButton = screen.getByText(/Charlie/i)
     await userEvent.click(selectCharlieButton)
 
-    const importButton = screen.getByText(/Import contacts \(2\)/i)
+    const importButton = screen.getByText(/导入联系人（2）/i)
     expect(importButton).toBeInTheDocument()
 
     await userEvent.click(importButton)
@@ -123,7 +123,7 @@ describe('ImportAddressBookDialog', () => {
 
     render(<ImportAddressBookDialog handleClose={jest.fn()} />)
 
-    expect(screen.getByRole('button', { name: /Import contacts \(0\)/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /导入联系人（0）/i })).toBeDisabled()
   })
 
   it('disables the Import button and delays closing after a successful import', async () => {
@@ -139,10 +139,10 @@ describe('ImportAddressBookDialog', () => {
     render(<ImportAddressBookDialog handleClose={handleClose} />)
 
     await user.click(screen.getByText(/Alice/i))
-    await user.click(screen.getByText(/Import contacts \(1\)/i))
+    await user.click(screen.getByText(/导入联系人（1）/i))
 
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: /Import contacts \(1\)/i })).toBeDisabled()
+      expect(screen.getByRole('button', { name: /导入联系人（1）/i })).toBeDisabled()
     })
     expect(handleClose).not.toHaveBeenCalled()
 
@@ -163,11 +163,11 @@ describe('ImportAddressBookDialog', () => {
 
     await userEvent.click(screen.getByText(/Alice/i))
     await userEvent.click(screen.getByText(/Bob/i))
-    await userEvent.click(screen.getByText(/Import contacts \(2\)/i))
+    await userEvent.click(screen.getByText(/导入联系人（2）/i))
 
     await waitFor(() => {
       expect(importMessages()).toContainEqual({
-        message: '2 contacts imported to Acme address book',
+        message: '2 contacts 已导入至 Acme address book',
         variant: 'success',
       })
     })
@@ -185,12 +185,12 @@ describe('ImportAddressBookDialog', () => {
 
     await userEvent.click(screen.getByText(/Alice/i))
     await userEvent.click(screen.getByText(/Charlie/i))
-    await userEvent.click(screen.getByText(/Import contacts \(2\)/i))
+    await userEvent.click(screen.getByText(/导入联系人（2）/i))
 
     await waitFor(() => {
       expect(importMessages()).toContainEqual({
         message:
-          '2 contacts imported to Acme address book across 2 networks. Only contacts on the current network are shown here',
+          '2 contacts 已导入至 Acme address book across 2 networks. Only contacts on the current network are shown here',
         variant: 'success',
       })
     })
@@ -208,12 +208,12 @@ describe('ImportAddressBookDialog', () => {
     render(<ImportAddressBookDialog handleClose={jest.fn()} />)
 
     await userEvent.click(screen.getByText(/Alice/i))
-    await userEvent.click(screen.getByText(/Import contacts \(1\)/i))
+    await userEvent.click(screen.getByText(/导入联系人（1）/i))
 
     await waitFor(() => {
       expect(screen.getByText(/name must contain only valid characters/i)).toBeInTheDocument()
     })
-    expect(screen.getByRole('button', { name: /Import contacts \(1\)/i })).not.toBeDisabled()
+    expect(screen.getByRole('button', { name: /导入联系人（1）/i })).not.toBeDisabled()
   })
 
   it('disables a contact whose name has invalid characters and keeps it unselectable', async () => {
@@ -230,7 +230,7 @@ describe('ImportAddressBookDialog', () => {
     expect(invalidRow).toHaveAttribute('aria-disabled', 'true')
 
     await userEvent.click(invalidRow)
-    expect(screen.getByRole('button', { name: /Import contacts \(0\)/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /导入联系人（0）/i })).toBeInTheDocument()
   })
 
   it('explains in a tooltip why an invalid-name contact cannot be imported', async () => {
@@ -261,7 +261,7 @@ describe('ImportAddressBookDialog', () => {
     expect(screen.getByText('Alice')).toBeInTheDocument()
     expect(screen.getByText('Bob')).toBeInTheDocument()
 
-    await user.type(screen.getByPlaceholderText(/Search/i), 'Alice')
+    await user.type(screen.getByPlaceholderText(/搜索/i), 'Alice')
     act(() => jest.advanceTimersByTime(300))
 
     await waitFor(() => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useRef } from 'react'
 import { useAppDispatch } from '@/store'
 import { HYPERNATIVE_OAUTH_CONFIG, MOCK_AUTH_ENABLED, getRedirectUri } from '../config/oauth'
@@ -238,12 +239,12 @@ export const useHypernativeOAuth = (): HypernativeAuthStatus => {
     (authUrl: string) => {
       dispatch(
         showNotification({
-          message: 'Popup blocked. Click the link below to complete authentication.',
+          message: translateMessage('ui.popupBlockedClickTheLinkBelow_652bfa58'),
           variant: 'error',
           groupKey: 'hypernative-auth-blocked',
           link: {
             onClick: () => window.open(authUrl, '_blank'),
-            title: 'Open authentication page',
+            title: translateMessage('ui.openAuthenticationPage_8a9634af'),
           },
         }),
       )

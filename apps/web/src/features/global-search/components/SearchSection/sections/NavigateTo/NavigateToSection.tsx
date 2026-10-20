@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { ArrowUpRight, Coins, Repeat2, SquareDashedBottomCode, WalletCards } from 'lucide-react'
 import { type ReactNode, useCallback, useContext, useMemo } from 'react'
 import { useRouter } from 'next/router'
@@ -26,13 +27,19 @@ interface NavigationItem {
 }
 
 const COMMON_ITEMS: NavigationItem[] = [
-  { icon: <ArrowUpRight className="size-5" />, label: 'Send' },
-  { icon: <Repeat2 className="size-5" />, label: 'Swap' },
-  { icon: <SquareDashedBottomCode className="size-5" />, label: 'Transaction builder' },
+  { icon: <ArrowUpRight className="size-5" />, label: translateMessage('ui.send_f1004bfb') },
+  { icon: <Repeat2 className="size-5" />, label: translateMessage('ui.swap_cd9c7167') },
+  { icon: <SquareDashedBottomCode className="size-5" />, label: translateMessage('ui.transactionBuilder_3e8817e8') },
 ]
 
-const SAFE_LEVEL_ITEM: NavigationItem = { icon: <Coins className="size-5" />, label: 'Assets' }
-const SPACE_LEVEL_ITEM: NavigationItem = { icon: <WalletCards className="size-5" />, label: 'Accounts' }
+const SAFE_LEVEL_ITEM: NavigationItem = {
+  icon: <Coins className="size-5" />,
+  label: translateMessage('ui.assets_42b9f464'),
+}
+const SPACE_LEVEL_ITEM: NavigationItem = {
+  icon: <WalletCards className="size-5" />,
+  label: translateMessage('ui.accounts_91c225a3'),
+}
 
 const NavigateToSection = ({ query, label }: SectionItemProps) => {
   const router = useRouter()
@@ -55,18 +62,18 @@ const NavigateToSection = ({ query, label }: SectionItemProps) => {
 
   const spaceActionByLabel: Record<string, ESafeAction> = useMemo(
     () => ({
-      Send: ESafeAction.Send,
-      Swap: ESafeAction.Swap,
-      'Transaction builder': ESafeAction.BuildTransaction,
+      发送: ESafeAction.Send,
+      兑换: ESafeAction.Swap,
+      交易构建器: ESafeAction.BuildTransaction,
     }),
     [],
   )
 
   const transactionActionByLabel: Record<string, string> = useMemo(
     () => ({
-      Send: 'send',
-      Swap: 'swap',
-      'Transaction builder': 'build_tx',
+      发送: 'send',
+      兑换: 'swap',
+      交易构建器: 'build_tx',
     }),
     [],
   )
@@ -97,13 +104,13 @@ const NavigateToSection = ({ query, label }: SectionItemProps) => {
       if (!isSafeLevel) return
 
       switch (itemLabel) {
-        case 'Send':
+        case translateMessage('ui.send_f1004bfb'):
           setTxFlow(<TokenTransferFlow />, undefined, false)
           break
-        case 'Swap':
+        case translateMessage('ui.swap_cd9c7167'):
           router.push({ pathname: AppRoutes.swap, query: router.query })
           break
-        case 'Transaction builder': {
+        case translateMessage('ui.transactionBuilder_3e8817e8'): {
           const txBuilderQuery = typeof txBuilderLink.query === 'object' ? txBuilderLink.query : {}
           router.push({
             ...txBuilderLink,
@@ -111,7 +118,7 @@ const NavigateToSection = ({ query, label }: SectionItemProps) => {
           })
           break
         }
-        case 'Assets':
+        case translateMessage('ui.assets_42b9f464'):
           router.push({
             pathname: AppRoutes.balances.index,
             query: router.query,
@@ -138,7 +145,9 @@ const NavigateToSection = ({ query, label }: SectionItemProps) => {
     <SectionWrapper label={label}>
       <div className="flex flex-col">
         {filteredItems.map((item) => {
-          const isDisabled = (item.label === 'Send' && !wallet) || (item.label === 'Swap' && !isSwapEnabled)
+          const isDisabled =
+            (item.label === translateMessage('ui.send_f1004bfb') && !wallet) ||
+            (item.label === translateMessage('ui.swap_cd9c7167') && !isSwapEnabled)
 
           return (
             <button

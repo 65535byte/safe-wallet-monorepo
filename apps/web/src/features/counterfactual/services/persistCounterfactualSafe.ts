@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { JsonRpcProvider } from 'ethers'
 import type { SerializedError } from '@reduxjs/toolkit'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -130,7 +131,7 @@ export const persistCounterfactualSafe = async ({
           showNotification({
             variant: 'info',
             groupKey: 'cf-safe-space-skipped',
-            message: 'Safe added to your accounts — ask an admin to add it to the Workspace',
+            message: translateMessage('ui.addedToYourAccountsAskAn_d64d9866'),
           }),
         )
       } else if (!holdsSeatInSpace && isSpaceAtSafeLimit(spaceSafeCount, spaceSafeLimit)) {
@@ -252,8 +253,11 @@ function recoverAlreadyDeployed({
 type BackendError = { status?: number; data?: { message?: string } }
 
 function seatLimitMessage(limit: SafeLimit): string {
-  const seats = typeof limit === 'number' ? `limit of ${limit} Safe accounts` : 'seat limit'
-  return `Safe created in My accounts. The Workspace is at its ${seats}, so it wasn't added there.`
+  const seats =
+    typeof limit === 'number'
+      ? translateMessage('ui.limitOfAccounts_80a38721', { p0: limit })
+      : translateMessage('ui.seatLimit_5ea0b27e')
+  return translateMessage('ui.createdInMyAccountsTheWorkspace_72cc276d', { p0: seats })
 }
 
 function isConflict(error: unknown): boolean {
@@ -261,7 +265,7 @@ function isConflict(error: unknown): boolean {
 }
 
 function toSpaceError(error: FetchBaseQueryError | SerializedError | undefined): Error {
-  const fallback = 'Failed to add Safe account to Workspace'
+  const fallback = translateMessage('ui.failedToAddAccountToWorkspace_57de892e')
   return new Error(error ? getRtkQueryErrorMessage(error) || fallback : fallback)
 }
 
@@ -275,6 +279,6 @@ function isLimitRejection(error: unknown): boolean {
 function toPersistError(error: FetchBaseQueryError | SerializedError | undefined): Error {
   // 409 (already deployed) is handled upstream via recoverAlreadyDeployed, so it
   // never reaches here — any error at this point is a genuine persist failure.
-  const fallback = 'Failed to save Safe account to backend'
+  const fallback = translateMessage('ui.failedToSaveAccountToBackend_b16dfe20')
   return new Error(error ? getRtkQueryErrorMessage(error) || fallback : fallback)
 }

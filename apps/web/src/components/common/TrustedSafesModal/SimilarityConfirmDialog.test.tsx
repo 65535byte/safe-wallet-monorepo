@@ -28,7 +28,7 @@ describe('SimilarityConfirmDialog', () => {
   it('should render dialog when open', () => {
     render(<SimilarityConfirmDialog {...defaultProps} />)
 
-    expect(screen.getByText('Similar address detected')).toBeInTheDocument()
+    expect(screen.getByText('检测到相似地址')).toBeInTheDocument()
   })
 
   it('should show warning message', () => {
@@ -40,13 +40,13 @@ describe('SimilarityConfirmDialog', () => {
   it('should display the safe address', () => {
     render(<SimilarityConfirmDialog {...defaultProps} />)
 
-    expect(screen.getByText('Selected safe')).toBeInTheDocument()
+    expect(screen.getByText('已选择的 8379')).toBeInTheDocument()
   })
 
   it('should call onConfirm when confirm button is clicked', () => {
     render(<SimilarityConfirmDialog {...defaultProps} />)
 
-    fireEvent.click(screen.getByText(/I understand, continue anyway/i))
+    fireEvent.click(screen.getByText(/我已了解，仍然继续/i))
 
     expect(defaultProps.onConfirm).toHaveBeenCalled()
   })
@@ -54,7 +54,7 @@ describe('SimilarityConfirmDialog', () => {
   it('should call onCancel when cancel button is clicked', () => {
     render(<SimilarityConfirmDialog {...defaultProps} />)
 
-    fireEvent.click(screen.getByText('Cancel'))
+    fireEvent.click(screen.getByText('取消'))
 
     expect(defaultProps.onCancel).toHaveBeenCalled()
   })
@@ -62,6 +62,6 @@ describe('SimilarityConfirmDialog', () => {
   it('should not render when closed', () => {
     render(<SimilarityConfirmDialog {...defaultProps} open={false} />)
 
-    expect(screen.queryByText('Similar address detected')).not.toBeInTheDocument()
+    expect(screen.queryByText('检测到相似地址')).not.toBeInTheDocument()
   })
 })

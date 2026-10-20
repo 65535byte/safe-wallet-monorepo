@@ -1,6 +1,6 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useMemo } from 'react'
 import { RefreshCw } from 'lucide-react'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import { Card } from '@safe-global/views/components/ui/card'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -146,9 +146,9 @@ const WorkspaceHealthCard = ({
 
       <div className="flex min-w-0 flex-1 justify-between">
         <div className="flex flex-col gap-2">
-          <Typography variant="h4">Your security score</Typography>
+          <Typography variant="h4">{translateMessage('ui.yourSecurityScore_895ed848')}</Typography>
           <Typography variant="paragraph-small" color="muted">
-            Overview of security checks across your accounts
+            {translateMessage('ui.overviewOfSecurityChecksAcrossYour_4400fc73')}
           </Typography>
 
           <div className="flex flex-wrap gap-2">
@@ -157,7 +157,7 @@ const WorkspaceHealthCard = ({
                 key={grade}
                 grade={grade}
                 active={activeFilter === grade}
-                label={`${SAFE_GRADE_LABEL[grade]} · ${gradeCounts[grade]} account${maybePlural(gradeCounts[grade])}`}
+                label={translateMessage('ui.account_9f30c6b3', { p0: SAFE_GRADE_LABEL[grade], p1: gradeCounts[grade] })}
                 onClick={() => onFilterChange(grade)}
               />
             ))}
@@ -180,14 +180,15 @@ const WorkspaceHealthCard = ({
               </Button>
 
               <Typography variant="paragraph-mini" color="muted">
-                Last scanned: {security.$isReady ? security.formatTimestamp(lastScannedAt) : ''}
+                {translateMessage('ui.lastScanned_17ae4f8e')}
+                {security.$isReady ? security.formatTimestamp(lastScannedAt) : ''}
               </Typography>
             </div>
           )}
 
           {scanIncomplete && !isScanning && (
             <Typography variant="paragraph-mini" className="mt-0.5 block text-[var(--color-warning-main)]">
-              The last scan didn&apos;t finish. Showing your most recent complete score — re-scan to update it.
+              {translateMessage('ui.theLastScanDidnTFinish_2e4aeac5')}
             </Typography>
           )}
         </div>

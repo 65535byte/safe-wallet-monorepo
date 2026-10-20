@@ -13,7 +13,7 @@ describe('Slider', () => {
       </Slider>,
     )
 
-    await user.click(screen.getByRole('button', { name: 'Continue' }))
+    await user.click(screen.getByRole('button', { name: '继续' }))
 
     expect(onSlideChange).toHaveBeenCalledWith(1)
   })

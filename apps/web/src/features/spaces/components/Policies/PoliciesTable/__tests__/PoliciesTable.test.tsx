@@ -45,14 +45,14 @@ describe('PoliciesTable', () => {
   it('should, when given policies, render the columns the design specifies', () => {
     render(<PoliciesTable policies={mockPolicies()} />)
 
-    expect(screen.getByRole('columnheader', { name: 'RULE' })).toBeInTheDocument()
-    expect(screen.getByRole('columnheader', { name: 'SAFE ACCOUNT' })).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', { name: '规则' })).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', { name: 'SAFE 账户' })).toBeInTheDocument()
     expect(screen.getAllByRole('columnheader').map((header) => header.textContent)).toEqual([
-      'RULE',
-      'SAFE ACCOUNT',
-      'PROPOSER / TOKENS',
-      'NETWORK',
-      'STATUS',
+      '规则',
+      'SAFE 账户',
+      '提案人 / 代币',
+      '网络',
+      '状态',
       '',
     ])
   })
@@ -97,8 +97,8 @@ describe('PoliciesTable', () => {
 
     const cell = screen.getByTestId('policy-cell-rule')
 
-    expect(within(cell).getByText('Spending limit')).toBeInTheDocument()
-    expect(within(cell).getByText('3 spenders · 4 limits')).toBeInTheDocument()
+    expect(within(cell).getByText('支出限额')).toBeInTheDocument()
+    expect(within(cell).getByText('3 spenders · 4 项限额')).toBeInTheDocument()
   })
 
   it('should, when given several policies, render a row for each one', () => {
@@ -121,20 +121,20 @@ describe('PoliciesTable', () => {
   it('should, when a policy module is present but not enabled, render it as not enforced', () => {
     render(<PoliciesTable policies={[asActivePolicy(mockUnenforcedPolicy())]} />)
 
-    expect(screen.getByTestId('policy-status-unenforced')).toHaveTextContent('Not enforced')
+    expect(screen.getByTestId('policy-status-unenforced')).toHaveTextContent('未执行')
     expect(screen.queryByTestId('policy-status-active')).not.toBeInTheDocument()
   })
 
   it('should, when a policy is awaiting execution, render it as pending', () => {
     render(<PoliciesTable policies={[mockPendingPolicy()]} />)
 
-    expect(screen.getByTestId('policy-status-pending')).toHaveTextContent('Pending')
+    expect(screen.getByTestId('policy-status-pending')).toHaveTextContent('待处理')
   })
 
   it('should, when an executed change is not yet indexed, show it as activating', () => {
     render(<PoliciesTable policies={[mockActivatingPolicy()]} />)
 
-    expect(screen.getByTestId('policy-status-activating')).toHaveTextContent('Activating')
+    expect(screen.getByTestId('policy-status-activating')).toHaveTextContent('正在激活')
   })
 
   it('should, when a change is queued for an active policy, keep the active row beside the pending one', () => {
@@ -172,7 +172,7 @@ describe('PoliciesTable', () => {
     const policy = asActivePolicy(mockProposerPolicy())
 
     render(<PoliciesTable policies={[policy]} onSelect={onSelect} />)
-    fireEvent.click(screen.getByRole('button', { name: 'Open Proposer for 0x8675...a19b' }))
+    fireEvent.click(screen.getByRole('button', { name: '打开 Proposer for 0x8675...a19b' }))
 
     expect(onSelect).toHaveBeenCalledTimes(1)
     expect(onSelect).toHaveBeenCalledWith(policy)
@@ -186,8 +186,8 @@ describe('PoliciesTable', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: 'Open Proposer for 0x8675...a19b' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Open Spending limit for 0x8675...a19b' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '打开 Proposer for 0x8675...a19b' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '打开 Spending limit for 0x8675...a19b' })).toBeInTheDocument()
   })
 
   it('should, when rows are selectable, keep them table rows rather than buttons', () => {
@@ -204,7 +204,7 @@ describe('PoliciesTable', () => {
 
   it.each([
     ['proposer', asActivePolicy(mockProposerPolicy())],
-    ['spending limit', asActivePolicy(mockMultiSpenderPolicy())],
+    ['支出限额', asActivePolicy(mockMultiSpenderPolicy())],
   ])("should, for a %s policy, link the Safe name to the Safe's settings page", (_, policy) => {
     mockResolveSafeName.mockReturnValue('Treasury')
 

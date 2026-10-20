@@ -67,7 +67,7 @@ describe('useFeatureFlagsItem', () => {
 
     expect(screen.queryByTestId('feature-flag-editor-dialog')).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Feature flags' }))
+    fireEvent.click(screen.getByRole('button', { name: '功能开关' }))
 
     expect(screen.getByTestId('feature-flag-editor-dialog')).toBeInTheDocument()
   })
@@ -75,7 +75,7 @@ describe('useFeatureFlagsItem', () => {
   it('lets the dialog close itself again', () => {
     render(<Host />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Feature flags' }))
+    fireEvent.click(screen.getByRole('button', { name: '功能开关' }))
     fireEvent.click(screen.getByRole('button', { name: 'Close editor' }))
 
     expect(screen.queryByTestId('feature-flag-editor-dialog')).not.toBeInTheDocument()

@@ -1,4 +1,5 @@
-export const EARN_TITLE = 'Earn'
+import { translateMessage } from '@/i18n'
+export const EARN_TITLE = translateMessage('ui.earn_2e740029')
 export const WIDGET_TESTNET_URL = 'https://safe.widget.testnet.kiln.fi/earn'
 export const WIDGET_PRODUCTION_URL = 'https://safe-defi.widget.kiln.fi/earn'
 export const EARN_CONSENT_STORAGE_KEY = 'lendDisclaimerAcceptedV1'
@@ -44,5 +45,4 @@ export const VaultAPYs: Record<string, Record<string, number>> = {
 }
 
 export const ApproximateAPY = 0.095
-export const APYDisclaimer =
-  '* based on historic averages of USD stablecoin and ETH Morpho vaults. Yields are variable and subject to change. Past performance is not a guarantee of future returns. The Kiln DeFi, Morpho Borrow and Vault products and features described herein are not offered or controlled by Safe Labs GmbH, Safe Ecosystem Foundation, and/or its affiliates.'
+export const APYDisclaimer = translateMessage('ui.basedOnHistoricAveragesOfUSD_a21f49e0')

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { AnyTransactionItem } from '@/utils/tx-list'
 import type { ReactElement } from 'react'
 import { useContext } from 'react'
@@ -12,14 +13,15 @@ import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 
 const Disclaimer = () => (
   <Typography>
-    <b>Conflicting transactions</b>. Executing one will automatically replace the others.{' '}
+    <b>{translateMessage('ui.conflictingTransactions_2cd251fb')}</b>
+    {translateMessage('ui.executingOneWillAutomaticallyReplaceThe_03dbf0b8')}{' '}
     <ExternalLink
       href={HelpCenterArticle.CONFLICTING_TRANSACTIONS}
-      title="Why are transactions with the same nonce conflicting with each other?"
+      title={translateMessage('ui.whyAreTransactionsWithTheSame_cbc551a8')}
       noIcon
       className="hover:text-muted-foreground"
     >
-      Why did this happen?
+      {translateMessage('ui.whyDidThisHappen_1fede37b')}
     </ExternalLink>
   </Typography>
 )

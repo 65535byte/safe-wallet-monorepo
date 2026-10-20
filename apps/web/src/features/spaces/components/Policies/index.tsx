@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useMemo, useState, type ReactElement } from 'react'
 import { HelpCenterArticle } from '@safe-global/utils/config/constants'
 import { TxModalContext } from '@/components/tx-flow'
@@ -193,7 +194,7 @@ const Policies = ({
     () =>
       ADD_POLICY_OPTIONS.map((option) =>
         locked?.lockedPolicies.some((lockedId) => lockedId === option.id)
-          ? { ...option, disabled: true, disabledTooltip: 'Upgrade to Business to set up policies.' }
+          ? { ...option, disabled: true, disabledTooltip: translateMessage('ui.upgradeToBusinessToSetUp_b44dc615') }
           : option,
       ),
     [locked],
@@ -213,15 +214,14 @@ const Policies = ({
     <div data-testid="policies">
       <div className="mb-6 flex flex-col gap-6">
         <Typography variant="h2" className="font-bold leading-[1] tracking-tight">
-          Policies
+          {translateMessage('ui.policies_09f3c089')}
         </Typography>
 
         {isSettled && (
           <Typography variant="paragraph-medium">
-            Policies are rules that help you manage your Safe accounts. Set them up once and they will run onchain,
-            automatically.{' '}
+            {translateMessage('ui.policiesAreRulesThatHelpYou_63b0ff7e')}{' '}
             <ExternalLink noIcon href={HelpCenterArticle.POLICIES}>
-              Learn more
+              {translateMessage('ui.learnMore_0c11daba')}
             </ExternalLink>
           </Typography>
         )}

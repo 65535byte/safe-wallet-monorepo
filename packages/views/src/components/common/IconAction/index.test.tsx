@@ -4,17 +4,17 @@ import IconAction from '.'
 describe('IconAction', () => {
   it('renders an icon-only button with an accessible name', () => {
     render(
-      <IconAction aria-label="Search">
+      <IconAction aria-label="搜索">
         <svg data-testid="icon" />
       </IconAction>,
     )
 
-    expect(screen.getByRole('button', { name: 'Search' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '搜索' })).toBeInTheDocument()
     expect(screen.getByTestId('icon')).toBeInTheDocument()
   })
 
   it('forwards onClick and other button props', () => {
-    render(<IconAction aria-label="Notifications" data-testid="bell" disabled />)
+    render(<IconAction aria-label="通知" data-testid="bell" disabled />)
 
     const button = screen.getByTestId('bell')
     expect(button).toBeDisabled()

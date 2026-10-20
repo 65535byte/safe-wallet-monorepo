@@ -66,7 +66,7 @@ describe('Input invalid state', () => {
       </Field>,
     )
 
-    expect(screen.getByText('Amount')).toHaveClass('text-destructive')
+    expect(screen.getByText('金额')).toHaveClass('text-destructive')
     expect(screen.getByPlaceholderText('Nested in invalid field')).toHaveClass('text-foreground')
   })
 })

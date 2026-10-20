@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useMemo } from 'react'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -33,9 +34,9 @@ const getErrorMessage = (error?: FetchBaseQueryError | SerializedError) => {
     }
 
     try {
-      return error.data ? JSON.stringify(error.data) : 'Unknown error'
+      return error.data ? JSON.stringify(error.data) : translateMessage('ui.unknownError_c955cb50')
     } catch {
-      return 'Unknown error'
+      return translateMessage('ui.unknownError_c955cb50')
     }
   }
 

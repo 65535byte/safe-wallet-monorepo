@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -21,9 +22,9 @@ interface HnQueueAssessmentProps {
 }
 
 const SEVERITY_MESSAGES: Record<Severity, string> = {
-  [Severity.OK]: 'No issues found',
-  [Severity.INFO]: 'Info available',
-  [Severity.WARN]: 'Issues found',
+  [Severity.OK]: translateMessage('ui.noIssuesFound_caa28585'),
+  [Severity.INFO]: translateMessage('ui.infoAvailable_535ae8d3'),
+  [Severity.WARN]: translateMessage('ui.issuesFound_15f27d29'),
   [Severity.CRITICAL]: 'Blocked',
   [Severity.ERROR]: 'Unavailable',
 }
@@ -64,7 +65,7 @@ export const HnQueueAssessment = ({
         />
         <TooltipContent>
           <Typography variant="paragraph-mini" align="center">
-            Log in to Hypernative to view security scan results
+            {translateMessage('ui.logInToHypernativeToView_029b928e')}
           </Typography>
         </TooltipContent>
       </Tooltip>
@@ -122,7 +123,7 @@ export const HnQueueAssessment = ({
         <div className="flex max-w-[144px] flex-row gap-1">
           <HypernativeIcon className="size-3 text-[var(--color-primary-main)]" />
           <Typography variant="paragraph-mini" align="center">
-            Review scan results on Hypernative
+            {translateMessage('ui.reviewScanResultsOnHypernative_3091156d')}
           </Typography>
         </div>
       </TooltipContent>

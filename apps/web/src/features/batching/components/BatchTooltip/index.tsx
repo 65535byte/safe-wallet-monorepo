@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useEffect, useRef, useState } from 'react'
 import { CircleCheck } from 'lucide-react'
 import { Popover, PopoverContent } from '@safe-global/views/components/ui/popover'
@@ -32,7 +33,9 @@ const BatchTooltip = ({ children }: { children: ReactElement }) => {
         <PopoverContent anchor={anchorRef} side="bottom" align="center" sideOffset={8} className="w-auto p-4">
           <div className="flex flex-col items-center gap-2">
             <CircleCheck className="size-[53px] text-[var(--color-success-main)]" />
-            <span className="text-base font-bold whitespace-nowrap">Transaction is added to batch</span>
+            <span className="text-base font-bold whitespace-nowrap">
+              {translateMessage('ui.transactionIsAddedToBatch_5f9d783c')}
+            </span>
           </div>
         </PopoverContent>
       </Popover>

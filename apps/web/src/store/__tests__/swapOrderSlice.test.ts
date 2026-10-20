@@ -207,8 +207,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order created',
-        message: 'Waiting for the transaction to be executed',
+        title: '订单已创建',
+        message: '等待交易执行',
         groupKey: 'swap-order-status',
         variant: 'info',
       })
@@ -239,8 +239,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order created',
-        message: 'Waiting for confirmation from signers of your Safe',
+        title: '订单已创建',
+        message: '等待 8379 签名人确认',
         groupKey: 'swap-order-status',
         variant: 'info',
       })
@@ -276,8 +276,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order transaction confirmed',
-        message: 'Waiting for order execution by the CoW Protocol',
+        title: '订单交易已确认',
+        message: '等待 CoW Protocol 执行订单',
         groupKey: 'swap-order-status',
         variant: 'info',
       })
@@ -308,8 +308,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order waiting for signature',
-        message: 'Waiting for confirmation from signers of your Safe',
+        title: '订单等待签名',
+        message: '等待 8379 签名人确认',
         groupKey: 'swap-order-status',
         variant: 'info',
       })
@@ -340,8 +340,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order transaction confirmed',
-        message: 'Waiting for order execution by the CoW Protocol',
+        title: '订单交易已确认',
+        message: '等待 CoW Protocol 执行订单',
         groupKey: 'swap-order-status',
         variant: 'info',
       })
@@ -404,8 +404,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order executed',
-        message: 'Your order has been successful',
+        title: '订单已执行',
+        message: '订单已成功完成',
         groupKey: 'swap-order-status',
         variant: 'success',
       })
@@ -471,8 +471,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order expired',
-        message: 'Your order has reached the expiry time and has become invalid',
+        title: '订单已过期',
+        message: '订单已达到过期时间，现已失效',
         groupKey: 'swap-order-status',
         variant: 'warning',
       })
@@ -538,8 +538,8 @@ describe('swapOrderSlice', () => {
       })
 
       expect(showNotificationSpy).toHaveBeenCalledWith({
-        title: 'Order cancelled',
-        message: 'Your order has been cancelled',
+        title: '订单已取消',
+        message: '您的订单已取消',
         groupKey: 'swap-order-status',
         variant: 'warning',
       })

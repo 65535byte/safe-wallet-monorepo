@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -14,7 +15,7 @@ export default function SpaceSettingsIndexPage() {
 
   return (
     <Head>
-      <title>{`${BRAND_NAME} – Workspace Settings`}</title>
+      <title>{translateMessage('ui.workspaceSettings_5ce308c1', { p0: BRAND_NAME })}</title>
     </Head>
   )
 }

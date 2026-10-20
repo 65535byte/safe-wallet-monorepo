@@ -249,13 +249,13 @@ describe('EthHashInfo', () => {
       )
 
       expect(getByLabelText(MOCK_SAFE_ADDRESS)).toBeInTheDocument()
-      expect(queryByLabelText('Copy to clipboard')).not.toBeInTheDocument()
+      expect(queryByLabelText('复制到剪贴板')).not.toBeInTheDocument()
     })
 
     it('keeps the copy hint by default', () => {
       const { getByLabelText } = render(<EthHashInfo address={MOCK_SAFE_ADDRESS} showName={false} />)
 
-      expect(getByLabelText('Copy to clipboard')).toBeInTheDocument()
+      expect(getByLabelText('复制到剪贴板')).toBeInTheDocument()
     })
   })
 

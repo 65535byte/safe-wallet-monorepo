@@ -70,7 +70,7 @@ describe('helpers', () => {
     })
 
     it('should throw for undefined transaction', () => {
-      expect(() => assertTx(undefined)).toThrow('Transaction not provided')
+      expect(() => assertTx(undefined)).toThrow('交易 not provided')
     })
 
     it('should throw with invariant error for undefined', () => {
@@ -102,7 +102,7 @@ describe('helpers', () => {
     })
 
     it('should throw for null wallet', () => {
-      expect(() => assertWallet(null)).toThrow('Wallet not connected')
+      expect(() => assertWallet(null)).toThrow('钱包 not connected')
     })
 
     it('should pass through valid wallet without modification', () => {

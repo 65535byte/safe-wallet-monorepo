@@ -68,7 +68,7 @@ describe('getSafeWorkspaceAction', () => {
     ['a user missing from the member list', { membershipStatus: null }, 'removeNotMember'],
     ['Workspace Safes that are still loading', { isSafeInSpace: undefined }, 'none'],
     ['a Safe that is not in the Workspace', { isSafeInSpace: false }, 'remove'],
-    ['an active member on a Safe of the Workspace', {}, 'none'],
+    ['an active member on a Safe / the Workspace', {}, 'none'],
   ])('returns the action for %s', (_, overrides, expected) => {
     expect(getSafeWorkspaceAction(state(overrides))).toBe(expected)
   })

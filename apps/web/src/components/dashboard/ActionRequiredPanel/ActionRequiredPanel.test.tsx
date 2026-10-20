@@ -11,12 +11,12 @@ describe('ActionRequiredPanel', () => {
     queries: {
       getPanel: () => screen.queryByTestId('action-required-panel'),
       getPanelRequired: () => screen.getByTestId('action-required-panel'),
-      getTitle: () => screen.queryByText('Action required'),
-      getTitleRequired: () => screen.getByText('Action required'),
-      getExpandButton: () => screen.getByLabelText('Expand action required panel'),
-      getCollapseButton: () => screen.getByLabelText('Collapse action required panel'),
+      getTitle: () => screen.queryByText('待办事项'),
+      getTitleRequired: () => screen.getByText('待办事项'),
+      getExpandButton: () => screen.getByLabelText('展开待办面板'),
+      getCollapseButton: () => screen.getByLabelText('收起待办面板'),
       getBadgeCount: (count: string) => screen.findByText(count),
-      getHeader: () => screen.getByText('Action required').closest('div'),
+      getHeader: () => screen.getByText('待办事项').closest('div'),
     },
 
     actions: {

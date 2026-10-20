@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { createNewSafe, relaySafeCreation } from '@/components/new-safe/create/logic'
 import { NetworkFee, SafeSetupOverview } from '@/components/new-safe/create/steps/ReviewStep'
 import ReviewRow from '@safe-global/views/components/new-safe/ReviewRow'
@@ -153,12 +154,9 @@ const ActivateAccountFlow = () => {
   const submitDisabled = !isSubmittable || isWrongChain
 
   return (
-    <TxLayout title="Activate account" hideNonce hideSafeShield>
+    <TxLayout title={translateMessage('ui.activateAccount_2e39f25e')} hideNonce hideSafeShield>
       <TxCard>
-        <Typography>
-          You&apos;re about to deploy this Safe account and will have to confirm the transaction with your connected
-          wallet.
-        </Typography>
+        <Typography>{translateMessage('ui.youReAboutToDeployThis_50b72260')}</Typography>
 
         <Separator bleed="6" className="my-4" />
 
@@ -196,8 +194,8 @@ const ActivateAccountFlow = () => {
                     {!willRelay && (
                       <Typography variant="paragraph-small" color="muted" className="block mt-2">
                         {isWrongChain
-                          ? `Switch your connected wallet to ${chain?.chainName} to see the correct estimated network fee`
-                          : 'You will have to confirm a transaction with your connected wallet.'}
+                          ? translateMessage('ui.switchYourConnectedWalletToTo_69b4250f', { p0: chain?.chainName })
+                          : translateMessage('ui.youWillHaveToConfirmA_81746f6a')}
                       </Typography>
                     )}
                   </>
@@ -213,9 +211,7 @@ const ActivateAccountFlow = () => {
           )}
           {isWrongChain && <NetworkWarning />}
           {!walletCanPay && !willRelay && showInsufficientFundsWarning && (
-            <ErrorMessage>
-              Your connected wallet doesn&apos;t have enough funds to execute this transaction
-            </ErrorMessage>
+            <ErrorMessage>{translateMessage('ui.yourConnectedWalletDoesnTHave_541d7403')}</ErrorMessage>
           )}
         </div>
 

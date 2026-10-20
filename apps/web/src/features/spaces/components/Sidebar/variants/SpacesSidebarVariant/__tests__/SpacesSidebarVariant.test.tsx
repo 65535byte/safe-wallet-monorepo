@@ -83,7 +83,7 @@ describe('SpacesSidebarVariant', () => {
   const mockMainNavItems: ResolvedSidebarNavItem[] = [
     {
       icon: Home,
-      label: 'Home',
+      label: '首页',
       href: '/home',
       badge: 0,
       isActive: true,
@@ -92,7 +92,7 @@ describe('SpacesSidebarVariant', () => {
     },
     {
       icon: FileText,
-      label: 'Transactions',
+      label: '交易',
       href: '/transactions',
       badge: 5,
       isActive: false,
@@ -102,11 +102,11 @@ describe('SpacesSidebarVariant', () => {
   ]
 
   const mockSetupGroup: ResolvedSidebarGroup = {
-    label: 'Setup',
+    label: '账户配置',
     items: [
       {
         icon: Users,
-        label: 'Team',
+        label: '团队',
         href: '/team',
         badge: 0,
         isActive: false,
@@ -115,7 +115,7 @@ describe('SpacesSidebarVariant', () => {
       },
       {
         icon: Shield,
-        label: 'Security',
+        label: '安全',
         href: '/security',
         badge: 0,
         isActive: false,
@@ -148,11 +148,11 @@ describe('SpacesSidebarVariant', () => {
       />,
     )
 
-    expect(screen.getByText('Home')).toBeInTheDocument()
+    expect(screen.getByText('首页')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-item-transactions')).toBeInTheDocument()
-    expect(screen.getByText('Setup')).toBeInTheDocument()
-    expect(screen.getByText('Team')).toBeInTheDocument()
-    expect(screen.getByText('Security')).toBeInTheDocument()
+    expect(screen.getByText('账户配置')).toBeInTheDocument()
+    expect(screen.getByText('团队')).toBeInTheDocument()
+    expect(screen.getByText('安全')).toBeInTheDocument()
   })
 
   it('renders badge for items with non-zero badge count', () => {
@@ -179,7 +179,7 @@ describe('SpacesSidebarVariant', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: /Security/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /安全/i })).toBeDisabled()
   })
 
   // The group is self-contained (it reads the config and owns the production guard), so its own tests
@@ -199,7 +199,7 @@ describe('SpacesSidebarVariant', () => {
       expect(marker).toBeInTheDocument()
 
       const text = container.textContent ?? ''
-      expect(text.indexOf('Developer group')).toBeGreaterThan(text.indexOf('Setup'))
+      expect(text.indexOf('Developer group')).toBeGreaterThan(text.indexOf('账户配置'))
     })
 
     it('forwards the loading state to the group', () => {

@@ -2,8 +2,8 @@ import { render, screen, fireEvent } from '@/tests/test-utils'
 import { ActionRequiredPanel } from './ActionRequiredPanel'
 
 const warning = <div>Warning</div>
-const getExpand = () => screen.queryByLabelText('Expand action required panel')
-const getCollapse = () => screen.queryByLabelText('Collapse action required panel')
+const getExpand = () => screen.queryByLabelText('展开待办面板')
+const getCollapse = () => screen.queryByLabelText('收起待办面板')
 
 describe('ActionRequiredPanel defaultExpanded', () => {
   it('starts collapsed when defaultExpanded is false', () => {
@@ -13,14 +13,14 @@ describe('ActionRequiredPanel defaultExpanded', () => {
 
   it('opens automatically when defaultExpanded is true', async () => {
     render(<ActionRequiredPanel defaultExpanded>{warning}</ActionRequiredPanel>)
-    expect(await screen.findByLabelText('Collapse action required panel')).toBeInTheDocument()
+    expect(await screen.findByLabelText('收起待办面板')).toBeInTheDocument()
   })
 
   it('respects a user collapse even though defaultExpanded stays true', async () => {
     render(<ActionRequiredPanel defaultExpanded>{warning}</ActionRequiredPanel>)
 
     // Auto-opened, then the user collapses it.
-    const collapse = await screen.findByLabelText('Collapse action required panel')
+    const collapse = await screen.findByLabelText('收起待办面板')
     fireEvent.click(collapse)
 
     expect(getExpand()).toBeInTheDocument()
@@ -35,14 +35,14 @@ describe('ActionRequiredPanel defaultExpanded', () => {
 
     rerender(<ActionRequiredPanel defaultExpanded>{warning}</ActionRequiredPanel>)
 
-    expect(await screen.findByLabelText('Collapse action required panel')).toBeInTheDocument()
+    expect(await screen.findByLabelText('收起待办面板')).toBeInTheDocument()
   })
 
   it('does not re-open a user-collapsed panel when defaultExpanded flips true again', async () => {
     const { rerender } = render(<ActionRequiredPanel defaultExpanded={false}>{warning}</ActionRequiredPanel>)
     rerender(<ActionRequiredPanel defaultExpanded>{warning}</ActionRequiredPanel>)
 
-    fireEvent.click(await screen.findByLabelText('Collapse action required panel'))
+    fireEvent.click(await screen.findByLabelText('收起待办面板'))
     expect(getExpand()).toBeInTheDocument()
 
     rerender(<ActionRequiredPanel defaultExpanded={false}>{warning}</ActionRequiredPanel>)

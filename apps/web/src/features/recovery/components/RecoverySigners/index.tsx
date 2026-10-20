@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Alert, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 
@@ -8,7 +9,6 @@ import CancelRecoveryButton from '../CancelRecoveryButton'
 import { useRecoveryTxState } from '../../hooks/useRecoveryTxState'
 import { formatAuditDateTime } from '@/components/common/AuditLog'
 import type { RecoveryQueueItem } from '../../services/recovery-state'
-import { formatRecoveryTime } from '../../services/formatRecoveryTime'
 import useAddressBook from '@/hooks/useAddressBook'
 
 import txDetailsCss from '@/components/transactions/TxDetails/styles.module.css'
@@ -17,19 +17,22 @@ export default function RecoverySigners({ item }: { item: RecoveryQueueItem }): 
   const { isExecutable, isExpired, isNext, remainingSeconds } = useRecoveryTxState(item)
   const addressBook = useAddressBook()
 
-  const executionLabel = isExpired ? 'Expired' : isExecutable ? 'Executable' : 'Waiting'
+  const executionLabel = isExpired
+    ? translateMessage('ui.expired_b75ba2e1')
+    : isExecutable
+      ? translateMessage('ui.executable_340f4d3b')
+      : 'Waiting'
   const executionActionType = isExpired ? 'expired' : isExecutable ? 'executed' : 'pending'
 
-  const expiresAtFormatted =
-    item.expiresAt !== null ? formatRecoveryTime(item.expiresAt, item.timestamp, formatAuditDateTime) : null
+  const expiresAtFormatted = item.expiresAt !== null ? formatAuditDateTime(Number(item.expiresAt)) : null
 
   const desc = isExecutable
     ? expiresAtFormatted
-      ? `The recovery proposal can be executed until ${expiresAtFormatted}.`
-      : 'The recovery proposal can be executed now.'
+      ? translateMessage('ui.theRecoveryProposalCanBeExecuted_fbfd1612', { p0: expiresAtFormatted })
+      : translateMessage('ui.theRecoveryProposalCanBeExecuted_3a06256b')
     : isExpired
-      ? 'The recovery proposal has expired and needs to be cancelled before a new one can be created.'
-      : 'The recovery proposal can be executed after the review window has passed.'
+      ? translateMessage('ui.theRecoveryProposalHasExpiredAnd_cb513ae6')
+      : translateMessage('ui.theRecoveryProposalCanBeExecuted_e7578168')
 
   return (
     <>
@@ -37,7 +40,7 @@ export default function RecoverySigners({ item }: { item: RecoveryQueueItem }): 
         <AuditLogHeader />
 
         <AuditRow
-          label="Created"
+          label={translateMessage('ui.created_d8278ec8')}
           actionType="created"
           address={item.executor}
           name={addressBook[item.executor]}

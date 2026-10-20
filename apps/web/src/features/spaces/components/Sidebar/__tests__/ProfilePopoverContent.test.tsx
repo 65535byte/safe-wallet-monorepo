@@ -38,9 +38,7 @@ jest.mock('@/components/common/Identicon', () => ({
 
 jest.mock('@/components/common/CopyAddressIconButton', () => ({
   __esModule: true,
-  default: ({ address }: { address: string }) => (
-    <span role="button" aria-label="Copy address" data-address={address} />
-  ),
+  default: ({ address }: { address: string }) => <span role="button" aria-label="复制地址" data-address={address} />,
 }))
 
 describe('ProfilePopoverContent', () => {
@@ -50,8 +48,8 @@ describe('ProfilePopoverContent', () => {
     expect(screen.getByTestId('initials-avatar')).toHaveTextContent('Alice A')
     expect(screen.getAllByText('Alice').length).toBeGreaterThan(0)
     expect(screen.getByText('ADMIN')).toBeInTheDocument()
-    expect(screen.getByText('Your account')).toBeInTheDocument()
-    expect(screen.getByText('Manages your Safe Pro subscription.')).toBeInTheDocument()
+    expect(screen.getByText('您的账户')).toBeInTheDocument()
+    expect(screen.getByText('管理 8379 订阅。')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-profile-sign-out')).toBeInTheDocument()
   })
 
@@ -97,9 +95,9 @@ describe('ProfilePopoverContent', () => {
     )
 
     const walletSection = screen.getByTestId('sidebar-profile-wallet-hint')
-    expect(walletSection).toHaveTextContent('Connected wallet')
+    expect(walletSection).toHaveTextContent('已连接钱包')
     expect(walletSection).toHaveTextContent('0x481a...Fbc0')
-    expect(walletSection).toHaveTextContent('Signs and executes transactions.')
+    expect(walletSection).toHaveTextContent('签名并执行交易。')
     expect(screen.getAllByTestId('identicon').map((el) => el.getAttribute('data-address'))).toContain(CONNECTED)
   })
 
@@ -149,7 +147,7 @@ describe('ProfilePopoverContent', () => {
   it('renders the account section when no display name is known yet', () => {
     render(<ProfilePopoverContent avatarName="" displayName="" onSignOut={jest.fn()} />)
 
-    expect(screen.getByText('Your account')).toBeInTheDocument()
+    expect(screen.getByText('您的账户')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar-profile-sign-out')).toBeInTheDocument()
   })
 
@@ -177,7 +175,7 @@ describe('ProfilePopoverContent', () => {
       />,
     )
 
-    const copyButtons = screen.getAllByRole('button', { name: 'Copy address' })
+    const copyButtons = screen.getAllByRole('button', { name: '复制地址' })
     expect(copyButtons).toHaveLength(1)
     expect(copyButtons[0]).toHaveAttribute('data-address', SIGNER)
   })
@@ -193,9 +191,10 @@ describe('ProfilePopoverContent', () => {
       />,
     )
 
-    expect(
-      screen.getAllByRole('button', { name: 'Copy address' }).map((el) => el.getAttribute('data-address')),
-    ).toEqual([SIGNER, CONNECTED])
+    expect(screen.getAllByRole('button', { name: '复制地址' }).map((el) => el.getAttribute('data-address'))).toEqual([
+      SIGNER,
+      CONNECTED,
+    ])
   })
 
   it('offers no copy button for an email account', () => {
@@ -203,7 +202,7 @@ describe('ProfilePopoverContent', () => {
       <ProfilePopoverContent avatarName="alice@safe.global" displayName="alice@safe.global" onSignOut={jest.fn()} />,
     )
 
-    expect(screen.queryByRole('button', { name: 'Copy address' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '复制地址' })).not.toBeInTheDocument()
   })
 
   it('offers only the connected wallet copy button for an email account with a wallet', () => {
@@ -216,7 +215,7 @@ describe('ProfilePopoverContent', () => {
       />,
     )
 
-    const copyButtons = screen.getAllByRole('button', { name: 'Copy address' })
+    const copyButtons = screen.getAllByRole('button', { name: '复制地址' })
     expect(copyButtons).toHaveLength(1)
     expect(copyButtons[0]).toHaveAttribute('data-address', CONNECTED)
   })
@@ -265,15 +264,15 @@ describe('ProfilePopoverContent', () => {
   it('tells a member their account is a membership, not a subscription', () => {
     render(<ProfilePopoverContent avatarName="Alice" displayName="Alice" isMember onSignOut={jest.fn()} />)
 
-    expect(screen.getByText('Your Safe Pro membership.')).toBeInTheDocument()
-    expect(screen.queryByText('Manages your Safe Pro subscription.')).not.toBeInTheDocument()
+    expect(screen.getByText('您的 8379 会员。')).toBeInTheDocument()
+    expect(screen.queryByText('管理 8379 订阅。')).not.toBeInTheDocument()
   })
 
   it('keeps the subscription caption for anyone who is not a member', () => {
     render(<ProfilePopoverContent avatarName="Alice" displayName="Alice" isMember={false} onSignOut={jest.fn()} />)
 
-    expect(screen.getByText('Manages your Safe Pro subscription.')).toBeInTheDocument()
-    expect(screen.queryByText('Your Safe Pro membership.')).not.toBeInTheDocument()
+    expect(screen.getByText('管理 8379 订阅。')).toBeInTheDocument()
+    expect(screen.queryByText('您的 8379 会员。')).not.toBeInTheDocument()
   })
 
   it('calls onSignOut once per click', async () => {

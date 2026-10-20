@@ -48,7 +48,7 @@ describe('WalletLogin', () => {
     const result = render(<WalletLogin onLogin={mockOnLogin} onContinue={mockOnContinue} />)
 
     await waitFor(() => {
-      expect(result.findByText('Connect wallet')).resolves.toBeDefined()
+      expect(result.findByText('连接钱包')).resolves.toBeDefined()
     })
 
     // We do not automatically invoke the callback
@@ -97,7 +97,7 @@ describe('WalletLogin', () => {
     const result = render(<WalletLogin onLogin={mockOnLogin} onContinue={mockOnContinue} />)
 
     await waitFor(() => {
-      expect(result.findByText('Connect wallet')).resolves.toBeDefined()
+      expect(result.findByText('连接钱包')).resolves.toBeDefined()
     })
 
     // We do not automatically invoke the callback as the user has not actively connected yet

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { RestrictedMethods } from '@safe-global/safe-apps-sdk'
 import type { AllowedFeatures } from '@safe-global/views/components/safe-apps/types'
 import { capitalize } from '@safe-global/utils/utils/formatters'
@@ -12,8 +13,8 @@ export * from './useSafePermissions'
 
 const SAFE_PERMISSIONS_TEXTS: Record<string, PermissionsDisplayType> = {
   [RestrictedMethods.requestAddressBook]: {
-    displayName: 'Address Book',
-    description: 'Access to your address book',
+    displayName: translateMessage('ui.addressBook_08588993'),
+    description: translateMessage('ui.accessToYourAddressBook_f397bc52'),
   },
 }
 
@@ -24,6 +25,6 @@ export const getSafePermissionDisplayValues = (method: string) => {
 export const getBrowserPermissionDisplayValues = (feature: AllowedFeatures) => {
   return {
     displayName: capitalize(feature).replace(/-/g, ' '),
-    description: `Allow to use - ${feature}`,
+    description: translateMessage('ui.allowToUse_95e24e0b', { p0: feature }),
   }
 }

@@ -154,7 +154,7 @@ describe('CreateSafeOnSpecificChain', () => {
 
     fireEvent.submit(screen.getByTestId('add-chain-dialog').closest('form')!)
 
-    expect(await screen.findByText('The replayed Safe leads to an unexpected address')).toBeInTheDocument()
+    expect(await screen.findByText('重建的 8379 地址与预期不符')).toBeInTheDocument()
     expect(onClose).not.toHaveBeenCalled()
     expect(mockPersist).not.toHaveBeenCalled()
   })

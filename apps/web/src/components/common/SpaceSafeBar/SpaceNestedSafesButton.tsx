@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import type { ReactElement } from 'react'
 import { GitMerge } from 'lucide-react'
@@ -62,7 +63,7 @@ function SpaceNestedSafesButton(): ReactElement | null {
                   'relative flex items-center border-0 rounded-lg bg-transparent px-3 transition-colors',
                   isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-muted-foreground/10',
                 )}
-                aria-label="Nested Safes"
+                aria-label={translateMessage('ui.nestedAccounts_7adf9ebb')}
                 data-testid="nested-safes-button"
               />
             }
@@ -70,7 +71,9 @@ function SpaceNestedSafesButton(): ReactElement | null {
             <Track
               {...NESTED_SAFE_EVENTS.OPEN_LIST}
               label={NESTED_SAFE_LABELS.space_safe_bar}
-              mixpanelParams={{ [MixpanelEventParams.SAFE_SELECTOR_DROPDOWN]: 'Nested Safes' }}
+              mixpanelParams={{
+                [MixpanelEventParams.SAFE_SELECTOR_DROPDOWN]: translateMessage('ui.nestedAccounts_7adf9ebb'),
+              }}
             >
               <div className="relative flex items-center">
                 <GitMerge className="size-5 text-muted-foreground" />
@@ -82,7 +85,11 @@ function SpaceNestedSafesButton(): ReactElement | null {
               </div>
             </Track>
           </TooltipTrigger>
-          <TooltipContent>{isDisabled ? 'Nested Safes are not allowed in this screen' : 'Nested Safes'}</TooltipContent>
+          <TooltipContent>
+            {isDisabled
+              ? translateMessage('ui.nestedAccountsAreNotAllowedIn_6d0d6f7a')
+              : translateMessage('ui.nestedAccounts_7adf9ebb')}
+          </TooltipContent>
         </Tooltip>
       </div>
 

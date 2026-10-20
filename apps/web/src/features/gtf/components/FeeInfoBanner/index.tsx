@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { XIcon } from 'lucide-react'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -24,29 +25,35 @@ const FeeInfoBanner = (): ReactElement | null => {
   return (
     <div className={css.feeInfoBanner}>
       <div className={css.feeInfoContent}>
-        <span className={css.newTag}>New</span>
+        <span className={css.newTag}>{translateMessage('ui.new_891f3045')}</span>
 
         <div className={css.feeInfoBody}>
-          <Typography variant="paragraph-small-bold">Soon, fees will be paid from your Safe balance.</Typography>
+          <Typography variant="paragraph-small-bold">
+            {translateMessage('ui.soonFeesWillBePaidFrom_1681acea')}
+          </Typography>
 
           <div className={css.feeInfoBullet}>
             <span className={css.bulletIconWrapper}>
               <WalletOutlinedIcon className={css.bulletIcon} />
             </span>
-            <Typography variant="paragraph-small">No need to fund signing wallets</Typography>
+            <Typography variant="paragraph-small">
+              {translateMessage('ui.noNeedToFundSigningWallets_a7b3c8ec')}
+            </Typography>
           </div>
 
           <div className={css.feeInfoBullet}>
             <span className={css.bulletIconWrapper}>
               <TokenIcon className={css.bulletIcon} />
             </span>
-            <Typography variant="paragraph-small">Pay fees in any supported token</Typography>
+            <Typography variant="paragraph-small">
+              {translateMessage('ui.payFeesInAnySupportedToken_38f98e36')}
+            </Typography>
           </div>
         </div>
 
         <ExternalLink href={LEARN_MORE_URL} noIcon className={css.learnMoreLink}>
           <Typography variant="paragraph-small-bold" className="underline">
-            Learn more
+            {translateMessage('ui.learnMore_0c11daba')}
           </Typography>
         </ExternalLink>
       </div>
@@ -54,7 +61,7 @@ const FeeInfoBanner = (): ReactElement | null => {
       <Button
         variant="ghost"
         size="icon"
-        aria-label="close"
+        aria-label={translateMessage('ui.close_aaaeeafe')}
         onClick={() => setDismissed(true)}
         className={cn(css.feeInfoClose, 'size-7')}
       >

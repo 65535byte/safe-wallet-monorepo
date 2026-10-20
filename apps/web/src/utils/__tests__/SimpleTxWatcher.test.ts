@@ -96,9 +96,7 @@ describe('SimpleTxWatcher', () => {
       expect(mockProvider.off).toHaveBeenCalled()
     })
 
-    expect(await result).toBe(
-      'Transaction not found. It might have been replaced or cancelled in the connected wallet.',
-    )
+    expect(await result).toBe('未找到交易，可能已在连接的钱包中替换或取消。')
   })
 
   it('should resolve if receipt resolves after 1 confirmation', async () => {

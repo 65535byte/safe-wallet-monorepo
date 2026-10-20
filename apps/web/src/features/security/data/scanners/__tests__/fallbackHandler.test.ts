@@ -53,7 +53,7 @@ describe('fallbackHandlerScanner', () => {
     // With no CGW name, the handler evidence carries the full address so EvidenceList
     // shortens it and adds a copy button — consistent with every other check (WA-2371).
     expect(result.evidence).toContainEqual({
-      label: 'Handler',
+      label: '处理器',
       value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF',
     })
   })

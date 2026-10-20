@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import NetworkError from '@/public/images/apps/network-error.svg'
 
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -14,19 +15,19 @@ const SafeAppsLoadError = ({ onBackToApps }: SafeAppsLoadErrorProps): React.Reac
   return (
     <div className={css.wrapper}>
       <div className={css.content}>
-        <Typography variant="h1">Safe App could not be loaded</Typography>
+        <Typography variant="h1">{translateMessage('ui.appCouldNotBeLoaded_66c8f69b')}</Typography>
 
         <NetworkError className={css.image} />
 
         <div>
           <Typography variant="paragraph" className="inline">
-            In case the problem persists, please reach out to us via{' '}
+            {translateMessage('ui.inCaseTheProblemPersistsPlease_e713048b')}{' '}
           </Typography>
           <ExternalLink href={DISCORD_URL}>Discord</ExternalLink>
         </div>
 
         <Button variant="ghost" onClick={onBackToApps} render={<a href="#back" />}>
-          Go back to the Safe Apps list
+          {translateMessage('ui.goBackToTheSafeApps_905bff7c')}
         </Button>
       </div>
     </div>

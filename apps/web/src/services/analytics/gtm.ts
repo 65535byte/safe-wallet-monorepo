@@ -188,9 +188,6 @@ export const gtmTrackSafeApp = (eventData: AnalyticsEvent, appName?: string, sdk
 }
 
 const sendEvent = (eventName: string, data: object) => {
-  // GA is only loaded after analytics consent
-  if (!window.gtag) return
-
   sendGAEvent('event', eventName, data)
 
   if (!IS_PRODUCTION) {

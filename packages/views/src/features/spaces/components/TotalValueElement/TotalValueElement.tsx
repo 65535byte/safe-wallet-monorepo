@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
@@ -18,7 +19,7 @@ const TotalValueElement = ({ value, loading }: TotalValueElementProps) => {
   return (
     <div className="flex flex-col gap-1">
       <Typography variant="paragraph-mini-medium" color="muted">
-        Total value
+        {translateMessage('ui.totalValue_ffe1c1dd')}
       </Typography>
       {loading ? (
         <Skeleton className="h-[30px] w-48" />

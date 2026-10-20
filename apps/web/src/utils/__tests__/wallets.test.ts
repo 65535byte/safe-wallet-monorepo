@@ -113,7 +113,7 @@ describe('wallets', () => {
     })
 
     it('does not flag genuine failures that merely contain a capitalised "Rejected"', () => {
-      expect(isWalletRejection(new Error('Transaction Rejected by guard'))).toBe(false)
+      expect(isWalletRejection(new Error('交易 Rejected by guard'))).toBe(false)
     })
   })
 

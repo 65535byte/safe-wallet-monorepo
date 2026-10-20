@@ -1,18 +1,19 @@
+import { translateMessage } from '@/i18n'
 export const TENDERLY_SIMULATE_URL_PLACEHOLDER =
   'https://api.tenderly.co/api/v1/account/{account_slug}/project/{project_slug}/simulate'
 
-export const TENDERLY_TOKEN_PLACEHOLDER = 'Paste your access token here'
+export const TENDERLY_TOKEN_PLACEHOLDER = translateMessage('ui.pasteYourAccessTokenHere_cff6e3ee')
 
 export const TENDERLY_SETUP_GUIDE_URL =
   'https://docs.tenderly.co/simulations/guides/safe-wallet#simulate-safe-wallet-transactions-in-your-tenderly-project'
 
-export const TENDERLY_URL_HELPER_TEXT = 'Copy the Simulation API URL from your Tenderly project. It ends in /simulate.'
+export const TENDERLY_URL_HELPER_TEXT = translateMessage('ui.copyTheSimulationAPIURLFrom_409101af')
 
-export const TENDERLY_URL_ERROR = 'This is not a Simulation API URL. Copy it from your Tenderly project.'
+export const TENDERLY_URL_ERROR = translateMessage('ui.thisIsNotASimulationAPI_f4f6478e')
 
-export const TENDERLY_URL_MISSING_SIMULATE_ERROR = 'Add /simulate to the end of the URL.'
+export const TENDERLY_URL_MISSING_SIMULATE_ERROR = translateMessage('ui.addSimulateToTheEndOf_3b990017')
 
-export const TENDERLY_TOKEN_ERROR = 'Add the access token from your Tenderly project.'
+export const TENDERLY_TOKEN_ERROR = translateMessage('ui.addTheAccessTokenFromYour_7d7cee83')
 
 const getPathname = (value: string): string | undefined => {
   try {

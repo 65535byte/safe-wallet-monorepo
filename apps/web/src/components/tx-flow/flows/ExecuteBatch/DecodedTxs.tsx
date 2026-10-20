@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type {
   BaseDataDecoded,
   DataDecoded,
@@ -18,7 +19,12 @@ const DecodedTxs = ({ txs }: { txs: TransactionDetails[] | undefined }) => {
 
   return (
     <>
-      <MultisendActionsHeader title="Batched transactions" setOpen={setOpenMap} amount={txs.length} compact />
+      <MultisendActionsHeader
+        title={translateMessage('ui.batchedTransactions_588d30b9')}
+        setOpen={setOpenMap}
+        amount={txs.length}
+        compact
+      />
 
       <Card variant="muted" size="none" className="mt-2">
         <CardContent>

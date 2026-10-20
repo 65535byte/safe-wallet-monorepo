@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 
 import { Button } from '@safe-global/views/components/ui/button'
@@ -55,7 +56,7 @@ const SafeAppActionButtons = ({
       )}
 
       <CopyButton
-        initialToolTipText={`Copy share URL for ${safeApp.name}`}
+        initialToolTipText={translateMessage('ui.copyShareURLFor_108a0ea8', { p0: safeApp.name })}
         onCopy={handleCopyShareSafeAppUrl}
         text={shareSafeAppUrl}
       >
@@ -71,7 +72,10 @@ const SafeAppActionButtons = ({
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label={`${isBookmarked ? 'Unpin' : 'Pin'} ${safeApp.name}`}
+                aria-label={translateMessage('ui.text_634b8a62', {
+                  p0: isBookmarked ? 'Unpin' : 'Pin',
+                  p1: safeApp.name,
+                })}
                 // eslint-disable-next-line no-restricted-syntax -- active/pinned state indicator
                 className={cn(actionButtonClassName, isBookmarked && 'bg-muted hover:bg-muted/80')}
                 onClick={(event) => {
@@ -88,7 +92,9 @@ const SafeAppActionButtons = ({
               </Button>
             }
           />
-          <TooltipContent>{`${isBookmarked ? 'Unpin' : 'Pin'} ${safeApp.name}`}</TooltipContent>
+          <TooltipContent>
+            {translateMessage('ui.text_634b8a62', { p0: isBookmarked ? 'Unpin' : 'Pin', p1: safeApp.name })}
+          </TooltipContent>
         </Tooltip>
       )}
 
@@ -99,7 +105,7 @@ const SafeAppActionButtons = ({
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label={`Delete ${safeApp.name}`}
+                aria-label={translateMessage('ui.delete_6b55362f', { p0: safeApp.name })}
                 className={actionButtonClassName}
                 onClick={(event) => {
                   event.preventDefault()
@@ -111,7 +117,7 @@ const SafeAppActionButtons = ({
               </Button>
             }
           />
-          <TooltipContent>{`Delete ${safeApp.name}`}</TooltipContent>
+          <TooltipContent>{translateMessage('ui.delete_6b55362f', { p0: safeApp.name })}</TooltipContent>
         </Tooltip>
       )}
     </div>

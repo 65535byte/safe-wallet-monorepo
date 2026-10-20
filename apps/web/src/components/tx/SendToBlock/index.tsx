@@ -1,9 +1,10 @@
+import { translateMessage } from '@/i18n'
 import NamedAddressInfo from '@/components/common/NamedAddressInfo'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 
 const SendToBlock = ({
   address,
-  title = 'Recipient',
+  title = translateMessage('ui.recipient_f737f260'),
   customAvatar,
   avatarSize,
   name,

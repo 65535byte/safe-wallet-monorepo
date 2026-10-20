@@ -4,12 +4,30 @@ import { useHasFeature } from '@/hooks/useChains'
 import { useIsSafeProEnabled } from '@/hooks/useIsSafeProEnabled'
 
 jest.mock('@/hooks/useChains')
+let mockSafeProEnabled = true
+jest.mock('@/config/pro', () => ({
+  get SAFE_PRO_ENABLED() {
+    return mockSafeProEnabled
+  },
+}))
+beforeEach(() => {
+  mockSafeProEnabled = true
+})
 
 const mockUseHasFeature = useHasFeature as jest.MockedFunction<typeof useHasFeature>
 
 describe('useIsSafeProEnabled', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+  })
+
+  afterEach(() => jest.restoreAllMocks())
+
+  it('disables Pro even when the backend enables it', () => {
+    mockSafeProEnabled = false
+    mockUseHasFeature.mockReturnValue(true)
+    const { result } = renderHook(() => useIsSafeProEnabled())
+    expect(result.current).toBe(false)
   })
 
   it('reads the SAFE_PRO flag', () => {

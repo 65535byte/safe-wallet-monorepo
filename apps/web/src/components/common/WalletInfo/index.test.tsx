@@ -52,7 +52,7 @@ describe('WalletInfo', () => {
       />,
     )
 
-    expect(getByText('Switch wallet')).toBeInTheDocument()
+    expect(getByText('切换钱包')).toBeInTheDocument()
   })
 
   it('should disconnect only the wallet, not the auth session, when the button is clicked', () => {
@@ -67,7 +67,7 @@ describe('WalletInfo', () => {
       />,
     )
 
-    const disconnectButton = getByText('Disconnect')
+    const disconnectButton = getByText('断开连接')
 
     expect(disconnectButton).toBeInTheDocument()
 
@@ -95,7 +95,7 @@ describe('WalletInfo', () => {
     )
 
     act(() => {
-      getByText('Switch wallet').click()
+      getByText('切换钱包').click()
     })
 
     expect(onSwitch).toHaveBeenCalledTimes(1)
@@ -116,7 +116,7 @@ describe('WalletInfo', () => {
     )
 
     act(() => {
-      getByText('Disconnect').click()
+      getByText('断开连接').click()
     })
 
     expect(onDisconnect).toHaveBeenCalledTimes(1)
@@ -136,7 +136,7 @@ describe('WalletInfo', () => {
 
     expect(() => {
       act(() => {
-        getByText('Switch wallet').click()
+        getByText('切换钱包').click()
       })
     }).not.toThrow()
   })
@@ -155,7 +155,7 @@ describe('WalletInfo', () => {
 
     expect(() => {
       act(() => {
-        getByText('Disconnect').click()
+        getByText('断开连接').click()
       })
     }).not.toThrow()
   })

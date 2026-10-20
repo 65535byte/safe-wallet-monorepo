@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import type { SerializedError } from '@reduxjs/toolkit'
@@ -10,6 +11,8 @@ import { useCurrentChain } from '@/hooks/useChains'
 import { useAppDispatch } from '@/store'
 import { showNotification } from '@/store/notificationsSlice'
 import { getRtkQueryErrorMessage } from '@/utils/rtkQuery'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { Errors, logError } from '@/services/exceptions'
 import { isElevationRequiredError } from '@/features/oidc-auth/utils/elevation'
 import { stepUpReturnUrlCleared, stepUpReturnUrlSet } from '@/features/oidc-auth/store'
@@ -35,7 +38,7 @@ export const useAddSafeToSpace = (): UseAddSafeToSpaceResult => {
   const showFailure = (detail: string, variant: 'error' | 'warning' = 'error') =>
     dispatch(
       showNotification({
-        message: `Failed to add Safe to Workspace. ${detail}`,
+        message: translateMessage('ui.failedToAddToWorkspace_49695c7d', { p0: detail }),
         variant,
         groupKey: 'add-safe-to-workspace-error',
       }),
@@ -54,10 +57,14 @@ export const useAddSafeToSpace = (): UseAddSafeToSpaceResult => {
   const handleAdded = (spaceId: string, added: SpaceSafeDto, spaceQuery: typeof router.query) => {
     dispatch(
       showNotification({
-        message: 'Successfully added Safe to Workspace.',
+        message: translateMessage('ui.successfullyAddedToWorkspace_860e3a1a'),
         variant: 'success',
         groupKey: 'add-safe-to-workspace-success',
       }),
+    )
+    trackEvent(
+      { ...SPACE_EVENTS.WORKSPACE_SAFE_LINKED, label: spaceId },
+      { workspace_id: spaceId, safe_address: added.address, chain_id: added.chainId },
     )
     void router.replace({ pathname: router.pathname, query: spaceQuery }, undefined, { shallow: true })
   }

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { undeployedSafesSlice } from '@/features/counterfactual/store'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -85,7 +86,7 @@ export const ImportDialog = ({
       showNotification({
         variant: 'success',
         groupKey: 'global-import-success',
-        message: 'Successfully imported data',
+        message: translateMessage('ui.successfullyImportedData_c5092241'),
       }),
     )
 
@@ -93,7 +94,7 @@ export const ImportDialog = ({
   }
 
   return (
-    <ModalDialog open onClose={handleClose} dialogTitle="Data import" hideChainIndicator>
+    <ModalDialog open onClose={handleClose} dialogTitle={translateMessage('ui.dataImport_ab54d6d8')} hideChainIndicator>
       <div className="p-6">
         {!jsonData || !fileName ? (
           <div className="mt-4">
@@ -121,10 +122,11 @@ export const ImportDialog = ({
             {!isDisabled && (
               <Alert variant="warning" outlined={false}>
                 <AlertSeverityIcon variant="warning" />
-                <AlertTitle className="font-bold">Overwrite your current data?</AlertTitle>
+                <AlertTitle className="font-bold">
+                  {translateMessage('ui.overwriteYourCurrentData_94e5207a')}
+                </AlertTitle>
                 <AlertDescription>
-                  This action will overwrite your currently added Safe accounts, address book and settings with those
-                  from the imported file.
+                  {translateMessage('ui.thisActionWillOverwriteYourCurrently_e2958acc')}
                 </AlertDescription>
               </Alert>
             )}
@@ -133,10 +135,10 @@ export const ImportDialog = ({
       </div>
       <div className="flex justify-between gap-2 p-6 pt-0">
         <Button data-testid="dialog-cancel-btn" variant="outline" onClick={handleClose}>
-          Cancel
+          {translateMessage('ui.cancel_d94a8eaf')}
         </Button>
         <Button data-testid="dialog-import-btn" onClick={handleImport} disabled={isDisabled}>
-          Import
+          {translateMessage('ui.import_f0101b10')}
         </Button>
       </div>
     </ModalDialog>

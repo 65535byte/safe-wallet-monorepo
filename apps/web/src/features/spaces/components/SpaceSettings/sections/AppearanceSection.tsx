@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { selectSettings, setDarkMode } from '@/store/settingsSlice'
 import { trackEvent, SETTINGS_EVENTS } from '@/services/analytics'
@@ -15,9 +16,9 @@ type ThemeOption = {
 }
 
 const THEME_OPTIONS: ThemeOption[] = [
-  { value: 'light', label: 'Light' },
-  { value: 'dark', label: 'Dark' },
-  { value: 'system', label: 'System' },
+  { value: 'light', label: translateMessage('ui.light_edd20386') },
+  { value: 'dark', label: translateMessage('ui.dark_15d09081') },
+  { value: 'system', label: translateMessage('ui.system_1f436457') },
 ]
 
 const getCurrentTheme = (darkMode: boolean | undefined): ThemeOption['value'] => {
@@ -40,11 +41,11 @@ const AppearanceSection = () => {
 
   return (
     <SpaceSettingsSection>
-      <SpaceSettingsSectionTitle>Appearance</SpaceSettingsSectionTitle>
+      <SpaceSettingsSectionTitle>{translateMessage('ui.appearance_cab005b3')}</SpaceSettingsSectionTitle>
 
       <div className="flex flex-col gap-2">
-        <Label className="text-muted-foreground">Theme</Label>
-        <div aria-label="Theme" className="flex flex-col sm:flex-row gap-2">
+        <Label className="text-muted-foreground">{translateMessage('ui.theme_410cf439')}</Label>
+        <div aria-label={translateMessage('ui.theme_410cf439')} className="flex flex-col sm:flex-row gap-2">
           {THEME_OPTIONS.map((opt) => {
             const isSelected = current === opt.value
             return (

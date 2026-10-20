@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionData } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import type { ReactNode } from 'react'
 import { Alert, AlertTitle, AlertDescription, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -8,7 +9,6 @@ import { useCurrentChain } from '@/hooks/useChains'
 import useSafeInfo from '@/hooks/useSafeInfo'
 import { useQueuedTxsLength } from '@/hooks/useTxQueue'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 import madProps from '@/utils/mad-props'
 import { extractTargetVersionFromUpdateSafeTx } from '@/services/tx/safeUpdateParams'
 
@@ -44,41 +44,43 @@ export function _UpdateSafe({
   return (
     <>
       <div className="flex flex-row items-center gap-4">
-        <BgBox>Current version: {safe.version}</BgBox>
+        <BgBox>
+          {translateMessage('ui.currentVersion_f5982e4c')}
+          {safe.version}
+        </BgBox>
         <div className="text-[28px]">→</div>
         {newVersion !== undefined ? (
           <BgBox light>
-            New version: {newVersion} {chain?.l2 ? '+L2' : ''}
+            {translateMessage('ui.newVersion_f7b2ccbf')}
+            {newVersion} {chain?.l2 ? '+L2' : ''}
           </BgBox>
         ) : (
-          <BgBox warning>Unknown contract</BgBox>
+          <BgBox warning>{translateMessage('ui.unknownContract_b055a753')}</BgBox>
         )}
       </div>
       {newVersion !== undefined ? (
         <Typography>
-          Read about the updates in the new Safe contracts version in the{' '}
+          {translateMessage('ui.readAboutTheUpdatesInThe_2d307a00')}{' '}
           <ExternalLink href={`https://github.com/safe-global/safe-contracts/releases/tag/v${newVersion}`}>
-            version {newVersion} changelog
+            {translateMessage('ui.version_3e8aea50')}
+            {newVersion} {translateMessage('ui.changelog_cdc8ee84')}
           </ExternalLink>
         </Typography>
       ) : (
         <Alert variant="destructive">
           <AlertSeverityIcon variant="destructive" />
-          <AlertTitle>Unknown contract</AlertTitle>
-          <AlertDescription>
-            The target contract for this upgrade is unknown. Verify the transaction data and the target contract address
-            before executing this transaction.
-          </AlertDescription>
+          <AlertTitle>{translateMessage('ui.unknownContract_b055a753')}</AlertTitle>
+          <AlertDescription>{translateMessage('ui.theTargetContractForThisUpgrade_3fa57b28')}</AlertDescription>
         </Alert>
       )}
 
       {showQueueWarning && (
         <Alert variant="warning" outlined={false}>
           <AlertSeverityIcon variant="warning" />
-          <AlertTitle>This upgrade will invalidate all queued transactions!</AlertTitle>
+          <AlertTitle>{translateMessage('ui.thisUpgradeWillInvalidateAllQueued_fc4d8d91')}</AlertTitle>
           <AlertDescription>
-            You have {queueSize} unexecuted transaction{maybePlural(parseInt(queueSize))}. Please make sure to execute
-            or delete them before upgrading, otherwise you&apos;ll have to reject or replace them after the upgrade.
+            {translateMessage('ui.youHave_456979c4')}
+            {queueSize} {translateMessage('ui.unexecutedTransaction_f98a08ca', { count: queueSize })}
           </AlertDescription>
         </Alert>
       )}

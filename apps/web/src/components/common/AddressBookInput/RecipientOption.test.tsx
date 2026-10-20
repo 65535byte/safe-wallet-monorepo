@@ -42,7 +42,7 @@ describe('RecipientOption', () => {
     render(<RecipientOption contact={contact()} prefix="eth" />)
 
     expect(screen.getByText('Alice signer')).toBeInTheDocument()
-    expect(screen.getByText('Saved on this device')).toBeInTheDocument()
+    expect(screen.getByText('保存在此设备上')).toBeInTheDocument()
   })
 
   it('renders space contact provenance with the resolved member name', () => {
@@ -58,7 +58,7 @@ describe('RecipientOption', () => {
       />,
     )
 
-    expect(screen.getByText('Added by')).toBeInTheDocument()
+    expect(screen.getByText('添加者')).toBeInTheDocument()
     expect(screen.getAllByText('Maria admin')).toHaveLength(2)
     expect(screen.getByTestId('initials-avatar')).toHaveTextContent('Maria admin')
   })

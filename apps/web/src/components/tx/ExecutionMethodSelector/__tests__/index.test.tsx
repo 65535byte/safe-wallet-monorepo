@@ -91,8 +91,8 @@ describe('ExecutionMethodSelector', () => {
     it('counts the free transactions left while the campaign is selected', () => {
       renderSelector(campaign())
 
-      expect(screen.getByText('Sponsored gas')).toBeInTheDocument()
-      expect(screen.getByText('free transactions left')).toHaveTextContent('3 free transactions left')
+      expect(screen.getByText('Gas 费用赞助')).toBeInTheDocument()
+      expect(screen.getByText('笔免费交易剩余')).toHaveTextContent('3 笔免费交易剩余')
       expect(getRadio('relay-execution-method')).not.toHaveAttribute('data-disabled')
       expect(screen.queryByTestId('balance-info')).not.toBeInTheDocument()
     })
@@ -101,7 +101,7 @@ describe('ExecutionMethodSelector', () => {
       renderSelector(campaign(), { executionMethod: ExecutionMethod.WALLET })
 
       expect(screen.getByTestId('balance-info')).toBeInTheDocument()
-      expect(screen.queryByText('free transactions left')).not.toBeInTheDocument()
+      expect(screen.queryByText('笔免费交易剩余')).not.toBeInTheDocument()
     })
 
     it('disables the campaign and shows the gas banner while gas is too high', () => {
@@ -109,7 +109,7 @@ describe('ExecutionMethodSelector', () => {
 
       expect(getRadio('relay-execution-method')).toHaveAttribute('data-disabled')
       expect(getRadio('connected-wallet-execution-method')).toHaveAttribute('data-checked')
-      expect(screen.getByText('Not available')).toBeInTheDocument()
+      expect(screen.getByText('不可用')).toBeInTheDocument()
       expect(screen.getByTestId('gas-too-high-banner')).toBeInTheDocument()
       expect(screen.getByTestId('balance-info')).toBeInTheDocument()
     })
@@ -119,7 +119,7 @@ describe('ExecutionMethodSelector', () => {
 
       expect(getRadio('relay-execution-method')).toHaveAttribute('data-disabled')
       expect(getRadio('connected-wallet-execution-method')).toHaveAttribute('data-checked')
-      expect(screen.getByText('0/10 available')).toBeInTheDocument()
+      expect(screen.getByText('0/10 可用')).toBeInTheDocument()
       expect(screen.queryByTestId('gas-too-high-banner')).not.toBeInTheDocument()
       expect(screen.getByTestId('balance-info')).toBeInTheDocument()
     })
@@ -162,7 +162,7 @@ describe('ExecutionMethodSelector', () => {
       expect(getRadio('relay-execution-method')).not.toHaveAttribute('data-disabled')
     })
 
-    it('keeps the daily counter with the Pro chip on a Safe Pro Safe under SAFE_PRO', () => {
+    it('keeps the daily counter with the Pro chip on a 8379 Safe under SAFE_PRO', () => {
       mockUseIsSafeProEnabled.mockReturnValue(true)
       renderSelector(daily(true))
 
@@ -174,10 +174,10 @@ describe('ExecutionMethodSelector', () => {
         isSubscription: false,
         isPro: true,
       })
-      expect(screen.getByTestId('sponsored-txs-left')).toHaveTextContent('5 free transactions left today')
-      expect(screen.queryByText(/sponsored transactions left/)).not.toBeInTheDocument()
+      expect(screen.getByTestId('sponsored-txs-left')).toHaveTextContent('5 笔今日免费交易剩余')
+      expect(screen.queryByText(/笔赞助交易剩余/)).not.toBeInTheDocument()
       expect(screen.queryByTestId('sponsored-txs-upgrade')).not.toBeInTheDocument()
-      expect(screen.getByRole('img', { name: 'Safe Pro' })).toBeInTheDocument()
+      expect(screen.getByRole('img', { name: '8379' })).toBeInTheDocument()
     })
 
     it('keeps the daily counter without the upgrade nudge while the plan loads under SAFE_PRO', () => {
@@ -185,14 +185,14 @@ describe('ExecutionMethodSelector', () => {
       renderSelector(daily(null))
 
       expect(getProps('sponsored-txs-counter-props')).toMatchObject({ isSubscription: false, isPro: null })
-      expect(screen.getByTestId('sponsored-txs-left')).toHaveTextContent('5 free transactions left today')
+      expect(screen.getByTestId('sponsored-txs-left')).toHaveTextContent('5 笔今日免费交易剩余')
       expect(screen.queryByTestId('sponsored-txs-upgrade')).not.toBeInTheDocument()
-      expect(screen.queryByRole('img', { name: 'Safe Pro' })).not.toBeInTheDocument()
+      expect(screen.queryByRole('img', { name: '8379' })).not.toBeInTheDocument()
     })
   })
 
   describe('subscription', () => {
-    it("counts the Workspace's allowance on a Safe Pro Safe", () => {
+    it("counts the Workspace's allowance on a 8379 Safe", () => {
       renderSelector(subscription(30))
 
       expect(getProps('sponsored-by')).toEqual({ option: 'SUBSCRIPTION', chainId: '1' })

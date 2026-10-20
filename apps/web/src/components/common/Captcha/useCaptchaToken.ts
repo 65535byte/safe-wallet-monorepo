@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { sharedTokenRef, resolveCaptchaReady, registerWidgetRefreshCallback } from './captchaHeadersInit'
 import { TURNSTILE_SITE_KEY } from '@safe-global/utils/config/constants'
@@ -119,7 +120,7 @@ export function useCaptchaToken({ theme = 'auto', isScriptReady }: UseCaptchaTok
       registerWidgetRefreshCallback(refreshToken)
     } catch (err) {
       resolveCaptchaReady()
-      setError(err instanceof Error ? err : new Error('Failed to initialize Turnstile'))
+      setError(err instanceof Error ? err : new Error(translateMessage('ui.failedToInitializeTurnstile_c1664791')))
       setIsLoading(false)
     }
   }, [refreshToken])

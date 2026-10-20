@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useEffect, useMemo } from 'react'
 import type { PropsWithChildren, ReactElement } from 'react'
 import type { MetaTransactionData, SafeTransaction } from '@safe-global/types-kit'
@@ -109,7 +110,7 @@ export function ReviewNestedSafe({
   }, [onSubmit, predictedSafeAddress])
 
   return (
-    <ReviewTransaction onSubmit={handleSubmit} title="Confirm Nested Safe">
+    <ReviewTransaction onSubmit={handleSubmit} title={translateMessage('ui.confirmNested_239bc051')}>
       {children}
     </ReviewTransaction>
   )

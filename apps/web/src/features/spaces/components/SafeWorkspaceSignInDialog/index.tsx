@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Dialog, DialogContent, DialogTitle } from '@safe-global/views/components/ui/dialog'
@@ -21,17 +22,15 @@ const SafeWorkspaceSignInDialog = (): ReactElement | null => {
         <div className="flex flex-col gap-6 pt-5">
           <div className="flex flex-col gap-1">
             <Typography variant="h3" as={DialogTitle}>
-              Sign in to open this Safe in its Workspace
+              {translateMessage('ui.signInToOpenThisIn_185a6d77')}
             </Typography>
-            <Typography color="muted">
-              This link opens the Safe in a Workspace. Sign in as a member of the Workspace to see it there.
-            </Typography>
+            <Typography color="muted">{translateMessage('ui.thisLinkOpensTheInA_14425628')}</Typography>
           </div>
 
           <SignInOptions afterSignIn={noop} />
 
           <Button variant="ghost-muted" size="sm" className="self-center" onClick={removeUrlSpaceId}>
-            Continue without Workspace
+            {translateMessage('ui.continueWithoutWorkspace_6268797f')}
           </Button>
         </div>
       </DialogContent>

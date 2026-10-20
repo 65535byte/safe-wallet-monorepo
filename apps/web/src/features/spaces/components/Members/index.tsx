@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button as ShadcnButton } from '@safe-global/views/components/ui/button'
 import { Plus } from 'lucide-react'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -25,18 +26,18 @@ const SpaceMembers = () => {
       <div>
         <div className="mb-6 flex flex-col gap-6">
           <Typography variant="h2" className="font-bold leading-[1] tracking-tight">
-            Team
+            {translateMessage('ui.team_00a31af8')}
           </Typography>
           {isAdmin && (
             <Track {...SPACE_EVENTS.ADD_MEMBER_MODAL} label={SPACE_LABELS.members_page}>
               <ShadcnButton
                 data-testid="add-member-button"
                 size="lg"
-                className="self-start px-4 py-0"
+                className="px-4 py-0"
                 onClick={() => setOpenAddMembersModal(true)}
               >
                 <Plus className="size-4 mr-1 text-green-500" />
-                Add member
+                {translateMessage('ui.addMember_6817361a')}
               </ShadcnButton>
             </Track>
           )}
@@ -45,10 +46,12 @@ const SpaceMembers = () => {
         <Tabs defaultValue="members">
           <TabsList variant="underline" className="flex-wrap mb-4 sm:mb-0">
             <TabsTrigger value="members" className="cursor-pointer" data-testid="members-tab">
-              Members ({activeMembers.length})
+              {translateMessage('ui.members_0a88e24e')}
+              {activeMembers.length})
             </TabsTrigger>
             <TabsTrigger value="pending" className="cursor-pointer" data-testid="pending-members-tab">
-              Pending ({invitedMembers.length})
+              {translateMessage('ui.pending_73884d0f')}
+              {invitedMembers.length})
             </TabsTrigger>
           </TabsList>
 
@@ -59,7 +62,7 @@ const SpaceMembers = () => {
 
             <TabsContent value="pending">
               {invitedMembers.length === 0 ? (
-                <p className="text-muted-foreground p-4 text-sm">No pending members.</p>
+                <p className="text-muted-foreground p-4 text-sm">{translateMessage('ui.noPendingMembers_c2298da0')}</p>
               ) : (
                 <MembersList members={invitedMembers} variant="pending" />
               )}

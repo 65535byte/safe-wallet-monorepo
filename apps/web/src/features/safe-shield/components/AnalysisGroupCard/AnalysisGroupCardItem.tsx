@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { Link } from '@safe-global/views/components/ui/link'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -50,8 +51,8 @@ export const AnalysisGroupCardItem = ({
 
             {hasError && (
               <AnalysisDetailsDropdown
-                showLabel="Show details"
-                hideLabel="Hide details"
+                showLabel={translateMessage('ui.showDetails_012660f9')}
+                hideLabel={translateMessage('ui.hideDetails_4e187b44')}
                 contentWrapper={(children) => (
                   <div className="mt-1 rounded-[4px] bg-[var(--color-background-paper)] px-2 py-1 break-words">
                     {children}
@@ -80,7 +81,7 @@ export const AnalysisGroupCardItem = ({
                 onClick={() => setIsReportModalOpen(true)}
                 className="cursor-pointer text-left text-xs leading-4 font-normal text-[var(--color-text-secondary)] no-underline hover:no-underline"
               >
-                Report false result
+                {translateMessage('ui.reportFalseResult_682c3a8e')}
               </Link>
             )}
           </div>

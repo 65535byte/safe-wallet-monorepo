@@ -173,7 +173,7 @@ describe('getNestedWallet send', () => {
       const data = concat([execCalldata, encodeNestedTxPayload([{ ...childEnvelope, value: '1' }])])
 
       await expect(sendTransaction(data)).rejects.toThrow(
-        'Nested transaction payload does not match the executed transaction',
+        'Nested transaction payload does not match the executed 笔交易',
       )
       expect(mockCreateTransaction).not.toHaveBeenCalled()
     })
@@ -182,7 +182,7 @@ describe('getNestedWallet send', () => {
       const data = concat([execCalldata, encodeNestedTxPayload([{ ...childEnvelope, safe: PARENT_SAFE }])])
 
       await expect(sendTransaction(data)).rejects.toThrow(
-        'Nested transaction payload does not match the executed transaction',
+        'Nested transaction payload does not match the executed 笔交易',
       )
     })
 

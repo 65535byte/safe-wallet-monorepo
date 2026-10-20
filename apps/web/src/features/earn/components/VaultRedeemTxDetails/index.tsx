@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { VaultRedeemTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 import TokenAmount from '@/components/common/TokenAmount'
@@ -6,7 +7,7 @@ import VaultRedeemConfirmation from '../VaultRedeemConfirmation'
 const VaultRedeemTxDetails = ({ info }: { info: VaultRedeemTransactionInfo }) => {
   return (
     <div className="flex flex-col gap-2 pl-2 pr-10">
-      <FieldsGrid title="Withdraw">
+      <FieldsGrid title={translateMessage('ui.withdraw_e0a8b34b')}>
         <TokenAmount
           tokenSymbol={info.tokenInfo.symbol}
           value={info.value}

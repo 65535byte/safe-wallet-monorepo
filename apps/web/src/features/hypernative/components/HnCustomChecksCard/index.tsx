@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import { StatusGroup, type ThreatAnalysisResults, type Severity } from '@safe-global/utils/features/safe-shield/types'
 import { sliceTopBySeverity } from '@safe-global/utils/features/safe-shield/utils'
@@ -45,7 +46,7 @@ export const HnCustomChecksCard = ({
   if (requiresHypernativeLogin) {
     return (
       <AnalysisGroupCardDisabled data-testid="custom-checks-analysis-group-card">
-        Custom checks
+        {translateMessage('ui.customChecks_9091c11b')}
       </AnalysisGroupCardDisabled>
     )
   }

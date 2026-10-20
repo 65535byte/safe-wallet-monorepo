@@ -52,7 +52,7 @@ describe('HnAnalysisGroupCard', () => {
     render(<HnAnalysisGroupCard data={{}} overflowRow={<div data-testid="overflow-row">+2 More</div>} />)
 
     expect(screen.getByTestId('overflow-row')).toBeInTheDocument()
-    expect(screen.getByText('by')).toBeInTheDocument()
+    expect(screen.getByText('由')).toBeInTheDocument()
   })
 
   it('does not render an overflow row when none is provided', () => {

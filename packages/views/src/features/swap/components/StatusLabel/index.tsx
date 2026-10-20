@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { OrderStatuses } from '@safe-global/store/gateway/types'
 import type { ReactElement } from 'react'
 import { Ban, CircleCheck, CircleX, Clock, Contrast, FileSignature, type LucideIcon } from 'lucide-react'
@@ -16,38 +17,38 @@ type StatusProps = {
 
 const statusMap: Record<CustomOrderStatuses, StatusProps> = {
   presignaturePending: {
-    label: 'Execution needed',
+    label: translateMessage('ui.executionNeeded_baa23b66'),
     color: 'warning',
     icon: FileSignature,
   },
   fulfilled: {
-    label: 'Filled',
+    label: translateMessage('ui.filled_68d52325'),
     color: 'success',
     icon: CircleCheck,
   },
   open: {
-    label: 'Open',
+    label: translateMessage('ui.open_a211eefa'),
     color: 'warning',
     icon: Clock,
   },
   cancelled: {
-    label: 'Cancelled',
+    label: translateMessage('ui.cancelled_8d952832'),
     color: 'error',
     icon: Ban,
   },
   expired: {
-    label: 'Expired',
+    label: translateMessage('ui.expired_b75ba2e1'),
     color: 'primary',
     icon: Clock,
   },
   partiallyFilled: {
-    label: 'Partially filled',
+    label: translateMessage('ui.partiallyFilled_6695db7e'),
     color: 'success',
     icon: Contrast,
   },
   // CGW claims it can return unknown status, but in reality I've never seen it
   unknown: {
-    label: 'Unknown',
+    label: translateMessage('ui.unknown_5e1302f9'),
     color: 'error',
     icon: CircleX,
   },

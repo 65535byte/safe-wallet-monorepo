@@ -87,8 +87,6 @@ describe('useSeatTrimCheckout', () => {
 
     mockRemoveState = {}
     mockCheckoutState = { isError: true }
-    expect(renderHook(() => useSeatTrimCheckout(SPACE_ID)).result.current.error).toBe(
-      'We couldn’t start the checkout. Please try again.',
-    )
+    expect(renderHook(() => useSeatTrimCheckout(SPACE_ID)).result.current.error).toBe('无法开始结账，请重试。')
   })
 })

@@ -1,21 +1,21 @@
+import { translateMessage } from '@/i18n'
 import type { RelaysRemaining } from '@safe-global/store/gateway/AUTO_GENERATED/relay'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import InfoIcon from '@safe-global/views/assets/images/notifications/info.svg'
 import { MAX_DAY_RELAYS } from '@/hooks/useRemainingRelays'
 import css from '../BalanceInfo/styles.module.css'
-import { maybePlural } from '@safe-global/utils/utils/formatters'
 
 const RemainingRelays = ({ relays, tooltip }: { relays?: RelaysRemaining; tooltip?: string }) => {
   if (!tooltip) {
     const limit = relays?.limit ?? MAX_DAY_RELAYS
-    tooltip = `${limit} transaction${maybePlural(limit)} per day for free`
+    tooltip = translateMessage('ui.transactionPerDayForFree_707b1ad5', { p0: limit })
   }
 
   return (
     <div className={css.container}>
       <Typography variant="paragraph-small" className="flex items-center gap-1 text-[var(--color-primary-light)]">
-        <b>{relays?.remaining ?? MAX_DAY_RELAYS}</b> free transactions left today
+        <b>{relays?.remaining ?? MAX_DAY_RELAYS}</b> {translateMessage('ui.freeTransactionsLeftToday_9ccc1952')}
         <Tooltip>
           <TooltipTrigger
             render={

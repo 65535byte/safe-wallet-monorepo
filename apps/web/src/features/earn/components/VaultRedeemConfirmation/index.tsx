@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { VaultRedeemTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import TokenIcon from '@/components/common/TokenIcon'
@@ -19,19 +20,26 @@ const AdditionalRewards = ({ txInfo }: { txInfo: VaultRedeemTransactionInfo }) =
   return (
     <div className="mt-2 flex flex-col rounded-md border border-[var(--color-border-light)] p-3">
       <DataTable
-        header="Additional reward"
+        header={translateMessage('ui.additionalReward_6e6d161a')}
         rows={[
-          <DataRow key="Token" title="Token">
+          <DataRow key="Token" title={translateMessage('ui.token_72f26614')}>
             {txInfo.additionalRewards[0].tokenInfo.name}{' '}
             <span className="text-[var(--color-primary-light)]">{txInfo.additionalRewards[0].tokenInfo.symbol}</span>
           </DataRow>,
 
-          <DataRow key="Earn" title="Earn">
+          <DataRow key="Earn" title={translateMessage('ui.earn_2e740029')}>
             {formatPercentage(txInfo.additionalRewardsNrr / 100)}
           </DataRow>,
 
           <Typography key="Powered by" variant="paragraph-mini" color="muted" className="mt-2 flex items-center gap-1">
-            Powered by <IframeIcon src={txInfo.vaultInfo.logoUri} alt="Morpho logo" width={16} height={16} /> Morpho
+            {translateMessage('ui.poweredBy_b0b13a76')}
+            <IframeIcon
+              src={txInfo.vaultInfo.logoUri}
+              alt={translateMessage('ui.morphoLogo_c81816d7')}
+              width={16}
+              height={16}
+            />{' '}
+            Morpho
           </Typography>,
         ]}
       />
@@ -71,7 +79,7 @@ const ConfirmationHeader = ({ txInfo }: { txInfo: VaultRedeemTransactionInfo }) 
       <div className="relative flex w-1/2 flex-row flex-wrap items-center rounded bg-[var(--color-border-background)] px-6 py-4">
         <div className="flex-1">
           <Typography variant="paragraph-small" className="text-[var(--color-primary-light)]">
-            Current reward
+            {translateMessage('ui.currentReward_904818f1')}
           </Typography>
 
           <Typography variant="h4">
@@ -102,7 +110,7 @@ const VaultRedeemConfirmation = ({
 
           <>
             {isTxDetails && (
-              <DataRow key="Current reward" title="Current reward">
+              <DataRow key="Current reward" title={translateMessage('ui.currentReward_904818f1')}>
                 <TokenAmount
                   value={txInfo.currentReward}
                   tokenSymbol={txInfo.tokenInfo.symbol}
@@ -113,9 +121,14 @@ const VaultRedeemConfirmation = ({
             )}
           </>,
 
-          <DataRow key="Withdraw from" title="Withdraw from">
+          <DataRow key="Withdraw from" title={translateMessage('ui.withdrawFrom_9e362cbc')}>
             <div className="flex flex-row items-center">
-              <IframeIcon src={txInfo.vaultInfo.logoUri} alt="Morpho logo" width={24} height={24} />
+              <IframeIcon
+                src={txInfo.vaultInfo.logoUri}
+                alt={translateMessage('ui.morphoLogo_c81816d7')}
+                width={24}
+                height={24}
+              />
               <span className="ml-2 font-bold">{txInfo.vaultInfo.name}</span>
             </div>
           </DataRow>,

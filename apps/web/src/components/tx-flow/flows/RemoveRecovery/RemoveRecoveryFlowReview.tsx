@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { trackEvent } from '@/services/analytics'
 import { RECOVERY_EVENTS } from '@/services/analytics/events/recovery'
 import { useCallback, useContext, useEffect } from 'react'
@@ -28,13 +29,10 @@ export function RemoveRecoveryFlowReview({
 
   return (
     <ReviewTransaction onSubmit={onFormSubmit}>
-      <Typography>
-        This transaction will remove the recovery module from your Safe account. You will no longer be able to recover
-        your Safe account once this transaction is executed.
-      </Typography>
+      <Typography>{translateMessage('ui.thisTransactionWillRemoveTheRecovery_1d7617c0')}</Typography>
 
       <OwnerList
-        title="Removing Recoverer"
+        title={translateMessage('ui.removingRecoverer_9cf0179f')}
         owners={delayModifier.recoverers.map((recoverer) => ({ value: recoverer }))}
         className="bg-[var(--color-warning-background)]"
       />

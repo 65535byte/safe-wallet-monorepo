@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { AppRoutes } from '@/config/routes'
@@ -16,7 +17,7 @@ import {
   useSpaceSafeLimit,
 } from '@/features/spaces'
 import SeatLimitBanner from '../SafeAccounts/SeatLimitBanner'
-import Track from '@/components/common/Track'
+import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 
 type EntryPoint = 'dashboard' | 'safe_accounts'
@@ -29,7 +30,7 @@ interface AddAccountsChooserProps {
 
 const AddAccountsChooser = ({
   buttonVariant = 'outline',
-  buttonLabel = 'Add accounts',
+  buttonLabel = translateMessage('ui.addAccounts_5b9c31e4'),
   entryPoint,
 }: AddAccountsChooserProps) => {
   const [chooserOpen, setChooserOpen] = useState(false)
@@ -53,6 +54,10 @@ const AddAccountsChooser = ({
 
   const handleAdd = () => {
     if (!isAdmin) return
+    trackEvent(
+      { ...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED, label: spaceId },
+      { workspace_id: spaceId, entry_point: entryPoint },
+    )
     setChooserOpen(false)
     setShowAddPicker(true)
   }
@@ -87,31 +92,32 @@ const AddAccountsChooser = ({
             // eslint-disable-next-line no-restricted-syntax -- p-0 pb-3: bespoke header padding, no token
             className="p-0 pb-3"
           >
-            <DialogTitle className="font-bold">Add Safe accounts</DialogTitle>
+            <DialogTitle className="font-bold">{translateMessage('ui.addAccounts_d96ccdc1')}</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-2">
             {showsLimit && <SeatLimitBanner variant="alert" />}
-            <Track
-              {...SPACE_EVENTS.WORKSPACE_SAFE_LINK_STARTED}
-              label={spaceId}
-              mixpanelParams={{ workspace_id: spaceId, entry_point: entryPoint }}
-            >
-              <ChooserRow
-                icon={showsLimit ? <Settings className="size-4" /> : <Plus className="size-4" />}
-                title={showsLimit ? 'Manage accounts' : 'Select from my accounts'}
-                subtitle={
-                  showsLimit ? `Swap one out to add another · ${safeCount ?? safeLimit} of ${safeLimit}` : undefined
-                }
-                onClick={handleAdd}
-                disabled={!isAdmin}
-                disabledTooltip="You need to be an Admin to add accounts"
-                testId="add-safe-accounts-to-workspace-button"
-              />
-            </Track>
+            <ChooserRow
+              icon={showsLimit ? <Settings className="size-4" /> : <Plus className="size-4" />}
+              title={
+                showsLimit ? translateMessage('ui.createNew_718632f7') : translateMessage('ui.createNewSafe_7e13a6b2')
+              }
+              subtitle={
+                showsLimit
+                  ? translateMessage('ui.replaceOneToAddAnother_ccc8b854', {
+                      p0: safeCount ?? safeLimit,
+                      p1: safeLimit,
+                    })
+                  : undefined
+              }
+              onClick={handleAdd}
+              disabled={!isAdmin}
+              disabledTooltip={translateMessage('ui.onlyAdminsCanAddSafesTo_01e4e3e6')}
+              testId="add-safe-accounts-to-workspace-button"
+            />
             <ChooserRow
               icon={<CirclePlus className="size-4" />}
-              title={showsLimit ? 'Create new' : 'Create new Safe'}
-              subtitle={showsLimit ? 'Created outside the Workspace, in My accounts' : undefined}
+              title={showsLimit ? translateMessage('ui.createNew_ec872d74') : translateMessage('ui.createNew_4645391c')}
+              subtitle={showsLimit ? translateMessage('ui.createdOutsideTheWorkspaceInMy_b5a70eb4') : undefined}
               onClick={handleCreate}
             />
           </div>

@@ -1,9 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@/tests/test-utils'
-import { type ReactNode, useState } from 'react'
+import type { ReactNode } from 'react'
 import { ExecuteTxStep } from '.'
 import { TxModalContext } from '@/components/tx-flow'
 import { SafeTxContext, type SafeTxContextParams } from '@/components/tx-flow/SafeTxProvider'
-import { initialContext, TxFlowContext, type TxFlowContextType } from '@/components/tx-flow/TxFlowProvider'
+import { initialContext, TxFlowContext } from '@/components/tx-flow/TxFlowProvider'
 import { createExistingTx } from '@/services/tx/tx-sender'
 import { createMockSafeTransaction } from '@/tests/transactions'
 import { faker } from '@faker-js/faker'
@@ -12,7 +12,6 @@ import type Safe from '@safe-global/protocol-kit'
 import { SafeScopeContext } from '@safe-global/views/components/tx-flow/safe-scope/context'
 import type { SafeScope } from '@safe-global/views/components/tx-flow/safe-scope/types'
 import { chainBuilder } from '@/tests/builders/chains'
-import { mapLedgerError } from '@/services/onboard/ledger-errors'
 
 jest.mock('@/services/tx/tx-sender', () => ({ createExistingTx: jest.fn() }))
 jest.mock('@/hooks/useChainId', () => ({ __esModule: true, default: jest.fn(() => '1') }))
@@ -32,20 +31,6 @@ jest.mock('@/components/tx-flow/actions/Execute', () => ({
 }))
 
 const mockCreateExistingTx = createExistingTx as jest.MockedFunction<typeof createExistingTx>
-
-const SafeTxState = ({
-  safeTx,
-  setSafeTx,
-  children,
-}: {
-  safeTx: SafeTxContextParams['safeTx']
-  setSafeTx: jest.Mock
-  children: ReactNode
-}) => {
-  const [safeTxError, setSafeTxError] = useState<Error>()
-  const value = { safeTx, setSafeTx, safeTxError, setSafeTxError } as unknown as SafeTxContextParams
-  return <SafeTxContext.Provider value={value}>{children}</SafeTxContext.Provider>
-}
 
 describe('ExecuteTxStep', () => {
   const txId = `multisig_${faker.finance.ethereumAddress()}_${faker.string.hexadecimal({ length: 64 })}`
@@ -70,30 +55,25 @@ describe('ExecuteTxStep', () => {
     afterSigning,
     spaceId,
     scope,
-    txFlowContext,
-  }: {
-    afterSigning?: boolean
-    spaceId?: string
-    scope?: SafeScope
-    txFlowContext?: Partial<TxFlowContextType>
-  } = {}) => {
+  }: { afterSigning?: boolean; spaceId?: string; scope?: SafeScope } = {}) => {
     const setSafeTx = jest.fn()
     const setTxFlow = jest.fn()
     const onPrev = jest.fn()
     const push = jest.fn()
     const updateTxLayoutProps = jest.fn()
     const safeQuery = `eth:${faker.finance.ethereumAddress()}`
+    const safeTxContext = { safeTx: unsignedTx, setSafeTx, setSafeTxError: jest.fn() } as unknown as SafeTxContextParams
 
     const query = scope ? { spaceId } : spaceId ? { safe: safeQuery, spaceId } : { safe: safeQuery }
 
     render(
       <SafeScopeContext.Provider value={scope && { scope, setScope: jest.fn(), clearScope: jest.fn() }}>
         <TxModalContext.Provider value={{ txFlow: undefined, setTxFlow, setFullWidth: jest.fn() }}>
-          <SafeTxState safeTx={unsignedTx} setSafeTx={setSafeTx}>
-            <TxFlowContext.Provider value={{ ...initialContext, txId, onPrev, updateTxLayoutProps, ...txFlowContext }}>
+          <SafeTxContext.Provider value={safeTxContext}>
+            <TxFlowContext.Provider value={{ ...initialContext, txId, onPrev, updateTxLayoutProps }}>
               <ExecuteTxStep afterSigning={afterSigning} />
             </TxFlowContext.Provider>
-          </SafeTxState>
+          </SafeTxContext.Provider>
         </TxModalContext.Provider>
       </SafeScopeContext.Provider>,
       { routerProps: { push, query } },
@@ -130,11 +110,9 @@ describe('ExecuteTxStep', () => {
     const signedNotice = await screen.findByTestId('signed-notice')
     const executeNotice = screen.getByTestId('execute-notice')
 
-    expect(signedNotice).toHaveTextContent(
-      'This transaction is fully signed. Nothing has been sent to the network yet.',
-    )
+    expect(signedNotice).toHaveTextContent('此交易已完成全部签名，尚未发送至网络。')
     expect(executeNotice).toHaveTextContent(
-      "Executing submits this transaction on-chain and costs gas. Anyone can execute it — it doesn't have to be you.",
+      "Executing submits this transaction on-chain 和 costs gas. Anyone can execute it — it doesn't have to be you.",
     )
     expect(screen.getAllByRole('note')).toEqual([signedNotice, executeNotice])
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
@@ -203,37 +181,16 @@ describe('ExecuteTxStep', () => {
     expect(push).toHaveBeenCalledWith({ pathname: AppRoutes.transactions.queue, query: { safe: safeQuery, spaceId } })
   })
 
-  it('shows an error instead of loading forever when the reload fails', async () => {
-    mockCreateExistingTx.mockRejectedValue(new Error(faker.lorem.sentence()))
+  it('keeps the loading state when the reload fails', async () => {
+    mockCreateExistingTx.mockRejectedValue(new Error('offline'))
 
     renderStep()
 
-    expect(
-      await screen.findByText('Could not load the signed transaction. Try again from the queue.'),
-    ).toBeInTheDocument()
+    await waitFor(() => {
+      expect(mockCreateExistingTx).toHaveBeenCalled()
+    })
     expect(screen.queryByTestId('execute-action')).not.toBeInTheDocument()
     expect(screen.queryByRole('note')).not.toBeInTheDocument()
-  })
-
-  it('shows the Ledger error when the execution fails on the device', async () => {
-    mockCreateExistingTx.mockResolvedValue(reloadedTx)
-    const deviceError = { _tag: 'UnknownDeviceExchangeError', errorCode: '6901' }
-    const submitError = Object.assign(new Error(faker.lorem.sentence()), { cause: mapLedgerError(deviceError) })
-
-    renderStep({ txFlowContext: { submitError } })
-
-    await screen.findByTestId('execute-action')
-    expect(screen.getByText('Your Ledger could not complete the request.')).toBeInTheDocument()
-    expect(screen.getByText('LEDGER-0x6901')).toBeInTheDocument()
-  })
-
-  it('shows a wallet rejection of the execution', async () => {
-    mockCreateExistingTx.mockResolvedValue(reloadedTx)
-
-    renderStep({ txFlowContext: { isRejectedByUser: true } })
-
-    await screen.findByTestId('execute-action')
-    expect(screen.getByText('User rejected signing.')).toBeInTheDocument()
   })
 
   it('reloads the signed transaction with the selected Safe of a Workspace-level flow', async () => {

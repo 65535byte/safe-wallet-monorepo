@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TwapOrderTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { getOrderFeeBps } from '@safe-global/utils/features/swap/helpers/utils'
 import { DataRow } from '@safe-global/views/components/common/Table/DataRow'
@@ -20,12 +21,12 @@ export const SurplusFee = ({
     <DataRow
       title={
         <>
-          Total fees
+          {translateMessage('ui.totalFees_ab179b6c')}
           <HelpIconTooltip
             title={
               <>
-                The amount of fees paid for this order.
-                {bps > 0 && ` This includes a Widget fee of ${bps / 100}% and network fees.`}
+                {translateMessage('ui.theAmountOfFeesPaidFor_55e2bdc3')}
+                {bps > 0 && translateMessage('ui.thisIncludesAWidgetFeeOf_75d47765', { p0: bps / 100 })}
               </>
             }
           />

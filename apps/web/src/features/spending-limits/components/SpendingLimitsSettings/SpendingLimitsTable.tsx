@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import EnhancedTable from '@safe-global/views/components/common/EnhancedTable'
 import DeleteIcon from '@/public/images/common/delete.svg'
 import { safeFormatUnits } from '@safe-global/utils/utils/formatters'
@@ -69,10 +70,10 @@ export const SpendingLimitsTable = ({
 
   const headCells = useMemo(
     () => [
-      { id: 'beneficiary', label: 'Beneficiary' },
-      { id: 'spent', label: 'Spent' },
-      { id: 'resetTime', label: 'Reset time' },
-      { id: 'actions', label: 'Actions', sticky: true },
+      { id: 'beneficiary', label: translateMessage('ui.beneficiary_cb21d4c7') },
+      { id: 'spent', label: translateMessage('ui.spent_a9266bd6') },
+      { id: 'resetTime', label: translateMessage('ui.resetTime_84996791') },
+      { id: 'actions', label: translateMessage('ui.actions_d4eb333d'), sticky: true },
     ],
     [],
   )
@@ -101,7 +102,11 @@ export const SpendingLimitsTable = ({
                   content: (
                     <div data-testid="spent-amount" className="flex items-center gap-2">
                       <TokenIcon logoUri={spendingLimit.token.logoUri} tokenSymbol={spendingLimit.token.symbol} />
-                      {`${formattedSpent} of ${formattedAmount} ${spendingLimit.token.symbol}`}
+                      {translateMessage('ui.text_b20b8ad1', {
+                        p0: formattedSpent,
+                        p1: formattedAmount,
+                        p2: spendingLimit.token.symbol,
+                      })}
                     </div>
                   ),
                 },

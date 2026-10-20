@@ -26,10 +26,10 @@ describe('RecoveryProposalCard', () => {
 
       expect(getByTestId('recovery-proposal')).toHaveAttribute('data-slot', 'card')
       expect(queryByText(/Recover this account\./)).toBeTruthy()
-      expect(queryByText('Your connected wallet can help you regain access by adding a new signer.')).toBeTruthy()
-      expect(queryByText('Learn more')).toBeTruthy()
+      expect(queryByText('已连接钱包可以通过添加新签名人帮助您恢复访问权。')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
 
-      const recoveryButton = queryByText('Start recovery')
+      const recoveryButton = queryByText('开始恢复')
       expect(recoveryButton).toBeTruthy()
 
       fireEvent.click(recoveryButton!)
@@ -46,10 +46,10 @@ describe('RecoveryProposalCard', () => {
         <InternalRecoveryProposalCard orientation="vertical" onClose={mockClose} setTxFlow={mockSetTxFlow} />,
       )
 
-      const button = getByText('Start recovery')
+      const button = getByText('开始恢复')
       fireEvent.click(button)
 
-      expect(mockedTrackEvent).toHaveBeenCalledWith(RECOVERY_EVENTS.START_RECOVERY, undefined)
+      expect(mockedTrackEvent).toHaveBeenCalledWith(RECOVERY_EVENTS.START_RECOVERY)
     })
   })
   describe('horizontal', () => {
@@ -61,9 +61,9 @@ describe('RecoveryProposalCard', () => {
       )
 
       expect(queryByText(/Recover this account\./)).toBeTruthy()
-      expect(queryByText('Your connected wallet can help you regain access by adding a new signer.')).toBeTruthy()
+      expect(queryByText('已连接钱包可以通过添加新签名人帮助您恢复访问权。')).toBeTruthy()
 
-      const recoveryButton = queryByText('Start recovery')
+      const recoveryButton = queryByText('开始恢复')
       expect(recoveryButton).toBeTruthy()
 
       fireEvent.click(recoveryButton!)
@@ -76,10 +76,10 @@ describe('RecoveryProposalCard', () => {
 
       const { getByText } = render(<InternalRecoveryProposalCard orientation="horizontal" setTxFlow={mockSetTxFlow} />)
 
-      const button = getByText('Start recovery')
+      const button = getByText('开始恢复')
       fireEvent.click(button)
 
-      expect(mockedTrackEvent).toHaveBeenCalledWith(RECOVERY_EVENTS.START_RECOVERY, undefined)
+      expect(mockedTrackEvent).toHaveBeenCalledWith(RECOVERY_EVENTS.START_RECOVERY)
     })
   })
 })

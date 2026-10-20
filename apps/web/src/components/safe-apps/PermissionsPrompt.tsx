@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import type { PermissionRequest } from '@safe-global/safe-apps-sdk/dist/types/types/permissions'
 
@@ -30,13 +31,13 @@ const PermissionsPrompt = ({
       <DialogContent showCloseButton={false} padding="none">
         <ModalDialogTitle onClose={() => onReject()}>
           <Typography variant="paragraph-bold" as="span">
-            Permissions Request
+            {translateMessage('ui.permissionsRequest_36d7e568')}
           </Typography>
         </ModalDialogTitle>
         <Separator />
         <div className="px-6 py-4">
           <Typography>
-            <b>{origin}</b> is requesting permissions for:
+            <b>{origin}</b> {translateMessage('ui.isRequestingPermissionsFor_041f3116')}
           </Typography>
           <ul className="mt-4 flex list-disc flex-col gap-1 pl-10">
             {permissions.map((permission, index) => (
@@ -48,10 +49,10 @@ const PermissionsPrompt = ({
         </div>
         <div className="my-6 flex justify-center gap-2">
           <Button variant="destructive" size="sm" onClick={() => onReject(requestId)} className="min-w-[130px]">
-            Reject
+            {translateMessage('ui.reject_39589b77')}
           </Button>
           <Button variant="default" size="sm" onClick={() => onAccept(origin, requestId)} className="min-w-[130px]">
-            Accept
+            {translateMessage('ui.accept_b264ffc7')}
           </Button>
         </div>
       </DialogContent>

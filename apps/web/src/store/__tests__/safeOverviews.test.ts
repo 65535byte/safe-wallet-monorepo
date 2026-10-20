@@ -250,7 +250,7 @@ describe('safeOverviews', () => {
         ],
       }
 
-      mockQueryAction({ error: new Error('Not available') })
+      mockQueryAction({ error: new Error('不可用') })
 
       const { result } = renderHook(() => useGetMultipleSafeOverviewsQuery(request))
 

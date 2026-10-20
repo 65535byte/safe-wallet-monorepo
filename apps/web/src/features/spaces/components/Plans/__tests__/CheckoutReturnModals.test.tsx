@@ -88,7 +88,7 @@ describe('CheckoutReturnModals', () => {
     expect(mockUseCheckoutReturn).toHaveBeenCalledWith(SPACE_ID)
     expect(refetch).toHaveBeenCalled()
     expect(screen.getByTestId('trial-activated-modal')).toHaveAttribute('data-ends', String(Date.UTC(2026, 10, 14)))
-    expect(screen.getByRole('button', { name: 'Continue' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '继续' })).toBeInTheDocument()
     expect(screen.getByTestId('trial-activated-modal')).toHaveAttribute('data-has-payment-method', 'false')
 
     fireEvent.click(screen.getByTestId('trial-activated-modal'))
@@ -139,8 +139,8 @@ describe('CheckoutReturnModals', () => {
     mockUseCheckoutReturn.mockReturnValue({ status, subscription: undefined, dismiss, retry })
     render(<CheckoutReturnModals />)
 
-    expect(screen.getByTestId('checkout-pending')).toHaveTextContent('Confirming your subscription')
-    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(screen.getByTestId('checkout-pending')).toHaveTextContent('正在确认订阅')
+    expect(screen.queryByRole('button', { name: '关闭' })).not.toBeInTheDocument()
     expect(refetch).not.toHaveBeenCalled()
   })
 
@@ -149,9 +149,9 @@ describe('CheckoutReturnModals', () => {
     render(<CheckoutReturnModals />)
 
     expect(screen.getByTestId('checkout-failed')).toHaveTextContent('taking longer than expected')
-    fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
+    fireEvent.click(screen.getByRole('button', { name: '重试' }))
     expect(retry).toHaveBeenCalled()
-    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭' }))
     expect(mockPush).toHaveBeenCalledWith('/welcome/spaces')
     expect(dismiss).not.toHaveBeenCalled()
   })
@@ -160,8 +160,8 @@ describe('CheckoutReturnModals', () => {
     mockUseCheckoutReturn.mockReturnValue({ status: 'error', subscription: undefined, dismiss, retry })
     render(<CheckoutReturnModals />)
 
-    expect(screen.getByTestId('checkout-failed')).toHaveTextContent('We couldn’t confirm your checkout')
-    expect(screen.queryByRole('button', { name: 'Try again' })).not.toBeInTheDocument()
+    expect(screen.getByTestId('checkout-failed')).toHaveTextContent('无法确认您的结账状态')
+    expect(screen.queryByRole('button', { name: '重试' })).not.toBeInTheDocument()
   })
 
   it('renders nothing for an abandoned checkout, so the Workspace lock takes over', () => {

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import CheckWallet from '@/components/common/CheckWallet'
 import Track from '@/components/common/Track'
 import { AppRoutes } from '@/config/routes'
@@ -58,7 +59,7 @@ const StakeButton = ({
                   variant="ghost"
                   size="icon-sm"
                   data-testid="stake-btn"
-                  aria-label="Stake"
+                  aria-label={translateMessage('ui.stake_0e1cdece')}
                   onClick={handleClick}
                   disabled={!isOk}
                   className={assetActionCss.assetActionIconButton}
@@ -66,20 +67,20 @@ const StakeButton = ({
                   <StakeIcon className="size-4" />
                 </Button>
               </TooltipTrigger>
-              {isOk && <TooltipContent>Stake</TooltipContent>}
+              {isOk && <TooltipContent>{translateMessage('ui.stake_0e1cdece')}</TooltipContent>}
             </Tooltip>
           ) : (
             <Button
               className={classnames({ [css.button]: compact, [css.buttonDisabled]: !isOk })}
               data-testid="stake-btn"
-              aria-label="Stake"
+              aria-label={translateMessage('ui.stake_0e1cdece')}
               variant={compact ? 'ghost' : 'surface'}
               size="sm"
               onClick={handleClick}
               disabled={!isOk}
             >
               <StakeIcon className="size-4" />
-              Stake
+              {translateMessage('ui.stake_0e1cdece')}
             </Button>
           )}
         </Track>

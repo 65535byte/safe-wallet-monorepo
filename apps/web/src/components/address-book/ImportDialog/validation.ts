@@ -1,10 +1,11 @@
+import { translateMessage } from '@/i18n'
 import type { ParseResult } from 'papaparse'
 
 import { validateAddress } from '@safe-global/utils/utils/validation'
 
 export const abCsvReaderValidator = ({ size }: File): string[] | undefined => {
   if (size > 1_000_000) {
-    return ['Address book cannot be larger than 1MB']
+    return [translateMessage('ui.addressBookCannotBeLargerThan_ac61ad31')]
   }
 }
 
@@ -30,17 +31,17 @@ export const abOnUploadValidator = ({ data, errors }: ParseResult<string[]>): st
 
   // Empty CSV
   if (data.length === 0) {
-    return 'CSV file is empty'
+    return translateMessage('ui.cSVFileIsEmpty_c0732858')
   }
 
   // Wrong header
   if (!hasValidAbHeader(header)) {
-    return 'Invalid or corrupt address book header'
+    return translateMessage('ui.invalidOrCorruptAddressBookHeader_e1522261')
   }
 
   // No entries
   if (entries.length === 0) {
-    return 'No entries found in address book'
+    return translateMessage('ui.noEntriesFoundInAddressBook_9e90c5a3')
   }
 
   // We + 2 to each row to make up for header and index
@@ -48,12 +49,12 @@ export const abOnUploadValidator = ({ data, errors }: ParseResult<string[]>): st
   // An entry has invalid address
   if (!hasValidAbEntryAddresses(entries)) {
     const i = entries.findIndex((entry) => (entry.length >= 1 ? validateAddress(entry[0]) : true))
-    return `Address book contains an invalid address on row ${i + 2}`
+    return translateMessage('ui.addressBookContainsAnInvalidAddress_a3648ad6', { p0: i + 2 })
   }
 
   // An entry has invalid name
   if (!hasValidAbNames(entries)) {
     const i = entries.findIndex((entry) => (entry.length >= 2 ? !entry[1] : true))
-    return `Address book contains an invalid name on row ${i + 2}`
+    return translateMessage('ui.addressBookContainsAnInvalidName_e70ba747', { p0: i + 2 })
   }
 }

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -51,7 +52,9 @@ const Custom404: NextPage = () => {
       <div className="fixed top-0 left-0 z-[1300] flex items-center px-6" style={{ height: 'var(--header-height)' }}>
         <SafeLogo />
       </div>
-      {!isRedirecting && <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>404 – Page not found</h1>}
+      {!isRedirecting && (
+        <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>{translateMessage('ui.pageNotFound_9b4ae87e')}</h1>
+      )}
     </main>
   )
 }

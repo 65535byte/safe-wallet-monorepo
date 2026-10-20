@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { WalletKitTypes } from '@reown/walletkit'
 import { Alert, AlertDescription } from '@safe-global/views/components/ui/alert'
 import AlertIcon from '@/public/images/notifications/alert.svg'
@@ -19,10 +20,8 @@ const ProposalVerification = ({ proposal }: { proposal: WalletKitTypes.SessionPr
       <AlertIcon className="size-6 [&_path]:fill-[var(--color-error-main)]" />
       <AlertDescription>
         {isScam
-          ? `We prevent connecting to ${appName || 'this dApp'} as they are a known scam.`
-          : `${
-              appName || 'This dApp'
-            } has a domain that does not match the sender of this request. Approving it may result in a loss of funds.`}
+          ? translateMessage('ui.wePreventConnectingToAsThey_7e19e1b9', { p0: appName || 'this dApp' })
+          : translateMessage('ui.hasADomainThatDoesNot_2ea40928', { p0: appName || 'This dApp' })}
       </AlertDescription>
     </Alert>
   )

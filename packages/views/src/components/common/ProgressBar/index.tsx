@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { CSSProperties } from 'react'
 import { Progress } from '@safe-global/views/components/ui/progress'
 
@@ -20,7 +21,7 @@ export const ProgressBar = ({ value, className, style, sx, color }: ProgressBarP
       className={`${css.progressBar} ${className ?? ''}`}
       indicatorClassName={color === 'secondary' ? 'bg-[var(--color-secondary-main)]' : undefined}
       style={{ ...sx, ...style }}
-      aria-label="Progress"
+      aria-label={translateMessage('ui.progress_3b8bb103')}
     />
   )
 }

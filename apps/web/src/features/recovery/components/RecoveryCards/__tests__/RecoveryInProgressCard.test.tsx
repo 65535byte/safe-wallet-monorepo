@@ -41,9 +41,9 @@ describe('RecoveryInProgressCard', () => {
       })
 
       expect(queryByText(/Account can be recovered/)).toBeTruthy()
-      expect(queryByText('Learn more')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
 
-      const queueButton = queryByText('Go to queue')
+      const queueButton = queryByText('前往待处理队列')
       expect(queueButton).toBeTruthy()
 
       fireEvent.click(queueButton!)
@@ -76,9 +76,9 @@ describe('RecoveryInProgressCard', () => {
 
       expect(queryByText(/Account recovery expired/)).toBeTruthy()
       expect(queryByText(/The pending recovery proposal has expired/)).toBeTruthy()
-      expect(queryByText('Learn more')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
 
-      const queueButton = queryByText('Go to queue')
+      const queueButton = queryByText('前往待处理队列')
       expect(queueButton).toBeTruthy()
 
       fireEvent.click(queueButton!)
@@ -109,9 +109,9 @@ describe('RecoveryInProgressCard', () => {
       ;['days', 'hrs', 'mins'].forEach((unit) => {
         expect(queryByText(unit)).toBeTruthy()
       })
-      expect(queryByText('Learn more')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
 
-      const queueButton = queryByText('Go to queue')
+      const queueButton = queryByText('前往待处理队列')
       expect(queueButton).toBeTruthy()
 
       fireEvent.click(queueButton!)
@@ -137,8 +137,8 @@ describe('RecoveryInProgressCard', () => {
       })
 
       expect(queryByText(/Account can be recovered/)).toBeTruthy()
-      expect(queryByText('Learn more')).toBeTruthy()
-      expect(queryByText('Go to queue')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
+      expect(queryByText('前往待处理队列')).toBeTruthy()
     })
 
     it('should render the expired state correctly', async () => {
@@ -158,8 +158,8 @@ describe('RecoveryInProgressCard', () => {
 
       expect(queryByText(/Account recovery expired/)).toBeTruthy()
       expect(queryByText(/The pending recovery proposal has expired/)).toBeTruthy()
-      expect(queryByText('Learn more')).toBeTruthy()
-      expect(queryByText('Go to queue')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
+      expect(queryByText('前往待处理队列')).toBeTruthy()
     })
 
     it('should render non-executable recovery state correctly', () => {
@@ -177,8 +177,8 @@ describe('RecoveryInProgressCard', () => {
       ;['days', 'hrs', 'mins'].forEach((unit) => {
         expect(queryByText(unit)).toBeTruthy()
       })
-      expect(queryByText('Learn more')).toBeTruthy()
-      expect(queryByText('Go to queue')).toBeTruthy()
+      expect(queryByText('了解更多')).toBeTruthy()
+      expect(queryByText('前往待处理队列')).toBeTruthy()
     })
   })
 })

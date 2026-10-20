@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -47,8 +48,8 @@ const SENSITIVE_PATTERNS = ['APP_ID', 'PYLON', 'configuration', 'config']
 
 function sanitizeError(error: string): string {
   const hasConfigInfo = SENSITIVE_PATTERNS.some((pattern) => error.toUpperCase().includes(pattern.toUpperCase()))
-  if (hasConfigInfo) return 'Configuration error. Please contact support.'
-  return 'Support chat unavailable. Please try again later.'
+  if (hasConfigInfo) return translateMessage('ui.configurationErrorPleaseContactSupport_e8339f48')
+  return translateMessage('ui.supportChatUnavailablePleaseTryAgain_b2c6d510')
 }
 
 import type { SupportChatConfig, UserIdentity } from '../hooks/useSupportChat'
@@ -61,8 +62,8 @@ export interface SupportChatDrawerProps {
 }
 
 const ERROR_STATE = {
-  heading: 'Support chat is unavailable',
-  subheading: 'Please try again later or reach out via support@safe.global.',
+  heading: translateMessage('ui.supportChatIsUnavailable_1a16f9e6'),
+  subheading: translateMessage('ui.pleaseTryAgainLaterOrReach_3e7af32b'),
 }
 
 function SupportChatDrawer({ open, onClose, config, user }: SupportChatDrawerProps) {
@@ -98,7 +99,7 @@ function SupportChatDrawer({ open, onClose, config, user }: SupportChatDrawerPro
   const displayName = useMemo(() => {
     if (user.name) return user.name
     if (user.email) return user.email.split('@')[0]
-    return 'Safe User'
+    return translateMessage('ui.user_0e002117')
   }, [user])
 
   const sendConfig = useCallback(() => {
@@ -266,9 +267,9 @@ function SupportChatDrawer({ open, onClose, config, user }: SupportChatDrawerPro
               ) : (
                 <>
                   <Spinner className="size-8" />
-                  <Typography variant="paragraph">Launching support chat…</Typography>
+                  <Typography variant="paragraph">{translateMessage('ui.launchingSupportChat_2acf2f95')}</Typography>
                   <Typography variant="paragraph-small" color="muted">
-                    Please wait while we connect you to Safe Support.
+                    {translateMessage('ui.pleaseWaitWhileWeConnectYou_f560d226')}
                   </Typography>
                 </>
               )}
@@ -280,7 +281,7 @@ function SupportChatDrawer({ open, onClose, config, user }: SupportChatDrawerPro
               key={frameKey}
               ref={iframeRef}
               src={chatUrl}
-              title="Safe Support Chat"
+              title={translateMessage('ui.supportChat_c918af83')}
               sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
               style={{
                 border: 0,

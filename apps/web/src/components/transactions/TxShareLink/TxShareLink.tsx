@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { AppRoutes } from '@/config/routes'
 import { useRouter } from 'next/router'
@@ -26,7 +27,7 @@ const TxShareLink = ({
 
   return (
     <Track {...TX_LIST_EVENTS.COPY_DEEPLINK} label={eventLabel}>
-      <CopyTooltip text={txUrl} initialToolTipText="Copy the transaction URL">
+      <CopyTooltip text={txUrl} initialToolTipText={translateMessage('ui.copyTheTransactionURL_df82d222')}>
         {children}
       </CopyTooltip>
     </Track>

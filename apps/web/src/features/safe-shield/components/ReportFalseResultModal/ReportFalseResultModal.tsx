@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState, useCallback, useEffect } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Spinner } from '@safe-global/views/components/ui/spinner'
@@ -56,17 +57,22 @@ export const ReportFalseResultModal = ({ open, onClose, requestId }: ReportFalse
   }
 
   return (
-    <ModalDialog open={open} onClose={onClose} dialogTitle="Report false result" hideChainIndicator>
+    <ModalDialog
+      open={open}
+      onClose={onClose}
+      dialogTitle={translateMessage('ui.reportFalseResult_682c3a8e')}
+      hideChainIndicator
+    >
       <div className="p-6">
         <Typography variant="paragraph-small" className="mb-6 block text-[var(--color-text-secondary)]">
-          Help us improve our security analysis by reporting when a transaction was incorrectly flagged as dangerous.
+          {translateMessage('ui.helpUsImproveOurSecurityAnalysis_0c182d5d')}
         </Typography>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="report-false-result-details">Details</Label>
+          <Label htmlFor="report-false-result-details">{translateMessage('ui.details_0ae44359')}</Label>
           <Textarea
             id="report-false-result-details"
-            placeholder="Please describe why you believe this result is incorrect..."
+            placeholder={translateMessage('ui.pleaseDescribeWhyYouBelieveThis_ccddbf6b')}
             rows={4}
             value={details}
             onChange={handleDetailsChange}
@@ -78,14 +84,14 @@ export const ReportFalseResultModal = ({ open, onClose, requestId }: ReportFalse
             variant="paragraph-mini"
             className={isError ? 'text-[var(--color-error-main)]' : 'text-[var(--color-text-secondary)]'}
           >
-            {`${details.length}/${MAX_DETAILS_LENGTH} characters`}
+            {translateMessage('ui.characters_703dfcb7', { p0: details.length, p1: MAX_DETAILS_LENGTH })}
           </Typography>
         </div>
       </div>
 
       <div className="flex flex-row justify-between gap-2 p-6 pt-0">
         <Button variant="ghost" onClick={onClose} disabled={isLoading}>
-          Cancel
+          {translateMessage('ui.cancel_d94a8eaf')}
         </Button>
         <Button onClick={handleSubmit} disabled={!isFormValid || isLoading}>
           {isLoading ? <Spinner className="size-5" /> : 'Submit report'}

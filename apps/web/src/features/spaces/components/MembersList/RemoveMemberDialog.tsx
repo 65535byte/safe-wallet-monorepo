@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import ModalDialog from '@/components/common/ModalDialog'
 import { useMembersRemoveUserV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useCurrentSpaceId } from '@/features/spaces'
@@ -11,6 +12,7 @@ import { trackEvent } from '@/services/analytics'
 import { SPACE_EVENTS, SPACE_LABELS } from '@/services/analytics/events/spaces'
 import { showNotification } from '@/store/notificationsSlice'
 import { useAppDispatch } from '@/store'
+import { useCurrentMemberProfile } from '../../hooks/useSpaceMembers'
 import { isElevationRequiredError } from '@/features/oidc-auth/utils/elevation'
 
 const RemoveMemberDialog = ({
@@ -28,6 +30,7 @@ const RemoveMemberDialog = ({
   const dispatch = useAppDispatch()
   const [deleteMember] = useMembersRemoveUserV1Mutation()
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const { membership } = useCurrentMemberProfile()
   const isDarkMode = useDarkMode()
 
   const handleConfirm = async () => {
@@ -40,9 +43,14 @@ const RemoveMemberDialog = ({
         throw error
       }
 
+      trackEvent(
+        { ...SPACE_EVENTS.WORKSPACE_MEMBER_REMOVED, label: spaceId ?? undefined },
+        { workspace_id: spaceId, removed_by_role: membership?.role.toLowerCase() },
+      )
+
       dispatch(
         showNotification({
-          message: `Removed ${memberName} from space`,
+          message: translateMessage('ui.removedFromSpace_75407551', { p0: memberName }),
           variant: 'success',
           groupKey: 'remove-member-success',
         }),
@@ -51,7 +59,7 @@ const RemoveMemberDialog = ({
       handleClose()
     } catch (e) {
       if (isElevationRequiredError(e)) return
-      setErrorMessage('An unexpected error occurred while removing the member.')
+      setErrorMessage(translateMessage('ui.anUnexpectedErrorOccurredWhileRemoving_d8c86c18'))
     }
   }
 
@@ -59,15 +67,19 @@ const RemoveMemberDialog = ({
     <ModalDialog
       open
       onClose={handleClose}
-      dialogTitle={isInvite ? 'Remove invitation' : 'Remove member'}
+      dialogTitle={
+        isInvite ? translateMessage('ui.removeInvitation_5b3d492b') : translateMessage('ui.removeMember_3f76a158')
+      }
       hideChainIndicator
     >
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="p-6">
           <Typography variant="paragraph">
-            {isInvite ? `Are you sure you want to remove the invitation for ` : `Are you sure you want to remove `}
+            {isInvite
+              ? translateMessage('ui.areYouSureYouWantTo_e050ffe0')
+              : translateMessage('ui.areYouSureYouWantTo_f3f0bd61')}
             <b>{memberName}</b>
-            {isInvite ? `` : ` from this space?`}
+            {isInvite ? `` : translateMessage('ui.fromThisSpace_7abbc0ee')}
           </Typography>
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
         </div>
@@ -76,7 +88,7 @@ const RemoveMemberDialog = ({
           className="px-6 pb-6"
           onCancel={handleClose}
           cancelTestId="cancel-btn"
-          confirmLabel="Remove"
+          confirmLabel={translateMessage('ui.remove_1498adee')}
           onConfirm={handleConfirm}
           confirmDestructive
           confirmTestId="delete-btn"

@@ -125,8 +125,8 @@ describe('ExecuteForm', () => {
       isOffchainMessage: false,
     },
     options: [
-      { id: 'execute', label: 'Execute' },
-      { id: 'sign', label: 'Sign' },
+      { id: 'execute', label: '执行' },
+      { id: 'sign', label: '签名' },
     ],
     onChange: jest.fn(),
     slotId: 'execute',
@@ -144,7 +144,7 @@ describe('ExecuteForm', () => {
   it('shows estimated fees', () => {
     const { getByText } = render(<ExecuteForm {...defaultProps} />)
 
-    expect(getByText('Estimated fee')).toBeInTheDocument()
+    expect(getByText('预计费用')).toBeInTheDocument()
   })
 
   it('renders a secondary action before the submit button when one is passed', () => {
@@ -163,7 +163,7 @@ describe('ExecuteForm', () => {
     const { getByText } = render(<ExecuteForm {...defaultProps} isOwner={false} onlyExecute={false} />)
 
     expect(
-      getByText("You are currently not a signer of this Safe account and won't be able to submit this transaction."),
+      getByText("You are currently not a signer of this 个 Safe 账户 and won't be able to submit this transaction."),
     ).toBeInTheDocument()
   })
 
@@ -171,16 +171,14 @@ describe('ExecuteForm', () => {
     const { queryByText } = render(<ExecuteForm {...defaultProps} isOwner={false} onlyExecute={true} />)
 
     expect(
-      queryByText("You are currently not a signer of this Safe account and won't be able to submit this transaction."),
+      queryByText("You are currently not a signer of this 个 Safe 账户 and won't be able to submit this transaction."),
     ).not.toBeInTheDocument()
   })
 
   it('shows an error if the same safe tries to execute', () => {
     const { getByText } = render(<ExecuteForm {...defaultProps} isExecutionLoop={true} />)
 
-    expect(
-      getByText('Cannot execute a transaction from the Safe account itself, please connect a different account.'),
-    ).toBeInTheDocument()
+    expect(getByText('无法使用 8379 账户本身执行交易，请连接其他账户。')).toBeInTheDocument()
   })
 
   it('shows an error if the connected wallet has insufficient funds and no sponsored option is offered', () => {
@@ -217,7 +215,7 @@ describe('ExecuteForm', () => {
     )
 
     expect(getByTestId('execution-method-selector')).toHaveAttribute('data-offer', JSON.stringify(dailyOffer))
-    fireEvent.click(getByText('Execute'))
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
       expect(mockExecuteTx).toHaveBeenCalledWith(
@@ -244,7 +242,7 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    fireEvent.click(getByText('Execute'))
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
       expect(mockExecuteTx).toHaveBeenCalledWith(
@@ -275,8 +273,8 @@ describe('ExecuteForm', () => {
       'data-offer',
       JSON.stringify(exhaustedSubscriptionOffer),
     )
-    expect(getByText('Execute')).toBeEnabled()
-    fireEvent.click(getByText('Execute'))
+    expect(getByText('执行')).toBeEnabled()
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
       expect(mockExecuteTx).toHaveBeenCalledWith(
@@ -313,8 +311,8 @@ describe('ExecuteForm', () => {
     )
 
     expect(queryByTestId('execution-method-selector')).not.toBeInTheDocument()
-    expect(getByText('Execute')).toBeEnabled()
-    fireEvent.click(getByText('Execute'))
+    expect(getByText('执行')).toBeEnabled()
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
       expect(mockExecuteTx).toHaveBeenCalledWith(
@@ -361,17 +359,17 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    expect(getByText(/Could not check this transaction/)).toBeInTheDocument()
+    expect(getByText(/Could not check this 笔交易/)).toBeInTheDocument()
   })
 
   it('shows a gasLimit error', () => {
     jest
       .spyOn(useGasLimit, 'default')
-      .mockReturnValue({ gasLimitError: new Error('Gas limit error'), gasLimitLoading: false })
+      .mockReturnValue({ gasLimitError: new Error('Gas 项限额 error'), gasLimitLoading: false })
 
     const { getByText } = render(<ExecuteForm {...defaultProps} />)
 
-    expect(getByText(/Could not check this transaction/)).toBeInTheDocument()
+    expect(getByText(/Could not check this 笔交易/)).toBeInTheDocument()
   })
 
   it('execute the tx when the submit button is clicked', async () => {
@@ -390,7 +388,7 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     fireEvent.click(button)
 
@@ -425,7 +423,7 @@ describe('ExecuteForm', () => {
       })
       const { getByText, setTxFlow, mockExecuteTx } = renderWithModal()
 
-      fireEvent.click(getByText('Execute'))
+      fireEvent.click(getByText('执行'))
 
       await waitFor(() => expect(mockExecuteTx).toHaveBeenCalled())
       await waitFor(() => expect(setTxFlow).toHaveBeenCalled())
@@ -441,7 +439,7 @@ describe('ExecuteForm', () => {
       mockUseSafeScope.mockReturnValue(undefined)
       const { getByText, setTxFlow, mockExecuteTx } = renderWithModal()
 
-      fireEvent.click(getByText('Execute'))
+      fireEvent.click(getByText('执行'))
 
       await waitFor(() => expect(mockExecuteTx).toHaveBeenCalled())
       await waitFor(() => expect(setTxFlow).toHaveBeenCalled())
@@ -452,7 +450,7 @@ describe('ExecuteForm', () => {
   it('shows a disabled submit button if there is no safeTx', () => {
     const { getByText } = render(<ExecuteForm {...defaultProps} safeTx={undefined} />)
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     expect(button).toBeInTheDocument()
     expect(button).toBeDisabled()
@@ -461,7 +459,7 @@ describe('ExecuteForm', () => {
   it('shows a disabled submit button if passed via props', () => {
     const { getByText } = render(<ExecuteForm safeTx={safeTransaction} disableSubmit {...defaultProps} />)
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     expect(button).toBeInTheDocument()
     expect(button).toBeDisabled()
@@ -470,7 +468,7 @@ describe('ExecuteForm', () => {
   it('shows a disabled submit button if the same safe is connected', () => {
     const { getByText } = render(<ExecuteForm {...defaultProps} isExecutionLoop={true} />)
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     expect(button).toBeInTheDocument()
     expect(button).toBeDisabled()
@@ -485,7 +483,7 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     expect(button).toBeInTheDocument()
     expect(button).toBeDisabled()
@@ -500,7 +498,7 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    const button = getByText('Execute')
+    const button = getByText('执行')
 
     expect(button).toBeInTheDocument()
     expect(button).not.toBeDisabled()
@@ -517,13 +515,13 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    fireEvent.click(getByText('Execute'))
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
       expect(getByText(/expected to fail on-chain/i)).toBeInTheDocument()
     })
     // The doomed tx can no longer be submitted.
-    expect(getByText('Execute')).toBeDisabled()
+    expect(getByText('执行')).toBeDisabled()
   })
 
   describe('gas payment refusals', () => {
@@ -542,18 +540,16 @@ describe('ExecuteForm', () => {
           txActions={{ ...defaultProps.txActions, executeTx: mockExecuteTx }}
         />,
       )
-      fireEvent.click(getByText('Execute'))
+      fireEvent.click(getByText('执行'))
 
       await waitFor(() => {
         expect(
-          getByText(
-            'Your Workspace has used all 50 sponsored transactions of this cycle until Nov 1, 2026. Pay the gas with your connected wallet instead.',
-          ),
+          getByText('工作空间已用完本周期的 50 笔赞助交易 until Nov 1, 2026，请改用已连接钱包支付 Gas。'),
         ).toBeInTheDocument()
       })
       expect(mockExclude).toHaveBeenCalledWith(['SUBSCRIPTION'])
       expect(mockExecuteTx).toHaveBeenCalledTimes(1)
-      expect(getByText('Execute')).toBeEnabled()
+      expect(getByText('执行')).toBeEnabled()
     })
 
     it('reports any other error as a submit error', async () => {
@@ -571,7 +567,7 @@ describe('ExecuteForm', () => {
           />
         </TxFlowContext.Provider>,
       )
-      fireEvent.click(getByText('Execute'))
+      fireEvent.click(getByText('执行'))
 
       await waitFor(() => expect(setSubmitError).toHaveBeenCalledWith(error))
       expect(mockExclude).not.toHaveBeenCalled()
@@ -592,10 +588,10 @@ describe('ExecuteForm', () => {
       />,
     )
 
-    fireEvent.click(getByText('Execute'))
+    fireEvent.click(getByText('执行'))
 
     await waitFor(() => {
-      expect(getByText(/couldn't review this transaction/i)).toBeInTheDocument()
+      expect(getByText(/couldn't review this 笔交易/i)).toBeInTheDocument()
     })
 
     // First attempt didn't opt into the unverified relay.

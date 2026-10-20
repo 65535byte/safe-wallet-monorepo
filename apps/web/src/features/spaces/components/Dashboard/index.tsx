@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useEffect, useState } from 'react'
 import { flattenSafeItems } from '@/hooks/safes'
 import {
@@ -31,7 +32,11 @@ import { useSpacePlanState } from '../../hooks/useSpacePlanState'
 const EmptyStateAddAction = () => {
   return (
     <Track {...SPACE_EVENTS.ADD_ACCOUNTS_MODAL} label={SPACE_LABELS.space_dashboard_card}>
-      <AddAccountsChooser buttonVariant="default" buttonLabel="Manage accounts" entryPoint="dashboard" />
+      <AddAccountsChooser
+        buttonVariant="default"
+        buttonLabel={translateMessage('ui.manageAccounts_44bc5685')}
+        entryPoint="dashboard"
+      />
     </Track>
   )
 }
@@ -153,7 +158,7 @@ const SpaceDashboard = () => {
               />
             ) : (
               <SafeWidget
-                title="Accounts"
+                title={translateMessage('ui.accounts_91c225a3')}
                 action={
                   safes.length > 0 ? (
                     <SafeWidget.ViewAll

@@ -1,6 +1,8 @@
+import { translateMessage } from '@/i18n'
 import { useState, useEffect, useCallback } from 'react'
 import { RefreshCwIcon, type LucideProps } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
+import { getDateLocale } from '@/i18n/date'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -58,7 +60,7 @@ const PortfolioRefreshHint = ({
 
   const timeSinceLastFetch = fulfilledTimeStamp ? now - fulfilledTimeStamp : Infinity
   const isOnCooldown = timeSinceLastFetch < PORTFOLIO_CACHE_TIME_MS
-  const timeAgo = fulfilledTimeStamp ? formatDistanceToNow(fulfilledTimeStamp) : null
+  const timeAgo = fulfilledTimeStamp ? formatDistanceToNow(fulfilledTimeStamp, { locale: getDateLocale() }) : null
 
   const handleRefresh = useCallback(async () => {
     if (isFetching || isOnCooldown) return
@@ -75,15 +77,27 @@ const PortfolioRefreshHint = ({
   const isDisabled = isFetching || isOnCooldown
 
   const tooltip = isOnCooldown ? (
-    <>Next update available in {Math.ceil((PORTFOLIO_CACHE_TIME_MS - timeSinceLastFetch) / 1000)}s</>
+    <>
+      {translateMessage('ui.nextUpdateAvailableIn_bc421251')}
+      {Math.ceil((PORTFOLIO_CACHE_TIME_MS - timeSinceLastFetch) / 1000)}s
+    </>
   ) : (
-    'Update portfolio data'
+    translateMessage('ui.updatePortfolioData_b16a73ec')
   )
 
   return (
     <div className="flex items-center gap-1">
       <Typography variant="paragraph-small" className="text-[var(--color-text-secondary)]">
-        {isFetching ? 'Fetching data' : timeAgo ? <>Updated {timeAgo} ago</> : 'Loading...'}
+        {isFetching ? (
+          translateMessage('ui.fetchingData_939b249a')
+        ) : timeAgo ? (
+          <>
+            {translateMessage('ui.updated_857f7081')}
+            {timeAgo} {translateMessage('ui.ago_2fc5f315')}
+          </>
+        ) : (
+          translateMessage('ui.loading_db0a03bf')
+        )}
       </Typography>
       <Tooltip>
         <TooltipTrigger render={<span className="inline-flex" />}>

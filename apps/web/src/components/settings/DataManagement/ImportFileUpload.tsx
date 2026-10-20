@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useDropzone } from 'react-dropzone'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useCallback } from 'react'
@@ -53,7 +54,10 @@ export const ImportFileUpload = ({
 
   return (
     <>
-      <Typography>Import {BRAND_NAME} data by uploading a file in the area below.</Typography>
+      <Typography>
+        {translateMessage('ui.import_b58dbb7c')}
+        {BRAND_NAME} {translateMessage('ui.dataByUploadingAFileIn_be787420')}
+      </Typography>
 
       <FileUpload
         fileType={FileTypes.JSON}
@@ -67,7 +71,8 @@ export const ImportFileUpload = ({
 
       <Typography>
         <InfoIcon className="mr-1 inline size-4 align-middle text-muted-foreground" />
-        Only JSON files exported from the {BRAND_NAME} can be imported.
+        {translateMessage('ui.onlyJSONFilesExportedFromThe_497735fc')}
+        {BRAND_NAME} {translateMessage('ui.canBeImported_756b46b6')}
       </Typography>
     </>
   )

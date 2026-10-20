@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useAuthGetMeV1Query } from '@safe-global/store/gateway/AUTO_GENERATED/auth'
 import { FEATURES } from '@safe-global/utils/utils/chains'
 import { Badge, BadgeDot } from '@safe-global/views/components/ui/badge'
@@ -26,17 +27,16 @@ const WalletTwoFactorSection = () => {
     <section className="bg-card rounded-2xl p-6 mb-3" data-testid="settings-wallet-2fa">
       <div className="flex items-center gap-3 mb-2">
         <Typography variant="paragraph-bold" className="block tracking-tight">
-          Two-factor authentication
+          {translateMessage('ui.twoFactorAuthentication_9f727397')}
         </Typography>
         <Badge variant="warning" size="status" shape="status">
           <BadgeDot />
-          Not available for wallet sign-in
+          {translateMessage('ui.notAvailableForWalletSignIn_32666be5')}
         </Badge>
       </div>
 
       <Typography variant="paragraph-small" color="muted" className="block max-w-[560px]">
-        You&apos;re signed in with your wallet — your signature is your key. 2FA currently protects email and Google
-        sign-ins. If you want 2FA today, create a new email or Google account instead.
+        {translateMessage('ui.youReSignedInWithYour_d29cd1fd')}
       </Typography>
     </section>
   )

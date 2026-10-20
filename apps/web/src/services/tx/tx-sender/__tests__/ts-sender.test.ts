@@ -250,7 +250,7 @@ describe('txSender', () => {
     it('should fail to propose a new tx', async () => {
       server.use(
         http.post(`${GATEWAY_URL}/v1/chains/4/transactions/0x123/propose`, () => {
-          return HttpResponse.json({ message: 'Invalid transaction' }, { status: 400 })
+          return HttpResponse.json({ message: 'Invalid 笔交易' }, { status: 400 })
         }),
       )
 
@@ -767,7 +767,7 @@ describe('txSender', () => {
           HttpResponse.json(
             {
               code: 'QUOTA_EXCEEDED',
-              message: 'Quota exceeded for sponsored_transactions: 50 of 50 used.',
+              message: 'Quota exceeded for sponsored_transactions: 50 / 50 used.',
               feature: 'sponsored_transactions',
               quota: 50,
               used: 50,
@@ -857,11 +857,11 @@ describe('txSender', () => {
     it('types a spent daily limit (429) on the chain route', async () => {
       server.use(
         http.post(`${GATEWAY_URL}/v1/chains/5/relay`, () =>
-          HttpResponse.json({ message: 'Relay limit reached', statusCode: 429 }, { status: 429 }),
+          HttpResponse.json({ message: 'Relay 项限额 reached', statusCode: 429 }, { status: 429 }),
         ),
       )
 
-      await expect(relay()).rejects.toMatchObject({ name: 'RelayLimitReachedError', message: 'Relay limit reached' })
+      await expect(relay()).rejects.toMatchObject({ name: 'RelayLimitReachedError', message: 'Relay 项限额 reached' })
     })
 
     it('types a missing relayer (403) on the chain route', async () => {

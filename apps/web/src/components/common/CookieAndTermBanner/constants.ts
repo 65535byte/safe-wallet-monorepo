@@ -1,9 +1,10 @@
+import { translateMessage } from '@/i18n'
 import { CookieAndTermType } from '@/store/cookiesAndTermsSlice'
 
 export const COOKIE_AND_TERM_WARNING: Record<CookieAndTermType, string> = {
   [CookieAndTermType.TERMS]: '',
   [CookieAndTermType.NECESSARY]: '',
-  [CookieAndTermType.UPDATES]: `You attempted to open the "What's new" section but need to accept the "Beamer" cookies first.`,
+  [CookieAndTermType.UPDATES]: translateMessage('ui.youAttemptedToOpenTheWhat_0bb84264'),
   [CookieAndTermType.ANALYTICS]: '',
 }
 

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { listenerMiddlewareInstance } from '@/store'
 import type { OrderStatuses } from '@safe-global/store/gateway/types'
 import { createSelector, createSlice } from '@reduxjs/toolkit'
@@ -104,11 +105,11 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
         case 'created':
           dispatch(
             showNotification({
-              title: 'Order created',
+              title: translateMessage('ui.orderCreated_c51973e9'),
               message:
                 safeInfo.data?.threshold === 1
-                  ? 'Waiting for the transaction to be executed'
-                  : 'Waiting for confirmation from signers of your Safe',
+                  ? translateMessage('ui.waitingForTheTransactionToBe_183eb8cd')
+                  : translateMessage('ui.waitingForConfirmationFromSignersOf_ee854470'),
               groupKey,
               variant: 'info',
               link,
@@ -119,8 +120,8 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
         case 'presignaturePending':
           dispatch(
             showNotification({
-              title: 'Order waiting for signature',
-              message: 'Waiting for confirmation from signers of your Safe',
+              title: translateMessage('ui.orderWaitingForSignature_6df2d2b9'),
+              message: translateMessage('ui.waitingForConfirmationFromSignersOf_ee854470'),
               groupKey,
               variant: 'info',
               link,
@@ -130,8 +131,8 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
         case 'open':
           dispatch(
             showNotification({
-              title: 'Order transaction confirmed',
-              message: 'Waiting for order execution by the CoW Protocol',
+              title: translateMessage('ui.orderTransactionConfirmed_b11bc83f'),
+              message: translateMessage('ui.waitingForOrderExecutionByThe_f06d0500'),
               groupKey,
               variant: 'info',
               link,
@@ -145,8 +146,8 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
           }
           dispatch(
             showNotification({
-              title: 'Order executed',
-              message: 'Your order has been successful',
+              title: translateMessage('ui.orderExecuted_77263541'),
+              message: translateMessage('ui.yourOrderHasBeenSuccessful_6672ad07'),
               groupKey,
               variant: 'success',
               link,
@@ -160,8 +161,8 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
           }
           dispatch(
             showNotification({
-              title: 'Order expired',
-              message: 'Your order has reached the expiry time and has become invalid',
+              title: translateMessage('ui.orderExpired_f4c1fea8'),
+              message: translateMessage('ui.yourOrderHasReachedTheExpiry_45bdf6b2'),
               groupKey,
               variant: 'warning',
               link,
@@ -175,8 +176,8 @@ export const swapOrderStatusListener = (listenerMiddleware: typeof listenerMiddl
           }
           dispatch(
             showNotification({
-              title: 'Order cancelled',
-              message: 'Your order has been cancelled',
+              title: translateMessage('ui.orderCancelled_b91fbc93'),
+              message: translateMessage('ui.yourOrderHasBeenCancelled_b291fbe0'),
               groupKey,
               variant: 'warning',
               link,

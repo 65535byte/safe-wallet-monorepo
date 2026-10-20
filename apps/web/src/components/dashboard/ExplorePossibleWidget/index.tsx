@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Button } from '@safe-global/views/components/ui/button'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
@@ -29,7 +30,7 @@ const EXPLORE_POSSIBLE_CONFIG = [
     id: 'earn',
     title: '',
     badge: '',
-    subtitle: 'Earn boosted APY on stablecoins',
+    subtitle: translateMessage('ui.earnBoostedAPYOnStablecoins_8cd810c4'),
     iconUrl: {
       light: '/images/explore-possible/earn-large.svg',
       dark: '/images/explore-possible/earn-large-dark.svg',
@@ -41,7 +42,7 @@ const EXPLORE_POSSIBLE_CONFIG = [
   },
   {
     id: 'swap',
-    title: 'Swap tokens instantly',
+    title: translateMessage('ui.swapTokensInstantly_d7c2a779'),
     iconUrl: { light: '/images/explore-possible/swap-large.svg', dark: '/images/explore-possible/swap-large-dark.svg' },
     getLink: (linkQuery: SafeLinkQuery) => ({
       pathname: AppRoutes.swap,
@@ -50,7 +51,7 @@ const EXPLORE_POSSIBLE_CONFIG = [
   },
   {
     id: 'spaces',
-    title: 'Manage multiple Safes',
+    title: translateMessage('ui.manageMultipleAccounts_bf9d7bdb'),
     iconUrl: {
       light: '/images/explore-possible/spaces-large.svg',
       dark: '/images/explore-possible/spaces-large-dark.svg',
@@ -59,7 +60,7 @@ const EXPLORE_POSSIBLE_CONFIG = [
   },
   {
     id: 'transaction-builder',
-    title: 'Build custom transactions',
+    title: translateMessage('ui.buildCustomTransactions_15d42629'),
     iconUrl: {
       light: '/images/explore-possible/tx-builder-large.svg',
       dark: '/images/explore-possible/tx-builder-large-dark.svg',
@@ -72,7 +73,7 @@ const EXPLORE_POSSIBLE_CONFIG = [
   },
   {
     id: 'walletconnect',
-    title: 'Connect to web3 apps',
+    title: translateMessage('ui.connectToWeb3Apps_6a81cf36'),
     iconUrl: {
       light: '/images/explore-possible/apps-large.svg',
       dark: '/images/explore-possible/apps-large-dark.svg',
@@ -188,13 +189,13 @@ const ExplorePossibleWidget = () => {
 
         {/* Header with title and navigation */}
         <div className={css.header}>
-          <h2 className={css.headerTitle}>Explore what&apos;s possible</h2>
+          <h2 className={css.headerTitle}>{translateMessage('ui.exploreWhatSPossible_0a1fe0df')}</h2>
           {(canScrollLeft || canScrollRight) && (
-            <nav className={css.carouselNav} aria-label="Carousel navigation">
+            <nav className={css.carouselNav} aria-label={translateMessage('ui.carouselNavigation_d02e6679')}>
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label="Scroll to previous apps"
+                aria-label={translateMessage('ui.scrollToPreviousApps_fd64f7f7')}
                 onClick={() => scrollList('left')}
                 disabled={!canScrollLeft}
               >
@@ -203,7 +204,7 @@ const ExplorePossibleWidget = () => {
               <Button
                 variant="ghost"
                 size="icon-sm"
-                aria-label="Scroll to next apps"
+                aria-label={translateMessage('ui.scrollToNextApps_3fc7d514')}
                 onClick={() => scrollList('right')}
                 disabled={!canScrollRight}
               >
@@ -219,7 +220,7 @@ const ExplorePossibleWidget = () => {
           onScroll={updateScrollState}
           className={css.carouselContainer}
           role="list"
-          aria-label="Explore possible features"
+          aria-label={translateMessage('ui.explorePossibleFeatures_a6250024')}
           tabIndex={0}
         >
           {EXPLORE_POSSIBLE_APPS.map((app) => (
@@ -228,12 +229,20 @@ const ExplorePossibleWidget = () => {
                 href={app.link}
                 className={css.cardLink}
                 onClick={() => handleAppClick(app.id, app.title)}
-                aria-label={app.subtitle ? `${app.title} ${app.badge} ${app.subtitle}` : app.title}
+                aria-label={
+                  app.subtitle
+                    ? translateMessage('ui.text_294573d7', { p0: app.title, p1: app.badge, p2: app.subtitle })
+                    : app.title
+                }
               >
                 <div className={`${css.card} ${app.id === 'earn' ? css.earnCard : ''}`}>
                   {/* Icon */}
                   <div className={css.iconContainer}>
-                    <img src={app.iconUrl} alt={`${app.title} icon`} className={css.icon} />
+                    <img
+                      src={app.iconUrl}
+                      alt={translateMessage('ui.icon_17df3b77', { p0: app.title })}
+                      className={css.icon}
+                    />
                   </div>
 
                   {/* Title with optional badge and subtitle */}

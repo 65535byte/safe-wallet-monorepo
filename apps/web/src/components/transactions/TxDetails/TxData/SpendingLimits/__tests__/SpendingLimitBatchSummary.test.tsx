@@ -20,20 +20,20 @@ describe('SpendingLimitBatchSummary', () => {
   it('says when the batch enables the spending limit module', () => {
     const { getByText } = renderSummary({ enablesModule: true })
 
-    expect(getByText('Enable the spending limit module')).toBeInTheDocument()
+    expect(getByText('启用支出限额模块')).toBeInTheDocument()
   })
 
   it('omits the module line when the module is already on', () => {
     const { queryByText } = renderSummary({ removedSpenders: [SPENDER] })
 
-    expect(queryByText('Enable the spending limit module')).not.toBeInTheDocument()
+    expect(queryByText('启用支出限额模块')).not.toBeInTheDocument()
   })
 
   it('lists each removed spender', () => {
     const other = faker.finance.ethereumAddress()
     const { getAllByText } = renderSummary({ removedSpenders: [SPENDER, other] })
 
-    expect(getAllByText('Remove spender:')).toHaveLength(2)
+    expect(getAllByText('移除支出授权人：')).toHaveLength(2)
   })
 
   it('renders one block per allowance change', () => {
@@ -59,7 +59,7 @@ describe('SpendingLimitBatchSummary', () => {
       ],
     })
 
-    expect(getByText('Modify spending limit:')).toBeInTheDocument()
-    expect(getByText('Delete spending limit:')).toBeInTheDocument()
+    expect(getByText('Modify 支出限额：')).toBeInTheDocument()
+    expect(getByText('Delete 支出限额：')).toBeInTheDocument()
   })
 })

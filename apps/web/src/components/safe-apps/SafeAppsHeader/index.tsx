@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import { useCurrentChain } from '@/hooks/useChains'
@@ -13,12 +14,13 @@ const SafeAppsHeader = (): ReactElement => {
       <div className={css.container}>
         {/* Safe Apps Title */}
         <Typography variant="h3" className={css.title}>
-          Explore the {chain?.chainName} ecosystem
+          {translateMessage('ui.exploreThe_966fa8c5')}
+          {chain?.chainName} {translateMessage('ui.ecosystem_0ab378de')}
         </Typography>
 
         {/* Safe Apps Subtitle */}
         <Typography className={css.subtitle}>
-          Connect to your favourite web3 applications with your Safe account, securely and efficiently.
+          {translateMessage('ui.connectToYourFavouriteWeb3Applications_016bb1d2')}
         </Typography>
       </div>
 

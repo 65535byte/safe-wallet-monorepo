@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useState } from 'react'
 import { asError } from '@safe-global/utils/services/exceptions/utils'
 import { encodeEIP1271Signature } from '@/features/proposers/utils/utils'
@@ -22,7 +23,7 @@ export const useSubmitDelegation = () => {
   const submitDelegation = useCallback(
     async (delegation: PendingDelegation) => {
       if (!isTotpValid(delegation.totp)) {
-        throw new Error('Delegation has expired. Please create a new delegation request.')
+        throw new Error(translateMessage('ui.delegationHasExpiredPleaseCreateA_3dd5ccde'))
       }
 
       if (!delegation.preparedSignature) {

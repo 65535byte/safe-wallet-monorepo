@@ -9,16 +9,16 @@ describe('SecurityDrawerContent', () => {
   it('selects the Checks tab by default', () => {
     renderContent()
 
-    expect(screen.getByRole('tab', { name: 'Checks' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('tab', { name: '检查项' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: '详情' })).toHaveAttribute('aria-selected', 'false')
   })
 
   it('switches to the Details tab on click', () => {
     renderContent()
 
-    fireEvent.click(screen.getByRole('tab', { name: 'Details' }))
+    fireEvent.click(screen.getByRole('tab', { name: '详情' }))
 
-    expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Checks' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('tab', { name: '详情' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: '检查项' })).toHaveAttribute('aria-selected', 'false')
   })
 })

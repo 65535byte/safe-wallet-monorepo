@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React from 'react'
 import { X } from 'lucide-react'
 import { Alert, AlertTitle, AlertAction, AlertSeverityIcon } from '@safe-global/views/components/ui/alert'
@@ -19,11 +20,11 @@ export const ThirdPartyCookiesWarning = ({ onClose }: ThirdPartyCookiesWarningPr
     >
       <AlertSeverityIcon variant="warning" />
       <AlertTitle>
-        Third party cookies are disabled. Safe Apps may therefore not work properly. You can find out more information
-        about this <ExternalLink href={HelpCenterArticle.COOKIES}>here</ExternalLink>
+        {translateMessage('ui.thirdPartyCookiesAreDisabledSafe_c782d77c')}{' '}
+        <ExternalLink href={HelpCenterArticle.COOKIES}>{translateMessage('ui.here_134b2f0e')}</ExternalLink>
       </AlertTitle>
       <AlertAction>
-        <Button variant="ghost" size="icon-sm" aria-label="Close" onClick={onClose}>
+        <Button variant="ghost" size="icon-sm" aria-label={translateMessage('ui.close_fbd8cee0')} onClick={onClose}>
           <X />
         </Button>
       </AlertAction>

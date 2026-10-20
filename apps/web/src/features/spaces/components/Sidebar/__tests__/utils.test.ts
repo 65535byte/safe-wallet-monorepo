@@ -26,7 +26,7 @@ describe('getSidebarItemTestId', () => {
   })
 
   it('converts a single word label to lowercase', () => {
-    expect(getSidebarItemTestId('Transactions')).toBe('sidebar-item-transactions')
+    expect(getSidebarItemTestId('交易')).toBe('sidebar-item-transactions')
   })
 
   it('trims leading and trailing whitespace', () => {
@@ -48,7 +48,7 @@ describe('getSidebarActionItemTestId', () => {
   })
 
   it('does not collide with label-derived nav item test ids', () => {
-    expect(getSidebarActionItemTestId('feature-flags')).not.toBe(getSidebarItemTestId('Feature flags'))
+    expect(getSidebarActionItemTestId('feature-flags')).not.toBe(getSidebarItemTestId('功能开关'))
   })
 })
 

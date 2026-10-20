@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Fragment, type ReactElement, type ReactNode } from 'react'
 import { Copy } from 'lucide-react'
 import { shortenAddress } from '@safe-global/utils/utils/formatters'
@@ -43,11 +44,11 @@ const SecurityDrawerDetails = ({ scanContext, lastScannedAt }: SecurityDrawerDet
   const { owners, threshold, version, balanceUsd } = scanContext
 
   const aboutRows: { label: string; value: ReactNode }[] = [
-    { label: 'Contract version', value: version ? `v${version}` : '—' },
-    { label: 'Networks', value: chain?.chainName ?? '—' },
-    { label: 'Balance', value: formatCurrencyPrecise(balanceUsd, 'USD') },
+    { label: translateMessage('ui.contractVersion_861d78ca'), value: version ? `v${version}` : '—' },
+    { label: translateMessage('ui.networks_e4d25fbc'), value: chain?.chainName ?? '—' },
+    { label: translateMessage('ui.balance_413e035a'), value: formatCurrencyPrecise(balanceUsd, 'USD') },
     {
-      label: 'Last scanned',
+      label: translateMessage('ui.lastScanned_6c58f3d7'),
       value: security.$isReady ? security.formatTimestamp(lastScannedAt ?? undefined) : '—',
     },
   ]
@@ -55,7 +56,7 @@ const SecurityDrawerDetails = ({ scanContext, lastScannedAt }: SecurityDrawerDet
   return (
     <div className="flex flex-col gap-6">
       <section className="bg-card p-4 rounded-xl">
-        <SectionLabel>{`Signers · ${threshold}/${owners.length}`}</SectionLabel>
+        <SectionLabel>{translateMessage('ui.signers_d40ae0cd', { p0: threshold, p1: owners.length })}</SectionLabel>
         <div className="flex flex-col">
           {owners.map((owner) => (
             <div key={owner.value} className="flex items-center gap-3 py-2.5">
@@ -65,7 +66,7 @@ const SecurityDrawerDetails = ({ scanContext, lastScannedAt }: SecurityDrawerDet
               </Typography>
               <CopyTooltip text={owner.value}>
                 <span
-                  aria-label="Copy address"
+                  aria-label={translateMessage('ui.copyAddress_e5bff417')}
                   className="flex cursor-pointer items-center text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <Copy className="h-3 w-3" />
@@ -77,7 +78,7 @@ const SecurityDrawerDetails = ({ scanContext, lastScannedAt }: SecurityDrawerDet
       </section>
 
       <section className="bg-card py-4 rounded-xl">
-        <SectionLabel className="px-4">About</SectionLabel>
+        <SectionLabel className="px-4">{translateMessage('ui.about_c22e87cd')}</SectionLabel>
         <Separator className="bg-muted" />
         <div className="flex flex-col">
           {aboutRows.map((row, idx) => (

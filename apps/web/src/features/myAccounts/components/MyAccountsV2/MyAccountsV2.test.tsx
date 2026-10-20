@@ -84,7 +84,7 @@ describe('MyAccountsV2', () => {
 
   describe('SAFE_PRO_ANNOUNCEMENT banner', () => {
     it.each([
-      ['Get started', null, { hasPinnedSafes: false }, 'safe-pro-banner'],
+      ['开始使用', null, { hasPinnedSafes: false }, 'safe-pro-banner'],
       ['empty', {}, { hasPinnedSafes: false }, 'safe-pro-banner'],
       ['list', {}, { hasPinnedSafes: true }, 'safe-pro-workspaces-banner'],
     ])('renders above the %s state when the flag is on', (_label, wallet, migration, testId) => {

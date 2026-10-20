@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import type { ReactNode } from 'react'
 import type { Cta } from '@safe-global/views/features/spaces/components/SecurityHub/components/SecurityChecks/types'
 
@@ -8,16 +9,15 @@ import type { Cta } from '@safe-global/views/features/spaces/components/Security
  * public checker.
  */
 export const ZODIAC_VULNERABILITY_CTA: Cta = {
-  label: 'Check affected Safes',
+  label: translateMessage('ui.checkAffectedAccounts_9822bb1d'),
   href: 'https://app.zodiac.eco/public/fallback-handler',
 }
 
 /** Shared intro shown for any Zodiac-vulnerability finding (per-module rows and the nested warning). */
 export const VULNERABLE_MODULE_INTRO: ReactNode = (
   <>
-    <span className="font-bold">This Safe is affected by a vulnerable third-party module.</span> A Zodiac Delay v1.1.0
-    or Roles v2.1.0 module associated with it has a known critical vulnerability. We advise you to take immediate
-    action.
+    <span className="font-bold">{translateMessage('ui.thisIsAffectedByAVulnerable_c0efaa2d')}</span>{' '}
+    {translateMessage('ui.aZodiacDelayV1OrRoles_91670a83')}
   </>
 )
 
@@ -42,11 +42,10 @@ export const getModuleRowContent = (
     return { intro: VULNERABLE_MODULE_INTRO, cta: modulesCta ?? ZODIAC_VULNERABILITY_CTA }
   }
   if (verdict.trusted) {
-    return { intro: 'Recognized Safe ecosystem module.', cta: null }
+    return { intro: translateMessage('ui.recognizedSafeEcosystemModule_131a2085'), cta: null }
   }
   return {
-    intro:
-      "Unrecognized module — not in the known Safe ecosystem deployments. Review carefully and remove if you don't recognize it.",
+    intro: translateMessage('ui.unrecognizedModuleNotInTheKnown_7eb33dd0'),
     cta: modulesCta,
   }
 }

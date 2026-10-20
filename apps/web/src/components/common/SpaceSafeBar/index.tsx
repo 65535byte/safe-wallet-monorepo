@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/router'
@@ -87,9 +88,7 @@ function DropdownTabs({
 function SignInWorkspaceCta({ label, onSignIn }: { label: string; onSignIn: () => void }) {
   return (
     <div className="flex flex-col items-center gap-3 px-4 py-8 text-center" data-testid="dropdown-signin-cta">
-      <p className="text-sm text-muted-foreground">
-        Sign in to a Workspace to collaborate on Safe accounts with your team.
-      </p>
+      <p className="text-sm text-muted-foreground">{translateMessage('ui.signInToAWorkspaceTo_50335927')}</p>
       <Button variant="secondary" size="sm" onClick={onSignIn} data-testid="dropdown-signin-btn">
         {label}
       </Button>
@@ -101,10 +100,10 @@ function ConnectWalletBody({ onConnect }: { onConnect: () => void }) {
   return (
     <div className="flex flex-col items-center gap-4 px-4 py-6 text-center" data-testid="dropdown-connect-cta">
       <Typography variant="paragraph-small-medium" className="max-w-[336px]">
-        Connect your wallet to access existing accounts or add new ones.
+        {translateMessage('ui.connectYourWalletToAccessExisting_b523a986')}
       </Typography>
       <Button variant="outline" size="sm" onClick={onConnect} data-testid="dropdown-connect-wallet-body-btn">
-        <Wallet className="size-4" /> Connect wallet
+        <Wallet className="size-4" /> {translateMessage('ui.connectWallet_c5c44a7c')}
       </Button>
     </div>
   )
@@ -114,13 +113,13 @@ function NoTrustedAccountsBody({ onManage }: { onManage: () => void }) {
   return (
     <div className="flex flex-col items-center gap-4 px-4 py-6 text-center" data-testid="dropdown-no-trusted">
       <div className="flex flex-col items-center gap-1">
-        <Typography variant="paragraph-small-medium">No accounts yet</Typography>
+        <Typography variant="paragraph-small-medium">{translateMessage('ui.noAccountsYet_1e5e49d1')}</Typography>
         <Typography variant="paragraph-mini" color="muted" className="max-w-[336px]">
-          Manage your list to add or remove accounts.
+          {translateMessage('ui.manageYourListToAddOr_b54cb92e')}
         </Typography>
       </div>
       <Button variant="outline" size="sm" onClick={onManage} data-testid="dropdown-manage-list-btn">
-        <Settings2 className="size-4" /> Manage list
+        <Settings2 className="size-4" /> {translateMessage('ui.manageList_0a4422c2')}
       </Button>
     </div>
   )
@@ -136,9 +135,9 @@ function ManageTrustedFooter({ onManage }: { onManage: () => void }) {
     >
       <UserRoundPlus className="size-4 shrink-0 text-muted-foreground" />
       <span className="flex min-w-0 flex-1 flex-col">
-        <Typography variant="paragraph-small-medium">Manage list</Typography>
+        <Typography variant="paragraph-small-medium">{translateMessage('ui.manageList_5be941e5')}</Typography>
         <Typography variant="paragraph-mini" color="muted">
-          Add or remove accounts from this list
+          {translateMessage('ui.addOrRemoveAccountsFromThis_fe38fef5')}
         </Typography>
       </span>
       <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
@@ -230,8 +229,8 @@ function SpaceSafeBar() {
   // Only surface the space name when the current safe belongs to the Workspace of the URL.
   const workspaceLabel = isInSpaceContext
     ? `${space?.name ?? 'Workspace'} (${countMatches(workspaceItems)})`
-    : 'Workspace'
-  const localLabel = `My accounts (${countMatches(localItems)})`
+    : translateMessage('ui.workspace_c8c48e9f')
+  const localLabel = translateMessage('ui.myAccounts_f22510c7', { p0: countMatches(localItems) })
 
   const dropdownHeader = (
     <DropdownTabs
@@ -259,7 +258,7 @@ function SpaceSafeBar() {
   const emptyStateOverride =
     activeTab === 'workspace' && !isInSpaceContext ? (
       <SignInWorkspaceCta
-        label={isSignedIn ? 'View Workspaces' : 'Sign in'}
+        label={isSignedIn ? translateMessage('ui.viewWorkspaces_0c7751b0') : translateMessage('ui.signIn_789309bd')}
         onSignIn={() => router.push({ pathname: AppRoutes.welcome.spaces })}
       />
     ) : activeTab === 'local' && !hasWallet ? (

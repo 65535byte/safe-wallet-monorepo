@@ -100,7 +100,7 @@ const baseArgs = {
 
 const quotaExceeded = (quota?: number) => ({
   status: 402,
-  data: { code: 'QUOTA_EXCEEDED', message: 'Quota exceeded for safe_seats: 20 of 20 used.', quota, used: quota },
+  data: { code: 'QUOTA_EXCEEDED', message: 'Quota exceeded for safe_seats: 20 / 20 used.', quota, used: quota },
 })
 
 describe('persistCounterfactualSafe', () => {
@@ -622,8 +622,7 @@ describe('persistCounterfactualSafe', () => {
       expect.objectContaining({
         variant: 'warning',
         groupKey: 'cf-safe-space-limit',
-        message:
-          "Safe created in My accounts. The Workspace is at its limit of 20 Safe accounts, so it wasn't added there.",
+        message: 'Safe 已在“我的账户”中创建。工作空间已达到 20 个 Safe 账户的上限，因此未添加到工作空间。',
       }),
     )
     expect(result.ok).toBe(true)
@@ -679,7 +678,7 @@ describe('persistCounterfactualSafe', () => {
     expect(spaceInitiate).toHaveBeenCalled()
     expect(showNotificationImpl).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: "Safe created in My accounts. The Workspace is at its seat limit, so it wasn't added there.",
+        message: 'Safe 已在“我的账户”中创建。工作空间已达到 席位上限，因此未添加到工作空间。',
       }),
     )
     expect(result).toEqual({ ok: true })
@@ -724,8 +723,7 @@ describe('persistCounterfactualSafe', () => {
       expect.objectContaining({
         variant: 'warning',
         groupKey: 'cf-safe-space-limit',
-        message:
-          "Safe created in My accounts. The Workspace is at its limit of 20 Safe accounts, so it wasn't added there.",
+        message: 'Safe 已在“我的账户”中创建。工作空间已达到 20 个 Safe 账户的上限，因此未添加到工作空间。',
       }),
     )
     expect(result).toEqual({ ok: true })
@@ -766,7 +764,7 @@ describe('persistCounterfactualSafe', () => {
     })
 
     expect(showNotificationImpl).toHaveBeenCalledWith(
-      expect.objectContaining({ message: expect.stringContaining('limit of 5 Safe accounts') }),
+      expect.objectContaining({ message: expect.stringContaining('5 个 Safe 账户的上限') }),
     )
   })
 

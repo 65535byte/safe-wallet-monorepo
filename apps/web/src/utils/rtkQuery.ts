@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import type { SerializedError } from '@reduxjs/toolkit'
 import { ELEVATION_REQUIRED_MESSAGE, isElevationRequiredError } from '@/features/oidc-auth/utils/elevation'
@@ -10,19 +11,19 @@ export const HTTP_UNAVAILABLE_FOR_LEGAL_REASONS = 451
 // "TypeError: Failed to fetch", "SyntaxError: ... is not valid JSON" from a plain-text
 // "Rate limit reached" body) never reach users.
 export const RTK_QUERY_ERROR_MESSAGES = {
-  network: "Couldn't connect to the server. Please check your connection and try again.",
-  timeout: 'The request timed out. Please try again.',
-  rateLimit: 'Too many requests. Please wait a moment and try again.',
-  generic: 'Something went wrong. Please try again, or contact support if it persists.',
+  network: translateMessage('ui.couldnTConnectToTheServer_ec6a1d1d'),
+  timeout: translateMessage('ui.theRequestTimedOutPleaseTry_f6126322'),
+  rateLimit: translateMessage('ui.tooManyRequestsPleaseWaitA_fe097b1f'),
+  generic: translateMessage('ui.somethingWentWrongPleaseTryAgain_1a2a47f6'),
 } as const
 
 // Shown for a blocked Safe, so the gateway's own wording — "Blocked in your region by provider
 // edge-node-7", the reason for a legal block — never reaches users.
-export const SAFE_UNAVAILABLE_MESSAGE = 'This Safe account is unavailable.'
+export const SAFE_UNAVAILABLE_MESSAGE = translateMessage('ui.thisAccountIsUnavailable_f1933326')
 
 // Same general copy as `generic`, but keeps the HTTP status visible so the failure stays debuggable.
 export const getGenericErrorWithStatus = (status: number): string =>
-  `Something went wrong (${status}). Please try again, or contact support if it persists.`
+  translateMessage('ui.somethingWentWrongPleaseTryAgain_7963ce84', { p0: status })
 
 // Backend messages are written for users, except the typed CGW refusals translated earlier (elevation, quota).
 const getBackendMessage = (error: FetchBaseQueryError): string | undefined => {

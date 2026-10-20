@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useSpacesCreateV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
 import { useRouter } from 'next/router'
 import { type ReactElement, useState } from 'react'
@@ -8,6 +9,8 @@ import NameInput from '@/components/common/NameInput'
 import { NAME_MIN_LENGTH, SPACE_NAME_MAX_LENGTH, sanitizeName } from '@safe-global/utils/validation/names'
 import { AppRoutes } from '@/config/routes'
 import { PRIVACY_URL } from '@safe-global/utils/config/constants'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { showNotification } from '@/store/notificationsSlice'
 import { useAppDispatch } from '@/store'
 import ExternalLink from '@safe-global/views/components/common/ExternalLink'
@@ -40,12 +43,13 @@ function SpaceCreationModal({ onClose }: { onClose: () => void }): ReactElement 
 
       if (response.data) {
         const spaceId = response.data.uuid
+        trackEvent({ ...SPACE_EVENTS.WORKSPACE_CREATED, label: spaceId }, { workspace_id: spaceId })
         router.push({ pathname: AppRoutes.spaces.index, query: { spaceId } })
         onClose()
 
         dispatch(
           showNotification({
-            message: `Created Workspace with name ${name}.`,
+            message: translateMessage('ui.createdWorkspaceWithName_ebb0b0b1', { p0: name }),
             variant: 'success',
             groupKey: 'create-space-success',
           }),
@@ -69,7 +73,7 @@ function SpaceCreationModal({ onClose }: { onClose: () => void }): ReactElement 
       dialogTitle={
         <>
           <SpaceIcon className="mr-2 size-6 fill-none" />
-          Create Workspace
+          {translateMessage('ui.createWorkspace_34bf60be')}
         </>
       }
       hideChainIndicator
@@ -81,7 +85,7 @@ function SpaceCreationModal({ onClose }: { onClose: () => void }): ReactElement 
               <div className="mb-4">
                 <NameInput
                   data-testid="space-name-input"
-                  label="Name"
+                  label={translateMessage('ui.name_84f28b85')}
                   autoFocus
                   name="name"
                   required
@@ -91,7 +95,8 @@ function SpaceCreationModal({ onClose }: { onClose: () => void }): ReactElement 
                 />
               </div>
               <Typography variant="paragraph-small" color="muted">
-                How is my data processed? Read our <ExternalLink href={PRIVACY_URL}>privacy policy</ExternalLink>
+                {translateMessage('ui.howIsMyDataProcessedRead_340362c2')}
+                <ExternalLink href={PRIVACY_URL}>{translateMessage('ui.privacyPolicy_695dc448')}</ExternalLink>
               </Typography>
 
               {error && (
@@ -106,7 +111,7 @@ function SpaceCreationModal({ onClose }: { onClose: () => void }): ReactElement 
               className="p-4 pt-0"
               onCancel={onClose}
               cancelTestId="cancel-btn"
-              confirmLabel="Create Workspace"
+              confirmLabel={translateMessage('ui.createWorkspace_34bf60be')}
               confirmType="submit"
               confirmDisabled={!formState.isValid || isSubmitting}
               confirmLoading={isSubmitting}

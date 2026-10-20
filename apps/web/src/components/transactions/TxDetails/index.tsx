@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { TransactionDetails, Transaction } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import { useIsExpiredSwap } from '@/features/swap'
 import React, { type ReactElement, useEffect, useRef, useState, useMemo } from 'react'
@@ -139,7 +140,7 @@ const TxDetailsBlock = ({ txSummary, txDetails }: TxDetailsProps): ReactElement 
           )}
 
           <div className={css.txData}>
-            <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+            <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
               <TxData
                 txData={txDetails.txData}
                 txInfo={txDetails.txInfo}
@@ -162,7 +163,7 @@ const TxDetailsBlock = ({ txSummary, txDetails }: TxDetailsProps): ReactElement 
         {/* Module information*/}
         {moduleAddress && !showAuditLog && (
           <div className={css.txModule}>
-            <InfoDetails title="Executed via module:">
+            <InfoDetails title={translateMessage('ui.executedViaModule_914123a0')}>
               <NamedAddressInfo
                 address={moduleAddress.value}
                 name={moduleAddressInfo?.name || moduleAddress.name}
@@ -185,7 +186,7 @@ const TxDetailsBlock = ({ txSummary, txDetails }: TxDetailsProps): ReactElement 
               isQueued={isQueue}
             />
           )}
-          <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+          <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
             <Summary
               txDetails={txDetails}
               txData={txDetails.txData}
@@ -202,7 +203,7 @@ const TxDetailsBlock = ({ txSummary, txDetails }: TxDetailsProps): ReactElement 
           isBridgeOrderTxInfo(txDetails.txInfo) ||
           isLifiSwapTxInfo(txDetails.txInfo)) && (
           <div className={css.multiSend}>
-            <ObservabilityErrorBoundary fallback={<div>Error parsing data</div>}>
+            <ObservabilityErrorBoundary fallback={<div>{translateMessage('ui.errorParsingData_92756433')}</div>}>
               <Multisend txData={txDetails.txData} isExecuted={!!txDetails.executedAt} />
             </ObservabilityErrorBoundary>
           </div>
@@ -299,7 +300,9 @@ const TxDetails = ({
       ) : (
         error && (
           <div className={css.error}>
-            <ErrorMessage error={asError(error)}>Couldn&apos;t load the transaction details</ErrorMessage>
+            <ErrorMessage error={asError(error)}>
+              {translateMessage('ui.couldnTLoadTheTransactionDetails_ac68e864')}
+            </ErrorMessage>
           </div>
         )
       )}

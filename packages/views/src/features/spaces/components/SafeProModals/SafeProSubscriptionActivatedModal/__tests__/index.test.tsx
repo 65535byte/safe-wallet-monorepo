@@ -16,7 +16,7 @@ describe('SafeProSubscriptionActivatedModal', () => {
     expect(screen.getByRole('heading')).toHaveTextContent("Your paid subscription is active, you're on Business!")
     expect(screen.getByTestId('subscription-seats')).toHaveTextContent('Business · 5 Safe accounts')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Get started' }))
+    fireEvent.click(screen.getByRole('button', { name: '开始使用' }))
     expect(onOpenChange).toHaveBeenCalledWith(false)
   })
 })

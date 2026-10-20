@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Dispatch, ReactNode, SetStateAction, SyntheticEvent } from 'react'
 import { useMemo, useState } from 'react'
 import { useCallback } from 'react'
@@ -34,17 +35,17 @@ const INITIAL_SKELETON_SIZE = 3
 const headCells = [
   {
     id: 'collection',
-    label: 'Collection',
+    label: translateMessage('ui.collection_459255d9'),
     width: '35%',
   },
   {
     id: 'id',
-    label: 'Token ID',
+    label: translateMessage('ui.tokenID_d734c33b'),
     width: '35%',
   },
   {
     id: 'links',
-    label: 'Links',
+    label: translateMessage('ui.links_0257bbcd'),
     width: '23%',
     xsHidden: true,
   },
@@ -73,7 +74,7 @@ const inactiveNftIcon = (
         </span>
       }
     />
-    <TooltipContent>There&apos;s no preview for this NFT</TooltipContent>
+    <TooltipContent>{translateMessage('ui.thereSNoPreviewForThis_16be0046')}</TooltipContent>
   </Tooltip>
 )
 
@@ -175,7 +176,7 @@ const NftGrid = ({
                       <div className="relative flex items-center">
                         <Funnel className="pointer-events-none absolute left-0 size-4 text-[var(--color-border-main)]" />
                         <Input
-                          placeholder="Collection"
+                          placeholder={translateMessage('ui.collection_459255d9')}
                           onChange={onFilterChange}
                           // eslint-disable-next-line no-restricted-syntax -- inline borderless table-header filter: no border/bg/height so it sits flush in the column head; bespoke, no variant
                           className="h-auto border-none bg-transparent py-0 pl-6 pr-0 shadow-none focus-visible:border-none"
@@ -183,13 +184,13 @@ const NftGrid = ({
                       </div>
                     ) : headCell.id === 'links' ? (
                       linkTemplates ? (
-                        <>Links</>
+                        <>{translateMessage('ui.links_0257bbcd')}</>
                       ) : null
                     ) : headCell.id === 'checkbox' ? (
                       <Checkbox
                         checked={filteredNfts.length > 0 && filteredNfts.length === selectedNfts.length}
                         onCheckedChange={onSelectAll}
-                        title="Select all"
+                        title={translateMessage('ui.selectAll_0f52c380')}
                       />
                     ) : (
                       headCell.label

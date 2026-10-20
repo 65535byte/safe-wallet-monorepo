@@ -21,7 +21,7 @@ describe('AccountCenter', () => {
       openButton.click()
     })
 
-    const disconnectButton = getByText('Disconnect')
+    const disconnectButton = getByText('断开连接')
 
     expect(disconnectButton).toBeInTheDocument()
 

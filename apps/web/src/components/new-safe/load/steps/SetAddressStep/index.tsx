@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { StepRenderProps } from '@/components/new-safe/CardStepper/useCardStepper'
 import type { LoadSafeFormData } from '@/components/new-safe/load'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -63,16 +64,16 @@ const SetAddressStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeForm
 
   const validateSafeAddress = async (address: string) => {
     if (addedSafes && Object.keys(addedSafes).includes(address)) {
-      return 'Safe account is already added'
+      return translateMessage('ui.accountIsAlreadyAdded_cfe8473f')
     }
 
     try {
       const result = await triggerGetSafe({ chainId: currentChainId, safeAddress: address }).unwrap()
       if (!result) {
-        return 'Address given is not a valid Safe account address'
+        return translateMessage('ui.addressGivenIsNotAValid_9d6ebe4a')
       }
     } catch (error) {
-      return 'Address given is not a valid Safe account address'
+      return translateMessage('ui.addressGivenIsNotAValid_9d6ebe4a')
     }
   }
 
@@ -104,7 +105,7 @@ const SetAddressStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeForm
               <div className="order-last md:order-first">
                 <NameInput
                   name={Field.name}
-                  label={errors?.[Field.name]?.message || 'Name'}
+                  label={errors?.[Field.name]?.message || translateMessage('ui.name_84f28b85')}
                   placeholder={fallbackName}
                   InputLabelProps={{ shrink: true }}
                   inputSize="hero"
@@ -123,9 +124,7 @@ const SetAddressStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeForm
                             </span>
                           }
                         />
-                        <TooltipContent>
-                          This name is stored locally and will never be shared with us or any third parties.
-                        </TooltipContent>
+                        <TooltipContent>{translateMessage('ui.thisNameIsStoredLocallyAnd_b263e90d')}</TooltipContent>
                       </Tooltip>
                     ),
                   }}
@@ -138,20 +137,20 @@ const SetAddressStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeForm
 
             <AddressInput
               data-testid="address-section"
-              label="Safe account"
+              label={translateMessage('ui.account_7e251525')}
               validate={validateSafeAddress}
               name={Field.address}
             />
           </div>
 
           <Typography className="mt-8 block">
-            By continuing you consent to the{' '}
+            {translateMessage('ui.byContinuingYouConsentToThe_c641be4d')}{' '}
             <ExternalLink href={TERMS_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-              terms of use
+              {translateMessage('ui.termsOfUse_273d4cdf')}
             </ExternalLink>{' '}
-            and{' '}
+            {translateMessage('ui.and_ee3cc19b')}{' '}
             <ExternalLink href={PRIVACY_URL} noIcon className="[&_span]:underline [&_span]:decoration-primary/40">
-              privacy policy
+              {translateMessage('ui.privacyPolicy_695dc448')}
             </ExternalLink>
             .
           </Typography>
@@ -162,10 +161,10 @@ const SetAddressStep = ({ data, onSubmit, onBack }: StepRenderProps<LoadSafeForm
         <div className={layoutCss.row}>
           <div className="flex justify-between gap-2">
             <Button type="button" variant="outline" size="lg" onClick={handleBack}>
-              Back
+              {translateMessage('ui.back_dae8bf43')}
             </Button>
             <Button data-testid="load-safe-next-btn" type="submit" size="lg" disabled={!isValid}>
-              Next
+              {translateMessage('ui.next_9cff86c8')}
             </Button>
           </div>
         </div>

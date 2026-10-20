@@ -11,8 +11,8 @@ describe('HeaderNavigation', () => {
   it('renders notifications and wallet buttons by default', () => {
     render(<HeaderNavigation {...defaultProps} />)
 
-    expect(screen.getByLabelText('Notifications')).toBeInTheDocument()
-    expect(screen.getByLabelText(/^Wallet/)).toBeInTheDocument()
+    expect(screen.getByLabelText('通知')).toBeInTheDocument()
+    expect(screen.getByLabelText(/^钱包/)).toBeInTheDocument()
   })
 
   it('truncates wallet address to 6...4 format', () => {
@@ -31,20 +31,20 @@ describe('HeaderNavigation', () => {
   it('shows "Connect Wallet" text when wallet is not connected', () => {
     render(<HeaderNavigation walletAddress="" isConnected={false} />)
 
-    expect(screen.getByText('Connect Wallet')).toBeInTheDocument()
+    expect(screen.getByText('连接钱包')).toBeInTheDocument()
     expect(screen.getByTestId('connect-wallet-btn')).toBeInTheDocument()
   })
 
   it('shows search button when showSearch is true', () => {
     render(<HeaderNavigation {...defaultProps} showSearch />)
 
-    expect(screen.getByLabelText('Search')).toBeInTheDocument()
+    expect(screen.getByLabelText('搜索')).toBeInTheDocument()
   })
 
   it('hides search button by default', () => {
     render(<HeaderNavigation {...defaultProps} />)
 
-    expect(screen.queryByLabelText('Search')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('搜索')).not.toBeInTheDocument()
   })
 
   it('renders walletConnectSlot when provided', () => {
@@ -62,19 +62,19 @@ describe('HeaderNavigation', () => {
   it('shows Batch button when showBatch is true', () => {
     render(<HeaderNavigation {...defaultProps} showBatch />)
 
-    expect(screen.getByLabelText('Batch transactions')).toBeInTheDocument()
+    expect(screen.getByLabelText('批量交易')).toBeInTheDocument()
   })
 
   it('hides Batch button by default', () => {
     render(<HeaderNavigation {...defaultProps} />)
 
-    expect(screen.queryByLabelText('Batch transactions')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('批量交易')).not.toBeInTheDocument()
   })
 
   it('shows batch count number when batchCount > 0', () => {
     render(<HeaderNavigation {...defaultProps} showBatch batchCount={3} />)
 
-    const badge = screen.getByLabelText('3 batched transactions')
+    const badge = screen.getByLabelText('3 笔批量交易')
     expect(badge).toBeInTheDocument()
     expect(badge).toHaveTextContent('3')
   })
@@ -82,20 +82,20 @@ describe('HeaderNavigation', () => {
   it('caps batch count display at 99+', () => {
     render(<HeaderNavigation {...defaultProps} showBatch batchCount={150} />)
 
-    const badge = screen.getByLabelText('150 batched transactions')
+    const badge = screen.getByLabelText('150 笔批量交易')
     expect(badge).toHaveTextContent('99+')
   })
 
   it('hides batch count badge when batchCount is 0', () => {
     render(<HeaderNavigation {...defaultProps} showBatch batchCount={0} />)
 
-    expect(screen.queryByLabelText(/batched transactions/)).not.toBeInTheDocument()
+    expect(screen.queryByLabelText(/批量交易/)).not.toBeInTheDocument()
   })
 
   it('shows unread notification count when messages > 0', () => {
     render(<HeaderNavigation {...defaultProps} messages={5} />)
 
-    const badge = screen.getByLabelText('5 unread messages')
+    const badge = screen.getByLabelText('5 条未读消息')
     expect(badge).toBeInTheDocument()
     expect(badge).toHaveTextContent('5')
   })
@@ -103,7 +103,7 @@ describe('HeaderNavigation', () => {
   it('caps notification count display at 99+', () => {
     render(<HeaderNavigation {...defaultProps} messages={120} />)
 
-    const badge = screen.getByLabelText('120 unread messages')
+    const badge = screen.getByLabelText('120 条未读消息')
     expect(badge).toHaveTextContent('99+')
   })
 
@@ -111,7 +111,7 @@ describe('HeaderNavigation', () => {
     const onBatchClick = jest.fn()
     render(<HeaderNavigation {...defaultProps} showBatch onBatchClick={onBatchClick} />)
 
-    await userEvent.click(screen.getByLabelText('Batch transactions'))
+    await userEvent.click(screen.getByLabelText('批量交易'))
     expect(onBatchClick).toHaveBeenCalledTimes(1)
   })
 
@@ -125,7 +125,7 @@ describe('HeaderNavigation', () => {
     const onNotificationsClick = jest.fn()
     render(<HeaderNavigation {...defaultProps} onNotificationsClick={onNotificationsClick} />)
 
-    await userEvent.click(screen.getByLabelText('Notifications'))
+    await userEvent.click(screen.getByLabelText('通知'))
     expect(onNotificationsClick).toHaveBeenCalledTimes(1)
   })
 })

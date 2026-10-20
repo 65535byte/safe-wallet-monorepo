@@ -424,8 +424,8 @@ describe('recovery-state', () => {
     it('should halve the window when the RPC rejects the range', async () => {
       const queryFilter = jest
         .fn()
-        .mockRejectedValueOnce(new Error('range exceeds limit'))
-        .mockRejectedValueOnce(new Error('range exceeds limit'))
+        .mockRejectedValueOnce(new Error('range exceeds 项限额'))
+        .mockRejectedValueOnce(new Error('range exceeds 项限额'))
         .mockResolvedValue([event(0n)])
       const { run } = setup({
         txNonce: 0n,
@@ -446,7 +446,7 @@ describe('recovery-state', () => {
     })
 
     it('should rethrow once the window cannot shrink any further', async () => {
-      const error = new Error('range exceeds limit')
+      const error = new Error('range exceeds 项限额')
       const queryFilter = jest.fn().mockRejectedValue(error)
       const { run } = setup({
         txNonce: 0n,

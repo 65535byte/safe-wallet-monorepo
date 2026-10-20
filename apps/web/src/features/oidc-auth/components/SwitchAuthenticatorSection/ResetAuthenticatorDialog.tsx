@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -42,7 +43,8 @@ const ResetAuthenticatorDialog = ({
         if (!cancelled) setBarcodeUri(uri)
       })
       .catch((err) => {
-        if (!cancelled) setError(err instanceof Error ? err.message : 'Something went wrong')
+        if (!cancelled)
+          setError(err instanceof Error ? err.message : translateMessage('ui.somethingWentWrong_b021881e'))
       })
 
     return () => {
@@ -57,7 +59,7 @@ const ResetAuthenticatorDialog = ({
       await confirm(otp)
       onClose()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong')
+      setError(err instanceof Error ? err.message : translateMessage('ui.somethingWentWrong_b021881e'))
       setOtp('')
     } finally {
       setIsConfirming(false)
@@ -68,11 +70,8 @@ const ResetAuthenticatorDialog = ({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-md" data-testid="reset-authenticator-dialog">
         <DialogHeader>
-          <DialogTitle>Set up your new authenticator</DialogTitle>
-          <DialogDescription>
-            Scan the QR code with your authenticator app, then enter the 6-digit code it shows. Your current
-            authenticator keeps working until the new one is confirmed.
-          </DialogDescription>
+          <DialogTitle>{translateMessage('ui.setUpYourNewAuthenticator_59cadb2c')}</DialogTitle>
+          <DialogDescription>{translateMessage('ui.scanTheQRCodeWithYour_a4af67ec')}</DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-4 py-2">
@@ -103,14 +102,14 @@ const ResetAuthenticatorDialog = ({
 
         <DialogFooter>
           <Button variant="outline" onClick={onClose} disabled={isConfirming}>
-            Cancel
+            {translateMessage('ui.cancel_d94a8eaf')}
           </Button>
           <Button
             onClick={handleConfirm}
             disabled={!barcodeUri || otp.length !== OTP_LENGTH || isConfirming}
             data-testid="reset-authenticator-confirm"
           >
-            {isConfirming ? 'Confirming…' : 'Confirm'}
+            {isConfirming ? 'Confirming…' : translateMessage('ui.confirm_6ed20c1c')}
           </Button>
         </DialogFooter>
       </DialogContent>

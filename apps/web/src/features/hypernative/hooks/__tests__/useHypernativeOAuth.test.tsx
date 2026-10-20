@@ -420,12 +420,12 @@ describe('useHypernativeOAuth', () => {
       })
 
       expect(mockShowNotification).toHaveBeenCalledWith({
-        message: 'Popup blocked. Click the link below to complete authentication.',
+        message: '弹出窗口被拦截。请点击下方链接完成身份验证。',
         variant: 'error',
         groupKey: 'hypernative-auth-blocked',
         link: {
           onClick: expect.any(Function),
-          title: 'Open authentication page',
+          title: '打开验证页面',
         },
       })
     })

@@ -68,8 +68,8 @@ describe('SpaceRow', () => {
     render(<SpaceRow space={space} />)
 
     expect(screen.getByText('My Space')).toBeInTheDocument()
-    expect(screen.getByText(/2 Accounts/)).toBeInTheDocument()
-    expect(screen.getByText(/3 Members/)).toBeInTheDocument()
+    expect(screen.getByText(/2 账户/)).toBeInTheDocument()
+    expect(screen.getByText(/3 成员/)).toBeInTheDocument()
 
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', `${AppRoutes.spaces.index}?spaceId=${space.uuid}`)
@@ -94,7 +94,7 @@ describe('SpaceRow', () => {
     render(<SpaceRow space={space} />, signedIn)
 
     const badge = await screen.findByTestId('space-row-pro-badge')
-    expect(badge).toHaveTextContent('· Free access')
+    expect(badge).toHaveTextContent('· 免费使用期')
     expect(badge).not.toHaveTextContent('Business')
   })
 
@@ -123,13 +123,13 @@ describe('SpaceRow', () => {
     const badges = await screen.findAllByTestId('space-row-pro-badge')
     expect(badges.map((badge) => badge.textContent)).toEqual([
       expect.stringContaining('Business'),
-      expect.stringContaining('Free access'),
+      expect.stringContaining('免费使用期'),
     ])
     expect(requests.count).toBe(1)
   })
 
   it.each([
-    ['Safe Pro is off', false, signedIn],
+    ['8379 is off', false, signedIn],
     ['the user is signed out', true, undefined],
   ])('does not request the entitlements when %s', async (_case, isSafePro, options) => {
     mockUseIsSafeProEnabled.mockReturnValue(isSafePro)

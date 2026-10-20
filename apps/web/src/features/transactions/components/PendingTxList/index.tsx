@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { ChevronRight } from 'lucide-react'
@@ -63,7 +64,7 @@ const PendingTxList = (): ReactElement => {
 
   return (
     <SafeWidget
-      title="Pending"
+      title={translateMessage('ui.pending_c096ae70')}
       action={
         <Button variant="ghost" size="icon-sm" onClick={handleNavigate}>
           <ChevronRight className="size-6" />
@@ -73,7 +74,9 @@ const PendingTxList = (): ReactElement => {
       {isLoading ? (
         Array.from({ length: MAX_TXS }).map((_, i) => <SafeWidget.ItemSkeleton key={i} />)
       ) : queuedTxs.length === 0 ? (
-        <p className="px-4 py-3 text-sm text-muted-foreground">No pending transactions</p>
+        <p className="px-4 py-3 text-sm text-muted-foreground">
+          {translateMessage('ui.noPendingTransactions_233bb81d')}
+        </p>
       ) : (
         <>
           {recoveryTxs.map((tx: RecoveryQueueItem) => (
@@ -102,7 +105,11 @@ const PendingTxList = (): ReactElement => {
         </>
       )}
       {!isLoading && queuedTxs.length > 0 && (
-        <SafeWidget.Footer count={parseInt(queueSize)} text="View all pending transactions" onClick={handleViewAll} />
+        <SafeWidget.Footer
+          count={parseInt(queueSize)}
+          text={translateMessage('ui.viewAllPendingTransactions_db71aabd')}
+          onClick={handleViewAll}
+        />
       )}
     </SafeWidget>
   )

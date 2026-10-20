@@ -1,7 +1,10 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { isAddress } from 'ethers'
 import { type InviteUsersDto, useMembersInviteUserV1Mutation } from '@safe-global/store/gateway/AUTO_GENERATED/spaces'
+import { trackEvent } from '@/services/analytics'
+import { SPACE_EVENTS } from '@/services/analytics/events/spaces'
 import { MemberRole } from '../../../hooks/useSpaceMembers'
 import { getRtkQueryErrorMessage } from '@/utils/rtkQuery'
 import { buildInviteUserPayload, isEmailAddress } from '../../AddMemberModal/utils'
@@ -39,7 +42,7 @@ export const toInviteName = (identifier: string): string => {
     .replace(/^[^a-zA-Z0-9]+/, '')
     .trim()
 
-  return sanitized.length >= NAME_MIN_LENGTH ? sanitized : 'Member'
+  return sanitized.length >= NAME_MIN_LENGTH ? sanitized : translateMessage('ui.member_ddb02644')
 }
 
 const useInviteForm = (spaceId: string | undefined, onSuccess: () => void, nextStepUrl?: string) => {
@@ -68,7 +71,7 @@ const useInviteForm = (spaceId: string | undefined, onSuccess: () => void, nextS
 
     const hasUnresolvedNames = validMembers.some((m) => !isEmailAddress(m.identifier) && !isAddress(m.identifier))
     if (hasUnresolvedNames) {
-      setError('Please wait for all ENS names to resolve')
+      setError(translateMessage('ui.pleaseWaitForAllENSNames_05fda06d'))
       return
     }
 
@@ -110,10 +113,22 @@ const useInviteForm = (spaceId: string | undefined, onSuccess: () => void, nextS
         return
       }
 
+      result.data?.forEach((invitation) => {
+        trackEvent(
+          { ...SPACE_EVENTS.WORKSPACE_MEMBER_INVITE_SENT, label: spaceId },
+          {
+            workspace_id: spaceId,
+            user_id: invitation.userId,
+            role: invitation.role.toLowerCase(),
+            batch_size: validMembers.length,
+          },
+        )
+      })
+
       succeeded = true
       onSuccess()
     } catch {
-      setError('Something went wrong inviting members. Please try again.')
+      setError(translateMessage('ui.somethingWentWrongInvitingMembersPlease_a66089ad'))
     } finally {
       if (nextStepUrl && !isStepUpPending) dispatch(stepUpReturnUrlCleared(nextStepUrl))
       if (!succeeded) setIsSubmitting(false)

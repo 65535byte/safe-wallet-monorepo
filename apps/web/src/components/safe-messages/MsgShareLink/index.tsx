@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import { Button } from '@safe-global/views/components/ui/button'
 import { Share2 as ShareIcon } from 'lucide-react'
@@ -19,14 +20,25 @@ const MsgShareLink = ({ safeMessageHash, button }: { safeMessageHash: string; bu
 
   return (
     <Track {...MESSAGE_EVENTS.COPY_DEEPLINK}>
-      <CopyTooltip text={txUrl} initialToolTipText="Copy the message URL">
+      <CopyTooltip text={txUrl} initialToolTipText={translateMessage('ui.copyTheMessageURL_bb1912b8')}>
         {button ? (
-          <Button data-testid="share-btn" aria-label="Share" size="sm" onClick={() => {}}>
-            Copy link
+          <Button
+            data-testid="share-btn"
+            aria-label={translateMessage('ui.share_e5357e27')}
+            size="sm"
+            onClick={() => {}}
+          >
+            {translateMessage('ui.copyLink_30a49b26')}
           </Button>
         ) : (
-          // eslint-disable-next-line no-restricted-syntax -- circular hover on the icon button; no round icon size variant exists
-          <Button data-testid="share-btn" aria-label="Share" variant="ghost" size="icon-xs" className="rounded-full">
+          <Button
+            data-testid="share-btn"
+            aria-label={translateMessage('ui.share_e5357e27')}
+            variant="ghost"
+            size="icon-xs"
+            // eslint-disable-next-line no-restricted-syntax -- circular hover on the icon button; no round icon size variant exists
+            className="rounded-full"
+          >
             <ShareIcon className="size-4 text-[var(--color-border-main)]" />
           </Button>
         )}

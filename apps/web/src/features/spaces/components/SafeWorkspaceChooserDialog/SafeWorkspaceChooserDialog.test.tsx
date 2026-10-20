@@ -9,7 +9,7 @@ const SAFE_ADDRESS = '0x0000000000000000000000000000000000000001'
 
 const ALL_SPACES = [
   { uuid: SPACE_A, name: 'Treasury', safeCount: 4 },
-  { uuid: SPACE_B, name: 'Operations', safeCount: 1 },
+  { uuid: SPACE_B, name: '运营', safeCount: 1 },
   { uuid: SPACE_OTHER, name: 'Unrelated', safeCount: 2 },
 ]
 let mockSpaces = ALL_SPACES
@@ -68,23 +68,23 @@ describe('SafeWorkspaceChooserDialog', () => {
   it('lists only the Workspaces that hold the Safe, with their Safe counts', () => {
     renderDialog()
 
-    expect(screen.getByRole('button', { name: /Treasury.*4 Safe accounts/ })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Operations.*1 Safe account$/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Treasury\.\*4 个 8379 账户/ })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Operations\.\*1 个 8379 账户$/ })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: /Unrelated/ })).not.toBeInTheDocument()
   })
 
   it('describes the choice to assistive technology', () => {
     renderDialog()
 
-    expect(screen.getByRole('dialog', { name: 'Open this Safe in a Workspace' })).toHaveAccessibleDescription(
-      'This Safe is in more than one of your Workspaces. Choose the Workspace to open it in.',
+    expect(screen.getByRole('dialog', { name: '在工作空间中打开此 8379' })).toHaveAccessibleDescription(
+      '此 8379 属于您的多个工作空间，请选择要打开的工作空间。',
     )
   })
 
   it('opens the Safe in the chosen Workspace and closes', () => {
     const { replace } = renderDialog()
 
-    fireEvent.click(screen.getByRole('button', { name: /Operations/ }))
+    fireEvent.click(screen.getByRole('button', { name: /运营/ }))
 
     expect(replace).toHaveBeenCalledWith(
       { pathname: '/home', query: { safe: `eth:${SAFE_ADDRESS}`, spaceId: SPACE_B } },
@@ -97,7 +97,7 @@ describe('SafeWorkspaceChooserDialog', () => {
   it('closes without a Workspace when the user continues without one', () => {
     const { replace } = renderDialog()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue without Workspace' }))
+    fireEvent.click(screen.getByRole('button', { name: '不使用工作空间，继续' }))
 
     expect(replace).not.toHaveBeenCalled()
     expect(screen.queryByTestId('safe-workspace-chooser-dialog')).not.toBeInTheDocument()
@@ -119,7 +119,7 @@ describe('SafeWorkspaceChooserDialog', () => {
 
   it.each([
     ['chose a Workspace', /Operations/],
-    ['continued without one', 'Continue without Workspace'],
+    ['continued without one', '不使用工作空间，继续'],
   ])('asks again on the next visit to the Safe after the user %s', (_, answer) => {
     const { leaveAndReturnToSafe } = renderDialog()
     fireEvent.click(screen.getByRole('button', { name: answer }))

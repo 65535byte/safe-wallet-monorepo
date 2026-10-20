@@ -45,14 +45,14 @@ describe('SafeWorkspaceSignInDialog', () => {
   it('asks a signed-out user to sign in when the Safe link has a Workspace', () => {
     renderDialog()
 
-    expect(screen.getByText('Sign in to open this Safe in its Workspace')).toBeInTheDocument()
+    expect(screen.getByText('登录以在工作空间中打开此 Safe')).toBeInTheDocument()
     expect(screen.getByTestId('sign-in-options')).toBeInTheDocument()
   })
 
   it('opens the Safe outside the Workspace when the user continues without it', () => {
     const replace = renderDialog()
 
-    fireEvent.click(screen.getByText('Continue without Workspace'))
+    fireEvent.click(screen.getByText('不使用工作空间，继续'))
 
     expect(replace).toHaveBeenCalledWith({ pathname: '/home', query: { safe: SAFE } }, undefined, { shallow: true })
   })

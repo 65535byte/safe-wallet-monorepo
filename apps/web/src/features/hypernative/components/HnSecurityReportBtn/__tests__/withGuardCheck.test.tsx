@@ -33,6 +33,6 @@ describe('withGuardCheck', () => {
 
     render(<Wrapped />)
 
-    expect(screen.getByText('Security report')).toBeInTheDocument()
+    expect(screen.getByText('安全报告')).toBeInTheDocument()
   })
 })

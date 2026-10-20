@@ -39,7 +39,7 @@ describe('factoryValidationScanner', () => {
     // The factory evidence carries the full, un-truncated address so the shared
     // EvidenceList renderer can shorten it and attach a copy button (WA-2371).
     expect(result.evidence).toContainEqual({
-      label: 'Factory',
+      label: '工厂合约',
       value: '0xa6B71E26C5e0845f74c812102Ca7114b6a896AB2',
     })
   })
@@ -77,7 +77,7 @@ describe('factoryValidationScanner', () => {
     expect(result.severity).toBe('Medium')
     expect(result.score).toBe(60)
     expect(result.evidence).toContainEqual({
-      label: 'Factory',
+      label: '工厂合约',
       value: '0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF',
     })
   })

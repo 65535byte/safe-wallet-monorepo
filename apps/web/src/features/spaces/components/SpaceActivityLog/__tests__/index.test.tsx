@@ -87,8 +87,8 @@ describe('SpaceActivityLog', () => {
 
     render(<SpaceActivityLog />)
 
-    expect(screen.getByText('Could not load activity.')).toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: /retry/i })).not.toBeInTheDocument()
+    expect(screen.getByText('无法加载活动。')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /重试/i })).not.toBeInTheDocument()
     expect(screen.queryByTestId('activity-log-load-more')).not.toBeInTheDocument()
   })
 
@@ -97,7 +97,7 @@ describe('SpaceActivityLog', () => {
 
     render(<SpaceActivityLog />)
 
-    expect(screen.getByText('No activity yet.')).toBeInTheDocument()
+    expect(screen.getByText('暂无活动。')).toBeInTheDocument()
   })
 
   it('renders event rows', () => {
@@ -214,14 +214,14 @@ describe('SpaceActivityLog', () => {
     render(<SpaceActivityLog />)
     fireEvent.click(screen.getByTestId('set-actor-filter'))
 
-    expect(screen.getByText('No results')).toBeInTheDocument()
+    expect(screen.getByText('无结果')).toBeInTheDocument()
   })
 
   it('tracks the activity log view once per mount', () => {
     const { rerender } = render(<SpaceActivityLog />)
     rerender(<SpaceActivityLog />)
 
-    expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.ACTIVITY_LOG_VIEWED, undefined)
+    expect(trackEvent).toHaveBeenCalledWith(SPACE_EVENTS.ACTIVITY_LOG_VIEWED)
     expect(trackEvent).toHaveBeenCalledTimes(1)
   })
 

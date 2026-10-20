@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Sticky } from '@safe-global/views/components/common/Sticky'
 import Track from '@/components/common/Track'
 import { ASSETS_EVENTS } from '@/services/analytics'
@@ -29,7 +30,8 @@ const TokenMenu = ({
         <div className={css.hideTokensHeader}>
           <EyeOff data-testid="hidden-token-icon" />
           <Typography data-testid="hidden-token-count" variant="paragraph-small" className="leading-[inherit]">
-            {selectedAssetCount} {selectedAssetCount === 1 ? 'token' : 'tokens'} selected
+            {selectedAssetCount} {selectedAssetCount === 1 ? 'token' : 'tokens'}{' '}
+            {translateMessage('ui.selected_7b51a5e2')}
           </Typography>
         </div>
         <div className="flex flex-row gap-2">
@@ -41,7 +43,7 @@ const TokenMenu = ({
               size="sm"
               variant="outline"
             >
-              Cancel
+              {translateMessage('ui.cancel_d94a8eaf')}
             </Button>
           </Track>
           <Track {...ASSETS_EVENTS.DESELECT_ALL_HIDE_DIALOG}>
@@ -52,7 +54,7 @@ const TokenMenu = ({
               size="sm"
               variant="outline"
             >
-              Deselect all
+              {translateMessage('ui.deselectAll_697211c4')}
             </Button>
           </Track>
           <Track {...ASSETS_EVENTS.SAVE_HIDE_DIALOG}>
@@ -63,7 +65,7 @@ const TokenMenu = ({
               size="sm"
               variant="default"
             >
-              Save
+              {translateMessage('ui.save_5fe30f30')}
             </Button>
           </Track>
         </div>

@@ -90,9 +90,9 @@ describe('NestedSafesList', () => {
   it('renders the nested Safes empty state', () => {
     renderWithTxFlow()
 
-    expect(screen.getByText('Nested Safes')).toBeInTheDocument()
+    expect(screen.getByText('嵌套 8379')).toBeInTheDocument()
     expect(screen.getByText(/You don't have any Nested Safes yet/)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Add nested Safe/i })).toBeEnabled()
+    expect(screen.getByRole('button', { name: /添加嵌套 8379/i })).toBeEnabled()
   })
 
   it('enables rename for a Safe the viewer may rename', () => {

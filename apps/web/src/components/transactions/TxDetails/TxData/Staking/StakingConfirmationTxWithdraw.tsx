@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { NativeStakingWithdrawTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
 import TokenAmount from '@/components/common/TokenAmount'
@@ -9,7 +10,7 @@ type StakingOrderConfirmationViewProps = {
 const StakingConfirmationTxWithdraw = ({ order }: StakingOrderConfirmationViewProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <FieldsGrid title="Receive">
+      <FieldsGrid title={translateMessage('ui.receive_ae91e583')}>
         {' '}
         <TokenAmount
           value={order.value}

@@ -8,11 +8,11 @@ let trezorConnectInitialized = false
 
 export async function getTrezorSdk() {
   const { default: TrezorConnect } = await import('@trezor/connect-web')
-  const { TREZOR_APP_URL, TREZOR_EMAIL } = await import('@/config/constants')
+  const { BRAND_NAME, TREZOR_APP_URL, TREZOR_EMAIL } = await import('@/config/constants')
 
   if (!trezorConnectInitialized) {
     await TrezorConnect.init({
-      manifest: { appName: 'Safe{Wallet}', appUrl: TREZOR_APP_URL, email: TREZOR_EMAIL },
+      manifest: { appName: BRAND_NAME, appUrl: TREZOR_APP_URL, email: TREZOR_EMAIL },
       lazyLoad: true,
       coreMode: 'popup',
     })

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import Head from 'next/head'
 import type { NextPage } from 'next'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -14,7 +15,7 @@ const NotificationsPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Notifications`}</title>
+        <title>{translateMessage('ui.settingsNotifications_7ca30c36', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SettingsHeader />
@@ -24,7 +25,7 @@ const NotificationsPage: NextPage = () => {
           <PushNotifications />
         ) : isNotificationFeatureEnabled === false ? (
           <Typography align="center" className="my-6">
-            Notifications are not available on this network.
+            {translateMessage('ui.notificationsAreNotAvailableOnThis_3bc32a9e')}
           </Typography>
         ) : null}
       </main>

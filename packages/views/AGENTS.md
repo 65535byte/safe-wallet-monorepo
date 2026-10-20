@@ -19,3 +19,7 @@ yarn workspace @safe-global/views lint
 yarn workspace @safe-global/web type-check     # also covers the package's tests and stories
 yarn workspace @safe-global/web test packages/views
 ```
+
+## Localization
+
+Use `translateMessage` from `@safe-global/views/i18n` for UI copy and maintain both `src/i18n/locales/` catalogs. Do not import app catalogs. Preserve protocol identifiers, addresses, transaction data and `8379` branding.

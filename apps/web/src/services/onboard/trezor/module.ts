@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Transaction } from 'ethers'
 import type { Chain, WalletInit, WalletInterface } from '@web3-onboard/common'
 import type { Account, Asset, ScanAccountsOptions } from '@web3-onboard/hw-common'
@@ -39,7 +40,7 @@ export function trezorModule(): WalletInit {
           if (!newChain) {
             throw new ProviderRpcError({
               code: ProviderRpcErrorCode.UNRECOGNIZED_CHAIN_ID,
-              message: `Unrecognized chain ID: ${chainId}`,
+              message: translateMessage('ui.unrecognizedChainID_0bf002f7', { p0: chainId }),
             })
           }
           currentChain = newChain
@@ -65,7 +66,7 @@ export function trezorModule(): WalletInit {
           if (!currentAccount?.derivationPath) {
             throw new ProviderRpcError({
               code: -32000, // Method handler crashed
-              message: 'No derivation path found',
+              message: translateMessage('ui.noDerivationPathFound_7ad2d82a'),
             })
           }
           return currentAccount.derivationPath
@@ -81,7 +82,7 @@ export function trezorModule(): WalletInit {
             if (!rpcUrl) {
               throw new ProviderRpcError({
                 code: ProviderRpcErrorCode.UNRECOGNIZED_CHAIN_ID,
-                message: `No RPC found for chain ID: ${currentChain.id}`,
+                message: translateMessage('ui.noRPCFoundForChainID_1c70f887', { p0: currentChain.id }),
               })
             }
             return rpcUrl
@@ -147,7 +148,9 @@ export function trezorModule(): WalletInit {
               if (requestedAddress.toLowerCase() !== currentAccount?.address.toLowerCase()) {
                 throw new ProviderRpcError({
                   code: ProviderRpcErrorCode.INVALID_PARAMS,
-                  message: `Requested address ${requestedAddress} does not match connected account`,
+                  message: translateMessage('ui.requestedAddressDoesNotMatchConnected_84625e92', {
+                    p0: requestedAddress,
+                  }),
                 })
               }
               // The Safe requires transactions be signed as bytes, but eth_sign is only used by

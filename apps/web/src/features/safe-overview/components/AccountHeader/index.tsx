@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, useContext, useMemo, useCallback, useState, Suspense } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
@@ -80,7 +81,7 @@ const AccountHeader = (): ReactElement => {
         otherActions={
           <Button variant="surface" size="action" onClick={handleManageSafe}>
             <Settings className="size-4" />
-            Manage Safe
+            {translateMessage('ui.manage_d383b98c')}
           </Button>
         }
       />

@@ -93,7 +93,7 @@ describe('HnSecurityReportBtnWithTxHash', () => {
 
     render(<HnSecurityReportBtnWithTxHash txDetails={txDetails} />)
 
-    const link = screen.getByRole('link', { name: /review security report/i })
+    const link = screen.getByRole('link', { name: /查看安全报告/i })
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', expect.stringContaining(`tx=${mockSafeTxHash}`))
   })
@@ -103,7 +103,7 @@ describe('HnSecurityReportBtnWithTxHash', () => {
 
     render(<HnSecurityReportBtnWithTxHash txDetails={txDetails} />)
 
-    const link = screen.getByRole('link', { name: /review security report/i })
+    const link = screen.getByRole('link', { name: /查看安全报告/i })
     const href = link.getAttribute('href')
     const url = new URL(href!)
     expect(url.searchParams.get('chain')).toBe(`evm:${mockChainId}`)

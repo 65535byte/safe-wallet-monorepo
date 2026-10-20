@@ -105,8 +105,8 @@ describe('SafenetChecksSection', () => {
 
     const section = screen.getByTestId('safenet-checks-section')
     expect(section).toHaveAttribute('data-reason', 'NO_CHECK')
-    expect(section).toHaveTextContent('Not checked')
-    expect(section).toHaveTextContent('No Safenet check was requested for this transaction.')
+    expect(section).toHaveTextContent('尚未检查')
+    expect(section).toHaveTextContent('此交易未请求 Safenet 检查。')
   })
 
   it('never claims an absent check when the read window could not cover one', () => {
@@ -128,7 +128,7 @@ describe('SafenetChecksSection', () => {
 
     const section = screen.getByTestId('safenet-checks-section')
     expect(section).toHaveAttribute('data-reason', 'WINDOW_UNCERTAIN')
-    expect(section).toHaveTextContent('Safenet status unknown')
+    expect(section).toHaveTextContent('Safenet 状态未知')
     expect(section).not.toHaveTextContent('No Safenet check was requested')
   })
 
@@ -145,15 +145,15 @@ describe('SafenetChecksSection', () => {
 
     const section = screen.getByTestId('safenet-checks-section')
     expect(section).toHaveAttribute('data-reason', 'READ_FAILED')
-    expect(section).toHaveTextContent("Couldn't read Safenet status")
+    expect(section).toHaveTextContent('无法读取 Safenet 状态')
   })
 
   it.each<[Exclude<PublicCheckStatus, CheckStatus.UNAVAILABLE>, string]>([
-    [CheckStatus.SUBMITTED, 'Check submitted to Safenet.'],
-    [CheckStatus.IN_PROGRESS, 'Safenet is simulating this transaction.'],
-    [CheckStatus.BENIGN, 'Safenet found no issues'],
-    [CheckStatus.MALICIOUS, 'Safenet flagged this address/transaction as malicious'],
-    [CheckStatus.TIMED_OUT, 'Safenet check is unavailable. You can still continue.'],
+    [CheckStatus.SUBMITTED, '检查已提交至 Safenet。'],
+    [CheckStatus.IN_PROGRESS, 'Safenet 正在模拟此交易。'],
+    [CheckStatus.BENIGN, 'Safenet 未发现问题'],
+    [CheckStatus.MALICIOUS, 'Safenet 将此地址或交易标记为恶意'],
+    [CheckStatus.TIMED_OUT, 'Safenet 检查不可用，您仍可继续。'],
   ])('renders %s copy', (status, copy) => {
     const snapshot = buildSnapshot({ safeTxHash: HASH as `0x${string}`, status })
     mockUseSafenetCheck.mockReturnValue(buildCheckView({ snapshot, status, publicStatus: status }))
@@ -174,9 +174,9 @@ describe('SafenetChecksSection', () => {
 
     renderInFlow({ txId: TX_ID, txDetails })
 
-    expect(screen.getByRole('status')).toHaveTextContent('Risks detected')
+    expect(screen.getByRole('status')).toHaveTextContent('检测到风险')
     const rules = screen.getByTestId('safenet-rejection-rules').textContent ?? ''
-    expect(rules.indexOf('Unlimited approval')).toBeLessThan(rules.indexOf('Unknown spender'))
+    expect(rules.indexOf('无限授权')).toBeLessThan(rules.indexOf('未知支出授权人'))
   })
 
   it('pulses instead of showing a severity icon while the check runs', () => {
@@ -198,7 +198,7 @@ describe('SafenetChecksSection', () => {
     expect(screen.getByTestId('safenet-checks-locked')).toBeInTheDocument()
     expect(screen.queryByTestId('safenet-checks-section')).not.toBeInTheDocument()
     await user.tab()
-    expect(await screen.findByRole('link', { name: /Learn more/ })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /了解更多/ })).toBeInTheDocument()
   })
 
   it('shows the pre-check note while a new transaction is being created', async () => {
@@ -208,7 +208,7 @@ describe('SafenetChecksSection', () => {
 
     expect(screen.getByTestId('safenet-checks-section')).toHaveAttribute('data-status', 'PRE_CHECK')
     await user.tab()
-    expect(await screen.findByRole('link', { name: /Learn more/ })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /了解更多/ })).toBeInTheDocument()
     expect(screen.getByText(/The check starts after you sign/)).toBeInTheDocument()
   })
 })

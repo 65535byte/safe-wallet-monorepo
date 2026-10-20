@@ -82,7 +82,7 @@ describe('ReviewStep', () => {
       <ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />,
     )
 
-    expect(getByText('Pay now')).toBeInTheDocument()
+    expect(getByText('立即支付')).toBeInTheDocument()
   })
 
   it('should display a pay later option as selected by default for counterfactual safe setups', () => {
@@ -109,7 +109,7 @@ describe('ReviewStep', () => {
       },
     })
 
-    const payLaterOption = screen.getByRole('radio', { name: /Pay later/i })
+    const payLaterOption = screen.getByRole('radio', { name: /稍后支付/i })
     expect(payLaterOption).toBeChecked()
   })
 
@@ -128,7 +128,7 @@ describe('ReviewStep', () => {
       <ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />,
     )
 
-    expect(queryByText('You will have to confirm a transaction and pay an estimated fee')).not.toBeInTheDocument()
+    expect(queryByText('You will have to confirm a transaction 和 pay an estimated fee')).not.toBeInTheDocument()
   })
 
   it('should not display the execution method for counterfactual safes', () => {
@@ -146,7 +146,7 @@ describe('ReviewStep', () => {
       <ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />,
     )
 
-    expect(queryByText('Who will pay gas fees')).not.toBeInTheDocument()
+    expect(queryByText('Gas 费用支付方')).not.toBeInTheDocument()
   })
 
   it('should display the network fee for counterfactual safes if the user selects pay now', async () => {
@@ -164,13 +164,13 @@ describe('ReviewStep', () => {
       <ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />,
     )
 
-    const payNow = getByText('Pay now')
+    const payNow = getByText('立即支付')
 
     act(() => {
       fireEvent.click(payNow)
     })
 
-    expect(getByText(/You will have to confirm a transaction and pay an estimated fee/)).toBeInTheDocument()
+    expect(getByText(/您需要通过已连接的钱包确认交易，并支付预计费用/)).toBeInTheDocument()
   })
 
   it('should display the execution method for counterfactual safes if the user selects pay now and there is relaying', async () => {
@@ -189,16 +189,16 @@ describe('ReviewStep', () => {
       <ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />,
     )
 
-    const payNow = getByText('Pay now')
+    const payNow = getByText('立即支付')
 
     act(() => {
       fireEvent.click(payNow)
     })
 
-    expect(getByText(/Who will pay gas fees/)).toBeInTheDocument()
+    expect(getByText(/Gas 费用支付方/)).toBeInTheDocument()
   })
 
-  it('shows the daily relay counter without a Pro upsell when Safe Pro is on, since a new Safe has no plan', () => {
+  it('shows the daily relay counter without a Pro upsell when 8379 is on, since a new Safe has no plan', () => {
     const mockData: NewSafeFormData = {
       name: 'Test',
       networks: [mockChain],
@@ -216,12 +216,12 @@ describe('ReviewStep', () => {
     render(<ReviewStep data={mockData} onSubmit={jest.fn()} onBack={jest.fn()} setStep={jest.fn()} />)
 
     act(() => {
-      fireEvent.click(screen.getByText('Pay now'))
+      fireEvent.click(screen.getByText('立即支付'))
     })
 
-    expect(screen.getByText(/free transactions left today/)).toBeInTheDocument()
+    expect(screen.getByText(/笔今日免费交易剩余/)).toBeInTheDocument()
     expect(screen.queryByTestId('sponsored-txs-upgrade')).not.toBeInTheDocument()
-    expect(screen.queryByRole('img', { name: 'Safe Pro' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('img', { name: '8379' })).not.toBeInTheDocument()
   })
 
   const authReduxState = {
@@ -256,11 +256,11 @@ describe('ReviewStep', () => {
     )
 
     expect(getByTestId('pay-now-later-message-box')).toBeInTheDocument()
-    expect(getByText(/activate your account/)).toBeInTheDocument()
-    expect(getByText(/Start exploring the accounts now/)).toBeInTheDocument()
-    expect(getByText('Not available for multiple networks')).toBeInTheDocument()
+    expect(getByText(/激活账户/)).toBeInTheDocument()
+    expect(getByText(/现在即可浏览账户/)).toBeInTheDocument()
+    expect(getByText('不适用于多个网络')).toBeInTheDocument()
     expect(getByTestId('pay-now-execution-method').querySelector('input')).toBeDisabled()
-    expect(screen.getByRole('radio', { name: /Pay later/i })).toBeChecked()
+    expect(screen.getByRole('radio', { name: /稍后支付/i })).toBeChecked()
   })
 
   it('disables creation for multichain until the user signs in (Pay later writes to the backend)', () => {
@@ -398,7 +398,7 @@ describe('ReviewStep', () => {
       expect.objectContaining({
         variant: 'info',
         groupKey: 'cf-safe-already-deployed',
-        message: expect.stringMatching(/already deployed on Gnosis Chain, Ethereum/),
+        message: expect.stringMatching(/此账户已部署在 Gnosis Chain, Ethereum 上/),
       }),
     )
   })
@@ -506,7 +506,7 @@ describe('ReviewStep', () => {
       )
 
       expect(screen.getByTestId('space-seat-limit-notice')).toHaveTextContent(
-        'This Workspace is at its limit of 20 Safe accounts. The new Safe will be created in My accounts, outside the Workspace.',
+        '此工作空间已达到上限： 20 个 Safe 账户。新 Safe 将在工作空间之外的“我的账户”中创建。',
       )
 
       await act(async () => {
@@ -558,7 +558,7 @@ describe('ReviewStep', () => {
       )
 
       act(() => {
-        fireEvent.click(screen.getByText('Pay now'))
+        fireEvent.click(screen.getByText('立即支付'))
       })
 
       expect(screen.queryByTestId('space-seat-limit-notice')).not.toBeInTheDocument()
@@ -653,7 +653,7 @@ describe('ReviewStep', () => {
       )
 
       act(() => {
-        fireEvent.click(screen.getByText('Pay now'))
+        fireEvent.click(screen.getByText('立即支付'))
       })
       await act(async () => {
         fireEvent.click(screen.getByTestId('review-step-next-btn'))

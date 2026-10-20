@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { getHttpStatusFromError } from '@safe-global/utils/services/exceptions/utils'
 import type { AppThunk } from '@/store'
@@ -6,7 +7,7 @@ import { showNotification } from '@/store/notificationsSlice'
 import { AppRoutes } from '@/config/routes'
 
 export const SESSION_EXPIRED_GROUP_KEY = 'session-expired'
-export const SESSION_EXPIRED_MESSAGE = 'Your session has expired. Please sign in to Workspaces again.'
+export const SESSION_EXPIRED_MESSAGE = translateMessage('ui.yourSessionHasExpiredPleaseSign_2bec5e1b')
 
 export const isForbidden = (error: unknown): error is FetchBaseQueryError => getHttpStatusFromError(error) === 403
 

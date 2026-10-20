@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { Chain } from '@safe-global/store/gateway/AUTO_GENERATED/chains'
 import { TransactionStatus } from '@safe-global/store/gateway/types'
 import { useEffect, useMemo, useRef } from 'react'
@@ -32,21 +33,21 @@ import { useIsTxFlowOpenRef } from '@/components/tx-flow/useIsTxFlowOpen'
 import { useUrlSpaceId } from '@/hooks/useUrlSpaceId'
 
 const TxNotifications = {
-  [TxEvent.SIGN_FAILED]: 'Failed to sign. Please try again.',
-  [TxEvent.PROPOSED]: 'Successfully added to queue.',
-  [TxEvent.PROPOSE_FAILED]: 'Failed to add to queue. Please try again.',
-  [TxEvent.DELETED]: 'Successfully deleted transaction.',
-  [TxEvent.SIGNATURE_PROPOSED]: 'Successfully signed.',
-  [TxEvent.SIGNATURE_PROPOSE_FAILED]: 'Failed to send signature. Please try again.',
-  [TxEvent.EXECUTING]: 'Confirm the execution in your wallet.',
+  [TxEvent.SIGN_FAILED]: translateMessage('ui.failedToSignPleaseTryAgain_c316687e'),
+  [TxEvent.PROPOSED]: translateMessage('ui.successfullyAddedToQueue_34049c7c'),
+  [TxEvent.PROPOSE_FAILED]: translateMessage('ui.failedToAddToQueuePlease_64010912'),
+  [TxEvent.DELETED]: translateMessage('ui.successfullyDeletedTransaction_ad7cce60'),
+  [TxEvent.SIGNATURE_PROPOSED]: translateMessage('ui.successfullySigned_392c477c'),
+  [TxEvent.SIGNATURE_PROPOSE_FAILED]: translateMessage('ui.failedToSendSignaturePleaseTry_f94b9a92'),
+  [TxEvent.EXECUTING]: translateMessage('ui.confirmTheExecutionInYourWallet_86537327'),
   [TxEvent.PROCESSING]: 'Validating...',
-  [TxEvent.PROCESSING_MODULE]: 'Validating module interaction...',
-  [TxEvent.ONCHAIN_SIGNATURE_REQUESTED]: 'Confirm on-chain signature in your wallet.',
-  [TxEvent.ONCHAIN_SIGNATURE_SUCCESS]: 'On-chain signature request confirmed.',
-  [TxEvent.PROCESSED]: 'Successfully validated. Indexing...',
-  [TxEvent.REVERTED]: 'Reverted. Please check your gas settings.',
-  [TxEvent.SUCCESS]: 'Successfully executed.',
-  [TxEvent.FAILED]: 'Execution failed.',
+  [TxEvent.PROCESSING_MODULE]: translateMessage('ui.validatingModuleInteraction_77c6fc9e'),
+  [TxEvent.ONCHAIN_SIGNATURE_REQUESTED]: translateMessage('ui.confirmOnChainSignatureInYour_2f5e8984'),
+  [TxEvent.ONCHAIN_SIGNATURE_SUCCESS]: translateMessage('ui.onChainSignatureRequestConfirmed_9f197592'),
+  [TxEvent.PROCESSED]: translateMessage('ui.successfullyValidatedIndexing_a442b887'),
+  [TxEvent.REVERTED]: translateMessage('ui.revertedPleaseCheckYourGasSettings_fc355aa1'),
+  [TxEvent.SUCCESS]: translateMessage('ui.successfullyExecuted_97c6fbbc'),
+  [TxEvent.FAILED]: translateMessage('ui.executionFailed_6d2fe900'),
 }
 
 enum Variant {
@@ -126,11 +127,11 @@ const useTxNotifications = (): void => {
         // Override message for Guard errors
         if (event === TxEvent.REVERTED) {
           // A mined revert means gas was already paid — say so (WA-3005).
-          message = `Transaction reverted on ${chain.chainName}. Gas was spent.`
+          message = translateMessage('ui.transactionRevertedOnGasWasSpent_b954b18c', { p0: chain.chainName })
         } else if (hnApprovalRequired) {
           message = HYPERNATIVE_APPROVAL_REQUIRED_MESSAGE
         } else if (guardErrorName) {
-          message = `Guard reverted the transaction (${guardErrorName}).`
+          message = translateMessage('ui.guardRevertedTheTransaction_3acd0144', { p0: guardErrorName })
         } else if (gasLimitTooLowMessage) {
           message = gasLimitTooLowMessage
         } else if (isError && isNonceTooLowError(detail.error)) {
@@ -227,7 +228,7 @@ const useTxNotifications = (): void => {
     dispatch(
       showNotification({
         variant: 'info',
-        message: 'A transaction requires your confirmation.',
+        message: translateMessage('ui.aTransactionRequiresYourConfirmation_7e852184'),
         link: chain && getTxLink(txId, chain, safeAddress, spaceId),
         groupKey: txId,
       }),

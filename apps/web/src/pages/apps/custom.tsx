@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -30,14 +31,14 @@ const CustomSafeApps: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Custom Safe Apps`}</title>
+        <title>{translateMessage('ui.customSafeApps_d379f62a', { p0: BRAND_NAME })}</title>
       </Head>
 
       <SafeAppsHeader />
 
       <main>
         <SafeAppList
-          title="Custom apps"
+          title={translateMessage('ui.customApps_642998ac')}
           safeAppsList={customSafeApps}
           addCustomApp={addCustomApp}
           removeCustomApp={openRemoveCustomAppModal}

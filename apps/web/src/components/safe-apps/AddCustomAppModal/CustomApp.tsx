@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback } from 'react'
 import type { SafeApp as SafeAppData } from '@safe-global/store/gateway/AUTO_GENERATED/safe-apps'
 import { Check } from 'lucide-react'
@@ -36,7 +37,7 @@ const CustomApp = ({ safeApp, shareUrl }: CustomAppProps) => {
         <CopyButton
           className={css.customAppCheckIcon}
           text={shareUrl}
-          initialToolTipText={`Copy share URL for ${safeApp.name}`}
+          initialToolTipText={translateMessage('ui.copyShareURLFor_108a0ea8', { p0: safeApp.name })}
           onCopy={handleCopy}
         >
           <ShareIcon className="size-4 text-[var(--color-border-main)]" />

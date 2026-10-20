@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useCallback, useContext, useEffect, type PropsWithChildren } from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import EthHashInfo from '@/components/common/EthHashInfo'
@@ -25,14 +26,13 @@ export const ReviewRemoveGuard = ({
 
   return (
     <ReviewTransaction onSubmit={onFormSubmit}>
-      <Typography className="text-[var(--color-primary-light)]">Transaction guard</Typography>
+      <Typography className="text-[var(--color-primary-light)]">
+        {translateMessage('ui.transactionGuard_57b094f9')}
+      </Typography>
 
       <EthHashInfo address={params.address} showCopyButton hasExplorer shortAddress={false} />
 
-      <Typography className="my-4">
-        Once the transaction guard has been removed, checks by the transaction guard will not be conducted before or
-        after any subsequent transactions.
-      </Typography>
+      <Typography className="my-4">{translateMessage('ui.onceTheTransactionGuardHasBeen_55915332')}</Typography>
 
       {children}
     </ReviewTransaction>

@@ -1,3 +1,4 @@
+import { translateMessage } from '@safe-global/views/i18n'
 import { SearchX } from 'lucide-react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 
@@ -6,12 +7,16 @@ export const PoliciesNoSearchResults = ({ query }: { query: string }) => (
     <SearchX className="size-6 text-muted-foreground" aria-hidden />
 
     <div className="flex flex-col gap-1">
-      <Typography variant="paragraph-bold">No policies found</Typography>
+      <Typography variant="paragraph-bold">{translateMessage('ui.noPoliciesFound_fd7121cc')}</Typography>
       <Typography variant="paragraph-small" className="text-muted-foreground">
         {query ? (
-          <>Nothing matches &ldquo;{query}&rdquo;. Try a different name, address, token or network.</>
+          <>
+            {translateMessage('ui.nothingMatches_805fa660')}
+            {query}
+            {translateMessage('ui.tryADifferentNameAddressToken_3ae2ce0e')}
+          </>
         ) : (
-          'Nothing matches this filter.'
+          translateMessage('ui.nothingMatchesThisFilter_b8b9ffeb')
         )}
       </Typography>
     </div>

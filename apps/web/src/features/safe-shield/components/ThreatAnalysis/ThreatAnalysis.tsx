@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useMemo, type ReactElement } from 'react'
 import {
   type ThreatAnalysisResults,
@@ -55,7 +56,9 @@ export const ThreatAnalysis = ({
 
   if (requiresHypernativeLogin) {
     return (
-      <AnalysisGroupCardDisabled data-testid="threat-analysis-group-card">Threat analysis</AnalysisGroupCardDisabled>
+      <AnalysisGroupCardDisabled data-testid="threat-analysis-group-card">
+        {translateMessage('ui.threatAnalysis_2934c38d')}
+      </AnalysisGroupCardDisabled>
     )
   }
 

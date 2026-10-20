@@ -75,20 +75,20 @@ describe('formatAllowanceAmount', () => {
   })
 
   it('reads as one time when the allowance does not repeat', () => {
-    expect(formatAllowanceAmount({ ...usdt, resetPeriodMinutes: 0 })).toBe('1,000 one time')
+    expect(formatAllowanceAmount({ ...usdt, resetPeriodMinutes: 0 })).toBe('1,000，仅一次')
   })
 })
 
 describe('formatRemaining', () => {
   it('names the token, because the row shows several', () => {
-    expect(formatRemaining(usdc)).toBe('500 USDC remaining')
+    expect(formatRemaining(usdc)).toBe('剩余 500 USDC')
   })
 })
 
 describe('formatSignedCount', () => {
   it.each([
-    [1, 3, '1 of 3 signed'],
-    [2, 2, '2 of 2 signed'],
+    [1, 3, '1 / 3 signed'],
+    [2, 2, '2 / 2 signed'],
   ])('renders %i of %i', (signed, required, expected) => {
     expect(formatSignedCount(signed, required)).toBe(expected)
   })
@@ -96,10 +96,10 @@ describe('formatSignedCount', () => {
 
 describe('formatAwaitingSignatures', () => {
   it('stays singular for the last outstanding signature', () => {
-    expect(formatAwaitingSignatures(1)).toBe('Waiting for 1 more signature')
+    expect(formatAwaitingSignatures(1)).toBe('还需 1 个签名')
   })
 
   it('pluralises beyond one', () => {
-    expect(formatAwaitingSignatures(2)).toBe('Waiting for 2 more signatures')
+    expect(formatAwaitingSignatures(2)).toBe('还需 2 个签名')
   })
 })

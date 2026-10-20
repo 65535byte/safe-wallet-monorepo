@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import React from 'react'
 import { Typography } from '@safe-global/views/components/ui/typography'
 import Image from 'next/image'
@@ -19,7 +20,7 @@ const NoFeeCampaignTransactionCard = () => {
   if (blockedAddress) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center">
-        <BlockedAddress address={blockedAddress} featureTitle="Free January" />
+        <BlockedAddress address={blockedAddress} featureTitle={translateMessage('ui.freeJanuary_dad509e1')} />
       </div>
     )
   }
@@ -50,7 +51,7 @@ const NoFeeCampaignTransactionCard = () => {
             <div className={css.iconContainer}>
               <Image
                 src="/images/common/no-fee-campaign/Cards_USDe.svg"
-                alt="USDe Logo"
+                alt={translateMessage('ui.uSDeLogo_9d6af50f')}
                 width={48}
                 height={48}
                 className={css.cardsImage}
@@ -58,17 +59,17 @@ const NoFeeCampaignTransactionCard = () => {
             </div>
             <div className="flex flex-1 flex-col">
               <Typography variant="paragraph-small-bold" className={css.title}>
-                Enjoy Free January: No Fee on Ethereum Mainnet
+                {translateMessage('ui.enjoyFreeJanuaryNoFeeOn_5c7763a2')}
               </Typography>
               <Typography variant="paragraph-small" className={css.description}>
-                USDe holders enjoy gasless transactions on Ethereum Mainnet this January.{' '}
+                {translateMessage('ui.uSDeHoldersEnjoyGaslessTransactionsOn_76fd8a95')}{' '}
                 <Link
                   href="https://help.safe.global/articles/9605526657-no-fee-january-campaign"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: 'underline', fontWeight: 'bold' }}
                 >
-                  Learn more
+                  {translateMessage('ui.learnMore_0c11daba')}
                 </Link>
               </Typography>
             </div>
@@ -89,32 +90,32 @@ const NoFeeCampaignTransactionCard = () => {
               {/* Title and eligibility tag inline */}
               <div className={css.titleRow}>
                 <Typography variant="paragraph-small-bold" className={css.title}>
-                  Enjoy Free January
+                  {translateMessage('ui.enjoyFreeJanuary_1c2a3bae')}
                 </Typography>
                 <div className={css.eligibilityTag}>
                   <Image
                     src="/images/common/no-fee-campaign/check-icon.svg"
-                    alt="Eligible"
+                    alt={translateMessage('ui.eligible_619a363a')}
                     width={16}
                     height={16}
                     className={css.tagIcon}
                   />
                   <Typography variant="paragraph-mini" className={css.tagText}>
-                    You are eligible
+                    {translateMessage('ui.youAreEligible_a64965cf')}
                   </Typography>
                 </div>
               </div>
 
               {/* Description */}
               <Typography variant="paragraph-small" className={css.description}>
-                USDe holders enjoy gasless transactions on Ethereum Mainnet this January.{' '}
+                {translateMessage('ui.uSDeHoldersEnjoyGaslessTransactionsOn_76fd8a95')}{' '}
                 <Link
                   href="https://help.safe.global/articles/9605526657-no-fee-january-campaign"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ textDecoration: 'underline', fontWeight: 'bold' }}
                 >
-                  Learn more
+                  {translateMessage('ui.learnMore_0c11daba')}
                 </Link>
               </Typography>
             </div>
@@ -123,7 +124,7 @@ const NoFeeCampaignTransactionCard = () => {
             <div className={css.coinsContainer}>
               <Image
                 src="/images/common/no-fee-campaign/Cards_USDe.svg"
-                alt="USDe Logo"
+                alt={translateMessage('ui.uSDeLogo_9d6af50f')}
                 width={58}
                 height={58}
                 className={css.coinsImage}

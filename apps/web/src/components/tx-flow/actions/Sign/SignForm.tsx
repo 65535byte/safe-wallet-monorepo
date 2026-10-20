@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import madProps from '@/utils/mad-props'
 import { type ReactElement, type SyntheticEvent, useContext } from 'react'
 import { Separator } from '@safe-global/views/components/ui/separator'
@@ -116,7 +117,11 @@ export const SignForm = ({
 
   return (
     <div className="flex flex-col gap-6">
-      {hasSigned && <ErrorMessage level="warning">You have already signed this transaction.</ErrorMessage>}
+      {hasSigned && (
+        <ErrorMessage level="warning">
+          {translateMessage('ui.youHaveAlreadySignedThisTransaction_07556424')}
+        </ErrorMessage>
+      )}
 
       {cannotPropose && <NonOwnerError />}
 

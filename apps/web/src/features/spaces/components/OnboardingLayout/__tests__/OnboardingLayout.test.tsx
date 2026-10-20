@@ -11,7 +11,7 @@ describe('OnboardingLayout logo', () => {
   it('renders the logo as a link to the workspace list by default', () => {
     render(<OnboardingLayout main={<div />} sidePanel={<div />} />)
 
-    const logo = screen.getByRole('link', { name: 'Back to Spaces' })
+    const logo = screen.getByRole('link', { name: '返回工作空间' })
     expect(logo).toHaveAttribute('href', AppRoutes.welcome.spaces)
   })
 
@@ -19,8 +19,8 @@ describe('OnboardingLayout logo', () => {
     const onLogoClick = jest.fn()
     render(<OnboardingLayout main={<div />} sidePanel={<div />} onLogoClick={onLogoClick} />)
 
-    expect(screen.queryByRole('link', { name: 'Back to Spaces' })).not.toBeInTheDocument()
-    const logo = screen.getByRole('button', { name: 'Back to Spaces' })
+    expect(screen.queryByRole('link', { name: '返回工作空间' })).not.toBeInTheDocument()
+    const logo = screen.getByRole('button', { name: '返回工作空间' })
 
     await userEvent.click(logo)
     expect(onLogoClick).toHaveBeenCalledTimes(1)

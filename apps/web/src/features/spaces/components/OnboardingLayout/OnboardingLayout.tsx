@@ -1,9 +1,9 @@
+import { translateMessage } from '@/i18n'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { cn } from '@safe-global/views/utils/cn'
 import { AppRoutes } from '@/config/routes'
-import SafeLogo from '@safe-global/views/assets/images/logo-no-text.svg'
 
 interface OnboardingLayoutProps {
   main: ReactNode
@@ -29,12 +29,29 @@ const OnboardingLayout = ({ main, footer, sidePanel, className, onLogoClick }: O
         <main className="flex h-full w-full flex-col overflow-hidden bg-background p-4 sm:p-8 xl:w-[56%]">
           <div className="mx-auto flex w-full max-w-[780px] flex-1 flex-col min-h-0">
             {onLogoClick ? (
-              <button type="button" onClick={onLogoClick} aria-label="Back to Spaces" className={logoClassName}>
-                <SafeLogo alt="Safe" width={22} height={22} />
+              <button
+                type="button"
+                onClick={onLogoClick}
+                aria-label={translateMessage('ui.backToSpaces_d2b4f0e8')}
+                className={logoClassName}
+              >
+                <img
+                  src="/images/brand-logo.png"
+                  alt={translateMessage('ui.safe_32142578')}
+                  className="size-6 rounded-sm object-contain"
+                />
               </button>
             ) : (
-              <Link href={AppRoutes.welcome.spaces} aria-label="Back to Spaces" className={logoClassName}>
-                <SafeLogo alt="Safe" width={22} height={22} />
+              <Link
+                href={AppRoutes.welcome.spaces}
+                aria-label={translateMessage('ui.backToSpaces_d2b4f0e8')}
+                className={logoClassName}
+              >
+                <img
+                  src="/images/brand-logo.png"
+                  alt={translateMessage('ui.safe_32142578')}
+                  className="size-6 rounded-sm object-contain"
+                />
               </Link>
             )}
             <div className="flex-1 min-h-0 flex flex-col gap-6 overflow-y-auto overscroll-y-none pr-2 [scrollbar-width:thin] [scrollbar-color:var(--border)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border">

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import { AppRoutes } from '@/config/routes'
@@ -14,15 +15,13 @@ import { TxFlowContext } from '@/components/tx-flow/TxFlowProvider'
 import { useSafeScope } from '@safe-global/views/components/tx-flow/safe-scope/context'
 import type { TxSenderScope } from '@safe-global/views/components/tx-flow/safe-scope/types'
 import { Execute } from '@/components/tx-flow/actions/Execute'
-import SubmitErrors from '@/components/tx-flow/actions/SubmitErrors'
 import { Receipt } from '../ConfirmTxDetails/Receipt'
-import ErrorMessage from '../ErrorMessage'
 import useTxPreview from '../confirmation-views/useTxPreview'
 import useChainId from '@/hooks/useChainId'
 import { useSafeLinkQuery } from '@/hooks/useSafeLinkQuery'
 import { createExistingTx } from '@/services/tx/tx-sender'
 
-const EXECUTE_OPTIONS = [{ id: 'execute', label: 'Execute' }]
+const EXECUTE_OPTIONS = [{ id: 'execute', label: translateMessage('ui.execute_eea2eb83') }]
 
 /**
  * Execute step for a fully signed transaction: after the signature that completes the threshold, or
@@ -32,7 +31,7 @@ const EXECUTE_OPTIONS = [{ id: 'execute', label: 'Execute' }]
 export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean }) => {
   const chainId = useChainId()
   const scope = useSafeScope()
-  const { safeTx, safeTxError, setSafeTx, setSafeTxError } = useContext(SafeTxContext)
+  const { safeTx, setSafeTx, setSafeTxError } = useContext(SafeTxContext)
   const { txId, onPrev } = useContext(TxFlowContext)
   const { setTxFlow } = useContext(TxModalContext)
   const router = useRouter()
@@ -51,7 +50,6 @@ export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean
   useEffect(() => {
     if (!txId) return
     if (txSenderScope && !txSenderScope.sdk) return
-    setSafeTxError(undefined)
     createExistingTx(chainId, txId, undefined, txSenderScope)
       .then((signedTx) => {
         setSafeTx(signedTx)
@@ -67,13 +65,9 @@ export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean
   }
 
   return (
-    <TxFlowStep title="Execute transaction" fixedNonce hideBack>
+    <TxFlowStep title={translateMessage('ui.executeTransaction_53212f12')} fixedNonce hideBack>
       <TxCard contentPadding="compactBottom">
-        {safeTxError && !isReloaded ? (
-          <ErrorMessage error={safeTxError}>
-            Could not load the signed transaction. Try again from the queue.
-          </ErrorMessage>
-        ) : !safeTx || !isReloaded ? (
+        {!safeTx || !isReloaded ? (
           <div className="flex items-center justify-center py-10">
             <Spinner className="size-6" />
           </div>
@@ -86,14 +80,10 @@ export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean
               className="border-[var(--color-border-light)] *:data-[slot=alert-description]:text-foreground *:[svg]:text-muted-foreground"
             >
               <AlertSeverityIcon variant="info" aria-hidden="true" />
-              <AlertDescription>
-                This transaction is fully signed. Nothing has been sent to the network yet.
-              </AlertDescription>
+              <AlertDescription>{translateMessage('ui.thisTransactionIsFullySignedNothing_f58fbab9')}</AlertDescription>
             </Alert>
 
             <Receipt safeTxData={safeTx.data} txData={txPreview?.txData} txInfo={txPreview?.txInfo} outlined />
-
-            <SubmitErrors />
 
             <Execute
               options={EXECUTE_OPTIONS}
@@ -102,11 +92,11 @@ export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean
               secondaryAction={
                 afterSigning ? (
                   <Button data-testid="execute-later-btn" variant="outline" size="lg" onClick={executeLater}>
-                    Execute later
+                    {translateMessage('ui.executeLater_f4e01425')}
                   </Button>
                 ) : (
                   <Button data-testid="modal-back-btn" variant="outline" size="lg" onClick={onPrev}>
-                    Back
+                    {translateMessage('ui.back_dae8bf43')}
                   </Button>
                 )
               }
@@ -122,8 +112,7 @@ export const ExecuteTxStep = ({ afterSigning = false }: { afterSigning?: boolean
               className="flex gap-3"
             >
               <AlertSeverityIcon variant="info" aria-hidden="true" className="size-4 shrink-0 translate-y-0.5" />
-              Executing submits this transaction on-chain and costs gas. Anyone can execute it &mdash; it doesn&apos;t
-              have to be you.
+              {translateMessage('ui.executingSubmitsThisTransactionOnChain_b230c3ba')}
             </Typography>
           </>
         )}

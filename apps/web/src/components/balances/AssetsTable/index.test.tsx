@@ -126,7 +126,7 @@ describe('AssetsTable', () => {
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
 
-    const saveButton = result.getByText('Save')
+    const saveButton = result.getByText('保存')
     fireEvent.click(saveButton)
 
     // Both tokens should still be hidden
@@ -203,12 +203,12 @@ describe('AssetsTable', () => {
     expect(result.queryByText(toBeHex('0x3', 20))).not.toBeNull()
     expect(result.queryByText(toBeHex('0xdead', 20))).not.toBeNull()
 
-    fireEvent.click(result.getByText('Deselect all'))
-    fireEvent.click(result.getByText('Save'))
+    fireEvent.click(result.getByText('取消全选'))
+    fireEvent.click(result.getByText('保存'))
 
     await waitFor(() => {
       // Menu should disappear
-      expect(result.queryByText('Save')).toBeNull()
+      expect(result.queryByText('保存')).toBeNull()
       // Assets should still be visible (unhidden)
       expect(result.getAllByText('100 DAI')[0]).not.toBeNull()
       expect(result.getAllByText('200 SPM')[0]).not.toBeNull()
@@ -286,7 +286,7 @@ describe('AssetsTable', () => {
     let tableRow = getParentRow(result.getAllByText('200 SPM')[0])
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
-    fireEvent.click(result.getByText('Save'))
+    fireEvent.click(result.getByText('保存'))
 
     // We only see DAI
     await waitFor(() => {
@@ -299,7 +299,7 @@ describe('AssetsTable', () => {
     tableRow = getParentRow(result.getAllByText('100 DAI')[0])
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
-    fireEvent.click(result.getByText('Save'))
+    fireEvent.click(result.getByText('保存'))
 
     await waitFor(() => {
       expect(result.queryByText('100 DAI')).toBeNull()
@@ -374,7 +374,7 @@ describe('AssetsTable', () => {
     let tableRow = getParentRow(result.getAllByText('200 SPM')[0])
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
-    fireEvent.click(result.getByText('Save'))
+    fireEvent.click(result.getByText('保存'))
 
     // SPAM token is hidden now
     await waitFor(() => {
@@ -395,7 +395,7 @@ describe('AssetsTable', () => {
     tableRow = getParentRow(result.getAllByText('200 SPM')[0])
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
-    const resetButton = result.getByText('Cancel')
+    const resetButton = result.getByText('取消')
     fireEvent.click(resetButton)
 
     // SPAM token is hidden again
@@ -411,7 +411,7 @@ describe('AssetsTable', () => {
     tableRow = getParentRow(result.getAllByText('200 SPM')[0])
     expect(tableRow).not.toBeNull()
     fireEvent.click(getByRole(tableRow!, 'checkbox'))
-    const saveButton = result.getByText('Save')
+    const saveButton = result.getByText('保存')
     fireEvent.click(saveButton)
 
     // Both tokens are visible again

@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { ReactElement } from 'react'
 import ModalDialog from '@/components/common/ModalDialog'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -29,7 +30,7 @@ const RemoveProposerModal = ({
     <ModalDialog
       open={open}
       onClose={onClose}
-      dialogTitle="Remove this proposer?"
+      dialogTitle={translateMessage('ui.removeThisProposer_874ef976')}
       hideChainIndicator
       maxWidth="sm"
       data-testid="remove-proposer-modal"
@@ -37,12 +38,9 @@ const RemoveProposerModal = ({
       <div className={cn('shadcn-scope', isDarkMode && 'dark')}>
         <div className="flex flex-col gap-4 px-6 pt-6">
           <Typography variant="paragraph">
-            Removing this proposer will permanently remove the address and it won&apos;t be able to suggest transactions
-            anymore.
+            {translateMessage('ui.removingThisProposerWillPermanentlyRemove_b781e757')}
           </Typography>
-          <Typography variant="paragraph">
-            To complete this action, confirm it with a signature on your connected wallet.
-          </Typography>
+          <Typography variant="paragraph">{translateMessage('ui.toCompleteThisActionConfirmIt_239da06a')}</Typography>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </div>
 
@@ -55,7 +53,7 @@ const RemoveProposerModal = ({
             disabled={isRemoving}
             data-testid="remove-proposer-cancel"
           >
-            No, keep it
+            {translateMessage('ui.noKeepIt_39df34cb')}
           </Button>
           <Button
             variant="destructive"
@@ -65,7 +63,7 @@ const RemoveProposerModal = ({
             disabled={isRemoving}
             data-testid="remove-proposer-confirm"
           >
-            {isRemoving ? <Spinner /> : 'Yes, delete'}
+            {isRemoving ? <Spinner /> : translateMessage('ui.yesDelete_185fdfd2')}
           </Button>
         </div>
       </div>

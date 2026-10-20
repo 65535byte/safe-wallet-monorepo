@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import type { VaultDepositTransactionInfo } from '@safe-global/store/gateway/AUTO_GENERATED/transactions'
 import VaultDepositConfirmation from '../VaultDepositConfirmation'
 import FieldsGrid from '@safe-global/views/components/tx/FieldsGrid'
@@ -9,7 +10,7 @@ const VaultDepositTxDetails = ({ info }: { info: VaultDepositTransactionInfo }) 
 
   return (
     <div className="flex flex-col gap-2 pl-2 pr-10">
-      <FieldsGrid title="Deposit">
+      <FieldsGrid title={translateMessage('ui.deposit_99d820fe')}>
         <TokenAmount
           tokenSymbol={info.tokenInfo.symbol}
           value={info.value}
@@ -17,7 +18,7 @@ const VaultDepositTxDetails = ({ info }: { info: VaultDepositTransactionInfo }) 
           decimals={info.tokenInfo.decimals}
         />
       </FieldsGrid>
-      <FieldsGrid title="Earn (after fees)">{formatPercentage(totalNrr)}</FieldsGrid>
+      <FieldsGrid title={translateMessage('ui.earnAfterFees_fb6f3996')}>{formatPercentage(totalNrr)}</FieldsGrid>
       <VaultDepositConfirmation txInfo={info} isTxDetails />
     </div>
   )

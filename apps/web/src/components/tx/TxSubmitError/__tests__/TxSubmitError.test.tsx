@@ -37,7 +37,7 @@ describe('TxSubmitError', () => {
     // GS errors show the code-only reference inline — no Details toggle
     expect(getByTestId('error-details')).toBeInTheDocument()
     expect(getByText('GS026')).toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
   })
 
   it('shows the stale-nonce message for a wallet (EOA) nonce-too-low rejection', () => {
@@ -71,9 +71,9 @@ describe('TxSubmitError', () => {
 
     const { getByText, queryByText } = render(<TxSubmitError error={error} />)
 
-    expect(getByText('Could not submit the transaction.')).toBeInTheDocument()
+    expect(getByText('无法提交交易。')).toBeInTheDocument()
     expect(queryByText(/Gas was spent/)).not.toBeInTheDocument()
-    expect(queryByText(/try again/i)).not.toBeInTheDocument()
+    expect(queryByText(/重试/i)).not.toBeInTheDocument()
   })
 
   it('shows what the Ledger asked for instead of the generic submit failure', () => {
@@ -85,7 +85,7 @@ describe('TxSubmitError', () => {
 
     const { getByText, queryByText } = render(<TxSubmitError error={error} />)
 
-    expect(getByText('Unlock your Ledger and try again.')).toBeInTheDocument()
+    expect(getByText('请解锁 Ledger 后重试。')).toBeInTheDocument()
     expect(queryByText(/Could not submit/)).not.toBeInTheDocument()
   })
 
@@ -98,9 +98,9 @@ describe('TxSubmitError', () => {
 
     const { getByText, queryByText, container } = render(<TxSubmitError error={error} />)
 
-    expect(getByText('Your Ledger could not complete the request.')).toBeInTheDocument()
+    expect(getByText('Ledger 无法完成请求。')).toBeInTheDocument()
     expect(getByText('LEDGER-UNKNOWN')).toBeInTheDocument()
-    expect(queryByText('Details')).not.toBeInTheDocument()
+    expect(queryByText('详情')).not.toBeInTheDocument()
 
     for (const forbidden of ['viem@', 'version=', 'InvalidStatusWordError', 'UNKNOWN_ERROR', 'info={']) {
       expect(container.textContent).not.toContain(forbidden)
@@ -112,7 +112,7 @@ describe('TxSubmitError', () => {
 
     const { getByText } = render(<TxSubmitError error={error} />)
 
-    expect(getByText('Could not submit the transaction. Try again.')).toBeInTheDocument()
+    expect(getByText('无法提交交易，请重试。')).toBeInTheDocument()
   })
 
   describe('a gas limit below the intrinsic minimum (WA-3523)', () => {
@@ -125,9 +125,7 @@ describe('TxSubmitError', () => {
     it('names the setting to change and the minimum needed', () => {
       const { getByText, queryByText } = render(<TxSubmitError error={intrinsicGasError()} />)
 
-      expect(
-        getByText('Gas limit too low. Minimum needed: 25,484. Increase the gas limit and try again.'),
-      ).toBeInTheDocument()
+      expect(getByText('Gas 上限过低，最低需要 25,484。请提高后重试。')).toBeInTheDocument()
       expect(queryByText(/Could not submit/)).not.toBeInTheDocument()
     })
 
@@ -137,7 +135,7 @@ describe('TxSubmitError', () => {
       for (const forbidden of ['execTransaction', 'reverted', 'intrinsic gas', '21000']) {
         expect(container.textContent).not.toContain(forbidden)
       }
-      expect(queryByText('Details')).not.toBeInTheDocument()
+      expect(queryByText('详情')).not.toBeInTheDocument()
       expect(queryByTestId('error-details')).not.toBeInTheDocument()
     })
   })
@@ -188,7 +186,7 @@ describe('TxSubmitError', () => {
 
       expect(queryByTestId('error-details')).not.toBeInTheDocument()
       expect(queryByText('CGW-502')).not.toBeInTheDocument()
-      expect(queryByText('Details')).not.toBeInTheDocument()
+      expect(queryByText('详情')).not.toBeInTheDocument()
     })
 
     it('leaves a 404 alone — out of scope for this mapping', () => {
@@ -196,7 +194,7 @@ describe('TxSubmitError', () => {
 
       const { getByText, queryByText } = render(<TxSubmitError error={error} />)
 
-      expect(getByText('Could not submit the transaction. Try again.')).toBeInTheDocument()
+      expect(getByText('无法提交交易，请重试。')).toBeInTheDocument()
       expect(queryByText(/on our end/)).not.toBeInTheDocument()
     })
 

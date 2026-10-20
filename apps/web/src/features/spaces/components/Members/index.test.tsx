@@ -90,7 +90,7 @@ describe('SpaceMembers', () => {
 
     fireEvent.click(screen.getByRole('tab', { name: /Pending \(0\)/ }))
 
-    expect(screen.getByText('No pending members.')).toBeInTheDocument()
+    expect(screen.getByText('暂无待处理成员。')).toBeInTheDocument()
   })
 
   it('shows the add member button to admins', () => {

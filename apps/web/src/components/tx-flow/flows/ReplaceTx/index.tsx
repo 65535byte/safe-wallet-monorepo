@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactNode, useContext, useState } from 'react'
 import { type NextRouter, useRouter } from 'next/router'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@safe-global/views/components/ui/tooltip'
@@ -84,23 +85,21 @@ const DeleteTxButton = ({
   return (
     <>
       <Typography variant="paragraph-mini" className={css.or}>
-        or
+        {translateMessage('ui.or_e3fa4951')}
       </Typography>
 
       <Typography variant="paragraph-small" className="mb-1 block">
-        Don’t want to have this transaction anymore? Remove it permanently from the queue.
+        {translateMessage('ui.donTWantToHaveThis_0cd83335')}
       </Typography>
 
-      <MaybeTooltip
-        title={isDeletable ? '' : 'You can only delete the last transaction in the queue, or a duplicate transaction.'}
-      >
+      <MaybeTooltip title={isDeletable ? '' : translateMessage('ui.youCanOnlyDeleteTheLast_ef1fe6d9')}>
         <Track {...REJECT_TX_EVENTS.DELETE_OFFCHAIN_BUTTON} as="div">
           <ChoiceButton
             icon={DeleteIcon}
             iconColor="error"
             onClick={() => setIsDeleting(true)}
-            title="Delete from the queue"
-            description="Remove this transaction from the off-chain queue"
+            title={translateMessage('ui.deleteFromTheQueue_62f905d4')}
+            description={translateMessage('ui.removeThisTransactionFromTheOff_e004874f')}
             disabled={!isDeletable}
           />
         </Track>
@@ -133,17 +132,22 @@ const ReplaceTxMenu = ({
   const canDelete = safeTxHash && isDeleteEnabled && proposer && wallet && sameAddress(wallet.address, proposer)
 
   return (
-    <TxLayout title={`Reject transaction #${txNonce}`} step={0} hideNonce isReplacement>
+    <TxLayout
+      title={translateMessage('ui.rejectTransaction_57ee5489', { p0: txNonce })}
+      step={0}
+      hideNonce
+      isReplacement
+    >
       <TxCard>
         <div className="mt-4 flex justify-center">
           <ReplaceTxIcon />
         </div>
 
         <Typography variant="paragraph-small" className="-mt-2 mb-2 block">
-          You can replace or reject this transaction on-chain. It requires gas fees and your signature.{' '}
+          {translateMessage('ui.youCanReplaceOrRejectThis_5f045125')}{' '}
           <Track {...REJECT_TX_EVENTS.READ_MORE}>
             <ExternalLink href="https://help.safe.global/articles/4016097317-Why-do-I-need-to-pay-for-cancelling-a-transaction?">
-              Read more
+              {translateMessage('ui.readMore_531b9432')}
             </ExternalLink>
           </Track>
         </Typography>
@@ -153,22 +157,24 @@ const ReplaceTxMenu = ({
             <ChoiceButton
               icon={CachedIcon}
               onClick={() => setTxFlow(<TokenTransferFlow txNonce={txNonce} />)}
-              title="Replace with another transaction"
-              description="Propose a new transaction with the same nonce to overwrite this one"
-              chip="Recommended"
+              title={translateMessage('ui.replaceWithAnotherTransaction_d91bf3ff')}
+              description={translateMessage('ui.proposeANewTransactionWithThe_be930751')}
+              chip={translateMessage('ui.recommended_99a8fb6a')}
             />
           </Track>
 
-          <MaybeTooltip title={canCancel ? '' : `Transaction with nonce ${txNonce} already has a reject transaction`}>
+          <MaybeTooltip
+            title={canCancel ? '' : translateMessage('ui.transactionWithNonceAlreadyHasA_4bfc5090', { p0: txNonce })}
+          >
             <Track {...REJECT_TX_EVENTS.REJECT_ONCHAIN_BUTTON} as="div">
               <ChoiceButton
                 icon={CancelIcon}
                 iconColor="warning"
                 onClick={() => setTxFlow(<RejectTx txNonce={txNonce} />)}
                 disabled={!canCancel}
-                title="Reject transaction"
-                description="Propose an on-chain cancellation transaction with the same nonce"
-                chip={canDelete ? 'Recommended' : undefined}
+                title={translateMessage('ui.rejectTransaction_856b22fe')}
+                description={translateMessage('ui.proposeAnOnChainCancellationTransaction_741eb2f0')}
+                chip={canDelete ? translateMessage('ui.recommended_99a8fb6a') : undefined}
               />
             </Track>
           </MaybeTooltip>

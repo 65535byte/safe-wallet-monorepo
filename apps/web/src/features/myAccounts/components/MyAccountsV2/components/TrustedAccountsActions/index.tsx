@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { Settings2 } from 'lucide-react'
 import AddAccountsChooser from '@/components/common/AddAccountsChooser'
 import { Button } from '@safe-global/views/components/ui/button'
@@ -18,7 +19,7 @@ const TrustedAccountsActions = ({ onManage, onLinkClick }: { onManage: () => voi
 
       <Button variant="outline" onClick={onManage} className="hover:bg-muted" data-testid="add-more-safes-button">
         <Settings2 className="size-4" />
-        Manage list
+        {translateMessage('ui.manageList_5be941e5')}
       </Button>
     </div>
   )

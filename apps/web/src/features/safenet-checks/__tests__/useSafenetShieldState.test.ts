@@ -25,7 +25,7 @@ describe('useSafenetShieldState', () => {
   it('counts a risk as not passed and reports it for the header', () => {
     expect(readState(CheckStatus.MALICIOUS)).toEqual({
       check: { shown: true, passed: false },
-      risk: { severity: Severity.CRITICAL, title: 'Risk detected' },
+      risk: { severity: Severity.CRITICAL, title: '检测到风险' },
     })
   })
 

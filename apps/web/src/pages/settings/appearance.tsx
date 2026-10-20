@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { useId } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
@@ -29,20 +30,20 @@ const Appearance: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{`${BRAND_NAME} – Settings – Appearance`}</title>
+        <title>{translateMessage('ui.settingsAppearance_35c197b5', { p0: BRAND_NAME })}</title>
       </Head>
       <SettingsHeader />
       <main>
         <div className="rounded-lg bg-[var(--color-background-paper)] p-8">
           <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[1fr_2fr]">
             <div>
-              <Typography variant="h4">Theme</Typography>
+              <Typography variant="h4">{translateMessage('ui.theme_410cf439')}</Typography>
             </div>
 
             <div>
               <Field orientation="horizontal">
                 <Switch id={darkModeId} checked={isDarkMode} onCheckedChange={handleDarkModeToggle} />
-                <FieldLabel htmlFor={darkModeId}>Dark mode</FieldLabel>
+                <FieldLabel htmlFor={darkModeId}>{translateMessage('ui.darkMode_29b1de14')}</FieldLabel>
               </Field>
             </div>
           </div>

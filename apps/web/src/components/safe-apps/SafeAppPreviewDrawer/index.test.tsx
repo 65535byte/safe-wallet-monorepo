@@ -40,9 +40,9 @@ beforeEach(() => {
 const safeAppMock: SafeAppData = {
   id: 24,
   url: 'https://safe-apps.dev.5afe.dev/tx-builder',
-  name: 'Transaction Builder',
+  name: '交易构建器',
   iconUrl: 'https://safe-apps.dev.5afe.dev/tx-builder/tx-builder.png',
-  description: 'A Safe app to compose custom transactions',
+  description: 'A Safe app to compose custom 笔交易',
   chainIds: ['1', '10', '56', '100', '137'],
   provider: undefined,
   accessControl: {
@@ -63,7 +63,7 @@ describe('SafeAppPreviewDrawer', () => {
     render(<SafeAppPreviewDrawer isOpen safeApp={safeAppMock} onClose={jest.fn()} />)
 
     await waitFor(() => {
-      expect(screen.getByText('Available networks')).toBeInTheDocument()
+      expect(screen.getByText('可用网络')).toBeInTheDocument()
     })
 
     const logos = screen.getByTestId('network-logos-list')

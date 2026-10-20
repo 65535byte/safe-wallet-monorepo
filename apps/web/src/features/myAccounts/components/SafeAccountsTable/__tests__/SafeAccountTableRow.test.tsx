@@ -43,7 +43,7 @@ jest.mock('@/hooks/useChains', () => ({
   }),
 }))
 
-const columns: SafeAccountColumn[] = [SELECT_COLUMN, { id: 'name', label: 'Name', sortable: false }]
+const columns: SafeAccountColumn[] = [SELECT_COLUMN, { id: 'name', label: '名称', sortable: false }]
 
 const leaf = (over: Partial<AccountLine> = {}): AccountLine => ({
   key: '1:0xabc',
@@ -105,7 +105,7 @@ describe('SafeAccountTableRow', () => {
 
     const rowLink = screen.getByTestId('account-row-link')
     expect(rowLink).not.toContainElement(screen.getByTestId('safe-item-row-explorer-link'))
-    expect(rowLink).not.toContainElement(screen.getByRole('button', { name: 'Copy address' }))
+    expect(rowLink).not.toContainElement(screen.getByRole('button', { name: '复制地址' }))
     expect(rowLink).not.toContainElement(screen.getByTestId('safe-item-rename-btn'))
   })
 
@@ -141,7 +141,7 @@ describe('SafeAccountTableRow', () => {
 
   it('does not toggle a disabled row on click', () => {
     const onSelectToggle = jest.fn()
-    renderRow({ checkbox: checkbox({ disabled: true, disabledReason: 'Already added' }), onSelectToggle })
+    renderRow({ checkbox: checkbox({ disabled: true, disabledReason: '新增 Already' }), onSelectToggle })
 
     screen.getByTestId('account-table-row').click()
     expect(onSelectToggle).not.toHaveBeenCalled()
@@ -150,8 +150,8 @@ describe('SafeAccountTableRow', () => {
   describe('whole-row navigation (non-selection surfaces)', () => {
     // Include a stat cell so a click can land somewhere other than the name link.
     const navColumns: SafeAccountColumn[] = [
-      { id: 'name', label: 'Name', sortable: false },
-      { id: 'balance', label: 'Balance', sortable: false },
+      { id: 'name', label: '名称', sortable: false },
+      { id: 'balance', label: '余额', sortable: false },
     ]
 
     const renderNavRow = (props: Partial<Parameters<typeof SafeAccountTableRow>[0]>, push = jest.fn()) => {
@@ -211,7 +211,7 @@ describe('SafeAccountTableRow', () => {
   })
 
   describe('balance cell', () => {
-    const balanceColumns: SafeAccountColumn[] = [{ id: 'balance', label: 'Balance', sortable: false }]
+    const balanceColumns: SafeAccountColumn[] = [{ id: 'balance', label: '余额', sortable: false }]
 
     const renderBalance = (over: Partial<AccountLine>) =>
       render(
@@ -241,7 +241,7 @@ describe('SafeAccountTableRow', () => {
   it('reveals a copy button and explorer link on the address line', () => {
     renderRow({ checkbox: checkbox(), onSelectToggle: jest.fn() })
 
-    expect(screen.getByRole('button', { name: 'Copy address' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '复制地址' })).toBeInTheDocument()
     expect(screen.getByTestId('safe-item-row-explorer-link')).toHaveAttribute(
       'href',
       'https://etherscan.io/address/0xabc',
@@ -252,7 +252,7 @@ describe('SafeAccountTableRow', () => {
     renderRow({ line: leaf({ variant: 'child', showAddress: false, displayName: 'Ethereum' }) })
 
     expect(screen.queryByTestId('safe-item-address')).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Copy address' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '复制地址' })).not.toBeInTheDocument()
   })
 
   it('keeps the per-chain explorer link on a multi-chain child row (next to the chain name)', () => {

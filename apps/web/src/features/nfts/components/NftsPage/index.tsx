@@ -1,3 +1,4 @@
+import { translateMessage } from '@/i18n'
 import { type ReactElement, memo } from 'react'
 import { Skeleton } from '@safe-global/views/components/ui/skeleton'
 import { Typography } from '@safe-global/views/components/ui/typography'
@@ -16,7 +17,7 @@ const NftApps = memo(function NftApps(): ReactElement | null {
   return (
     <div className="lg:order-1 lg:w-1/4 lg:shrink-0">
       <Typography variant="paragraph-bold" className="mb-4 mt-1.5 font-bold">
-        NFT Safe Apps
+        {translateMessage('ui.nFTSafeApps_db9f4a6d')}
       </Typography>
       <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-1">
         {nftApps ? (
