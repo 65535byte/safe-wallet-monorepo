@@ -2,51 +2,66 @@
 set -eu
 
 # Validate commit message follows conventional commit format
-# Format: type(scope): description OR type: description
+# type 需为英文，scope / description 支持任意语言（中文、日文、emoji 等均可）
+# 全角符号（：（）！）会自动兼容
+# Format: type(scope)!: description OR type: description
 # Examples:
 #   feat(auth): add login functionality
+#   feat(登录): 新增短信验证码登录
 #   fix: resolve null pointer exception
+#   fix: 解决钱包余额显示错误
 #   tests(e2e): fix regression
 #   chore(deps): update dependencies
 
 commit_msg_file="$1"
-commit_msg=$(cat "$commit_msg_file")
 
-# Skip merge commits
-if echo "$commit_msg" | grep -qE "^Merge "; then
-  exit 0
-fi
+# 取首行有效内容（跳过注释行与空行）
+subject=$(awk '!/^#/ && NF { print; exit }' "$commit_msg_file")
 
-# Skip revert commits
-if echo "$commit_msg" | grep -qE "^Revert "; then
-  exit 0
-fi
+# Skip merge / revert / fixup / squash commits
+case "$subject" in
+"Merge "* | "Revert "* | "fixup!"* | "squash!"*) exit 0 ;;
+esac
 
-# Valid commit types
+# 全角符号归一化为半角，避免中文输入习惯导致校验失败
+normalized="${subject//：/:}"
+normalized="${normalized//（/(}"
+normalized="${normalized//）/)}"
+normalized="${normalized//！/!}"
+normalized="${normalized//　/ }"
+
+# type 必须是英文（Conventional Commits 标准）
 types="feat|fix|docs|style|refactor|perf|test|tests|build|ci|chore|revert"
 
-# Regex pattern for conventional commits
-# type(scope): description OR type: description
-pattern="^($types)(\([a-zA-Z0-9_-]+\))?: .+"
+# scope 支持任意语言：只要不是空白和括号即可
+scope="[^()[:space:]]+"
 
-if ! echo "$commit_msg" | head -1 | grep -qE "$pattern"; then
+# type(scope)!: description OR type: description
+pattern="^($types)(\($scope\))?(!)?:[[:space:]]*[^[:space:]]+"
+
+if ! echo "$normalized" | grep -qE "$pattern"; then
   echo "======================================"
   echo "ERROR: Invalid commit message format!"
+  echo "       commit 信息格式不正确"
   echo "======================================"
   echo ""
   echo "Your commit message:"
-  echo "  $(head -1 "$commit_msg_file")"
+  echo "  $subject"
   echo ""
   echo "Expected format:"
   echo "  type(scope): description"
   echo "  type: description"
   echo ""
-  echo "Valid types: feat, fix, docs, style, refactor, perf, test, tests, build, ci, chore, revert"
+  echo "Valid types (必须英文):"
+  echo "  feat  fix  docs  style  refactor  perf  test  tests  build  ci  chore  revert"
   echo ""
-  echo "Examples:"
+  echo "scope / description 可使用任意语言（中文、日文、emoji 等）"
+  echo ""
+  echo "Examples / 示例:"
   echo "  feat(auth): add login functionality"
   echo "  fix: resolve null pointer exception"
-  echo "  tests(e2e): fix regression"
+  echo "  feat(登录): 新增短信验证码登录"
+  echo "  fix: 解决钱包余额显示错误"
   echo "  chore(deps): update dependencies"
   echo ""
   exit 1
