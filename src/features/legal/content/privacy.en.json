@@ -1,0 +1,105 @@
+{
+  "title": "Privacy policy",
+  "updatedAt": "Last updated: February 3, 2026",
+  "intro": ["8379 takes your privacy very seriously."],
+  "sections": [
+    {
+      "title": "1. Information we do not collect",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We do not collect, store, or upload any of the following information:"
+        },
+        {
+          "type": "item",
+          "text": "1. Private keys"
+        },
+        {
+          "type": "item",
+          "text": "2. Recovery phrases"
+        },
+        {
+          "type": "item",
+          "text": "3. Wallet passwords"
+        },
+        {
+          "type": "item",
+          "text": "4. Users’ on-chain asset information"
+        }
+      ]
+    },
+    {
+      "title": "2. Information we may collect",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To improve application stability, we may collect limited anonymous information, such as:"
+        },
+        {
+          "type": "item",
+          "text": "1. Device type"
+        },
+        {
+          "type": "item",
+          "text": "2. Operating system version"
+        },
+        {
+          "type": "item",
+          "text": "3. Application crash logs"
+        },
+        {
+          "type": "item",
+          "text": "4. Anonymous usage statistics"
+        },
+        {
+          "type": "paragraph",
+          "text": "This information is not used to identify individuals."
+        }
+      ]
+    },
+    {
+      "title": "3. Blockchain data",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Blockchain data is public and is not controlled by 8379."
+        },
+        {
+          "type": "paragraph",
+          "text": "We do not monitor, store, or analyze your on-chain transaction records."
+        }
+      ]
+    },
+    {
+      "title": "4. Data security",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We take reasonable technical measures to protect the information we collect, but cannot guarantee absolute system security."
+        }
+      ]
+    },
+    {
+      "title": "5. Data deletion",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If you wish to delete relevant data, you can contact us at:"
+        },
+        {
+          "type": "email",
+          "text": "service@8379hk.com"
+        }
+      ]
+    },
+    {
+      "title": "6. Policy updates",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This privacy policy may be updated from time to time."
+        }
+      ]
+    }
+  ]
+}

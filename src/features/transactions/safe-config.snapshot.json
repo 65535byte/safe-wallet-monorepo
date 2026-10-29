@@ -1,0 +1,26 @@
+{
+  "evm_97": {
+    "safe": {
+      "factory": "0xC9f5705c1d3036E8919f323f68a36A19De5A4ac8",
+      "singleton": "0xdc801F2b6Fc11A1b2F8e2b2787f193760F911275",
+      "handler": "0x258aF3fB18027A6e4F4C6b3Ce8317861C76e0cbd"
+    },
+    "api_url": "https://msw-bsc-test.dplife.org"
+  },
+  "evm_56": {
+    "safe": {
+      "factory": "0xC9f5705c1d3036E8919f323f68a36A19De5A4ac8",
+      "singleton": "0xdc801F2b6Fc11A1b2F8e2b2787f193760F911275",
+      "handler": "0x258aF3fB18027A6e4F4C6b3Ce8317861C76e0cbd"
+    },
+    "api_url": "https://msw-bsc.dplife.org"
+  },
+  "evm_8379": {
+    "safe": {
+      "factory": "0xC9f5705c1d3036E8919f323f68a36A19De5A4ac8",
+      "singleton": "0xdc801F2b6Fc11A1b2F8e2b2787f193760F911275",
+      "handler": "0x258aF3fB18027A6e4F4C6b3Ce8317861C76e0cbd"
+    },
+    "api_url": "https://msw-fusn.dplife.org"
+  }
+}

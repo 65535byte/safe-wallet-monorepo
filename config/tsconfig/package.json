@@ -1,8 +1,0 @@
-{
-  "name": "@safe-global/tsconfig",
-  "version": "0.0.0",
-  "files": [
-    "confs/base.json"
-  ],
-  "private": true
-}

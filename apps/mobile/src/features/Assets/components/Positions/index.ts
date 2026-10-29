@@ -1,5 +1,0 @@
-export { PositionItem } from './PositionItem'
-export { ProtocolSection } from './ProtocolSection'
-export { PositionsContainer } from './Positions.container'
-export { PositionsEmpty } from './PositionsEmpty'
-export { PositionsError } from './PositionsError'

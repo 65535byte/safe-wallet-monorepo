@@ -1,0 +1,175 @@
+{
+  "title": "Terms of service",
+  "updatedAt": "Last updated: February 3, 2026",
+  "intro": [
+    "Welcome to 8379 (referred to below as “this application” or “we”).",
+    "8379 is a non-custodial Web3 wallet application for managing digital assets on supported blockchain networks, including Ethereum and Binance Smart Chain.",
+    "By accessing or using this application, you acknowledge that you have read, understood, and agreed to these terms of service."
+  ],
+  "sections": [
+    {
+      "title": "1. Non-custodial statement",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "8379 is a non-custodial wallet:"
+        },
+        {
+          "type": "item",
+          "text": "1. We do not store, hold, or control your private keys, recovery phrases, or digital assets."
+        },
+        {
+          "type": "item",
+          "text": "2. We cannot access, freeze, recover, or transfer your assets."
+        },
+        {
+          "type": "paragraph",
+          "text": "You are responsible for:"
+        },
+        {
+          "type": "item",
+          "text": "1. Keeping your private keys and recovery phrases secure."
+        },
+        {
+          "type": "item",
+          "text": "2. All blockchain transactions initiated using this wallet."
+        }
+      ]
+    },
+    {
+      "title": "2. Non-financial services statement",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "8379 is not a financial institution and does not provide:"
+        },
+        {
+          "type": "item",
+          "text": "1. Investment advice"
+        },
+        {
+          "type": "item",
+          "text": "2. Financial planning advice"
+        },
+        {
+          "type": "item",
+          "text": "3. Promises regarding transactions or returns"
+        },
+        {
+          "type": "paragraph",
+          "text": "Information provided in this application is for technical and informational purposes only."
+        }
+      ]
+    },
+    {
+      "title": "3. Blockchain transaction risks",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "You understand and agree that:"
+        },
+        {
+          "type": "item",
+          "text": "1. Blockchain transactions are irreversible."
+        },
+        {
+          "type": "item",
+          "text": "2. Transaction confirmation times depend on network conditions, gas fees, and other factors."
+        },
+        {
+          "type": "item",
+          "text": "3. Smart contracts may contain vulnerabilities or risks."
+        },
+        {
+          "type": "paragraph",
+          "text": "We do not guarantee that any transaction will succeed or complete within an expected time."
+        }
+      ]
+    },
+    {
+      "title": "4. User responsibilities",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "Users bear the risks and consequences of the following:"
+        },
+        {
+          "type": "item",
+          "text": "1. Lost or disclosed private keys or recovery phrases"
+        },
+        {
+          "type": "item",
+          "text": "2. Transfers made in error"
+        },
+        {
+          "type": "item",
+          "text": "3. Authorization of malicious contracts"
+        },
+        {
+          "type": "paragraph",
+          "text": "8379 cannot help recover assets or reverse transactions."
+        }
+      ]
+    },
+    {
+      "title": "5. Geographic restrictions",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "This application does not provide services to users in mainland China."
+        },
+        {
+          "type": "paragraph",
+          "text": "If you are from a restricted region, stop using this application immediately."
+        }
+      ]
+    },
+    {
+      "title": "6. Limitation of liability",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "To the fullest extent permitted by law, 8379 is not liable for:"
+        },
+        {
+          "type": "item",
+          "text": "1. Loss of digital assets"
+        },
+        {
+          "type": "item",
+          "text": "2. Network or blockchain failures"
+        },
+        {
+          "type": "item",
+          "text": "3. Smart contract vulnerabilities"
+        },
+        {
+          "type": "item",
+          "text": "4. Security issues caused by user negligence"
+        }
+      ]
+    },
+    {
+      "title": "7. Changes to these terms",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "We may update these terms of service from time to time. Continued use of this application constitutes acceptance of the updated terms."
+        }
+      ]
+    },
+    {
+      "title": "8. Contact us",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "If you have questions about these terms, contact:"
+        },
+        {
+          "type": "email",
+          "text": "service@8379hk.com"
+        }
+      ]
+    }
+  ]
+}

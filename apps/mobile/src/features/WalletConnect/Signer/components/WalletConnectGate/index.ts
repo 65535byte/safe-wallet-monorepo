@@ -1,1 +1,0 @@
-export { WalletConnectGate } from './WalletConnectGate'

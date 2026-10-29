@@ -1,1 +1,0 @@
-export { AppKitInitializer } from './AppKitInitializer'

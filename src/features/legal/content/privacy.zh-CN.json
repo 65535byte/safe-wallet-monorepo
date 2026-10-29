@@ -1,0 +1,105 @@
+{
+  "title": "隐私政策",
+  "updatedAt": "最近更新日期：2026年2月3日",
+  "intro": ["8379非常重视您的隐私权。"],
+  "sections": [
+    {
+      "title": "一、我们不会收集的信息",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "我们不会收集、存储或上传以下任何信息："
+        },
+        {
+          "type": "item",
+          "text": "1. 私钥"
+        },
+        {
+          "type": "item",
+          "text": "2. 助记词"
+        },
+        {
+          "type": "item",
+          "text": "3. 钱包密码"
+        },
+        {
+          "type": "item",
+          "text": "4. 用户的链上资产信息"
+        }
+      ]
+    },
+    {
+      "title": "二、可能收集的信息",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "为提升应用稳定性，我们可能收集有限的匿名信息，例如："
+        },
+        {
+          "type": "item",
+          "text": "1. 设备类型"
+        },
+        {
+          "type": "item",
+          "text": "2. 系统版本"
+        },
+        {
+          "type": "item",
+          "text": "3. 应用崩溃日志"
+        },
+        {
+          "type": "item",
+          "text": "4. 匿名使用统计数据"
+        },
+        {
+          "type": "paragraph",
+          "text": "上述信息不用于识别个人身份。"
+        }
+      ]
+    },
+    {
+      "title": "三、区块链数据说明",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "区块链数据为公开数据，并非由8379控制。"
+        },
+        {
+          "type": "paragraph",
+          "text": "我们不会监控、存储或分析您的链上交易记录。"
+        }
+      ]
+    },
+    {
+      "title": "四、数据安全",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "我们会采取合理的技术措施保护所收集的信息，但无法保证系统绝对安全。"
+        }
+      ]
+    },
+    {
+      "title": "五、数据删除",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "如您希望删除相关数据，可通过以下方式联系我们："
+        },
+        {
+          "type": "email",
+          "text": "service@8379hk.com"
+        }
+      ]
+    },
+    {
+      "title": "六、协议更新",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "本隐私协议可能会不定期更新。"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,0 @@
-export { ProtocolSection } from './ProtocolSection'

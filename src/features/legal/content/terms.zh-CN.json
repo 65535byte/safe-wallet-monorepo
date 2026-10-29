@@ -1,0 +1,175 @@
+{
+  "title": "服务条款",
+  "updatedAt": "最近更新日期：2026年2月3日",
+  "intro": [
+    "欢迎使用8379（以下简称“本应用”“我们”）。",
+    "8379是一款非托管（Non-custodial）的Web3钱包应用，用于在支持的区块链网络（包括Ethereum、BinanceSmart Chain）上管理数字资产。",
+    "一旦您访问或使用本应用，即视为您已阅读、理解并同意本服务条款。"
+  ],
+  "sections": [
+    {
+      "title": "一、非托管声明",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "8379为非托管钱包："
+        },
+        {
+          "type": "item",
+          "text": "1. 我们不存储、不持有、不控制您的私钥、助记词或数字资产"
+        },
+        {
+          "type": "item",
+          "text": "2. 我们无法访问、冻结、找回或转移您的资产"
+        },
+        {
+          "type": "paragraph",
+          "text": "您需自行负责："
+        },
+        {
+          "type": "item",
+          "text": "1. 妥善保管私钥与助记词"
+        },
+        {
+          "type": "item",
+          "text": "2. 使用本钱包发起的所有区块链交易行为"
+        }
+      ]
+    },
+    {
+      "title": "二、非金融服务声明",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "8379 不是金融机构，亦不提供："
+        },
+        {
+          "type": "item",
+          "text": "1. 投资建议"
+        },
+        {
+          "type": "item",
+          "text": "2. 理财建议"
+        },
+        {
+          "type": "item",
+          "text": "3. 交易或收益承诺"
+        },
+        {
+          "type": "paragraph",
+          "text": "本应用中提供的信息仅用于技术和信息展示目的。"
+        }
+      ]
+    },
+    {
+      "title": "三、区块链交易风险",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "您理解并同意："
+        },
+        {
+          "type": "item",
+          "text": "1. 区块链交易具有不可撤销性"
+        },
+        {
+          "type": "item",
+          "text": "2. 交易确认时间受网络状况、Gas费等因素影响"
+        },
+        {
+          "type": "item",
+          "text": "3. 智能合约可能存在漏洞或风险"
+        },
+        {
+          "type": "paragraph",
+          "text": "我们不保证任何交易一定成功或按预期时间完成。"
+        }
+      ]
+    },
+    {
+      "title": "四、用户责任",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "如发生以下情形，风险及后果由用户自行承担："
+        },
+        {
+          "type": "item",
+          "text": "1. 私钥或助记词遗失、泄露"
+        },
+        {
+          "type": "item",
+          "text": "2. 误操作转账"
+        },
+        {
+          "type": "item",
+          "text": "3. 授权恶意合约"
+        },
+        {
+          "type": "paragraph",
+          "text": "8379无法协助找回资产或撤销交易。"
+        }
+      ]
+    },
+    {
+      "title": "五、地域限制",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "本应用不面向中国大陆地区用户提供服务。"
+        },
+        {
+          "type": "paragraph",
+          "text": "如您来自受限制地区，请立即停止使用本应用。"
+        }
+      ]
+    },
+    {
+      "title": "六、责任限制",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "在法律允许的最大范围内，8379不对以下情形承担责任："
+        },
+        {
+          "type": "item",
+          "text": "1. 数字资产损失"
+        },
+        {
+          "type": "item",
+          "text": "2. 网络或区块链故障"
+        },
+        {
+          "type": "item",
+          "text": "3. 智能合约漏洞"
+        },
+        {
+          "type": "item",
+          "text": "4. 因用户疏忽导致的安全问题"
+        }
+      ]
+    },
+    {
+      "title": "七、条款变更",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "我们可能不定期更新本服务条款。继续使用本应用即视为您接受更新后的条款。"
+        }
+      ]
+    },
+    {
+      "title": "八、联系我们",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "text": "如对本条款有疑问，请联系："
+        },
+        {
+          "type": "email",
+          "text": "service@8379hk.com"
+        }
+      ]
+    }
+  ]
+}

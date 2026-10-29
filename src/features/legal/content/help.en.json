@@ -1,0 +1,50 @@
+[
+  {
+    "question": "Q1: What is a recovery phrase?",
+    "answer": "A recovery phrase is the sole credential controlling wallet assets. Anyone who obtains it can fully control those assets."
+  },
+  {
+    "question": "Q2: Can 8379 recover my recovery phrase?",
+    "answer": "No. 8379 is a non-custodial wallet and cannot recover recovery phrases."
+  },
+  {
+    "question": "Q3: Which blockchains are supported?",
+    "answer": "Ethereum and Binance Smart Chain (BSC) are currently supported."
+  },
+  {
+    "question": "Q4: Can I withdraw transfers as cash?",
+    "answer": "8379 does not provide fiat exchange or cash withdrawal services."
+  },
+  {
+    "question": "Q5: Can a transfer be reversed?",
+    "answer": "No. Blockchain transactions are irreversible."
+  },
+  {
+    "question": "Q6: What is a gas fee?",
+    "answer": "A gas fee is a transaction fee paid to blockchain miners or validators."
+  },
+  {
+    "question": "Q7: What should I do if a transfer fails?",
+    "answer": "Check the network status, gas settings and recipient address."
+  },
+  {
+    "question": "Q8: Is the wallet secure?",
+    "answer": "Security depends on how you safeguard your private key and recovery phrase."
+  },
+  {
+    "question": "Q9: Are contract approvals risky?",
+    "answer": "Yes. Be cautious when approving unknown or untrusted contracts."
+  },
+  {
+    "question": "Q10: Will 8379 freeze my assets?",
+    "answer": "No. We cannot control your assets."
+  },
+  {
+    "question": "Q11: Can incorrectly transferred assets be recovered?",
+    "answer": "No."
+  },
+  {
+    "question": "Q12: Does 8379 offer asset recovery through customer support?",
+    "answer": "We do not provide asset recovery or on-chain arbitration services."
+  }
+]
